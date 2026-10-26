@@ -1,0 +1,37 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; font-family: "Inter", sans-serif; color: #F5F0E8; }
+    #root .clip { position: absolute; left: 0; width: 100%; text-align: center; }
+    #root .serif { font-family: "Playfair Display", serif; font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; }
+
+    #b-pre { font-size: 48px; font-weight: 600; opacity: 0.75; }
+    #b-word { font-size: 132px; font-weight: 700; line-height: 1.02; }
+    #b-word em { font-style: normal; color: #C9A84C; }
+    #b-rule { display: flex; justify-content: center; }
+    #b-rule div { width: 140px; height: 5px; background: #C9A84C; border-radius: 3px; }
+    #b-def { font-size: 64px; font-weight: 600; line-height: 1.22; padding: 0 90px; }
+
+  </style>
+  <div id="root" data-composition-id="begriff" data-width="1080" data-height="1920">
+    <div id="b-pre" class="clip " data-start="0" data-duration="5.148" style="top:380px" >Genau das sind</div>
+    <div id="b-word" class="clip serif" data-start="0" data-duration="5.148" style="top:460px" >Opportunitäts-<br><em>kosten</em></div>
+    <div id="b-rule" class="clip " data-start="0" data-duration="5.148" style="top:770px" ><div></div></div>
+    <div id="b-def" class="clip " data-start="0" data-duration="5.148" style="top:830px" ><span class="w" id="bd-0">der</span> <span class="w" id="bd-1">Wert</span> <span class="w" id="bd-2">der</span> <span class="w" id="bd-3" style="color:#C9A84C">besten</span> <span class="w" id="bd-4" style="color:#C9A84C">Alternative,</span> <span class="w" id="bd-5">die</span> <span class="w" id="bd-6">du</span> <span class="w" id="bd-7">aufgibst.</span></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const D = 5.148;
+    tl.fromTo("#b-pre", {opacity: 0, y: 26}, {opacity: 1, y: 0, duration: 0.5, ease: "expo.out"}, 0.15);
+    tl.fromTo("#b-word", {opacity: 0, filter: "blur(10px)", scale: 1.06}, {opacity: 1, filter: "blur(0px)", scale: 1, duration: 0.35, ease: "expo.out"}, 1.008);
+    tl.fromTo("#b-rule div", {scaleX: 0}, {scaleX: 1, duration: 0.4, ease: "expo.out"}, 1.208);
+    tl.fromTo("#bd-0", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power2.out"}, 2.379);
+    tl.fromTo("#bd-1", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power2.out"}, 2.59);
+    tl.fromTo("#bd-2", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power2.out"}, 2.844);
+    tl.fromTo("#bd-3", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power2.out"}, 3.056);
+    tl.fromTo("#bd-4", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power2.out"}, 3.394);
+    tl.fromTo("#bd-5", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power2.out"}, 3.944);
+    tl.fromTo("#bd-6", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power2.out"}, 4.156);
+    tl.fromTo("#bd-7", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power2.out"}, 4.325);
+    window.__timelines["begriff"] = tl;
+  </script>
+</template>

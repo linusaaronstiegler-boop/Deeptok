@@ -1,0 +1,4 @@
+# Python-Werkzeuge der Video-Werkstatt (Stimme, Mathe-Animationen, Hör-Check)
+piper-tts==1.8.0
+manim==0.22.0
+faster-whisper

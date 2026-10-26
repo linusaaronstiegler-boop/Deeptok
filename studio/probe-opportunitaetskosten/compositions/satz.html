@@ -1,0 +1,44 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; font-family: "Inter", sans-serif; color: #F5F0E8; }
+    #root .clip { position: absolute; left: 0; width: 100%; text-align: center; }
+    #root .serif { font-family: "Playfair Display", serif; font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; }
+
+    #s-label { font-size: 36px; font-weight: 800; color: #C9A84C; letter-spacing: 0.22em; }
+    #s-rule { display: flex; justify-content: center; }
+    #s-rule div { width: 120px; height: 4px; background: #C9A84C; border-radius: 2px; }
+    #s-quote { font-size: 82px; font-style: italic; font-weight: 500; line-height: 1.2; padding: 0 80px; }
+    #s-quote .w { color: rgba(245,240,232,0.22); }
+    #s-foot { font-size: 34px; font-weight: 600; opacity: 0.7; letter-spacing: 0.04em; }
+
+  </style>
+  <div id="root" data-composition-id="satz" data-width="1080" data-height="1920">
+    <div id="s-label" class="clip " data-start="0" data-duration="8.565" style="top:380px" >SATZ FÜRS GESPRÄCH</div>
+    <div id="s-rule" class="clip " data-start="0" data-duration="8.565" style="top:445px" ><div></div></div>
+    <div id="s-quote" class="clip serif" data-start="0" data-duration="8.565" style="top:500px" ><span class="w" id="sq-0">Die</span> <span class="w" id="sq-1">wahren</span> <span class="w" id="sq-2">Kosten</span> <span class="w" id="sq-3">stehen</span> <span class="w" id="sq-4">nicht</span> <span class="w" id="sq-5">auf</span> <span class="w" id="sq-6">der</span> <span class="w" id="sq-7">Rechnung,</span> <span class="w" id="sq-8">sondern</span> <span class="w" id="sq-9">in</span> <span class="w" id="sq-10">der</span> <span class="w" id="sq-11">Alternative,</span> <span class="w" id="sq-12">die</span> <span class="w" id="sq-13">du</span> <span class="w" id="sq-14">aufgibst.</span></div>
+    <div id="s-foot" class="clip " data-start="0" data-duration="8.565" style="top:1130px" >Opportunitätskosten · Wirtschaft &amp; Recht 10</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const D = 8.565;
+    tl.fromTo("#s-label", {opacity: 0, y: 26}, {opacity: 1, y: 0, duration: 0.5, ease: "expo.out"}, 0.15);
+    tl.fromTo("#s-rule div", {scaleX: 0}, {scaleX: 1, duration: 0.4, ease: "expo.out"}, 0.3);
+    tl.fromTo("#sq-0", {color: "rgba(245,240,232,0.22)"}, {color: "#F5F0E8", duration: 0.12, ease: "none"}, 1.485);
+    tl.fromTo("#sq-1", {color: "rgba(245,240,232,0.22)"}, {color: "#F5F0E8", duration: 0.12, ease: "none"}, 1.671);
+    tl.fromTo("#sq-2", {color: "rgba(245,240,232,0.22)"}, {color: "#F5F0E8", duration: 0.12, ease: "none"}, 1.968);
+    tl.fromTo("#sq-3", {color: "rgba(245,240,232,0.22)"}, {color: "#F5F0E8", duration: 0.12, ease: "none"}, 2.265);
+    tl.fromTo("#sq-4", {color: "rgba(245,240,232,0.22)"}, {color: "#F5F0E8", duration: 0.12, ease: "none"}, 2.562);
+    tl.fromTo("#sq-5", {color: "rgba(245,240,232,0.22)"}, {color: "#F5F0E8", duration: 0.12, ease: "none"}, 2.821);
+    tl.fromTo("#sq-6", {color: "rgba(245,240,232,0.22)"}, {color: "#F5F0E8", duration: 0.12, ease: "none"}, 3.007);
+    tl.fromTo("#sq-7", {color: "rgba(245,240,232,0.22)"}, {color: "#F5F0E8", duration: 0.12, ease: "none"}, 3.193);
+    tl.fromTo("#sq-8", {color: "rgba(245,240,232,0.22)"}, {color: "#F5F0E8", duration: 0.12, ease: "none"}, 3.934);
+    tl.fromTo("#sq-9", {color: "rgba(245,240,232,0.22)"}, {color: "#F5F0E8", duration: 0.12, ease: "none"}, 4.335);
+    tl.fromTo("#sq-10", {color: "rgba(245,240,232,0.22)"}, {color: "#F5F0E8", duration: 0.12, ease: "none"}, 4.514);
+    tl.fromTo("#sq-11", {color: "rgba(245,240,232,0.22)"}, {color: "#C9A84C", duration: 0.12, ease: "none"}, 4.737);
+    tl.fromTo("#sq-12", {color: "rgba(245,240,232,0.22)"}, {color: "#C9A84C", duration: 0.12, ease: "none"}, 5.317);
+    tl.fromTo("#sq-13", {color: "rgba(245,240,232,0.22)"}, {color: "#C9A84C", duration: 0.12, ease: "none"}, 5.54);
+    tl.fromTo("#sq-14", {color: "rgba(245,240,232,0.22)"}, {color: "#C9A84C", duration: 0.12, ease: "none"}, 5.718);
+    tl.fromTo("#s-foot", {opacity: 0}, {opacity: 0.7, duration: 0.5}, 4.534);
+    window.__timelines["satz"] = tl;
+  </script>
+</template>

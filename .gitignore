@@ -1,0 +1,13 @@
+# Abhängigkeiten und Umgebungen
+node_modules/
+.venv/
+__pycache__/
+*.pyc
+
+# HyperFrames-Arbeitsdateien und Renders (MP4 liegen nicht im Repo)
+studio/*/renders/
+studio/*/.hyperframes/
+studio/*/build/manim/
+studio/*/assets/voice.wav
+studio/*/assets/_satz.wav
+.DS_Store

@@ -1,0 +1,25 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; font-family: "Inter", sans-serif; color: #F5F0E8; }
+    #root .clip { position: absolute; left: 0; width: 100%; text-align: center; }
+    #root .serif { font-family: "Playfair Display", serif; font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; }
+
+    #k-title { font-size: 44px; font-weight: 700; color: #C9A84C; letter-spacing: 0.08em; }
+    #k-card { position: absolute; left: 110px; top: 320px; width: 860px; height: 860px; border-radius: 40px;
+      overflow: hidden; border: 2px solid rgba(201,168,76,0.35); background: #0E1726; }
+    #k-vid { position: absolute; left: 0; top: 0; width: 860px; height: 860px; }
+
+  </style>
+  <div id="root" data-composition-id="kurve" data-width="1080" data-height="1920">
+    <div id="k-title" class="clip " data-start="0" data-duration="4.788" style="top:250px" >DIE TAUSCHKURVE</div>
+    <div id="k-card"><video id="k-vid" class="clip" src="assets/kurve.mp4" muted playsinline data-start="0" data-duration="4.788" data-track-index="1"></video></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const D = 4.788;
+
+    tl.fromTo("#k-title", {opacity: 0}, {opacity: 1, duration: 0.3}, 0.05);
+
+    window.__timelines["kurve"] = tl;
+  </script>
+</template>

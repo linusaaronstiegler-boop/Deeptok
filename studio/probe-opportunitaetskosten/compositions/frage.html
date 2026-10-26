@@ -1,0 +1,50 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; font-family: "Inter", sans-serif; color: #F5F0E8; }
+    #root .clip { position: absolute; left: 0; width: 100%; text-align: center; }
+    #root .serif { font-family: "Playfair Display", serif; font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; }
+
+    #f-warum { font-size: 46px; font-weight: 600; opacity: 0.8; padding: 0 40px; }
+    #f-q { font-size: 96px; font-weight: 700; line-height: 1.08; padding: 0 70px; }
+    .chip { left: 160px !important; width: 760px !important; text-align: left !important;
+      font-size: 52px; font-weight: 600; background: #1F3864; border: 3px solid rgba(201,168,76,0.45);
+      border-radius: 28px; padding: 22px 34px; box-sizing: border-box; }
+    .chip b { display: inline-block; width: 64px; color: #C9A84C; font-weight: 800; }
+    #f-tipp { font-size: 40px; font-weight: 700; color: #C9A84C; letter-spacing: 0.04em; }
+    #f-ring { display: flex; justify-content: center; }
+
+  </style>
+  <div id="root" data-composition-id="frage" data-width="1080" data-height="1920">
+    <div id="f-warum" class="clip " data-start="0" data-duration="7.423" style="top:330px" ><span class="w" id="fw-0">Warum</span> <span class="w" id="fw-1">gibt</span> <span class="w" id="fw-2">man</span> <span class="w" id="fw-3">so</span> <span class="w" id="fw-4">einen</span> <span class="w" id="fw-5">Stürmer</span> <span class="w" id="fw-6">ab?</span></div>
+    <div id="f-q" class="clip " data-start="0" data-duration="7.423" style="top:450px" ><span class="w" id="fq-0">Und</span> <span class="w" id="fq-1">was</span> <span class="w" id="fq-2">hätte</span> <span class="w" id="fq-3">es</span> <span class="w" id="fq-4">gekostet,</span> <span class="w" id="fq-5">ihn</span> <span class="w" id="fq-6">zu</span> <span class="w" id="fq-7" style="color:#C9A84C">behalten?</span></div>
+    <div id="f-c0" class="clip chip" data-start="0" data-duration="7.423" style="top:800px" ><b>A</b>Nichts</div>
+    <div id="f-c1" class="clip chip" data-start="0" data-duration="7.423" style="top:930px" ><b>B</b>Sein Gehalt</div>
+    <div id="f-c2" class="clip chip" data-start="0" data-duration="7.423" style="top:1060px" ><b>C</b>45 Mio. €</div>
+    <div id="f-tipp" class="clip " data-start="0" data-duration="7.423" style="top:1215px" data-layout-allow-caption-zone>Tipp zuerst. Dann weiter.</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const D = 7.423;
+    tl.fromTo("#fw-0", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power2.out"}, 0.15);
+    tl.fromTo("#fw-1", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power2.out"}, 0.438);
+    tl.fromTo("#fw-2", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power2.out"}, 0.686);
+    tl.fromTo("#fw-3", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power2.out"}, 0.892);
+    tl.fromTo("#fw-4", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power2.out"}, 1.056);
+    tl.fromTo("#fw-5", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power2.out"}, 1.345);
+    tl.fromTo("#fw-6", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power2.out"}, 1.716);
+    tl.fromTo("#fq-0", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power2.out"}, 2.251);
+    tl.fromTo("#fq-1", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power2.out"}, 2.468);
+    tl.fromTo("#fq-2", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power2.out"}, 2.685);
+    tl.fromTo("#fq-3", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power2.out"}, 2.989);
+    tl.fromTo("#fq-4", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power2.out"}, 3.163);
+    tl.fromTo("#fq-5", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power2.out"}, 3.597);
+    tl.fromTo("#fq-6", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power2.out"}, 3.814);
+    tl.fromTo("#fq-7", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power2.out"}, 3.988);
+    tl.fromTo("#f-c0", {opacity: 0, x: 60}, {opacity: 1, x: 0, duration: 0.45, ease: "expo.out"}, 4.623);
+    tl.fromTo("#f-c1", {opacity: 0, x: 60}, {opacity: 1, x: 0, duration: 0.45, ease: "expo.out"}, 4.703);
+    tl.fromTo("#f-c2", {opacity: 0, x: 60}, {opacity: 1, x: 0, duration: 0.45, ease: "expo.out"}, 4.783);
+    tl.fromTo("#f-tipp", {opacity: 0}, {opacity: 1, duration: 0.25}, 4.873);
+    tl.to("#f-tipp", {opacity: 0.35, duration: 2.35, ease: "none"}, 5.123);
+    window.__timelines["frage"] = tl;
+  </script>
+</template>

@@ -1,0 +1,43 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; font-family: "Inter", sans-serif; color: #F5F0E8; }
+    #root .clip { position: absolute; left: 0; width: 100%; text-align: center; }
+    #root .serif { font-family: "Playfair Display", serif; font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; }
+
+    #v-meist { font-size: 48px; font-weight: 600; opacity: 0.75; }
+    #v-nichts { font-size: 150px; font-weight: 700; }
+    #v-bar-label { font-size: 40px; font-weight: 700; color: #C9A84C; letter-spacing: 0.06em; }
+    #v-track { left: 110px !important; width: 860px !important; height: 34px; border-radius: 17px;
+      background: rgba(245,240,232,0.14); overflow: hidden; }
+    #v-fill { width: 100%; height: 100%; background: #C9A84C; border-radius: 17px; transform-origin: right center; }
+    #v-dates { left: 110px !important; width: 860px !important; display: flex; justify-content: space-between;
+      font-size: 36px; font-weight: 600; opacity: 0.8; }
+    #v-frei { font-size: 54px; font-weight: 600; }
+    #v-null { font-size: 200px; font-weight: 700; color: #C9A84C; line-height: 1; }
+
+  </style>
+  <div id="root" data-composition-id="vertrag" data-width="1080" data-height="1920">
+    <div id="v-meist" class="clip " data-start="0" data-duration="8.142" style="top:340px" >Die meisten sagen:</div>
+    <div id="v-nichts" class="clip serif" data-start="0" data-duration="8.142" style="top:400px" >nichts.</div>
+    <div id="v-bar-label" class="clip " data-start="0" data-duration="8.142" style="top:690px" >VERTRAG</div>
+    <div id="v-track" class="clip " data-start="0" data-duration="8.142" style="top:760px" ><div id="v-fill"></div></div>
+    <div id="v-dates" class="clip " data-start="0" data-duration="8.142" style="top:815px" ><span>Juli 2022</span><span>Juni 2023</span></div>
+    <div id="v-frei" class="clip " data-start="0" data-duration="8.142" style="top:920px" >danach ablösefrei:</div>
+    <div id="v-null" class="clip serif" data-start="0" data-duration="8.142" style="top:990px" >0 €</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const D = 8.142;
+
+    tl.fromTo("#v-meist", {opacity: 0, y: 26}, {opacity: 1, y: 0, duration: 0.5, ease: "expo.out"}, 0.15);
+    tl.fromTo("#v-nichts", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power2.out"}, 1.125);
+    tl.to("#v-nichts", {opacity: 0.4, duration: 0.3}, 2.982);
+    tl.to("#v-meist", {opacity: 0.3, duration: 0.3}, 2.982);
+    tl.fromTo(["#v-bar-label", "#v-track", "#v-dates"], {opacity: 0, y: 20}, {opacity: 1, y: 0, duration: 0.45, ease: "expo.out", stagger: 0.06}, 2.982);
+    tl.fromTo("#v-fill", {scaleX: 1}, {scaleX: 0, duration: 1.6, ease: "power1.inOut"}, 3.852);
+    tl.fromTo("#v-frei", {opacity: 0, y: 26}, {opacity: 1, y: 0, duration: 0.5, ease: "expo.out"}, 5.779);
+    tl.fromTo("#v-null", {opacity: 0, scale: 1.5}, {opacity: 1, scale: 1, duration: 0.4, ease: "expo.out"}, 7.207);
+
+    window.__timelines["vertrag"] = tl;
+  </script>
+</template>

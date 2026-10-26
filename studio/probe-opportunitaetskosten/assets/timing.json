@@ -1,0 +1,794 @@
+{
+ "scenes": [
+  {
+   "id": "hook",
+   "start": 0.35,
+   "sentences": [
+    {
+     "text": "Sommer 2022.",
+     "start": 0.35,
+     "end": 2.208,
+     "words": [
+      {
+       "text": "Sommer",
+       "start": 0.35,
+       "end": 0.74
+      },
+      {
+       "text": "2022.",
+       "start": 0.74,
+       "end": 2.058
+      }
+     ]
+    },
+    {
+     "text": "Bayern München verkauft Robert Lewandowski.",
+     "start": 2.428,
+     "end": 4.819,
+     "words": [
+      {
+       "text": "Bayern",
+       "start": 2.428,
+       "end": 2.801
+      },
+      {
+       "text": "München",
+       "start": 2.801,
+       "end": 3.222
+      },
+      {
+       "text": "verkauft",
+       "start": 3.222,
+       "end": 3.689
+      },
+      {
+       "text": "Robert",
+       "start": 3.689,
+       "end": 4.062
+      },
+      {
+       "text": "Lewandowski.",
+       "start": 4.062,
+       "end": 4.669
+      }
+     ]
+    },
+    {
+     "text": "344 Tore in acht Jahren.",
+     "start": 5.039,
+     "end": 7.524,
+     "words": [
+      {
+       "text": "344",
+       "start": 5.039,
+       "end": 6.275
+      },
+      {
+       "text": "Tore",
+       "start": 6.275,
+       "end": 6.55
+      },
+      {
+       "text": "in",
+       "start": 6.55,
+       "end": 6.733
+      },
+      {
+       "text": "acht",
+       "start": 6.733,
+       "end": 7.008
+      },
+      {
+       "text": "Jahren.",
+       "start": 7.008,
+       "end": 7.374
+      }
+     ]
+    }
+   ],
+   "end": 7.524
+  },
+  {
+   "id": "frage",
+   "start": 7.924,
+   "sentences": [
+    {
+     "text": "Warum gibt man so einen Stürmer ab?",
+     "start": 7.924,
+     "end": 9.805,
+     "words": [
+      {
+       "text": "Warum",
+       "start": 7.924,
+       "end": 8.212
+      },
+      {
+       "text": "gibt",
+       "start": 8.212,
+       "end": 8.46
+      },
+      {
+       "text": "man",
+       "start": 8.46,
+       "end": 8.666
+      },
+      {
+       "text": "so",
+       "start": 8.666,
+       "end": 8.83
+      },
+      {
+       "text": "einen",
+       "start": 8.83,
+       "end": 9.119
+      },
+      {
+       "text": "Stürmer",
+       "start": 9.119,
+       "end": 9.49
+      },
+      {
+       "text": "ab?",
+       "start": 9.49,
+       "end": 9.655
+      }
+     ]
+    },
+    {
+     "text": "Und was hätte es gekostet, ihn zu behalten?",
+     "start": 10.025,
+     "end": 12.347,
+     "words": [
+      {
+       "text": "Und",
+       "start": 10.025,
+       "end": 10.242
+      },
+      {
+       "text": "was",
+       "start": 10.242,
+       "end": 10.459
+      },
+      {
+       "text": "hätte",
+       "start": 10.459,
+       "end": 10.763
+      },
+      {
+       "text": "es",
+       "start": 10.763,
+       "end": 10.937
+      },
+      {
+       "text": "gekostet,",
+       "start": 10.937,
+       "end": 11.371
+      },
+      {
+       "text": "ihn",
+       "start": 11.371,
+       "end": 11.588
+      },
+      {
+       "text": "zu",
+       "start": 11.588,
+       "end": 11.762
+      },
+      {
+       "text": "behalten?",
+       "start": 11.762,
+       "end": 12.197
+      }
+     ]
+    }
+   ],
+   "end": 14.947
+  },
+  {
+   "id": "vertrag",
+   "start": 15.347,
+   "sentences": [
+    {
+     "text": "Die meisten sagen: nichts. Er war ja schon da.",
+     "start": 15.347,
+     "end": 17.959,
+     "words": [
+      {
+       "text": "Die",
+       "start": 15.347,
+       "end": 15.579
+      },
+      {
+       "text": "meisten",
+       "start": 15.579,
+       "end": 15.997
+      },
+      {
+       "text": "sagen:",
+       "start": 15.997,
+       "end": 16.322
+      },
+      {
+       "text": "nichts.",
+       "start": 16.322,
+       "end": 16.694
+      },
+      {
+       "text": "Er",
+       "start": 16.694,
+       "end": 16.88
+      },
+      {
+       "text": "war",
+       "start": 16.88,
+       "end": 17.112
+      },
+      {
+       "text": "ja",
+       "start": 17.112,
+       "end": 17.298
+      },
+      {
+       "text": "schon",
+       "start": 17.298,
+       "end": 17.623
+      },
+      {
+       "text": "da.",
+       "start": 17.623,
+       "end": 17.809
+      }
+     ]
+    },
+    {
+     "text": "Doch sein Vertrag lief nur noch ein Jahr.",
+     "start": 18.179,
+     "end": 19.909,
+     "words": [
+      {
+       "text": "Doch",
+       "start": 18.179,
+       "end": 18.372
+      },
+      {
+       "text": "sein",
+       "start": 18.372,
+       "end": 18.566
+      },
+      {
+       "text": "Vertrag",
+       "start": 18.566,
+       "end": 18.856
+      },
+      {
+       "text": "lief",
+       "start": 18.856,
+       "end": 19.049
+      },
+      {
+       "text": "nur",
+       "start": 19.049,
+       "end": 19.211
+      },
+      {
+       "text": "noch",
+       "start": 19.211,
+       "end": 19.404
+      },
+      {
+       "text": "ein",
+       "start": 19.404,
+       "end": 19.565
+      },
+      {
+       "text": "Jahr.",
+       "start": 19.565,
+       "end": 19.759
+      }
+     ]
+    },
+    {
+     "text": "Danach hätte er ablösefrei gehen können. Für null Euro.",
+     "start": 20.129,
+     "end": 23.089,
+     "words": [
+      {
+       "text": "Danach",
+       "start": 20.129,
+       "end": 20.486
+      },
+      {
+       "text": "hätte",
+       "start": 20.486,
+       "end": 20.798
+      },
+      {
+       "text": "er",
+       "start": 20.798,
+       "end": 20.976
+      },
+      {
+       "text": "ablösefrei",
+       "start": 20.976,
+       "end": 21.512
+      },
+      {
+       "text": "gehen",
+       "start": 21.512,
+       "end": 21.824
+      },
+      {
+       "text": "können.",
+       "start": 21.824,
+       "end": 22.181
+      },
+      {
+       "text": "Für",
+       "start": 22.181,
+       "end": 22.404
+      },
+      {
+       "text": "null",
+       "start": 22.404,
+       "end": 22.672
+      },
+      {
+       "text": "Euro.",
+       "start": 22.672,
+       "end": 22.939
+      }
+     ]
+    }
+   ],
+   "end": 23.089
+  },
+  {
+   "id": "angebot",
+   "start": 23.489,
+   "sentences": [
+    {
+     "text": "Barcelona zahlte 45 Millionen Euro.",
+     "start": 23.489,
+     "end": 26.09,
+     "words": [
+      {
+       "text": "Barcelona",
+       "start": 23.489,
+       "end": 24.044
+      },
+      {
+       "text": "zahlte",
+       "start": 24.044,
+       "end": 24.414
+      },
+      {
+       "text": "45",
+       "start": 24.414,
+       "end": 25.154
+      },
+      {
+       "text": "Millionen",
+       "start": 25.154,
+       "end": 25.662
+      },
+      {
+       "text": "Euro.",
+       "start": 25.662,
+       "end": 25.94
+      }
+     ]
+    },
+    {
+     "text": "Wer behält, verzichtet auf dieses Geld.",
+     "start": 26.31,
+     "end": 28.388,
+     "words": [
+      {
+       "text": "Wer",
+       "start": 26.31,
+       "end": 26.529
+      },
+      {
+       "text": "behält,",
+       "start": 26.529,
+       "end": 26.88
+      },
+      {
+       "text": "verzichtet",
+       "start": 26.88,
+       "end": 27.405
+      },
+      {
+       "text": "auf",
+       "start": 27.405,
+       "end": 27.625
+      },
+      {
+       "text": "dieses",
+       "start": 27.625,
+       "end": 27.975
+      },
+      {
+       "text": "Geld.",
+       "start": 27.975,
+       "end": 28.238
+      }
+     ]
+    }
+   ],
+   "end": 28.388
+  },
+  {
+   "id": "begriff",
+   "start": 28.788,
+   "sentences": [
+    {
+     "text": "Genau das sind Opportunitätskosten:",
+     "start": 28.788,
+     "end": 30.797,
+     "words": [
+      {
+       "text": "Genau",
+       "start": 28.788,
+       "end": 29.122
+      },
+      {
+       "text": "das",
+       "start": 29.122,
+       "end": 29.36
+      },
+      {
+       "text": "sind",
+       "start": 29.36,
+       "end": 29.646
+      },
+      {
+       "text": "Opportunitätskosten:",
+       "start": 29.646,
+       "end": 30.647
+      }
+     ]
+    },
+    {
+     "text": "der Wert der besten Alternative, die du aufgibst.",
+     "start": 31.017,
+     "end": 33.536,
+     "words": [
+      {
+       "text": "der",
+       "start": 31.017,
+       "end": 31.228
+      },
+      {
+       "text": "Wert",
+       "start": 31.228,
+       "end": 31.482
+      },
+      {
+       "text": "der",
+       "start": 31.482,
+       "end": 31.694
+      },
+      {
+       "text": "besten",
+       "start": 31.694,
+       "end": 32.032
+      },
+      {
+       "text": "Alternative,",
+       "start": 32.032,
+       "end": 32.582
+      },
+      {
+       "text": "die",
+       "start": 32.582,
+       "end": 32.794
+      },
+      {
+       "text": "du",
+       "start": 32.794,
+       "end": 32.963
+      },
+      {
+       "text": "aufgibst.",
+       "start": 32.963,
+       "end": 33.386
+      }
+     ]
+    }
+   ],
+   "end": 33.536
+  },
+  {
+   "id": "kurve",
+   "start": 33.936,
+   "sentences": [
+    {
+     "text": "Ökonomen zeichnen das als Kurve.",
+     "start": 33.936,
+     "end": 35.712,
+     "words": [
+      {
+       "text": "Ökonomen",
+       "start": 33.936,
+       "end": 34.376
+      },
+      {
+       "text": "zeichnen",
+       "start": 34.376,
+       "end": 34.815
+      },
+      {
+       "text": "das",
+       "start": 34.815,
+       "end": 35.035
+      },
+      {
+       "text": "als",
+       "start": 35.035,
+       "end": 35.255
+      },
+      {
+       "text": "Kurve.",
+       "start": 35.255,
+       "end": 35.562
+      }
+     ]
+    },
+    {
+     "text": "Mehr vom einen heißt immer weniger vom anderen.",
+     "start": 35.932,
+     "end": 38.324,
+     "words": [
+      {
+       "text": "Mehr",
+       "start": 35.932,
+       "end": 36.177
+      },
+      {
+       "text": "vom",
+       "start": 36.177,
+       "end": 36.381
+      },
+      {
+       "text": "einen",
+       "start": 36.381,
+       "end": 36.666
+      },
+      {
+       "text": "heißt",
+       "start": 36.666,
+       "end": 36.951
+      },
+      {
+       "text": "immer",
+       "start": 36.951,
+       "end": 37.237
+      },
+      {
+       "text": "weniger",
+       "start": 37.237,
+       "end": 37.603
+      },
+      {
+       "text": "vom",
+       "start": 37.603,
+       "end": 37.807
+      },
+      {
+       "text": "anderen.",
+       "start": 37.807,
+       "end": 38.174
+      }
+     ]
+    }
+   ],
+   "end": 38.324
+  },
+  {
+   "id": "irrtum",
+   "start": 38.724,
+   "sentences": [
+    {
+     "text": "Man denkt: Was nichts kostet, ist gratis.",
+     "start": 38.724,
+     "end": 41.116,
+     "words": [
+      {
+       "text": "Man",
+       "start": 38.724,
+       "end": 38.968
+      },
+      {
+       "text": "denkt:",
+       "start": 38.968,
+       "end": 39.309
+      },
+      {
+       "text": "Was",
+       "start": 39.309,
+       "end": 39.552
+      },
+      {
+       "text": "nichts",
+       "start": 39.552,
+       "end": 39.942
+      },
+      {
+       "text": "kostet,",
+       "start": 39.942,
+       "end": 40.332
+      },
+      {
+       "text": "ist",
+       "start": 40.332,
+       "end": 40.576
+      },
+      {
+       "text": "gratis.",
+       "start": 40.576,
+       "end": 40.966
+      }
+     ]
+    },
+    {
+     "text": "Falsch. Auch Behalten hat einen Preis.",
+     "start": 41.336,
+     "end": 43.785,
+     "words": [
+      {
+       "text": "Falsch.",
+       "start": 41.336,
+       "end": 41.763
+      },
+      {
+       "text": "Auch",
+       "start": 41.763,
+       "end": 42.084
+      },
+      {
+       "text": "Behalten",
+       "start": 42.084,
+       "end": 42.619
+      },
+      {
+       "text": "hat",
+       "start": 42.619,
+       "end": 42.887
+      },
+      {
+       "text": "einen",
+       "start": 42.887,
+       "end": 43.261
+      },
+      {
+       "text": "Preis.",
+       "start": 43.261,
+       "end": 43.635
+      }
+     ]
+    }
+   ],
+   "end": 43.785
+  },
+  {
+   "id": "satz",
+   "start": 44.185,
+   "sentences": [
+    {
+     "text": "Satz fürs Gespräch:",
+     "start": 44.185,
+     "end": 45.3,
+     "words": [
+      {
+       "text": "Satz",
+       "start": 44.185,
+       "end": 44.448
+      },
+      {
+       "text": "fürs",
+       "start": 44.448,
+       "end": 44.711
+      },
+      {
+       "text": "Gespräch:",
+       "start": 44.711,
+       "end": 45.15
+      }
+     ]
+    },
+    {
+     "text": "Die wahren Kosten stehen nicht auf der Rechnung,",
+     "start": 45.52,
+     "end": 47.749,
+     "words": [
+      {
+       "text": "Die",
+       "start": 45.52,
+       "end": 45.706
+      },
+      {
+       "text": "wahren",
+       "start": 45.706,
+       "end": 46.003
+      },
+      {
+       "text": "Kosten",
+       "start": 46.003,
+       "end": 46.3
+      },
+      {
+       "text": "stehen",
+       "start": 46.3,
+       "end": 46.597
+      },
+      {
+       "text": "nicht",
+       "start": 46.597,
+       "end": 46.856
+      },
+      {
+       "text": "auf",
+       "start": 46.856,
+       "end": 47.042
+      },
+      {
+       "text": "der",
+       "start": 47.042,
+       "end": 47.228
+      },
+      {
+       "text": "Rechnung,",
+       "start": 47.228,
+       "end": 47.599
+      }
+     ]
+    },
+    {
+     "text": "sondern in der Alternative, die du aufgibst.",
+     "start": 47.969,
+     "end": 50.349,
+     "words": [
+      {
+       "text": "sondern",
+       "start": 47.969,
+       "end": 48.37
+      },
+      {
+       "text": "in",
+       "start": 48.37,
+       "end": 48.549
+      },
+      {
+       "text": "der",
+       "start": 48.549,
+       "end": 48.772
+      },
+      {
+       "text": "Alternative,",
+       "start": 48.772,
+       "end": 49.352
+      },
+      {
+       "text": "die",
+       "start": 49.352,
+       "end": 49.575
+      },
+      {
+       "text": "du",
+       "start": 49.575,
+       "end": 49.753
+      },
+      {
+       "text": "aufgibst.",
+       "start": 49.753,
+       "end": 50.199
+      }
+     ]
+    }
+   ],
+   "end": 52.549
+  }
+ ],
+ "duration": 52.549
+}
