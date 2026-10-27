@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "nacht": "2026-10-27",
+  "lauf": {
+    "id": "probe-20261027T151415Z",
+    "beginn": "2026-10-27T15:14:41Z",
+    "herzschlag": "2026-10-27T15:14:41Z"
+  },
+  "videos": [],
+  "verworfen": [],
+  "laeufe": [
+    {
+      "id": "probe-20261027T151415Z",
+      "beginn": "2026-10-27T15:14:41Z",
+      "ende": null,
+      "uebernommen_von": null,
+      "bericht": null
+    }
+  ],
+  "bericht": null,
+  "aktualisiert": "2026-10-27T15:14:41Z"
+}
