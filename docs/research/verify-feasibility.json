@@ -1,0 +1,176 @@
+[
+ {
+  "severity": "P0",
+  "section": "§9 Rollout / §6 Menschliche Freigaben",
+  "problem": "The quality bar is checked last. The factory, gates and calibration nights are built in Phase 2 (30.10.–1.11.), but the rebuilt probe is only judged in Phase 3 (2.–5.11.), and the library freezes on 5.11. If Linus again says \"okay, kann man besser machen\", there is no time left to change the modules before the test week, so the factory turns out \"okay\" videos in bulk. The research says to approve stills before anything moves, and PPTAgent says editing proven templates beats generating new ones. The plan does it the other way round.",
+  "fix": "Make Phase 1's deliverable one hand-directed gold-standard rebuild of the probe. It has the winning voice, a persistent world with camera, an illustrated actor, the Munich→Barcelona map and the money moving as an object. Both brothers judge it against the old probe and against 2–3 reference sequences via `snapshot --against`. Go only if both rate it ≥ 4/5 and Linus calls it clearly better. Only then extract the v1 modules from that build and start nightly.py. If time runs short, move the freeze and run the test week with fewer videos."
+ },
+ {
+  "severity": "P0",
+  "section": "§5 Szenen-Bibliothek (v1) + §3 Illustrationen/Atlas",
+  "problem": "The v1 types (hook-number, prediction-reveal, misconception-strike, fork-compare, plot) are kinetic typography plus charts, which is the same slide look Linus criticised. Illustrations only arrive on 7./8.11., after the 5.11. freeze. Maps, Atlas, archival photos and characters come after 16.11. or in v2. A 60 s video has about 7 scenes, and with only 5 types plus the rule \"kein Typ zweimal hintereinander\", almost every video runs the same sequence. At 6–12 videos a day, viewers will notice the formula within a day.",
+  "fix": "v1 must include at least these non-text carriers: map-route (d3-geo + Natural Earth / registry world-map), archival-photo (duotone + credit/date) and an illustrated-actor scene. Make 40–60 starter assets before 2.11., either on the RTX PC this weekend or with Recraft vector at about $0.08 each (about $5), so the `visuals` slots are filled during calibration. Add G0 rules: at least 50 % of scene time shows a non-text visual carrier, and no two videos on the same day share the same scene-type sequence."
+ },
+ {
+  "severity": "P1",
+  "section": "§3 Identitäten",
+  "problem": "The Editorial identity is cream paper with Playfair serif. That matches the HyperFrames spec.md BANNED item word for word: \"a cream or off-white paper ground with a serif display, italic accent words…\". Diagramm uses a navy ground, which is close to \"a black or dark navy void… small elements floating\". The plan says that medium rules fix this but gives no measurable feature that sets the result apart, so in practice the banned defaults are only renamed.",
+  "fix": "Write each DESIGN.md with measurable signatures of its medium. Editorial: column grid with 2 px hairline rules, halftone screen on images, 2–3 px two-ink misregistration, date line/masthead, headline cut-outs; italic accent words, centred floating elements and pill chips are banned. Diagramm: visible grid paper with the 6×6 anchor lines, draw-on pen strokes, every object anchored to an axis or grid, nothing floating. Run the spec.md loop after the first renders (name every default that was used anyway and add it to BANNED). Add a G8 question: \"does this frame match a BANNED item?\""
+ },
+ {
+  "severity": "P1",
+  "section": "§3 Identitäten / §9 Phase 3",
+  "problem": "Wirtschaft is assigned to Atlas, which only starts after 16.11. The probe rebuild in Phase 3 (Opportunitätskosten) is a Wirtschaft topic, and Economy plus Geopolitics are core channels for Linus. So during v1 and the test week these channels have no identity, and they are exactly the channels where Simplicissimus grammar (maps, headline cut-outs) matters most.",
+  "fix": "In v1, assign Wirtschaft models explicitly to Diagramm. Before the test week, pull a minimal Atlas into v1.1: map-route, headline cut-out with source and date, duotone archival photo, 3 % grain."
+ },
+ {
+  "severity": "P1",
+  "section": "§5 Fünf Bögen / G0",
+  "problem": "Pretesting is undermined in three ways. (1) The \"Irrtum → Widerlegung\" arc states the misconception before the prediction, which tells the viewer which answer is wrong, so the prediction becomes trivial. (2) All five arcs start with Fall, Lage, Beispiel or Irrtum, not with a question, although CLAUDE.md says every learning unit begins with a question or prediction. (3) Nothing checks whether narration or screen gives away the answer before the pause. The \"Tipp + Konfidenz\" item from docs/PLAN.md was also dropped.",
+  "fix": "Reorder the arc to Frage/Vorhersage → \"Die meisten tippen X\" → Gegenbefund → \"Das stimmt nicht, weil…\" → Modell → Transfer. G0 checks: the question appears within ≤ 8 s (scene 1–2), and the prediction options include the series' misconception as one choice. G1 leak lint: no token of the correct answer (number or keyword) in narration or on screen before the `pause_for_answer` cue. Bring back the one-tap confidence rating (hypercorrection)."
+ },
+ {
+  "severity": "P1",
+  "section": "§3 Illustrationen / §5 hook-number / G1",
+  "problem": "There is a risk of seductive details and decorative images. hook-number invites surprising trivia; the probe's \"344 Tore\" has nothing to do with opportunity cost, and docs/PLAN.md itself cites g≈−.33 for seductive details. The `zeigt:` gate passes any noun illustration (an ink drawing of a footballer with \"zeigt: Lewandowski\"). For the brother that breaks the rule \"Bilder nur, wenn sie Inhalt tragen\". A library of 300–500 assets tagged by noun encourages exactly this kind of decoration.",
+  "fix": "Replace `zeigt:` with a removal test in G1/G2 and the critic: every number and image must be needed by a later causal step or by a retrieval item. An image must encode a relation, quantity, place, sequence or state change (the actor does what the narration explains). Pure noun illustration is not allowed in bruder videos. Hook numbers must come from the concept's causal chain (45 Mio., 1 Jahr Restvertrag), not trivia. Retrieval questions never ask about hook trivia."
+ },
+ {
+  "severity": "P1",
+  "section": "§4 Stimme, Regeln",
+  "problem": "\"Pro Szene vertonen\" with \"Szene ≤ 19 Wörter\" means 1–2 sentences per request. The intonation still restarts every ~8 s, which was the main fault with Piper. `previous_text` only exists on ElevenLabs, and the gaps between scenes are still set by code, so the metronome rhythm stays.",
+  "fix": "Synthesise the whole script (30–90 s, about 500–1,300 characters) in one request where the provider's limit allows. Otherwise use 2–3 paragraph chunks with previous/next text. Cut the scenes afterwards by word timestamps. Pause lengths come from the voice; code only inserts the deliberate prediction stop."
+ },
+ {
+  "severity": "P1",
+  "section": "§4 Stimme, Empfehlung/Casting",
+  "problem": "Several parts of the voice decision can leave someone with a weak voice. (a) Choosing Inworld \"if ≤ 0.5 points behind\" is a big gap on a 5-point scale and is within the noise of 2 raters × 2 takes. The cost saving is small: ElevenLabs Creator at $22 covers 275k v4 characters, more than the Lean volume of 0.2M. (b) If ElevenLabs wins, the brother's content falls back to Azure, which the plan itself calls \"klanglich schwächer\", until written approval arrives. The brother then gets the bad voice again. (c) Inworld's policy on minors is unchecked, yet it is the recommendation. (d) The test text lacks question intonation, contrastive stress and lists, which are exactly what the videos need.",
+  "fix": "Decision rule: the best-rated voice that is usable today for BOTH profiles. Do pairwise forced choices on three passages (hook, prediction question, refutation with \"nicht X, sondern Y\"), plus one full 60 s listen. Cost breaks a tie only if Linus says \"gleich gut\". Send the ElevenLabs mail and check Inworld's AUP on 27.10. If neither is cleared by the voice decision on 1.11., cast only among cleared providers. No separate voices per profile."
+ },
+ {
+  "severity": "P1",
+  "section": "§4 Stimme / G4 Hör-Check",
+  "problem": "Emphasis and delivery are not modelled. The audit noted that \"nichts\", \"null\" and \"falsch\" got no stress. The spec has no markup for emphasis, pauses or question rise. G4 only measures word error rate, names and LUFS, which is intelligibility, not naturalness. A voice can pass G4 and still sound \"kacke\".",
+  "fix": "Add narration markup (`*betont*`, `/` short pause, question rise) and map it per provider: ElevenLabs audio tags, Inworld steering, SSML emphasis/break on Azure. The script stage writes a version for speaking: short main clauses, key word at the end of the sentence. Add a prosody gate: pitch range per sentence, speech rate 2.0–2.6 words/s, pause lengths not constant. Add voice reasons to Linus' every-10th rating menu."
+ },
+ {
+  "severity": "P1",
+  "section": "§3 Ton (Geräusche-A/B) / §4 Dialog-A/B / §6 Neubau der Probe",
+  "problem": "The 7-day retention comparisons have n = 2 learners, so they cannot detect a difference. \"Kein Verlust beim 7-Tage-Behalten\" can never be shown, so sound effects will never ship, and the dialogue A/B is noise. The probe comparison is also contaminated: both brothers already know the content of the old probe, and Linus cannot rate blind because he built and heard it.",
+  "fix": "Use within-subject designs at item level across many videos: counterbalanced topics, ≥ 20 items per condition, decision rule written down in advance. Alternatively decide by the literature plus preference and only watch for harm. Compare the probe on a fresh, matched pair of topics, not the same content, and rate blind only with the brother."
+ },
+ {
+  "severity": "P1",
+  "section": "G1/G3 Faktencheck",
+  "problem": "The `src` URLs in `facts[]` can be hallucinated. The plan does not say the checker opens them; a Sonnet batch \"in its own context\" may only check from memory. Only numbers shown in the picture must be in `facts[]`, not numbers that are only spoken. Source and date are not shown to the viewer. A line like \"Die meisten denken X\" is an empirical claim, and Opus may invent strawman misconceptions, especially in Philosophie, Style and Disziplin.",
+  "fix": "The checker opens every `src` (web_fetch) and stores a verbatim supporting quote plus the access date. G1 rejects any fact without a quote. Every number in the narration also needs a `facts[]` entry. Misconceptions come from the Serienplaner's Irrtumsliste with a source (misconception research, surveys, Lehrplan notes). Without a source, phrase it as \"Naheliegend ist: …\" and never \"die meisten\". Show source and date on screen as a small credit line, or in the card's info sheet."
+ },
+ {
+  "severity": "P1",
+  "section": "§2 Rollen / G2",
+  "problem": "The script is the biggest quality lever (Kurzgesagt goes through about a dozen drafts), yet Opus writes script, beats and camera contract in one batch shot. The only didactic check is Haiku 5.5 at low effort, the weakest model judging the most important thing: is the misconception real and refuted, does the example come before the rule, is the answer leaked.",
+  "fix": "Add a batch script-critique pass in a separate context (Sonnet medium or Opus low) with a fixed rubric: question within 8 s, misconception real and sourced, one through-example, example before rule for bruder, every sentence carries the core idea, spoken-German readability, ends on one line. It returns P0/P1 notes and triggers one rewrite. Move G2 to Sonnet medium for bruder content."
+ },
+ {
+  "severity": "P1",
+  "section": "§2 Slate / Serienplaner / Transfer-Videos",
+  "problem": "The plan has a series planner but no rules for how series reach the feed. Transfer videos (from the daily priming digest) and news are standalone by design. With 6 L videos a day across 9 channels, series fragment, which breaks \"Serien hängen zusammen. Keine losen Häppchen.\"",
+  "fix": "Feed scheduler rules: at most 2–3 active series per profile; parts in order; part n+1 only after part n was seen; each part opens with one retrieval question on the previous part (not a recap); finish a series before opening a new one. Transfer videos belong to a LehrplanPLUS-based series per subject (Jgst. 10), and the priming digest picks the next fitting part instead of a one-off."
+ },
+ {
+  "severity": "P1",
+  "section": "§5 Typen (Rhetorik) / §3 Editorial",
+  "problem": "Rhetoric & Charisma is one of Linus' main goals, but v1 has no rhetoric-device and no quote-card (they come in v1.1/v2), so rhetoric videos get forced into hook-number, fork or plot. On top of that, a TTS narrator cannot demonstrate vocal delivery (pauses, emphasis, presence), which is the core of the channel.",
+  "fix": "Pull quote-card and rhetoric-device into v1. For delivery techniques, use real speech excerpts with licence, source and date (public domain or licensed, terms checked), or limit the channel to text-level devices and label TTS demos as such. Add a \"Satz fürs Gespräch\" closing beat for the Linus profile; it is missing from all five arcs."
+ },
+ {
+  "severity": "P2",
+  "section": "§3 Kit / Fläche (Untertitel)",
+  "problem": "The plan says \"nie der gesprochene Satz\" on screen, yet karaoke captions under the picture show exactly that sentence. That conflicts with the redundancy principle, and the probe audit itself named it as a weakness. Once audio is unlocked in the app, captions are redundant.",
+  "fix": "Captions on by default only when muted; with sound on, default off, or keyword-only captions. G6 flags caption words that duplicate on-screen keywords at the same moment."
+ },
+ {
+  "severity": "P2",
+  "section": "§3 Kit-Konstanten / G7",
+  "problem": "Some kit rules conflict with each other or push motion without meaning. A camera push of 2–4 % per beat clashes with G7's \"Tempo im Lesefenster ≈ 0\". \"Bildwechsel alle 2–4 s\" plus dead_stretch plus the \"Diashow?\" question pushes toward cosmetic changes, and the transient-information effect hurts novices like the brother. The quota of \"3–5 Übergangsarten\" in a 60 s video forces variety for its own sake.",
+  "fix": "The camera holds during reading windows. Change the picture only when a new referent is named; allow declared study holds of 6–8 s for complex diagrams and suppress dead_stretch there. Map transition types to meaning (zoom-in = detail, morph = same thing transformed, cut = new topic) instead of a count quota."
+ },
+ {
+  "severity": "P2",
+  "section": "§3 Bühne und Darsteller / Farbsemantik",
+  "problem": "One actor that changes role (Geld-Chip → Balken → Karten-Token) can map one visual to different concepts, for example money turning into contract time, which confuses novices. Gold means \"gesuchte Größe\" in Diagramm but is just a second ink in Editorial, so the colour code is inconsistent across identities.",
+  "fix": "An actor may morph only while it still stands for the same thing. Make colour meanings global across all identities: gold = the quantity in focus, red = Irrtum/Verlust, cream = given."
+ },
+ {
+  "severity": "P2",
+  "section": "G4 / Pausen",
+  "problem": "\"Keine Stille > 1,2 s\" blocks deliberate thinking pauses after a refutation or a rule, and the MP4 prediction countdown. Gap lengths between scenes stay set by code.",
+  "fix": "Allow declared pauses (1.5–2.5 s after a refutation or rule, prediction countdown in MP4) and exclude them from G4. Gap lengths come from the beat type or from the voice."
+ },
+ {
+  "severity": "P2",
+  "section": "G8 Kritiker",
+  "problem": "From a 6-frame arc and 2 s seam strips, the critic cannot judge \"Diashow?\", whether motion carries meaning, sync with the voice, or pacing; a slideshow and a good film look alike in stills. A single 0–1 score at Sonnet low tends to rubber-stamp.",
+  "fix": "Give the critic the G7 metrics: share of time with motion that carries content, number of actor continuities, types of cuts, offset at each cue. Add 4 fps strips per beat. Ask specific yes/no questions (BANNED match, removal test, whether the cut has a cause) instead of one overall score."
+ },
+ {
+  "severity": "P2",
+  "section": "§1 Stufen / §7 Hero",
+  "problem": "A hero at $3–6 and 60–120 min will not reach the \"unfassbar impressive\" bar; the research cites about $90 and 5 h for one Vox-style piece. That sets the wrong expectation for Linus.",
+  "fix": "Present heroes as R&D for new library modules, or run one hero per month at $30–60 from the Max credits, on evergreen topics, with a gold review by Linus."
+ },
+ {
+  "severity": "P2",
+  "section": "VideoSpec.profiles / Didaktik",
+  "problem": "One video for both profiles (15-year-old in Klasse 10 and an 18-year-old aiming at WHU level) risks the expertise-reversal effect: example-first and refutation scaffolds help novices but bore advanced learners, and the reverse.",
+  "fix": "Each video gets one target level. Bruder content is mapped to LehrplanPLUS Gymnasium Bayern Jgst. 10. Linus variants get an extension beat plus the Satz fürs Gespräch. Share a video between profiles only when the level fits both."
+ },
+ {
+  "severity": "P2",
+  "section": "VideoSpec.retrieval / Metrik",
+  "problem": "FSRS questions have no type constraint, so trivia questions are likely. Using the same practised items for the 7-day knowledge-per-minute metric confounds the measurement.",
+  "fix": "At least one transfer or application question per video; no questions on hook details. Keep separate held-out probe items for the 7-day metric, and define how it flows into report.json and the slate."
+ },
+ {
+  "severity": "P2",
+  "section": "G1 Sperrwörter / App-Feedback",
+  "problem": "The banned list is incomplete (einfach, klar, selbstverständlich, bekanntlich, \"jeder weiß\", super, toll, \"gut gemacht\", stark, \"weiter so\"). It covers only narration, not the native chip feedback. A red \"FALSCH\" stamp right after the brother's tap can read as a verdict on him rather than on the claim.",
+  "fix": "Extend the list and lint app strings too. Feedback stays neutral (\"Auflösung: …\"). The strike and stamp target the misconception as a claim (\"Irrtum\"), never the learner's answer."
+ },
+ {
+  "severity": "P2",
+  "section": "§3 Ton",
+  "problem": "Linus' complaint \"den Ton finde ich nicht so gut\" may cover sound overall, not just the voice. Both references use music or ambient beds. The plan bans all music and SFX and makes the SFX test impossible to pass (see n = 2), without Linus knowing about the trade-off.",
+  "fix": "Ask Linus what he meant by \"Ton\" and state the no-music trade-off explicitly. Allow signalling SFX only on visible events when no narration is playing (stamp landing in a pause, map pin in a silent beat), which is outside the \"under narration\" condition Moreno & Mayer tested. Otherwise voice only."
+ },
+ {
+  "severity": "P2",
+  "section": "§4 Stimme / Mastering / Encoding",
+  "problem": "Encoding has no quality floor; the throughput research floats 32 kbps to save size, and Piper was 22 kHz mono. Over-processing clean TTS with a de-esser and compression can make it sound worse.",
+  "fix": "G4 enforces a source of ≥ 44.1 kHz and AAC-LC ≥ 96 kbps mono (or Opus ≥ 48 kbps), with no upsampling from 22 kHz. A/B the mastering chain against the raw provider output on a phone speaker before fixing it."
+ },
+ {
+  "severity": "P2",
+  "section": "§4 Casting (Bibliotheksstimmen)",
+  "problem": "Community library voices (for example \"Johannes Dokumentarfilm\") can be withdrawn by their owners, so a series voice could disappear mid-series. It is also unverified whether they run at full quality on v4.",
+  "fix": "Prefer the provider's own default voices or a voice designed and saved in Linus' own account. Pin model, voice ID and settings in voices/<id>.json."
+ },
+ {
+  "severity": "P2",
+  "section": "§7 Live-Player / Lernersteuerung",
+  "problem": "The 60–90 s videos run at the system's pace with no easy way to repeat a beat, against the segmenting principle, which matters for the brother.",
+  "fix": "In the live player, tap left to replay the current scene (seek to the scene start) and long-press to pause; both are cheap to add."
+ },
+ {
+  "severity": "P2",
+  "section": "Konsistenz der Zahlen",
+  "problem": "Some numbers in the plan disagree. The calibration says \"erste 20 Videos\", but three nights × 5 videos is 15. The font floor is 34 px in G6 but 48 px in the kit. \"Auf dem Wort, das es nennt, hintere Szenenhälfte\" is ambiguous when the word falls in the first half.",
+  "fix": "Align the numbers: 4 nights × 5 videos, or 15 videos. Use one font floor: 48 px for body text, 34 px only for credits. Reword the timing rule: \"put the key word late in the sentence (end-focus); the visual comes exactly on the word\"."
+ },
+ {
+  "severity": "P2",
+  "section": "Kanal Disziplin (Bruder)",
+  "problem": "Disziplin content can carry mindset clichés without ever using the word \"Mindset\", so the word lint misses them.",
+  "fix": "Route Disziplin to Linus only, or allow only evidence-based techniques with a study as source (for example implementation intentions). Add a semantic check in G2 for motivational phrases."
+ }
+]

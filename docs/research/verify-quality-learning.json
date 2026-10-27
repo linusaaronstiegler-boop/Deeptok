@@ -1,0 +1,152 @@
+[
+ {
+  "severity": "P0",
+  "section": "§2 Slots / §8 Starter",
+  "problem": "The 2-hour slot design assumes Claude Code cloud sessions run a command for 2 h. The cloud-environments docs say otherwise. A foreground Bash call times out after 2 min (10 min at most). It is then moved to the background and stopped after 30 more minutes, unless BASH_DEFAULT_TIMEOUT_MS is set above 1,800,000. A full 2 h only works with an explicit run_in_background and timeout=7200000. The docs also say an idle session's VM 'pauses after a few minutes without activity'. Nobody has checked whether a VM stays awake while the agent's turn has ended and only a background job is running. As written, 'Der Starter macht einen Bash-Aufruf' realistically gets about 32 minutes per slot, not 2 h.",
+  "fix": "Preferred: move the orchestrator off Claude Code. The repo is PUBLIC (gh api: visibility=public), so GitHub Actions standard runners are free with no minute cap. They have 4 vCPU and 16 GB, allow 6-hour jobs, take secrets as env vars, and use 0 % of the Claude quota. Run nightly.py as 1–2 scheduled workflows; the 'Freiminuten reichen nicht' argument does not apply. If you stay on scheduled tasks: put BASH_DEFAULT_TIMEOUT_MS=7200000 and BASH_MAX_TIMEOUT_MS=7200000 in the environment's variables. Have the prompt require run_in_background with timeout 7200000. In Phase 0, prove it with a 100-minute dummy job in a real scheduled run and check that it is not paused."
+ },
+ {
+  "severity": "P0",
+  "section": "§2 Resume/Lock, §9 Phase 2",
+  "problem": "Each scheduled-task run is a new session on a freshly cloned repo, and it starts from the default branch unless the prompt says otherwise (routines docs). So `factory/.lock` locks nothing across slots. All intermediate state is lost unless it is pushed: batch IDs, hashes, voice files, timing.json. And unless the next slot is told to check out the preview branch, it never sees what the previous slot pushed. 'Each stage saves its result with a content hash' is therefore not enough on its own.",
+  "fix": "Make state durable outside the VM. At the end of every slot, commit a factory/state/<date>.json (batch IDs, stage hashes) plus artifacts to a fixed state branch and push. Every slot prompt or workflow must explicitly check out that branch. Replace the file lock with a git-based lock (push a lock ref and treat a failed push as 'locked'), or with a GitHub Actions `concurrency:` group. Commit audio as compressed m4a around 48–64 kbps to limit repo growth, or keep intermediates in Actions artifacts or cache."
+ },
+ {
+  "severity": "P0",
+  "section": "§9 'API-Keys als Cloud-Secrets'; §5 L+/Hero via Agent SDK",
+  "problem": "The cloud-environments docs list api.anthropic.com among the hosts that NEVER get a network secret. So 'Key als Cloud-Secret' cannot deliver the Anthropic key, and it would have to be an environment variable. But an env var named ANTHROPIC_API_KEY takes precedence over a claude.ai login. If the starter session's Claude Code picks it up, it bills the API org. The credits do not cover Claude Code, which then fails with 'Credit balance too low'. Conversely, the Agent SDK spawns the `claude` CLI and inherits the session's CLAUDE_CODE_* environment, so it may silently run on subscription quota instead of API credits. Neither case is verified. Also, no ANTHROPIC_API_KEY or `anthropic` package exists in the container today.",
+  "fix": "Store the key under a non-standard name, e.g. DEEPTOK_ANTHROPIC_API_KEY, in a dedicated factory environment, and pass it explicitly: anthropic.Anthropic(api_key=...). Launch the Agent SDK with an explicit, minimal env containing only ANTHROPIC_API_KEY, PATH and HOME, with no CLAUDE_CODE_* variables. In Phase 0, run one Sonnet call and one Agent SDK call and confirm both appear in Console > Cost and not at claude.ai/settings/usage. All of this disappears on GitHub Actions, where the key is a repo secret. Add `anthropic` (and `claude-agent-sdk` if used) to tools/requirements.txt."
+ },
+ {
+  "severity": "P0",
+  "section": "§1 Ziel / §2 Eingänge / §6 Freigaben / §9 Phase 3",
+  "problem": "The plan depends on an app and backend that do not exist yet. The repo has no public/ folder and no PWA. docs/PLAN.md still lists the Klick-Dummy (Phase 0), FSRS (Phase 1) and the sync server (Phase 4: Cloudflare Worker or Supabase) as future work. The new plan needs them anyway: the inputs 'FSRS-Vergessensdaten · Bewertungen', Linus rating every 10th video 'über ein Menü', the live <hyperframes-player> in the app, the 7-day retention comparison from 2 Nov, and the target metric 'Wissen nach 7 Tagen pro Minute'. None of these can be measured, or fed back to the factory, before the 16 Nov decision. The rollout never schedules building them.",
+  "fix": "Add the app and a data back-channel to the rollout explicitly, or descope. Minimum before calibration: a static feed page with the player plus rating chips and quiz answers that write to a tiny store. Options are a Cloudflare Worker with D1 or KV, a Supabase table, or an artifact with the db capability; nightly.py reads it through an API token. Until that exists, label every '7-Tage' and rating-driven step as not measurable, and drop FSRS from the slate inputs."
+ },
+ {
+  "severity": "P1",
+  "section": "§2 Eingänge, §10 Persönliche Daten",
+  "problem": "The repo is public, yet the plan commits factory state, report.json and needs-human/ to it, and the slate consumes the priming digest (the brother's school subjects of the day), FSRS data and ratings. If any of these land in git, the brother's timetable and learning data become public, which conflicts with CLAUDE.md ('Keine persönlichen Daten'). The plan also never says how the digest gets from the Vault on Google Drive to nightly.py. MCP connectors exist only inside Claude sessions; Python and GitHub Actions cannot use them.",
+  "fix": "Keep inputs out of the repo. Have the evening routine write the digest (subject, core idea, questions; no names) to a private store, such as a private gist, a private repo, or the backend from the previous issue. nightly.py fetches it with a token at runtime and never commits it. Add a G1 check that fails if any input file path is staged. Alternatively, make the factory/data repo private and publish only public/cards to the public site repo."
+ },
+ {
+  "severity": "P1",
+  "section": "§8 Nutzung & Kosten / Entscheidung 16.11.",
+  "problem": "The plan contradicts itself. It says 'Pro lohnt sich nur unter etwa $80 API-Kosten … höchstens im Lean-Modus', yet it prices Lean at $80–90, which is at or above the $80 break-even. So Pro is not cheaper even in Lean. The per-video estimates also look low, so Lean probably runs about $95–115/month:\n- Critic: snapshot --review produces a beat sheet, a phone sheet and one 5-frame seam sheet per cut. With about 8 cuts that is roughly 10 images, or 16–27k image tokens per round, not 9k.\n- Opus 5.5: thinking cannot be disabled, so 4k output for script, beats and camera contract at medium effort is optimistic.\n- Fact-check: with web_fetch, each source page adds 5–30k input tokens.\n- Repairs and the series planner are not itemised.\nThat total breaks the $95/month cap and the $100 credit, so the cap would quietly throttle output below 7 videos a day.",
+  "fix": "Fix the decision sentence: on API cost alone, Pro only wins if the factory runs below Lean (about 5 videos a day or fewer). The real question for 16 Nov is whether Linus' own interactive Claude Code use fits Pro's quota. Re-estimate the critic from the actual count of review sheets and cap it at a beat sheet plus at most 3 seam sheets at 540 px. Set max_content_tokens on web_fetch. Measure $/video from the first 15 real videos in report.json before fixing Lean's volume. Note that credits expire each billing cycle with no rollover, while Console spend caps reset on the 1st of each calendar month, so align the $95 cap to that."
+ },
+ {
+  "severity": "P1",
+  "section": "§1 Ziel vs §8 Lean",
+  "problem": "The stated target is 10–20 new videos a day plus a backlog of a few hundred evergreens. The default Lean mode makes 7 a day (6 L + 1 L+), and the Ziel mode (15 a day) is gated behind budget that, by the previous issue, does not exist on $100 of credit. 'Etwa 300 Videos in sechs Wochen nebenbei' is simply all Lean output (7 × 42 = 294). It double-counts the daily school-transfer and series videos as the evergreen backlog.",
+  "fix": "State plainly that the steady state on Max credit alone is about 5–7 videos a day. Ziel volume needs about $150–200/month of purchased API credit or Max 20x (which includes $200 of credit). Count the evergreen backlog separately, e.g. 'N of 7 daily slots are evergreen; the rest are transfer and series videos'. Alternatively, raise volume by making L+ rarer and fixing the cost drivers in the cost issue above."
+ },
+ {
+  "severity": "P1",
+  "section": "§2 Slot-Tabelle, §8 API-Regeln",
+  "problem": "Batch results usually arrive within an hour but may take up to 24 hours. The chain is: script batch at 22:07, then fact-check and spec batches at 00:07, then repairs, which may need another LLM round. The plan only retries 'abgelaufene Aufträge', and expiry comes after 24 h, long after the 06:15 deadline. One slow batch can leave the 00:07 slot waiting with no CPU work done. It is also unclear whether repairs are batch or standard calls.",
+  "fix": "Add deadline-based fallbacks. If the script batch has not ended by 23:45, cancel it and resend the unfinished items as standard calls. Do the same for the fact-check and spec batch at 01:30. Make all repairs and critic rounds standard calls; at these volumes the batch discount saves cents. Log batch latency in report.json and drop batching for any stage whose 90th-percentile latency exceeds 60 minutes."
+ },
+ {
+  "severity": "P1",
+  "section": "§2 Skript/Faktencheck, §6 G1/G3",
+  "problem": "The plan never says where evergreen sources come from. Opus writes facts[] with `src` and `date` in a batch call with no tools, so the URLs come from memory and can be made up. G3 'Faktencheck in eigenem Kontext' cannot verify anything without fetching those pages. Web search and web fetch work in batches, but they must be declared, budgeted at $10 per 1,000 searches plus page tokens, and switched on in Console org settings. None of this is in the plan or in Linus' to-do list.",
+  "fix": "Have the series planner (Opus, once per series) do the research: web_search_20260209 with max_uses capped, writing a vetted fact sheet with verified URLs into topics/<kanal>/<serie>.yaml. The script writer may only cite fact IDs from that sheet. G3 calls web_fetch_20260209 on each src URL, with max_content_tokens around 8k and max_uses 3, and marks a fact unsupported if the page does not contain the claim. Add 'Websuche in der Console aktivieren' to Linus' tasks."
+ },
+ {
+  "severity": "P1",
+  "section": "§8 Pro-Testwoche Kontingent",
+  "problem": "The quota budget assumes 4 starter sessions per night at 20–40k tokens each, with an alarm only above 1.5 % per night. That is 10.5 % per week, half of the 20 % target, before counting Linus' own use and his existing scheduled tasks (morning briefing, evening priming). Every cloud session also carries the full system prompt, the skills list and all connector tool names, since all connectors are included by default. Effort cannot be chosen in the scheduled-task dialog (only the model), and this environment runs CLAUDE_EFFORT=xhigh.",
+  "fix": "Use GitHub Actions to start the factory: 0 % quota. If you keep scheduled tasks: use one per night instead of four, strip all connectors from the task, and run it in a dedicated environment. Set CLAUDE_EFFORT=low there if that variable is honoured, and verify that it is. Redirect script output to a log file so the agent is woken with only one line. Set the alarm at about 0.5 % per night and budget the whole week including the other scheduled tasks."
+ },
+ {
+  "severity": "P1",
+  "section": ".claude/hooks/session-start.sh (Infra)",
+  "problem": "The SessionStart hook claims 'Der Container-Zustand wird danach gecacht', but the docs say only the environment's setup script is cached; hooks run in every session. The hook builds .venv inside the freshly cloned repo, so every scheduled slot reinstalls everything: Piper, Manim (which compiles ManimPango), faster-whisper, plus the Chrome download. Hooks are cancelled after 600 s unless a timeout is set. The faster-whisper model is also downloaded again from Hugging Face each session. This costs minutes per slot and adds a network failure point at night, and the plan drops Piper and Manim anyway.",
+  "fix": "Move the installs into the environment's setup script, which must finish in under about 5 minutes to be cached. Put the venv outside the repo (e.g. /opt/deeptok-venv), pre-download the faster-whisper model, and drop piper-tts and manim from the nightly requirements. Keep the hook as a fast check that only verifies the tools are present. On GitHub Actions, use actions/cache for the venv, npm and the Hugging Face model."
+ },
+ {
+  "severity": "P1",
+  "section": "§6 G4 Hör-Check",
+  "problem": "G4 requires word error rate < 5 % and 'alle Namen richtig' using faster-whisper `small` on German, with no number normalisation. '344', 'dreihundertvierundvierzig' and '45 Mio. €' will count as errors, and `small` often mishears correctly spoken names. The result is many false failures, each of which triggers re-synthesis (paid characters) and repairs and ends in needs-human, during a test week meant to run 'ohne Eingriffe'. 'Keine Stille > 1,2 s' also contradicts the planned think pauses (prediction freeze, holds of at least 1.2 s).",
+  "fix": "Normalise both sides before computing WER: num2words in German, units, a lexicon. Run the name check with large-v3-turbo int8, or Parakeet via `npx hyperframes transcribe -e parakeet`, and fail only when the provider's own alignment also disagrees. Exempt declared pause_for_answer and hold windows from the silence rule. Calibrate the thresholds on the 15 calibration videos before enabling auto-repair."
+ },
+ {
+  "severity": "P1",
+  "section": "§9 Rollout",
+  "problem": "The timeline cannot be done as written:\n- Phase 1 (28–30 Oct) and Phase 2 (30 Oct–1 Nov) must deliver the root track with camera and actors, player hardening, two DESIGN.md files, reference distillation, 5 modules with Zod schemas, demos and reference snapshots, adapters for 4 TTS providers, mastering, nightly.py with batch logic, gates G0–G8 (including DOM motion analysis), and three calibration nights. Those calibration nights fall on the same days the factory is still being built.\n- '3 Kalibriernächte à 5 Videos' gives 15 videos, but Linus is supposed to rate 'die ersten 20'.\n- The house library is generated on 7–8 Nov, after the 5 Nov freeze and in the middle of a test week meant to run without intervention.\n- Today is already 27 Oct (Phase 0).",
+  "fix": "Re-sequence:\n- Phase 1: 2 modules plus the factory skeleton with G0, G1, G4 and G5.\n- Calibration nights: start no earlier than 2–3 Nov, at 7 videos a night, so 20 or more exist before the freeze.\n- Postpone until after 13 Nov: G7 motion analysis, L+, the camera and actor track, and the house library.\n- During the test week: run v1 types plus Open Peeps.\n- Freeze rule: no asset or library changes until 14 Nov."
+ },
+ {
+  "severity": "P2",
+  "section": "§3 Bühne und Darsteller",
+  "problem": "The HyperFrames skill says 'the root holds only scene hosts, media and audio'. It also says 'a scene's timeline can't reach elements outside its file' and 'never add() a scene's timeline to the root's'. The plan puts the world, the camera and the actors on a root track. It also leaves open whether scene modules render inside the camera-moved world or as fixed overlays. If they are fixed overlays, text stays put while the world pans, which looks broken. The planned spike only tests whether an actor survives two scenes.",
+  "fix": "Spike both options: (a) a full-length 'stage' sub-composition on its own track index, holding world, camera and actors, with scenes as overlays; (b) the root track. Also test camera transforms with scene content inside versus outside the world, under `check`, `snapshot --review` and the player. Decide the overlay rule per scene type: HUD text fixed, objects in the world."
+ },
+ {
+  "severity": "P2",
+  "section": "§3 Identitäten",
+  "problem": "The plan says the current look is BANNED twice, then defines 'Editorial' as cream paper, navy ink and Playfair. That is exactly the banned item 'a cream or off-white paper ground with a serif display'. 'Diagramm' keeps the banned navy-void ground. It only escapes the ban through the brand exception and the 'medium' framing, and the plan does not say what concretely changes.",
+  "fix": "In each DESIGN.md, write measurable rules that separate it from the banned default. Examples: full-bleed objects instead of centred floating items, a paper-fibre texture, an overprint or misregistration rule, and specific entrance families (no fade-and-slide-up). Add these to the BANNED and QA lines so G8 can test 'looks like default' against them."
+ },
+ {
+  "severity": "P2",
+  "section": "§3 Inspirations-Werkzeuge",
+  "problem": "Reference distillation and `snapshot --against ref.mp4` need the actual Simplicissimus and Veritasium video files. The container has no yt-dlp, YouTube often blocks datacenter IPs with a bot check, and downloading violates YouTube's Terms of Service. The plan does not say how the files are obtained.",
+  "fix": "Linus supplies 2–3 short clips from his PC. They are analysed (ffmpeg scene-detect, shot lengths, title timing), only the numbers go into DESIGN.md, and the files are deleted and never committed. Name this step in 'Linus erledigt'."
+ },
+ {
+  "severity": "P2",
+  "section": "§3 Hausbibliothek / RTX-PC",
+  "problem": "Several pieces are unplanned:\n- Setup on Windows: PyTorch with CUDA 12.8 for the RTX 50-series (Blackwell), ComfyUI or diffusers, and about 8–16 GB of model downloads.\n- A cut-out step ('freigestellt').\n- Style consistency: 300–500 images from one prompt with a 4B distilled model will drift unless you add reference images or a LoRA.\n- Storage: 300–500 PNGs pushed through a `jobs/` branch could add hundreds of MB to a public repo that every session clones.\nNone of this is in Linus' tasks.",
+  "fix": "Install and smoke-test on the PC before 6 Nov. Use a locked style prompt plus 3–5 reference images and a fixed seed range, and have Linus approve a style sheet of 20 images first. Cut out with BiRefNet, or with `npx hyperframes remove-background` in the cloud. Store assets as WebP of about 150 KB at no more than 1080 px, with tags in assets/index.json, or put them in a separate asset repo or release."
+ },
+ {
+  "severity": "P2",
+  "section": "§4 Stimme / §9 Netztest",
+  "problem": "The plan names the keys but not the mechanics of network secrets:\n- The proxy injects them only for listed hosts. Python code never sees the key, so adapters must send a placeholder header.\n- Inworld uses Basic auth, Azure the Ocp-Apim-Subscription-Key header, ElevenLabs xi-api-key, so each needs the right header and prefix.\n- The Default 'Trusted' environment does not allow Wikimedia, loc.gov or naciscdn. Wikimedia already returned HTTP 429 here; it needs a User-Agent header.\n- Re-synthesis during repairs consumes characters: ElevenLabs Creator includes about 275k v4 characters, and Lean needs about 0.2M before any retakes.",
+  "fix": "Phase 0: one curl per provider through the secret, adapters that work both with a proxy-injected key (cloud) and an env-var key (Actions or PC), and network access set to Custom with the TTS, Wikimedia, LoC, naciscdn and jsDelivr hosts. Budget TTS characters at 1.3× the Lean volume, and take the 'remaining characters' figure from the provider's API in the pre-night check."
+ },
+ {
+  "severity": "P2",
+  "section": "§8 API-Regeln (implementation gotchas)",
+  "problem": "Several current API constraints are not reflected:\n- Opus 5.5 and Sonnet 5.5 return 400 on forced tool_choice (`any`/`tool`), including in Batches, so the spec filler must not force a tool to get JSON.\n- API version 2026-10-21 rejects temperature, top_p and top_k on every model.\n- Thinking cannot be disabled on Opus 5.5, so set max_tokens to leave room for it.\n- With roughly 7 requests per batch, 1-hour cache writes cost 2× input and batch cache hits are best-effort, so caching may not pay off.\n- Opus cache reads are 0.05× input, not 'ein Zehntel'.",
+  "fix": "Use output_config.format (structured outputs) with JSON schemas exported from the Zod definitions, and never send sampling parameters. Set effort explicitly on every call: Opus defaults to medium, Sonnet to high. Measure cache_read_input_tokens per batch, and use the 5-minute TTL or no cache where hits are near zero."
+ },
+ {
+  "severity": "P2",
+  "section": "§8 Entscheidung 16.11. / Linus erledigt",
+  "problem": "Missing account details:\n- After a downgrade to Pro, new credits stop. The existing ones expire at the end of the cycle, and then API calls simply stop unless credits were bought; Pro needs a Console payment method.\n- All keys in the linked org draw from the same $100.\n- The linked org can only be changed through support.\n- The rate-limit tier set by plan linking ('at least Start tier') may drop after the downgrade.",
+  "fix": "Add to Linus' tasks:\n- Create a dedicated Console workspace 'deeptok-factory' with its own spend limit, and link the right org once.\n- On 16 Nov, if downgrading: add a payment method and auto-reload with a low cap before the Max cycle ends.\n- Have nightly.py check the balance and rate-limit headers before each night and write them to report.json."
+ },
+ {
+  "severity": "P2",
+  "section": "§7 MP4 nur beim Teilen",
+  "problem": "Nothing renders an MP4 when someone taps 'share'. The app is a static PWA (Vercel), and the cloud container exists only during sessions. 'Draft' quality is CRF 28 ultrafast, which will band and turn the Atlas look's 3 % grain into blocks.",
+  "fix": "Either render MP4s nightly for videos flagged shareable (about 60 s of CPU each) and publish them, or share a link to the live player page. Use `--quality looks --workers 3` for shared files, and keep draft for review renders only."
+ },
+ {
+  "severity": "P2",
+  "section": "§5 Spec / §6 G1",
+  "problem": "The VideoSpec type has no scene-level `facts` field, but the example uses `\"facts\":[\"abl\"]` and G1 depends on it. G1's rule 'jede Zahl im Bild steht in facts[]' needs normalisation: the screen shows '−45 Mio. €', the fact says '45 Mio.', the narration '45 Millionen'. 'Dasselbe Modul läuft live in der App' plus a build-time copy means maintaining two runtimes, even though live playback goes through <hyperframes-player> playing the built HTML.",
+  "fix": "Add `facts?: string[]` to the scene type and define a number canonicaliser (sign, unit, Mio./Millionen) used by G1 and G4. Drop the separate in-app module runtime and play only the built HTML. Make `lib@x.y` also pin the vendored player, runtime and GSAP versions."
+ },
+ {
+  "severity": "P2",
+  "section": "§7 Live-Player",
+  "problem": "`runtime-src` is an undocumented attribute found in the player bundle, and the player has had 537 npm versions since April (106 in October). A silent behaviour change would bring back jsDelivr fetches or break offline playback. The 0.4–0.7 MB per video was measured with Piper audio and no images; real per-video sizes with a new voice and illustrations will be about 1–2 MB.",
+  "fix": "Vendor the exact player tarball and add a CI test: load a card offline in headless Chromium, assert 0 external requests and 'ready' within 1 s. Update the size budget to include WebP visuals."
+ },
+ {
+  "severity": "P2",
+  "section": "§6 Menschliche Freigaben / §3 Ton A/B",
+  "problem": "With n=2 viewers, comparing 7-day retention of the rebuilt probe against the old one, or A/B-testing sounds and dialogue voices, has no statistical power. Both brothers have also already seen the Lewandowski content, which confounds the probe comparison.",
+  "fix": "Treat these as qualitative checks: blind preference plus a 7-day quiz on new, matched topic pairs. Gate decisions on blind ratings and quiz trends across many videos, not on single comparisons."
+ },
+ {
+  "severity": "P2",
+  "section": "§1 Multi-Agent-Begründung",
+  "problem": "The figure 'etwa 15-mal so viele Tokens' from Anthropic's multi-agent write-up compares multi-agent systems with chat. Single agents used about 4× chat, so multi-agent is about 3.75× a single agent. The conclusion (code orchestration) still holds, but the number is misquoted.",
+  "fix": "Rephrase: 'Multi-Agent ≈ 15× Chat-Tokens, ≈ 4× ein Einzelagent (Anthropic 2025)'."
+ }
+]
