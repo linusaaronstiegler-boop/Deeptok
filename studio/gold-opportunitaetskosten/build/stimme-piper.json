@@ -1,0 +1,15 @@
+{
+  "_hinweis": "PLATZHALTER-Stimme nur für das Timing des Goldstandards. Linus fand Piper „kacke“; die echte Stimme kommt aus dem Casting (Entscheidung am 1.11.). Tausch: python build/voice.py --anbieter <sieger> (liest dann voices/<sieger>.json über factory/werk/stimme).",
+  "anbieter": "piper",
+  "modell": "~/.piper/de_DE-thorsten-high.onnx",
+  "_modell_hinweis": "Pfad überschreibbar mit der Umgebungsvariable PIPER_VOICE_MODEL.",
+  "length_scale": 1.0,
+  "_length_scale_hinweis": "> 1 langsamer. Ziel 2,3 Wörter/s (G4: 2,0 bis 2,6), gemessen ohne die deklarierten Pausen.",
+  "noise_scale": 0.6,
+  "noise_w_scale": 0.8,
+  "satzpause_s": 0.28,
+  "absatzpause_s": 0.5,
+  "_pausen_hinweis": "Satz- und Absatzpause sind Eigenschaften dieser Stimme (wie --sentence-silence der Piper-Kommandozeile). Piper setzt zwischen Sätzen sonst keine Stille; ElevenLabs macht diese Pausen selbst. Dramaturgische Pausen kommen nur aus pause_s/hold_s im Skript.",
+  "betonung": "entfernen",
+  "lexikon": {}
+}

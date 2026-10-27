@@ -1,0 +1,11 @@
+{
+  "name": "gold-opportunitaetskosten",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "bauen": "node build/bauen.mjs",
+    "dev": "npx --yes hyperframes@0.8.206 preview",
+    "check": "npx --yes hyperframes@0.8.206 check",
+    "render": "npx --yes hyperframes@0.8.206 render --workers 3 -o renders/gold.mp4"
+  }
+}

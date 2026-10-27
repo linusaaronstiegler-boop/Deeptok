@@ -1,17 +1,24 @@
 [
   {
+    "id": "will",
+    "claim": "Barcelona will Lewandowski verpflichten, und Lewandowski will zu Barcelona (Stand Mai 2022).",
+    "src": "https://www.t-online.de/sport/fussball/bundesliga/id_92186698/fc-bayern-muenchen-salihamidzic-bestaetigt-lewandowski-will-bayern-verlassen.html",
+    "date": "2022-05-14",
+    "quote": "Robert Lewandowski will zu Barça – und Barça will Robert Lewandowski."
+  },
+  {
     "id": "abl",
-    "claim": "Barcelona zahlt für Lewandowski eine Ablöse von 45 Mio. € fest, dazu bis zu 5 Mio. € variabel (Bonus).",
+    "claim": "Barcelona zahlt für Lewandowski eine Ablöse von 45 Mio. € fest, dazu 5 Mio. € variabel.",
     "src": "https://www.fcbarcelona.com/en/news/2683853/agreement-with-bayern-munich-for-the-transfer-of-robert-lewandowski",
     "date": "2022-07-19",
     "quote": "for a total of €45 million + €5 million in variables."
   },
   {
     "id": "abl2",
-    "claim": "Zweitquelle auf Deutsch: Die Ablöse liegt bei 45 Millionen Euro, dazu 5 Millionen Euro als Bonuszahlungen.",
-    "src": "https://www.sport1.de/news/transfermarkt/2022/07/fc-bayern-robert-lewandowski-barcelona-transfer-besiegelt-45-millionen-euro-ablose-und-drei-jahresvertrag",
-    "date": "2022-07-16",
-    "quote": "Die Ablösesumme für den 33 Jahre alten Polen liegt bei 45 Millionen Euro"
+    "claim": "Zweitquelle auf Deutsch (Host steht auf der Hostliste): 45 Mio. € Ablöse, durch Bonuszahlungen um bis zu 5 Mio. € erhöhbar.",
+    "src": "https://de.wikipedia.org/w/index.php?title=Robert_Lewandowski&oldid=270981132",
+    "date": "2026-10-02",
+    "quote": "für eine Ablösesumme in Höhe von 45 Millionen Euro, die sich durch Bonuszahlungen um bis zu 5 Millionen Euro erhöhen kann"
   },
   {
     "id": "datum",
@@ -21,11 +28,25 @@
     "quote": "FC Barcelona and Bayern Munich have arrived at an agreement for the transfer of Robert Lewandowski"
   },
   {
+    "id": "kahn_summe",
+    "claim": "Bayern nimmt das Geld: Vorstandschef Oliver Kahn nennt die gebotene Summe als Grund, warum ein Verkauf sinnvoll ist (nicht als einzigen, siehe nv_mane).",
+    "src": "https://www.sport1.de/news/fussball/bundesliga/2022/07/oliver-kahn-erklart-lewandowski-wechsel-und-warum-sein-basta-kein-fehler-war",
+    "date": "2022-07-16",
+    "quote": "Der FC Barcelona hat am Ende eine Summe geboten, bei der ein Verkauf für uns absolut sinnvoll ist."
+  },
+  {
     "id": "vertrag",
     "claim": "Lewandowskis Vertrag beim FC Bayern läuft bis zum 30.06.2023 (Juni 2023).",
     "src": "https://www.t-online.de/sport/fussball/bundesliga/id_92186698/fc-bayern-muenchen-salihamidzic-bestaetigt-lewandowski-will-bayern-verlassen.html",
     "date": "2022-05-14",
     "quote": "Lewa hat einen Vertrag bis zum 30. Juni 2023. Das ist Fakt."
+  },
+  {
+    "id": "saison",
+    "claim": "Behält Bayern ihn bis zum Vertragsende, bleibt Lewandowski noch 1 Saison (2022/23) in München.",
+    "src": "https://www.t-online.de/sport/fussball/bundesliga/id_92186698/fc-bayern-muenchen-salihamidzic-bestaetigt-lewandowski-will-bayern-verlassen.html",
+    "date": "2022-05-14",
+    "quote": "müsste der Pole noch eine Saison in München bleiben"
   },
   {
     "id": "verlaengern",
@@ -39,14 +60,7 @@
     "claim": "Bayern kann verkaufen oder behalten: noch 1 Saison mit Lewandowski spielen und ihn danach ohne Einnahmen gehen lassen, oder 2022 eine Ablöse bekommen.",
     "src": "https://www.t-online.de/sport/fussball/bundesliga/id_92186698/fc-bayern-muenchen-salihamidzic-bestaetigt-lewandowski-will-bayern-verlassen.html",
     "date": "2022-05-14",
-    "quote": "vor dem Dilemma, eine Saison mit einem eher verärgerten Lewandowski zu spielen […] ohne weitere Einnahmen ziehen lassen zu müssen oder dieses Jahr noch eine hohe Ablöse zu kassieren."
-  },
-  {
-    "id": "saison",
-    "claim": "Bis zum Vertragsende bleibt Bayern mit Lewandowski noch 1 Saison (2022/23).",
-    "src": "https://www.t-online.de/sport/fussball/bundesliga/id_92186698/fc-bayern-muenchen-salihamidzic-bestaetigt-lewandowski-will-bayern-verlassen.html",
-    "date": "2022-05-14",
-    "quote": "eine Saison mit einem eher verärgerten Lewandowski zu spielen"
+    "quote": "eine Saison mit einem eher verärgerten Lewandowski zu spielen und diesen dann ohne weitere Einnahmen ziehen lassen zu müssen, oder dieses Jahr noch eine hohe Ablöse zu kassieren."
   },
   {
     "id": "behalten",
@@ -57,24 +71,38 @@
   },
   {
     "id": "frei",
-    "claim": "Nach Vertragsende darf ein Fußballprofi ablösefrei wechseln; der alte Verein bekommt dann 0 € Ablöse (Bosman-Urteil des EuGH, 1995).",
+    "claim": "Nach Vertragsende darf ein Fußballprofi ablösefrei wechseln; der alte Verein bekommt dann 0 € Ablöse (Bosman-Urteil des EuGH).",
     "src": "https://www.bpb.de/kurz-knapp/lexika/das-europalexikon/176722/bosman-urteil/",
     "date": "2020",
     "quote": "Danach dürfen Fußballer nach Beendigung ihres Vertrages ablösefrei den Verein wechseln."
   },
   {
+    "id": "frei_urteil",
+    "claim": "Datum für die Credit-Zeile: Das Bosman-Urteil des EuGH (Rs. C-415/93) fiel am 15.12.1995. Es gilt für Wechsel innerhalb der EU, also auch für Lewandowski (Pole) von Deutschland nach Spanien.",
+    "src": "https://de.wikipedia.org/w/index.php?title=Bosman-Entscheidung&oldid=271664610",
+    "date": "1995-12-15",
+    "quote": "Der EuGH fällte am 15. Dezember 1995 (EuGH RS C-415/93, Slg 1995, I-4921) die Entscheidung"
+  },
+  {
     "id": "begriff",
-    "claim": "Opportunitätskosten sind der Wert der besten Alternative, die man aufgibt (entgangener Ertrag oder Nutzen der besten nicht gewählten Möglichkeit).",
+    "claim": "Opportunitätskosten sind der Wert der besten Alternative, die man aufgibt (entgangener Ertrag oder Nutzen der besten nicht gewählten Möglichkeit). Autoren: J. Weber (WHU), D. Piekenbrock (DHBW).",
     "src": "https://wirtschaftslexikon.gabler.de/definition/opportunitaetskosten-42091/version-265445",
     "date": "2018-02-19",
     "quote": "Alternativkosten; entgangene Erträge oder Nutzen im Vergleich zur besten, nicht realisierten Handlungsalternative."
   },
   {
     "id": "nachhilfe",
-    "claim": "Nachhilfeunterricht gehört zu den leichten Tätigkeiten, mit denen Kinder über 13 Jahre und vollzeitschulpflichtige Jugendliche beschäftigt werden dürfen (KindArbSchV § 2 Abs. 1 Nr. 2 d).",
+    "claim": "Nachhilfe gegen Geld ist eine erlaubte Arbeit für Schüler: Kinder über 13 Jahre und vollzeitschulpflichtige Jugendliche dürfen in privaten Haushalten Nachhilfeunterricht geben, wenn die Arbeit leicht und für sie geeignet ist (KindArbSchV § 2 Abs. 1 Nr. 2 d). Wer nicht mehr vollzeitschulpflichtig ist, fällt unter das Jugendarbeitsschutzgesetz. Das Video macht keine Rechtsaussage; der Fakt belegt nur, dass der Transfer-Fall realistisch ist.",
     "src": "https://www.gesetze-im-internet.de/kindarbschv/__2.html",
     "date": "1998-06-23",
-    "quote": "d) Nachhilfeunterricht,"
+    "quote": "in privaten und landwirtschaftlichen Haushalten mit a) Tätigkeiten in Haushalt und Garten, b) Botengängen, c) der Betreuung von Kindern und anderen zum Haushalt gehörenden Personen, d) Nachhilfeunterricht,"
+  },
+  {
+    "id": "nv_mane",
+    "claim": "Nicht im Video, nur im Info-Blatt: Kahn nennt neben der Summe die Verpflichtung von Sadio Mané. Die Ablöse war also nicht der einzige Grund.",
+    "src": "https://www.sport1.de/news/fussball/bundesliga/2022/07/oliver-kahn-erklart-lewandowski-wechsel-und-warum-sein-basta-kein-fehler-war",
+    "date": "2022-07-16",
+    "quote": "in Sadio Mané einen absoluten Weltklassespieler für die Offensive verpflichtet."
   },
   {
     "id": "nv_tore",

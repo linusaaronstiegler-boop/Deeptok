@@ -86,10 +86,11 @@ Grundlage sind `docs/VIDEO-PIPELINE.md` §3/§5/§6, `studio/spike-buehne/REVIEW
 |---|---|---|
 | Halten nach jeder Landung (Text, Darsteller, Marker) | ≥ 1,2 s | Bau, G7 |
 | Lesezeit eines Textes | ≥ 0,5 s + 0,3 s je Wort; letzte Zeile ≥ 2 s; komplexes Diagramm (≥ 3 neue Elemente) 6–8 s | G6 |
+| Standdauer eines Textes | ≥ 1,7 s; im Normalfall steht Text bis zur nächsten Naht (gemessen, docs/research/referenz-destillation.md: kein Vorbild-Element unter 1,7 s, typisch 3–5 s; Entscheidung 27.10.) | G6 |
 | Gelandeter Text | 0 px/s bis zum Austritt; keine Atem-, Schwebe- oder Kriechschleifen | G7 |
 | Kamera steht in der Lesezeit | Kamera-Spur hat gleiche Schlüsselbilder vom Eintritt bis zum Ende der Lesezeit jedes HUD-Textes | Bau, G7 |
 | Gleichzeitige Bewegungen | ≤ 2 bewegte Ziele: eine Hauptbewegung plus ≤ 1 Nebenbewegung (50–70 % des Wegs, 100–200 ms später). Kamera zählt mit, Darsteller samt Schatten zählt als 1, Credits zählen nicht | G7 |
-| Cue | Eintritt beginnt am Anfang des Cue-Worts, Startwert −2 Bilder (v); Toleranz ±150 ms | G6 |
+| Cue | Eintritt beginnt am Anfang des Cue-Worts, Startwert −2 Bilder (gemessen, docs/research/referenz-destillation.md); Toleranz ±150 ms | G6 |
 | Bildwechsel | nur bei neu genanntem Gegenstand | G8 |
 | Austritt | 40–50 % der Eintrittsdauer: Unschärfe 8 px plus Deckkraft, 0,13–0,25 s, `power2.in`; nie gleiten, stoppen, gehen | G7 |
 | Eases nach Rolle | Ankunft `expo.out`/`power4.out`, Kamera `power2.inOut`, Austritt `power2.in`/`power3.in`; Federn (`back.out` ≤ 3) nur für Lage und Größe, nie für Deckkraft oder Farbe; `linear` nur für konstantes Tempo | G8 |
@@ -100,7 +101,7 @@ Grundlage sind `docs/VIDEO-PIPELINE.md` §3/§5/§6, `studio/spike-buehne/REVIEW
 
 | Übergang | bedeutet | Ausführung |
 |---|---|---|
-| Zoom-in | Detail derselben Welt | Kamerafahrt 1,4 s (v), `power2.inOut`, Zoom logarithmisch; erst nach der Lesezeit |
+| Zoom-in | Detail derselben Welt | Kamerafahrt 0,5 s, Spanne 0,4–0,7 s (gemessen, docs/research/referenz-destillation.md), `power2.inOut`, Zoom logarithmisch; erst nach der Lesezeit |
 | Morph | derselbe Gegenstand verwandelt | alt: Unschärfe 0 → 10 px, Maßstab 1 → 1,3, 0,18 s `power2.in`; neu nach +0,06 s: Unschärfe 10 → 0 px, Maßstab 0,72 → 1, 0,32 s `expo.out` |
 | Schnitt | neues Thema | hart, 0 Bilder, auf dem Nomen des neuen Gegenstands |
 
@@ -128,7 +129,13 @@ Verboten sind Kreuzblenden zwischen Welten, Wischblenden und Deko-Übergänge.
 | Unterstreichung | wie Kreis | 0,35 s, `power1.inOut` | Textbreite −6/+14 px, steigt 10 px an, Bogen 7 px; Abstand unter der Grundlinie 0,08–0,12 × Schriftgröße (v) | steht mit dem Text |
 | Pfeil (v, noch nicht gebaut) | 8 px | Schaft 0,4 s, Spitze 0,12 s danach | Bogen 8–15 % der Länge, Spitze aus 2 Strichen à 28 px mit 35°; zeigt vom Wort auf den Helden | mit der Szene |
 | Durchstrich | 10 px, nur Rot | 0,3 s, `power2.out` | ein Strich, −4°, 12 px Überstand je Seite | steht bis zur Widerlegung |
+| Haken / Kreuz | 10 px; Haken Creme oder Gold, Kreuz nur Rot | 0,15–0,2 s auf dem bewertenden Wort (gemessen) | Pinselstrich, zwei Züge | mit der Szene |
+| Klammer | 6 px | 0,4–0,7 s (gemessen) | geschweift oder eckig, fasst Teile zum Ganzen; Beschriftung am Scheitel | mit der Szene |
+| Flusspfeil | 8 px | 0,4–0,6 s, kommt auf dem Wort an (gemessen) | folgt der Flussrichtung des Bedeuteten (Geld, Ware, Person) | mit der Szene |
+| Textmarker | Fläche 35 % Gold unter dem Wort | 0,4 s von links (gemessen) | 1,15 × Zeilenhöhe | steht mit dem Text |
+| Abdunkeln | alles außer dem Gemeinten auf 35 % Deckkraft | 0,3 s | kein Strich | bis zum nächsten Beat |
 
+- **Häufigkeit (gemessen):** In 778 s Vorbild-Material kommt kein handgezeichneter Kreis vor; Kreise gibt es dort nur in Vorschaubildern. Häufig sind Haken/Kreuz, Klammern, Flusspfeile, Textmarker und Abdunkeln. Deshalb: höchstens 1 Kreis je Video, sonst die übrigen Marker.
 - **Farbe:** Creme für Ort oder Gegebenes, Gold für die gesuchte Größe, Rot nur für den Irrtum.
 - **Timing:** Das Zeichnen beginnt am Anfang des Cue-Worts (±150 ms). Danach steht der Marker ≥ 1,2 s fertig (Bau prüft).
 - **Ruhe im Umfeld:** Im Umkreis von 200 px ist der Marker das einzige helle Zeichen. Regionsrand ≤ 70 %, Schein ≤ 55 %; der Ortsname darf stehen.
@@ -202,19 +209,19 @@ Was nach Folie oder Standard-KI aussieht. G8 fragt an jedem Beat-Blatt: „Triff
 
 ## 9. Offene Werte (vorläufig)
 
-Bewegung, Schnitt und Tempo der Vorbilder sind noch nicht gemessen. Festgelegt werden sie durch die Referenz-Destillation: 2–3 Clips von Linus, ffmpeg misst Schnittlängen und Titel-Timing, nur die Zahlen kommen hierher. Bis dahin gelten diese Startwerte:
+Die Referenz-Destillation vom 27.10.2026 hat Schnitt, Titel-Timing und Tempo an fünf Vorbild-Clips gemessen (ZDF-Mediathek und Wikimedia Commons, je die ersten 180 s); nur die Zahlen stehen hier. Werte mit „gemessen“ gelten ab jetzt. Die übrigen Startwerte bleiben vorläufig, bis das Verfahren in der rechten Spalte sie festlegt:
 
-| Wert | Startwert | legt fest |
+| Wert | Stand | legt fest |
 |---|---|---|
-| Mittlere Einstellungsdauer (Schnittlänge) | 3,5 s, Spanne 2–8 s | Destillation |
-| Takt: etwas Neues im Bild | alle 2–4 s | Destillation |
-| Titel-Timing: Hook-Schlagzeile | ab Bild 0 sichtbar (Vorschaubild), steht 2,5 s | Destillation |
-| Titel-Timing: Eintritt relativ zum Wort | −2 Bilder (−67 ms) | Destillation, G6 |
-| Anteil harter Schnitte | ≤ ⅓ der Nähte | Destillation |
-| Sprechtempo | 2,3 Wörter/s (G4: 2,0–2,6) | Casting, Destillation |
-| Kamerafahrt / Flug | 1,4 s / 1,7 s | Destillation |
+| Mittlere Einstellungsdauer (Schnittlänge) | 5 s (Median), Spanne 2–12 s (p10–p90) (gemessen, docs/research/referenz-destillation.md) | Destillation |
+| Takt: etwas Neues im Bild | alle 3–4 s, nie länger als 8 s ohne neues Element (gemessen, docs/research/referenz-destillation.md) | Destillation |
+| Titel-Timing: Hook-Schlagzeile | ab Bild 0 sichtbar (Vorschaubild; nicht messbar, bleibt vorläufig), steht 3 s (gemessen, docs/research/referenz-destillation.md) | Destillation |
+| Titel-Timing: Eintritt relativ zum Wort | −2 Bilder (−67 ms), bestätigt: Vorbilder im Median −20 ms (gemessen, docs/research/referenz-destillation.md) | Destillation, G6 |
+| Anteil harter Schnitte | ≤ ⅓ der Nähte, bestätigt: Grafik-Erklärer 0–21 % (gemessen, docs/research/referenz-destillation.md) | Destillation |
+| Sprechtempo | 2,2 Wörter/s (G4: 2,0–2,6) (gemessen, docs/research/referenz-destillation.md) | Casting, Destillation |
+| Kamerafahrt / Flug | 0,5 s, Spanne 0,4–0,7 s (gemessen, docs/research/referenz-destillation.md) / 1,7 s (vorläufig, kein Vorbild) | Destillation |
 | Denkpause vor der Auflösung (im MP4) | 2,0 s (1,5–2,5) | Kalibrierung |
 | Abstand der Unterstreichung, Pfeil-Maße | siehe §6 | Goldstandard |
 | Passer-Versatz / Rasterpunkt-Zelle | 4 px / im Handy-Blatt sichtbar | Goldstandard (Handy-Blatt 360 px) |
 | Untertitel- und App-Zone | y 1350–1490 / ab 1520 | Gerätetest |
-| Text-Standard | 52 px (Grenze 48–56) | Goldstandard |
+| Text-Standard | 52 px (Grenze 48–56); Vorbild-Labels entsprechen im Median 51 px (gemessen, docs/research/referenz-destillation.md) | Goldstandard |

@@ -1,0 +1,9 @@
+# Gerenderte Videos, Studio-Zwischenstände und Bau-Cache gehören nicht ins Repo.
+renders/
+.hyperframes/
+snapshots/
+build/cache/
+build/node_modules/
+build/__pycache__/
+# Die WAV ist nur die verlustfreie Zwischenstufe; ins Video geht assets/voice.m4a.
+assets/voice.wav
