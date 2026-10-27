@@ -1,0 +1,74 @@
+<!doctype html>
+<!--
+  Goldstandard "Opportunitätskosten: Was kostet es, Lewandowski zu behalten?" (Phase 1).
+  Bauweise A+ (studio/spike-buehne/REVIEW.md): Zwei Bühnen über die volle Länge ihrer Welt
+  (Atlas bis zum Schnitt, danach Diagramm), darüber je Szene ein HUD mit festem Text.
+  Die Wurzel hält nur Hosts und die Tonspur. Alle Zeiten schreibt build/bauen.mjs.
+  Drehbuch: drehbuch.md · Fakten: fakten.json · Gestaltung: ../DESIGN.md · Bericht: REVIEW.md
+-->
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <!-- GSAP liegt lokal (assets/gsap.min.js, Prüfsumme im Bau): Das Video lädt nichts aus dem Netz. -->
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #0E1726; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="68.6" data-width="1080" data-height="1920">
+      <!-- Bühnen: Welt, Kamera, Darsteller. Der Wechsel Atlas -> Diagramm ist der harte Schnitt auf "Waage". -->
+      <div id="atlas" data-composition-id="atlas" data-composition-src="compositions/atlas.html"
+        data-start="0" data-duration="50.267" data-track-index="1" data-track-kind="graphics"
+        data-width="1080" data-height="1920" style="z-index:1"></div>
+      <div id="diagramm" data-composition-id="diagramm" data-composition-src="compositions/diagramm.html"
+        data-start="50.267" data-duration="18.333" data-track-index="1" data-track-kind="graphics"
+        data-width="1080" data-height="1920" style="z-index:1"></div>
+      <!-- HUD je Szene: nur fester Text -->
+      <div id="hook" data-composition-id="hook" data-composition-src="compositions/hook.html"
+        data-start="0" data-duration="8.867" data-track-index="2" data-track-kind="graphics"
+        data-width="1080" data-height="1920" style="z-index:10"></div>
+      <div id="naheliegend" data-composition-id="naheliegend" data-composition-src="compositions/naheliegend.html"
+        data-start="8.867" data-duration="5.633" data-track-index="2" data-track-kind="graphics"
+        data-width="1080" data-height="1920" style="z-index:10"></div>
+      <div id="vertrag" data-composition-id="vertrag" data-composition-src="compositions/vertrag.html"
+        data-start="14.5" data-duration="7.367" data-track-index="2" data-track-kind="graphics"
+        data-width="1080" data-height="1920" style="z-index:10"></div>
+      <div id="angebot" data-composition-id="angebot" data-composition-src="compositions/angebot.html"
+        data-start="21.867" data-duration="3.833" data-track-index="2" data-track-kind="graphics"
+        data-width="1080" data-height="1920" style="z-index:10"></div>
+      <div id="widerlegung" data-composition-id="widerlegung" data-composition-src="compositions/widerlegung.html"
+        data-start="25.7" data-duration="7.267" data-track-index="2" data-track-kind="graphics"
+        data-width="1080" data-height="1920" style="z-index:10"></div>
+      <div id="entgangen" data-composition-id="entgangen" data-composition-src="compositions/entgangen.html"
+        data-start="32.967" data-duration="3.033" data-track-index="2" data-track-kind="graphics"
+        data-width="1080" data-height="1920" style="z-index:10"></div>
+      <div id="begriff" data-composition-id="begriff" data-composition-src="compositions/begriff.html"
+        data-start="36" data-duration="6.5" data-track-index="2" data-track-kind="graphics"
+        data-width="1080" data-height="1920" style="z-index:10"></div>
+      <div id="verkauf" data-composition-id="verkauf" data-composition-src="compositions/verkauf.html"
+        data-start="42.5" data-duration="7.767" data-track-index="2" data-track-kind="graphics"
+        data-width="1080" data-height="1920" style="z-index:10"></div>
+      <div id="modell" data-composition-id="modell" data-composition-src="compositions/modell.html"
+        data-start="50.267" data-duration="0.9" data-track-index="2" data-track-kind="graphics"
+        data-width="1080" data-height="1920" style="z-index:10"></div>
+      <div id="transfer" data-composition-id="transfer" data-composition-src="compositions/transfer.html"
+        data-start="51.167" data-duration="6.4" data-track-index="2" data-track-kind="graphics"
+        data-width="1080" data-height="1920" style="z-index:10"></div>
+      <div id="transfer_lohn" data-composition-id="transfer_lohn" data-composition-src="compositions/transfer_lohn.html"
+        data-start="57.567" data-duration="5.367" data-track-index="2" data-track-kind="graphics"
+        data-width="1080" data-height="1920" style="z-index:10"></div>
+      <div id="satz" data-composition-id="satz" data-composition-src="compositions/satz.html"
+        data-start="62.933" data-duration="5.667" data-track-index="2" data-track-kind="graphics"
+        data-width="1080" data-height="1920" style="z-index:10"></div>
+      <!-- Stimme: PLATZHALTER (Piper), Tausch über build/voice.py --anbieter. Keine Musik (Leitregel). -->
+      <audio id="stimme" src="assets/voice.m4a" data-start="0" data-duration="68.6" data-track-index="4" data-volume="1"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

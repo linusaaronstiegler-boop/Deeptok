@@ -1,0 +1,221 @@
+<!--
+  Welt-Fragment Atlas (Bühne, Beats 1-8): Karte, Orte, Waage, Darsteller (Spieler, Beleg, Geld),
+  Etiketten an Schalen und eine Marker-Ebene. build/bauen.mjs setzt dieses Stück in
+  compositions/atlas.html ein und füllt dabei Karte (@karte), Ländernamen (@laender), Münzen
+  (@muenzen) und Spielfigur (@spielfigur) ein. Alle Positionen setzt lib/buehne.js -> render(t);
+  hier steht nur das Aussehen. Maße der Waage: DATEN.waage (bauen.mjs), Farben: studio/DESIGN.md §4.
+-->
+<style>
+  /* @schriften:anfang */
+  /* @schriften:ende */
+  #w-buehne { position: absolute; inset: 0; overflow: hidden; background: #0E1726; }
+  #w-svg { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+  /* Karte: entsättigt, dunkel, eine Region leuchtet (Kartentöne aus DESIGN.md §4). */
+  #w-land { fill: #222D40; stroke: #5A6880; stroke-linejoin: round; filter: url(#w-papier); }
+  #w-netz { fill: none; stroke: rgba(245, 240, 232, 0.08); }
+  #w-grenzen { fill: none; stroke: #36435A; stroke-linejoin: round; }
+  .w-hl { stroke-linejoin: round; }
+  .w-hl .w-hl-flaeche { fill: #2A4069; stroke: none; }
+  .w-hl .w-hl-schein { fill: none; stroke: #6F8FC4; stroke-opacity: 0.55; filter: url(#w-weich); }
+  .w-hl .w-hl-rand { fill: none; stroke: #9DB2D6; stroke-opacity: 0.7; }
+  /* Weg des Spielers: Creme gepunktet (drehbuch.md, Abweichung 2: Gold zeigte vor der
+     Denkpause auf die Antwort). Runde Kappen machen aus Strichen Punkte. */
+  #w-route { fill: none; stroke: #F5F0E8; stroke-opacity: 0.85; stroke-linecap: round; }
+
+  /* Anker: 0x0-Hülle am Ort, render() verschiebt sie. .w-rand blendet Namen vor dem Bildrand aus. */
+  .w-anker { position: absolute; left: 0; top: 0; width: 0; height: 0; }
+  .w-rand { position: absolute; left: 0; top: 0; width: 0; height: 0; }
+  .w-ort { z-index: 2; }
+  .w-punkt { position: absolute; left: -12px; top: -12px; width: 24px; height: 24px; border-radius: 50%;
+    background: #F5F0E8; box-shadow: 0 0 0 6px rgba(14, 23, 38, 0.85); }
+  .w-name { position: absolute; top: -31px; white-space: nowrap;
+    font-family: "DT Inter", sans-serif; font-weight: 600; font-size: 48px; line-height: 62px; color: #F5F0E8;
+    text-shadow: 0 2px 18px rgba(14, 23, 38, 0.9), 0 0 4px rgba(14, 23, 38, 0.9); }
+  /* Namen links vom Punkt: rechts davon stehen Spielfigur, Preisschilder und Stapel. */
+  .w-name-links { right: 30px; }
+  /* München: weiter links, damit der Fuß der Spielfigur den Namen nicht verdeckt. */
+  #w-name-muenchen { right: 92px; }
+  .w-rand.w-mitte { display: flex; justify-content: center; }
+  .w-land-name { position: relative; top: -21px; flex: none; white-space: nowrap;
+    font-family: "DT Inter", sans-serif; font-weight: 600; font-size: 34px; line-height: 42px;
+    letter-spacing: 0.32em; color: rgba(245, 240, 232, 0.46); }
+  #w-land-frankreich, #w-land-spanien, #w-land-italien { z-index: 2; }
+
+  /* Waage: Navy-Fläche mit Creme-Lichtkante und Schlagschatten, eigene Zeichnung. */
+  #w-waage { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 3; }
+  #w-waage-svg { position: absolute; left: -540px; top: -720px; width: 1080px; height: 800px; overflow: visible; }
+  .wg-flaeche { fill: #1F3864; }
+  .wg-kante { fill: none; stroke: #F5F0E8; stroke-opacity: 0.75; stroke-width: 2.5; stroke-linecap: round; }
+  .wg-kette { fill: none; stroke: #F5F0E8; stroke-opacity: 0.55; stroke-width: 2; }
+  .wg-front-text { font-family: "DT Inter", sans-serif; font-weight: 600; font-size: 48px; fill: #F5F0E8; }
+
+  /* Darsteller: Hülle = Fußpunkt (Mitte unten). render() besitzt Hülle, Figur-Neigung, Schatten. */
+  .a-huelle { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 5; }
+  .a-figur { position: absolute; left: 0; top: 0; width: 0; height: 0; }
+  .a-schatten { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 4; }
+  .a-schatten-oval { position: absolute; left: -96px; top: -20px; width: 192px; height: 40px; border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(14, 23, 38, 0.95), rgba(14, 23, 38, 0)); }
+  #a-spieler-bild { position: absolute; left: -80px; top: -300px; width: 160px; height: 300px; overflow: visible; }
+  #a-geld-bild { position: absolute; left: -80px; top: -300px; width: 160px; height: 310px; overflow: visible; }
+  .a-etikett { position: absolute; white-space: nowrap; font-family: "DT Inter", sans-serif; font-weight: 600;
+    font-size: 52px; line-height: 62px; color: #F5F0E8; text-shadow: 0 2px 18px rgba(14, 23, 38, 0.9), 0 0 4px rgba(14, 23, 38, 0.9); }
+  #a-spieler-name { right: 104px; top: -118px; }
+
+  /* Preisschilder: Creme-Papier mit Loch, Navy-Schrift (Navy auf Creme 15,8 : 1). Sie hängen
+     an Fäden von der Spielfigur. Drehpunkt ist das Loch, darum pendeln sie beim Einhängen. */
+  #a-schilder-faeden { position: absolute; left: 0; top: 0; width: 1px; height: 1px; overflow: visible; }
+  #a-schilder-faeden path { fill: none; stroke: #F5F0E8; stroke-opacity: 0.7; stroke-width: 2; }
+  .a-schild { position: absolute; height: 76px; filter: drop-shadow(0 6px 10px rgba(14, 23, 38, 0.75)); }
+  .a-schild-papier { position: absolute; inset: 0; background: #F5F0E8;
+    clip-path: polygon(0 0, calc(100% - 40px) 0, 100% 50%, calc(100% - 40px) 100%, 0 100%); }
+  .a-schild-loch { position: absolute; right: 22px; top: 31px; width: 14px; height: 14px; border-radius: 50%; background: #0E1726; }
+  .a-schild-text { position: absolute; left: 24px; top: 7px; white-space: nowrap; font-family: "DT Inter", sans-serif;
+    font-weight: 600; font-size: 48px; line-height: 62px; color: #0E1726; }
+
+  /* Gehalt-Beleg: Creme-Papier, gedruckt "Gehalt", Stempel "bezahlt" (Navy). */
+  #a-beleg-papier { position: absolute; left: -102px; top: -232px; width: 204px; height: 232px; background: #F5F0E8;
+    box-shadow: 0 8px 16px rgba(14, 23, 38, 0.7); transform: rotate(-2deg); transform-origin: 50% 100%; }
+  #a-beleg-titel { position: absolute; left: 0; right: 0; top: 18px; text-align: center; font-family: "DT Inter", sans-serif;
+    font-weight: 600; font-size: 48px; line-height: 62px; color: #0E1726; }
+  .a-beleg-zeile { position: absolute; left: 22px; right: 22px; height: 6px; background: #0E1726; opacity: 0.18; }
+  #a-beleg-stempel { position: absolute; left: 5px; top: 128px; padding: 0 6px; border: 4px solid #1F3864; border-radius: 8px;
+    font-family: "DT Inter", sans-serif; font-weight: 600; font-size: 48px; line-height: 58px; color: #1F3864; white-space: nowrap; }
+
+  /* Etiketten an der Waage (an Schalen verankert). Gold nur für die gesuchte Größe. */
+  .w-etikett { position: absolute; white-space: nowrap; font-family: "DT Inter", sans-serif; font-weight: 600;
+    font-size: 52px; line-height: 62px; text-shadow: 0 2px 18px rgba(14, 23, 38, 0.9), 0 0 4px rgba(14, 23, 38, 0.9); }
+  .w-gold { color: #C9A84C; }
+  .w-creme { color: #F5F0E8; }
+  #w-reihe { z-index: 6; }
+  #w-reihe .w-etikett { left: -162px; top: 80px; }
+  #w-tore-anker { z-index: 6; }
+  #w-tore { left: -210px; top: -260px; }
+  #w-ok-anker { z-index: 6; }
+  #w-ok { left: -230px; width: 460px; top: -276px; text-align: center; }
+  #w-saison { left: -230px; width: 460px; top: -134px; text-align: center; }
+
+  /* Licht: Vignette (radial, kein linearer Verlauf: der bildet im H.264-Video Streifen). */
+  #w-vignette { position: absolute; inset: 0; pointer-events: none; z-index: 1;
+    background: radial-gradient(115% 75% at 50% 50%, rgba(14, 23, 38, 0) 55%, rgba(5, 9, 17, 0.7) 100%); }
+  #m-ebene { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; z-index: 7; overflow: visible; pointer-events: none; }
+</style>
+<div id="w-buehne">
+  <svg id="w-svg" viewBox="0 0 1080 1920" aria-hidden="true" data-layout-allow-overflow>
+    <defs>
+      <filter id="w-weich" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="4" /></filter>
+      <!-- Papier-Schatten: Das Land liegt wie ausgeschnittenes Papier auf dem Meer. -->
+      <filter id="w-papier" x="-5%" y="-5%" width="110%" height="110%"><feDropShadow dx="0" dy="2.5" stdDeviation="3" flood-color="#0E1726" flood-opacity="0.9" /></filter>
+    </defs>
+    <g id="w-kamera">
+        <!-- @karte -->
+    </g>
+  </svg>
+  <div id="w-vignette" data-layout-ignore></div>
+  <!-- @laender -->
+  <div id="w-ort-muenchen" class="w-anker w-ort" data-anker="ort:muenchen">
+    <div id="w-punkt-muenchen" class="w-punkt"></div>
+    <div class="w-rand" data-bis-zoom="1.9"><div id="w-name-muenchen" class="w-name w-name-links">München</div></div>
+  </div>
+  <div id="w-ort-barcelona" class="w-anker w-ort" data-anker="ort:barcelona">
+    <div id="w-punkt-barcelona" class="w-punkt"></div>
+    <div class="w-rand"><div id="w-name-barcelona" class="w-name w-name-links">Barcelona</div></div>
+  </div>
+
+  <!-- Waage. render() setzt: Fuß (#w-waage) an München, Balken-Drehung, Schalen, Ketten.
+       GSAP besitzt nur #w-saeule-auf und #w-oben (Aufrichten beim ersten Auftritt). -->
+  <div id="w-waage">
+    <svg id="w-waage-svg" viewBox="-540 -720 1080 800" aria-hidden="true">
+      <ellipse cx="0" cy="4" rx="230" ry="20" fill="#0E1726" fill-opacity="0.75" filter="url(#w-weich)" />
+      <g id="w-saeule-auf">
+        <path class="wg-flaeche" d="M-92 0 L-62 -26 L62 -26 L92 0 Z" />
+        <path class="wg-kante" d="M-62 -26 L62 -26" />
+        <rect class="wg-flaeche" x="-11" y="-500" width="22" height="476" />
+        <path class="wg-kante" d="M-6 -490 L-6 -30" />
+      </g>
+      <g id="w-oben">
+        <path id="w-kette-l" class="wg-kette" d="" />
+        <path id="w-kette-r" class="wg-kette" d="" />
+        <!-- Balken mit Zunge: dreht um den Drehpunkt (0, -500). -->
+        <g id="w-balken">
+          <path class="wg-flaeche" d="M0 -546 L7 -508 L-7 -508 Z" />
+          <path class="wg-flaeche" d="M-270 -505 Q0 -517 270 -505 L270 -495 Q0 -484 -270 -495 Z" />
+          <path class="wg-kante" d="M-262 -505 Q0 -516 262 -505" />
+          <circle cx="-270" cy="-500" r="9" fill="none" stroke="#F5F0E8" stroke-opacity="0.8" stroke-width="3" />
+          <circle cx="270" cy="-500" r="9" fill="none" stroke="#F5F0E8" stroke-opacity="0.8" stroke-width="3" />
+        </g>
+        <circle cx="0" cy="-500" r="17" class="wg-flaeche" stroke="#F5F0E8" stroke-opacity="0.8" stroke-width="3" />
+        <!-- Schalen: Ursprung = Mitte des Schalenrands; Vorderseite trägt den Namen. -->
+        <g id="w-schale-l">
+          <ellipse cx="0" cy="0" rx="170" ry="15" fill="#0E1726" />
+          <path class="wg-flaeche" d="M-170 0 L170 0 L150 66 L-150 66 Z" />
+          <path class="wg-kante" d="M-170 0 L170 0" />
+          <text class="wg-front-text" x="0" y="49" text-anchor="middle">Kosten</text>
+        </g>
+        <g id="w-schale-r">
+          <ellipse cx="0" cy="0" rx="170" ry="15" fill="#0E1726" />
+          <path class="wg-flaeche" d="M-170 0 L170 0 L150 66 L-150 66 Z" />
+          <path class="wg-kante" d="M-170 0 L170 0" />
+          <text class="wg-front-text" x="0" y="49" text-anchor="middle">Nutzen</text>
+        </g>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Darsteller 1: der Spieler als Spielfigur (Creme = gegeben), dazu Name und Preisschilder. -->
+  <div id="a-spieler-schatten" class="a-schatten"><div class="a-schatten-oval"></div></div>
+  <div id="a-spieler" class="a-huelle">
+    <div id="a-spieler-figur" class="a-figur">
+      <svg id="a-spieler-bild" viewBox="-80 -300 160 300" aria-hidden="true"><!-- @spielfigur --></svg>
+      <div id="a-spieler-name" class="a-etikett">Lewandowski</div>
+      <svg id="a-schilder-faeden" aria-hidden="true">
+        <path id="a-faden-1" d="M38 -22 C80 40 120 120 156 188" />
+        <path id="a-faden-2" d="M44 -16 C90 60 128 170 156 282" />
+        <path id="a-faden-3" d="M50 -10 C96 80 134 220 156 376" />
+      </svg>
+      <!-- Reihenfolge wie im Drehbuch: Irrtum, richtig, zweiter Irrtum. Die Breiten sind gemessen
+           (Text 48 px + 24 px links + 54 px Spitze mit Loch); rechte Kante bei x = +180 (Loch bei +156). -->
+      <div id="a-schild-1" class="a-schild" style="left: -254px; top: 150px; width: 434px; transform-origin: 410px 38px;">
+        <div class="a-schild-papier"></div><div class="a-schild-loch"></div><div class="a-schild-text">Nur sein Gehalt</div>
+      </div>
+      <div id="a-schild-2" class="a-schild" style="left: -385px; top: 244px; width: 565px; transform-origin: 541px 38px;">
+        <div class="a-schild-papier"></div><div class="a-schild-loch"></div><div class="a-schild-text">Gehalt + Barças Geld</div>
+      </div>
+      <div id="a-schild-3" class="a-schild" style="left: -311px; top: 338px; width: 491px; transform-origin: 467px 38px;">
+        <div class="a-schild-papier"></div><div class="a-schild-loch"></div><div class="a-schild-text">Nichts, er ist ja da</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Darsteller 2: der Gehalt-Beleg (Creme = bezahlt, gegeben). -->
+  <div id="a-beleg" class="a-huelle">
+    <div id="a-beleg-figur" class="a-figur">
+      <div id="a-beleg-papier">
+        <div id="a-beleg-titel">Gehalt</div>
+        <div class="a-beleg-zeile" style="top: 96px"></div>
+        <div class="a-beleg-zeile" style="top: 112px; right: 70px"></div>
+        <div class="a-beleg-zeile" style="top: 200px; right: 110px"></div>
+        <div id="a-beleg-stempel">bezahlt</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Darsteller 3: das Geld aus Barcelona (Gold = gesuchte Größe). Wechselt nie die Form. -->
+  <div id="a-geld-schatten" class="a-schatten"><div class="a-schatten-oval"></div></div>
+  <div id="a-geld" class="a-huelle">
+    <div id="a-geld-figur" class="a-figur">
+      <svg id="a-geld-bild" viewBox="-80 -300 160 310" aria-hidden="true"><!-- @muenzen --></svg>
+    </div>
+  </div>
+
+  <!-- Etiketten an den Schalen. Unter dem Stapel: "45 Mio. €" -> "entgangen" -> "aufgegeben" (Morphs). -->
+  <div id="w-reihe" class="w-anker" data-anker="schale:links">
+    <div id="w-reihe-zahl" class="w-etikett w-gold">45&nbsp;Mio.&nbsp;€</div>
+    <div id="w-reihe-entgangen" class="w-etikett w-gold">entgangen</div>
+    <div id="w-reihe-aufgegeben" class="w-etikett w-gold">aufgegeben</div>
+  </div>
+  <div id="w-tore-anker" class="w-anker" data-anker="schale:rechts"><div id="w-tore" class="w-etikett w-creme">Tore</div></div>
+  <div id="w-ok-anker" class="w-anker" data-anker="schale:rechts">
+    <div id="w-ok" class="w-etikett w-creme">Opportunitäts-<br />kosten</div>
+    <div id="w-saison" class="w-etikett w-creme">1&nbsp;Saison</div>
+  </div>
+</div>

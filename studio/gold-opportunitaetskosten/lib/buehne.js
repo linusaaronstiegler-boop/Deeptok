@@ -201,7 +201,7 @@
       }
       if (teile[0] === "schale") {
         var s = teile[1] === "links" ? g.schaleL : g.schaleR;
-        return { x: fuss.x + s.x + Number(teile[2] || 0), y: fuss.y + s.y, schale: true };
+        return { x: fuss.x + s.x + Number(teile[2] || 0), y: fuss.y + s.y + Number(teile[3] || 0), schale: true };
       }
       if (teile[0] === "bild") return { x: Number(teile[1]), y: Number(teile[2]), schale: false };
       throw new Error("Bühne: unbekannter Platz '" + name + "'");
@@ -219,8 +219,26 @@
       };
     });
 
+    // Größe eines Darstellers: "skala" am Abschnitt gilt am Ziel; davor die des vorigen Abschnitts.
+    function skalaVon(liste, i) {
+      for (var j = i; j >= 0; j--) if (liste[j].skala !== undefined) return liste[j].skala;
+      return 1;
+    }
+
     // Zustand eines Darstellers zur Zeit t (rein rechnerisch)
     function darsteller(n, t, k, g, fuss) {
+      var z = darstellerOhneSkala(n, t, k, g, fuss);
+      var liste = akteure[n];
+      var i = 0;
+      while (i + 1 < liste.length && liste[i + 1].ab <= t) i++;
+      var ziel = skalaVon(liste, i);
+      var start = skalaVon(liste, i - 1);
+      var s = liste[i];
+      var u = s && t < s.bis && t >= s.ab ? easeFn("power2.inOut")((t - s.ab) / (s.bis - s.ab || 1e-9)) : 1;
+      z.skala = start + (ziel - start) * u;
+      return z;
+    }
+    function darstellerOhneSkala(n, t, k, g, fuss) {
       var liste = akteure[n];
       if (!liste.length || t < liste[0].ab) return { sicht: 0, x: -999, y: -999, h: 0, gx: -999, gy: -999, neigung: 0, schatten: 0 };
       var i = 0;
@@ -379,7 +397,7 @@
         el.huelle.style.transform = "translate(" + d.x.toFixed(1) + "px, " + d.y.toFixed(1) + "px)";
         el.huelle.style.opacity = d.sicht.toFixed(3);
         el.huelle.style.visibility = d.sicht > 0.001 ? "visible" : "hidden";
-        el.figur.style.transform = "rotate(" + d.neigung.toFixed(2) + "deg)";
+        el.figur.style.transform = "rotate(" + d.neigung.toFixed(2) + "deg) scale(" + d.skala.toFixed(4) + ")";
         if (el.schatten) {
           var hs = Math.max(0, 1 - d.h / 260); // je höher, desto kleiner und blasser
           el.schatten.style.transform = "translate(" + d.gx.toFixed(1) + "px, " + d.gy.toFixed(1) + "px) scale(" + (0.55 + 0.45 * hs).toFixed(3) + ")";

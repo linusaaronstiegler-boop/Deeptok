@@ -384,6 +384,31 @@ def baue_timing(teile: list[dict], dauer: float, anbieter: str, stimme: dict) ->
 # 5. Prüfung mit Whisper: Wie weit liegt jedes Cue-Wort neben der gehörten Zeit?
 # ------------------------------------------------------------------------------------------
 
+def pruefe_einsaetze(timing: dict, audio_pfad: Path) -> dict:
+    """Physikalische Gegenprobe ohne Whisper: Nach jeder Pause (>= 0,25 s) ist der Wortanfang der
+    erste Moment, in dem es wieder laut wird. Gesucht wird ab 0,12 s vor dem Wort (dort ist noch
+    Stille), in 1-ms-Schritten über Samples (nicht über gezählte Fenster: 44 Samples sind nicht
+    genau 1 ms, das gäbe eine Scheindrift von 0,2 %).
+    """
+    with wave.open(str(audio_pfad)) as w:
+        rate = w.getframerate()
+        a = np.frombuffer(w.readframes(w.getnframes()), dtype="<i2").astype(np.float32) / 32768
+    schritt = max(1, rate // 1000)
+    woerter = [w for s in timing["scenes"] for satz in s["sentences"] for w in satz["words"]]
+    abw = {}
+    for i, wd in enumerate(woerter):
+        if i == 0 or wd["start"] - woerter[i - 1]["end"] < 0.25:
+            continue
+        k = int((wd["start"] - 0.12) * rate)
+        while k < len(a) - schritt and 20 * np.log10(np.sqrt(np.mean(a[k:k + schritt] ** 2)) + 1e-9) < STILLE_DB:
+            k += schritt
+        abw[f"{wd['text']}@{wd['start']}"] = round((k / rate - wd["start"]) * 1000)
+    werte = [abs(v) for v in abw.values()]
+    return {"verfahren": "Energie-Anfang nach Pausen (>= 0,25 s), Schwelle -45 dBFS",
+            "n": len(werte), "max_ms": max(werte) if werte else None,
+            "median_ms": int(np.median(werte)) if werte else None, "woerter": abw}
+
+
 def pruefe_cues(timing: dict, audio_pfad: Path) -> dict:
     """faster-whisper (small, de) hört die Tonspur unabhängig ab und liefert Wortanfänge.
 
@@ -454,8 +479,9 @@ def main() -> None:
     if args.nur_pruefen:
         timing = json.loads(timing_pfad.read_text())
         timing["pruefung"] = pruefe_cues(timing, ASSETS / "voice.wav")
+        timing["pruefung_einsaetze"] = pruefe_einsaetze(timing, ASSETS / "voice.wav")
         timing_pfad.write_text(json.dumps(timing, ensure_ascii=False, indent=1))
-        zeige_pruefung(timing["pruefung"])
+        zeige_pruefung(timing["pruefung"], timing["pruefung_einsaetze"])
         return
 
     adapter, stimme = lade_anbieter(args.anbieter, args.stimme)
@@ -516,15 +542,18 @@ def main() -> None:
     timing["woerter"] = woerter
     timing["woerter_pro_s"] = round(woerter / sprechzeit, 2)
     timing["pruefung"] = pruefe_cues(timing, ASSETS / "voice.wav")
+    timing["pruefung_einsaetze"] = pruefe_einsaetze(timing, ASSETS / "voice.wav")
     timing_pfad.write_text(json.dumps(timing, ensure_ascii=False, indent=1))
 
     for sc in timing["scenes"]:
         print(f"{sc['id']:14s} {sc['start']:6.2f} -> {sc['end']:6.2f}")
     print(f"gesamt {dauer:.2f} s, {woerter} Wörter, {timing['woerter_pro_s']} Wörter/s (ohne Pausen)")
-    zeige_pruefung(timing["pruefung"])
+    zeige_pruefung(timing["pruefung"], timing["pruefung_einsaetze"])
 
 
-def zeige_pruefung(p: dict) -> None:
+def zeige_pruefung(p: dict, e: dict | None = None) -> None:
+    if e:
+        print(f"Wortanfang nach Pausen (Energie, ohne Whisper): {e['n']} Wörter, max {e['max_ms']} ms, Median {e['median_ms']} ms")
     print(f"Cue-Abweichung (Whisper): {p['cues_gefunden']}/{p['cues_gesamt']} Cues gehört, "
           f"max {p['max_ms']} ms, Median |d| {p['median_abs_ms']} ms; über 150 ms: {p['ueber_150ms'] or 'keine'}")
     print(f"  Whisper-Versatz (Median) {p['whisper_versatz_ms']} ms; bereinigt max {p['max_bereinigt_ms']} ms, "

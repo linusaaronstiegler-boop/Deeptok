@@ -1723,5 +1723,39 @@
     "whisper_in_stille": false
    }
   }
+ },
+ "pruefung_einsaetze": {
+  "verfahren": "Energie-Anfang nach Pausen (>= 0,25 s), Schwelle -45 dBFS",
+  "n": 26,
+  "max_ms": 99,
+  "median_ms": 6,
+  "woerter": {
+   "Bayern@2.326": 4,
+   "Was@4.417": 8,
+   "Naheliegend@8.638": -6,
+   "Denn@11.252": -2,
+   "Dafür@12.96": -2,
+   "Doch@14.702": 0,
+   "Verlängern@17.292": -28,
+   "Danach@18.687": -9,
+   "Barcelona@22.066": 9,
+   "Nur@25.91": -3,
+   "Das@27.316": -2,
+   "Verkaufen@28.594": -11,
+   "Entgangenes@33.17": -1,
+   "Ökonomen@36.212": -27,
+   "Das@39.128": 0,
+   "Im@42.693": -49,
+   "Auch@44.586": -99,
+   "eine@47.048": -25,
+   "Jede@48.987": 6,
+   "Du@51.38": -6,
+   "Genau@54.469": -6,
+   "Also@57.779": -27,
+   "Das@59.928": -6,
+   "Gratis@61.358": -4,
+   "Auch@63.135": -58,
+   "Es@65.029": -12
+  }
  }
 }

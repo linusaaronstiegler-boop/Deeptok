@@ -82,7 +82,6 @@ function ableiten(w) {
   z.spielerFall = w.lewa;
   z.nameSpieler = w.lewa + PHYSIK.fallzeit;
   z.routeAus = w.verkaufen + 0.8; // Route ist gezeichnet
-  z.kreisFigurAus = w.optionen - 0.15; // Kreis macht den Preisschildern Platz
   // Beat 3: Schilder und Titel treten ab, dann Zoom, dann richtet sich die Waage auf
   z.hookAus = w.waage;
   z.zoomIn = w.waage + 0.25;
@@ -98,12 +97,12 @@ function ableiten(w) {
   z.band = w.vertrag + 0.1;
   z.bandEnde = z.band + 1.0;
   // Beat 5: Angebot. Texte treten ab, bevor die Kamera fährt (Kamera steht in der Lesezeit)
-  z.vertragAus = w.angebot - 0.3;
+  z.vertragAus = w.angebot - 0.4;
   z.fahrtBarcelona = w.angebot;
   z.fahrtBarcelonaEnde = w.angebot + SCHWENK;
   z.geldFall = w.zahl;
   z.geldLandetBcn = w.zahl + PHYSIK.fallzeit;
-  z.zahlText = w.zahl + 0.12;
+  z.zahlText = z.geldLandetBcn + 0.06; // die Zahl kommt mit dem Aufprall, nicht durch den fallenden Stapel
   // Beat 6a: Widerlegung
   z.widerlegung = z.s_widerlegung; // "Nur sein Gehalt?" kommt zurück, wenn es gesprochen wird
   z.abflugGeld = w.landung - PHYSIK.flugzeit; // der Bau rechnet die Flugzeit zurück
@@ -131,9 +130,8 @@ function ableiten(w) {
   z.lohnZeichnen = w.lohn_da;
   z.lohnFlug = w.lohn;
   z.lohnFlugEnde = w.lohn + 0.6;
-  z.lohnKreis = w.lohn + 0.65;
-  z.nachhilfeAus = z.s_satz;
-  z.gratisAus = z.s_satz;
+  z.nachhilfeAus = z.s_satz - 0.4;
+  z.gratisAus = w.kosten2 - 0.25; // steht bis kurz vor "Aufgeben = Kosten" (Text >= 1,7 s)
   return z;
 }
 export const ZEIT = ableiten(WORTE);
@@ -147,11 +145,10 @@ function pruefeZeiten(z) {
   };
   mindestens("Frage steht in den ersten 8 s (8 - Ende der Frage)", 8 - z.pause, 0);
   mindestens("Denkpause", z.pauseEnde - z.pause, 1.5);
-  mindestens("Kreis um die Figur steht fertig", z.kreisFigurAus - (z.behalten + MARKER.kreis), HALTEN);
   mindestens("Zoom endet, bevor der Beleg fällt", z.belegFall - z.zoomInEnde, 0);
   mindestens("Spieler steht auf der Schale, bevor die Waage kippt", z.neigungRechts - (z.spielerHopp + PHYSIK.schrittzeit), HALTEN);
   mindestens("Band läuft ab, bevor der Kreis um das Datum kommt", z.saison - z.bandEnde, 0);
-  mindestens("Kreis um 30.06.2023 steht fertig", z.verlaengern - (z.saison + MARKER.kreis), HALTEN);
+  mindestens("Unterstreichung unter 30.06.2023 steht fertig", z.vertragAus - (z.saison + MARKER.linie), HALTEN);
   mindestens("'ablösefrei: 0 €' steht vor der Kamerafahrt", z.vertragAus - z.frei, HALTEN);
   mindestens("Kamera steht in Barcelona, bevor das Geld fällt", z.geldFall - z.fahrtBarcelonaEnde, 0);
   mindestens("Geld ruht in Barcelona (Halten)", z.abflugGeld - z.geldLandetBcn, HALTEN);
@@ -160,21 +157,32 @@ function pruefeZeiten(z) {
   mindestens("Geld ruht auf der Schale, bevor die Waage nach links kippt", z.neigungLinks - z.landung, HALTEN);
   mindestens("'entgangen' steht vor der Korrektur", z.korrektur - z.entgangen, HALTEN);
   mindestens("Korrigiertes Schild steht vor dem Begriff", z.begriff - z.korrektur, HALTEN);
-  mindestens("Kreis um den Stapel steht fertig", z.julAus - (z.begriff + MARKER.kreis), HALTEN);
+  mindestens("Kreis um den Stapel steht fertig", z.neigungLinks - (z.begriff + MARKER.kreis), HALTEN);
   mindestens("Etikett 'Opportunitätskosten' steht vor dem Schnitt", z.schnitt - z.okEtikett, 2.0);
   mindestens("'1 Saison' steht vor dem Schnitt", z.schnitt - z.saisonText, HALTEN);
   mindestens("Kinokarte ruht vor dem Lohn", z.lohnFlug - (z.karteFall + PHYSIK.fallzeit), HALTEN);
-  mindestens("Kreis um die Lohntüte steht fertig", z.gratis - (z.lohnKreis + MARKER.kreis), HALTEN);
   mindestens("Letzte Zeile hält", z.ende - z.rechnung, 2.0);
+  // Standdauer eines Textes >= 1,7 s (DESIGN.md §5, gemessen an den Vorbildern): die kurzlebigen
+  const STAND = 1.7;
+  mindestens("Text 'Tore' steht", z.vertragAus - z.toreText, STAND);
+  mindestens("Text 'ablösefrei: 0 €' steht", z.vertragAus - z.frei, STAND);
+  mindestens("Etikett '45 Mio. €' steht", z.etikettEntgangen - z.geldEtikett, STAND);
+  mindestens("Etikett 'aufgegeben' steht", z.neigungLinks - z.etikettAufgegeben, STAND);
+  mindestens("Schild 'Gehalt + Barças Geld' steht", z.begriff - z.korrektur, STAND);
+  mindestens("Text 'beste Alternative' steht", z.julAus - z.alternative, STAND);
+  mindestens("Text 'geschenkt ≠ gratis' steht", z.gratisAus - z.gratis, STAND);
+  mindestens("Text '1 Saison' steht", z.schnitt - z.saisonText, STAND);
   if (fehler.length) throw new Error("Zeiten verletzen das Kit:\n  " + fehler.join("\n  "));
 }
 pruefeZeiten(ZEIT);
 
 // HUD-Szenen: eine Sub-Komposition je Szene des Skripts. Grenze = erstes Wort der Szene
-// minus 0,25 s, damit Eintritte mit Vorlauf noch in ihrer Szene liegen. Ausnahme "modell":
-// Die Szene beginnt mit dem harten Schnitt auf "Waage", davor ist noch die Karte zu sehen.
+// minus 0,15 s, damit Eintritte mit Vorlauf (2 Bilder) noch in ihrer Szene liegen.
+// Ausnahmen: "naheliegend" beginnt erst, wenn Schlagzeile und Schilder abgetreten sind
+// (sie treten auf "Naheliegend" ab), "modell" beginnt mit dem harten Schnitt auf "Waage".
 const SZENEN_IDS = TIMING.scenes.map((s) => s.id);
-const anfangVon = (id, i) => (i === 0 ? 0 : id === "modell" ? ZEIT.schnitt : bild(SZENEN_WORT[id] - 0.25));
+const AUSNAHMEN = { naheliegend: ZEIT.hookAus + 0.3, modell: ZEIT.schnitt };
+const anfangVon = (id, i) => (i === 0 ? 0 : id in AUSNAHMEN ? bild(AUSNAHMEN[id]) : bild(SZENEN_WORT[id] - 0.15));
 export const SZENEN = SZENEN_IDS.map((id, i) => ({ id, beginn: anfangVon(id, i) })).map((s, i, a) => ({
   ...s,
   ende: i + 1 < a.length ? a[i + 1].beginn : ZEIT.ende,
@@ -334,7 +342,7 @@ const rund = (p) => p.map((v) => Math.round(v * 10) / 10);
 const STAEDTE = { muenchen: [11.576, 48.137], barcelona: [2.17, 41.387] };
 // Ländernamen: Ort des Schriftzugs (Länge, Breite), von Hand in freie Kartenteile gelegt
 const LAENDER = {
-  frankreich: { name: "FRANKREICH", lage: [2.0, 47.6] },
+  frankreich: { name: "FRANKREICH", lage: [1.0, 46.0] },
   spanien: { name: "SPANIEN", lage: [-4.2, 40.0] },
   italien: { name: "ITALIEN", lage: [12.8, 42.6] },
 };
@@ -369,11 +377,12 @@ function einstellung(p, bx, by, zoom) {
 const FUSS = [540, 1080]; // Fußpunkt der Waage im Bild (Atlas: dort steht München; Diagramm: fest)
 const kamera = {
   // totale:europa: München oben rechts (Figur neben der Schlagzeile), Barcelona links unten
-  totale: einstellung(orte.muenchen, 780, 640, 1.15),
+  totale: einstellung(orte.muenchen, 790, 700, 1.15),
   // nah:muenchen: Fuß der Waage auf München, Waage füllt das Lesefenster
   muenchen: einstellung(orte.muenchen, FUSS[0], FUSS[1], 2.4),
   // nah:barcelona: der Stapel fällt auf Barcelona, darüber Platz für "45 Mio. €"
-  barcelona: einstellung(orte.barcelona, 420, 1080, 2.4),
+  // München liegt dann oberhalb des Bildes: Die Waage ragt nicht ins Bild (Befund 1. Runde).
+  barcelona: einstellung(orte.barcelona, 420, 820, 2.4),
 };
 
 // Waage: Maße in Bildpixeln relativ zum Fuß. Gleiche Maße in Atlas und Diagramm, damit der

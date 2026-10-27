@@ -1,0 +1,71 @@
+<template>
+  <!-- HUD-Szene "transfer" (Beat 10, Transfer): Kinokarte gegen Nachhilfe (Gegenstände liegen auf der Bühne).
+       Nur fester Text (Zahlen, Schlüsselwörter, Credits); Welt und Darsteller liegen auf der Bühne.
+       data-start/data-duration schreibt build/bauen.mjs aus data-cue (relativ zur Szene). -->
+  <style>
+    /* @schriften:anfang */
+@font-face { font-family: "DT Playfair"; src: url("assets/fonts/playfair-display-latin-900-normal.woff2") format("woff2"); font-weight: 900; font-style: normal; font-display: block; }
+@font-face { font-family: "DT Inter"; src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "DT Inter"; src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: block; }
+/* @schriften:ende */
+    #root { position: absolute; inset: 0; font-family: "DT Inter", sans-serif; color: #F5F0E8; pointer-events: none; }
+    #root .clip { position: absolute; left: 108px; }
+    /* Stufen aus studio/DESIGN.md §3: T (Text), D1/D2 (Display), C (Credit). */
+    .t { font-size: 52px; font-weight: 600; line-height: 62px; white-space: nowrap; }
+    .leise { color: rgba(245, 240, 232, 0.78); }
+    .d1, .d2 { font-family: "DT Playfair", serif; font-weight: 900; letter-spacing: -0.02em; white-space: nowrap;
+      font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; }
+    .d1 { font-size: 173px; line-height: 173px; }
+    .d2 { font-size: 124px; line-height: 124px; }
+    .gold { color: #C9A84C; }
+    /* Lesbarkeit über der Karte nur mit dunklem Schatten, nie mit hellem Schein (DESIGN.md §3). */
+    .schatten { text-shadow: 0 2px 18px rgba(14, 23, 38, 0.9); }
+    /* Credit-Ecke: rechtsbündig an x = 972, Unterkante y = 1304, nach oben gestapelt (DESIGN.md §2). */
+    #root .credit { left: auto; right: 108px; text-align: right; font-size: 34px; line-height: 42px; font-weight: 400;
+      color: rgba(245, 240, 232, 0.62); white-space: nowrap; }
+    .c1 { bottom: 616px; }
+    .c2 { bottom: 658px; }
+    .c3 { bottom: 700px; }
+    #root .hud-marker { left: 0; top: 0; width: 1080px; height: 1920px; overflow: visible; }
+    #tf-gleichung { top: 196px; }
+  </style>
+  <div id="root" data-composition-id="transfer" data-width="1080" data-height="1920">
+    <div id="tf-gleichung" class="clip t" data-cue="anfang" data-start="0" data-duration="6.4" data-track-index="1" data-beat="transfer">Kosten = bezahlt + <span class="gold" id="tf-aufgegeben">aufgegeben</span></div>
+  </div>
+  <script>
+    (function () {
+      /* @daten:anfang */
+// eingesetzt von build/bauen.mjs (nicht von Hand ändern)
+// WORTE: Wort-Cues aus assets/timing.json (Bild 2 Bilder vor dem Wort). ZEIT: Cues plus abgeleitete Zeiten.
+const WORTE = {"bcn":0.3,"lewa":1.0666666666666667,"verkaufen":2.7,"behalten":3.433333333333333,"frage":4.566666666666666,"optionen":5.566666666666666,"waage":8.566666666666666,"gehalt":10.4,"bezahlt":11.666666666666666,"tore":13.7,"vertrag":15.033333333333333,"saison":16.366666666666667,"verlaengern":17.966666666666665,"frei":19.466666666666665,"angebot":22,"zahl":23.6,"falsch":27.733333333333334,"landung":30.7,"entgangen":33.1,"korrektur":34.833333333333336,"begriff":37.56666666666667,"alternative":40.266666666666666,"aufgibt":41.5,"juli":42.733333333333334,"genommen":43.8,"ok_verkauf":45.46666666666667,"landung_spieler":47.6,"modell":50.266666666666666,"karte":52.166666666666664,"geschenkt":53.56666666666667,"nachhilfe":55.666666666666664,"lohn_da":56.2,"lohn":59.233333333333334,"gratis":61.3,"aufgeben":63.6,"kosten2":64.16666666666667,"rechnung":66.06666666666666};
+const ZEIT = {"anfang":0,"bcn":0.3,"lewa":1.0666666666666667,"verkaufen":2.7,"behalten":3.433333333333333,"frage":4.566666666666666,"optionen":5.566666666666666,"waage":8.566666666666666,"gehalt":10.4,"bezahlt":11.666666666666666,"tore":13.7,"vertrag":15.033333333333333,"saison":16.366666666666667,"verlaengern":17.966666666666665,"frei":19.466666666666665,"angebot":22,"zahl":23.6,"falsch":27.733333333333334,"landung":30.7,"entgangen":33.1,"korrektur":34.833333333333336,"begriff":37.56666666666667,"alternative":40.266666666666666,"aufgibt":41.5,"juli":42.733333333333334,"genommen":43.8,"ok_verkauf":45.46666666666667,"landung_spieler":47.6,"modell":50.266666666666666,"karte":52.166666666666664,"geschenkt":53.56666666666667,"nachhilfe":55.666666666666664,"lohn_da":56.2,"lohn":59.233333333333334,"gratis":61.3,"aufgeben":63.6,"kosten2":64.16666666666667,"rechnung":66.06666666666666,"s_hook":0.3,"s_naheliegend":8.566666666666666,"s_vertrag":14.633333333333333,"s_angebot":22,"s_widerlegung":25.833333333333332,"s_entgangen":33.1,"s_begriff":36.13333333333333,"s_verkauf":42.63333333333333,"s_modell":48.93333333333333,"s_transfer":51.3,"s_transfer_lohn":57.7,"s_satz":63.06666666666667,"ende":68.6,"pause":6.054,"pauseEnde":8.554,"spielerFall":1.0666666666666667,"nameSpieler":1.4866666666666666,"routeAus":3.5,"hookAus":8.566666666666666,"zoomIn":8.816666666666666,"zoomInEnde":9.416666666666666,"waageAuf":9.266666666666666,"spielerHopp":9.716666666666665,"belegFall":10.4,"behauptung":10.82,"stempel":11.666666666666666,"neigungRechts":13.7,"toreText":13.85,"band":15.133333333333333,"bandEnde":16.133333333333333,"vertragAus":21.6,"fahrtBarcelona":22,"fahrtBarcelonaEnde":22.7,"geldFall":23.6,"geldLandetBcn":24.020000000000003,"zahlText":24.080000000000002,"widerlegung":25.833333333333332,"abflugGeld":29,"fahrtMuenchen":29.25,"fahrtMuenchenEnde":30.55,"zahlTextAus":29,"geldEtikett":30.82,"etikettEntgangen":33.1,"etikettAufgegeben":41.5,"julAus":42.733333333333334,"datumJuli":42.93333333333334,"neigungLinks":43.8,"abflugSpieler":45.46666666666667,"landungSpieler":47.16666666666667,"okEtikett":45.91666666666667,"saisonText":47.6,"schnitt":50.266666666666666,"kaesten":50.416666666666664,"gleichung":50.86666666666667,"karteFall":52.166666666666664,"neigungKarte":52.586666666666666,"lohnZeichnen":56.2,"lohnFlug":59.233333333333334,"lohnFlugEnde":59.833333333333336,"nachhilfeAus":62.66666666666667,"gratisAus":63.91666666666667};
+const SZENEN = [{"id":"hook","beginn":0,"ende":8.866666666666667},{"id":"naheliegend","beginn":8.866666666666667,"ende":14.5},{"id":"vertrag","beginn":14.5,"ende":21.866666666666667},{"id":"angebot","beginn":21.866666666666667,"ende":25.7},{"id":"widerlegung","beginn":25.7,"ende":32.96666666666667},{"id":"entgangen","beginn":32.96666666666667,"ende":36},{"id":"begriff","beginn":36,"ende":42.5},{"id":"verkauf","beginn":42.5,"ende":50.266666666666666},{"id":"modell","beginn":50.266666666666666,"ende":51.166666666666664},{"id":"transfer","beginn":51.166666666666664,"ende":57.56666666666667},{"id":"transfer_lohn","beginn":57.56666666666667,"ende":62.93333333333333},{"id":"satz","beginn":62.93333333333333,"ende":68.6}];
+const BUEHNEN = {"atlas":{"beginn":0,"ende":50.266666666666666},"diagramm":{"beginn":50.266666666666666,"ende":68.6}};
+
+/* @daten:ende */
+      const S = SZENEN.find((s) => s.id === "transfer");
+      const T = (name, plus) => ZEIT[name] + (plus || 0) - S.beginn; // Cue-Zeit in Szenen-Zeit
+      const tl = gsap.timeline({ paused: true });
+      // Eintritte und Austritte nach DESIGN.md §5. Nur fromTo (seek-sicher); Austritte mit
+      // immediateRender: false, damit sie den Zustand vor ihrem Start nicht überschreiben.
+      const rein = (sel, t) =>
+        tl.fromTo(sel, { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power2.out" }, t);
+      const raus = (sel, t) =>
+        tl.fromTo(sel, { opacity: 1, filter: "blur(0px)" },
+          { opacity: 0, filter: "blur(8px)", duration: 0.18, ease: "power2.in", stagger: 0.04, immediateRender: false }, t);
+      // Setzen (Schlagzeile Wort für Wort): Unschärfe 6 -> 0 px, 0,13 s je Wort, 0,067 s Abstand.
+      const setzen = (sel, t) =>
+        tl.fromTo(sel, { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.13, ease: "power2.out", stagger: 0.067 }, t);
+      // Morph: derselbe Gegenstand verwandelt (alt wächst und verschwimmt, neu kommt aus der Unschärfe).
+      const morph = (alt, neu, t) => {
+        tl.fromTo(alt, { opacity: 1, filter: "blur(0px)", scale: 1 },
+          { opacity: 0, filter: "blur(10px)", scale: 1.3, duration: 0.18, ease: "power2.in", transformOrigin: "0% 50%", immediateRender: false }, t);
+        tl.fromTo(neu, { opacity: 0, filter: "blur(10px)", scale: 0.72, transformOrigin: "0% 50%" },
+          { opacity: 1, filter: "blur(0px)", scale: 1, duration: 0.32, ease: "expo.out" }, t + 0.06);
+      };
+
+      tl.to({}, { duration: S.ende - S.beginn }, 0);
+      window.__timelines["transfer"] = tl;
+    })();
+  </script>
+</template>

@@ -1,0 +1,122 @@
+<!--
+  Welt-Fragment Diagramm (Bühne, Beats 9-12): Rasterpapier, dieselbe Waage als Strichzeichnung
+  (gleiche Maße und gleicher Fußpunkt wie im Atlas: Der harte Schnitt ist ein Passschnitt),
+  zwei Fächer der Kosten-Schale, Kinokarte und Lohntüte. Regeln: studio/DESIGN.md §7 Diagramm
+  (Rasterpapier bis an die Ränder, keine Box um das Diagramm, keine Schatten, keine Verläufe).
+-->
+<style>
+  /* @schriften:anfang */
+  /* @schriften:ende */
+  #d-buehne { position: absolute; inset: 0; overflow: hidden; background: #0E1726; }
+  #d-raster { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+  #d-waage { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 3; }
+  #d-waage-svg { position: absolute; left: -540px; top: -720px; width: 1080px; height: 800px; overflow: visible; }
+  /* Strich: Creme 80 %, 6 px. Flächen nur in Navy, damit das Raster nicht durch Text läuft. */
+  .dg-strich { fill: none; stroke: rgba(245, 240, 232, 0.8); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  .dg-flaeche { fill: #0E1726; stroke: rgba(245, 240, 232, 0.8); stroke-width: 6; stroke-linejoin: round; }
+  .dg-kette { fill: none; stroke: rgba(245, 240, 232, 0.55); stroke-width: 3; }
+  .dg-front-text { font-family: "DT Inter", sans-serif; font-weight: 600; font-size: 48px; fill: #F5F0E8; }
+
+  .d-anker { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 4; }
+  #d-kaesten-svg { position: absolute; left: -170px; top: -330px; width: 340px; height: 340px; overflow: visible; }
+  .d-text { position: absolute; white-space: nowrap; font-family: "DT Inter", sans-serif; font-weight: 600;
+    font-size: 48px; line-height: 62px; }
+  .d-creme { color: #F5F0E8; }
+  .d-gold { color: #C9A84C; }
+  #d-fach-bezahlt { left: -134px; top: -152px; }
+  #d-fach-geschenkt { left: -134px; top: -90px; }
+  #d-fach-aufgegeben { left: -134px; top: -316px; }
+
+  .a-huelle { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 5; }
+  .a-figur { position: absolute; left: 0; top: 0; width: 0; height: 0; }
+  #a-karte-bild { position: absolute; left: -195px; top: -170px; width: 390px; height: 170px; overflow: visible; }
+  #a-lohn-bild { position: absolute; left: -120px; top: -170px; width: 240px; height: 170px; overflow: visible; }
+  .d-ding-text { font-family: "DT Inter", sans-serif; font-weight: 600; font-size: 48px; }
+
+  /* Feste Beschriftungen, an Rasterlinien ausgerichtet (Kleinkaro 24 px ab y = 168). */
+  .d-fest { position: absolute; left: 108px; white-space: nowrap; font-family: "DT Inter", sans-serif; font-weight: 600;
+    font-size: 52px; line-height: 62px; color: #F5F0E8; z-index: 6; }
+  #d-nachhilfe { top: 1016px; }
+  #d-abend { top: 1078px; color: rgba(245, 240, 232, 0.8); }
+  #d-rechnung { left: 140px; top: 1016px; }
+  #d-marker { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; z-index: 7; overflow: visible; pointer-events: none; }
+</style>
+<div id="d-buehne">
+  <!-- Rasterpapier: Kleinkaro 24 px (Creme 6 %), Großkaro 144 px (Creme 12 %), ausgerichtet an
+       x = 108 und y = 168 (DESIGN.md §7). Muster statt tausender Linien: klein und scharf. -->
+  <svg id="d-raster" viewBox="0 0 1080 1920" aria-hidden="true" data-layout-ignore>
+    <defs>
+      <pattern id="d-klein" x="12" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+        <path d="M24 0 L0 0 0 24" fill="none" stroke="#F5F0E8" stroke-opacity="0.06" stroke-width="1" />
+      </pattern>
+      <pattern id="d-gross" x="108" y="24" width="144" height="144" patternUnits="userSpaceOnUse">
+        <path d="M144 0 L0 0 0 144" fill="none" stroke="#F5F0E8" stroke-opacity="0.12" stroke-width="2" />
+      </pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="url(#d-klein)" />
+    <rect width="1080" height="1920" fill="url(#d-gross)" />
+  </svg>
+
+  <!-- Waage als Strichzeichnung. render() setzt Fuß, Balken-Drehung, Schalen und Ketten. -->
+  <div id="d-waage">
+    <svg id="d-waage-svg" viewBox="-540 -720 1080 800" aria-hidden="true">
+      <path class="dg-strich" d="M-92 0 L-62 -26 L62 -26 L92 0 Z M-92 0 L92 0" />
+      <path class="dg-strich" d="M0 -26 L0 -500" />
+      <path id="d-kette-l" class="dg-kette" d="" />
+      <path id="d-kette-r" class="dg-kette" d="" />
+      <g id="d-balken">
+        <path class="dg-strich" d="M0 -500 L0 -540" />
+        <path class="dg-strich" d="M-270 -500 L270 -500" />
+        <circle cx="-270" cy="-500" r="9" class="dg-flaeche" />
+        <circle cx="270" cy="-500" r="9" class="dg-flaeche" />
+      </g>
+      <circle cx="0" cy="-500" r="15" class="dg-flaeche" />
+      <g id="d-schale-l">
+        <path class="dg-flaeche" d="M-170 0 L170 0 L150 66 L-150 66 Z" />
+        <text class="dg-front-text" x="0" y="49" text-anchor="middle">Kosten</text>
+      </g>
+      <g id="d-schale-r">
+        <path class="dg-flaeche" d="M-170 0 L170 0 L150 66 L-150 66 Z" />
+        <text class="dg-front-text" x="0" y="49" text-anchor="middle">Nutzen</text>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Zwei Fächer auf der Kosten-Schale: unten "bezahlt" (Creme), oben "aufgegeben" (Gold, leer). -->
+  <div id="d-kaesten" class="d-anker" data-anker="schale:links">
+    <svg id="d-kaesten-svg" viewBox="-170 -330 340 340" aria-hidden="true">
+      <rect id="d-kasten-bezahlt" x="-150" y="-160" width="300" height="158" fill="#0E1726" stroke="#F5F0E8" stroke-opacity="0.85" stroke-width="4" />
+      <rect id="d-kasten-aufgegeben" x="-150" y="-322" width="300" height="158" fill="#0E1726" stroke="#C9A84C" stroke-width="4" stroke-dasharray="14 10" />
+    </svg>
+    <div id="d-fach-bezahlt" class="d-text d-creme">bezahlt</div>
+    <div id="d-fach-geschenkt" class="d-text d-creme">geschenkt</div>
+    <div id="d-fach-aufgegeben" class="d-text d-gold">aufgegeben</div>
+  </div>
+
+  <!-- Kinokarte (Creme = gegeben): Eintrittskarte mit Kerben und Abriss, Aufdruck "heute Abend". -->
+  <div id="a-karte" class="a-huelle">
+    <div id="a-karte-figur" class="a-figur">
+      <svg id="a-karte-bild" viewBox="-195 -170 390 170" aria-hidden="true">
+        <path class="dg-flaeche" d="M-190 -166 L190 -166 L190 -102 A 18 18 0 0 0 190 -66 L190 -4 L-190 -4 L-190 -66 A 18 18 0 0 0 -190 -102 Z" stroke="#F5F0E8" />
+        <path d="M158 -156 L158 -14" fill="none" stroke="#F5F0E8" stroke-opacity="0.7" stroke-width="4" stroke-dasharray="10 9" />
+        <!-- Abstand zu den Kerben links (bis x = -172) und zum Abriss rechts (x = 158) -->
+        <text class="d-ding-text" x="-12" y="-68" text-anchor="middle" fill="#F5F0E8">heute Abend</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Lohntüte (Gold = gesuchte Größe des Transfers). Zeichnet sich, wandert ins Gold-Fach. -->
+  <div id="a-lohn" class="a-huelle">
+    <div id="a-lohn-figur" class="a-figur">
+      <svg id="a-lohn-bild" viewBox="-120 -170 240 170" aria-hidden="true">
+        <path id="d-lohn-umriss" d="M-116 -164 L116 -164 L116 -4 L-116 -4 Z" fill="#0E1726" stroke="#C9A84C" stroke-width="5" stroke-linejoin="round" />
+        <path id="d-lohn-klappe" d="M-116 -164 L0 -96 L116 -164" fill="none" stroke="#C9A84C" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" />
+        <text id="d-lohn-text" class="d-ding-text" x="0" y="-26" text-anchor="middle" fill="#C9A84C">Lohn</text>
+      </svg>
+    </div>
+  </div>
+
+  <div id="d-nachhilfe" class="d-fest">Nachhilfe</div>
+  <div id="d-abend" class="d-fest">heute Abend</div>
+  <div id="d-rechnung" class="d-fest">Rechnung</div>
+</div>

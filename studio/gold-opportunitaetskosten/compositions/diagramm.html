@@ -1,0 +1,940 @@
+<template>
+  <!--
+    Bühne 2 "Diagramm" (Beats 9-12, ab dem harten Schnitt auf "Waage"): Rasterpapier, die Waage als
+    Strichzeichnung, Transfer Kinokarte gegen Lohn. Keine Kamera: Ein Diagramm, eine Einstellung.
+    Alles zwischen @...:anfang und @...:ende setzt build/bauen.mjs ein. Nicht von Hand ändern.
+  -->
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; background: #0E1726; }
+    .b-beat { position: absolute; left: 0; top: 0; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+  </style>
+  <div id="root" data-composition-id="diagramm" data-width="1080" data-height="1920">
+    <!-- @diagramm:anfang -->
+<style>
+  /* @schriften:anfang */
+@font-face { font-family: "DT Playfair"; src: url("assets/fonts/playfair-display-latin-900-normal.woff2") format("woff2"); font-weight: 900; font-style: normal; font-display: block; }
+@font-face { font-family: "DT Inter"; src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "DT Inter"; src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: block; }
+/* @schriften:ende */
+  #d-buehne { position: absolute; inset: 0; overflow: hidden; background: #0E1726; }
+  #d-raster { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+  #d-waage { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 3; }
+  #d-waage-svg { position: absolute; left: -540px; top: -720px; width: 1080px; height: 800px; overflow: visible; }
+  /* Strich: Creme 80 %, 6 px. Flächen nur in Navy, damit das Raster nicht durch Text läuft. */
+  .dg-strich { fill: none; stroke: rgba(245, 240, 232, 0.8); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  .dg-flaeche { fill: #0E1726; stroke: rgba(245, 240, 232, 0.8); stroke-width: 6; stroke-linejoin: round; }
+  .dg-kette { fill: none; stroke: rgba(245, 240, 232, 0.55); stroke-width: 3; }
+  .dg-front-text { font-family: "DT Inter", sans-serif; font-weight: 600; font-size: 48px; fill: #F5F0E8; }
+
+  .d-anker { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 4; }
+  #d-kaesten-svg { position: absolute; left: -170px; top: -330px; width: 340px; height: 340px; overflow: visible; }
+  .d-text { position: absolute; white-space: nowrap; font-family: "DT Inter", sans-serif; font-weight: 600;
+    font-size: 48px; line-height: 62px; }
+  .d-creme { color: #F5F0E8; }
+  .d-gold { color: #C9A84C; }
+  #d-fach-bezahlt { left: -134px; top: -152px; }
+  #d-fach-geschenkt { left: -134px; top: -90px; }
+  #d-fach-aufgegeben { left: -134px; top: -316px; }
+
+  .a-huelle { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 5; }
+  .a-figur { position: absolute; left: 0; top: 0; width: 0; height: 0; }
+  #a-karte-bild { position: absolute; left: -195px; top: -170px; width: 390px; height: 170px; overflow: visible; }
+  #a-lohn-bild { position: absolute; left: -120px; top: -170px; width: 240px; height: 170px; overflow: visible; }
+  .d-ding-text { font-family: "DT Inter", sans-serif; font-weight: 600; font-size: 48px; }
+
+  /* Feste Beschriftungen, an Rasterlinien ausgerichtet (Kleinkaro 24 px ab y = 168). */
+  .d-fest { position: absolute; left: 108px; white-space: nowrap; font-family: "DT Inter", sans-serif; font-weight: 600;
+    font-size: 52px; line-height: 62px; color: #F5F0E8; z-index: 6; }
+  #d-nachhilfe { top: 1016px; }
+  #d-abend { top: 1078px; color: rgba(245, 240, 232, 0.8); }
+  #d-rechnung { left: 140px; top: 1016px; }
+  #d-marker { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; z-index: 7; overflow: visible; pointer-events: none; }
+</style>
+<div id="d-buehne">
+  <!-- Rasterpapier: Kleinkaro 24 px (Creme 6 %), Großkaro 144 px (Creme 12 %), ausgerichtet an
+       x = 108 und y = 168 (DESIGN.md §7). Muster statt tausender Linien: klein und scharf. -->
+  <svg id="d-raster" viewBox="0 0 1080 1920" aria-hidden="true" data-layout-ignore>
+    <defs>
+      <pattern id="d-klein" x="12" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+        <path d="M24 0 L0 0 0 24" fill="none" stroke="#F5F0E8" stroke-opacity="0.06" stroke-width="1" />
+      </pattern>
+      <pattern id="d-gross" x="108" y="24" width="144" height="144" patternUnits="userSpaceOnUse">
+        <path d="M144 0 L0 0 0 144" fill="none" stroke="#F5F0E8" stroke-opacity="0.12" stroke-width="2" />
+      </pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="url(#d-klein)" />
+    <rect width="1080" height="1920" fill="url(#d-gross)" />
+  </svg>
+
+  <!-- Waage als Strichzeichnung. render() setzt Fuß, Balken-Drehung, Schalen und Ketten. -->
+  <div id="d-waage">
+    <svg id="d-waage-svg" viewBox="-540 -720 1080 800" aria-hidden="true">
+      <path class="dg-strich" d="M-92 0 L-62 -26 L62 -26 L92 0 Z M-92 0 L92 0" />
+      <path class="dg-strich" d="M0 -26 L0 -500" />
+      <path id="d-kette-l" class="dg-kette" d="" />
+      <path id="d-kette-r" class="dg-kette" d="" />
+      <g id="d-balken">
+        <path class="dg-strich" d="M0 -500 L0 -540" />
+        <path class="dg-strich" d="M-270 -500 L270 -500" />
+        <circle cx="-270" cy="-500" r="9" class="dg-flaeche" />
+        <circle cx="270" cy="-500" r="9" class="dg-flaeche" />
+      </g>
+      <circle cx="0" cy="-500" r="15" class="dg-flaeche" />
+      <g id="d-schale-l">
+        <path class="dg-flaeche" d="M-170 0 L170 0 L150 66 L-150 66 Z" />
+        <text class="dg-front-text" x="0" y="49" text-anchor="middle">Kosten</text>
+      </g>
+      <g id="d-schale-r">
+        <path class="dg-flaeche" d="M-170 0 L170 0 L150 66 L-150 66 Z" />
+        <text class="dg-front-text" x="0" y="49" text-anchor="middle">Nutzen</text>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Zwei Fächer auf der Kosten-Schale: unten "bezahlt" (Creme), oben "aufgegeben" (Gold, leer). -->
+  <div id="d-kaesten" class="d-anker" data-anker="schale:links">
+    <svg id="d-kaesten-svg" viewBox="-170 -330 340 340" aria-hidden="true">
+      <rect id="d-kasten-bezahlt" x="-150" y="-160" width="300" height="158" fill="#0E1726" stroke="#F5F0E8" stroke-opacity="0.85" stroke-width="4" />
+      <rect id="d-kasten-aufgegeben" x="-150" y="-322" width="300" height="158" fill="#0E1726" stroke="#C9A84C" stroke-width="4" stroke-dasharray="14 10" />
+    </svg>
+    <div id="d-fach-bezahlt" class="d-text d-creme">bezahlt</div>
+    <div id="d-fach-geschenkt" class="d-text d-creme">geschenkt</div>
+    <div id="d-fach-aufgegeben" class="d-text d-gold">aufgegeben</div>
+  </div>
+
+  <!-- Kinokarte (Creme = gegeben): Eintrittskarte mit Kerben und Abriss, Aufdruck "heute Abend". -->
+  <div id="a-karte" class="a-huelle">
+    <div id="a-karte-figur" class="a-figur">
+      <svg id="a-karte-bild" viewBox="-195 -170 390 170" aria-hidden="true">
+        <path class="dg-flaeche" d="M-190 -166 L190 -166 L190 -102 A 18 18 0 0 0 190 -66 L190 -4 L-190 -4 L-190 -66 A 18 18 0 0 0 -190 -102 Z" stroke="#F5F0E8" />
+        <path d="M158 -156 L158 -14" fill="none" stroke="#F5F0E8" stroke-opacity="0.7" stroke-width="4" stroke-dasharray="10 9" />
+        <!-- Abstand zu den Kerben links (bis x = -172) und zum Abriss rechts (x = 158) -->
+        <text class="d-ding-text" x="-12" y="-68" text-anchor="middle" fill="#F5F0E8">heute Abend</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Lohntüte (Gold = gesuchte Größe des Transfers). Zeichnet sich, wandert ins Gold-Fach. -->
+  <div id="a-lohn" class="a-huelle">
+    <div id="a-lohn-figur" class="a-figur">
+      <svg id="a-lohn-bild" viewBox="-120 -170 240 170" aria-hidden="true">
+        <path id="d-lohn-umriss" d="M-116 -164 L116 -164 L116 -4 L-116 -4 Z" fill="#0E1726" stroke="#C9A84C" stroke-width="5" stroke-linejoin="round" />
+        <path id="d-lohn-klappe" d="M-116 -164 L0 -96 L116 -164" fill="none" stroke="#C9A84C" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" />
+        <text id="d-lohn-text" class="d-ding-text" x="0" y="-26" text-anchor="middle" fill="#C9A84C">Lohn</text>
+      </svg>
+    </div>
+  </div>
+
+  <div id="d-nachhilfe" class="d-fest">Nachhilfe</div>
+  <div id="d-abend" class="d-fest">heute Abend</div>
+  <div id="d-rechnung" class="d-fest">Rechnung</div>
+</div>
+
+<!-- @diagramm:ende -->
+    <svg id="d-marker" viewBox="0 0 1080 1920" aria-hidden="true" data-layout-ignore>
+      <g id="m-rechnung"></g>
+    </svg>
+    <div id="b-beat-lohn" class="clip b-beat" data-cue="lohnFlugEnde" data-cue-versatz="1.0" data-cue-bis="gratis" data-start="10.567" data-duration="0.467" data-beat="lohn-im-fach" data-track-index="3"></div>
+  </div>
+  <script>
+    (function () {
+      /* @marker:anfang */
+/*
+ * DeepTok Marker-Ebene (Goldstandard; aus studio/spike-buehne/lib/marker.js kopiert und erweitert)
+ *
+ * Handgezeichnete Markierungen, die sich genau auf ein Wort zeichnen:
+ * Kreis (um einen Ort oder eine Zahl), Unterstreichung (unter einer Zahl),
+ * Durchstrich (über dem Irrtum, nur Rot) und Klammer (fasst einen Teil zusammen).
+ * Maße und Farben: studio/DESIGN.md §6.
+ * Vorbild: Simplicissimus (rote Kreise auf Karten) und Veritasium
+ * (Unterstreichung unter der Schlagzeile). Angelehnt an die Registry-Bausteine
+ * `marker-highlight` und `hw-boil`, aber ohne Laufzeit-Variablen, damit das
+ * Stück beim Bauen in jede Szene kopiert werden kann (siehe docs/VIDEO-PIPELINE.md §5).
+ *
+ * Drei Regeln machen das Modul "seek-sicher", also richtig an jedem Zeitpunkt,
+ * auch wenn der Player rückwärts oder mitten hinein springt:
+ *   1. Kein Math.random(): Das "Zittern" der Hand kommt aus einer festen
+ *      Hash-Funktion mit Startwert (seed). Gleicher seed = gleiche Linie.
+ *   2. Nur fromTo-Tweens mit beiden Endpunkten. Ein `from` liest seinen
+ *      ENDwert beim Erstellen aus dem DOM. Allein ist das harmlos. Bewegen aber
+ *      mehrere Tweens dieselbe Eigenschaft, liest der zweite den Startwert des
+ *      ersten als "Endwert" und steht nach einem Sprung falsch. fromTo legt
+ *      beide Endpunkte fest; ab dem zweiten Tween auf derselben Eigenschaft
+ *      kommt immediateRender: false dazu.
+ *   3. Bis zum Cue ist der Strich unsichtbar (opacity 0). Sonst malt die runde
+ *      Linienkappe schon vorher einen Punkt an den Anfang.
+ *
+ * Wird beim Bauen (build/bauen.mjs) zwischen die Marken @marker:anfang/@marker:ende
+ * eingesetzt. Doppelt eingesetzt ist harmlos: der Wächter unten bricht ab.
+ */
+(function () {
+  "use strict";
+  if (window.DeepTokMarker) return;
+
+  // Fester Pseudo-Zufall: gleiche Eingabe -> gleiche Zahl zwischen -1 und 1.
+  function hash(n, seed) {
+    var x = Math.sin(n * 127.1 + (seed || 1) * 311.7) * 43758.5453;
+    return (x - Math.floor(x)) * 2 - 1;
+  }
+
+  // Punkte -> glatter Pfad (quadratische Kurven durch die Mittelpunkte).
+  // So entstehen weiche Bögen statt Ecken, wie bei einem Filzstift.
+  function glatt(punkte) {
+    var d = "M" + punkte[0][0].toFixed(1) + " " + punkte[0][1].toFixed(1);
+    for (var i = 1; i < punkte.length - 1; i++) {
+      var p = punkte[i];
+      var q = punkte[i + 1];
+      var mx = (p[0] + q[0]) / 2;
+      var my = (p[1] + q[1]) / 2;
+      d += " Q" + p[0].toFixed(1) + " " + p[1].toFixed(1) + " " + mx.toFixed(1) + " " + my.toFixed(1);
+    }
+    var l = punkte[punkte.length - 1];
+    d += " L" + l[0].toFixed(1) + " " + l[1].toFixed(1);
+    return d;
+  }
+
+  function polylinienLaenge(punkte) {
+    var s = 0;
+    for (var i = 1; i < punkte.length; i++) {
+      s += Math.hypot(punkte[i][0] - punkte[i - 1][0], punkte[i][1] - punkte[i - 1][1]);
+    }
+    return s;
+  }
+
+  /*
+   * Handgezeichneter Kreis um (cx, cy).
+   * Eine Hand schließt einen Kreis nie genau: Der Strich läuft etwa 1,15-mal
+   * herum, der Radius wächst dabei leicht (Spirale), und die Ellipse ist ein
+   * wenig gekippt. Ergebnis: Anfang und Ende überlappen versetzt.
+   */
+  function kreisPunkte(cx, cy, rx, ry, seed, opts) {
+    opts = opts || {};
+    var umlauf = opts.umlauf || 1.15; // wie oft der Stift herumfährt
+    var start = opts.startWinkel !== undefined ? opts.startWinkel : -2.2; // oben links beginnen
+    var kipp = (opts.kippen !== undefined ? opts.kippen : -0.12) + hash(3, seed) * 0.05;
+    var n = 26;
+    var pts = [];
+    for (var i = 0; i <= n; i++) {
+      var f = i / n;
+      var a = start + f * umlauf * Math.PI * 2;
+      // Radius: leichtes Wachsen über den Umlauf + kleines Handzittern
+      var wachs = 1 - 0.06 + f * 0.12;
+      var zitter = 1 + hash(i * 7 + 11, seed) * 0.025;
+      var x = Math.cos(a) * rx * wachs * zitter;
+      var y = Math.sin(a) * ry * wachs * zitter;
+      // kippen (Drehung um den Mittelpunkt)
+      pts.push([cx + x * Math.cos(kipp) - y * Math.sin(kipp), cy + x * Math.sin(kipp) + y * Math.cos(kipp)]);
+    }
+    return pts;
+  }
+
+  /*
+   * Unterstreichung von x0 bis x1 auf Höhe y.
+   * Leicht ansteigend, mit kleinem Bogen und einem Auslauf am Ende,
+   * so wie ein schneller Strich mit dem Marker.
+   */
+  function linienPunkte(x0, y, x1, seed, opts) {
+    opts = opts || {};
+    var anstieg = opts.anstieg !== undefined ? opts.anstieg : -10; // Ende etwas höher
+    var bogen = opts.bogen !== undefined ? opts.bogen : 7;
+    var n = 9;
+    var pts = [];
+    for (var i = 0; i <= n; i++) {
+      var f = i / n;
+      var x = x0 + (x1 - x0) * f;
+      var yy = y + anstieg * f + Math.sin(f * Math.PI) * bogen + hash(i * 5 + 2, seed) * 1.6;
+      pts.push([x, yy]);
+    }
+    return pts;
+  }
+
+  /*
+   * Durchstrich von x0 bis x1 auf Höhe y (DESIGN.md §6: ein Strich, -4°, 12 px Überstand).
+   * Leicht durchgebogen, damit er nicht wie eine CSS-Linie aussieht.
+   */
+  function strichPunkte(x0, y, x1, seed) {
+    var n = 7;
+    var pts = [];
+    var neigung = Math.tan((-4 * Math.PI) / 180);
+    for (var i = 0; i <= n; i++) {
+      var f = i / n;
+      var x = x0 - 12 + (x1 - x0 + 24) * f;
+      var yy = y + neigung * (x - x0) - Math.sin(f * Math.PI) * 3 + hash(i * 3 + 5, seed) * 1.2;
+      pts.push([x, yy]);
+    }
+    return pts;
+  }
+
+  /*
+   * Klammer an der linken Seite eines Kastens (oben y0, unten y1, Kante bei x),
+   * die unten in einen Bogen zum Etikett ausläuft (bis yEtikett). Wie mit dem Stift:
+   * kurzer Haken oben, senkrechter Strich, Bogen unten.
+   */
+  function klammerPunkte(x, y0, y1, yEtikett, seed) {
+    var pts = [[x + 22, y0 + hash(1, seed)], [x + 4, y0 + 4]];
+    var n = 8;
+    for (var i = 1; i <= n; i++) {
+      var f = i / n;
+      pts.push([x - 6 + Math.sin(f * Math.PI) * -3 + hash(i + 9, seed) * 1.2, y0 + (yEtikett - y0) * f]);
+    }
+    pts.push([x + 6, yEtikett + 14]);
+    pts.push([x + 26, yEtikett + 18]);
+    return pts;
+  }
+
+  /*
+   * Zeichnet einen Pfad seek-sicher auf die Zeitachse.
+   *   pfad   : SVG-<path> mit fertigem d, der schon im DOM hängt. Nur dann
+   *            kann getTotalLength() messen; sonst gilt die Ersatzlänge.
+   *   beginn : Sekunde auf der Zeitachse (lokal zur Komposition) = Cue-Wort
+   *   dauer  : wie lange der Stift braucht (Kreis ca. 0,6 s, Linie ca. 0,35 s)
+   *   laenge : Ersatzlänge, falls getTotalLength() noch 0 liefert
+   */
+  function zeichne(tl, pfad, beginn, dauer, laenge, opts) {
+    opts = opts || {};
+    var L = 0;
+    try {
+      L = pfad.getTotalLength();
+    } catch (e) {
+      L = 0;
+    }
+    if (!(L > 0)) L = laenge || 1000;
+    // Strich-Muster: ein Strich so lang wie der Pfad, danach eine etwas
+    // längere Lücke. Bei Offset L+10 sieht man nur Lücke, bei 0 den ganzen Strich.
+    pfad.setAttribute("stroke-dasharray", L.toFixed(1) + " " + (L + 20).toFixed(1));
+    var ease = opts.ease || "power1.inOut";
+    // Unsichtbar bis zum Cue (gegen den Punkt der runden Linienkappe).
+    tl.fromTo(pfad, { opacity: 0 }, { opacity: 1, duration: 0.001, ease: "none" }, beginn);
+    tl.fromTo(
+      pfad,
+      { strokeDashoffset: L + 10 },
+      { strokeDashoffset: 0, duration: dauer, ease: ease },
+      beginn,
+    );
+    return L;
+  }
+
+  /*
+   * Bequeme Hülle: legt den Pfad an, setzt d und zeichnet ihn.
+   *   svg   : das SVG, in das der Marker kommt (Marker-Ebene)
+   *   art   : "kreis" | "linie"
+   *   p     : {cx, cy, rx, ry} für Kreis, {x0, x1, y} für Linie
+   *   stil  : {farbe, breite, seed, beginn, dauer, id}
+   */
+  function marker(tl, svg, art, p, stil) {
+    var ns = "http://www.w3.org/2000/svg";
+    var seed = stil.seed || 1;
+    var pts =
+      art === "kreis"
+        ? kreisPunkte(p.cx, p.cy, p.rx, p.ry, seed, stil)
+        : art === "strich"
+          ? strichPunkte(p.x0, p.y, p.x1, seed)
+          : art === "klammer"
+            ? klammerPunkte(p.x, p.y0, p.y1, p.yEtikett, seed)
+            : linienPunkte(p.x0, p.y, p.x1, seed, stil);
+    var g = document.createElementNS(ns, "g");
+    if (stil.id) g.setAttribute("id", stil.id);
+    // Erst einhängen, dann zeichnen: zeichne() misst die Pfadlänge im DOM.
+    svg.appendChild(g);
+    // Hauptstrich und eine dünne zweite Spur (trockener Filzstift):
+    // beide zeichnen sich gleichzeitig, die Spur ist leicht versetzt.
+    var spuren = [
+      { dx: 0, dy: 0, breite: stil.breite || 8, deckkraft: 1 },
+      { dx: 1.5, dy: -2, breite: (stil.breite || 8) * 0.35, deckkraft: 0.45 },
+    ];
+    var laenge = polylinienLaenge(pts);
+    spuren.forEach(function (s, i) {
+      var path = document.createElementNS(ns, "path");
+      path.setAttribute("d", glatt(pts));
+      path.setAttribute("fill", "none");
+      path.setAttribute("stroke-linecap", "round");
+      path.setAttribute("stroke-linejoin", "round");
+      path.setAttribute("stroke-width", String(s.breite));
+      path.setAttribute("transform", "translate(" + s.dx + " " + s.dy + ")");
+      path.style.stroke = stil.farbe || "#F5F0E8";
+      path.style.strokeOpacity = String(s.deckkraft);
+      g.appendChild(path);
+      var standard = { kreis: 0.5, strich: 0.3, klammer: 0.5 }[art] || 0.35;
+      zeichne(tl, path, stil.beginn, stil.dauer || standard, laenge, stil);
+    });
+    return g;
+  }
+
+  window.DeepTokMarker = {
+    hash: hash,
+    kreisPunkte: kreisPunkte,
+    linienPunkte: linienPunkte,
+    strichPunkte: strichPunkte,
+    klammerPunkte: klammerPunkte,
+    glatt: glatt,
+    zeichne: zeichne,
+    marker: marker,
+  };
+})();
+
+/* @marker:ende */
+      /* @buehne:anfang */
+/*
+ * DeepTok Bühne (Goldstandard): Welt + Kamera + Waage + Darsteller
+ *
+ * Weiterentwicklung von studio/spike-buehne/lib/buehne.js. Neu gegenüber dem Spike:
+ *   - mehrere Darsteller (Geld, Spieler, Beleg, Kinokarte ...), jeder mit eigener Spur
+ *     aus Abschnitten ("fällt auf Barcelona", "fliegt in die linke Schale" ...),
+ *   - eine Balkenwaage, deren Schalen Plätze für Darsteller sind,
+ *   - Anker für Orte, Schalen und Darsteller (Marker und Etiketten kleben daran),
+ *   - eine Kamerafahrt mit Bogen (beim Weg von München nach Barcelona fährt die Kamera
+ *     kurz heraus und wieder hinein, wie ein Flug über die Karte).
+ *
+ * Grundidee wie im Spike: Alles, was sich in der Welt bewegt, ist ein ZUSTAND aus Zahlen.
+ * Der Zustand kommt aus einem PLAN (Schlüsselbild-Spuren). Daraus folgt jedes Bild:
+ *   berechne(t): Zeit t -> fertige Werte. Liest und schreibt kein DOM (testbar).
+ *   render(t):   schreibt diese Werte ins DOM.
+ * GSAP liefert nur die Uhr (onUpdate) und die Kurven (Eases).
+ *
+ * Wer besitzt was (damit sich nichts in die Quere kommt):
+ *   render() besitzt die HÜLLEN: Kamera-Gruppe, Anker ([data-anker]), Darsteller-Hüllen
+ *   (#a-<name>), ihre Schatten, die Teile der Waage (Balken, Schalen, Ketten).
+ *   GSAP besitzt nur die KINDER darin (Deckkraft, Unschärfe, Stauchen) und den HUD-Text.
+ *
+ * Wird beim Bauen (build/bauen.mjs) zwischen @buehne:anfang/@buehne:ende eingesetzt.
+ */
+(function () {
+  "use strict";
+  if (window.DeepTokBuehne) return;
+
+  var klemme = function (v, a, b) {
+    return Math.max(a === undefined ? 0 : a, Math.min(b === undefined ? 1 : b, v));
+  };
+
+  // ---------------------------------------------------------------------------
+  // Spuren: Listen von Schlüsselbildern [{t, v, ease}] (Kamera: {t, kx, ky, zoom})
+  // ---------------------------------------------------------------------------
+  var easeCache = {};
+  function easeFn(name) {
+    name = name || "power2.inOut";
+    if (!easeCache[name]) easeCache[name] = gsap.parseEase(name);
+    return easeCache[name];
+  }
+
+  /*
+   * pruefeSpur: bricht mit klarer Meldung ab, wenn eine Spur leer ist, ein Feld keine
+   * Zahl ist oder die Zeiten rückwärts laufen. Kommen die Zeiten aus der Stimme, können
+   * sich zwei Cues überholen; ohne diese Prüfung gäbe das still eine falsche Bewegung.
+   */
+  function pruefeSpur(name, spur, felder) {
+    if (!Array.isArray(spur) || spur.length === 0) throw new Error("Bühne: Spur '" + name + "' ist leer");
+    for (var i = 0; i < spur.length; i++) {
+      var k = spur[i];
+      if (typeof k.t !== "number" || !isFinite(k.t)) throw new Error("Bühne: Spur '" + name + "', Schlüsselbild " + i + ": t fehlt");
+      for (var j = 0; j < felder.length; j++) {
+        if (typeof k[felder[j]] !== "number" || !isFinite(k[felder[j]])) {
+          throw new Error("Bühne: Spur '" + name + "' bei t=" + k.t + ": '" + felder[j] + "' ist keine Zahl");
+        }
+      }
+      if (i > 0 && k.t < spur[i - 1].t - 1e-9) {
+        throw new Error("Bühne: Spur '" + name + "' läuft rückwärts: t=" + k.t + " nach t=" + spur[i - 1].t);
+      }
+    }
+  }
+
+  // Abschnitt einer Spur zur Zeit t: zwei Schlüsselbilder und der (geglättete) Anteil f.
+  // Hat das spätere Schlüsselbild "schnitt: true", springt der Wert genau dort (harter Schnitt).
+  function abschnitt(spur, t) {
+    if (t <= spur[0].t) return { a: spur[0], b: spur[0], f: 0, roh: 0 };
+    for (var i = 1; i < spur.length; i++) {
+      var b = spur[i];
+      if (t < b.t) {
+        var a = spur[i - 1];
+        if (b.schnitt) return { a: a, b: a, f: 0, roh: 0 };
+        var roh = (t - a.t) / (b.t - a.t || 1e-9);
+        return { a: a, b: b, f: easeFn(b.ease)(roh), roh: roh };
+      }
+    }
+    var l = spur[spur.length - 1];
+    return { a: l, b: l, f: 0, roh: 0 };
+  }
+  function wert(spur, t) {
+    var s = abschnitt(spur, t);
+    return s.a.v + (s.b.v - s.a.v) * s.f;
+  }
+
+  /*
+   * Kamera: Mittelpunkt linear, Zoom logarithmisch (wirkt gleichmäßig). "bogen" am
+   * Ziel-Schlüsselbild senkt den Zoom in der Mitte der Fahrt (Faktor e^-bogen): Die Kamera
+   * fährt heraus, über die Karte und wieder hinein, statt flach über eine nahe Karte zu wischen.
+   */
+  function kameraBei(spur, t) {
+    var s = abschnitt(spur, t);
+    var lz = Math.log(s.a.zoom) + (Math.log(s.b.zoom) - Math.log(s.a.zoom)) * s.f;
+    if (s.b.bogen) lz -= s.b.bogen * Math.sin(Math.PI * s.f);
+    return { kx: s.a.kx + (s.b.kx - s.a.kx) * s.f, ky: s.a.ky + (s.b.ky - s.a.ky) * s.f, zoom: Math.exp(lz) };
+  }
+
+  // ---------------------------------------------------------------------------
+  // Waage: Geometrie in Bildpixeln, relativ zum Fußpunkt. Gleiche Funktion für die
+  // Atlas-Waage (Fläche) und die Diagramm-Waage (Strich), damit der Schnitt passt.
+  //   W = {saeule, arm, kette, schale, ...}, theta in Grad (positiv = rechts unten)
+  // ---------------------------------------------------------------------------
+  function waageGeometrie(W, theta) {
+    var r = (theta * Math.PI) / 180;
+    var dx = Math.cos(r) * W.arm;
+    var dy = Math.sin(r) * W.arm;
+    var py = -W.saeule;
+    return {
+      drehpunkt: { x: 0, y: py },
+      hakenL: { x: -dx, y: py - dy },
+      hakenR: { x: dx, y: py + dy },
+      // Schalen hängen senkrecht unter den Haken (Pendel), egal wie der Balken steht.
+      schaleL: { x: -dx, y: py - dy + W.kette },
+      schaleR: { x: dx, y: py + dy + W.kette },
+    };
+  }
+
+  // ---------------------------------------------------------------------------
+  // Bühne erstellen
+  // ---------------------------------------------------------------------------
+  /*
+   * erstelle({ wurzel, daten, plan, praefix })
+   *   wurzel : Element, das Welt, Waage, Darsteller und alle [data-anker] enthält
+   *   daten  : von build/bauen.mjs berechnet (Orte, Kamera, Waage-Maße, Physik)
+   *   plan   : { kamera, spuren: {name: [...]}, akteure: {name: [...]} }
+   *   praefix: ID-Präfix dieser Bühne (zwei Bühnen liegen im selben Dokument)
+   */
+  function erstelle(opts) {
+    var w = opts.wurzel;
+    if (!w || typeof w.querySelector !== "function") throw new Error("Bühne: 'wurzel' ist kein Element");
+    var D = opts.daten;
+    var plan = opts.plan;
+    var P = opts.praefix || "w";
+    var B = D.breite || 1080;
+    var H = D.hoehe || 1920;
+    var q = function (sel, muss) {
+      var el = w.querySelector(sel);
+      if (!el && muss !== false) throw new Error("Bühne: " + sel + " fehlt in der Wurzel");
+      return el;
+    };
+
+    // ---- Plan prüfen, bevor irgendetwas gemalt wird ----
+    if (plan.kamera) pruefeSpur("kamera", plan.kamera, ["kx", "ky", "zoom"]);
+    var spuren = plan.spuren || {};
+    Object.keys(spuren).forEach(function (n) {
+      pruefeSpur(n, spuren[n], ["v"]);
+    });
+    var akteure = plan.akteure || {};
+    Object.keys(akteure).forEach(function (n) {
+      var liste = akteure[n];
+      liste.forEach(function (s, i) {
+        if (!(s.bis >= s.ab)) throw new Error("Bühne: Darsteller '" + n + "', Abschnitt " + i + ": bis < ab");
+        if (i > 0 && s.ab < liste[i - 1].bis - 1e-9) {
+          throw new Error("Bühne: Darsteller '" + n + "' beginnt Abschnitt " + i + " (" + s.ab.toFixed(2) + " s), bevor " + (i - 1) + " endet (" + liste[i - 1].bis.toFixed(2) + " s)");
+        }
+      });
+    });
+
+    var KAMERA_FEST = { kx: 0, ky: 0, zoom: 1 };
+    var kamera = plan.kamera ? q("#" + P + "-kamera") : null;
+    var striche = Array.prototype.slice.call(w.querySelectorAll("[data-strich]")).map(function (el) {
+      var muster = el.getAttribute("data-strich-muster");
+      return { el: el, breite: Number(el.getAttribute("data-strich")), muster: muster ? muster.split(/\s+/).map(Number) : null };
+    });
+
+    // Welt -> Bild bei Kamera k
+    function welt2bild(x, y, k) {
+      return { x: (x - k.kx) * k.zoom + B / 2, y: (y - k.ky) * k.zoom + H / 2 };
+    }
+
+    // ---- Waage ----
+    var W = D.waage || null;
+    var waage = W
+      ? {
+          fuss: q("#" + P + "-waage"),
+          balken: q("#" + P + "-balken"),
+          schaleL: q("#" + P + "-schale-l"),
+          schaleR: q("#" + P + "-schale-r"),
+          ketteL: q("#" + P + "-kette-l"),
+          ketteR: q("#" + P + "-kette-r"),
+        }
+      : null;
+
+    // Fußpunkt der Waage in Bildpixeln: an einem Weltort (Atlas) oder fest (Diagramm)
+    function waageFuss(k) {
+      if (!W) return null;
+      if (W.ort) {
+        var o = D.orte[W.ort];
+        return welt2bild(o[0], o[1], k);
+      }
+      return { x: W.fuss[0], y: W.fuss[1] };
+    }
+
+    // ---- Plätze: "ort:barcelona", "schale:links:-90", "bild:540:900" ----
+    function platz(name, k, g, fuss) {
+      var teile = name.split(":");
+      if (teile[0] === "ort") {
+        var o = D.orte[teile[1]];
+        if (!o) throw new Error("Bühne: unbekannter Ort '" + teile[1] + "'");
+        var p = welt2bild(o[0], o[1], k);
+        return { x: p.x + Number(teile[2] || 0), y: p.y + Number(teile[3] || 0), schale: false };
+      }
+      if (teile[0] === "schale") {
+        var s = teile[1] === "links" ? g.schaleL : g.schaleR;
+        return { x: fuss.x + s.x + Number(teile[2] || 0), y: fuss.y + s.y + Number(teile[3] || 0), schale: true };
+      }
+      if (teile[0] === "bild") return { x: Number(teile[1]), y: Number(teile[2]), schale: false };
+      throw new Error("Bühne: unbekannter Platz '" + name + "'");
+    }
+
+    // ---- Darsteller: Hülle, Figur (für Neigung), Schatten ----
+    var PHYSIK = D.physik || {};
+    var namen = Object.keys(akteure);
+    var aEl = {};
+    namen.forEach(function (n) {
+      aEl[n] = {
+        huelle: q("#a-" + n),
+        figur: q("#a-" + n + "-figur"),
+        schatten: q("#a-" + n + "-schatten", false),
+      };
+    });
+
+    // Größe eines Darstellers: "skala" am Abschnitt gilt am Ziel; davor die des vorigen Abschnitts.
+    function skalaVon(liste, i) {
+      for (var j = i; j >= 0; j--) if (liste[j].skala !== undefined) return liste[j].skala;
+      return 1;
+    }
+
+    // Zustand eines Darstellers zur Zeit t (rein rechnerisch)
+    function darsteller(n, t, k, g, fuss) {
+      var z = darstellerOhneSkala(n, t, k, g, fuss);
+      var liste = akteure[n];
+      var i = 0;
+      while (i + 1 < liste.length && liste[i + 1].ab <= t) i++;
+      var ziel = skalaVon(liste, i);
+      var start = skalaVon(liste, i - 1);
+      var s = liste[i];
+      var u = s && t < s.bis && t >= s.ab ? easeFn("power2.inOut")((t - s.ab) / (s.bis - s.ab || 1e-9)) : 1;
+      z.skala = start + (ziel - start) * u;
+      return z;
+    }
+    function darstellerOhneSkala(n, t, k, g, fuss) {
+      var liste = akteure[n];
+      if (!liste.length || t < liste[0].ab) return { sicht: 0, x: -999, y: -999, h: 0, gx: -999, gy: -999, neigung: 0, schatten: 0 };
+      var i = 0;
+      while (i + 1 < liste.length && liste[i + 1].ab <= t) i++;
+      var s = liste[i];
+      var ziel = platz(s.nach, k, g, fuss);
+      var sicht = i === 0 ? klemme((t - s.ab) / 0.08) : 1;
+      if (s.sicht !== undefined && t >= s.ab) sicht = s.sicht; // z. B. 0 = verschwindet am Ziel
+      if (t >= s.bis || s.art === "sofort") {
+        return { sicht: sicht, x: ziel.x, y: ziel.y, h: 0, gx: ziel.x, gy: ziel.y, neigung: 0, schatten: ziel.schale ? 0 : 1 };
+      }
+      var u = (t - s.ab) / (s.bis - s.ab || 1e-9);
+      if (s.art === "fall") {
+        var hoehe = (s.hoehe || PHYSIK.fallhoehe || 560) * (1 - easeFn("power2.in")(u));
+        return { sicht: sicht, x: ziel.x, y: ziel.y - hoehe, h: hoehe, gx: ziel.x, gy: ziel.y, neigung: 0, schatten: ziel.schale ? 0 : u };
+      }
+      var von = platz(liste[i - 1] ? liste[i - 1].nach : s.von, k, g, fuss);
+      if (s.art === "schritt") {
+        var f = easeFn("power2.inOut")(u);
+        var hs = (s.hoehe || 90) * Math.sin(Math.PI * u);
+        var gx = von.x + (ziel.x - von.x) * f;
+        var gy = von.y + (ziel.y - von.y) * f;
+        return { sicht: sicht, x: gx, y: gy - hs, h: hs, gx: gx, gy: gy, neigung: 0, schatten: ziel.schale ? 1 - u : u };
+      }
+      // Flug: Bodenpunkt auf einem Bogen von "von" nach "ziel", darüber die Flughöhe.
+      // steigen (power2.out), reisen, sinken (power2.in) wie DESIGN.md §5 "Flug".
+      var dauer = s.bis - s.ab;
+      var tt = t - s.ab;
+      var H0 = s.hoehe || PHYSIK.flughoehe || 120;
+      var steig = PHYSIK.steigzeit || 0.45;
+      var sink = PHYSIK.sinkzeit || 0.5;
+      var h;
+      if (tt < steig) h = H0 * easeFn("power2.out")(tt / steig);
+      else if (tt > dauer - sink) h = H0 * (1 - easeFn("power2.in")((tt - (dauer - sink)) / sink));
+      else h = H0;
+      var fu = easeFn("power1.inOut")(u);
+      var mx = (von.x + ziel.x) / 2;
+      var my = (von.y + ziel.y) / 2;
+      var lx = ziel.x - von.x;
+      var ly = ziel.y - von.y;
+      var bogen = s.bogen === undefined ? 0.18 : s.bogen; // seitliche Ausbuchtung (Anteil der Strecke)
+      var cx = mx + -ly * bogen;
+      var cy = my + lx * bogen;
+      var a = (1 - fu) * (1 - fu);
+      var b = 2 * (1 - fu) * fu;
+      var c = fu * fu;
+      var gx2 = a * von.x + b * cx + c * ziel.x;
+      var gy2 = a * von.y + b * cy + c * ziel.y;
+      // Neigung in Flugrichtung, am stärksten in der Mitte (wie ein geworfener Gegenstand)
+      var richtung = ziel.x >= von.x ? 1 : -1;
+      var neigung = richtung * 9 * (h / H0) * Math.sin(Math.PI * u);
+      // Schatten nur über der Karte: von oder nach einer Schale blendet er aus/ein.
+      var sch = 1;
+      if (von.schale) sch = Math.min(sch, klemme(u / 0.35));
+      if (ziel.schale) sch = Math.min(sch, klemme((1 - u) / 0.35));
+      return { sicht: sicht, x: gx2, y: gy2 - h, h: h, gx: gx2, gy: gy2, neigung: neigung, schatten: sch };
+    }
+
+    // ---- Anker: Orte, Schalen, Darsteller ----
+    var anker = Array.prototype.slice.call(w.querySelectorAll("[data-anker]")).map(function (el) {
+      var rand = el.querySelector(".w-rand");
+      var name = rand ? rand.firstElementChild : null;
+      return {
+        el: el,
+        ziel: el.getAttribute("data-anker"),
+        dx: Number(el.getAttribute("data-anker-dx") || 0),
+        dy: Number(el.getAttribute("data-anker-dy") || 0),
+        rand: rand,
+        // Box des Namens EINMAL messen (nicht in jedem Bild): Messen im onUpdate kann bei
+        // einem kalten Render andere Werte liefern. Darum wird erst nach den Schriften gebaut.
+        box: name ? { l: name.offsetLeft, b: name.offsetWidth, o: name.offsetTop, h: name.offsetHeight } : null,
+        bisZoom: rand && rand.hasAttribute("data-bis-zoom") ? Number(rand.getAttribute("data-bis-zoom")) : 0,
+      };
+    });
+
+    /*
+     * berechne(t): alle Werte eines Bildes, ohne DOM. Auf zwei Stellen gerundet,
+     * damit Player und Render dieselben Zeichenketten bauen.
+     */
+    function berechne(t) {
+      t = t || 0;
+      var k = plan.kamera ? kameraBei(plan.kamera, t) : KAMERA_FEST;
+      var e = { k: k, spuren: {} };
+      Object.keys(spuren).forEach(function (n) {
+        e.spuren[n] = wert(spuren[n], t);
+      });
+      e.kamera = "translate(" + (B / 2 - k.kx * k.zoom).toFixed(2) + " " + (H / 2 - k.ky * k.zoom).toFixed(2) + ") scale(" + k.zoom.toFixed(4) + ")";
+      var theta = e.spuren.neigung || 0;
+      var g = W ? waageGeometrie(W, theta) : null;
+      var fuss = W ? waageFuss(k) : null;
+      e.waage = W ? { g: g, fuss: fuss, theta: theta } : null;
+      e.akteure = {};
+      namen.forEach(function (n) {
+        e.akteure[n] = darsteller(n, t, k, g, fuss);
+      });
+      e.anker = anker.map(function (a) {
+        var p;
+        var teile = a.ziel.split(":");
+        if (teile[0] === "akteur") {
+          var d = e.akteure[teile[1]];
+          p = { x: d.x, y: d.y };
+        } else {
+          p = platz(a.ziel, k, g, fuss);
+        }
+        return { x: p.x + a.dx, y: p.y + a.dy };
+      });
+      return e;
+    }
+
+    // Aktionsrand: 5 % je Seite. Namen verblassen auf den letzten 70 px davor,
+    // statt halb abgeschnitten im Bild zu stehen (Spike-Befund "Münc").
+    var RAND_X = B * 0.05;
+    var RAND_Y = H * 0.05;
+    var RAMPE = 70;
+
+    function render(t) {
+      var e = berechne(t);
+      var s = e.k.zoom;
+      if (kamera) kamera.setAttribute("transform", e.kamera);
+      // Linien bleiben auf dem Bildschirm gleich dick: Breite / Zoom (auch Strichmuster).
+      for (var i = 0; i < striche.length; i++) {
+        var st = striche[i];
+        st.el.setAttribute("stroke-width", (st.breite / s).toFixed(3));
+        if (st.muster) st.el.setAttribute("stroke-dasharray", st.muster.map(function (m) { return (m / s).toFixed(2); }).join(" "));
+      }
+      // Spuren mit fester Bedeutung (Deckkraft von Elementen mit data-spur="name")
+      if (!render.spurEls) render.spurEls = Array.prototype.slice.call(w.querySelectorAll("[data-spur]"));
+      render.spurEls.forEach(function (el) {
+        var v = e.spuren[el.getAttribute("data-spur")];
+        el.style.opacity = v.toFixed(3);
+        el.style.display = v > 0.001 ? "" : "none"; // unsichtbar = gar nicht malen (spart Renderzeit)
+      });
+      if (opts.vorRender) opts.vorRender(e, t);
+
+      // Waage: Fuß am Ort, Balken dreht um den Drehpunkt, Schalen hängen senkrecht.
+      if (waage) {
+        var g = e.waage.g;
+        waage.fuss.style.transform = "translate(" + e.waage.fuss.x.toFixed(1) + "px, " + e.waage.fuss.y.toFixed(1) + "px)";
+        waage.balken.setAttribute("transform", "rotate(" + e.waage.theta.toFixed(3) + " 0 " + (-W.saeule) + ")");
+        waage.schaleL.setAttribute("transform", "translate(" + g.schaleL.x.toFixed(1) + " " + g.schaleL.y.toFixed(1) + ")");
+        waage.schaleR.setAttribute("transform", "translate(" + g.schaleR.x.toFixed(1) + " " + g.schaleR.y.toFixed(1) + ")");
+        // Ketten: vom Haken zu beiden Rändern der Schale (zwei Linien je Seite)
+        var halb = W.schale / 2 - 8;
+        var kette = function (h, sch) {
+          return "M" + h.x.toFixed(1) + " " + h.y.toFixed(1) + " L" + (sch.x - halb).toFixed(1) + " " + sch.y.toFixed(1) +
+            " M" + h.x.toFixed(1) + " " + h.y.toFixed(1) + " L" + (sch.x + halb).toFixed(1) + " " + sch.y.toFixed(1);
+        };
+        waage.ketteL.setAttribute("d", kette(g.hakenL, g.schaleL));
+        waage.ketteR.setAttribute("d", kette(g.hakenR, g.schaleR));
+      }
+
+      // Darsteller
+      namen.forEach(function (n) {
+        var d = e.akteure[n];
+        var el = aEl[n];
+        el.huelle.style.transform = "translate(" + d.x.toFixed(1) + "px, " + d.y.toFixed(1) + "px)";
+        el.huelle.style.opacity = d.sicht.toFixed(3);
+        el.huelle.style.visibility = d.sicht > 0.001 ? "visible" : "hidden";
+        el.figur.style.transform = "rotate(" + d.neigung.toFixed(2) + "deg) scale(" + d.skala.toFixed(4) + ")";
+        if (el.schatten) {
+          var hs = Math.max(0, 1 - d.h / 260); // je höher, desto kleiner und blasser
+          el.schatten.style.transform = "translate(" + d.gx.toFixed(1) + "px, " + d.gy.toFixed(1) + "px) scale(" + (0.55 + 0.45 * hs).toFixed(3) + ")";
+          el.schatten.style.opacity = (0.75 * (0.35 + 0.65 * hs) * d.schatten * d.sicht).toFixed(3);
+        }
+      });
+
+      // Anker: kleben am Ort, bleiben bildschirmgroß. Namen verblassen vor dem Rand
+      // und, wenn sie data-bis-zoom tragen (Ländernamen), beim Heranfahren.
+      for (var j = 0; j < anker.length; j++) {
+        var a = anker[j];
+        var p = e.anker[j];
+        a.el.style.transform = "translate(" + p.x.toFixed(1) + "px, " + p.y.toFixed(1) + "px)";
+        if (!a.rand || !a.box) continue;
+        var bx = a.box;
+        var abstand = Math.min(p.x + bx.l - RAND_X, B - RAND_X - (p.x + bx.l + bx.b), p.y + bx.o - RAND_Y, H - RAND_Y - (p.y + bx.o + bx.h));
+        var sicht = klemme(abstand / RAMPE);
+        if (a.bisZoom) sicht *= klemme((a.bisZoom - s) / 0.6);
+        a.rand.style.opacity = sicht.toFixed(3);
+      }
+    }
+
+    return { plan: plan, berechne: berechne, render: render, welt2bild: welt2bild, waageGeometrie: waageGeometrie };
+  }
+
+  /*
+   * nachSchriften(liste, baue): ruft baue() auf, sobald die Schriften geladen sind
+   * (z. B. '600 48px "DT Inter"'). Erst dann stimmen gemessene Breiten.
+   * Wer so baut, registriert seine Zeitachse am ENDE von baue(), nicht vorher.
+   */
+  function nachSchriften(liste, baue) {
+    var laden = Promise.all(
+      liste.map(function (f) {
+        return document.fonts.load(f);
+      }),
+    );
+    return laden.catch(function () {}).then(function () {
+      baue();
+    });
+  }
+
+  window.DeepTokBuehne = {
+    erstelle: erstelle,
+    wert: wert,
+    kameraBei: kameraBei,
+    pruefeSpur: pruefeSpur,
+    waageGeometrie: waageGeometrie,
+    nachSchriften: nachSchriften,
+  };
+})();
+
+/* @buehne:ende */
+      /* @datenDiagramm:anfang */
+// eingesetzt von build/bauen.mjs (nicht von Hand ändern)
+// WORTE: Wort-Cues aus assets/timing.json (Bild 2 Bilder vor dem Wort). ZEIT: Cues plus abgeleitete Zeiten.
+const WORTE = {"bcn":0.3,"lewa":1.0666666666666667,"verkaufen":2.7,"behalten":3.433333333333333,"frage":4.566666666666666,"optionen":5.566666666666666,"waage":8.566666666666666,"gehalt":10.4,"bezahlt":11.666666666666666,"tore":13.7,"vertrag":15.033333333333333,"saison":16.366666666666667,"verlaengern":17.966666666666665,"frei":19.466666666666665,"angebot":22,"zahl":23.6,"falsch":27.733333333333334,"landung":30.7,"entgangen":33.1,"korrektur":34.833333333333336,"begriff":37.56666666666667,"alternative":40.266666666666666,"aufgibt":41.5,"juli":42.733333333333334,"genommen":43.8,"ok_verkauf":45.46666666666667,"landung_spieler":47.6,"modell":50.266666666666666,"karte":52.166666666666664,"geschenkt":53.56666666666667,"nachhilfe":55.666666666666664,"lohn_da":56.2,"lohn":59.233333333333334,"gratis":61.3,"aufgeben":63.6,"kosten2":64.16666666666667,"rechnung":66.06666666666666};
+const ZEIT = {"anfang":0,"bcn":0.3,"lewa":1.0666666666666667,"verkaufen":2.7,"behalten":3.433333333333333,"frage":4.566666666666666,"optionen":5.566666666666666,"waage":8.566666666666666,"gehalt":10.4,"bezahlt":11.666666666666666,"tore":13.7,"vertrag":15.033333333333333,"saison":16.366666666666667,"verlaengern":17.966666666666665,"frei":19.466666666666665,"angebot":22,"zahl":23.6,"falsch":27.733333333333334,"landung":30.7,"entgangen":33.1,"korrektur":34.833333333333336,"begriff":37.56666666666667,"alternative":40.266666666666666,"aufgibt":41.5,"juli":42.733333333333334,"genommen":43.8,"ok_verkauf":45.46666666666667,"landung_spieler":47.6,"modell":50.266666666666666,"karte":52.166666666666664,"geschenkt":53.56666666666667,"nachhilfe":55.666666666666664,"lohn_da":56.2,"lohn":59.233333333333334,"gratis":61.3,"aufgeben":63.6,"kosten2":64.16666666666667,"rechnung":66.06666666666666,"s_hook":0.3,"s_naheliegend":8.566666666666666,"s_vertrag":14.633333333333333,"s_angebot":22,"s_widerlegung":25.833333333333332,"s_entgangen":33.1,"s_begriff":36.13333333333333,"s_verkauf":42.63333333333333,"s_modell":48.93333333333333,"s_transfer":51.3,"s_transfer_lohn":57.7,"s_satz":63.06666666666667,"ende":68.6,"pause":6.054,"pauseEnde":8.554,"spielerFall":1.0666666666666667,"nameSpieler":1.4866666666666666,"routeAus":3.5,"hookAus":8.566666666666666,"zoomIn":8.816666666666666,"zoomInEnde":9.416666666666666,"waageAuf":9.266666666666666,"spielerHopp":9.716666666666665,"belegFall":10.4,"behauptung":10.82,"stempel":11.666666666666666,"neigungRechts":13.7,"toreText":13.85,"band":15.133333333333333,"bandEnde":16.133333333333333,"vertragAus":21.6,"fahrtBarcelona":22,"fahrtBarcelonaEnde":22.7,"geldFall":23.6,"geldLandetBcn":24.020000000000003,"zahlText":24.080000000000002,"widerlegung":25.833333333333332,"abflugGeld":29,"fahrtMuenchen":29.25,"fahrtMuenchenEnde":30.55,"zahlTextAus":29,"geldEtikett":30.82,"etikettEntgangen":33.1,"etikettAufgegeben":41.5,"julAus":42.733333333333334,"datumJuli":42.93333333333334,"neigungLinks":43.8,"abflugSpieler":45.46666666666667,"landungSpieler":47.16666666666667,"okEtikett":45.91666666666667,"saisonText":47.6,"schnitt":50.266666666666666,"kaesten":50.416666666666664,"gleichung":50.86666666666667,"karteFall":52.166666666666664,"neigungKarte":52.586666666666666,"lohnZeichnen":56.2,"lohnFlug":59.233333333333334,"lohnFlugEnde":59.833333333333336,"nachhilfeAus":62.66666666666667,"gratisAus":63.91666666666667};
+const SZENEN = [{"id":"hook","beginn":0,"ende":8.866666666666667},{"id":"naheliegend","beginn":8.866666666666667,"ende":14.5},{"id":"vertrag","beginn":14.5,"ende":21.866666666666667},{"id":"angebot","beginn":21.866666666666667,"ende":25.7},{"id":"widerlegung","beginn":25.7,"ende":32.96666666666667},{"id":"entgangen","beginn":32.96666666666667,"ende":36},{"id":"begriff","beginn":36,"ende":42.5},{"id":"verkauf","beginn":42.5,"ende":50.266666666666666},{"id":"modell","beginn":50.266666666666666,"ende":51.166666666666664},{"id":"transfer","beginn":51.166666666666664,"ende":57.56666666666667},{"id":"transfer_lohn","beginn":57.56666666666667,"ende":62.93333333333333},{"id":"satz","beginn":62.93333333333333,"ende":68.6}];
+const BUEHNEN = {"atlas":{"beginn":0,"ende":50.266666666666666},"diagramm":{"beginn":50.266666666666666,"ende":68.6}};
+const DATEN = {"orte":{},"breite":1080,"hoehe":1920,"physik":{"fallhoehe":560,"fallzeit":0.42,"flughoehe":130,"steigzeit":0.45,"sinkzeit":0.5,"flugzeit":1.7,"schrittzeit":0.5},"marker":{"kreis":0.5,"linie":0.35,"strich":0.3,"klammer":0.5},"waage":{"saeule":500,"arm":270,"kette":360,"schale":340,"front":66,"neigung":7,"fuss":[540,1080]}};
+
+/* @datenDiagramm:ende */
+
+      const tl = gsap.timeline({ paused: true });
+      window.DeepTokBuehne.nachSchriften(['600 48px "DT Inter"', '600 52px "DT Inter"'], function () {
+        /* @drehbuchDiagramm:anfang */
+// ---- Drehbuch der Diagramm-Bühne (Beats 9-12) ----
+// Erwartet im selben Gültigkeitsbereich: tl, ZEIT, DATEN, BUEHNEN (von build/bauen.mjs).
+// Die Bühne beginnt mit dem harten Schnitt auf "Waage". Ihre Zeitachse zählt ab dort:
+// lokale Zeit = absolute Zeit - T0.
+const Z = ZEIT;
+const T0 = BUEHNEN.diagramm.beginn;
+const L = (name) => Z[name] - T0;
+const PH = DATEN.physik;
+const N = DATEN.waage.neigung;
+
+const plan = {
+  spuren: {
+    // Die Waage bleibt im Transfer am Ende WAAGERECHT: Die Wahl bleibt offen, kein Rat.
+    neigung: [
+      { t: 0, v: 0 },
+      { t: L("neigungKarte"), v: 0 },
+      { t: L("neigungKarte") + 0.8, v: N, ease: "back.out(1.6)" }, // Kinokarte: Nutzen
+      { t: L("lohnFlugEnde"), v: N },
+      { t: L("lohnFlugEnde") + 0.9, v: 0, ease: "back.out(2.2)" }, // Lohn im Gold-Fach: waagerecht
+    ],
+  },
+  akteure: {
+    karte: [{ ab: L("karteFall"), bis: L("karteFall") + PH.fallzeit, nach: "schale:rechts:0", art: "fall", hoehe: 420 }],
+    lohn: [
+      { ab: L("lohnZeichnen"), bis: L("lohnZeichnen"), nach: "bild:240:1306", art: "sofort" },
+      // In das Gold-Fach (über dem Fach "bezahlt"): kleiner, damit es hineinpasst.
+      { ab: L("lohnFlug"), bis: L("lohnFlugEnde"), nach: "schale:links:66:-170", art: "schritt", hoehe: 160, skala: 0.42 },
+    ],
+  },
+};
+
+const buehne = window.DeepTokBuehne.erstelle({
+  wurzel: document.getElementById("d-buehne").parentElement,
+  daten: DATEN,
+  plan: plan,
+  praefix: "d",
+});
+window.__deeptokDiagramm = buehne;
+
+const rein = (sel, t, extra) =>
+  tl.fromTo(sel, { opacity: 0, filter: "blur(8px)" }, Object.assign({ opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power2.out" }, extra || {}), t);
+const raus = (sel, t, extra) =>
+  tl.fromTo(sel, { opacity: 1, filter: "blur(0px)" },
+    Object.assign({ opacity: 0, filter: "blur(8px)", duration: 0.18, ease: "power2.in", immediateRender: false }, extra || {}), t);
+// "Zeichnen" (DESIGN.md §5 Diagramm): Strich-Offset L -> 0, ca. 1000 px/s.
+function zeichnen(sel, t) {
+  const el = document.querySelector(sel);
+  const laenge = el.getTotalLength ? el.getTotalLength() : 1000;
+  el.setAttribute("stroke-dasharray", laenge.toFixed(1) + " " + (laenge + 20).toFixed(1));
+  tl.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.001, ease: "none" }, t);
+  tl.fromTo(el, { strokeDashoffset: laenge + 10 }, { strokeDashoffset: 0, duration: Math.max(0.3, laenge / 1000), ease: "power1.inOut" }, t);
+}
+// "Einrasten": Maßstab 0 -> 1 mit Feder, Beschriftung 0,12 s später aus der Unschärfe.
+function einrasten(sel, t) {
+  tl.fromTo(sel, { opacity: 0, scale: 0.6, filter: "blur(8px)", transformOrigin: "0% 50%" },
+    { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.35, ease: "back.out(2.2)" }, t);
+}
+
+// Beat 9: Die Fächer der Kosten-Schale bauen sich kurz nach dem Schnitt auf.
+zeichnen("#d-kasten-bezahlt", L("kaesten"));
+tl.fromTo("#d-kasten-aufgegeben", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" }, L("kaesten") + 0.25);
+rein("#d-fach-bezahlt", L("kaesten") + 0.12);
+rein("#d-fach-aufgegeben", L("kaesten") + 0.37);
+// Beat 10: Kinokarte fällt auf "Kinokarte" (render), "geschenkt" im leeren Fach "bezahlt"
+rein("#d-fach-geschenkt", L("geschenkt"));
+einrasten("#d-nachhilfe", L("nachhilfe"));
+einrasten("#d-abend", L("nachhilfe") + 0.12);
+// Lohntüte zeichnet sich auf "Geld"
+zeichnen("#d-lohn-umriss", L("lohnZeichnen"));
+zeichnen("#d-lohn-klappe", L("lohnZeichnen") + 0.35);
+rein("#d-lohn-text", L("lohnZeichnen") + 0.5);
+// Im Fach wird die Tüte klein; ihr Aufdruck wäre dort unter 28 px (unlesbar). Er tritt ab,
+// das Fach "aufgegeben" benennt sie jetzt.
+raus("#d-lohn-text", L("lohnFlug"));
+// Beat 11: Die Tüte wandert ins Gold-Fach, die Waage schwingt auf waagerecht. Kein Kreis:
+// höchstens 1 Kreis je Video (DESIGN.md §6), die Bewegung ist hier das Zeichen.
+const M = window.DeepTokMarker;
+raus(["#d-nachhilfe", "#d-abend"], L("nachhilfeAus"), { stagger: 0.05 });
+// Beat 12: Klammer "Rechnung" umfasst nur das Fach "bezahlt"; das Gold-Fach liegt außerhalb.
+const g = DATEN.waage;
+const randY = g.fuss[1] - g.saeule + g.kette; // Schalenrand bei waagerechter Waage
+M.marker(tl, document.getElementById("m-rechnung"), "klammer",
+  { x: g.fuss[0] - g.arm - 152, y0: randY - 160, y1: randY, yEtikett: 1030 },
+  { farbe: "#F5F0E8", breite: 6, seed: 3, beginn: L("rechnung"), dauer: DATEN.marker.klammer, id: "m-klammer" });
+rein("#d-rechnung", L("rechnung") + 0.3);
+
+tl.to({}, { duration: BUEHNEN.diagramm.ende - T0 }, 0);
+tl.eventCallback("onUpdate", function () {
+  buehne.render(tl.time());
+});
+buehne.render(0);
+
+/* @drehbuchDiagramm:ende */
+        window.__timelines["diagramm"] = tl;
+      });
+    })();
+  </script>
+</template>

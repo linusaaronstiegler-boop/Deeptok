@@ -1,0 +1,324 @@
+<template>
+  <!-- HUD-Szene "satz" (Beat 12, Satz): Unterstreichung unter "aufgegeben", dann "Aufgeben = Kosten" (D2). Der ganze Satz steht nur im Info-Blatt.
+       Nur fester Text (Zahlen, Schlüsselwörter, Credits); Welt und Darsteller liegen auf der Bühne.
+       data-start/data-duration schreibt build/bauen.mjs aus data-cue (relativ zur Szene). -->
+  <style>
+    /* @schriften:anfang */
+@font-face { font-family: "DT Playfair"; src: url("assets/fonts/playfair-display-latin-900-normal.woff2") format("woff2"); font-weight: 900; font-style: normal; font-display: block; }
+@font-face { font-family: "DT Inter"; src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "DT Inter"; src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: block; }
+/* @schriften:ende */
+    #root { position: absolute; inset: 0; font-family: "DT Inter", sans-serif; color: #F5F0E8; pointer-events: none; }
+    #root .clip { position: absolute; left: 108px; }
+    /* Stufen aus studio/DESIGN.md §3: T (Text), D1/D2 (Display), C (Credit). */
+    .t { font-size: 52px; font-weight: 600; line-height: 62px; white-space: nowrap; }
+    .leise { color: rgba(245, 240, 232, 0.78); }
+    .d1, .d2 { font-family: "DT Playfair", serif; font-weight: 900; letter-spacing: -0.02em; white-space: nowrap;
+      font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; }
+    .d1 { font-size: 173px; line-height: 173px; }
+    .d2 { font-size: 124px; line-height: 124px; }
+    .gold { color: #C9A84C; }
+    /* Lesbarkeit über der Karte nur mit dunklem Schatten, nie mit hellem Schein (DESIGN.md §3). */
+    .schatten { text-shadow: 0 2px 18px rgba(14, 23, 38, 0.9); }
+    /* Credit-Ecke: rechtsbündig an x = 972, Unterkante y = 1304, nach oben gestapelt (DESIGN.md §2). */
+    #root .credit { left: auto; right: 108px; text-align: right; font-size: 34px; line-height: 42px; font-weight: 400;
+      color: rgba(245, 240, 232, 0.62); white-space: nowrap; }
+    .c1 { bottom: 616px; }
+    .c2 { bottom: 658px; }
+    .c3 { bottom: 700px; }
+    #root .hud-marker { left: 0; top: 0; width: 1080px; height: 1920px; overflow: visible; }
+    #sz-gleichung { top: 196px; }
+    #sz-satz { top: 280px; }
+    #sz-gratis { top: 272px; }
+  </style>
+  <div id="root" data-composition-id="satz" data-width="1080" data-height="1920">
+    <div id="sz-gleichung" class="clip t" data-cue="anfang" data-start="0" data-duration="5.667" data-track-index="1">Kosten = bezahlt + <span class="gold" id="sz-aufgegeben">aufgegeben</span></div>
+    <svg id="sz-marker" class="clip hud-marker" viewBox="0 0 1080 1920" aria-hidden="true" data-cue="aufgeben" data-start="0.667" data-duration="5" data-track-index="3" data-layout-ignore></svg>
+    <!-- Fortsetzung aus "transfer_lohn": steht, bis "Aufgeben = Kosten" kommt -->
+    <div id="sz-gratis" class="clip t" data-cue="anfang" data-cue-bis="gratisAus" data-cue-bis-versatz="0.2" data-start="0" data-duration="1.183" data-track-index="1">geschenkt ≠ gratis</div>
+    <div id="sz-satz" class="clip d2" data-cue="kosten2" data-start="1.233" data-duration="4.433" data-track-index="1" data-beat="satz"><span class="w">Aufgeben</span><br /><span class="w">= Kosten</span></div>
+  </div>
+  <script>
+    (function () {
+      /* @marker:anfang */
+/*
+ * DeepTok Marker-Ebene (Goldstandard; aus studio/spike-buehne/lib/marker.js kopiert und erweitert)
+ *
+ * Handgezeichnete Markierungen, die sich genau auf ein Wort zeichnen:
+ * Kreis (um einen Ort oder eine Zahl), Unterstreichung (unter einer Zahl),
+ * Durchstrich (über dem Irrtum, nur Rot) und Klammer (fasst einen Teil zusammen).
+ * Maße und Farben: studio/DESIGN.md §6.
+ * Vorbild: Simplicissimus (rote Kreise auf Karten) und Veritasium
+ * (Unterstreichung unter der Schlagzeile). Angelehnt an die Registry-Bausteine
+ * `marker-highlight` und `hw-boil`, aber ohne Laufzeit-Variablen, damit das
+ * Stück beim Bauen in jede Szene kopiert werden kann (siehe docs/VIDEO-PIPELINE.md §5).
+ *
+ * Drei Regeln machen das Modul "seek-sicher", also richtig an jedem Zeitpunkt,
+ * auch wenn der Player rückwärts oder mitten hinein springt:
+ *   1. Kein Math.random(): Das "Zittern" der Hand kommt aus einer festen
+ *      Hash-Funktion mit Startwert (seed). Gleicher seed = gleiche Linie.
+ *   2. Nur fromTo-Tweens mit beiden Endpunkten. Ein `from` liest seinen
+ *      ENDwert beim Erstellen aus dem DOM. Allein ist das harmlos. Bewegen aber
+ *      mehrere Tweens dieselbe Eigenschaft, liest der zweite den Startwert des
+ *      ersten als "Endwert" und steht nach einem Sprung falsch. fromTo legt
+ *      beide Endpunkte fest; ab dem zweiten Tween auf derselben Eigenschaft
+ *      kommt immediateRender: false dazu.
+ *   3. Bis zum Cue ist der Strich unsichtbar (opacity 0). Sonst malt die runde
+ *      Linienkappe schon vorher einen Punkt an den Anfang.
+ *
+ * Wird beim Bauen (build/bauen.mjs) zwischen die Marken @marker:anfang/@marker:ende
+ * eingesetzt. Doppelt eingesetzt ist harmlos: der Wächter unten bricht ab.
+ */
+(function () {
+  "use strict";
+  if (window.DeepTokMarker) return;
+
+  // Fester Pseudo-Zufall: gleiche Eingabe -> gleiche Zahl zwischen -1 und 1.
+  function hash(n, seed) {
+    var x = Math.sin(n * 127.1 + (seed || 1) * 311.7) * 43758.5453;
+    return (x - Math.floor(x)) * 2 - 1;
+  }
+
+  // Punkte -> glatter Pfad (quadratische Kurven durch die Mittelpunkte).
+  // So entstehen weiche Bögen statt Ecken, wie bei einem Filzstift.
+  function glatt(punkte) {
+    var d = "M" + punkte[0][0].toFixed(1) + " " + punkte[0][1].toFixed(1);
+    for (var i = 1; i < punkte.length - 1; i++) {
+      var p = punkte[i];
+      var q = punkte[i + 1];
+      var mx = (p[0] + q[0]) / 2;
+      var my = (p[1] + q[1]) / 2;
+      d += " Q" + p[0].toFixed(1) + " " + p[1].toFixed(1) + " " + mx.toFixed(1) + " " + my.toFixed(1);
+    }
+    var l = punkte[punkte.length - 1];
+    d += " L" + l[0].toFixed(1) + " " + l[1].toFixed(1);
+    return d;
+  }
+
+  function polylinienLaenge(punkte) {
+    var s = 0;
+    for (var i = 1; i < punkte.length; i++) {
+      s += Math.hypot(punkte[i][0] - punkte[i - 1][0], punkte[i][1] - punkte[i - 1][1]);
+    }
+    return s;
+  }
+
+  /*
+   * Handgezeichneter Kreis um (cx, cy).
+   * Eine Hand schließt einen Kreis nie genau: Der Strich läuft etwa 1,15-mal
+   * herum, der Radius wächst dabei leicht (Spirale), und die Ellipse ist ein
+   * wenig gekippt. Ergebnis: Anfang und Ende überlappen versetzt.
+   */
+  function kreisPunkte(cx, cy, rx, ry, seed, opts) {
+    opts = opts || {};
+    var umlauf = opts.umlauf || 1.15; // wie oft der Stift herumfährt
+    var start = opts.startWinkel !== undefined ? opts.startWinkel : -2.2; // oben links beginnen
+    var kipp = (opts.kippen !== undefined ? opts.kippen : -0.12) + hash(3, seed) * 0.05;
+    var n = 26;
+    var pts = [];
+    for (var i = 0; i <= n; i++) {
+      var f = i / n;
+      var a = start + f * umlauf * Math.PI * 2;
+      // Radius: leichtes Wachsen über den Umlauf + kleines Handzittern
+      var wachs = 1 - 0.06 + f * 0.12;
+      var zitter = 1 + hash(i * 7 + 11, seed) * 0.025;
+      var x = Math.cos(a) * rx * wachs * zitter;
+      var y = Math.sin(a) * ry * wachs * zitter;
+      // kippen (Drehung um den Mittelpunkt)
+      pts.push([cx + x * Math.cos(kipp) - y * Math.sin(kipp), cy + x * Math.sin(kipp) + y * Math.cos(kipp)]);
+    }
+    return pts;
+  }
+
+  /*
+   * Unterstreichung von x0 bis x1 auf Höhe y.
+   * Leicht ansteigend, mit kleinem Bogen und einem Auslauf am Ende,
+   * so wie ein schneller Strich mit dem Marker.
+   */
+  function linienPunkte(x0, y, x1, seed, opts) {
+    opts = opts || {};
+    var anstieg = opts.anstieg !== undefined ? opts.anstieg : -10; // Ende etwas höher
+    var bogen = opts.bogen !== undefined ? opts.bogen : 7;
+    var n = 9;
+    var pts = [];
+    for (var i = 0; i <= n; i++) {
+      var f = i / n;
+      var x = x0 + (x1 - x0) * f;
+      var yy = y + anstieg * f + Math.sin(f * Math.PI) * bogen + hash(i * 5 + 2, seed) * 1.6;
+      pts.push([x, yy]);
+    }
+    return pts;
+  }
+
+  /*
+   * Durchstrich von x0 bis x1 auf Höhe y (DESIGN.md §6: ein Strich, -4°, 12 px Überstand).
+   * Leicht durchgebogen, damit er nicht wie eine CSS-Linie aussieht.
+   */
+  function strichPunkte(x0, y, x1, seed) {
+    var n = 7;
+    var pts = [];
+    var neigung = Math.tan((-4 * Math.PI) / 180);
+    for (var i = 0; i <= n; i++) {
+      var f = i / n;
+      var x = x0 - 12 + (x1 - x0 + 24) * f;
+      var yy = y + neigung * (x - x0) - Math.sin(f * Math.PI) * 3 + hash(i * 3 + 5, seed) * 1.2;
+      pts.push([x, yy]);
+    }
+    return pts;
+  }
+
+  /*
+   * Klammer an der linken Seite eines Kastens (oben y0, unten y1, Kante bei x),
+   * die unten in einen Bogen zum Etikett ausläuft (bis yEtikett). Wie mit dem Stift:
+   * kurzer Haken oben, senkrechter Strich, Bogen unten.
+   */
+  function klammerPunkte(x, y0, y1, yEtikett, seed) {
+    var pts = [[x + 22, y0 + hash(1, seed)], [x + 4, y0 + 4]];
+    var n = 8;
+    for (var i = 1; i <= n; i++) {
+      var f = i / n;
+      pts.push([x - 6 + Math.sin(f * Math.PI) * -3 + hash(i + 9, seed) * 1.2, y0 + (yEtikett - y0) * f]);
+    }
+    pts.push([x + 6, yEtikett + 14]);
+    pts.push([x + 26, yEtikett + 18]);
+    return pts;
+  }
+
+  /*
+   * Zeichnet einen Pfad seek-sicher auf die Zeitachse.
+   *   pfad   : SVG-<path> mit fertigem d, der schon im DOM hängt. Nur dann
+   *            kann getTotalLength() messen; sonst gilt die Ersatzlänge.
+   *   beginn : Sekunde auf der Zeitachse (lokal zur Komposition) = Cue-Wort
+   *   dauer  : wie lange der Stift braucht (Kreis ca. 0,6 s, Linie ca. 0,35 s)
+   *   laenge : Ersatzlänge, falls getTotalLength() noch 0 liefert
+   */
+  function zeichne(tl, pfad, beginn, dauer, laenge, opts) {
+    opts = opts || {};
+    var L = 0;
+    try {
+      L = pfad.getTotalLength();
+    } catch (e) {
+      L = 0;
+    }
+    if (!(L > 0)) L = laenge || 1000;
+    // Strich-Muster: ein Strich so lang wie der Pfad, danach eine etwas
+    // längere Lücke. Bei Offset L+10 sieht man nur Lücke, bei 0 den ganzen Strich.
+    pfad.setAttribute("stroke-dasharray", L.toFixed(1) + " " + (L + 20).toFixed(1));
+    var ease = opts.ease || "power1.inOut";
+    // Unsichtbar bis zum Cue (gegen den Punkt der runden Linienkappe).
+    tl.fromTo(pfad, { opacity: 0 }, { opacity: 1, duration: 0.001, ease: "none" }, beginn);
+    tl.fromTo(
+      pfad,
+      { strokeDashoffset: L + 10 },
+      { strokeDashoffset: 0, duration: dauer, ease: ease },
+      beginn,
+    );
+    return L;
+  }
+
+  /*
+   * Bequeme Hülle: legt den Pfad an, setzt d und zeichnet ihn.
+   *   svg   : das SVG, in das der Marker kommt (Marker-Ebene)
+   *   art   : "kreis" | "linie"
+   *   p     : {cx, cy, rx, ry} für Kreis, {x0, x1, y} für Linie
+   *   stil  : {farbe, breite, seed, beginn, dauer, id}
+   */
+  function marker(tl, svg, art, p, stil) {
+    var ns = "http://www.w3.org/2000/svg";
+    var seed = stil.seed || 1;
+    var pts =
+      art === "kreis"
+        ? kreisPunkte(p.cx, p.cy, p.rx, p.ry, seed, stil)
+        : art === "strich"
+          ? strichPunkte(p.x0, p.y, p.x1, seed)
+          : art === "klammer"
+            ? klammerPunkte(p.x, p.y0, p.y1, p.yEtikett, seed)
+            : linienPunkte(p.x0, p.y, p.x1, seed, stil);
+    var g = document.createElementNS(ns, "g");
+    if (stil.id) g.setAttribute("id", stil.id);
+    // Erst einhängen, dann zeichnen: zeichne() misst die Pfadlänge im DOM.
+    svg.appendChild(g);
+    // Hauptstrich und eine dünne zweite Spur (trockener Filzstift):
+    // beide zeichnen sich gleichzeitig, die Spur ist leicht versetzt.
+    var spuren = [
+      { dx: 0, dy: 0, breite: stil.breite || 8, deckkraft: 1 },
+      { dx: 1.5, dy: -2, breite: (stil.breite || 8) * 0.35, deckkraft: 0.45 },
+    ];
+    var laenge = polylinienLaenge(pts);
+    spuren.forEach(function (s, i) {
+      var path = document.createElementNS(ns, "path");
+      path.setAttribute("d", glatt(pts));
+      path.setAttribute("fill", "none");
+      path.setAttribute("stroke-linecap", "round");
+      path.setAttribute("stroke-linejoin", "round");
+      path.setAttribute("stroke-width", String(s.breite));
+      path.setAttribute("transform", "translate(" + s.dx + " " + s.dy + ")");
+      path.style.stroke = stil.farbe || "#F5F0E8";
+      path.style.strokeOpacity = String(s.deckkraft);
+      g.appendChild(path);
+      var standard = { kreis: 0.5, strich: 0.3, klammer: 0.5 }[art] || 0.35;
+      zeichne(tl, path, stil.beginn, stil.dauer || standard, laenge, stil);
+    });
+    return g;
+  }
+
+  window.DeepTokMarker = {
+    hash: hash,
+    kreisPunkte: kreisPunkte,
+    linienPunkte: linienPunkte,
+    strichPunkte: strichPunkte,
+    klammerPunkte: klammerPunkte,
+    glatt: glatt,
+    zeichne: zeichne,
+    marker: marker,
+  };
+})();
+
+/* @marker:ende */
+      /* @daten:anfang */
+// eingesetzt von build/bauen.mjs (nicht von Hand ändern)
+// WORTE: Wort-Cues aus assets/timing.json (Bild 2 Bilder vor dem Wort). ZEIT: Cues plus abgeleitete Zeiten.
+const WORTE = {"bcn":0.3,"lewa":1.0666666666666667,"verkaufen":2.7,"behalten":3.433333333333333,"frage":4.566666666666666,"optionen":5.566666666666666,"waage":8.566666666666666,"gehalt":10.4,"bezahlt":11.666666666666666,"tore":13.7,"vertrag":15.033333333333333,"saison":16.366666666666667,"verlaengern":17.966666666666665,"frei":19.466666666666665,"angebot":22,"zahl":23.6,"falsch":27.733333333333334,"landung":30.7,"entgangen":33.1,"korrektur":34.833333333333336,"begriff":37.56666666666667,"alternative":40.266666666666666,"aufgibt":41.5,"juli":42.733333333333334,"genommen":43.8,"ok_verkauf":45.46666666666667,"landung_spieler":47.6,"modell":50.266666666666666,"karte":52.166666666666664,"geschenkt":53.56666666666667,"nachhilfe":55.666666666666664,"lohn_da":56.2,"lohn":59.233333333333334,"gratis":61.3,"aufgeben":63.6,"kosten2":64.16666666666667,"rechnung":66.06666666666666};
+const ZEIT = {"anfang":0,"bcn":0.3,"lewa":1.0666666666666667,"verkaufen":2.7,"behalten":3.433333333333333,"frage":4.566666666666666,"optionen":5.566666666666666,"waage":8.566666666666666,"gehalt":10.4,"bezahlt":11.666666666666666,"tore":13.7,"vertrag":15.033333333333333,"saison":16.366666666666667,"verlaengern":17.966666666666665,"frei":19.466666666666665,"angebot":22,"zahl":23.6,"falsch":27.733333333333334,"landung":30.7,"entgangen":33.1,"korrektur":34.833333333333336,"begriff":37.56666666666667,"alternative":40.266666666666666,"aufgibt":41.5,"juli":42.733333333333334,"genommen":43.8,"ok_verkauf":45.46666666666667,"landung_spieler":47.6,"modell":50.266666666666666,"karte":52.166666666666664,"geschenkt":53.56666666666667,"nachhilfe":55.666666666666664,"lohn_da":56.2,"lohn":59.233333333333334,"gratis":61.3,"aufgeben":63.6,"kosten2":64.16666666666667,"rechnung":66.06666666666666,"s_hook":0.3,"s_naheliegend":8.566666666666666,"s_vertrag":14.633333333333333,"s_angebot":22,"s_widerlegung":25.833333333333332,"s_entgangen":33.1,"s_begriff":36.13333333333333,"s_verkauf":42.63333333333333,"s_modell":48.93333333333333,"s_transfer":51.3,"s_transfer_lohn":57.7,"s_satz":63.06666666666667,"ende":68.6,"pause":6.054,"pauseEnde":8.554,"spielerFall":1.0666666666666667,"nameSpieler":1.4866666666666666,"routeAus":3.5,"hookAus":8.566666666666666,"zoomIn":8.816666666666666,"zoomInEnde":9.416666666666666,"waageAuf":9.266666666666666,"spielerHopp":9.716666666666665,"belegFall":10.4,"behauptung":10.82,"stempel":11.666666666666666,"neigungRechts":13.7,"toreText":13.85,"band":15.133333333333333,"bandEnde":16.133333333333333,"vertragAus":21.6,"fahrtBarcelona":22,"fahrtBarcelonaEnde":22.7,"geldFall":23.6,"geldLandetBcn":24.020000000000003,"zahlText":24.080000000000002,"widerlegung":25.833333333333332,"abflugGeld":29,"fahrtMuenchen":29.25,"fahrtMuenchenEnde":30.55,"zahlTextAus":29,"geldEtikett":30.82,"etikettEntgangen":33.1,"etikettAufgegeben":41.5,"julAus":42.733333333333334,"datumJuli":42.93333333333334,"neigungLinks":43.8,"abflugSpieler":45.46666666666667,"landungSpieler":47.16666666666667,"okEtikett":45.91666666666667,"saisonText":47.6,"schnitt":50.266666666666666,"kaesten":50.416666666666664,"gleichung":50.86666666666667,"karteFall":52.166666666666664,"neigungKarte":52.586666666666666,"lohnZeichnen":56.2,"lohnFlug":59.233333333333334,"lohnFlugEnde":59.833333333333336,"nachhilfeAus":62.66666666666667,"gratisAus":63.91666666666667};
+const SZENEN = [{"id":"hook","beginn":0,"ende":8.866666666666667},{"id":"naheliegend","beginn":8.866666666666667,"ende":14.5},{"id":"vertrag","beginn":14.5,"ende":21.866666666666667},{"id":"angebot","beginn":21.866666666666667,"ende":25.7},{"id":"widerlegung","beginn":25.7,"ende":32.96666666666667},{"id":"entgangen","beginn":32.96666666666667,"ende":36},{"id":"begriff","beginn":36,"ende":42.5},{"id":"verkauf","beginn":42.5,"ende":50.266666666666666},{"id":"modell","beginn":50.266666666666666,"ende":51.166666666666664},{"id":"transfer","beginn":51.166666666666664,"ende":57.56666666666667},{"id":"transfer_lohn","beginn":57.56666666666667,"ende":62.93333333333333},{"id":"satz","beginn":62.93333333333333,"ende":68.6}];
+const BUEHNEN = {"atlas":{"beginn":0,"ende":50.266666666666666},"diagramm":{"beginn":50.266666666666666,"ende":68.6}};
+
+/* @daten:ende */
+      const S = SZENEN.find((s) => s.id === "satz");
+      const T = (name, plus) => ZEIT[name] + (plus || 0) - S.beginn; // Cue-Zeit in Szenen-Zeit
+      const tl = gsap.timeline({ paused: true });
+      // Eintritte und Austritte nach DESIGN.md §5. Nur fromTo (seek-sicher); Austritte mit
+      // immediateRender: false, damit sie den Zustand vor ihrem Start nicht überschreiben.
+      const rein = (sel, t) =>
+        tl.fromTo(sel, { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power2.out" }, t);
+      const raus = (sel, t) =>
+        tl.fromTo(sel, { opacity: 1, filter: "blur(0px)" },
+          { opacity: 0, filter: "blur(8px)", duration: 0.18, ease: "power2.in", stagger: 0.04, immediateRender: false }, t);
+      // Setzen (Schlagzeile Wort für Wort): Unschärfe 6 -> 0 px, 0,13 s je Wort, 0,067 s Abstand.
+      const setzen = (sel, t) =>
+        tl.fromTo(sel, { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.13, ease: "power2.out", stagger: 0.067 }, t);
+      // Morph: derselbe Gegenstand verwandelt (alt wächst und verschwimmt, neu kommt aus der Unschärfe).
+      const morph = (alt, neu, t) => {
+        tl.fromTo(alt, { opacity: 1, filter: "blur(0px)", scale: 1 },
+          { opacity: 0, filter: "blur(10px)", scale: 1.3, duration: 0.18, ease: "power2.in", transformOrigin: "0% 50%", immediateRender: false }, t);
+        tl.fromTo(neu, { opacity: 0, filter: "blur(10px)", scale: 0.72, transformOrigin: "0% 50%" },
+          { opacity: 1, filter: "blur(0px)", scale: 1, duration: 0.32, ease: "expo.out" }, t + 0.06);
+      };
+      // Marker brauchen die Breite einzelner Wörter. Die stimmt erst mit geladener Schrift; darum wird
+      // erst danach gebaut und die Zeitachse am Ende registriert.
+      document.fonts.load('600 52px "DT Inter"').catch(function () {}).then(function () {
+        // Unterstreichung Gold unter "aufgegeben" (gesuchte Größe) auf "aufgibst".
+        const wort = document.getElementById("sz-aufgegeben");
+        const zeile = document.getElementById("sz-gleichung");
+        const x0 = zeile.offsetLeft + wort.offsetLeft;
+        window.DeepTokMarker.marker(tl, document.getElementById("sz-marker"), "linie",
+          { x0: x0 - 6, x1: x0 + wort.offsetWidth + 14, y: zeile.offsetTop + 62 + 2 },
+          { farbe: "#C9A84C", breite: 10, seed: 6, beginn: T("aufgeben"), dauer: 0.35, id: "sz-linie" });
+        raus("#sz-gratis", T("gratisAus"));
+        setzen("#sz-satz .w", T("kosten2"));
+        tl.to({}, { duration: S.ende - S.beginn }, 0);
+        window.__timelines["satz"] = tl;
+      });
+    })();
+  </script>
+</template>
