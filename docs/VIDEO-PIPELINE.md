@@ -1,6 +1,6 @@
 # DeepTok-Videofabrik: finaler Plan
 
-Stand: 27.10.2026. Grundlage ist Vorschlag C (Hybrid). Dazu kommen die besten Teile aus A und B, und alle Pflichtkorrekturen der Gutachter sind eingearbeitet.
+Stand: 27.10.2026, abends. Grundlage ist Vorschlag C (Hybrid). Dazu kommen die besten Teile aus A und B, und alle Pflichtkorrekturen der Gutachter sind eingearbeitet. **Änderung am Abend:** Die Fabrik läuft als Scheduled Tasks über Linus' Abo statt auf GitHub Actions mit API-Guthaben (§1, §2, §7–§10). Neu in §3: was die Vorschaubilder von Simplicissimus und Veritasium zeigen.
 
 ## 1. Kontext & Ziel
 
@@ -9,12 +9,12 @@ Die Probe „Opportunitätskosten“ ist didaktisch richtig aufgebaut: Fall → 
 - **Bild:** 5 von 8 Szenen sind nur Text. Harte Schnitte auf leeres Navy, keine Kamera. Das wirkt wie Folien.
 - **Bauweise:** etwa 25 min Agentenzeit und etwa 450 Zeilen Handcode pro Video.
 
-**Ziel:** Videos (30–90 s), nachts automatisch gebaut. Bildgrammatik wie bei Simplicissimus, Didaktik wie bei Veritasium. Gemessen wird, wie viel Wissen nach 7 Tagen pro Minute Video hängen bleibt. Das Max-Guthaben allein trägt 5–6 Videos pro Tag, davon 3 Evergreens; 10–20 pro Tag brauchen ca. $150 Zusatzguthaben im Monat oder Max 20x. Messbar wird das Ziel erst mit App und Rückkanal (Phase 2).
+**Ziel:** Videos (30–90 s), nachts automatisch gebaut. Bildgrammatik wie bei Simplicissimus, Didaktik wie bei Veritasium. Gemessen wird, wie viel Wissen nach 7 Tagen pro Minute Video hängen bleibt. Die Fabrik läuft als Scheduled Tasks über Linus' Max-Abo. Wie viele Videos pro Nacht ins Kontingent passen, messen die Kalibriernächte (Start: 3). Messbar wird das Lernziel erst mit App und Rückkanal (Phase 2).
 
 | | Probe | Neu |
 |---|---|---|
 | Bau | Code pro Video | JSON-Spec → feste Szenen-Module |
-| Steuerung | interaktive Sitzung | Python auf GitHub Actions + Claude-API |
+| Steuerung | interaktive Sitzung | Scheduled Tasks in der Cloud + Python-Zustandsmaschine |
 | Stimme | Piper, satzweise | bezahlte Stimme, Skript am Stück, gemastert |
 | Bild | Text auf Navy | Karten, Archivbilder, Darsteller; ab v1.1 Welt mit Kamera |
 | Abspielen | MP4 | live im Browser, Teilen per Link |
@@ -22,59 +22,75 @@ Die Probe „Opportunitätskosten“ ist didaktisch richtig aufgebaut: Fall → 
 **Drei Stufen:**
 - **L** (Bibliothek, Standard)
 - **L+** (eine Sonderszene, ab 14.11., höchstens 2 pro Woche)
-- **H** (Hero, 1 pro Monat, $30–60 Zusatzbudget): Forschung für neue Module, kein Feed-Format
+- **H** (Hero, 1 pro Monat, eigene Opus-Bau-Sitzung außerhalb der Testwoche): Forschung für neue Module, kein Feed-Format
 
 Was sich in Heroes bewährt, wird zu einem Modul der Bibliothek. So wird die billige Stufe besser, ohne teurer zu werden.
 
-Ein Opus-Agent, der Sonnet-Agenten überwacht, ist nicht vorgesehen: Multi-Agent ≈ 15× Chat-Tokens, ≈ 4× ein Einzelagent (Anthropic 2025). Die Steuerung übernimmt Python-Code. Opus entscheidet nur dort, wo Geschmack zählt.
+**Wer steuert.** Linus' Idee „Opus überwacht Sonnet-Agenten“ wird übernommen, mit einer Verschiebung: Opus sitzt am Redaktionstisch, nicht auf dem Wachposten.
+- Überwachen heißt warten, Status lesen, Schritte anstoßen. Jede dieser Runden kostet Tokens. Das erledigen Python-Code (`factory/fabrik.py`) und ein Sonnet-Lead.
+- Opus entscheidet nur dort, wo Geschmack zählt: Serienplan, Slate, Skripte, Eskalationen.
+- Multi-Agent kostet ≈ 15× Chat-Tokens, ≈ 4× ein Einzelagent (Anthropic 2025). Deshalb bekommt jeder Subagent einen engen Auftrag und gibt nur einen kurzen Bericht zurück.
 
 ## 2. Architektur auf einen Blick
 
 ```
-EINGÄNGE  Serienpläne + Faktenblätter · Priming-Digest (privat) · News
-          · ab Rückkanal: Antworten, Konfidenz, Bewertungen
-SLATE     Opus → Briefs: Stufe, Kanal, Identität, Niveau, Serie/Teil, Bogen
-PRO VIDEO Skript + Beats (Opus, Batch) → Skript-Kritik → 1 Überarbeitung
-          → Faktencheck ∥ Spec füllen (Sonnet, Batch) → Lint
-          → Stimme am Stück → Mastering → Wortzeiten + Hör-Check
-          → compose → check → DOM-Messung → Kritiker → ≤ 2 Reparaturen
+EINGÄNGE  Serienpläne + Faktenblätter (Repo) · Digest „Vorlernen morgen“ (Drive-Connector)
+          · News · ab Rückkanal: Antworten, Konfidenz, Bewertungen
+STEUERUNG Scheduled Task startet → Sonnet-Lead → `fabrik.py status` sagt, was dran ist
+SLATE     Opus-Subagent „Chefredaktion“: Briefs + alle Skripte der Nacht in einem Kontext
+          (Stufe, Kanal, Identität, Niveau, Serie/Teil, Bogen, Beats nur mit Fakt-IDs)
+          → Skript-Kritik (Sonnet, eigener Kontext) → 1 Überarbeitung (Opus)
+PRO VIDEO Sonnet-Subagent: Faktencheck → Spec füllen → `fabrik.py build`
+          (Lint → Stimme am Stück → Mastering → Wortzeiten + Hör-Check
+           → compose → check → DOM-Messung)
+          → Kritiker (frischer Sonnet-Subagent) → ≤ 2 Reparaturen → Commit + Zustand
 AUSGABE   public/cards/<id>/ (index.html, voice.m4a, timing.json, spec.json)
-          + Vorhersage + Abruffragen → report.json → Preview-Branch
+          + Vorhersage + Abruffragen → report.json
 ```
 
-| Rolle | Modell, Effort | Modus |
+| Rolle | Modell | Wo |
 |---|---|---|
-| Orchestrator `factory/nightly.py` | – | Python auf GitHub Actions |
-| Serienplaner: 6–8 Teile, **ein** durchgehendes Beispiel, Irrtumsliste, Faktenblatt mit geprüften Quellen | Opus 5.5 medium + Websuche | 1× pro Serie |
-| Chefredaktion (Slate) | Opus 5.5 medium | 1× pro Nacht |
-| News-Recherche (≤ 5 Suchen) | Sonnet 5.5 low | Standard |
-| Skript + Beats, nur mit Fakt-IDs | Opus 5.5 medium | Batch |
-| Skript-Kritik, eigener Kontext | Sonnet 5.5 medium | Standard |
-| Faktencheck mit `web_fetch` | Sonnet 5.5 medium, Streitfälle Opus | Batch (News: Standard) |
-| Spec-Füller (nur Parameter) | Sonnet 5.5 low | Batch |
-| Lint, Aussprache, Didaktik | Code + Haiku 5.5 low (Bruder: Sonnet medium) | Standard |
-| L+-Sonderszene | Sonnet 5.5 medium | Agent SDK |
-| Kritiker | Sonnet 5.5 low | Standard |
-| Hero-Regie, Beförderung | Opus 5.5 high | Agent SDK über API |
+| Steuerung `factory/fabrik.py`: Zustand, Tore, Bauen, Deckel | – | Python, von jedem Lauf aufgerufen |
+| Produktionsleiter (Lead) | Sonnet 5.5 | Scheduled Task „Nachtschicht“ |
+| Serienplaner: 6–8 Teile, **ein** durchgehendes Beispiel, Irrtumsliste, Faktenblatt mit geprüften Quellen | Opus 5.5 + Websuche | Scheduled Task, 1× pro Woche |
+| Chefredaktion: Slate, Skripte, Beats | Opus 5.5 | Subagent, 1× pro Nacht |
+| Skript-Kritik | Sonnet 5.5 | Subagent, eigener Kontext |
+| Faktencheck mit WebFetch, Streitfälle an Opus | Sonnet 5.5 | Produktions-Subagent je Video |
+| Spec-Füller (nur Parameter) | Sonnet 5.5 | Produktions-Subagent je Video |
+| Lint, Aussprache, Didaktik | Code + Haiku 5.5 (Bruder: Sonnet) | in `fabrik.py` bzw. Subagent |
+| L+-Sonderszene | Sonnet 5.5 | eigener Subagent mit Grenzen (§5) |
+| Kritiker | Sonnet 5.5 | frischer Subagent |
+| News-Recherche (≤ 5 Suchen) | Sonnet 5.5 | Scheduled Task „Morgen-Redaktion“ |
+| Hero-Regie, Beförderung | Opus 5.5 | interaktive Bau-Sitzung |
 
-Fable 5.1 wird nicht eingesetzt. Zwei Begriffe:
-- **Batch** ist ein Stapelauftrag: halber Preis, Ergebnis meist in unter einer Stunde, schlimmstenfalls nach 24 h.
-- **Cache** heißt: Wiederholte Prompt-Teile kosten beim Lesen 0,05× (Opus) bzw. 0,1× (Sonnet) des Input-Preises.
+Fable 5.1 wird nicht eingesetzt. Batch und Cache der API entfallen; sie kommen nur mit dem optionalen Turbo zurück (§8).
 
-**Die Nacht läuft auf GitHub Actions**, denn in Claude-Code-Sitzungen enden Befehle nach höchstens 10 min, Hintergrund-Jobs 30 min später. Das Repo ist öffentlich, Standard-Runner sind also kostenlos (Jobs bis 6 h) und kosten kein Claude-Kontingent.
+**Die Nacht läuft als Scheduled Tasks** (claude.ai/code/routines).
+- Jeder Lauf ist eine frische Cloud-Sitzung. Sie klont das Repo neu, arbeitet im Auto-Modus und zählt gegen Linus' Abo-Kontingent wie eine interaktive Sitzung.
+- Einzelne Befehle enden nach 10 min. Bei ca. 130 s CPU pro Video ist das kein Problem; die Sitzung selbst darf stundenlang laufen.
 
-| Workflow | Arbeit |
-|---|---|
-| `nacht.yml`, 22:07 | Slate, Skript-Batch (Frist 23:45), Skript-Kritik, Faktencheck + Spec (Frist 01:30), CPU-Spur, Kritiker, Reparaturen, Veröffentlichen; Ende spätestens 04:00 |
-| `news.yml`, 04:15 | News nur mit Standard-Aufrufen, Stopp 05:50; was um 06:15 fehlt, wird eine Text-Briefingkarte mit Quellen |
+| Task | Zeit (Europe/Berlin) | Modell | Arbeit |
+|---|---|---|---|
+| Nachtschicht | täglich 23:07 | Sonnet-Lead, Subagenten wie oben | Slate, Skripte, Produktion aller Videos, Bericht; Ende spätestens 04:00 |
+| Weiterlauf | täglich 01:37 und 03:07 | Sonnet | liest den Zustand. Läuft die Nachtschicht noch oder ist alles fertig, endet er nach einer Minute. Sonst baut er die offenen Videos fertig |
+| Morgen-Redaktion | täglich 04:15 | Sonnet | News, Briefings, Transfer-Karten aus dem Digest; Stopp 05:50. Was um 06:15 fehlt, wird eine Text-Briefingkarte mit Quellen |
+| Serienplaner | sonntags 20:37 | Opus | nächste Serien mit Faktenblatt, Irrtumsliste und durchgehendem Beispiel |
 
-- `concurrency: fabrik` verhindert überlappende Läufe. Nach jeder Stufe pusht `nightly.py` `factory/state/<datum>.json` (Batch-IDs, Hashes) auf den Branch `factory-state`; jeder Lauf checkt ihn aus und setzt mit `--resume` dort an.
-- Ein Batch, der zur Frist nicht fertig ist, geht als Standard-Aufruf neu raus. Stufen mit Batch-Latenz über 60 min (90. Perzentil) verzichten auf Batch.
-- Höchstens 2 Chrome-Jobs, faster-whisper mit `cpu_threads=2`. `actions/cache` hält venv, npm und Whisper-Modell; Piper und Manim entfallen.
+- **Zustand:** Nach jedem Video schreibt `fabrik.py` `factory/state/<datum>.json` (Status je Video, Hashes, Herzschlag). Er pusht die Datei auf den Branch `factory-state`; der Prompt nennt diesen Branch ausdrücklich, sonst landet alles auf `claude/…`. Jeder Lauf beginnt mit `fabrik.py status`. Ein Container-Neustart kostet so höchstens das Video, das gerade gebaut wurde.
+- **Kein Doppellauf:** Ist der Herzschlag jünger als 15 min, endet der Weiterlauf sofort.
+- **Umgebung `deeptok-fabrik`:**
+  - Das Setup-Skript installiert venv, faster-whisper samt Modell, ffmpeg, die gepinnte HyperFrames-CLI und Chrome. Das Ergebnis wird gecacht; der SessionStart-Hook prüft nur noch.
+  - Netz „Custom“: TTS-Hosts, Nachrichtenquellen, Wikimedia, LoC, naciscdn, jsDelivr.
+  - TTS-Keys als Network secrets, nie als Umgebungsvariable und nie im Repo.
+- **Connectors:** nur Google Drive (Digest lesen) und GitHub. Alle anderen werden im Task entfernt.
+- **CPU:** höchstens 2 Chrome-Jobs gleichzeitig (Datei-Sperre in `fabrik.py`), faster-whisper mit `cpu_threads=2`. Parallel laufen nur die Modell-Schritte.
+- **Prompts im Repo:** Die Task-Prompts liegen in `factory/tasks/*.md`. Der gespeicherte Prompt sagt nur „Lies `factory/tasks/nacht.md` und führe sie aus“. Änderungen laufen damit über Git, nicht über die Weboberfläche.
+- **Veröffentlichen:** Während der Kalibrierung auf `claude/nacht-<datum>` (Vercel-Preview). Ab der Testwoche pusht die Nachtschicht Karten, die alle Tore bestehen, nach `main`.
+- **Pause:** Schalter im Task oder Datei `factory/PAUSE`.
 
 **Serien im Feed:** höchstens 2–3 aktive pro Profil, eine endet vor der nächsten; Teil n+1 erst nach Teil n, eröffnet mit einer Abruffrage zum vorigen. Transfer-Videos bilden je Fach eine Serie nach LehrplanPLUS (Jgst. 10); der Digest wählt den nächsten passenden Teil.
 
-**Persönliche Daten:** Die Abend-Routine schreibt den Digest (ohne Namen) in den privaten Speicher (§7), wo auch Antworten und Bewertungen liegen. `nightly.py` liest sie per Token und committet sie nie ins öffentliche Repo.
+**Persönliche Daten:** Die Fabrik liest den Digest direkt über den Drive-Connector und übernimmt daraus nur Fach, Thema und Priming-Fragen. Namen, Noten und Mails kommen nie ins Repo (G1 blockiert sie). Antworten und Bewertungen aus der App liegen im privaten Speicher (§7).
 
 ## 3. Stil: Richtung Veritasium und Simplicissimus
 
@@ -115,8 +131,26 @@ Auf den Bildschirm kommen Objekte, Zahlen und Schlüsselwörter, nie der gesproc
 - Keine Musik, auch nicht in Pausen; dort soll selbst gedacht werden (Moreno & Mayer 2000). Mit Linus klären, was er mit „Ton“ meinte, und offen sagen: Beide Vorbilder haben Musik, DeepTok nicht. Signal-Geräusche nur auf sichtbaren Ereignissen ohne Sprechtext.
 - Mastering: 80-Hz-Hochpass, De-Esser, 2:1-Kompression, −16 LUFS, −1 dBTP; vorher am Handylautsprecher gegen das rohe Signal hören.
 
+**Was die Vorbilder zeigen** (je 12 Vorschaubilder, 27.10.; Bewegung, Schnitt und Tempo sind noch ungemessen).
+- **Simplicissimus:**
+  - entsättigte, körnige Doku-Fotos und Karten mit einer einzigen Signalfarbe Rot;
+  - handgezeichnete rote Marker: Kreise, Fadenkreuze, Pfeile;
+  - Collage mit Papierriss, Zensurbalken mit fetten Versalien;
+  - Karten mit einer leuchtend hervorgehobenen Region; Schlagzeilen schmal, fett, weiß und rot.
+- **Veritasium:**
+  - ein einziger Gegenstand, dunkel und filmisch ausgeleuchtet;
+  - Serifen-Schlagzeile aus 2–3 Wörtern mit roter Unterstreichung, dazu ein handgezeichneter Pfeil;
+  - echte Hände beim Experiment, gemalte Porträts;
+  - Shorts sind Straßeninterviews mit Serifen-Untertiteln.
+- **Gemeinsam:** dunkler Grund, eine Akzentfarbe, 2–4 Wörter, ein echter Held (Gegenstand, Foto oder Karte), darüber eine Ebene aus Handmarkierungen.
+- **Für DeepTok:**
+  - Die Marker-Ebene wird ein eigenes Modul (Registry `marker-highlight`, `hw-callout-circle`). Kreis, Pfeil oder Unterstreichung zeichnen sich genau auf dem Wort.
+  - Jede Szene hat einen Helden, der kein Text ist.
+  - Editorial bekommt die Playfair-Schlagzeile mit Unterstreichung; Atlas bekommt Archivfotos in Graustufen plus eine Farbe und die hervorgehobene Kartenregion.
+  - Gold bleibt die gesuchte Größe, Rot bleibt Irrtum und Verlust. Beide Vorbilder nutzen Rot als Signal, das passt.
+
 **Inspirations-Werkzeuge.**
-- **Referenz-Destillation (einmalig):** Linus liefert 2–3 Clips von Simplicissimus und Veritasium; ffmpeg misst Schnittlängen und Titel-Timing. Nur die Zahlen kommen in die `DESIGN.md`, die Clips werden gelöscht.
+- **Referenz-Destillation (einmalig):** YouTube blockiert Downloads aus der Cloud (Bot-Prüfung), Umgehungen sind tabu. Deshalb legt Linus 2–3 Ausschnitte (je ≤ 60 s) von Simplicissimus und Veritasium in den Drive-Ordner `07-Projekte/DeepTok/Referenzen`, oder eine Desktop-Sitzung schaut sie in seinem Browser an. ffmpeg misst Schnittlängen und Titel-Timing. Nur die Zahlen kommen in die `DESIGN.md`, die Clips werden gelöscht.
 - **Nutzen:** `npx hyperframes snapshot --against ref.mp4`, `npx hyperframes capture <url> --json`; Registry-Blöcke `count-up`, `before-after-wipe`, `marker-highlight`, `hw-callout-circle`, `chart-story`, `world-map`; UXKIN (`design-md`, `no-ui-slop`) für die App.
 - **Weglassen:** Bright-Data design-mirror, WebGPU-Shader.
 
@@ -125,7 +159,7 @@ Auf den Bildschirm kommen Objekte, Zahlen und Schlüsselwörter, nie der gesproc
 **Casting.**
 - 27.10.: Modelle und Bedingungen prüfen, auch Inworlds Regeln für Minderjährige; Mail an ElevenLabs.
 - Test: Hook, Vorhersagefrage, Widerlegung („nicht X, sondern Y“) und ein ganzes 60-s-Skript mit Zahlen, Namen und Lehnwörtern. Paarweise Zwangswahl, blind, beide Brüder, Handy-Lautsprecher; Wortfehlerrate und Namens-Treffer automatisch.
-- Volumen: Lean ca. 0,26 Mio. Zeichen pro Monat (inkl. 1,3× Puffer für Neuvertonung), Ziel ca. 0,5 Mio.
+- Volumen: bei ca. 6 Videos pro Tag ca. 0,26 Mio. Zeichen pro Monat (inkl. 1,3× Puffer für Neuvertonung), Ziel ca. 0,5 Mio.
 
 | Kandidat | Kosten | Haken | Linus richtet ein |
 |---|---|---|---|
@@ -143,7 +177,7 @@ Gemini-TTS fällt weg, weil die Bedingungen Nutzer unter 18 ausschließen; Piper
 - Markup `*betont*`, `/` (Pause), `?↑` (Frage), je Anbieter übersetzt. Skripte fürs Sprechen: kurze Hauptsätze, Schlüsselwort am Satzende.
 - Wortzeiten vom Anbieter, sonst faster-whisper. Aussprache über Lexikon plus `Anzeige|Gesprochen`; Haiku schlägt Einträge vor.
 - Modell, Stimm-ID und Einstellungen gepinnt in `voices/<id>.json`, Restzeichen vor jeder Nacht prüfen. Ein Sprecher pro Serie; fällt der Anbieter aus, wechselt nur bei News die Stimme, Evergreens warten höchstens 48 h.
-- Adapter nehmen den Key aus der Umgebung (Actions, PC) oder als Proxy-Platzhalter im passenden Header (Cloud-Sitzung).
+- Adapter bekommen den Key in der Cloud als Network secret (Proxy-Platzhalter im passenden Header), am PC aus der Umgebung.
 
 ## 5. Szenen-Bibliothek + Video-Spec
 
@@ -205,10 +239,9 @@ Das Modell schreibt nie Pixel oder Sekunden, nur Slot-Inhalte und Cue-Namen.
 
 **L+-Sonderszene (ab 14.11.).**
 - Der Brief enthält: Bildschirmtext wörtlich, Blickpunkt, Darsteller, Cue-Wörter und eine Verbotsliste.
-- Grenzen: 6 Werkzeug-Runden, 40k Output-Tokens, 15 min; sonst kommt der nächstpassende Bibliothekstyp.
-- Das Agent SDK startet mit minimalem env (`ANTHROPIC_API_KEY`, `PATH`, `HOME`, kein `CLAUDE_CODE_*`).
+- Läuft als eigener Sonnet-Subagent der Nachtschicht. Grenzen: 6 Werkzeug-Runden, 15 min; sonst kommt der nächstpassende Bibliothekstyp.
 
-**Beförderung zum Modul**, wenn (a) der Kritiker keine P0/P1 findet, keine negative Bewertung vorliegt und ≥ 3 Themen sie brauchen, oder (b) derselbe L+-Bedarf 3-mal pro Woche auftaucht. Opus baut das Modul über die API mit zwei Demo-Specs, die beide die Tore bestehen. Jede Karte pinnt `lib@x.y`, also gehen alte Karten nie kaputt.
+**Beförderung zum Modul**, wenn (a) der Kritiker keine P0/P1 findet, keine negative Bewertung vorliegt und ≥ 3 Themen sie brauchen, oder (b) derselbe L+-Bedarf 3-mal pro Woche auftaucht. Opus baut das Modul in einer Bau-Sitzung mit zwei Demo-Specs, die beide die Tore bestehen. Jede Karte pinnt `lib@x.y`, also gehen alte Karten nie kaputt.
 
 ## 6. Qualitäts-Tore (billigste zuerst)
 
@@ -218,7 +251,7 @@ Das Modell schreibt nie Pixel oder Sekunden, nur Slot-Inhalte und Cue-Namen.
 | G1 Code | Sperrwörter in Sprechtext und App-Texten (Lob, „natürlich“, „offensichtlich“, „einfach“, „Leichtsinnsfehler“, Mindset u. a.); **jede Zahl in Bild und Ton steht normalisiert in `facts[]`** (Mio. = Millionen); Fakt mit Quelle, Datum, Zitat; keine Antwort vor `pause_for_answer`; keine Eingabedatei gestaged; Vault-Namen, Mails, Noten blockiert |
 | Skript-Kritik | Irrtum echt und belegt, ein durchgehendes Beispiel, Beispiel vor Regel, jeder Satz trägt die Kernidee, gut sprechbar → eine Überarbeitung |
 | G2 Didaktik | Entfern-Test, Motivationsfloskeln |
-| G3 Faktencheck | `web_fetch` auf jede `src` (`max_content_tokens` ≈ 8k); fehlt die Behauptung → unbelegt; News mit offener Behauptung → Textkarte |
+| G3 Faktencheck | WebFetch auf jede `src`; fehlt die Behauptung → unbelegt; News mit offener Behauptung → Textkarte |
 | G4 Hör-Check | Wortfehlerrate nach Normalisierung (num2words, Lexikon), Schwelle aus der Kalibrierung; Namen per large-v3-turbo oder Parakeet, Fehler nur bei Widerspruch zum Anbieter-Alignment; −16 ± 1 LUFS; ≥ 44,1 kHz, ≥ 96 kbps; Stille > 1,2 s nur in deklarierten Pausen; Sprechtempo 2,0–2,6 Wörter/s, Tonhöhe nicht flach |
 | G5 `check --json` | 0 Fehler |
 | G6 DOM-Layout | ±150 ms am Cue, Lesezeit, y = 168–1330, Schriftgrößen wie im Kit |
@@ -227,14 +260,14 @@ Das Modell schreibt nie Pixel oder Sekunden, nur Slot-Inhalte und Cue-Namen.
 | G9 bei Bibliotheks-Änderung | Referenz-Snapshots, WebKit-Test |
 
 Scheitert ein Tor:
-1. 2 Reparaturen mit dem genauen Befund (Standard-Aufrufe).
+1. 2 Reparaturen mit dem genauen Befund.
 2. Eine Eskalation zu Opus.
 3. Danach kommt die Spec nach `needs-human/`; der Slot bekommt so lange eine Quizkarte.
 
 **Menschliche Freigaben:**
 - **Goldstandard:** Beide Brüder geben der neu gebauten Probe ≥ 4/5, Linus nennt sie „klar besser“; blind urteilt nur der Bruder. Dazu `snapshot --against` gegen 2–3 Referenzsequenzen. Erst danach werden Module daraus gezogen.
 - Stimm-Casting: beide Brüder, blind.
-- Linus bewertet alle 21 Kalibriervideos; daran werden G4 und G8 eingestellt. Danach jedes 10. Video über ein Menü mit Gründen, auch zur Stimme.
+- Linus bewertet alle 15 Kalibriervideos; daran werden G4 und G8 eingestellt. Danach jedes 10. Video über ein Menü mit Gründen, auch zur Stimme.
 
 Bei n = 2 sind Vergleiche qualitativ, zumal beide die alte Probe kennen: Blind-Präferenz plus 7-Tage-Quiz an frischen, gematchten Themenpaaren. Gemessen wird nur innerhalb der Person auf Item-Ebene (≥ 20 Items pro Bedingung, Regel vorab notiert); sonst entscheiden Literatur und Präferenz, auch beim Dialog-Test (Muller 2008: d = 0,83).
 
@@ -242,83 +275,89 @@ Bei n = 2 sind Vergleiche qualitativ, zumal beide die alte Probe kennen: Blind-P
 
 | | L | L+ | H |
 |---|---|---|---|
-| Modellzeit | 4–8 min + Batch-Wartezeit | +10–15 min | Stunden |
+| Modellzeit | ca. 15 min, Videos parallel | +10–15 min | Stunden |
 | CPU (60 s) | ca. 130 s | +30 s | 5–10 min |
-| API-Kosten | ca. $0,40–0,50 | ca. $0,80 | $30–60 |
+| Tokens (Schätzung, §8) | ca. 140k + Grundbedarf der Subagenten | ca. 1,5× L | eigene Bau-Sitzung |
 
-- **Kapazität:** Grenzen setzen Batch-Wartezeit und Budget. Parallelisiert wird über Videos, nicht über Szenen: Fünf Szenen brauchten in einem Kontext 9 min, mit Sub-Agenten 21 min.
-- **App und Rückkanal (Phase 2):** Feed-Seite in `public/` mit Player und Chips für Antwort, Konfidenz und Bewertung; sie schreibt in einen privaten Speicher (Cloudflare Worker + D1), den `nightly.py` per Token liest. Vorher fehlen 7-Tage-Werte und FSRS-Daten. Rückmeldung bleibt neutral („Auflösung: …“); „Irrtum“ trifft die Behauptung, nie die Antwort.
+- **Kapazität:** Die Grenze ist das Kontingent, nicht die Zeit. Eine Nacht mit 5 Videos braucht ca. 1–1,5 h. Parallelisiert wird über Videos, nicht über Szenen: Fünf Szenen brauchten in einem Kontext 9 min, mit Sub-Agenten 21 min.
+- **App und Rückkanal (Phase 2):** Feed-Seite in `public/` mit Player und Chips für Antwort, Konfidenz und Bewertung. Sie schreibt in einen privaten Speicher (Cloudflare Worker + D1), den die Nachtschicht per Token liest (Network secret). Vorher fehlen 7-Tage-Werte und FSRS-Daten. Rückmeldung bleibt neutral („Auflösung: …“); „Irrtum“ trifft die Behauptung, nie die Antwort.
 - **Live-Player:** `<hyperframes-player>` als mitgelieferter, gepinnter Tarball; Laufzeit über das undokumentierte `runtime-src`, GSAP und Schriften lokal. Ein CI-Test lädt eine Karte offline: keine externen Anfragen, „ready“ unter 1 s. Ca. 1–2 MB pro Video. Die Vorhersage stoppt bei `range-end`; Antwort-Chips sind nativ. Tipp links wiederholt die Szene, langes Drücken pausiert.
 - **iOS-Test auf echten Geräten:** Ton-Freigabe per Tipp, Drift über 90 s, Drosselung. Rückfall: ein eigener Player, der den Ton als Uhr nutzt; sonst MP4.
 - **Teilen:** per Link. MP4 nur nachts für markierte Videos, `--quality looks --workers 3` (`auto` wählt hier nur 1 Worker: 104 s statt 57 s).
 
-## 8. Nutzung & Kosten
+## 8. Nutzung & Kontingent
+
+Scheduled Tasks verbrauchen Linus' Abo-Kontingent (5-Stunden-Fenster und Wochenlimit) genau wie seine eigenen Sitzungen. Es entstehen keine API-Kosten. Dafür nimmt jedes Video Linus etwas Spielraum für die eigene Arbeit.
 
 | Rolle pro L-Video (Schätzung) | Input | Output |
 |---|---|---|
-| Skript + Beats, Opus Batch (Denken nicht abschaltbar) | 12k | 6k |
+| Skript + Beats, Opus | 12k | 6k |
 | Skript-Kritik + 1 Überarbeitung | 20k | 6,5k |
-| Faktencheck mit `web_fetch`, Sonnet Batch | 34k | 2k |
-| Spec-Füller, Sonnet Batch | 15k | 4k |
+| Faktencheck mit WebFetch, Sonnet | 34k | 2k |
+| Spec-Füller, Sonnet | 15k | 4k |
 | Lint + Didaktik | 8k | 1,5k |
 | Kritiker, 2 Runden | 2 × 12k | 2 × 1k |
 
-Preise pro Mio. Tokens (Input/Output): Opus 5.5 $4/$20, Sonnet 5.5 $2/$10, Haiku 5.5 $0,10/$0,50. Batch kostet die Hälfte, Websuche $10 pro 1 000. Dazu kommen Reparaturen, Slate, News und Serienplaner. Den echten Preis misst `report.json` an den ersten 15 Videos.
+Dazu kommen der Grundbedarf jedes Subagenten (Systemprompt und Werkzeuge, ca. 15–25k Tokens, großteils gecacht) sowie Reparaturen, Slate, News und Serienplaner. Opus belastet das Kontingent stärker als Sonnet; deshalb schreibt Opus nur.
 
-| Modus | Umfang | API/Monat |
-|---|---|---|
-| **Lean (Standard)** | 6 L pro Tag (3 Evergreen, 3 Transfer/Serie), ab 14.11. ≤ 2 L+ pro Woche, News als Textkarten | ca. $90–110; der Deckel drückt das auf etwa 5 pro Tag |
-| Ziel | 12 L + 3 L+ pro Tag | ca. $230–260; nur mit ca. $150 Zusatzguthaben oder Max 20x |
-
-Die Stimme kostet extra: $5–99.
+**Kalibrieren statt schätzen.** Wie viel Prozent des Wochenlimits ein Video kostet, zeigt nur die Messung.
+- In den Kalibriernächten notiert Linus den Stand auf claude.ai/settings/usage um 23:00 und am Morgen. `report.json` zählt Videos, Subagenten und Laufzeit.
+- Start mit 3 Videos pro Nacht, dann 5 und 7. Obergrenze: Die Fabrik verbraucht höchstens ein Drittel des Wochenlimits.
 
 **Deckel:**
-- $1,50 pro Video und $3,50 pro Nacht.
-- $95 pro Monat nach Kalendermonat, wie das Console-Limit im eigenen Workspace `deeptok-factory`; Guthaben verfällt pro Abrechnungszyklus.
-- Vor jeder Nacht schreibt `nightly.py` Restguthaben und Rate-Limit-Header in `report.json`; daraus ergibt sich die Zahl der Videos.
+- Videos pro Nacht als feste Zahl in `factory/config.json` (Start 3).
+- Pro Video ≤ 2 Reparaturen und eine Opus-Eskalation; L+ ≤ 2 pro Woche.
+- Erreicht ein Lauf das Nutzungslimit, bricht er ab. Der Zustand ist gesichert, der nächste Lauf macht weiter.
+- Overage („usage credits“) bleibt aus. Dann kann die Fabrik nie Geld kosten, sie stoppt nur.
 
-**API-Regeln:**
-- Key als Actions-Secret `DEEPTOK_ANTHROPIC_API_KEY`, explizit übergeben; in Cloud-Sitzungen nie unter dem Standardnamen, sonst überstimmt er den claude.ai-Login. `anthropic` und `claude-agent-sdk` in `tools/requirements.txt`.
-- Kein erzwungenes `tool_choice` (400 bei Opus und Sonnet 5.5); JSON über `output_config.format` mit Schemas aus Zod. Keine Sampling-Parameter, Effort immer setzen, `max_tokens` mit Reserve fürs Denken.
-- `cache_read_input_tokens` messen; bringt der Cache nichts, entfällt er.
-- Batch-Aufträge gehen ohne `fallbacks` raus, weil die Batches-API den Parameter ablehnt. Ablehnungen (`stop_reason:"refusal"`), Fehler und verpasste Fristen werden als Standard-Aufruf neu geschickt, für Opus und Sonnet mit `fallbacks:"default"` und dem Beta-Header `server-side-fallback-2026-07-01`.
-- Haiku 5.5 hat keinen Server-Fallback. Dann gilt der Code-Lint, ergänzt um Sonnet.
-- Reparaturen, Kritiker und News laufen nie über Batch.
+Die Stimme kostet extra: $5–99 im Monat.
+
+**API-Guthaben als optionaler Turbo.** Max 5x enthält zusätzlich $100 API-Guthaben pro Monat, das ungenutzt verfällt. Es gilt nicht für Claude Code, also auch nicht für Scheduled Tasks.
+- Wird das Kontingent knapp, kann `fabrik.py` Skript-Entwürfe und Faktenchecks als Batch über die API schicken: halber Preis, ca. $0,40–0,50 pro Video, also rund 200 Videos im Monat aus dem Guthaben.
+- Dafür müsste Linus einmal eine Console-Organisation verknüpfen und einen Key als Network secret hinterlegen. Der Key bekommt einen eigenen Namen, nie `ANTHROPIC_API_KEY`, sonst überstimmt er den claude.ai-Login.
+- Regeln dafür: kein erzwungenes `tool_choice` (400 bei Opus und Sonnet 5.5), JSON über `output_config.format`, keine Sampling-Parameter, Batch ohne `fallbacks`; Ablehnungen und Fehler gehen als Standard-Aufruf mit `fallbacks:"default"` neu raus. Preise: Opus 5.5 $4/$20, Sonnet 5.5 $2/$10, Haiku 5.5 $0,10/$0,50 pro Mio. Tokens, Batch die Hälfte.
 
 **Pro-Testwoche 6.–13.11. (unter 20 % Kontingent):**
-- Die Fabrik läuft auf dem API-Guthaben von Max 5x ($100/Monat, gilt nicht für Claude Code) und kostet 0 % Kontingent.
-- Gemessen wird über claude.ai/settings/usage, ob Linus' eigene Nutzung samt Morgen-Briefing und Abend-Priming unter 20 % bleibt.
+- Sie fällt mit der Testwoche der Fabrik zusammen. Die Fabrik läuft nur nachts, ihr Anteil am Wochenlimit ist aus den Kalibriernächten bekannt und wird von der Wochensumme abgezogen.
+- Der Rest ist Linus' eigene Nutzung samt Morgen-Briefing und Abend-Priming. Er soll unter 20 % liegen.
 - In dieser Woche gibt es keine Opus-Bausitzungen und keine Heroes.
 
-**Entscheidung am 16.11.:** Max kostet $100 und enthält $100 Guthaben. Pro kostet $20 plus alle API-Kosten. Rein nach API-Kosten gewinnt Pro nur, wenn die Fabrik unter Lean läuft (etwa 5 Videos pro Tag oder weniger). Entscheidend ist, ob Linus' eigene Claude-Code-Nutzung ins Pro-Kontingent passt. Bei Wechsel vor Ende des Max-Zyklus Zahlungsmittel und Auto-Aufladung mit niedrigem Deckel einrichten.
+**Entscheidung am 16.11.:** Pro hat etwa ein Fünftel des Max-5x-Kontingents und kein API-Guthaben. Eine nächtliche Fabrik passt dort kaum hinein.
+- Solange der Grundstock wächst (ca. 1 500 Karten laut App-Plan), bleibt Max.
+- Danach reicht vielleicht Pro mit wenigen neuen Videos pro Woche plus News. Das entscheidet der gemessene Verbrauch pro Video.
 
-**RTX-PC (optional, nie auf dem kritischen Pfad):** Hero-Stills, NVENC-MP4s, Notstimme (Chatterbox), ab 14.11. die Hausbibliothek. Ist die API aus Actions nicht erreichbar, kann `nightly.py` dort unter WSL laufen.
+**RTX-PC (optional, nie auf dem kritischen Pfad):** Hero-Stills, NVENC-MP4s, Notstimme (Chatterbox), ab 14.11. die Hausbibliothek. Fällt die Cloud aus, holt eine Desktop-Sitzung am PC die Nacht nach.
 
 ## 9. Rollout in Phasen
 
 | Phase | Datum | Inhalt |
 |---|---|---|
-| 0 Go/No-Go | Di 27.10. | Guthaben; je ein Sonnet- und Agent-SDK-Aufruf aus Actions landen in Console › Cost, nicht in claude.ai/settings/usage; ein curl pro TTS-Anbieter; Bedingungen; PyAV-Fix (ffmpeg → float32) |
-| 1 Goldstandard | 28.10.–1.11. | Probe von Hand neu: Siegerstimme, Welt mit Kamera, illustrierter Darsteller, Karte München → Barcelona, Geld als Objekt; `DESIGN.md`, Referenz-Destillation, Casting, Starter-Assets. 1.11.: Stimme und Goldstandard entschieden |
-| 2 Skelett | 30.10.–2.11. | parallel: `nightly.py` auf Actions mit Zustand, Fristen, Deckeln; G0, G1, G4, G5; Feed-Seite, Rückkanal. Nach dem Go: v1-Kern ziehen |
-| 3 Kalibrierung | 2.–5.11. | Kalibriernächte 2.–4.11. à 7 Videos, Linus bewertet alle 21; v1-Rest, Atlas-Minimal, übrige Tore außer G7; News-Textkarten; Transfer-Videos; Gerätetest. Freeze 5.–14.11. |
-| 4 Testwoche | 6.–13.11. | Läuft ohne Eingriffe im Lean-Modus mit v1-Typen und Open Peeps |
+| 0 Go/No-Go | Mi 28.10. | Umgebung `deeptok-fabrik` steht. Probe-Task per „Run now“: Setup-Skript gecacht, Drive-Connector liest den Digest, je ein Sonnet- und Opus-Subagent, ein Render unter 10 min, Push auf `factory-state` und `claude/…` klappt, der Auto-Modus blockiert nichts Nötiges; Verbrauch notieren. Ein curl pro TTS-Anbieter über Network secrets; Bedingungen; PyAV-Fix (ffmpeg → float32) |
+| 1 Goldstandard | 28.10.–1.11. | Probe von Hand neu: Siegerstimme, Welt mit Kamera, illustrierter Darsteller, Karte München → Barcelona, Geld als Objekt, Marker-Ebene; `DESIGN.md`, Referenz-Destillation, Casting, Starter-Assets. 1.11.: Stimme und Goldstandard entschieden |
+| 2 Skelett | 30.10.–2.11. | parallel: `fabrik.py` mit Zustand, Herzschlag, Deckeln; die vier Task-Prompts; G0, G1, G4, G5; Feed-Seite, Rückkanal. Nach dem Go: v1-Kern ziehen |
+| 3 Kalibrierung | 2.–5.11. | Kalibriernächte 2.–4.11. mit 3, 5 und 7 Videos, Linus bewertet alle 15 und notiert den Verbrauch; v1-Rest, Atlas-Minimal, übrige Tore außer G7; News-Textkarten; Transfer-Videos; Gerätetest. Freeze 5.–14.11. |
+| 4 Testwoche | 6.–13.11. | Läuft ohne Eingriffe mit der kalibrierten Videozahl, v1-Typen und Open Peeps |
 | 5 Ausbau | ab 14.11. | Opus-Review; 16.11. Max oder Pro; G7, L+, Bühne mit Kamera, Hausbibliothek, voller Atlas, Beförderung, Hero, Dialog-Test |
 
 Wird es knapp, rückt der Freeze nach hinten und die Testwoche läuft mit weniger Videos; der Goldstandard wird nicht abgekürzt.
 
 **Nächste Sitzung:**
-1. `nacht.yml` als Skelett mit `concurrency`, `factory-state` und Cache; Key-Nachweis.
-2. PyAV-Workaround einbauen, `--workers 3` setzen.
-3. Casting-Skript und `voice.py`-Adapter für die vier Anbieter; Netzzugang der Cloud-Umgebung auf „Custom“ mit TTS-Hosts, Wikimedia, LoC, naciscdn, jsDelivr.
-4. Goldstandard beginnen; Bühnen-Spike.
-5. Installationen aus dem SessionStart-Hook ins Setup-Skript der Umgebung verlegen (venv außerhalb des Repos, Whisper-Modell vorgeladen); der Hook prüft nur noch. `docs/PLAN.md` und Vault-Stand aktualisieren.
+1. Setup-Skript für die Umgebung schreiben (`tools/setup-umgebung.sh`, venv außerhalb des Repos, Whisper-Modell vorgeladen) und die Liste der erlaubten Hosts. Der SessionStart-Hook prüft danach nur noch.
+2. `factory/fabrik.py` als Skelett: `status`, `build`, `publish`, Zustand auf `factory-state`, Herzschlag, Deckel, `PAUSE`; PyAV-Workaround, `--workers 3`.
+3. Task-Prompts in `factory/tasks/`; den Probe-Task lege ich selbst an und starte ihn.
+4. Casting-Skript und `voice.py`-Adapter für die vier Anbieter.
+5. Goldstandard beginnen; Bühnen-Spike. `docs/PLAN.md` und Vault-Stand aktualisieren.
 
 **Linus erledigt:**
-- Console mit der richtigen Org verknüpfen (später nur über den Support änderbar), Workspace `deeptok-factory` mit Limit, Websuche aktivieren.
-- Actions-Secrets anlegen: `DEEPTOK_ANTHROPIC_API_KEY` und die TTS-Keys.
+- Repo auf privat stellen (§12). Seit es keine GitHub Actions mehr gibt, hat das keinen Nachteil.
+- Cloud-Umgebung `deeptok-fabrik` anlegen (Umgebungsmenü in der Titelleiste einer Sitzung, dann Edit):
+  - Setup-Skript einfügen, das ich liefere;
+  - Network access „Custom“ mit meiner Hostliste;
+  - TTS-Keys als Network secrets.
+- Overage auf claude.ai/settings/usage ausgeschaltet lassen.
+- Kein Console-Link und kein API-Key nötig, solange der Turbo nicht gebraucht wird.
 - Mail an ElevenLabs schicken; sagen, was er mit „Ton“ meinte.
-- 2–3 Referenzclips liefern; Casting und Goldstandard mit dem Bruder bewerten.
+- 2–3 Referenz-Ausschnitte in den Drive-Ordner `07-Projekte/DeepTok/Referenzen`; Casting und Goldstandard mit dem Bruder bewerten.
 - Starter-Assets: Recraft-Key oder am 31.10./1.11. den PC laufen lassen.
 
 ## 10. Risiken & Gegenmaßnahmen
@@ -327,13 +366,14 @@ Wird es knapp, rückt der Freeze nach hinten und die Testwoche läuft mit wenige
 |---|---|
 | Sieht weiter nach Folien aus | Goldstandard zuerst, ≥ 50 % Bild, messbare `DESIGN.md`, Entfern-Test |
 | Neue Formel | fünf Bögen, keine gleiche Typfolge am selben Tag |
-| Kein Guthaben oder API unerreichbar | Go/No-Go, Lean, RTX-PC unter WSL |
-| Falsche Abrechnung | Key unter eigenem Namen, minimales env, Nachweis in Console › Cost |
-| Nachtlauf bricht ab | Actions-Job ≤ 6 h, Zustand auf `factory-state`, Batch-Fristen, 06:15-Textkarte |
+| Kontingent reicht nicht | Kalibrierung, feste Videozahl pro Nacht, Opus nur fürs Schreiben, Turbo über API-Guthaben |
+| Fabrik verdrängt Linus' eigene Arbeit | Läufe nur nachts, höchstens ein Drittel des Wochenlimits, Schalter und `factory/PAUSE` |
+| Nachtlauf bricht ab (Container-Neustart, Limit) | Zustand nach jedem Video auf `factory-state`, zwei Weiterläufe, 06:15-Textkarte |
+| Lauf hängt an einer Rückfrage | Auto-Modus im Go/No-Go testen, Prompts ohne riskante Aktionen, Bericht im Lauf-Verlauf |
 | Stimme fällt aus oder klingt flach | zweitbeste freigegebene Stimme, Restzeichen-Check, Prosodie-Prüfung |
 | iOS-Wiedergabe | Gerätetest, Ton-als-Uhr-Player, MP4 |
-| Faktenfehler | geprüftes Faktenblatt, `web_fetch` mit Zitat, Zahlen-Normalisierer |
-| Kosten steigen schleichend | Deckel, ≤ 2 Reparaturen, gemessener Preis pro Video |
+| Faktenfehler | geprüftes Faktenblatt, WebFetch mit Zitat, Zahlen-Normalisierer |
+| Verbrauch steigt schleichend | Deckel, ≤ 2 Reparaturen, gemessener Verbrauch pro Video |
 | Wartungsschuld | L+ selten, `lib`-Pin samt Player, Regressions-Snapshots |
 | Persönliche Daten | Eingaben nur privat, Staging-Check, Vault-Lint, `noindex` |
 
@@ -342,8 +382,8 @@ Wird es knapp, rückt der Freeze nach hinten und die Testwoche läuft mit wenige
 - API-Guthaben: https://platform.claude.com/docs/en/about-claude/api-credits-for-subscribers
 - Preise, Batch: https://platform.claude.com/docs/en/about-claude/pricing · https://platform.claude.com/docs/en/build-with-claude/batch-processing
 - Multi-Agent-Kosten: https://www.anthropic.com/engineering/multi-agent-research-system
-- Geplante Aufgaben: https://code.claude.com/docs/en/routines
-- GitHub Actions: https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions
+- Scheduled Tasks: https://code.claude.com/docs/en/routines
+- Cloud-Umgebungen (Setup-Skript, Netz, Secrets): https://code.claude.com/docs/en/cloud-environments
 - HyperFrames: https://hyperframes.heygen.com/prompting/capstone.md · https://hyperframes.heygen.com/prompting/motion.md · https://hyperframes.heygen.com/prompting/recreating-references.md · https://hyperframes.heygen.com/packages/player
 - Templates statt freiem Code (ALGOGEN): https://arxiv.org/abs/2605.12159 · Code2Video: https://arxiv.org/abs/2510.01174 · Kritiker-Grenzen: https://arxiv.org/abs/2603.14724
 - Muller et al. 2008: DOI 10.1111/j.1365-2729.2007.00248.x
@@ -371,9 +411,6 @@ Wird es knapp, rückt der Freeze nach hinten und die Testwoche läuft mit wenige
 
 Das widerspricht der eigenen Regel „keine persönlichen Daten“.
 
-Empfehlung: **das Repo auf privat stellen.** Das ist ein Klick unter GitHub › Settings › Danger Zone und versteckt auch die Historie. Folgen für diesen Plan:
-- **Minuten:** Auf GitHub Actions sind Läufe für private Repos nicht mehr unbegrenzt gratis. GitHub Free hat ein Monatskontingent, laut Doku 2 000 Minuten; vor der Umstellung auf der Abrechnungsseite prüfen.
-- **Schlanker Nachtlauf:** Die Batch-Wartezeit wird nicht im Runner abgesessen. Stattdessen prüfen kurze geplante Jobs (je 1–2 min, alle 30 min) den Batch-Status. Nur der CPU-Teil läuft lang: ca. 130 s pro Video, also bei 6 Videos rund 15–25 min pro Nacht, etwa 600–900 Minuten im Monat.
-- **Vercel** kann private Repos weiterhin deployen.
+Empfehlung: **das Repo auf privat stellen.** Das ist ein Klick unter GitHub › Settings › Danger Zone und versteckt auch die Historie. Seit der Umstellung auf Scheduled Tasks hat das keine Folgen mehr für diesen Plan: Es laufen keine GitHub-Actions-Minuten an, und Vercel deployt auch private Repos.
 
 Die Alternative wäre, das Repo öffentlich zu lassen, die Angaben zu entfernen und die Historie neu zu schreiben (Force-Push). Das ist aufwendiger und fehleranfälliger.
