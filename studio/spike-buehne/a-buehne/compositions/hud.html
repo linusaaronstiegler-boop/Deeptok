@@ -1,0 +1,65 @@
+<template>
+  <style>
+    /* @schriften:anfang */
+@font-face { font-family: "DT Playfair"; src: url("assets/fonts/playfair-display-latin-900-normal.woff2") format("woff2"); font-weight: 900; font-style: normal; font-display: block; }
+@font-face { font-family: "DT Inter"; src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "DT Inter"; src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: block; }
+/* @schriften:ende */
+    #root { position: absolute; inset: 0; font-family: "DT Inter", "Inter", sans-serif; color: #F5F0E8; pointer-events: none; }
+    #root .clip { position: absolute; left: 108px; }
+    .h-serif { font-family: "DT Playfair", "Playfair Display", serif; font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; }
+    .h-schatten { text-shadow: 0 2px 18px rgba(14, 23, 38, 0.9); }
+    .h-quelle { left: auto !important; right: 108px; text-align: right; font-size: 34px; font-weight: 400; line-height: 42px; color: rgba(245, 240, 232, 0.62); }
+    #h-kicker { top: 214px; font-size: 48px; font-weight: 600; line-height: 60px; color: rgba(245, 240, 232, 0.78); }
+    /* 124 px = 6,5 % der Bildhöhe, nicht 9 %: "Lewandowski" ist bei 173 px
+       breiter als die Titel-Sicherheitsbreite (864 px). Siehe REVIEW.md. */
+    #h-titel { top: 276px; font-size: 124px; font-weight: 900; line-height: 1.0; letter-spacing: -0.02em; }
+    #h-abloese { top: 334px; font-size: 52px; font-weight: 600; line-height: 62px; color: rgba(245, 240, 232, 0.8); }
+    #h-vertrag { top: 652px; font-size: 52px; font-weight: 600; line-height: 62px; }
+    #h-vertrag .h-rot { color: #E07A5F; }
+    #h-quelle-abloese { top: 1176px; }
+    #h-quelle-vertrag { top: 1218px; }
+    #h-karte { top: 1262px; }
+  </style>
+  <div id="root" data-composition-id="hud" data-width="1080" data-height="1920">
+    <!-- Fester HUD-Text: steht still, solange er gelesen wird. Keine Sätze, nur Schlüsselwörter.
+         data-start/data-duration schreibt build/bauen.mjs aus data-cue (nicht von Hand ändern). -->
+    <div id="h-kicker" class="clip h-schatten" data-cue="anfang" data-cue-bis="titelWeg" data-start="0" data-duration="2.6" data-track-index="1">Sommer 2022</div>
+    <div id="h-titel" class="clip h-serif h-schatten" data-cue="anfang" data-cue-bis="titelWeg" data-start="0" data-duration="2.6" data-track-index="1" data-beat="titel">Bayern verkauft<br />Lewandowski</div>
+    <div id="h-abloese" class="clip h-schatten" data-cue="zahl" data-start="10.35" data-duration="4.65" data-track-index="1" data-beat="zahl">Ablöse an Bayern</div>
+    <div id="h-vertrag" class="clip h-schatten" data-cue="vertrag" data-start="12.1" data-duration="2.9" data-track-index="1" data-beat="vertrag" data-hold>Vertrag nur bis <span class="h-rot">Juni 2023</span></div>
+    <div id="h-quelle-abloese" class="clip h-schatten h-quelle" data-cue="quelleAbloese" data-start="10.95" data-duration="4.05" data-track-index="2">Ablöse: FC Barcelona, 19.07.2022</div>
+    <div id="h-quelle-vertrag" class="clip h-schatten h-quelle" data-cue="quelleVertrag" data-start="12.1" data-duration="2.9" data-track-index="2">Vertrag: O. Kahn in t-online, 13.05.2022</div>
+    <div id="h-karte" class="clip h-schatten h-quelle" data-cue="anfang" data-start="0" data-duration="15" data-track-index="2">Karte: Natural Earth</div>
+  </div>
+  <script>
+    (function () {
+      /* @daten:anfang */
+// eingesetzt von build/bauen.mjs (nicht von Hand ändern)
+// WORTE: Wort-Cues (später aus den Wortzeiten der Stimme). ZEIT: Wort-Cues plus abgeleitete Zeiten.
+const WORTE = {"bayern":0.3,"barcelona":3.9,"zahlt":5.4,"muenchen":7.05,"zahl":10.35,"abloese":10.95,"juni":12.1};
+const ZEIT = {"anfang":0,"bayern":0.3,"barcelona":3.9,"zahlt":5.4,"muenchen":7.05,"zahl":10.35,"abloese":10.95,"juni":12.1,"muenchenPunkt":0.8,"titelAus":2.35,"titelWeg":2.6,"fahrt":2.5,"kreis":3.9,"kreisAus":5.62,"geld":5.4,"abflug":7.05,"schnitt":7.5,"landung":8.75,"kameraSteht":8.85,"andocken":9.95,"unterstrich":10.95,"quelleAbloese":10.95,"vertrag":12.1,"quelleVertrag":12.1,"ende":15};
+const SZENEN = [{"id":"start","beginn":0,"ende":7.5},{"id":"flug","beginn":7.5,"ende":8.75},{"id":"ziel","beginn":8.75,"ende":15}];
+const DATEN = {"orte":{"muenchen":[83.2,-56.4],"barcelona":[-249.3,261.3],"deutschland":[36.4,-208.4],"frankreich":[-218,-4.5],"spanien":[-479.8,294.8]},"route":{"p0":[-249.3,261.3],"c":[-159.3,22.7],"p2":[83.2,-56.4]},"kamera":{"europa":{"kx":-26.8,"ky":-76.4,"zoom":1},"barcelona":{"kx":-211.8,"ky":223.8,"zoom":3.2},"flug":{"kx":-81.7,"ky":109.9,"zoom":1.85},"muenchen":{"kx":63.2,"ky":-69.7,"zoom":3}},"slot":[178,500],"zahlBreite":726,"bild":{"barcelonaImHalt":[420,1080]},"geld":{"fallhoehe":560,"fallzeit":0.42,"flughoehe":110,"steigzeit":0.45,"sinkzeit":0.5,"flugzeit":1.7,"dockzeit":0.6},"kreisDauer":0.5,"breite":1080,"hoehe":1920};
+
+/* @daten:ende */
+      const tl = gsap.timeline({ paused: true });
+
+      // Schlagzeile: steht ab Bild 0 (Vorschaubild im Feed), geht mit Unschärfe,
+      // bevor die Kamera fährt (Kamera steht im Lesefenster).
+      tl.fromTo(["#h-kicker", "#h-titel"], { opacity: 1, filter: "blur(0px)" },
+        { opacity: 0, filter: "blur(8px)", duration: 0.18, ease: "power2.in", stagger: 0.04 }, ZEIT.titelAus);
+
+      // Ziel: Schlüsselwort über der Zahl, dann der rote Akzent, dann die Quellen.
+      tl.fromTo("#h-abloese", { opacity: 0, filter: "blur(6px)" },
+        { opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power2.out" }, ZEIT.zahl + 0.08);
+      tl.fromTo("#h-vertrag", { opacity: 0, filter: "blur(6px)" },
+        { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power2.out" }, ZEIT.vertrag);
+      tl.fromTo("#h-quelle-abloese", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, ZEIT.quelleAbloese);
+      tl.fromTo("#h-quelle-vertrag", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, ZEIT.quelleVertrag);
+
+      tl.to({}, { duration: ZEIT.ende }, 0);
+      window.__timelines["hud"] = tl;
+    })();
+  </script>
+</template>

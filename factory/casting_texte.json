@@ -1,0 +1,43 @@
+{
+  "_hinweis": "Testtexte für das Stimm-Casting (docs/VIDEO-PIPELINE.md §4): Hook, Vorhersagefrage, Widerlegung 'nicht X, sondern Y' und ein ganzes 60-s-Skript mit Zahlen, Namen und Lehnwörtern. Fall: der Lewandowski-Verkauf aus der Probe. Markup wie in §4: *betont*, / (Pause), ?↑ (Frage). Absichtlich OHNE Aussprache-Tokens (Anzeige|Gesprochen): Das Casting soll zeigen, wie jede Stimme Zahlen, Namen und englische Wörter von sich aus spricht.",
+  "fakten": [
+    {"id": "abl", "behauptung": "Ablöse 45 Mio. € plus bis zu 5 Mio. € Bonus (Wechsel zum FC Barcelona, Sommer 2022)",
+     "quelle": "FC Barcelona, Pressemitteilung „Agreement with Bayern Munich for the transfer of Robert Lewandowski“: „€45 million + €5 million in variables“",
+     "url": "https://www.fcbarcelona.com/en/news/2683853/agreement-with-bayern-munich-for-the-transfer-of-robert-lewandowski",
+     "datum": "2022-07-19", "abgerufen": "2026-10-27"},
+    {"id": "vertrag", "behauptung": "Vertrag beim FC Bayern bis Sommer 2023",
+     "quelle": "Sport1, „Robert Lewandowski verlängert Vertrag bis 2023“: „Die neue Vereinbarung gilt zwei Jahre länger als die alte – bis 2023.“ Primärquelle: Pressemitteilung des FC Bayern vom selben Tag (fcbayern.com/de/news/2019/08/presseerklaerung-fc-bayern-verlaengert-mit-robert-lewandowski-bis-2023; aus der Cloud gesperrt, HTTP 403)",
+     "url": "https://www.sport1.de/fussball/bundesliga/2019/08/fc-bayern-muenchen-robert-lewandowski-verlaengert-vertrag-bis-2023",
+     "datum": "2019-08-29", "abgerufen": "2026-10-27"},
+    {"id": "tore", "behauptung": "344 Tore in 375 Spielen in acht Spielzeiten",
+     "quelle": "bundesliga.com: „Robert Lewandowski erzielte im Trikot des FC Bayern in 375 Pflichtspielen 344 Tore.“ Acht Spielzeiten = 2014/15 bis 2021/22 (Wechsel nach München 2014, laut derselben Seite).",
+     "url": "https://www.bundesliga.com/de/bundesliga/news/fc-bayern-munchen-robert-lewandowski-barcelona-transfer-mundliche-vereinbarung-20570",
+     "datum": "2022-07-19", "abgerufen": "2026-10-27"}
+  ],
+  "texte": [
+    {
+      "id": "hook",
+      "titel": "Hook",
+      "text": "Sommer 2022. Bayern München verkauft Robert Lewandowski / 344 Tore in 375 Spielen. Und trotzdem kann das ein *gutes* Geschäft sein.",
+      "namen": ["Lewandowski"]
+    },
+    {
+      "id": "frage",
+      "titel": "Vorhersagefrage",
+      "text": "Was hätte es Bayern gekostet, Lewandowski noch ein Jahr zu *behalten*?↑ / Tippe deine Schätzung: nichts, 5 Millionen oder 45 Millionen Euro?↑",
+      "namen": ["Lewandowski"]
+    },
+    {
+      "id": "widerlegung",
+      "titel": "Widerlegung",
+      "text": "Naheliegend ist: Wer einen Spieler behält, zahlt nichts. / Das stimmt *nicht*. Behalten kostet *nicht* null Euro, *sondern* die 45 Millionen, die Barcelona geboten hat.",
+      "namen": ["Barcelona"]
+    },
+    {
+      "id": "skript",
+      "titel": "Ganzes Skript (ca. 60 s)",
+      "text": "Sommer 2022. Bayern München verkauft Robert Lewandowski an den FC Barcelona. / 344 Tore in 375 Spielen, acht Spielzeiten lang. Warum gibt ein Verein so einen Stürmer ab?↑ / Sein Vertrag lief nur noch bis Sommer 2023. Danach hätte er ablösefrei gehen können, für null Euro. Barcelona bot 45 Millionen Euro Ablöse, dazu bis zu 5 Millionen Euro Bonus. / Naheliegend ist: Behalten kostet nichts, er ist ja schon da. Das stimmt *nicht*. Wer behält, verzichtet auf dieses Geld. Ökonomen nennen das *Opportunitätskosten*, auf Englisch Opportunity Cost: der Wert der besten Alternative, die man aufgibt. / Jede Entscheidung ist ein Trade-off. Mehr Tore heißt hier weniger Cashflow. / Satz fürs Gespräch: Die wahren Kosten stehen nicht auf der Rechnung, *sondern* in der Alternative, die du aufgibst.",
+      "namen": ["Lewandowski", "Barcelona", "Opportunitätskosten"]
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+<!doctype html>
+<!--
+  Variante A+ (Empfehlung aus REVIEW.md, einmal gebaut): Die Bühne (Welt,
+  Kamera, Darsteller, weltverankerte Marker) ist EINE Sub-Komposition über die
+  volle Länge, genau wie in Variante A (compositions/buehne.html kopiert
+  build/bauen.mjs aus a-buehne). Der feste HUD-Text liegt aber, wie in B, in
+  einer Sub-Komposition je Szene darüber. Die Wurzel hält nur Hosts.
+-->
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #0E1726; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="15" data-width="1080" data-height="1920">
+      <!-- Hosts: data-start/data-duration schreibt build/bauen.mjs (Bühne: volle Länge, HUD: SZENEN). -->
+      <div id="buehne" data-composition-id="buehne" data-composition-src="compositions/buehne.html"
+        data-start="0" data-duration="15" data-track-index="1" data-track-kind="graphics"
+        data-width="1080" data-height="1920" style="z-index:1"></div>
+      <div id="start" data-composition-id="start" data-composition-src="compositions/start.html"
+        data-start="0" data-duration="7.5" data-track-index="2" data-track-kind="graphics"
+        data-width="1080" data-height="1920" style="z-index:10"></div>
+      <div id="flug" data-composition-id="flug" data-composition-src="compositions/flug.html"
+        data-start="7.5" data-duration="1.25" data-track-index="2" data-track-kind="graphics"
+        data-width="1080" data-height="1920" style="z-index:10"></div>
+      <div id="ziel" data-composition-id="ziel" data-composition-src="compositions/ziel.html"
+        data-start="8.75" data-duration="6.25" data-track-index="2" data-track-kind="graphics"
+        data-width="1080" data-height="1920" style="z-index:10"></div>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

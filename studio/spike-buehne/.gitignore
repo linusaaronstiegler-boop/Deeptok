@@ -1,0 +1,9 @@
+# Bühnen-Spike: Renders, Snapshots, Arbeitsdateien und geladene Karte nicht ins Repo.
+# Die Schriften unter */assets/fonts/ (3 x woff2 + OFL-Lizenzen, ca. 79 KB je
+# Variante) liegen dagegen IM Repo: Ohne sie scheitert check nach einem frischen Klon.
+*/renders/
+*/.hyperframes/
+*/snapshots/
+build/cache/
+build/node_modules/
+build/seek-test/

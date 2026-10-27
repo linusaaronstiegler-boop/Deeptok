@@ -1,0 +1,97 @@
+<!--
+  Welt-Fragment (Bühne): Karte, Anker (Punkte + Namen), Darsteller (Geld).
+  build/bauen.mjs setzt dieses Stück in beide Varianten ein und füllt dabei
+  die Karten-Pfade (@karte), die Ländernamen (@laender) und die Münzen (@muenzen) ein.
+  Alle Positionen setzt lib/buehne.js -> render(t). Hier steht nur das Aussehen.
+-->
+<style>
+    /* @schriften:anfang */
+    /* @schriften:ende */
+  #w-buehne { position: absolute; inset: 0; overflow: hidden; background: #0E1726; }
+  #w-svg { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+  /* Simplicissimus-Karte: entsättigt, dunkel, eine Region leuchtet.
+     Die Küste ist der Rand der Landfläche (ein Pfad statt zwei: halb so viele Daten). */
+  #w-land { fill: #222D40; stroke: #5A6880; stroke-linejoin: round; filter: url(#w-papier); }
+  #w-netz { fill: none; stroke: rgba(245, 240, 232, 0.08); }
+  #w-grenzen { fill: none; stroke: #36435A; stroke-linejoin: round; }
+  /* Hervorhebung als farbiger Schein: angehobenes Blau aus der Palette (#1F3864)
+     statt grauer Fläche mit weißem Rand. Der Rand bleibt leise, damit ein
+     Marker-Kreis (Creme) das einzige helle Zeichen im Bild ist. */
+  .w-hl { stroke-linejoin: round; }
+  .w-hl .w-hl-flaeche { fill: #2A4069; stroke: none; }
+  .w-hl .w-hl-schein { fill: none; stroke: #6F8FC4; stroke-opacity: 0.55; filter: url(#w-weich); }
+  .w-hl .w-hl-rand { fill: none; stroke: #9DB2D6; stroke-opacity: 0.7; }
+  #w-spur { fill: none; stroke: #C9A84C; stroke-linecap: round; opacity: 0.9; }
+
+  /* Anker: 0x0-Hülle am Weltort, render() verschiebt sie. Kinder sind frei.
+     .w-rand ist eine zweite Hülle um einen Namen: render() blendet sie aus,
+     bevor der Name den Bildrand erreicht (GSAP besitzt nur das Kind darin). */
+  .w-anker { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 2; }
+  .w-rand { position: absolute; left: 0; top: 0; width: 0; height: 0; }
+  .w-punkt { position: absolute; left: -12px; top: -12px; width: 24px; height: 24px; border-radius: 50%;
+    background: #F5F0E8; box-shadow: 0 0 0 6px rgba(14, 23, 38, 0.85); }
+  .w-name { position: absolute; left: 30px; top: -31px; white-space: nowrap;
+    font-family: "DT Inter", "Inter", sans-serif; font-weight: 600; font-size: 48px; line-height: 62px; color: #F5F0E8;
+    text-shadow: 0 2px 14px rgba(14, 23, 38, 0.95), 0 0 4px rgba(14, 23, 38, 0.9); }
+  #w-name-barcelona { left: 118px; }
+  #w-name-muenchen { left: -118px; top: 38px; width: 236px; text-align: center; }
+  /* Ländernamen: gesperrte Versalien wie auf einer gedruckten Karte, leise.
+     Zentriert ohne CSS-transform: Eine 0 px breite Flex-Hülle mit
+     justify-content: center lässt den Namen links und rechts gleich weit
+     überstehen. So misst offsetLeft/offsetWidth genau den Text (Randblende). */
+  .w-rand.w-mitte { display: flex; justify-content: center; }
+  .w-land-name { position: relative; top: -21px; flex: none; white-space: nowrap;
+    font-family: "DT Inter", "Inter", sans-serif; font-weight: 600; font-size: 34px; line-height: 42px;
+    letter-spacing: 0.32em; color: rgba(245, 240, 232, 0.46); }
+
+  /* Darsteller: das Geld. Hülle = Bodenpunkt (Mitte unten des Stapels).
+     Größe 288 px = 15 % der Bildhöhe: ein Gegenstand, kein Symbol. */
+  #d-huelle { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 3; }
+  #d-figur { position: absolute; left: 0; top: 0; width: 0; height: 0; }
+  #d-muenzen { position: absolute; left: -120px; top: -250px; width: 240px; height: 288px; overflow: visible; }
+  #d-zahl { position: absolute; left: -70px; top: -104px; white-space: nowrap;
+    font-family: "DT Playfair", "Playfair Display", serif; font-weight: 900; font-size: 173px; line-height: 200px;
+    letter-spacing: -0.02em; color: #C9A84C;
+    font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; }
+  #d-schatten { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 2; }
+  #d-schatten-oval { position: absolute; left: -110px; top: -24px; width: 220px; height: 48px; border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(3, 7, 14, 0.85), rgba(3, 7, 14, 0)); }
+
+  /* Licht: Vignette als radialer Verlauf (kein linearer, der würde im
+     H.264-Video Streifen bilden). Sie liegt über der Karte, aber unter Namen
+     und Darsteller (die bleiben klar). Kein Filmkorn: Festes Korn mit 6 %
+     verdoppelte die Datei und war im Handy-Blatt nicht zu sehen. */
+  #w-vignette { position: absolute; inset: 0; pointer-events: none; z-index: 1;
+    background: radial-gradient(115% 75% at 50% 52%, rgba(14, 23, 38, 0) 55%, rgba(5, 9, 17, 0.72) 100%); }
+</style>
+<div id="w-buehne">
+  <svg id="w-svg" viewBox="0 0 1080 1920" aria-hidden="true" data-layout-allow-overflow>
+    <defs>
+      <filter id="w-weich" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="4" /></filter>
+      <!-- Papier-Schatten: Das Land liegt wie ausgeschnittenes Papier auf dem Meer. -->
+      <filter id="w-papier" x="-5%" y="-5%" width="110%" height="110%"><feDropShadow dx="0" dy="2.5" stdDeviation="3" flood-color="#03070E" flood-opacity="0.75" /></filter>
+    </defs>
+    <g id="w-kamera">
+      <!-- @karte -->
+    </g>
+  </svg>
+  <div id="w-vignette" data-layout-ignore></div>
+  <!-- @laender -->
+  <div id="w-anker-muenchen" class="w-anker" data-anker="muenchen">
+    <div id="w-punkt-muenchen" class="w-punkt"></div>
+    <div class="w-rand"><div id="w-name-muenchen" class="w-name">München</div></div>
+  </div>
+  <div id="w-anker-barcelona" class="w-anker" data-anker="barcelona">
+    <div id="w-punkt-barcelona" class="w-punkt"></div>
+    <div class="w-rand"><div id="w-name-barcelona" class="w-name">Barcelona</div></div>
+  </div>
+  <div id="d-schatten"><div id="d-schatten-oval"></div></div>
+  <div id="d-huelle">
+    <div id="d-figur">
+      <svg id="d-muenzen" viewBox="0 0 152 182" aria-hidden="true">
+        <!-- @muenzen -->
+      </svg>
+      <div id="d-zahl">45 Mio. €</div>
+    </div>
+  </div>
+</div>

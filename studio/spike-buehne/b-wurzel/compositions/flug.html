@@ -1,0 +1,33 @@
+<template>
+  <style>
+    /* @schriften:anfang */
+@font-face { font-family: "DT Playfair"; src: url("assets/fonts/playfair-display-latin-900-normal.woff2") format("woff2"); font-weight: 900; font-style: normal; font-display: block; }
+@font-face { font-family: "DT Inter"; src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "DT Inter"; src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: block; }
+/* @schriften:ende */
+    #root { position: absolute; inset: 0; font-family: "DT Inter", "Inter", sans-serif; color: #F5F0E8; pointer-events: none; }
+    #s2-karte { position: absolute; right: 108px; text-align: right; top: 1262px; font-size: 34px; line-height: 42px;
+      color: rgba(245, 240, 232, 0.62); text-shadow: 0 2px 18px rgba(14, 23, 38, 0.9); }
+  </style>
+  <div id="root" data-composition-id="flug" data-width="1080" data-height="1920">
+    <!-- Der Flug selbst passiert in der Wurzel (Welt + Kamera + Darsteller).
+         Diese Szene trägt nur, was fest auf dem Bildschirm steht. -->
+    <div id="s2-karte" class="clip" data-cue="schnitt" data-start="0" data-duration="1.25" data-track-index="2" data-beat="flug">Karte: Natural Earth</div>
+  </div>
+  <script>
+    (function () {
+      /* @daten:anfang */
+// eingesetzt von build/bauen.mjs (nicht von Hand ändern)
+// WORTE: Wort-Cues (später aus den Wortzeiten der Stimme). ZEIT: Wort-Cues plus abgeleitete Zeiten.
+const WORTE = {"bayern":0.3,"barcelona":3.9,"zahlt":5.4,"muenchen":7.05,"zahl":10.35,"abloese":10.95,"juni":12.1};
+const ZEIT = {"anfang":0,"bayern":0.3,"barcelona":3.9,"zahlt":5.4,"muenchen":7.05,"zahl":10.35,"abloese":10.95,"juni":12.1,"muenchenPunkt":0.8,"titelAus":2.35,"titelWeg":2.6,"fahrt":2.5,"kreis":3.9,"kreisAus":5.62,"geld":5.4,"abflug":7.05,"schnitt":7.5,"landung":8.75,"kameraSteht":8.85,"andocken":9.95,"unterstrich":10.95,"quelleAbloese":10.95,"vertrag":12.1,"quelleVertrag":12.1,"ende":15};
+const SZENEN = [{"id":"start","beginn":0,"ende":7.5},{"id":"flug","beginn":7.5,"ende":8.75},{"id":"ziel","beginn":8.75,"ende":15}];
+const DATEN = {"orte":{"muenchen":[83.2,-56.4],"barcelona":[-249.3,261.3],"deutschland":[36.4,-208.4],"frankreich":[-218,-4.5],"spanien":[-479.8,294.8]},"route":{"p0":[-249.3,261.3],"c":[-159.3,22.7],"p2":[83.2,-56.4]},"kamera":{"europa":{"kx":-26.8,"ky":-76.4,"zoom":1},"barcelona":{"kx":-211.8,"ky":223.8,"zoom":3.2},"flug":{"kx":-81.7,"ky":109.9,"zoom":1.85},"muenchen":{"kx":63.2,"ky":-69.7,"zoom":3}},"slot":[178,500],"zahlBreite":726,"bild":{"barcelonaImHalt":[420,1080]},"geld":{"fallhoehe":560,"fallzeit":0.42,"flughoehe":110,"steigzeit":0.45,"sinkzeit":0.5,"flugzeit":1.7,"dockzeit":0.6},"kreisDauer":0.5,"breite":1080,"hoehe":1920};
+
+/* @daten:ende */
+      const tl = gsap.timeline({ paused: true });
+      tl.to({}, { duration: SZENEN[1].ende - SZENEN[1].beginn }, 0);
+      window.__timelines["flug"] = tl;
+    })();
+  </script>
+</template>

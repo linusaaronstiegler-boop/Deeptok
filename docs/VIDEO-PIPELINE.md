@@ -76,15 +76,15 @@ Fable 5.1 wird nicht eingesetzt. Batch und Cache der API entfallen; sie kommen n
 | Morgen-Redaktion | täglich 04:15 | Sonnet | News, Briefings, Transfer-Karten aus dem Digest; Stopp 05:50. Was um 06:15 fehlt, wird eine Text-Briefingkarte mit Quellen |
 | Serienplaner | sonntags 20:37 | Opus | nächste Serien mit Faktenblatt, Irrtumsliste und durchgehendem Beispiel |
 
-- **Zustand:** Nach jedem Video schreibt `fabrik.py` `factory/state/<datum>.json` (Status je Video, Hashes, Herzschlag). Er pusht die Datei auf den Branch `factory-state`; der Prompt nennt diesen Branch ausdrücklich, sonst landet alles auf `claude/…`. Jeder Lauf beginnt mit `fabrik.py status`. Ein Container-Neustart kostet so höchstens das Video, das gerade gebaut wurde.
-- **Kein Doppellauf:** Ist der Herzschlag jünger als 15 min, endet der Weiterlauf sofort.
+- **Zustand:** Jede Statusänderung schreibt `fabrik.py` sofort nach `zustand/<nacht>.json` auf den Branch `factory-state` (Status, Versuche und Eskalationen je Video, Herzschlag) und pusht sie; Arbeitskopie per git worktree in `.fabrik-zustand/`; der Prompt nennt diesen Branch ausdrücklich, sonst landet alles auf `claude/…`. Jeder Lauf beginnt mit `fabrik.py status`. Ein Container-Neustart kostet so höchstens das Video, das gerade gebaut wurde.
+- **Kein Doppellauf:** Ist der Herzschlag jünger als 15 min, endet der Weiterlauf sofort. Der Lead hält den Herzschlag mit einer Hintergrund-Schleife frisch und ruft `plan`/`video` mit `--lauf` auf; verliert er die Nacht, bekommt er Exit 3 und hört auf (Docstring von `factory/fabrik.py`).
 - **Umgebung `deeptok-fabrik`:**
-  - Das Setup-Skript installiert venv, faster-whisper samt Modell, ffmpeg, die gepinnte HyperFrames-CLI und Chrome. Das Ergebnis wird gecacht; der SessionStart-Hook prüft nur noch.
-  - Netz „Custom“: TTS-Hosts, Nachrichtenquellen, Wikimedia, LoC, naciscdn, jsDelivr.
-  - TTS-Keys als Network secrets, nie als Umgebungsvariable und nie im Repo.
+  - Das Setup-Skript `tools/setup-umgebung.sh` installiert venv, faster-whisper samt Modell, ffmpeg, die gepinnte HyperFrames-CLI und Chrome, alles unter `/opt/deeptok`. Gemessen: 39 s frisch, 0,8 s beim zweiten Lauf (Grenze für den Cache: ca. 5 min). Der SessionStart-Hook prüft nur noch (0,02 s); `env.sh` setzt HF_HUB_OFFLINE=1.
+  - Netz „Custom“ mit Häkchen für die Standardliste; Hosts in `tools/umgebung-hosts.txt` (Hugging Face, Nachrichten, Märkte, Wikimedia, LoC, naciscdn, jsDelivr). TTS-Hosts kommen über Network secrets und brauchen keinen Eintrag.
+  - TTS-Keys als Network secrets (Tabelle in §4), nie als Umgebungsvariable der Cloud-Umgebung (die kann jeder lesen, der sie nutzt) und nie im Repo.
 - **Connectors:** nur Google Drive (Digest lesen) und GitHub. Alle anderen werden im Task entfernt.
 - **CPU:** höchstens 2 Chrome-Jobs gleichzeitig (Datei-Sperre in `fabrik.py`), faster-whisper mit `cpu_threads=2`. Parallel laufen nur die Modell-Schritte.
-- **Prompts im Repo:** Die Task-Prompts liegen in `factory/tasks/*.md`. Der gespeicherte Prompt sagt nur „Lies `factory/tasks/nacht.md` und führe sie aus“. Änderungen laufen damit über Git, nicht über die Weboberfläche.
+- **Prompts im Repo:** Die Task-Prompts liegen in `factory/tasks/*.md`. Der gespeicherte Prompt sagt nur „Lies `factory/tasks/nacht.md` und führe sie aus“. Änderungen laufen damit über Git, nicht über die Weboberfläche. Der Go/No-Go-Lauf liest `factory/tasks/probe.md`. Jeder Task-Prompt lädt in seinen Bash-Blöcken zuerst `/opt/deeptok/env.sh`, weil SessionStart-Hooks nicht in jeder Sitzungsart laufen.
 - **Veröffentlichen:** Während der Kalibrierung auf `claude/nacht-<datum>` (Vercel-Preview). Ab der Testwoche pusht die Nachtschicht Karten, die alle Tore bestehen, nach `main`.
 - **Pause:** Schalter im Task oder Datei `factory/PAUSE`.
 
@@ -100,15 +100,22 @@ Fable 5.1 wird nicht eingesetzt. Batch und Cache der API entfallen; sie kommen n
 |---|---|---|---|
 | Editorial | Rhetorik, Philosophie, Bücher, Style, Disziplin (nur Linus) | Spaltenraster mit 2-px-Haarlinien, Rasterpunkte, 2–3 px Passer-Versatz, Schlagzeilen-Ausschnitte; keine kursiven Akzentwörter, nichts zentriert Schwebendes | v1 |
 | Diagramm | Naturwiss., Mathe, Schul-Transfer, Wirtschaftsmodelle | sichtbares Rasterpapier (6×6-Anker), Striche zeichnen sich, alles an Achse oder Raster verankert; kein Schnitt in einer Herleitung | v1 |
-| Atlas | Geopolitik & Geschichte, Wirtschaftslage | 3 % Korn, Schlagzeilen mit Quelle + Datum, Kartenrouten, Duoton-Archivfotos | minimal bis 4.11. |
+| Atlas | Geopolitik & Geschichte, Wirtschaftslage | Korn nur, wenn es im Handy-Blatt sichtbar ist (Spike 27.10.: festes Korn verdoppelte die MP4 und war unsichtbar), Schlagzeilen mit Quelle + Datum, Kartenrouten, Duoton-Archivfotos | minimal bis 4.11. |
 
 Farben gelten überall gleich: Gold = gesuchte Größe, Creme = gegeben, Rot = Irrtum/Verlust.
 
 **Bühne und Darsteller (ab v1.1).** Szenen-Timelines erreichen nichts außerhalb ihrer Datei. Ein Spike vergleicht eine durchgehende Bühnen-Sub-Komposition (Welt, Kamera, Darsteller) mit einer Wurzel-Spur, in `check`, `snapshot --review` und im Player. Danach schreibt Opus einen **Kamera-Vertrag**: eine Welt, ein Kamerapfad, ein Darsteller, der die Form nur wechselt, solange er dasselbe bedeutet; höchstens ⅓ harte Schnitte; HUD-Text bleibt fest.
 
+**Ergebnis des Spikes (27.10., `studio/spike-buehne/REVIEW.md`).** Alle drei Bauweisen bestehen `check`, Render und Seek im Player. Empfehlung **A+**:
+- Die Bühne ist eine Sub-Komposition über die volle Länge: Welt, Kamera, Darsteller und weltverankerte Marker (`data-anker`).
+- Darüber liegt je Szene ein HUD als eigene Sub-Komposition, nur fester Text. So gibt es Naht-Blätter im Review und Szenen-Clips im Studio.
+- Alle `data-start` schreibt der Bau aus `data-cue`, nie von Hand.
+- Die Spec nennt nur benannte Einstellungen und Cue-Namen. Code übersetzt sie in Kamera- und Darsteller-Spuren, die `render(t)` auswertet. Szenen-Module liefern `{ hud, buehne: { spuren, marker } }`.
+- Kamera-Vertrag, ergänzt: Fahrtrichtung = Flussrichtung des Bedeuteten (das Geld fliegt vom Käufer zum Verkäufer); der Darsteller ruht nach jedem Aufsetzen ≥ 1,2 s; ein Marker-Kreis ist das einzige helle Zeichen in seinem Umfeld.
+
 | Kit-Konstante | Wert |
 |---|---|
-| Display | 9 % der Bildhöhe, −2 % Laufweite |
+| Display | 9 % der Bildhöhe für Zahlen und Schlagzeilen bis 2 kurze Wörter; Namen und längere Schlagzeilen ≈ 6,5 % („Lewandowski“ ist bei 9 % 1072 px breit, Sicherheitsbreite 864 px); −2 % Laufweite |
 | Fließtext | ≥ 48 px, ≤ 7 Wörter pro Zeile; Credits ≥ 34 px |
 | Szene | ≤ 19 Wörter |
 | Halten nach Landung | ≥ 1,2 s; komplexe Diagramme 6–8 s |
@@ -163,10 +170,10 @@ Auf den Bildschirm kommen Objekte, Zahlen und Schlüsselwörter, nie der gesproc
 
 | Kandidat | Kosten | Haken | Linus richtet ein |
 |---|---|---|---|
-| ElevenLabs v4 Turbo, Standard- oder eigene Stimme; AA-Platz 1 | $40/1 Mio. Zeichen; Creator $22 (275k, knapp), Pro $99 | unter 18 nur mit schriftlicher Freigabe | `ELEVENLABS_API_KEY`, Mail |
-| Inworld TTS-2; Deutsch #2, Wort-Zeitstempel | $25/1 Mio. | Minderjährigen-Richtlinie ungeprüft | `INWORLD_API_KEY` |
-| Cartesia Sonic 3.6; IPA-Wörterbuch | $5 Casting, $49/Monat | Emotions-Tags nur Englisch | `CARTESIA_API_KEY` |
-| Azure Florian DragonHD; SSML | $22/1 Mio. | klanglich schwächer | `AZURE_SPEECH_KEY` + Region |
+| ElevenLabs v4 Turbo, Standard- oder eigene Stimme; AA-Platz 1 | $40/1 Mio. Zeichen; Creator $22 (275k, knapp), Pro $99 | unter 18 nur mit schriftlicher Freigabe; kein SSML, IPA zwischen /…/ | Network secret, Mail |
+| Inworld TTS-2; Deutsch #2, Wort-Zeitstempel | $25/1 Mio. | Minderjährigen-Richtlinie ungeprüft; 2 000 Zeichen je Anfrage | Network secret |
+| Cartesia Sonic 3.6; IPA-Wörterbuch | $5 Casting, $49/Monat | Emotions-Tags nur Englisch; Wort-Zeitstempel nur per SSE | Network secret |
+| Azure Florian DragonHD; SSML | $22/1 Mio. | klanglich schwächer; DragonHD ohne Betonungs-SSML, HD nur in westeurope u. a. | Network secret (Region westeurope) |
 
 Gemini-TTS fällt weg, weil die Bedingungen Nutzer unter 18 ausschließen; Piper wird nicht mehr genutzt. Chirp 3 HD bleibt nur Gratis-Basis, wenn die Google-Cloud-Bedingungen es erlauben; das wird separat geprüft.
 
@@ -177,7 +184,17 @@ Gemini-TTS fällt weg, weil die Bedingungen Nutzer unter 18 ausschließen; Piper
 - Markup `*betont*`, `/` (Pause), `?↑` (Frage), je Anbieter übersetzt. Skripte fürs Sprechen: kurze Hauptsätze, Schlüsselwort am Satzende.
 - Wortzeiten vom Anbieter, sonst faster-whisper. Aussprache über Lexikon plus `Anzeige|Gesprochen`; Haiku schlägt Einträge vor.
 - Modell, Stimm-ID und Einstellungen gepinnt in `voices/<id>.json`, Restzeichen vor jeder Nacht prüfen. Ein Sprecher pro Serie; fällt der Anbieter aus, wechselt nur bei News die Stimme, Evergreens warten höchstens 48 h.
-- Adapter bekommen den Key in der Cloud als Network secret (Proxy-Platzhalter im passenden Header), am PC aus der Umgebung.
+- Adapter (`factory/werk/stimme/`): In der Cloud schickt der Code die Anfrage OHNE Key; der Agent-Proxy setzt ihn als Network secret selbst in den Header. Am PC kommt der Key aus einer Umgebungsvariable (`ELEVENLABS_API_KEY`, `INWORLD_API_KEY`, `CARTESIA_API_KEY`, `AZURE_SPEECH_KEY`). Eine Key-Variable in der Cloud-Umgebung löst eine Warnung aus.
+- Brüche und Einheiten, die anders gesprochen werden sollen, als Token schreiben, z. B. `1/2|einhalb`; sonst wird aus 1/2 „1 durch 2“.
+
+**Network secrets je Anbieter** (claude.ai/code → Umgebung `deeptok-fabrik` → Edit → Network secrets → Add secret; Prüfung kostenlos mit `python factory/casting.py --probe --nur <anbieter>`):
+
+| Anbieter | Allowed websites | Header-Name | Prefix | Value |
+|---|---|---|---|---|
+| ElevenLabs | `api.elevenlabs.io` | `xi-api-key` | leer („Bearer“ löschen) | API-Schlüssel (Rechte: Text to Speech, Voices Read, User Read) |
+| Inworld | `api.inworld.ai` | `Authorization` | `Basic` | Base64-Zeichenkette aus dem Portal, nicht neu kodieren |
+| Cartesia | `api.cartesia.ai` | `Authorization` | `Bearer` | API-Schlüssel `sk_car_…` |
+| Azure Speech | `westeurope.tts.speech.microsoft.com` | `Ocp-Apim-Subscription-Key` | leer („Bearer“ löschen) | Key 1 der Speech-Ressource |
 
 ## 5. Szenen-Bibliothek + Video-Spec
 
@@ -251,12 +268,12 @@ Das Modell schreibt nie Pixel oder Sekunden, nur Slot-Inhalte und Cue-Namen.
 | G1 Code | Sperrwörter in Sprechtext und App-Texten (Lob, „natürlich“, „offensichtlich“, „einfach“, „Leichtsinnsfehler“, Mindset u. a.); **jede Zahl in Bild und Ton steht normalisiert in `facts[]`** (Mio. = Millionen); Fakt mit Quelle, Datum, Zitat; keine Antwort vor `pause_for_answer`; keine Eingabedatei gestaged; Vault-Namen, Mails, Noten blockiert |
 | Skript-Kritik | Irrtum echt und belegt, ein durchgehendes Beispiel, Beispiel vor Regel, jeder Satz trägt die Kernidee, gut sprechbar → eine Überarbeitung |
 | G2 Didaktik | Entfern-Test, Motivationsfloskeln |
-| G3 Faktencheck | WebFetch auf jede `src`; fehlt die Behauptung → unbelegt; News mit offener Behauptung → Textkarte |
-| G4 Hör-Check | Wortfehlerrate nach Normalisierung (num2words, Lexikon), Schwelle aus der Kalibrierung; Namen per large-v3-turbo oder Parakeet, Fehler nur bei Widerspruch zum Anbieter-Alignment; −16 ± 1 LUFS; ≥ 44,1 kHz, ≥ 96 kbps; Stille > 1,2 s nur in deklarierten Pausen; Sprechtempo 2,0–2,6 Wörter/s, Tonhöhe nicht flach |
-| G5 `check --json` | 0 Fehler |
+| G3 Faktencheck | WebFetch auf jede `src`; fehlt die Behauptung → unbelegt; News mit offener Behauptung → Textkarte. Offen: Erreicht WebFetch Hosts außerhalb der Liste? Danach entweder Network access „Full“ oder jede `src` muss auf einem Listen-Host liegen |
+| G4 Hör-Check | Wortfehlerrate nach Normalisierung (num2words, Lexikon), Schwelle aus der Kalibrierung; Namen per large-v3-turbo oder Parakeet (bis Phase 3 nur `small` plus Alignment des Anbieters), Fehler nur bei Widerspruch zum Anbieter-Alignment; −16 ± 1 LUFS; ≥ 44,1 kHz, ≥ 96 kbps; Stille > 1,2 s nur in deklarierten Pausen; Sprechtempo 2,0–2,6 Wörter/s, Tonhöhe nicht flach |
+| G5 `check --json` | 0 Fehler; `data-layout-ignore` nur auf Deko-Ebenen, Layout nie im `onUpdate` messen |
 | G6 DOM-Layout | ±150 ms am Cue, Lesezeit, y = 168–1330, Schriftgrößen wie im Kit |
 | G7 DOM-Bewegung (ab 14.11.) | Tempo im Lesefenster ≈ 0, Halten ≥ 1,2 s, gleichzeitige Tweens, wiederholte Eintritte, Darsteller überlebt Schnitt |
-| G8 Kritiker | Beat-Blatt + ≤ 3 Nahtstreifen (540 px) + Messwerte; Ja/Nein-Fragen: BANNED-Treffer? Entfern-Test? Schnitt mit Ursache? Diashow?; Notizen „t · wo · Problem → Änderung“ |
+| G8 Kritiker | Beat-Blatt + ≤ 3 Nahtstreifen (540 px) + Messwerte; Ja/Nein-Fragen: BANNED-Treffer? Entfern-Test? Schnitt mit Ursache? Diashow? Stimmt die Richtung jedes Flusses (Geld, Ware, Person)?; Notizen „t · wo · Problem → Änderung“ |
 | G9 bei Bibliotheks-Änderung | Referenz-Snapshots, WebKit-Test |
 
 Scheitert ein Tor:
@@ -279,9 +296,9 @@ Bei n = 2 sind Vergleiche qualitativ, zumal beide die alte Probe kennen: Blind-P
 | CPU (60 s) | ca. 130 s | +30 s | 5–10 min |
 | Tokens (Schätzung, §8) | ca. 140k + Grundbedarf der Subagenten | ca. 1,5× L | eigene Bau-Sitzung |
 
-- **Kapazität:** Die Grenze ist das Kontingent, nicht die Zeit. Eine Nacht mit 5 Videos braucht ca. 1–1,5 h. Parallelisiert wird über Videos, nicht über Szenen: Fünf Szenen brauchten in einem Kontext 9 min, mit Sub-Agenten 21 min.
+- **Kapazität:** Die Grenze ist das Kontingent, nicht die Zeit. Eine Nacht mit 5 Videos braucht ca. 1–1,5 h. Parallelisiert wird über Videos, nicht über Szenen: Fünf Szenen brauchten in einem Kontext 9 min, mit Sub-Agenten 21 min. Vektorkarten sind der Render-Engpass (Spike, 15 s): ohne Karte ≈ 14 s, 50m ≈ 28 s, 10m ≈ 39 s; 10m nur für Ausschnitte mit Zoom > 2,5.
 - **App und Rückkanal (Phase 2):** Feed-Seite in `public/` mit Player und Chips für Antwort, Konfidenz und Bewertung. Sie schreibt in einen privaten Speicher (Cloudflare Worker + D1), den die Nachtschicht per Token liest (Network secret). Vorher fehlen 7-Tage-Werte und FSRS-Daten. Rückmeldung bleibt neutral („Auflösung: …“); „Irrtum“ trifft die Behauptung, nie die Antwort.
-- **Live-Player:** `<hyperframes-player>` als mitgelieferter, gepinnter Tarball; Laufzeit über das undokumentierte `runtime-src`, GSAP und Schriften lokal. Ein CI-Test lädt eine Karte offline: keine externen Anfragen, „ready“ unter 1 s. Ca. 1–2 MB pro Video. Die Vorhersage stoppt bei `range-end`; Antwort-Chips sind nativ. Tipp links wiederholt die Szene, langes Drücken pausiert.
+- **Live-Player:** `<hyperframes-player>` als mitgelieferter, gepinnter Tarball; Laufzeit über das undokumentierte `runtime-src`, GSAP und Schriften lokal. Ein CI-Test lädt eine Karte offline: keine externen Anfragen, „ready“ unter 1 s. Ca. 1–2 MB pro Video. Die Vorhersage stoppt bei `range-end`; Antwort-Chips sind nativ. Tipp links wiederholt die Szene, langes Drücken pausiert. Der Player bettet keine Schriften ein: Jede Karte bringt ihre woff2-Dateien mit eigenem `@font-face`-Namen mit, GSAP ebenso lokal mit Prüfsumme.
 - **iOS-Test auf echten Geräten:** Ton-Freigabe per Tipp, Drift über 90 s, Drosselung. Rückfall: ein eigener Player, der den Ton als Uhr nutzt; sonst MP4.
 - **Teilen:** per Link. MP4 nur nachts für markierte Videos, `--quality looks --workers 3` (`auto` wählt hier nur 1 Worker: 104 s statt 57 s).
 
@@ -332,8 +349,8 @@ Die Stimme kostet extra: $5–99 im Monat.
 
 | Phase | Datum | Inhalt |
 |---|---|---|
-| 0 Go/No-Go | Mi 28.10. | Umgebung `deeptok-fabrik` steht. Probe-Task per „Run now“: Setup-Skript gecacht, Drive-Connector liest den Digest, je ein Sonnet- und Opus-Subagent, ein Render unter 10 min, Push auf `factory-state` und `claude/…` klappt, der Auto-Modus blockiert nichts Nötiges; Verbrauch notieren. Ein curl pro TTS-Anbieter über Network secrets; Bedingungen; PyAV-Fix (ffmpeg → float32) |
-| 1 Goldstandard | 28.10.–1.11. | Probe von Hand neu: Siegerstimme, Welt mit Kamera, illustrierter Darsteller, Karte München → Barcelona, Geld als Objekt, Marker-Ebene; `DESIGN.md`, Referenz-Destillation, Casting, Starter-Assets. 1.11.: Stimme und Goldstandard entschieden |
+| 0 Go/No-Go | Mi 28.10. | Umgebung `deeptok-fabrik` steht. Probe-Task per „Run now“ (Auftrag `factory/tasks/probe.md`, Bericht auf Branch `claude/probe-<datum>`): Setup-Skript gecacht, Drive-Connector liest den Digest, je ein Sonnet- und Opus-Subagent, ein Render unter 10 min, Push auf `factory-state` und `claude/…` klappt, der Auto-Modus blockiert nichts Nötiges; Verbrauch notieren. Zugang je TTS-Anbieter kostenlos mit `casting.py --probe`, sobald die Network secrets stehen; Bedingungen. PyAV: av 18.1.0 gepinnt, `hoercheck` dekodiert selbst per ffmpeg |
+| 1 Goldstandard | 28.10.–1.11. | Probe von Hand neu: Siegerstimme, Welt mit Kamera, illustrierter Darsteller, Karte: Spieler München → Barcelona, Ablöse Barcelona → München als Objekt, Marker-Ebene; `DESIGN.md`, Referenz-Destillation, Casting, Starter-Assets. 1.11.: Stimme und Goldstandard entschieden |
 | 2 Skelett | 30.10.–2.11. | parallel: `fabrik.py` mit Zustand, Herzschlag, Deckeln; die vier Task-Prompts; G0, G1, G4, G5; Feed-Seite, Rückkanal. Nach dem Go: v1-Kern ziehen |
 | 3 Kalibrierung | 2.–5.11. | Kalibriernächte 2.–4.11. mit 3, 5 und 7 Videos, Linus bewertet alle 15 und notiert den Verbrauch; v1-Rest, Atlas-Minimal, übrige Tore außer G7; News-Textkarten; Transfer-Videos; Gerätetest. Freeze 5.–14.11. |
 | 4 Testwoche | 6.–13.11. | Läuft ohne Eingriffe mit der kalibrierten Videozahl, v1-Typen und Open Peeps |
@@ -341,19 +358,16 @@ Die Stimme kostet extra: $5–99 im Monat.
 
 Wird es knapp, rückt der Freeze nach hinten und die Testwoche läuft mit weniger Videos; der Goldstandard wird nicht abgekürzt.
 
-**Nächste Sitzung:**
-1. Setup-Skript für die Umgebung schreiben (`tools/setup-umgebung.sh`, venv außerhalb des Repos, Whisper-Modell vorgeladen) und die Liste der erlaubten Hosts. Der SessionStart-Hook prüft danach nur noch.
-2. `factory/fabrik.py` als Skelett: `status`, `build`, `publish`, Zustand auf `factory-state`, Herzschlag, Deckel, `PAUSE`; PyAV-Workaround, `--workers 3`.
-3. Task-Prompts in `factory/tasks/`; den Probe-Task lege ich selbst an und starte ihn.
-4. Casting-Skript und `voice.py`-Adapter für die vier Anbieter.
-5. Goldstandard beginnen; Bühnen-Spike. `docs/PLAN.md` und Vault-Stand aktualisieren.
+**Stand 27.10. abends:**
+- Erledigt: Setup-Skript und Hostliste; Hook prüft nur noch; `fabrik.py` mit Zustand, Herzschlag, Deckeln, `PAUSE`, Lint (G1), Hör-Check (G4), `check`/`render` mit Sperre; `factory/tasks/probe.md`; Stimm-Adapter und Blind-Casting (`factory/casting.py`); Bühnen-Spike. 296 Tests grün.
+- Offen: `build` und `publish` in `fabrik.py`; Task-Prompts für Nachtschicht, Weiterlauf, Morgen-Redaktion, Serienplaner; Goldstandard.
 
 **Linus erledigt:**
 - Repo auf privat stellen (§12). Seit es keine GitHub Actions mehr gibt, hat das keinen Nachteil.
 - Cloud-Umgebung `deeptok-fabrik` anlegen (Umgebungsmenü in der Titelleiste einer Sitzung, dann Edit):
-  - Setup-Skript einfügen, das ich liefere;
-  - Network access „Custom“ mit meiner Hostliste;
-  - TTS-Keys als Network secrets.
+  - Inhalt von `tools/setup-umgebung.sh` als Setup-Skript einfügen;
+  - Network access „Custom“, Häkchen für die Standardliste, Hosts aus `tools/umgebung-hosts.txt` (ohne #-Zeilen);
+  - TTS-Keys als Network secrets nach der Tabelle in §4.
 - Overage auf claude.ai/settings/usage ausgeschaltet lassen.
 - Kein Console-Link und kein API-Key nötig, solange der Turbo nicht gebraucht wird.
 - Mail an ElevenLabs schicken; sagen, was er mit „Ton“ meinte.

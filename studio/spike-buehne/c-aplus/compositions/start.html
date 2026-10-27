@@ -1,0 +1,44 @@
+<template>
+  <style>
+    /* @schriften:anfang */
+@font-face { font-family: "DT Playfair"; src: url("assets/fonts/playfair-display-latin-900-normal.woff2") format("woff2"); font-weight: 900; font-style: normal; font-display: block; }
+@font-face { font-family: "DT Inter"; src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "DT Inter"; src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: block; }
+/* @schriften:ende */
+    #root { position: absolute; inset: 0; font-family: "DT Inter", "Inter", sans-serif; color: #F5F0E8; pointer-events: none; }
+    #root .clip { position: absolute; left: 108px; }
+    .s-serif { font-family: "DT Playfair", "Playfair Display", serif; font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; }
+    .s-schatten { text-shadow: 0 2px 18px rgba(14, 23, 38, 0.9); }
+    #s1-kicker { top: 214px; font-size: 48px; font-weight: 600; line-height: 60px; color: rgba(245, 240, 232, 0.78); }
+    #s1-titel { top: 276px; font-size: 124px; font-weight: 900; line-height: 1.0; letter-spacing: -0.02em; }
+    #s1-karte { left: auto !important; right: 108px; text-align: right; top: 1262px; font-size: 34px; line-height: 42px; color: rgba(245, 240, 232, 0.62); }
+  </style>
+  <!-- A+: nur fester Text. Kreis und Unterstreichung liegen auf der Bühne (compositions/buehne.html). -->
+  <div id="root" data-composition-id="start" data-width="1080" data-height="1920">
+    <!-- data-start/data-duration schreibt build/bauen.mjs aus data-cue (relativ zur Szene). -->
+    <div id="s1-kicker" class="clip s-schatten" data-cue="anfang" data-cue-bis="titelWeg" data-start="0" data-duration="2.6" data-track-index="1">Sommer 2022</div>
+    <div id="s1-titel" class="clip s-serif s-schatten" data-cue="anfang" data-cue-bis="titelWeg" data-start="0" data-duration="2.6" data-track-index="1" data-beat="titel">Bayern verkauft<br />Lewandowski</div>
+    <!-- Kartenquelle: Mit HUD je Szene (A+ und B) braucht jede Szene ihre eigene Kopie -->
+    <div id="s1-karte" class="clip s-schatten" data-cue="anfang" data-start="0" data-duration="7.5" data-track-index="2">Karte: Natural Earth</div>
+  </div>
+  <script>
+    (function () {
+      /* @daten:anfang */
+// eingesetzt von build/bauen.mjs (nicht von Hand ändern)
+// WORTE: Wort-Cues (später aus den Wortzeiten der Stimme). ZEIT: Wort-Cues plus abgeleitete Zeiten.
+const WORTE = {"bayern":0.3,"barcelona":3.9,"zahlt":5.4,"muenchen":7.05,"zahl":10.35,"abloese":10.95,"juni":12.1};
+const ZEIT = {"anfang":0,"bayern":0.3,"barcelona":3.9,"zahlt":5.4,"muenchen":7.05,"zahl":10.35,"abloese":10.95,"juni":12.1,"muenchenPunkt":0.8,"titelAus":2.35,"titelWeg":2.6,"fahrt":2.5,"kreis":3.9,"kreisAus":5.62,"geld":5.4,"abflug":7.05,"schnitt":7.5,"landung":8.75,"kameraSteht":8.85,"andocken":9.95,"unterstrich":10.95,"quelleAbloese":10.95,"vertrag":12.1,"quelleVertrag":12.1,"ende":15};
+const SZENEN = [{"id":"start","beginn":0,"ende":7.5},{"id":"flug","beginn":7.5,"ende":8.75},{"id":"ziel","beginn":8.75,"ende":15}];
+const DATEN = {"orte":{"muenchen":[83.2,-56.4],"barcelona":[-249.3,261.3],"deutschland":[36.4,-208.4],"frankreich":[-218,-4.5],"spanien":[-479.8,294.8]},"route":{"p0":[-249.3,261.3],"c":[-159.3,22.7],"p2":[83.2,-56.4]},"kamera":{"europa":{"kx":-26.8,"ky":-76.4,"zoom":1},"barcelona":{"kx":-211.8,"ky":223.8,"zoom":3.2},"flug":{"kx":-81.7,"ky":109.9,"zoom":1.85},"muenchen":{"kx":63.2,"ky":-69.7,"zoom":3}},"slot":[178,500],"zahlBreite":726,"bild":{"barcelonaImHalt":[420,1080]},"geld":{"fallhoehe":560,"fallzeit":0.42,"flughoehe":110,"steigzeit":0.45,"sinkzeit":0.5,"flugzeit":1.7,"dockzeit":0.6},"kreisDauer":0.5,"breite":1080,"hoehe":1920};
+
+/* @daten:ende */
+      const T0 = SZENEN[0].beginn; // Szenen-Zeit = absolute Zeit - T0
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo(["#s1-kicker", "#s1-titel"], { opacity: 1, filter: "blur(0px)" },
+        { opacity: 0, filter: "blur(8px)", duration: 0.18, ease: "power2.in", stagger: 0.04 }, ZEIT.titelAus - T0);
+
+      tl.to({}, { duration: SZENEN[0].ende - T0 }, 0);
+      window.__timelines["start"] = tl;
+    })();
+  </script>
+</template>

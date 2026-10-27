@@ -16,8 +16,8 @@ Kosten, obwohl man sie nie bezahlt?“ → DeepTok: echte Fälle (Transferentsch
 Lesezeit, Staatshaushalt), dazu ein „Satz für die Stunde“ für die mündliche Mitarbeit.
 
 Bestand: Refrakt (`linusaaronstiegler-boop/Refrakt`, Vanilla-JS-PWA, 407 Karten, 226 Quiz, 3 Bücher,
-`formel.js`), Lernhefte (Artifact `BVZyJaT7M6tNZH1eYLSHG4`, `src/<Fach>.md` mit Kernidee, Irrtum,
-Sofort-Check, Denkfragen), Digests (Drive-Ordner `117vwk4yRncUwAHQ23Pwu3pNZdigReMzx`),
+`formel.js`), Lernhefte (eigenes Artifact, `src/<Fach>.md` mit Kernidee, Irrtum,
+Sofort-Check, Denkfragen), Digests (Drive-Ordner im Vault),
 Denk-Regeln im `Morgenplan-Override.md`. Repo `deeptok` ist leer, diese Session darf pushen.
 
 ## Leitidee (aus drei Recherchen, Quellen im Chatverlauf)
@@ -105,7 +105,7 @@ TikTok-Mechanik übernehmen, aber **auf Wissen-nach-7-Tagen pro Minute optimiere
 Die Morgen-Redaktion liest jeden Morgen, in dieser Rangfolge:
 
 1. **`06-Bruder/Morgenplan-Override.md`**: Steht dort `krank` oder `Pause`, gibt es keine Transfer-Karten, nur die Weltlage.
-2. **Jüngster Tagesdigest**, Abschnitt „Vorlernen morgen“ (Drive `117vwk4yRncUwAHQ23Pwu3pNZdigReMzx`).
+2. **Jüngster Tagesdigest**, Abschnitt „Vorlernen morgen“ (Digest-Ordner im Drive, gelesen über den Drive-Connector).
    - Der Abendlauf schreibt ihn schon *je Fach des nächsten Schultags* nach WebUntis-Stundenplan.
    - Inhalt je Fach: Eintrag, Kernidee der kommenden Stunde, 2 Priming-Fragen, Verbindung. Freitags gilt er für Montag.
    - Das ist die Hauptquelle: DeepTok vertieft genau das, was im Priming stand.

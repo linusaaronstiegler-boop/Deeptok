@@ -1,0 +1,10 @@
+{
+  "name": "spike-buehne-build",
+  "private": true,
+  "type": "module",
+  "description": "Bau-Werkzeuge für den Bühnen-Spike: Karte projizieren, Bibliotheken einsetzen, Player-Seek-Test.",
+  "dependencies": {
+    "d3-geo": "3.1.1",
+    "topojson-client": "3.1.0"
+  }
+}

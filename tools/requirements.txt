@@ -1,4 +1,42 @@
-# Python-Werkzeuge der Video-Werkstatt (Stimme, Mathe-Animationen, Hör-Check)
-piper-tts==1.8.0
-manim==0.22.0
-faster-whisper
+# Python-Kern der DeepTok-Fabrik (Hör-Check, Spec-Prüfung, Tests)
+# Gleicher Stand wie KERN_PAKETE in tools/setup-umgebung.sh. Wer hier etwas
+# ändert, ändert es dort auch und zählt SETUP_VERSION hoch.
+# In der Cloud installiert das Setup-Skript diese Pakete nach /opt/deeptok/venv.
+# Am eigenen PC: python -m venv .venv && .venv/bin/pip install -r tools/requirements.txt
+# Werkstatt (Piper, Manim) zusätzlich: tools/requirements-werkstatt.txt
+# direkt genutzt
+faster-whisper==1.2.1          # Hör-Check G4: Transkript und Wortzeiten
+numpy==2.5.4                   # Audio-Messungen
+num2words==0.5.14              # Zahlen als Wörter für den Wortvergleich
+jsonschema==4.26.0             # Video-Spec prüfen (G0)
+pytest==9.1.1                  # Tests der Fabrik
+# Unterbau (indirekte Abhängigkeiten, Stand 27.10.2026)
+anyio==4.15.1
+attrs==26.1.0
+av==18.1.0                     # NICHT 19: dort fehlt metadata_errors, das faster-whisper 1.2.1 beim Dekodieren nutzt
+click==8.5.0
+ctranslate2==4.8.4
+docopt==0.6.2
+filelock==4.2.4
+flatbuffers==25.12.19
+fsspec==2026.9.0
+h11==0.16.0
+hf-xet==1.7.0
+httpcore2==2.16.0
+httpx2==2.16.0
+huggingface_hub==2.3.0
+idna==3.20
+iniconfig==2.3.1
+jsonschema-specifications==2025.9.1
+onnxruntime==1.31.1
+packaging==26.3
+pluggy==1.7.0
+protobuf==7.36.2
+Pygments==2.21.0
+PyYAML==6.0.3
+referencing==0.37.0
+rpds-py==2026.9.1
+tokenizers==0.23.3
+tqdm==4.70.1
+truststore==0.10.5
+typing_extensions==4.16.0

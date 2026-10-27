@@ -1,0 +1,27 @@
+{
+  "_hinweis": "Gepinnte Einstellungen für ElevenLabs. Geprüft gegen die offizielle Doku am 27.10.2026. Ändern nur per Commit (§4). stimm_id wird nach dem Casting eingetragen; bis dahin synthetisiert nur casting.py mit den Kandidaten.",
+  "_quelle": "https://elevenlabs.io/docs/api-reference/text-to-speech/convert-with-timestamps · https://elevenlabs.io/docs/overview/models · https://elevenlabs.io/docs/best-practices/prompting/controls",
+  "anbieter": "elevenlabs",
+  "modell": "eleven_v4_turbo",
+  "stimm_id": "BITTE_IM_CASTING_WAEHLEN",
+  "kandidaten": [
+    {"id": "r8MyP4qUsq5WFFSkPdfV", "name": "Johannes Dokumentarfilm", "geschlecht": "male"},
+    {"id": "JiW03c2Gt43XNUQAumRP", "name": "Helmut – Deep Warm Narrator", "geschlecht": "male"},
+    {"id": "NBqeXKdZHweef6y0B67V", "name": "Warm Voice (Bibliothek)", "geschlecht": "male"}
+  ],
+  "_kandidaten_hinweis": "Bibliotheksstimmen aus docs/research/research-voice.md, alle männlich. Vor dem Casting im Konto unter 'My Voices' hinzufügen, sonst antwortet die API mit 404. Weibliche deutsche Stimmen auflisten: GET https://api.elevenlabs.io/v2/voices?language=de&gender=female (Header xi-api-key). Ob Bibliotheksstimmen auf v4 volle Qualität haben, ist ungeprüft.",
+  "sprache": "de",
+  "format": "mp3_44100_128",
+  "_format_hinweis": "mp3_44100_128 erfüllt G4 (≥ 44,1 kHz, ≥ 96 kbps). 192 kbps braucht Creator, WAV/PCM 44,1 kHz braucht Pro.",
+  "tempo": null,
+  "_tempo_hinweis": "voice_settings.speed 0.7 bis 1.2, null = Standard 1.0. Die Doku nennt keine Modell-Ausnahme; ob v4 Turbo den Wert umsetzt, beim ersten echten Aufruf nachhören (G4 will 2,0 bis 2,6 Wörter/s).",
+  "einstellungen": {"stability": 0.5, "similarity_boost": 0.75},
+  "seed": null,
+  "betonung": "grossbuchstaben",
+  "pause": "ellipse",
+  "pause_ms": 400,
+  "_markup_hinweis": "v4 kennt kein SSML: Betonung über Großbuchstaben, Pause über '…' (Doku). Für eleven_flash_v2_5 'pause': 'break' setzen (<break time=\"0.4s\" />, höchstens 3 s).",
+  "lexikon": {},
+  "max_zeichen": 10000,
+  "zeitlimit_s": 120
+}

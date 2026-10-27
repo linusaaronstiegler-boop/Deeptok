@@ -1,0 +1,26 @@
+{
+  "_hinweis": "Gepinnte Einstellungen für Azure Speech (DragonHD). Geprüft gegen die offizielle Doku am 27.10.2026. Ändern nur per Commit (§4).",
+  "_quelle": "https://learn.microsoft.com/en-us/azure/ai-services/speech-service/rest-text-to-speech · https://learn.microsoft.com/en-us/azure/ai-services/speech-service/high-definition-voices · https://learn.microsoft.com/en-us/azure/ai-services/speech-service/regions?tabs=tts",
+  "anbieter": "azure",
+  "modell": "DragonHDLatestNeural",
+  "stimm_id": "de-DE-Florian:DragonHDLatestNeural",
+  "kandidaten": [
+    {"id": "de-DE-Florian:DragonHDLatestNeural", "name": "Florian (DragonHD)", "geschlecht": "male"},
+    {"id": "de-DE-Seraphina:DragonHDLatestNeural", "name": "Seraphina (DragonHD)", "geschlecht": "female"},
+    {"id": "de-DE-Conrad:DragonHDOmniLatestNeural", "name": "Conrad (DragonHD Omni)", "geschlecht": "male",
+     "ueberschreibt": {"pause": "komma"}}
+  ],
+  "_kandidaten_hinweis": "Florian und Seraphina sind die beiden deutschen DragonHD-Stimmen (GA). Conrad läuft auf DragonHD Omni; Omni kennt kein <break>, deshalb Pausen dort als Komma. Alle deutschen Stimmen der Region: GET https://westeurope.tts.speech.microsoft.com/cognitiveservices/voices/list.",
+  "region": "westeurope",
+  "_region_hinweis": "HD-Stimmen in Europa nur in westeurope, swedencentral, francecentral (nicht germanywestcentral). Die Speech-Ressource muss in dieser Region liegen.",
+  "sprache": "de-DE",
+  "format": "audio-48khz-192kbitrate-mono-mp3",
+  "parameter": "temperature=0.8",
+  "_parameter_hinweis": "temperature 0 bis 1 (Standard 1): weniger Zufall, gleichmäßigere Stimme.",
+  "betonung": "entfernen",
+  "_betonung_hinweis": "DragonHD kennt kein <emphasis> und kein <prosody> (Doku). 'ssml' nur für normale Neural-Stimmen.",
+  "pause": "break",
+  "pause_ms": 400,
+  "lexikon": {},
+  "zeitlimit_s": 120
+}

@@ -1,0 +1,19 @@
+{
+  "_hinweis": "Gepinnte Einstellungen für Cartesia Sonic 3.6. Geprüft gegen die offizielle Doku am 27.10.2026. Ändern nur per Commit (§4).",
+  "_quelle": "https://docs.cartesia.ai/api-reference/tts/sse · https://docs.cartesia.ai/build-with-cartesia/sonic-3/ssml-tags · https://docs.cartesia.ai/build-with-cartesia/tts-models/latest.md",
+  "anbieter": "cartesia",
+  "modell": "sonic-3.6-2026-08-27",
+  "_modell_hinweis": "Datierter Stand statt 'sonic-3.6': Die Modellseite (tts-models/latest) empfiehlt datierte Modelle für die Produktion und nennt sonic-3.6-2026-08-27 als gültige model_id. Die API-Referenz des SSE-Endpoints listet aber nur sonic-3.6, sonic-3.5, sonic-3 und sonic-latest (Stand 27.10.2026). Antwortet die API mit 400, hier 'sonic-3.6' eintragen. Prüfen: python factory/casting.py --probe --probesatz --nur cartesia",
+  "stimm_id": "BITTE_IM_CASTING_WAEHLEN",
+  "kandidaten": [],
+  "_kandidaten_hinweis": "Die Doku nennt keine deutschen Stimmen. casting.py fragt die Liste selbst ab (GET https://api.cartesia.ai/voices?language=de, dazu &gender=masculine oder feminine; Header Cartesia-Version: 2026-08-14). Jede Stimme kann jede Sprache; eine deutsche Stimme klingt am natürlichsten.",
+  "sprache": "de",
+  "abtastrate": 44100,
+  "_format_hinweis": "Mit Wort-Zeitstempeln liefert Cartesia nur rohes PCM (SSE). Der Adapter verpackt es als WAV 44,1 kHz, 16 bit, mono.",
+  "tempo": null,
+  "_tempo_hinweis": "generation_config.speed 0.6 bis 1.5; kleine Änderungen hört man kaum (Doku).",
+  "betonung": "entfernen",
+  "pause_ms": 400,
+  "lexikon": {},
+  "zeitlimit_s": 120
+}

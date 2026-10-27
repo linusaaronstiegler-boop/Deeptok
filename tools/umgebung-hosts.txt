@@ -1,0 +1,88 @@
+# Erlaubte Hosts der Cloud-Umgebung "deeptok-fabrik"
+#
+# Wohin: Umgebung bearbeiten → Network access → Feld "Allowed domains".
+#   Stufe "Custom" (so heißt sie in der Doku vom 27.10.2026; nennt die App die Stufe
+#   mit eigener Liste anders, z. B. "Limited", diese nehmen). Häkchen "Also include
+#   default list of common package managers" SETZEN.
+#   Die Standardliste deckt schon ab: npm, PyPI, GitHub (auch raw.githubusercontent.com),
+#   *.googleapis.com (Chrome-Download für HyperFrames, Google-Fonts-CSS),
+#   fonts.gstatic.com (Schriftdateien) und die Ubuntu-Paketquellen.
+# TTS-Anbieter brauchen KEINEN Eintrag: Hosts, die bei den Network secrets stehen,
+#   sind automatisch erreichbar.
+#
+# Das Feld will eine Domain pro Zeile. Falls es keine Kommentare annimmt,
+# nur die Hosts herauslösen und einfügen:
+#   grep -v '^#' tools/umgebung-hosts.txt | grep -v '^$'
+#
+# Ein führendes "*." deckt laut Doku JEDE Subdomain ab, auch mehrstufige.
+# Jede Änderung dieser Liste baut den Cache neu: Das Setup-Skript läuft dann
+# einmal erneut (rund 40 s). Die Reihenfolge beim Einrichten ist deshalb egal.
+#
+# Offen für das Go/No-Go: Mit dieser Stufe erreicht die Sitzung keine anderen
+# Hosts. Ob das auch für WebFetch im Faktencheck (G3) gilt, einmal mit einem Host
+# außerhalb der Liste testen. Danach festlegen: entweder Network access "Full",
+# oder jede Quelle (src) im Faktenblatt muss auf einem Host dieser Liste liegen.
+#
+# Geprüft am 27.10.2026 (Erreichbarkeit und Weiterleitungen mit curl).
+
+# --- Whisper-Modell (Hugging Face) --------------------------------------------
+# Modellseite und API, auch das Token für den Xet-Download
+huggingface.co
+# ältere LFS-Downloads (cdn-lfs.huggingface.co)
+*.huggingface.co
+# Xet-Speicher und CDN. Gemessen: cas-server.xethub.hf.co und us.aws.cdn.hf.co;
+# der CDN-Host hängt von der Region ab, deshalb nur der Platzhalter.
+*.hf.co
+
+# --- Bibliotheken und Kartendaten ---------------------------------------------
+# GSAP und andere Skripte, die Kompositionen beim Rendern laden; world-atlas (TopoJSON)
+cdn.jsdelivr.net
+# Natural Earth (Länder- und Grenzdaten für Karten)
+naciscdn.org
+
+# --- Bilder mit Lizenz (Archiv, Duoton) ---------------------------------------
+# Wikimedia Commons: Bilder (upload.) und API (commons.); User-Agent setzen
+*.wikimedia.org
+# Wikipedia als Faktenquelle beim Faktencheck
+*.wikipedia.org
+# Library of Congress: Such-API und Bilddateien
+www.loc.gov
+tile.loc.gov
+
+# --- Faktenquellen (Faktencheck G3, Serienplaner) --------------------------------
+# Statistisches Bundesamt
+www.destatis.de
+# Deutsche Bundesbank
+www.bundesbank.de
+# Europäische Zentralbank (Webseite; Daten-API steht unter Märkte)
+www.ecb.europa.eu
+# EU-Kommission und Eurostat (ec.europa.eu/eurostat)
+ec.europa.eu
+# Bundeszentrale für politische Bildung
+www.bpb.de
+# Our World in Data
+ourworldindata.org
+
+# --- Nachrichten (Morgen-Redaktion, Briefings) -----------------------------------
+# Tagesschau-API (api2u)
+www.tagesschau.de
+# Deutschlandfunk, RSS
+www.deutschlandfunk.de
+# Deutsche Welle: Webseite und RSS (rss.dw.com)
+www.dw.com
+rss.dw.com
+# BBC News, RSS
+feeds.bbci.co.uk
+# The Guardian Open Platform (Key am besten als Network secret)
+content.guardianapis.com
+# GDELT, weltweite Nachrichtensuche (begrenzt die Anfragen stark)
+api.gdeltproject.org
+
+# --- Märkte (Wirtschaftslage) ---------------------------------------------------
+# EZB-Daten (Wechselkurse, Zinsen)
+data-api.ecb.europa.eu
+# Frankfurter (EZB-Kurse als JSON); .app leitet auf .dev weiter
+api.frankfurter.app
+api.frankfurter.dev
+# CoinGecko, Kryptokurse
+api.coingecko.com

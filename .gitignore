@@ -3,10 +3,16 @@ node_modules/
 .venv/
 __pycache__/
 *.pyc
+.pytest_cache/
+
+# Fabrik: Arbeitskopie des Zustands-Branches factory-state (siehe factory/werk/zustand.py)
+/.fabrik-zustand/
+# Stimm-Casting: Hörproben, Auflösung, Messungen (nie ins öffentliche Repo)
+/casting/
 
 # HyperFrames-Arbeitsdateien und Renders (MP4 liegen nicht im Repo)
-studio/*/renders/
-studio/*/.hyperframes/
+studio/**/renders/
+.hyperframes/
 studio/*/build/manim/
 studio/*/assets/voice.wav
 studio/*/assets/_satz.wav

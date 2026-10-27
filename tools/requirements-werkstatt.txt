@@ -1,0 +1,9 @@
+# Video-Werkstatt für interaktive Sitzungen: Kern + Piper-Stimme + Manim
+# Gleicher Stand wie WERKSTATT_PAKETE in tools/setup-umgebung.sh.
+# In der Cloud: Setup-Skript mit --werkstatt, oder DEEPTOK_WERKSTATT=1 in der
+# Umgebung setzen (dann holt der SessionStart-Hook die Werkstatt nach).
+# Am eigenen PC: .venv/bin/pip install -r tools/requirements-werkstatt.txt
+# Manim braucht zum Bauen die Pango-Header (Ubuntu: libpango1.0-dev pkg-config).
+-r requirements.txt
+piper-tts==1.8.0               # alte Probe-Stimme (Piper), nur Werkstatt
+manim==0.22.0                  # Mathe-Animationen

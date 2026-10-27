@@ -1,0 +1,21 @@
+{
+  "_hinweis": "Deckel und Schwellen der Videofabrik. Startwerte laut docs/VIDEO-PIPELINE.md §6 und §8; die Kalibriernächte stellen sie nach. max_eskalationen: Nach max_reparaturen Reparaturen darf ein Video so oft noch einmal in die Arbeit, wenn der Lead die Eskalation zu Opus ansagt (fabrik.py video ... --eskalation); danach nur noch 'mensch'.",
+  "videos_pro_nacht": 3,
+  "max_reparaturen": 2,
+  "max_eskalationen": 1,
+  "chrome_jobs": 2,
+  "herzschlag_frist_min": 15,
+  "zeitzone": "Europe/Berlin",
+  "nachtwechsel_stunde": 12,
+  "whisper_modell": "small",
+  "whisper_threads": 2,
+  "lufs_ziel": -16,
+  "lufs_toleranz": 1,
+  "true_peak_max": -1,
+  "max_stille_s": 1.2,
+  "sprechtempo_min": 2.0,
+  "sprechtempo_max": 2.6,
+  "wer_max": 0.08,
+  "min_abtastrate_hz": 44100,
+  "min_bitrate_kbps": 96
+}

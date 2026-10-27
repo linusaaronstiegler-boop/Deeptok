@@ -1,0 +1,249 @@
+<template>
+  <style>
+    /* @schriften:anfang */
+@font-face { font-family: "DT Playfair"; src: url("assets/fonts/playfair-display-latin-900-normal.woff2") format("woff2"); font-weight: 900; font-style: normal; font-display: block; }
+@font-face { font-family: "DT Inter"; src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "DT Inter"; src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: block; }
+/* @schriften:ende */
+    #root { position: absolute; inset: 0; font-family: "DT Inter", "Inter", sans-serif; color: #F5F0E8; pointer-events: none; }
+    #root .clip { position: absolute; left: 108px; }
+    .s-serif { font-family: "DT Playfair", "Playfair Display", serif; font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; }
+    .s-schatten { text-shadow: 0 2px 18px rgba(14, 23, 38, 0.9); }
+    #s1-kicker { top: 214px; font-size: 48px; font-weight: 600; line-height: 60px; color: rgba(245, 240, 232, 0.78); }
+    #s1-titel { top: 276px; font-size: 124px; font-weight: 900; line-height: 1.0; letter-spacing: -0.02em; }
+    #s1-karte { left: auto !important; right: 108px; text-align: right; top: 1262px; font-size: 34px; line-height: 42px; color: rgba(245, 240, 232, 0.62); }
+    #s1-marker { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: visible; }
+  </style>
+  <div id="root" data-composition-id="start" data-width="1080" data-height="1920">
+    <!-- data-start/data-duration schreibt build/bauen.mjs aus data-cue (relativ zur Szene). -->
+    <div id="s1-kicker" class="clip s-schatten" data-cue="anfang" data-cue-bis="titelWeg" data-start="0" data-duration="2.6" data-track-index="1">Sommer 2022</div>
+    <div id="s1-titel" class="clip s-serif s-schatten" data-cue="anfang" data-cue-bis="titelWeg" data-start="0" data-duration="2.6" data-track-index="1" data-beat="titel">Bayern verkauft<br />Lewandowski</div>
+    <!-- Kartenquelle: in Variante B braucht jede Szene ihre eigene Kopie -->
+    <div id="s1-karte" class="clip s-schatten" data-cue="anfang" data-start="0" data-duration="7.5" data-track-index="2">Karte: Natural Earth</div>
+    <!-- Marker-Ebene in Bildschirm-Pixeln. Die Szene kennt die Kamera nicht:
+         Der Kreis steht dort, wo Barcelona bei stehender Kamera liegt
+         (DATEN.bild.barcelonaImHalt, vom Bau-Skript ausgerechnet). Fährt die
+         Kamera, während er steht, rutscht er neben die Stadt. -->
+    <svg id="s1-marker" viewBox="0 0 1080 1920" aria-hidden="true" data-layout-ignore>
+      <g id="s1-m-kreis"></g>
+    </svg>
+  </div>
+  <script>
+    (function () {
+      /* @marker:anfang */
+/*
+ * DeepTok Marker-Ebene (Spike-Version)
+ *
+ * Handgezeichnete Markierungen, die sich genau auf ein Wort zeichnen:
+ * Kreis (um einen Ort oder eine Zahl) und Unterstreichung (unter einer Zahl).
+ * Vorbild: Simplicissimus (rote Kreise auf Karten) und Veritasium
+ * (Unterstreichung unter der Schlagzeile). Angelehnt an die Registry-Bausteine
+ * `marker-highlight` und `hw-boil`, aber ohne Laufzeit-Variablen, damit das
+ * Stück beim Bauen in jede Szene kopiert werden kann (siehe docs/VIDEO-PIPELINE.md §5).
+ *
+ * Drei Regeln machen das Modul "seek-sicher", also richtig an jedem Zeitpunkt,
+ * auch wenn der Player rückwärts oder mitten hinein springt:
+ *   1. Kein Math.random(): Das "Zittern" der Hand kommt aus einer festen
+ *      Hash-Funktion mit Startwert (seed). Gleicher seed = gleiche Linie.
+ *   2. Nur fromTo-Tweens mit beiden Endpunkten. Ein `from` liest seinen
+ *      ENDwert beim Erstellen aus dem DOM. Allein ist das harmlos. Bewegen aber
+ *      mehrere Tweens dieselbe Eigenschaft, liest der zweite den Startwert des
+ *      ersten als "Endwert" und steht nach einem Sprung falsch. fromTo legt
+ *      beide Endpunkte fest; ab dem zweiten Tween auf derselben Eigenschaft
+ *      kommt immediateRender: false dazu.
+ *   3. Bis zum Cue ist der Strich unsichtbar (opacity 0). Sonst malt die runde
+ *      Linienkappe schon vorher einen Punkt an den Anfang.
+ *
+ * Wird beim Bauen (build/bauen.mjs) zwischen die Marken @marker:anfang/@marker:ende
+ * eingesetzt. Doppelt eingesetzt ist harmlos: der Wächter unten bricht ab.
+ */
+(function () {
+  "use strict";
+  if (window.DeepTokMarker) return;
+
+  // Fester Pseudo-Zufall: gleiche Eingabe -> gleiche Zahl zwischen -1 und 1.
+  function hash(n, seed) {
+    var x = Math.sin(n * 127.1 + (seed || 1) * 311.7) * 43758.5453;
+    return (x - Math.floor(x)) * 2 - 1;
+  }
+
+  // Punkte -> glatter Pfad (quadratische Kurven durch die Mittelpunkte).
+  // So entstehen weiche Bögen statt Ecken, wie bei einem Filzstift.
+  function glatt(punkte) {
+    var d = "M" + punkte[0][0].toFixed(1) + " " + punkte[0][1].toFixed(1);
+    for (var i = 1; i < punkte.length - 1; i++) {
+      var p = punkte[i];
+      var q = punkte[i + 1];
+      var mx = (p[0] + q[0]) / 2;
+      var my = (p[1] + q[1]) / 2;
+      d += " Q" + p[0].toFixed(1) + " " + p[1].toFixed(1) + " " + mx.toFixed(1) + " " + my.toFixed(1);
+    }
+    var l = punkte[punkte.length - 1];
+    d += " L" + l[0].toFixed(1) + " " + l[1].toFixed(1);
+    return d;
+  }
+
+  function polylinienLaenge(punkte) {
+    var s = 0;
+    for (var i = 1; i < punkte.length; i++) {
+      s += Math.hypot(punkte[i][0] - punkte[i - 1][0], punkte[i][1] - punkte[i - 1][1]);
+    }
+    return s;
+  }
+
+  /*
+   * Handgezeichneter Kreis um (cx, cy).
+   * Eine Hand schließt einen Kreis nie genau: Der Strich läuft etwa 1,15-mal
+   * herum, der Radius wächst dabei leicht (Spirale), und die Ellipse ist ein
+   * wenig gekippt. Ergebnis: Anfang und Ende überlappen versetzt.
+   */
+  function kreisPunkte(cx, cy, rx, ry, seed, opts) {
+    opts = opts || {};
+    var umlauf = opts.umlauf || 1.15; // wie oft der Stift herumfährt
+    var start = opts.startWinkel !== undefined ? opts.startWinkel : -2.2; // oben links beginnen
+    var kipp = (opts.kippen !== undefined ? opts.kippen : -0.12) + hash(3, seed) * 0.05;
+    var n = 26;
+    var pts = [];
+    for (var i = 0; i <= n; i++) {
+      var f = i / n;
+      var a = start + f * umlauf * Math.PI * 2;
+      // Radius: leichtes Wachsen über den Umlauf + kleines Handzittern
+      var wachs = 1 - 0.06 + f * 0.12;
+      var zitter = 1 + hash(i * 7 + 11, seed) * 0.025;
+      var x = Math.cos(a) * rx * wachs * zitter;
+      var y = Math.sin(a) * ry * wachs * zitter;
+      // kippen (Drehung um den Mittelpunkt)
+      pts.push([cx + x * Math.cos(kipp) - y * Math.sin(kipp), cy + x * Math.sin(kipp) + y * Math.cos(kipp)]);
+    }
+    return pts;
+  }
+
+  /*
+   * Unterstreichung von x0 bis x1 auf Höhe y.
+   * Leicht ansteigend, mit kleinem Bogen und einem Auslauf am Ende,
+   * so wie ein schneller Strich mit dem Marker.
+   */
+  function linienPunkte(x0, y, x1, seed, opts) {
+    opts = opts || {};
+    var anstieg = opts.anstieg !== undefined ? opts.anstieg : -10; // Ende etwas höher
+    var bogen = opts.bogen !== undefined ? opts.bogen : 7;
+    var n = 9;
+    var pts = [];
+    for (var i = 0; i <= n; i++) {
+      var f = i / n;
+      var x = x0 + (x1 - x0) * f;
+      var yy = y + anstieg * f + Math.sin(f * Math.PI) * bogen + hash(i * 5 + 2, seed) * 1.6;
+      pts.push([x, yy]);
+    }
+    return pts;
+  }
+
+  /*
+   * Zeichnet einen Pfad seek-sicher auf die Zeitachse.
+   *   pfad   : SVG-<path> mit fertigem d, der schon im DOM hängt. Nur dann
+   *            kann getTotalLength() messen; sonst gilt die Ersatzlänge.
+   *   beginn : Sekunde auf der Zeitachse (lokal zur Komposition) = Cue-Wort
+   *   dauer  : wie lange der Stift braucht (Kreis ca. 0,6 s, Linie ca. 0,35 s)
+   *   laenge : Ersatzlänge, falls getTotalLength() noch 0 liefert
+   */
+  function zeichne(tl, pfad, beginn, dauer, laenge, opts) {
+    opts = opts || {};
+    var L = 0;
+    try {
+      L = pfad.getTotalLength();
+    } catch (e) {
+      L = 0;
+    }
+    if (!(L > 0)) L = laenge || 1000;
+    // Strich-Muster: ein Strich so lang wie der Pfad, danach eine etwas
+    // längere Lücke. Bei Offset L+10 sieht man nur Lücke, bei 0 den ganzen Strich.
+    pfad.setAttribute("stroke-dasharray", L.toFixed(1) + " " + (L + 20).toFixed(1));
+    var ease = opts.ease || "power1.inOut";
+    // Unsichtbar bis zum Cue (gegen den Punkt der runden Linienkappe).
+    tl.fromTo(pfad, { opacity: 0 }, { opacity: 1, duration: 0.001, ease: "none" }, beginn);
+    tl.fromTo(
+      pfad,
+      { strokeDashoffset: L + 10 },
+      { strokeDashoffset: 0, duration: dauer, ease: ease },
+      beginn,
+    );
+    return L;
+  }
+
+  /*
+   * Bequeme Hülle: legt den Pfad an, setzt d und zeichnet ihn.
+   *   svg   : das SVG, in das der Marker kommt (Marker-Ebene)
+   *   art   : "kreis" | "linie"
+   *   p     : {cx, cy, rx, ry} für Kreis, {x0, x1, y} für Linie
+   *   stil  : {farbe, breite, seed, beginn, dauer, id}
+   */
+  function marker(tl, svg, art, p, stil) {
+    var ns = "http://www.w3.org/2000/svg";
+    var pts =
+      art === "kreis"
+        ? kreisPunkte(p.cx, p.cy, p.rx, p.ry, stil.seed || 1, stil)
+        : linienPunkte(p.x0, p.y, p.x1, stil.seed || 1, stil);
+    var g = document.createElementNS(ns, "g");
+    if (stil.id) g.setAttribute("id", stil.id);
+    // Erst einhängen, dann zeichnen: zeichne() misst die Pfadlänge im DOM.
+    svg.appendChild(g);
+    // Hauptstrich und eine dünne zweite Spur (trockener Filzstift):
+    // beide zeichnen sich gleichzeitig, die Spur ist leicht versetzt.
+    var spuren = [
+      { dx: 0, dy: 0, breite: stil.breite || 8, deckkraft: 1 },
+      { dx: 1.5, dy: -2, breite: (stil.breite || 8) * 0.35, deckkraft: 0.45 },
+    ];
+    var laenge = polylinienLaenge(pts);
+    spuren.forEach(function (s, i) {
+      var path = document.createElementNS(ns, "path");
+      path.setAttribute("d", glatt(pts));
+      path.setAttribute("fill", "none");
+      path.setAttribute("stroke-linecap", "round");
+      path.setAttribute("stroke-linejoin", "round");
+      path.setAttribute("stroke-width", String(s.breite));
+      path.setAttribute("transform", "translate(" + s.dx + " " + s.dy + ")");
+      path.style.stroke = stil.farbe || "#F5F0E8";
+      path.style.strokeOpacity = String(s.deckkraft);
+      g.appendChild(path);
+      zeichne(tl, path, stil.beginn, stil.dauer || (art === "kreis" ? 0.6 : 0.35), laenge, stil);
+    });
+    return g;
+  }
+
+  window.DeepTokMarker = {
+    hash: hash,
+    kreisPunkte: kreisPunkte,
+    linienPunkte: linienPunkte,
+    glatt: glatt,
+    zeichne: zeichne,
+    marker: marker,
+  };
+})();
+
+/* @marker:ende */
+      /* @daten:anfang */
+// eingesetzt von build/bauen.mjs (nicht von Hand ändern)
+// WORTE: Wort-Cues (später aus den Wortzeiten der Stimme). ZEIT: Wort-Cues plus abgeleitete Zeiten.
+const WORTE = {"bayern":0.3,"barcelona":3.9,"zahlt":5.4,"muenchen":7.05,"zahl":10.35,"abloese":10.95,"juni":12.1};
+const ZEIT = {"anfang":0,"bayern":0.3,"barcelona":3.9,"zahlt":5.4,"muenchen":7.05,"zahl":10.35,"abloese":10.95,"juni":12.1,"muenchenPunkt":0.8,"titelAus":2.35,"titelWeg":2.6,"fahrt":2.5,"kreis":3.9,"kreisAus":5.62,"geld":5.4,"abflug":7.05,"schnitt":7.5,"landung":8.75,"kameraSteht":8.85,"andocken":9.95,"unterstrich":10.95,"quelleAbloese":10.95,"vertrag":12.1,"quelleVertrag":12.1,"ende":15};
+const SZENEN = [{"id":"start","beginn":0,"ende":7.5},{"id":"flug","beginn":7.5,"ende":8.75},{"id":"ziel","beginn":8.75,"ende":15}];
+const DATEN = {"orte":{"muenchen":[83.2,-56.4],"barcelona":[-249.3,261.3],"deutschland":[36.4,-208.4],"frankreich":[-218,-4.5],"spanien":[-479.8,294.8]},"route":{"p0":[-249.3,261.3],"c":[-159.3,22.7],"p2":[83.2,-56.4]},"kamera":{"europa":{"kx":-26.8,"ky":-76.4,"zoom":1},"barcelona":{"kx":-211.8,"ky":223.8,"zoom":3.2},"flug":{"kx":-81.7,"ky":109.9,"zoom":1.85},"muenchen":{"kx":63.2,"ky":-69.7,"zoom":3}},"slot":[178,500],"zahlBreite":726,"bild":{"barcelonaImHalt":[420,1080]},"geld":{"fallhoehe":560,"fallzeit":0.42,"flughoehe":110,"steigzeit":0.45,"sinkzeit":0.5,"flugzeit":1.7,"dockzeit":0.6},"kreisDauer":0.5,"breite":1080,"hoehe":1920};
+
+/* @daten:ende */
+      const T0 = SZENEN[0].beginn; // Szenen-Zeit = absolute Zeit - T0
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo(["#s1-kicker", "#s1-titel"], { opacity: 1, filter: "blur(0px)" },
+        { opacity: 0, filter: "blur(8px)", duration: 0.18, ease: "power2.in", stagger: 0.04 }, ZEIT.titelAus - T0);
+
+      const M = window.DeepTokMarker;
+      const b = DATEN.bild.barcelonaImHalt;
+      const kreis = M.marker(tl, document.getElementById("s1-m-kreis"), "kreis",
+        { cx: b[0], cy: b[1], rx: 70, ry: 54 },
+        { farbe: "#F5F0E8", breite: 10, seed: 4, beginn: ZEIT.kreis - T0, dauer: DATEN.kreisDauer, id: "s1-kreis" });
+      tl.fromTo(kreis, { opacity: 1 }, { opacity: 0, duration: 0.2, ease: "power1.in" }, ZEIT.kreisAus - T0);
+
+      tl.to({}, { duration: SZENEN[0].ende - T0 }, 0);
+      window.__timelines["start"] = tl;
+    })();
+  </script>
+</template>
