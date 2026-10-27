@@ -1,7 +1,11 @@
 {
   "version": 1,
   "nacht": "2026-10-27",
-  "lauf": null,
+  "lauf": {
+    "id": "probe-20261027T190633Z",
+    "beginn": "2026-10-27T19:07:11Z",
+    "herzschlag": "2026-10-27T19:07:11Z"
+  },
   "videos": [],
   "verworfen": [],
   "laeufe": [
@@ -19,6 +23,13 @@
         "verworfen": 0,
         "notiz": "Go/No-Go-Probe"
       }
+    },
+    {
+      "id": "probe-20261027T190633Z",
+      "beginn": "2026-10-27T19:07:11Z",
+      "ende": null,
+      "uebernommen_von": null,
+      "bericht": null
     }
   ],
   "bericht": {
@@ -30,5 +41,5 @@
     "verworfen": 0,
     "notiz": "Go/No-Go-Probe"
   },
-  "aktualisiert": "2026-10-27T15:14:47Z"
+  "aktualisiert": "2026-10-27T19:07:11Z"
 }
