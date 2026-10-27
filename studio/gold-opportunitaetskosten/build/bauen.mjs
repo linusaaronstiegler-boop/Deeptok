@@ -17,7 +17,12 @@
 //   5. ZEITEN INS HTML: schreibt data-start/data-duration jedes Clips aus data-cue. Keine
 //      Zeit steht von Hand im HTML.
 //   6. MESSEN: öffnet jede HUD-Szene im Browser (Schriften geladen) und prüft, dass jede
-//      Textzeile ins Lesefenster passt (x 108-972, y 168-1330, DESIGN.md §2).
+//      Textzeile ins Lesefenster passt (x 108-972, y 168-1330, DESIGN.md §2). Texte in der Welt
+//      (Etiketten an der Waage) misst build/messen-bild.mjs im laufenden Player, Bild für Bild.
+//
+// Runde 1 (Kritik): Tonspur per SHA-256 an timing.json gebunden, Zeiten auf ganze ms so
+// gerundet, dass Clip-Ende und Szenen-Ende exakt gleich sind (sonst fehlte an einer Naht ein
+// Bild), und ein Tor für die Cue-Abweichung (Text erscheint höchstens 150 ms neben seinem Wort).
 
 import fs from "node:fs";
 import path from "node:path";
@@ -37,6 +42,16 @@ const FPS = 30;
 // 1) ZEITEN aus der Stimme
 // ---------------------------------------------------------------------------
 const TIMING = JSON.parse(fs.readFileSync(path.join(PROJEKT, "assets/timing.json"), "utf8"));
+// Gehören Wortzeiten und Tonspur zusammen? voice.py schreibt die SHA-256 der m4a in timing.json.
+// Wer nur eine der beiden Dateien tauscht (oder eine alte m4a liegen lässt), bekäme ein Video,
+// in dem jedes Bild am falschen Wort landet. Darum hier abbrechen.
+{
+  const ist = crypto.createHash("sha256").update(fs.readFileSync(path.join(PROJEKT, "assets/voice.m4a"))).digest("hex");
+  if (!TIMING.audio || TIMING.audio.sha256 !== ist) {
+    throw new Error(`assets/timing.json gehört nicht zu assets/voice.m4a (SHA-256 ${ist.slice(0, 12)}… ` +
+      `statt ${(TIMING.audio?.sha256 || "fehlt").slice(0, 12)}…). Neu vertonen: python build/voice.py`);
+  }
+}
 const VORLAUF = 2 / FPS; // Bild kommt 2 Bilder vor dem Wort (DESIGN.md §9, vorläufig)
 const bild = (t) => Math.round(t * FPS) / FPS; // auf ganze Bilder runden: Player und Render gleich
 
@@ -47,6 +62,8 @@ for (const [name, cue] of Object.entries(TIMING.cues)) WORTE[name] = bild(cue.st
 const SZENEN_WORT = Object.fromEntries(TIMING.scenes.map((s) => [s.id, bild(s.start - VORLAUF)]));
 const SZENEN_ENDE = Object.fromEntries(TIMING.scenes.map((s) => [s.id, s.end]));
 const DENKPAUSE = TIMING.pausen.find((p) => p.art === "denkpause");
+// Wortanfang (ohne Vorlauf) jedes Cues: für das Tor "Cue-Abweichung" unten
+const WORTANFANG = Object.fromEntries(Object.entries(TIMING.cues).map(([n, c]) => [n, c.start]));
 
 // Physik der Darsteller (Bildpixel und Sekunden), DESIGN.md §5 "Eintritte je Identität".
 // Konstanten des Moduls, nie Felder der Spec.
@@ -66,6 +83,9 @@ const FAHRT = 0.6;
 const SCHWENK = 0.7;
 const HALTEN = 1.2; // nach jeder Landung mindestens so lange ruhen
 const MARKER = { kreis: 0.5, linie: 0.35, strich: 0.3, klammer: 0.5 };
+const NAH_FAHRT = 0.5; // Nachfahrt (Detail): DESIGN.md §5 Zoom-in 0,5 s
+const DREH_FAHRT = 0.6; // Drehung der Waage (Behalten -> Verkaufen)
+const STAND = 1.7; // Standdauer eines Textes (DESIGN.md §5)
 
 // ---------------------------------------------------------------------------
 // ZEITEN, Teil 2: abgeleitet. Kein Wort, sondern Wort + Versatz. Ändern sich die
@@ -78,60 +98,110 @@ function ableiten(w) {
   z.pause = DENKPAUSE.start; // Ende der Frage = Anfang der Denkpause
   z.pauseEnde = DENKPAUSE.end;
 
-  // Beat 1-2: Frage
-  z.spielerFall = w.lewa;
-  z.nameSpieler = w.lewa + PHYSIK.fallzeit;
+  // Beat 1-2: Frage. Die Figur steht schon in Bild 0 auf München (Runde 2, Prüfung 3: das
+  // Vorschaubild hatte keinen Helden). Auf "Lewandowski" kommt ihr Name.
+  z.nameSpieler = w.lewa;
   z.routeAus = w.verkaufen + 0.8; // Route ist gezeichnet
+  // "verkaufen oder BEHALTEN": Route und Barcelona treten zurück (Abdunkeln). So liest man
+  // "Barcelona" in der Denkpause nicht mehr als Teil des untersten Schilds (Prüfung 1).
+  z.dimBcn = w.behalten;
+  z.schilder = w.frage + 0.1; // Nebenbewegung zur Unterstreichung, 100 ms später
   // Beat 3: Schilder und Titel treten ab, dann Zoom, dann richtet sich die Waage auf
-  z.hookAus = w.waage;
-  z.zoomIn = w.waage + 0.25;
+  // Runde 2: Austritt 0,1 s nach "Naheliegend", Zoom 0,3 s danach (die Denkpause ist mit der
+  // neuen Aufnahme 0,1 s kürzer; so stehen die Schilder weiter 3,8 s).
+  z.hookAus = w.waage + 0.1;
+  z.zoomIn = w.waage + 0.3;
   z.zoomInEnde = z.zoomIn + FAHRT;
   z.waageAuf = z.zoomInEnde - 0.15; // Nebenbewegung: die Waage wächst, als die Kamera ankommt
-  z.spielerHopp = z.waageAuf + 0.45;
+  z.behauptung = w.nur; // "Nur sein Gehalt" oben links, sobald es gesprochen wird
+  // Runde 2 (Prüfung 2): Die Waage neigt sich nur, wenn etwas aufsetzt. Der Beleg landet auf
+  // "Kosten" -> links; der Spieler steigt erst auf "schießt" auf "Nutzen" -> rechts.
   z.belegFall = w.gehalt;
-  z.behauptung = w.gehalt + PHYSIK.fallzeit; // "Nur sein Gehalt" erst, wenn der Beleg liegt
+  z.neigungKosten = w.gehalt + PHYSIK.fallzeit;
   z.stempel = w.bezahlt;
-  z.neigungRechts = w.tore;
-  z.toreText = w.tore + 0.15;
-  // Beat 4: Vertrag
-  z.band = w.vertrag + 0.1;
-  z.bandEnde = z.band + 1.0;
-  // Beat 5: Angebot. Texte treten ab, bevor die Kamera fährt (Kamera steht in der Lesezeit)
-  z.vertragAus = w.angebot - 0.4;
-  z.fahrtBarcelona = w.angebot;
-  z.fahrtBarcelonaEnde = w.angebot + SCHWENK;
+  z.spielerHopp = w.schiesst;
+  z.neigungRechts = w.schiesst + PHYSIK.schrittzeit; // er landet, die Waage kippt
+  z.toreText = w.tore + 0.12;
+  // Beat 4: Vertrag als Blatt, die Zeitleiste ist darauf gedruckt (Runde 2, Prüfung 1). Die
+  // Behauptung tritt auf "Doch" ab (Prüfung 2) und kommt mit "Nur sein Gehalt?" zurück. Die Waage
+  // tritt zurück (Abdunkeln 35 %): Held ist jetzt das Blatt.
+  z.behauptungAus = z.s_vertrag - 0.35; // vor dem Ende der HUD-Szene "naheliegend"
+  z.vertragFall = w.vertrag;
+  z.dimWaage = w.vertrag;
+  z.toreAus = Math.max(w.vertrag + 0.2, z.toreText + STAND);
+  z.band = w.saison;
+  z.bandEnde = z.band + 0.7;
+  // "Danach": Die Welt fährt näher an das Blatt (Detail: was nach dem Vertrag kommt).
+  z.nahVertrag = w.danach;
+  z.nahVertragEnde = w.danach + NAH_FAHRT;
+  z.nullEuro = w.nichts; // Stempel "0 €" auf "Bayern bekommt NICHTS"
+  // Beat 5: Angebot. Das Blatt tritt ab, dann fährt die Kamera nach Barcelona (und zugleich aus
+  // der Nachfahrt zurück). Sie steht, bevor der Stapel auf "45" fällt.
+  z.vertragAus = w.bietet + 0.05;
+  z.fahrtBarcelona = w.bietet + 0.2;
+  z.fahrtBarcelonaEnde = z.fahrtBarcelona + SCHWENK;
+  z.routeHell = z.fahrtBarcelona; // auf dem Weg nach Barcelona zeigt die Route wieder den Weg
+  z.hellWaage = z.fahrtBarcelonaEnde; // die Waage ist jetzt außer Sicht: wieder volle Deckkraft
   z.geldFall = w.zahl;
   z.geldLandetBcn = w.zahl + PHYSIK.fallzeit;
-  z.zahlText = z.geldLandetBcn + 0.06; // die Zahl kommt mit dem Aufprall, nicht durch den fallenden Stapel
-  // Beat 6a: Widerlegung
-  z.widerlegung = z.s_widerlegung; // "Nur sein Gehalt?" kommt zurück, wenn es gesprochen wird
-  z.abflugGeld = w.landung - PHYSIK.flugzeit; // der Bau rechnet die Flugzeit zurück
-  // Die Kamera folgt dem Geld nach München und steht 0,15 s vor der Landung.
-  z.fahrtMuenchen = Math.max(z.abflugGeld + 0.25, w.falsch + MARKER.strich + HALTEN);
+  z.zahlText = w.zahl;
+  // Beat 6a: Widerlegung. Ein GEIST (Umriss) des Stapels fliegt nach München.
+  z.widerlegung = z.s_widerlegung;
+  z.abflugGeist = w.landung - PHYSIK.flugzeit;
+  z.fahrtMuenchen = Math.max(z.abflugGeist + 0.25, w.falsch + MARKER.strich + HALTEN);
   z.fahrtMuenchenEnde = w.landung - 0.15;
-  z.zahlTextAus = z.abflugGeld;
-  z.geldEtikett = w.landung + 0.12;
-  // Beat 6b, 7, 8
+  z.behauptungDunkel = z.fahrtMuenchen - 0.2; // widerlegt: tritt zurück, bevor der Geist durchfliegt
+  z.zahlTextAus = z.abflugGeist;
+  z.geldEtikett = w.landung + 0.12; // "45 Mio. €" unter der Kosten-Schale, im Geist-Stil
+  z.routeDunkel = w.landung + 0.3;
+  z.nullBehalten = w.cent; // "Behalten keinen CENT": Stempel "0 €" am Schild "Behalten"
+  // Beat 6b: Auf "genauso" bekommt der Geist Gewicht: Waage waagerecht, "45 Mio. €" wird fest.
   z.etikettEntgangen = w.entgangen;
-  z.etikettAufgegeben = w.aufgibt;
-  z.julAus = w.juli; // Begriff, "beste Alternative", "aufgegeben", Kreis treten ab
-  z.datumJuli = w.juli + 0.2;
-  z.neigungLinks = w.genommen;
-  z.abflugSpieler = w.ok_verkauf; // Abflug auf "Opportunitätskosten" (Landung liegt außerhalb des Bildes)
-  z.landungSpieler = w.ok_verkauf + PHYSIK.flugzeit;
-  z.okEtikett = w.ok_verkauf + 0.45; // Nebenbewegung: erst, wenn die Schale frei ist
-  z.saisonText = w.landung_spieler;
-  // Beat 9-12: Diagramm
+  z.waagerecht = w.gewicht;
+  // Beat 7: Begriff. Kreis um den Geist, Beleg und Figur treten zurück; danach eine leichte
+  // Nachfahrt. Auf "Alternative" wird aus "entgangen" "beste Alternative" (Morph am Geist).
+  z.nullBehaltenAus = w.begriff;
+  z.nahRein = w.begriff + 0.85;
+  z.nahReinEnde = z.nahRein + NAH_FAHRT;
+  z.etikettAlternative = w.alternative;
+  // In der Atempause nach der Definition: Begriff, Kreis, Etiketten und Beleg treten ab, die Welt
+  // fährt zurück. "Im Juli nimmt Bayern das Geld" steht dann in der Totale der Waage (Prüfung 1).
+  z.julAus = SZENEN_ENDE.begriff + 0.05;
+  z.nahRaus = z.julAus;
+  z.nahRausEnde = z.nahRaus + NAH_FAHRT;
+  // Beat 8: Auflösung. Neigung auf "nimmt" (Kamera steht). In der Atempause nach "Geld." beginnt
+  // die Drehung; das Schild kippt GENAU auf "Verkaufen" (Mitte der Drehung = Cue). Der Geist wird
+  // erst echt, wenn er auf der Nutzen-Seite angekommen ist (Prüfung 1 und 2).
+  z.datumJuli = w.juli + 0.12;
+  z.neigungLinks = w.nimmt;
+  z.drehStart = w.dreh - DREH_FAHRT / 2;
+  z.drehEnde = w.dreh + DREH_FAHRT / 2;
+  z.massiv = w.dreh + 0.05;
+  z.okEtikett = w.ok_verkauf;
+  z.geldDunkel = w.ok_verkauf; // Gold-Etikett unter "Kosten": das Geld tritt zurück (ein Gold-Ding)
+  z.abflugSpieler = w.abflug_spieler;
+  z.spielerWeg = w.abflug_spieler + 1.1; // steigen 0,45 s + hinaus 0,65 s
+  z.umriss = w.abflug_spieler + 0.12;
+  z.saisonText = w.ok_saison;
+  // Beat 9-12: Diagramm. Jede Kategorie kommt mit ihrem Beispiel (Prüfung 2): die Rechnung auf
+  // "geschenkt", das Gold-Fach "aufgegeben" auf "Genau dann".
   z.schnitt = w.modell;
-  z.kaesten = w.modell + 0.15;
-  z.gleichung = w.modell + 0.6;
   z.karteFall = w.karte;
+  z.schildKino = w.karte + 0.12;
   z.neigungKarte = w.karte + PHYSIK.fallzeit;
+  z.rechnungFall = w.geschenkt;
+  z.fach = w.genau;
   z.lohnZeichnen = w.lohn_da;
-  z.lohnFlug = w.lohn;
-  z.lohnFlugEnde = w.lohn + 0.6;
-  z.nachhilfeAus = z.s_satz - 0.4;
-  z.gratisAus = w.kosten2 - 0.25; // steht bis kurz vor "Aufgeben = Kosten" (Text >= 1,7 s)
+  z.lohnFall = w.lohn;
+  z.lohnLandet = w.lohn + PHYSIK.fallzeit;
+  z.nachhilfeAus = w.lohn; // "Nachhilfe, heute Abend" gehen mit der Tüte (Prüfung 1: schwebte sonst)
+  // "Gratis ist es nicht": Gleichung tritt ab, die Nutzen-Seite tritt zurück, die Welt fährt an die
+  // Kosten-Schale. Auf "nicht" zuckt die Lohntüte neben der Rechnung "0 €".
+  z.gleichungAus = w.gratis;
+  z.dimRest = w.gratis;
+  z.nahSatz = w.gratis + 0.2;
+  z.nahSatzEnde = z.nahSatz + 0.6;
+  z.puls = Math.max(w.gratis_nicht, z.nahSatzEnde); // erst zucken, wenn die Welt steht
   return z;
 }
 export const ZEIT = ableiten(WORTE);
@@ -145,36 +215,108 @@ function pruefeZeiten(z) {
   };
   mindestens("Frage steht in den ersten 8 s (8 - Ende der Frage)", 8 - z.pause, 0);
   mindestens("Denkpause", z.pauseEnde - z.pause, 1.5);
+  mindestens("Schilder stehen vor dem Austritt (Lesezeit 0,5 + 0,3 × 11 Wörter)", z.hookAus - z.schilder, 3.8);
   mindestens("Zoom endet, bevor der Beleg fällt", z.belegFall - z.zoomInEnde, 0);
-  mindestens("Spieler steht auf der Schale, bevor die Waage kippt", z.neigungRechts - (z.spielerHopp + PHYSIK.schrittzeit), HALTEN);
-  mindestens("Band läuft ab, bevor der Kreis um das Datum kommt", z.saison - z.bandEnde, 0);
-  mindestens("Unterstreichung unter 30.06.2023 steht fertig", z.vertragAus - (z.saison + MARKER.linie), HALTEN);
-  mindestens("'ablösefrei: 0 €' steht vor der Kamerafahrt", z.vertragAus - z.frei, HALTEN);
+  mindestens("Waage steht nach dem Beleg, bevor der Spieler aufsteigt", z.spielerHopp - (z.neigungKosten + 0.8), 0.6);
+  mindestens("Behauptung steht", z.behauptungAus - z.behauptung, STAND);
+  mindestens("Vertrag liegt, bevor die Zeitleiste läuft", z.band - (z.vertragFall + PHYSIK.fallzeit), 0.3);
+  mindestens("Zeitleiste steht, bevor die Verlängerung kommt", z.verlaengern_an - z.bandEnde, 0);
+  mindestens("Blatt ist gelesen, bevor die Welt näher fährt (0,5 + 0,3 × 4)", z.nahVertrag - (z.vertragFall + PHYSIK.fallzeit), 1.7);
+  mindestens("Nachfahrt auf das Blatt endet vor dem Stempel", z.frei - z.nahVertragEnde, 0);
+  mindestens("Stempel '0 €' steht vor der Kamerafahrt", z.vertragAus - z.nullEuro, STAND);
+  mindestens("Stempel 'ablösefrei' steht vor der Kamerafahrt", z.vertragAus - z.frei, STAND);
   mindestens("Kamera steht in Barcelona, bevor das Geld fällt", z.geldFall - z.fahrtBarcelonaEnde, 0);
-  mindestens("Geld ruht in Barcelona (Halten)", z.abflugGeld - z.geldLandetBcn, HALTEN);
+  mindestens("Geld ruht in Barcelona (Halten)", z.abflugGeist - z.geldLandetBcn, HALTEN);
   mindestens("Durchstrich steht, bevor die Kamera fährt", z.fahrtMuenchen - (z.falsch + MARKER.strich), HALTEN);
   mindestens("Kamerafahrt nach München dauert", z.fahrtMuenchenEnde - z.fahrtMuenchen, 0.9);
-  mindestens("Geld ruht auf der Schale, bevor die Waage nach links kippt", z.neigungLinks - z.landung, HALTEN);
+  mindestens("Geist ruht auf der Schale, bevor er Gewicht bekommt", z.waagerecht - z.landung, HALTEN);
   mindestens("'entgangen' steht vor der Korrektur", z.korrektur - z.entgangen, HALTEN);
-  mindestens("Korrigiertes Schild steht vor dem Begriff", z.begriff - z.korrektur, HALTEN);
-  mindestens("Kreis um den Stapel steht fertig", z.neigungLinks - (z.begriff + MARKER.kreis), HALTEN);
-  mindestens("Etikett 'Opportunitätskosten' steht vor dem Schnitt", z.schnitt - z.okEtikett, 2.0);
-  mindestens("'1 Saison' steht vor dem Schnitt", z.schnitt - z.saisonText, HALTEN);
-  mindestens("Kinokarte ruht vor dem Lohn", z.lohnFlug - (z.karteFall + PHYSIK.fallzeit), HALTEN);
+  mindestens("Korrigierte Behauptung steht vor dem Begriff", z.begriff - z.korrektur, HALTEN);
+  mindestens("Stempel '0 €' am Schild steht", z.nullBehaltenAus - z.nullBehalten, STAND);
+  mindestens("Nachfahrt erst nach der Lesezeit des Begriffs", z.nahRein - (z.begriff + 0.8), 0);
+  mindestens("Nachfahrt endet vor 'beste Alternative'", z.alternative - z.nahReinEnde, 0);
+  mindestens("Kreis um den Geist steht fertig", z.julAus - (z.begriff + MARKER.kreis), HALTEN);
+  mindestens("Welt ist zurückgefahren, bevor die Waage kippt", z.neigungLinks - z.nahRausEnde, 0);
+  mindestens("Waage steht gekippt, bevor sie sich dreht", z.drehStart - (z.neigungLinks + 0.8), 0.5);
+  mindestens("Etikett 'Opportunitätskosten' erst nach der Drehung", z.okEtikett - z.drehEnde, 0);
+  mindestens("Waage steht nach der Drehung, bevor der Spieler abfliegt", z.abflugSpieler - z.drehEnde, HALTEN);
+  mindestens("Ganze Waage steht vor dem Passschnitt", z.schnitt - (z.spielerWeg), HALTEN);
+  mindestens("Kinokarte ruht vor der Rechnung", z.rechnungFall - (z.karteFall + PHYSIK.fallzeit), 0.6);
+  mindestens("Rechnung ruht vor dem Gold-Fach", z.fach - (z.rechnungFall + PHYSIK.fallzeit), 0.5);
+  mindestens("Lohntüte steht gezeichnet, bevor sie fällt", z.lohnFall - (z.lohnZeichnen + 0.6), HALTEN);
+  mindestens("Gleichung steht (0,5 + 0,3 × 5)", z.gleichungAus - z.gleichung, 2.0);
+  // 1,0 s statt HALTEN: Das Ausschwingen (0,9 s) ist schon Teil der Ruhe, sichtbar steht sie ab +0,6 s.
+  mindestens("Waage steht waagerecht, bevor die Welt näher fährt", z.nahSatz - (z.lohnLandet + 0.9), 1.0);
+  mindestens("Nachfahrt endet vor dem Zucken der Tüte", z.puls - z.nahSatzEnde, 0);
+  mindestens("Zucken auf 'nicht' (Toleranz 150 ms)", 0.15 - (z.puls - z.gratis_nicht), 0);
+  mindestens("Nachfahrt endet vor der Unterstreichung", z.aufgeben - z.nahSatzEnde, 0);
   mindestens("Letzte Zeile hält", z.ende - z.rechnung, 2.0);
-  // Standdauer eines Textes >= 1,7 s (DESIGN.md §5, gemessen an den Vorbildern): die kurzlebigen
-  const STAND = 1.7;
-  mindestens("Text 'Tore' steht", z.vertragAus - z.toreText, STAND);
-  mindestens("Text 'ablösefrei: 0 €' steht", z.vertragAus - z.frei, STAND);
-  mindestens("Etikett '45 Mio. €' steht", z.etikettEntgangen - z.geldEtikett, STAND);
-  mindestens("Etikett 'aufgegeben' steht", z.neigungLinks - z.etikettAufgegeben, STAND);
-  mindestens("Schild 'Gehalt + Barças Geld' steht", z.begriff - z.korrektur, STAND);
-  mindestens("Text 'beste Alternative' steht", z.julAus - z.alternative, STAND);
-  mindestens("Text 'geschenkt ≠ gratis' steht", z.gratisAus - z.gratis, STAND);
+  // Standdauer eines Textes >= 1,7 s (DESIGN.md §5, gemessen an den Vorbildern)
+  mindestens("Text 'Tore' steht", z.toreAus - z.toreText, STAND);
+  mindestens("Etikett '45 Mio. €' steht", z.julAus - z.geldEtikett, STAND);
+  mindestens("Etikett 'entgangen' steht", z.etikettAlternative - z.etikettEntgangen, STAND);
+  mindestens("Etikett 'beste Alternative' steht", z.julAus - z.etikettAlternative, STAND);
+  mindestens("'verlängern' steht (danach abgedunkelt bis zum Austritt)", z.vertragAus - z.verlaengern_an, STAND);
   mindestens("Text '1 Saison' steht", z.schnitt - z.saisonText, STAND);
+  mindestens("Etikett 'Opportunitätskosten' steht", z.schnitt - z.okEtikett, 2.0);
+  mindestens("'Nachhilfe' steht", z.nachhilfeAus - z.nachhilfe, STAND);
+  mindestens("'aufgegeben' am Gold-Fach steht", z.ende - z.fach, STAND);
   if (fehler.length) throw new Error("Zeiten verletzen das Kit:\n  " + fehler.join("\n  "));
 }
 pruefeZeiten(ZEIT);
+
+// ---------------------------------------------------------------------------
+// Tor "Cue-Abweichung" (DESIGN.md §5 "Cue", Kritik Prüfung 3): Jeder Text, der ein gesprochenes
+// Wort benennt, erscheint höchstens 150 ms neben dessen Anfang (Startwert: 2 Bilder davor).
+// Ausnahmen nur mit Grund. So fällt beim Stimmtausch auf, wenn ein abgeleiteter Cue wegdriftet.
+// ---------------------------------------------------------------------------
+const TEXT_CUES = [
+  ["Unterstreichung 'kostet'", "frage", "frage"],
+  ["Name 'Lewandowski'", "nameSpieler", "lewa"],
+  ["Behauptung 'Nur sein Gehalt'", "behauptung", "nur"],
+  ["Beleg 'Gehalt'", "belegFall", "gehalt"],
+  ["Stempel 'bezahlt'", "stempel", "bezahlt"],
+  ["'Tore'", "toreText", "tore"],
+  ["Vertrag (Blatt)", "vertragFall", "vertrag"],
+  ["Zeitleiste '1 Saison'", "band", "saison"],
+  ["'verlängern'", "verlaengern_an", "verlaengern_an"],
+  ["Stempel 'ablösefrei'", "frei", "frei"],
+  ["Stempel '0 €' (nichts)", "nullEuro", "nichts"],
+  ["'45 Mio. €' (D1)", "zahlText", "zahl"],
+  ["Durchstrich auf 'Nur'", "falsch", "falsch"],
+  ["Stempel '0 €' am Schild", "nullBehalten", "cent"],
+  ["'entgangen'", "etikettEntgangen", "entgangen"],
+  ["'+ Barças Geld'", "korrektur", "korrektur"],
+  ["'Opportunitätskosten' (D2)", "begriff", "begriff"],
+  ["'beste Alternative'", "etikettAlternative", "alternative"],
+  ["Credit 'Wechsel … 19.07.2022'", "datumJuli", "juli"],
+  ["Schild 'Verkaufen' (Mitte der Drehung)", "dreh", "dreh"],
+  ["'Opportunitätskosten' (Etikett)", "okEtikett", "ok_verkauf"],
+  ["'1 Saison'", "saisonText", "ok_saison"],
+  ["Waage (Schnitt)", "schnitt", "modell"],
+  ["Kinokarte", "karteFall", "karte"],
+  ["Rechnung 'bezahlt 0 €'", "rechnungFall", "geschenkt"],
+  ["Gold-Fach 'aufgegeben'", "fach", "genau"],
+  ["'Nachhilfe'", "nachhilfe", "nachhilfe"],
+  ["Lohntüte", "lohnZeichnen", "lohn_da"],
+  ["Gleichung", "gleichung", "gleichung"],
+  ["Lohntüte fällt", "lohnFall", "lohn"],
+  ["Unterstreichung 'aufgegeben'", "aufgeben", "aufgeben"],
+  ["Unterstreichung 'Rechnung'", "rechnung", "rechnung"],
+];
+// Bewusste Ausnahme (mit Grund): "45 Mio. €" unter der Kosten-Schale kommt mit dem Aufprall des
+// Geistes auf "Ablöse" (+0,12 s); die Zahl selbst wurde schon auf "45" gezeigt.
+export const CUE_ABWEICHUNG = TEXT_CUES.map(([was, zeit, wort]) => ({
+  was, ms: Math.round((ZEIT[zeit] - WORTANFANG[wort]) * 1000),
+}));
+{
+  const schlecht = CUE_ABWEICHUNG.filter((c) => Math.abs(c.ms) > 150);
+  if (schlecht.length) {
+    throw new Error("Cue-Abweichung > 150 ms (DESIGN.md §5):\n  " + schlecht.map((c) => `${c.was}: ${c.ms} ms`).join("\n  "));
+  }
+  const max = Math.max(...CUE_ABWEICHUNG.map((c) => Math.abs(c.ms)));
+  console.log(`Cue-Abweichung: ${CUE_ABWEICHUNG.length} Texte, max ${max} ms (Ziel ≤ 150)`);
+}
 
 // HUD-Szenen: eine Sub-Komposition je Szene des Skripts. Grenze = erstes Wort der Szene
 // minus 0,15 s, damit Eintritte mit Vorlauf (2 Bilder) noch in ihrer Szene liegen.
@@ -199,7 +341,13 @@ const CACHE = path.join(HIER, "cache");
 const JSDELIVR = "https://cdn.jsdelivr.net/npm";
 const sha256 = (buf) => crypto.createHash("sha256").update(buf).digest("hex");
 
-async function hole(datei, url, soll) {
+async function hole(datei, url, soll, inAssets) {
+  // Runde 2 (Prüfung 3): GSAP und Schriften liegen schon getrackt in assets/. Stimmt dort die
+  // Prüfsumme, braucht der Bau aus einem frischen Klon für sie kein Netz (nur noch die Karte).
+  if (inAssets) {
+    const a = path.join(PROJEKT, "assets", inAssets);
+    if (fs.existsSync(a) && sha256(fs.readFileSync(a)) === soll) return a;
+  }
   const ziel = path.join(CACHE, datei);
   fs.mkdirSync(path.dirname(ziel), { recursive: true });
   if (fs.existsSync(ziel)) {
@@ -224,6 +372,7 @@ async function hole(datei, url, soll) {
 // veränderte Datei (von Hand bearbeitet, halb geschrieben), fällt es hier auf.
 function kopiereNachAssets(quelle, ziel, soll) {
   const z = path.join(PROJEKT, "assets", ziel);
+  if (path.resolve(quelle) === path.resolve(z)) return; // liegt schon geprüft in assets/
   fs.mkdirSync(path.dirname(z), { recursive: true });
   if (!fs.existsSync(z) || sha256(fs.readFileSync(z)) !== soll) fs.copyFileSync(quelle, z);
   if (sha256(fs.readFileSync(z)) !== soll) throw new Error(`assets/${ziel}: Prüfsumme falsch nach dem Kopieren`);
@@ -235,7 +384,7 @@ const KARTE_DATEI = await hole("countries-50m.json", `${JSDELIVR}/world-atlas@2.
 // GSAP lokal statt vom CDN: Die App spielt das Video auch offline (VIDEO-PIPELINE §7).
 const GSAP = { datei: "gsap.min.js", url: `${JSDELIVR}/gsap@3.14.2/dist/gsap.min.js`,
   sha: "c174bfce53a729418d57a8ad8625e7247c793a22fef8e2851e3cfa3de9cd8280" };
-kopiereNachAssets(await hole(GSAP.datei, GSAP.url, GSAP.sha), "gsap.min.js", GSAP.sha);
+kopiereNachAssets(await hole(GSAP.datei, GSAP.url, GSAP.sha, "gsap.min.js"), "gsap.min.js", GSAP.sha);
 
 // Schriften lokal (OFL). Eigene Familiennamen ("DT ..."): Der Live-Player lädt keine
 // fremden Schriften (Spike, Befund 1); so ist klar, welche Datei gemeint ist.
@@ -252,10 +401,10 @@ const LIZENZEN = [
   { datei: "LICENSE-inter.txt", paket: "inter@5.1.0", sha: "8c8fa881d9091ee315d2c80d207bb73afd4e90a66c9782ca445c5642f25db6dc" },
 ];
 for (const f of SCHRIFTEN) {
-  kopiereNachAssets(await hole(`fonts/${f.datei}`, `${JSDELIVR}/@fontsource/${f.paket}/files/${f.datei}`, f.sha), `fonts/${f.datei}`, f.sha);
+  kopiereNachAssets(await hole(`fonts/${f.datei}`, `${JSDELIVR}/@fontsource/${f.paket}/files/${f.datei}`, f.sha, `fonts/${f.datei}`), `fonts/${f.datei}`, f.sha);
 }
 for (const f of LIZENZEN) {
-  kopiereNachAssets(await hole(`fonts/${f.datei}`, `${JSDELIVR}/@fontsource/${f.paket}/LICENSE`, f.sha), `fonts/${f.datei}`, f.sha);
+  kopiereNachAssets(await hole(`fonts/${f.datei}`, `${JSDELIVR}/@fontsource/${f.paket}/LICENSE`, f.sha, `fonts/${f.datei}`), `fonts/${f.datei}`, f.sha);
 }
 const schriftenCss = SCHRIFTEN.map(
   (f) => `@font-face { font-family: "${f.familie}"; src: url("assets/fonts/${f.datei}") format("woff2"); font-weight: ${f.gewicht}; font-style: normal; font-display: block; }`,
@@ -341,11 +490,9 @@ const roh = basisProjektion();
 const rund = (p) => p.map((v) => Math.round(v * 10) / 10);
 const STAEDTE = { muenchen: [11.576, 48.137], barcelona: [2.17, 41.387] };
 // Ländernamen: Ort des Schriftzugs (Länge, Breite), von Hand in freie Kartenteile gelegt
-const LAENDER = {
-  frankreich: { name: "FRANKREICH", lage: [1.0, 46.0] },
-  spanien: { name: "SPANIEN", lage: [-4.2, 40.0] },
-  italien: { name: "ITALIEN", lage: [12.8, 42.6] },
-};
+// Runde 1: keine Ländernamen mehr. Sie trugen im Hook-Bild nur Orientierung, kosteten aber
+// eines von elf Textelementen (Kritik Prüfung 1). München und Barcelona sind benannt.
+const LAENDER = {};
 const orte = {};
 for (const [id, lage] of Object.entries(STAEDTE)) orte[id] = rund(roh(lage));
 for (const [id, l] of Object.entries(LAENDER)) orte[id] = rund(roh(l.lage));
@@ -374,7 +521,13 @@ const route = routePunkte(orte.muenchen, orte.barcelona, -0.12, 60);
 function einstellung(p, bx, by, zoom) {
   return { kx: Math.round((p[0] - (bx - BREITE / 2) / zoom) * 10) / 10, ky: Math.round((p[1] - (by - HOEHE / 2) / zoom) * 10) / 10, zoom };
 }
-const FUSS = [540, 1080]; // Fußpunkt der Waage im Bild (Atlas: dort steht München; Diagramm: fest)
+// Fußpunkt der Waage im Bild (Atlas: dort steht München; Diagramm: fest). Runde 1: 80 px tiefer
+// als zuvor, damit über dem Balken Platz für Vertrag, Schlagzeile und Lohntüte ist und das
+// Schlussbild nicht kopflastig wird (Kritik Prüfung 1). Tiefer geht nicht: darunter beginnen
+// die Credits (y >= 1178).
+// Runde 2: noch einmal 30 px höher (Fuß y = 1130). So sitzen die Credits (ab y 1178) nicht mehr
+// auf dem Schatten des Waagenfußes (Prüfung 1).
+const FUSS = [540, 1130];
 const kamera = {
   // totale:europa: München oben rechts (Figur neben der Schlagzeile), Barcelona links unten
   totale: einstellung(orte.muenchen, 790, 700, 1.15),
@@ -391,33 +544,52 @@ const WAAGE = {
   saeule: 500, // Fuß bis Drehpunkt
   arm: 270, // Drehpunkt bis Haken
   kette: 360, // Haken bis Schalenrand
-  schale: 340, // Breite der Schale
+  // Breite der Schale. Runde 2: 400 statt 340. Auf der Kosten-Schale stehen zwei Dinge
+  // nebeneinander (Geist + Beleg, im Diagramm Gold-Fach + Rechnung), und ihre Schrift muss
+  // >= 48 px sein (DESIGN.md §3): "Rechnung" ist in 48 px 232 px breit (gemessen).
+  schale: 400,
   front: 66, // Höhe der Schalen-Vorderseite (trägt "Kosten" / "Nutzen")
   neigung: 7, // Grad: es gibt nur rechts, waagerecht, links (drehbuch.md "Warum eine Waage")
+  schildY: -438, // Schild an der Säule ("Behalten" / "Verkaufen" / "Kino"), Mitte relativ zum Fuß
 };
 
+// Nachfahrten (Detail-Zoom der ganzen Welt). Ein Bildpunkt (fx, fy) wird um den Faktor r
+// vergrößert und landet bei (zx, zy); ohne zx/zy bleibt er stehen.
+//   vertrag: auf das Vertragsblatt (Beat 4, auf "Danach"), Mitte des Blatts bleibt stehen.
+//   begriff: leichte Nachfahrt beim Begriff. Runde 2 (Prüfung 1): Bei 1,25 lag die Nutzen-Schale
+//            halb am Rand. Mit 1,1 bleibt die ganze Waage im Bild, und der Kreis um den Geist
+//            bleibt rechts von x = 108 (fx = 108 genau: dort steht die Zeile unter der Schale).
+//   satz:    Diagramm, auf die Kosten-Schale (Gold-Fach, Rechnung, "aufgegeben"), ab "Gratis".
+//            Die Mitte dieser Gruppe (285, 940) wandert nach (540, 760): Die Schale steht groß in
+//            der Bildmitte. Die Säule bliebe am rechten Rand stehen, darum tritt sie vorher zurück.
+const NAH = {
+  // vertrag: 1,12, nicht mehr: Sonst rutschte die (abgedunkelte) Nutzen-Schale unter die Credits.
+  atlas: { vertrag: { r: 1.12, fx: 540, fy: 400 }, begriff: { r: 1.1, fx: 108, fy: 1100 } },
+  diagramm: { r: 1.9, fx: 285, fy: 940, zx: 540, zy: 760 },
+};
 const DATEN_ATLAS = { orte, route, kamera, breite: BREITE, hoehe: HOEHE, physik: PHYSIK, marker: MARKER,
-  waage: { ...WAAGE, ort: "muenchen" } };
+  waage: { ...WAAGE, ort: "muenchen" }, nah: NAH.atlas };
 const DATEN_DIAGRAMM = { orte: {}, breite: BREITE, hoehe: HOEHE, physik: PHYSIK, marker: MARKER,
-  waage: { ...WAAGE, fuss: FUSS } };
+  waage: { ...WAAGE, fuss: FUSS }, nah: NAH.diagramm };
 
 // ---------------------------------------------------------------------------
 // Darsteller-Grafiken (SVG). Licht nur über Deckkraft von Palettenfarben: Grundton,
 // darüber Navy als Schatten und Creme als Licht. So entsteht kein Ton außerhalb von
 // DESIGN.md §4, und die Gegenstände sehen trotzdem beleuchtet aus.
 // ---------------------------------------------------------------------------
-function muenzen() {
-  // 10 Münzen, leicht versetzt wie von Hand gestapelt; Fuß bei (0,0), 288 px hoch.
-  const versatz = [0, 3, -2, 4, -3, 2, -1, 3, -2, 1];
-  const rx = 64;
-  const ry = 20;
-  const dicke = 24.8;
+// Maße des Münzstapels (auch für seinen Umriss): 10 Münzen, Fuß bei (0,0), 288 px hoch
+const STAPEL = { versatz: [0, 3, -2, 4, -3, 2, -1, 3, -2, 1], rx: 64, ry: 20, dicke: 24.8 };
+
+function muenzen(id) {
+  // 10 Münzen, leicht versetzt wie von Hand gestapelt. "id" macht die Verlaufs-IDs eindeutig:
+  // Der Stapel kommt zweimal ins Dokument (echtes Geld in Barcelona, Geld in München).
+  const { versatz, rx, ry, dicke } = STAPEL;
   const teile = [
     `<defs>`,
-    `<linearGradient id="g-rand" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0E1726" stop-opacity="0.55"/>` +
+    `<linearGradient id="${id}-rand" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0E1726" stop-opacity="0.55"/>` +
       `<stop offset="0.35" stop-color="#0E1726" stop-opacity="0"/><stop offset="0.5" stop-color="#F5F0E8" stop-opacity="0.18"/>` +
       `<stop offset="0.8" stop-color="#0E1726" stop-opacity="0.3"/><stop offset="1" stop-color="#0E1726" stop-opacity="0.65"/></linearGradient>`,
-    `<radialGradient id="g-oben" cx="0.35" cy="0.3" r="0.85"><stop offset="0" stop-color="#F5F0E8" stop-opacity="0.55"/>` +
+    `<radialGradient id="${id}-oben" cx="0.35" cy="0.3" r="0.85"><stop offset="0" stop-color="#F5F0E8" stop-opacity="0.55"/>` +
       `<stop offset="0.5" stop-color="#F5F0E8" stop-opacity="0.08"/><stop offset="1" stop-color="#0E1726" stop-opacity="0.25"/></radialGradient>`,
     `</defs>`,
   ];
@@ -426,7 +598,7 @@ function muenzen() {
     const cy = -ry - dicke - i * dicke; // Oberseite der Münze i
     const randPfad = `M${cx - rx} ${cy} v${dicke} a${rx} ${ry} 0 0 0 ${2 * rx} 0 v${-dicke} z`;
     teile.push(
-      `<path d="${randPfad}" fill="#C9A84C"/><path d="${randPfad}" fill="url(#g-rand)"/>`,
+      `<path d="${randPfad}" fill="#C9A84C"/><path d="${randPfad}" fill="url(#${id}-rand)"/>`,
       // Riffelung am Rand: kurze senkrechte Striche (Navy, halb durchsichtig)
       ...Array.from({ length: 11 }, (_, k) => {
         const a = Math.PI * (0.1 + (k / 10) * 0.8);
@@ -434,7 +606,7 @@ function muenzen() {
         const y = cy + Math.sin(a) * ry;
         return `<path d="M${x.toFixed(1)} ${(y + 3).toFixed(1)} v${(dicke - 6).toFixed(1)}" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/>`;
       }),
-      `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="#C9A84C"/><ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="url(#g-oben)"/>`,
+      `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="#C9A84C"/><ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="url(#${id}-oben)"/>`,
       `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="1.5"/>`,
       // Lichtkante oben links auf jeder Münze
       `<path d="M${cx - rx + 7} ${cy - 3} q ${rx * 0.5} ${-ry * 0.95} ${rx * 1.15} ${-ry * 0.9}" fill="none" stroke="#F5F0E8" stroke-opacity="0.7" stroke-width="2" stroke-linecap="round"/>`,
@@ -445,32 +617,120 @@ function muenzen() {
   const cy = -ry - dicke - (versatz.length - 1) * dicke;
   teile.push(
     `<ellipse cx="${cx}" cy="${cy}" rx="46" ry="14" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="2.5"/>`,
-    `<text x="${cx}" y="${cy + 9}" text-anchor="middle" font-family="DT Playfair, serif" font-weight="900" font-size="34" fill="#0E1726" fill-opacity="0.4" transform="translate(0 ${cy}) scale(1 0.6) translate(0 ${-cy})">€</text>`,
+    // Das €-Zeichen ist GEZEICHNET (Bogen + zwei Striche), kein Text: Als Schrift war es effektiv
+    // 26 px groß und damit unter jeder Schriftstufe (Prüfung 3). Als Prägung ist es eine Form.
+    `<path d="M10 -11 A15 15 0 1 0 10 11 M-22 -4 L5 -4 M-22 4 L5 4" fill="none" stroke="#0E1726" stroke-opacity="0.42" stroke-width="4" stroke-linecap="round" transform="translate(${cx} ${cy}) scale(1 0.5)"/>`,
   );
   return teile.join("");
 }
 
-function spielfigur() {
-  // Spielfigur (Halma/Mensch-ärgere-dich-nicht): Creme, Licht von links oben. Fuß bei (0,0),
-  // 300 px hoch. Kein Porträt eines echten Menschen (kein Foto, kein KI-Bild).
-  const koerper = "M-74 -14 C-74 -40 -44 -52 -38 -78 C-30 -120 -22 -160 -20 -196 L20 -196 C22 -160 30 -120 38 -78 C44 -52 74 -40 74 -14 Z";
-  const kragen = "M-46 -196 C-46 -210 46 -210 46 -196 C46 -184 -46 -184 -46 -196 Z";
+// GEIST = gestrichelter Gold-Umriss eines Gegenstands: eine MÖGLICHKEIT, kein echtes Ding
+// (Runde 1). Er steht für Geld, das man nicht bekommt, und für den Spieler, den man abgibt,
+// also genau für die Opportunitätskosten. Gleiche Bildsprache wie das gestrichelte Gold-Fach
+// "aufgegeben" im Diagramm. Technik: Die Umrisslinie ist doppelt so breit wie gewollt; eine
+// Maske schneidet die innere Hälfte weg. So bleibt nur der äußere Rand der VEREINIGUNG aller
+// Teile stehen (keine Linien, wo sich Kopf, Arme und Körper überlappen).
+function geist(id, formen, { breite = 5, fuellung = 0.14 } = {}) {
+  const alle = formen.join("");
+  const gefuellt = alle.replace(/<(path|ellipse|circle|rect)\b/g, '<$1 fill="#000"');
+  return [
+    `<defs><mask id="${id}-maske" maskUnits="userSpaceOnUse" x="-200" y="-400" width="400" height="460">`,
+    `<rect x="-200" y="-400" width="400" height="460" fill="#fff"/>${gefuellt}</mask></defs>`,
+    // Fläche: Gold 14 %, als Gruppe (Überlappungen werden nicht dunkler)
+    `<g opacity="${fuellung}" fill="#C9A84C">${alle}</g>`,
+    `<g mask="url(#${id}-maske)" fill="none" stroke="#C9A84C" stroke-width="${2 * breite}" stroke-dasharray="16 11" stroke-linejoin="round">${alle}</g>`,
+  ].join("");
+}
+
+function stapelFormen() {
+  const { versatz, rx, ry, dicke } = STAPEL;
+  const oben = -ry - dicke - (versatz.length - 1) * dicke;
+  // Zylinder: Seiten und unterer Bogen, darüber die oberste Münze
+  return [
+    `<path d="M${-rx - 2} ${oben} L${-rx - 2} ${-ry} A${rx + 2} ${ry} 0 0 0 ${rx + 3} ${-ry} L${rx + 3} ${oben} Z"/>`,
+    `<ellipse cx="0.5" cy="${oben}" rx="${rx + 2.5}" ry="${ry}"/>`,
+  ];
+}
+function geistStapel(id) {
+  const { versatz, rx, ry, dicke } = STAPEL;
+  // Drei Münzfugen als feine Linien im Umriss: Man erkennt den Stapel, aber er ist nicht da.
+  const fugen = [3, 6].map((i) => {
+    const cy = -ry - dicke - i * dicke + dicke;
+    return `<path d="M${-rx} ${cy} A${rx} ${ry} 0 0 0 ${rx} ${cy}" fill="none" stroke="#C9A84C" stroke-opacity="0.55" stroke-width="3" stroke-dasharray="10 9"/>`;
+  });
+  return geist(id, stapelFormen()) + fugen.join("") + `<ellipse cx="0.5" cy="${-ry - dicke - (versatz.length - 1) * dicke}" rx="44" ry="13" fill="none" stroke="#C9A84C" stroke-opacity="0.55" stroke-width="3" stroke-dasharray="10 9"/>`;
+}
+
+// Tipp-Kick-Figur (Runde 1, Kritik "Schach-Bauer = Bauernopfer"): Fußballer auf rundem Sockel,
+// ein Bein zum Schuss angehoben, Druckknopf auf dem Kopf, Ball am Fuß. Creme = gegeben,
+// Licht von links oben. Fuß des Sockels bei (0,0), knapp 300 px hoch. Keine Rückennummer:
+// Jede Zahl im Bild braucht einen Beleg im Faktenblatt.
+const FIGUR = {
+  sockelSeite: "M-60 -30 L-60 -14 A60 13 0 0 0 60 -14 L60 -30 Z",
+  sockelOben: '<ellipse cx="0" cy="-30" rx="60" ry="13"/>',
+  standbein: "M-26 -112 L-6 -112 L-8 -40 L-26 -40 Z",
+  schuh: '<ellipse cx="-17" cy="-38" rx="20" ry="9"/>',
+  schussbein: "M2 -112 L20 -116 L58 -72 L44 -60 Z",
+  schuh2: '<ellipse cx="54" cy="-62" rx="18" ry="9" transform="rotate(-38 54 -62)"/>',
+  hose: "M-31 -136 L31 -136 L33 -104 L4 -104 L1 -114 L-1 -114 L-4 -104 L-33 -104 Z",
+  trikot: "M-31 -134 L31 -134 L35 -198 Q0 -209 -35 -198 Z",
+  aermelL: "M-35 -198 L-59 -185 L-52 -163 L-32 -172 Z",
+  aermelR: "M35 -198 L59 -185 L52 -163 L32 -172 Z",
+  armL: "M-57 -170 L-45 -168 L-43 -128 L-56 -129 Z",
+  armR: "M57 -170 L45 -168 L43 -128 L56 -129 Z",
+  hals: '<rect x="-9" y="-215" width="18" height="14"/>',
+  kopf: '<circle cx="0" cy="-248" r="36"/>',
+  knopf: '<rect x="-11" y="-296" width="22" height="16" rx="4"/>',
+};
+function figurFormen() {
+  const f = FIGUR;
+  const pfad = (d) => `<path d="${d}"/>`;
+  return [pfad(f.sockelSeite), f.sockelOben, pfad(f.standbein), f.schuh, pfad(f.schussbein), f.schuh2, pfad(f.hose),
+    pfad(f.trikot), pfad(f.aermelL), pfad(f.aermelR), pfad(f.armL), pfad(f.armR), f.hals, f.kopf, f.knopf];
+}
+function tippkick() {
+  const f = FIGUR;
+  // Licht nur über Deckkraft von Palettenfarben (DESIGN.md §4): Creme-Grund, darüber ein
+  // waagerechter Verlauf (links Licht, rechts Navy-Schatten).
+  const teil = (form, extra = "") => {
+    const mitFarbe = (fill) => (form.startsWith("<") ? form.replace(/\/>$/, ` fill="${fill}"${extra}/>`) : `<path d="${form}" fill="${fill}"${extra}/>`);
+    return mitFarbe("#F5F0E8") + mitFarbe("url(#tk-licht)");
+  };
   return [
     `<defs>`,
-    `<linearGradient id="g-figur" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0E1726" stop-opacity="0.05"/>` +
-      `<stop offset="0.38" stop-color="#F5F0E8" stop-opacity="0.35"/><stop offset="0.7" stop-color="#0E1726" stop-opacity="0.28"/>` +
-      `<stop offset="1" stop-color="#0E1726" stop-opacity="0.6"/></linearGradient>`,
-    `<radialGradient id="g-kopf" cx="0.35" cy="0.32" r="0.75"><stop offset="0" stop-color="#F5F0E8" stop-opacity="0.6"/>` +
-      `<stop offset="0.55" stop-color="#0E1726" stop-opacity="0.05"/><stop offset="1" stop-color="#0E1726" stop-opacity="0.55"/></radialGradient>`,
+    `<linearGradient id="tk-licht" gradientUnits="userSpaceOnUse" x1="-60" y1="0" x2="60" y2="0"><stop offset="0" stop-color="#0E1726" stop-opacity="0.04"/>` +
+      `<stop offset="0.35" stop-color="#F5F0E8" stop-opacity="0.3"/><stop offset="0.7" stop-color="#0E1726" stop-opacity="0.26"/>` +
+      `<stop offset="1" stop-color="#0E1726" stop-opacity="0.58"/></linearGradient>`,
+    `<radialGradient id="tk-kopf" cx="0.36" cy="0.32" r="0.75"><stop offset="0" stop-color="#F5F0E8" stop-opacity="0.65"/>` +
+      `<stop offset="0.55" stop-color="#0E1726" stop-opacity="0.04"/><stop offset="1" stop-color="#0E1726" stop-opacity="0.5"/></radialGradient>`,
     `</defs>`,
-    `<ellipse cx="0" cy="-14" rx="76" ry="16" fill="#F5F0E8"/><ellipse cx="0" cy="-14" rx="76" ry="16" fill="#0E1726" fill-opacity="0.35"/>`,
-    `<path d="${koerper}" fill="#F5F0E8"/><path d="${koerper}" fill="url(#g-figur)"/>`,
-    `<path d="${kragen}" fill="#F5F0E8"/><path d="${kragen}" fill="url(#g-figur)"/>`,
-    `<circle cx="0" cy="-246" r="52" fill="#F5F0E8"/><circle cx="0" cy="-246" r="52" fill="url(#g-kopf)"/>`,
-    // Lichtkanten links (Creme, voll) und Konturen rechts (Navy): plastisch statt flach
-    `<path d="M-62 -36 C-52 -56 -38 -64 -34 -86 C-28 -122 -22 -160 -18 -192" fill="none" stroke="#F5F0E8" stroke-width="3" stroke-linecap="round"/>`,
-    `<path d="M-30 -268 A 40 40 0 0 1 10 -290" fill="none" stroke="#F5F0E8" stroke-width="4" stroke-linecap="round"/>`,
+    // Sockel (rund, die Figur steht fest) und Ball am Schussfuß
+    teil(f.sockelSeite), `<path d="${f.sockelSeite}" fill="#0E1726" fill-opacity="0.32"/>`, teil(f.sockelOben),
+    `<circle cx="78" cy="-27" r="15" fill="#F5F0E8"/><circle cx="78" cy="-27" r="15" fill="url(#tk-kopf)"/>`,
+    `<path d="M73 -31 L79 -35 L84 -30 L82 -23 L75 -23 Z" fill="#0E1726" fill-opacity="0.55"/>`,
+    // Beine, Schuhe (dunkler), Hose (etwas dunkler als das Trikot)
+    teil(f.standbein), teil(f.schussbein),
+    `<path d="M-26 -62 L-7 -62 L-7 -52 L-26 -52 Z M27 -94 L38 -101 L45 -92 L33 -85 Z" fill="#0E1726" fill-opacity="0.22"/>`,
+    f.schuh.replace("/>", ' fill="#0E1726" fill-opacity="0.62"/>'), f.schuh2.replace("/>", ' fill="#0E1726" fill-opacity="0.62"/>'),
+    teil(f.hose), `<path d="${f.hose}" fill="#0E1726" fill-opacity="0.2"/>`,
+    // Trikot mit Ärmeln, Kragen (V) und Ärmelbündchen
+    teil(f.aermelL), teil(f.aermelR), teil(f.trikot),
+    `<path d="M-15 -203 L0 -184 L15 -203" fill="none" stroke="#0E1726" stroke-opacity="0.45" stroke-width="4" stroke-linejoin="round"/>`,
+    `<path d="M-57 -170 L-37 -178 M57 -170 L37 -178" stroke="#0E1726" stroke-opacity="0.35" stroke-width="5"/>`,
+    teil(f.armL), teil(f.armR),
+    `<circle cx="-50" cy="-124" r="8" fill="#F5F0E8"/><circle cx="50" cy="-124" r="8" fill="#F5F0E8"/><circle cx="50" cy="-124" r="8" fill="#0E1726" fill-opacity="0.3"/>`,
+    teil(f.hals),
+    // Kopf mit Haar und Druckknopf (daran erkennt man Tipp-Kick)
+    `<circle cx="0" cy="-248" r="36" fill="#F5F0E8"/><circle cx="0" cy="-248" r="36" fill="url(#tk-kopf)"/>`,
+    `<path d="M-36 -252 Q-35 -285 0 -285 Q35 -285 36 -252 Q19 -266 0 -266 Q-19 -266 -36 -252 Z" fill="#0E1726" fill-opacity="0.38"/>`,
+    `<rect x="-11" y="-298" width="22" height="16" rx="4" fill="#F5F0E8"/><rect x="-11" y="-298" width="22" height="16" rx="4" fill="#0E1726" fill-opacity="0.25"/>`,
+    // Lichtkanten links (Creme, voll): plastisch statt flach
+    `<path d="M-29 -194 L-28 -140 M-24 -108 L-24 -46" fill="none" stroke="#F5F0E8" stroke-width="3" stroke-linecap="round"/>`,
+    `<path d="M-26 -268 A30 30 0 0 1 6 -281" fill="none" stroke="#F5F0E8" stroke-width="4" stroke-linecap="round"/>`,
   ].join("");
+}
+function geistFigur(id) {
+  return geist(id, figurFormen());
 }
 
 // ---------------------------------------------------------------------------
@@ -486,8 +746,11 @@ const ohneKopfKommentar = (t) => t.replace(/^<!--[\s\S]*?-->\n/, ""); // Erklär
 let atlasFragment = ohneKopfKommentar(lies("lib/atlas.html"));
 atlasFragment = ersetzePlatzhalter(atlasFragment, "<!-- @karte -->", karte, "lib/atlas.html");
 atlasFragment = ersetzePlatzhalter(atlasFragment, "<!-- @laender -->", laenderHtml, "lib/atlas.html");
-atlasFragment = ersetzePlatzhalter(atlasFragment, "<!-- @muenzen -->", muenzen(), "lib/atlas.html");
-atlasFragment = ersetzePlatzhalter(atlasFragment, "<!-- @spielfigur -->", spielfigur(), "lib/atlas.html");
+atlasFragment = ersetzePlatzhalter(atlasFragment, "<!-- @muenzen -->", muenzen("mz-bcn"), "lib/atlas.html");
+atlasFragment = ersetzePlatzhalter(atlasFragment, "<!-- @muenzen-muenchen -->", muenzen("mz-mue"), "lib/atlas.html");
+atlasFragment = ersetzePlatzhalter(atlasFragment, "<!-- @geist-stapel -->", geistStapel("gs"), "lib/atlas.html");
+atlasFragment = ersetzePlatzhalter(atlasFragment, "<!-- @spielfigur -->", tippkick(), "lib/atlas.html");
+atlasFragment = ersetzePlatzhalter(atlasFragment, "<!-- @geist-figur -->", geistFigur("gf"), "lib/atlas.html");
 const diagrammFragment = ohneKopfKommentar(lies("lib/diagramm.html"));
 
 const datenBlock = (name, daten) =>
@@ -533,6 +796,12 @@ function setzeEin(text, datei, name) {
 //    und der Bau schreibt data-start/data-duration (relativ zur Szene) dazu.
 // ---------------------------------------------------------------------------
 const r3 = (v) => String(Math.round(v * 1000) / 1000);
+// Ganze Millisekunden. Beginn und Ende werden EINZELN gerundet, die Dauer ist ihre Differenz:
+// So ist Beginn + Dauer genau das gerundete Ende. Vorher wurden Beginn und Dauer einzeln
+// gerundet, ein Clip endete dadurch 1 ms vor seiner Szene, und an der Naht fehlte ein Bild
+// (Bild 989, Kritik Prüfung 3).
+const ms = (v) => Math.round(v * 1000);
+const msText = (m) => String(m / 1000);
 function setzeAttr(tag, name, wert, datei) {
   const re = new RegExp(`\\s${name}="[^"]*"`);
   if (!re.test(tag)) throw new Error(`${datei}: ${name} fehlt in ${tag.slice(0, 80)}…`);
@@ -554,8 +823,12 @@ function setzeZeiten(text, datei, basis) {
       throw new Error(`${datei}: Clip ${attr(tag, "id")} liegt außerhalb der Szene (${beginn.toFixed(2)}–${ende.toFixed(2)} s, Szene ${basis.beginn.toFixed(2)}–${basis.ende.toFixed(2)})`);
     }
     anzahl++;
-    tag = setzeAttr(tag, "data-start", r3(beginn - basis.beginn), datei);
-    return setzeAttr(tag, "data-duration", r3(ende - beginn), datei);
+    // Erst die absoluten Zeiten auf ms runden, dann abziehen: genau wie bei den Hosts (unten).
+    // So endet ein Clip, der bis zum Szenenende läuft, auf die ms genau mit seinem Host.
+    const a = ms(beginn) - ms(basis.beginn);
+    const e = ms(ende) - ms(basis.beginn);
+    tag = setzeAttr(tag, "data-start", msText(a), datei);
+    return setzeAttr(tag, "data-duration", msText(e - a), datei);
   });
   // Hosts (nur in index.html): HUD-Szenen aus SZENEN, Bühnen aus BUEHNEN
   text = text.replace(/<div[^>]*\sdata-composition-src="[^"]*"[^>]*>/g, (tag) => {
@@ -563,8 +836,8 @@ function setzeZeiten(text, datei, basis) {
     const s = SZENEN.find((x) => x.id === id) || BUEHNEN[id];
     if (!s) throw new Error(`${datei}: Host ${id} hat keine Zeiten`);
     anzahl++;
-    tag = setzeAttr(tag, "data-start", r3(s.beginn), datei);
-    return setzeAttr(tag, "data-duration", r3(s.ende - s.beginn), datei);
+    tag = setzeAttr(tag, "data-start", msText(ms(s.beginn)), datei);
+    return setzeAttr(tag, "data-duration", msText(ms(s.ende) - ms(s.beginn)), datei);
   });
   text = text.replace(/<div[^>]*\sdata-composition-id="main"[^>]*>/, (tag) => {
     anzahl++;

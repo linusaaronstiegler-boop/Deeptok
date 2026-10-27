@@ -1,14 +1,29 @@
 <!--
-  Welt-Fragment Atlas (Bühne, Beats 1-8): Karte, Orte, Waage, Darsteller (Spieler, Beleg, Geld),
-  Etiketten an Schalen und eine Marker-Ebene. build/bauen.mjs setzt dieses Stück in
+  Welt-Fragment Atlas (Bühne, Beats 1-8): Karte, Orte, Waage mit Schild, Darsteller (Spieler,
+  Beleg, Vertrag, Geld in Barcelona, Geld/Geist in München, Umriss des Spielers), Zeitleiste,
+  Etiketten an Schalen und die Marker-Ebene. build/bauen.mjs setzt dieses Stück in
   compositions/atlas.html ein und füllt dabei Karte (@karte), Ländernamen (@laender), Münzen
-  (@muenzen) und Spielfigur (@spielfigur) ein. Alle Positionen setzt lib/buehne.js -> render(t);
-  hier steht nur das Aussehen. Maße der Waage: DATEN.waage (bauen.mjs), Farben: studio/DESIGN.md §4.
+  (@muenzen, @muenzen-muenchen), Geister (@geist-stapel, @geist-figur) und Spielfigur
+  (@spielfigur) ein. Alle Positionen setzt lib/buehne.js -> render(t); hier steht nur das
+  Aussehen. Maße der Waage: DATEN.waage (bauen.mjs), Farben: studio/DESIGN.md §4.
+
+  Runde 1: Alles, was zur Welt gehört, liegt in EINER Hülle (#w-welt, data-rig). Die Nachfahrt
+  (Detail-Zoom) vergrößert diese Hülle als Ganzes; das HUD darüber bleibt fest.
+
+  Runde 2: Die Waage ist ein beleuchteter Gegenstand wie Figur und Münzen (Balken 18 px mit
+  Lichtkante, Säule und Fuß als Fläche mit Licht links und Schatten rechts, Ketten 4 px). Die
+  Zeitleiste ist auf das Vertragsblatt gedruckt, "0 €" ist ein zweiter Stempel. Am Schild
+  "Behalten" gibt es den Stempel "0 €" ("Behalten keinen Cent"). Unter der Kosten-Schale stehen
+  zwei Zeilen: der Betrag ("45 Mio. €", erst im Geist-Stil) und sein Wort ("entgangen" ->
+  "beste Alternative").
 -->
 <style>
   /* @schriften:anfang */
   /* @schriften:ende */
   #w-buehne { position: absolute; inset: 0; overflow: hidden; background: #0E1726; }
+  /* Welt-Hülle: Ursprung oben links, damit render() translate + scale einfach rechnen kann.
+     isolation: immer ein eigener Stapelkontext (auch ohne Zoom gleiche Reihenfolge). */
+  #w-welt { position: absolute; inset: 0; transform-origin: 0 0; isolation: isolate; }
   #w-svg { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
   /* Karte: entsättigt, dunkel, eine Region leuchtet (Kartentöne aus DESIGN.md §4). */
   #w-land { fill: #222D40; stroke: #5A6880; stroke-linejoin: round; filter: url(#w-papier); }
@@ -26,6 +41,9 @@
   .w-anker { position: absolute; left: 0; top: 0; width: 0; height: 0; }
   .w-rand { position: absolute; left: 0; top: 0; width: 0; height: 0; }
   .w-ort { z-index: 2; }
+  /* Der Name München liegt ÜBER der Waage (z 4): Beim Heranfahren verdeckte ihn sonst der
+     Schatten des Waagenfußes halb (Kritik Prüfung 1). Der Punkt bleibt darunter. */
+  #w-ortname-muenchen { z-index: 4; }
   .w-punkt { position: absolute; left: -12px; top: -12px; width: 24px; height: 24px; border-radius: 50%;
     background: #F5F0E8; box-shadow: 0 0 0 6px rgba(14, 23, 38, 0.85); }
   .w-name { position: absolute; top: -31px; white-space: nowrap;
@@ -36,18 +54,25 @@
   /* München: weiter links, damit der Fuß der Spielfigur den Namen nicht verdeckt. */
   #w-name-muenchen { right: 92px; }
   .w-rand.w-mitte { display: flex; justify-content: center; }
-  .w-land-name { position: relative; top: -21px; flex: none; white-space: nowrap;
-    font-family: "DT Inter", sans-serif; font-weight: 600; font-size: 34px; line-height: 42px;
-    letter-spacing: 0.32em; color: rgba(245, 240, 232, 0.46); }
-  #w-land-frankreich, #w-land-spanien, #w-land-italien { z-index: 2; }
 
-  /* Waage: Navy-Fläche mit Creme-Lichtkante und Schlagschatten, eigene Zeichnung. */
+  /* Waage: ein Gegenstand der Welt wie Figur und Münzen (Runde 2, Prüfung 1: vorher ein
+     Drahtgestell aus 2-px-Linien, am Handy unsichtbar). Licht von links oben wie bei der Figur:
+     Navy-Fläche, Creme-Lichtkante oben/links, Navy-Schatten rechts/unten, Schlagschatten am Boden.
+     Ketten 4 px Creme 80 % (DESIGN.md §7: Ketten 4 px). */
   #w-waage { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 3; }
   #w-waage-svg { position: absolute; left: -540px; top: -720px; width: 1080px; height: 800px; overflow: visible; }
   .wg-flaeche { fill: #1F3864; }
-  .wg-kante { fill: none; stroke: #F5F0E8; stroke-opacity: 0.75; stroke-width: 2.5; stroke-linecap: round; }
-  .wg-kette { fill: none; stroke: #F5F0E8; stroke-opacity: 0.55; stroke-width: 2; }
+  .wg-schatten { fill: #0E1726; fill-opacity: 0.42; }
+  .wg-kante { fill: none; stroke: #F5F0E8; stroke-opacity: 0.85; stroke-width: 4; stroke-linecap: round; }
+  .wg-kante-leise { fill: none; stroke: #F5F0E8; stroke-opacity: 0.35; stroke-width: 3; stroke-linecap: round; }
+  .wg-kette { fill: none; stroke: #F5F0E8; stroke-opacity: 0.8; stroke-width: 4; stroke-linecap: round; }
+  /* Stempel "0 €" am Schild: Creme auf Navy (auf der Waage, nicht auf Papier) */
+  .wg-stempel-rand { fill: #1F3864; stroke: #F5F0E8; stroke-width: 4; }
+  .wg-stempel-text { font-family: "DT Inter", sans-serif; font-weight: 600; font-size: 48px; fill: #F5F0E8; }
   .wg-front-text { font-family: "DT Inter", sans-serif; font-weight: 600; font-size: 48px; fill: #F5F0E8; }
+  /* Schild an der Säule: sagt, WELCHE Entscheidung die Waage wiegt ("Behalten", nach der
+     Drehung "Verkaufen"). Navy-Fläche wie die Waage, Creme-Schrift. */
+  .wg-schild-text { font-family: "DT Inter", sans-serif; font-weight: 600; font-size: 48px; fill: #F5F0E8; }
 
   /* Darsteller: Hülle = Fußpunkt (Mitte unten). render() besitzt Hülle, Figur-Neigung, Schatten. */
   .a-huelle { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 5; }
@@ -55,44 +80,70 @@
   .a-schatten { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 4; }
   .a-schatten-oval { position: absolute; left: -96px; top: -20px; width: 192px; height: 40px; border-radius: 50%;
     background: radial-gradient(closest-side, rgba(14, 23, 38, 0.95), rgba(14, 23, 38, 0)); }
-  #a-spieler-bild { position: absolute; left: -80px; top: -300px; width: 160px; height: 300px; overflow: visible; }
-  #a-geld-bild { position: absolute; left: -80px; top: -300px; width: 160px; height: 310px; overflow: visible; }
+  .a-svg { position: absolute; left: -100px; top: -310px; width: 200px; height: 320px; overflow: visible; }
   .a-etikett { position: absolute; white-space: nowrap; font-family: "DT Inter", sans-serif; font-weight: 600;
     font-size: 52px; line-height: 62px; color: #F5F0E8; text-shadow: 0 2px 18px rgba(14, 23, 38, 0.9), 0 0 4px rgba(14, 23, 38, 0.9); }
-  #a-spieler-name { right: 104px; top: -118px; }
+  #a-spieler-name { right: 104px; top: -118px; font-size: 48px; }
 
   /* Preisschilder: Creme-Papier mit Loch, Navy-Schrift (Navy auf Creme 15,8 : 1). Sie hängen
-     an Fäden von der Spielfigur. Drehpunkt ist das Loch, darum pendeln sie beim Einhängen. */
+     an Schnüren an der Hand der Figur, leicht versetzt und schräg (keine bündige Liste).
+     Drehpunkt ist das Loch, darum pendeln sie beim Einhängen. Schnüre 3 px (am Handy sichtbar). */
   #a-schilder-faeden { position: absolute; left: 0; top: 0; width: 1px; height: 1px; overflow: visible; }
-  #a-schilder-faeden path { fill: none; stroke: #F5F0E8; stroke-opacity: 0.7; stroke-width: 2; }
+  #a-schilder-faeden path { fill: none; stroke: #F5F0E8; stroke-opacity: 0.8; stroke-width: 3; stroke-linecap: round; }
   .a-schild { position: absolute; height: 76px; filter: drop-shadow(0 6px 10px rgba(14, 23, 38, 0.75)); }
   .a-schild-papier { position: absolute; inset: 0; background: #F5F0E8;
     clip-path: polygon(0 0, calc(100% - 40px) 0, 100% 50%, calc(100% - 40px) 100%, 0 100%); }
   .a-schild-loch { position: absolute; right: 22px; top: 31px; width: 14px; height: 14px; border-radius: 50%; background: #0E1726; }
   .a-schild-text { position: absolute; left: 24px; top: 7px; white-space: nowrap; font-family: "DT Inter", sans-serif;
     font-weight: 600; font-size: 48px; line-height: 62px; color: #0E1726; }
+  .a-schild-dreh { position: absolute; inset: 0; }
 
-  /* Gehalt-Beleg: Creme-Papier, gedruckt "Gehalt", Stempel "bezahlt" (Navy). */
-  #a-beleg-papier { position: absolute; left: -102px; top: -232px; width: 204px; height: 232px; background: #F5F0E8;
-    box-shadow: 0 8px 16px rgba(14, 23, 38, 0.7); transform: rotate(-2deg); transform-origin: 50% 100%; }
-  #a-beleg-titel { position: absolute; left: 0; right: 0; top: 18px; text-align: center; font-family: "DT Inter", sans-serif;
-    font-weight: 600; font-size: 48px; line-height: 62px; color: #0E1726; }
-  .a-beleg-zeile { position: absolute; left: 22px; right: 22px; height: 6px; background: #0E1726; opacity: 0.18; }
-  #a-beleg-stempel { position: absolute; left: 5px; top: 128px; padding: 0 6px; border: 4px solid #1F3864; border-radius: 8px;
+  /* Papier-Gegenstände (Gehalt-Beleg, Vertrag): Creme-Papier, Navy-Druck, Stempel in Navy. */
+  .a-papier { position: absolute; background: #F5F0E8; box-shadow: 0 8px 16px rgba(14, 23, 38, 0.7); transform-origin: 50% 100%; }
+  .a-druck { position: absolute; white-space: nowrap; font-family: "DT Inter", sans-serif; font-weight: 600;
+    font-size: 48px; line-height: 62px; color: #0E1726; }
+  .a-zeile { position: absolute; height: 6px; background: #0E1726; opacity: 0.18; }
+  .a-stempel { position: absolute; padding: 0 6px; border: 4px solid #1F3864; border-radius: 8px;
     font-family: "DT Inter", sans-serif; font-weight: 600; font-size: 48px; line-height: 58px; color: #1F3864; white-space: nowrap; }
+  /* Beleg 196 breit (Runde 2): Er steht NEBEN dem Geist, nicht davor (Prüfung 1). */
+  #a-beleg-papier { left: -98px; top: -232px; width: 196px; height: 232px; transform: rotate(-2deg); }
+  #a-beleg-titel { left: 0; right: 0; top: 18px; text-align: center; }
+  #a-beleg-stempel { left: 5px; top: 128px; }
+  /* Vertrag (Runde 2, Prüfung 1): EIN Blatt trägt alles, was der Vertrag sagt. Die Zeitleiste ist
+     daraufgedruckt (Band = eine Saison bis zum 30.06.2023), dahinter die gestrichelte Verlängerung,
+     die auf "nicht" zurücktritt; "ablösefrei" und "0 €" sind zwei Stempel. Vorher schwebten
+     Zeitleiste und "0 €" ohne Verbindung auf der Karte. */
+  #a-vertrag-papier { left: -360px; top: -370px; width: 720px; height: 370px; transform: rotate(-1deg); }
+  #a-vertrag-titel { left: 32px; top: 18px; }
+  #a-vertrag-datum { left: 32px; top: 80px; }
+  #a-vertrag-stempel { left: 430px; top: 34px; }
+  #a-vertrag-null { left: 436px; top: 172px; }
+  .zl { position: absolute; }
+  .zl-strich { background: #0E1726; border-radius: 4px; }
+  #zl-start { left: 36px; top: 238px; width: 8px; height: 44px; }
+  #zl-band { left: 40px; top: 255px; width: 360px; height: 10px; transform-origin: 0 50%; }
+  #zl-ende { left: 396px; top: 238px; width: 8px; height: 44px; }
+  #zl-verl { left: 414px; top: 257px; width: 270px; height: 0; border-top: 6px dashed rgba(14, 23, 38, 0.6); }
+  #zl-saison { left: 126px; top: 180px; }
+  #zl-verl-text { left: 430px; top: 284px; }
 
   /* Etiketten an der Waage (an Schalen verankert). Gold nur für die gesuchte Größe. */
   .w-etikett { position: absolute; white-space: nowrap; font-family: "DT Inter", sans-serif; font-weight: 600;
     font-size: 52px; line-height: 62px; text-shadow: 0 2px 18px rgba(14, 23, 38, 0.9), 0 0 4px rgba(14, 23, 38, 0.9); }
   .w-gold { color: #C9A84C; }
   .w-creme { color: #F5F0E8; }
-  #w-reihe { z-index: 6; }
-  #w-reihe .w-etikett { left: -162px; top: 80px; }
+  /* Zeilen unter der LINKEN Schale (seite:links, immer "Kosten"): linksbündig an x = 108.
+     Zeile 1 der Betrag, Zeile 2 sein Wort (Runde 2, Prüfung 2: Beim Begriff fehlte sonst die Zahl). */
+  #w-reihe-l { z-index: 6; }
+  #w-reihe-l .w-etikett { left: -164px; top: 80px; }
+  #w-reihe-l .w-zeile2 { top: 142px; }
+  #w-ok { line-height: 62px; }
+  #w-reihe-l #w-saison { top: 204px; }
+  /* "45 Mio. €" im Geist-Stil: gestrichelte Gold-Unterkante wie der Umriss des Geistes (nur eine
+     Möglichkeit). Auf "genauso" wird die Zahl fest (volle Deckkraft) und der Strich geht. */
+  #w-zahl-strich { position: absolute; left: 0; right: 0; top: 60px; height: 0; border-top: 5px dashed #C9A84C; }
   #w-tore-anker { z-index: 6; }
-  #w-tore { left: -210px; top: -260px; }
-  #w-ok-anker { z-index: 6; }
-  #w-ok { left: -230px; width: 460px; top: -276px; text-align: center; }
-  #w-saison { left: -230px; width: 460px; top: -134px; text-align: center; }
+  #w-tore { left: -222px; top: -170px; }
 
   /* Licht: Vignette (radial, kein linearer Verlauf: der bildet im H.264-Video Streifen). */
   #w-vignette { position: absolute; inset: 0; pointer-events: none; z-index: 1;
@@ -100,6 +151,7 @@
   #m-ebene { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; z-index: 7; overflow: visible; pointer-events: none; }
 </style>
 <div id="w-buehne">
+ <div id="w-welt" data-rig>
   <svg id="w-svg" viewBox="0 0 1080 1920" aria-hidden="true" data-layout-allow-overflow>
     <defs>
       <filter id="w-weich" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="4" /></filter>
@@ -114,6 +166,8 @@
   <!-- @laender -->
   <div id="w-ort-muenchen" class="w-anker w-ort" data-anker="ort:muenchen">
     <div id="w-punkt-muenchen" class="w-punkt"></div>
+  </div>
+  <div id="w-ortname-muenchen" class="w-anker" data-anker="ort:muenchen">
     <div class="w-rand" data-bis-zoom="1.9"><div id="w-name-muenchen" class="w-name w-name-links">München</div></div>
   </div>
   <div id="w-ort-barcelona" class="w-anker w-ort" data-anker="ort:barcelona">
@@ -121,67 +175,99 @@
     <div class="w-rand"><div id="w-name-barcelona" class="w-name w-name-links">Barcelona</div></div>
   </div>
 
-  <!-- Waage. render() setzt: Fuß (#w-waage) an München, Balken-Drehung, Schalen, Ketten.
+  <!-- Waage. render() setzt: Fuß (#w-waage) an München, Balken-Drehung, Schalen, Ketten, Schild.
        GSAP besitzt nur #w-saeule-auf und #w-oben (Aufrichten beim ersten Auftritt). -->
   <div id="w-waage">
     <svg id="w-waage-svg" viewBox="-540 -720 1080 800" aria-hidden="true">
-      <ellipse cx="0" cy="4" rx="230" ry="20" fill="#0E1726" fill-opacity="0.75" filter="url(#w-weich)" />
+      <!-- Schlagschatten am Boden -->
+      <ellipse cx="0" cy="4" rx="240" ry="22" fill="#0E1726" fill-opacity="0.8" filter="url(#w-weich)" />
       <g id="w-saeule-auf">
-        <path class="wg-flaeche" d="M-92 0 L-62 -26 L62 -26 L92 0 Z" />
-        <path class="wg-kante" d="M-62 -26 L62 -26" />
-        <rect class="wg-flaeche" x="-11" y="-500" width="22" height="476" />
-        <path class="wg-kante" d="M-6 -490 L-6 -30" />
+        <!-- Fuß: Fläche, Licht oben und links, Schatten rechts -->
+        <path class="wg-flaeche" d="M-100 0 L-68 -30 L68 -30 L100 0 Z" />
+        <path class="wg-schatten" d="M38 -30 L68 -30 L100 0 L52 0 Z" />
+        <path class="wg-kante" d="M-64 -30 L64 -30" />
+        <path class="wg-kante-leise" d="M-98 -2 L-68 -28" />
+        <!-- Säule: 30 px, Licht links, Schatten rechts -->
+        <rect class="wg-flaeche" x="-15" y="-500" width="30" height="472" />
+        <rect class="wg-schatten" x="4" y="-500" width="11" height="472" />
+        <path class="wg-kante" d="M-10 -486 L-10 -36" />
       </g>
       <g id="w-oben">
         <path id="w-kette-l" class="wg-kette" d="" />
         <path id="w-kette-r" class="wg-kette" d="" />
-        <!-- Balken mit Zunge: dreht um den Drehpunkt (0, -500). -->
+        <!-- Balken mit Zunge: dreht um den Drehpunkt (0, -500). 18 px stark, Licht oben. -->
         <g id="w-balken">
-          <path class="wg-flaeche" d="M0 -546 L7 -508 L-7 -508 Z" />
-          <path class="wg-flaeche" d="M-270 -505 Q0 -517 270 -505 L270 -495 Q0 -484 -270 -495 Z" />
-          <path class="wg-kante" d="M-262 -505 Q0 -516 262 -505" />
-          <circle cx="-270" cy="-500" r="9" fill="none" stroke="#F5F0E8" stroke-opacity="0.8" stroke-width="3" />
-          <circle cx="270" cy="-500" r="9" fill="none" stroke="#F5F0E8" stroke-opacity="0.8" stroke-width="3" />
+          <path class="wg-flaeche" d="M0 -560 L10 -512 L-10 -512 Z" />
+          <path class="wg-kante" d="M-2 -552 L-7 -514" />
+          <path class="wg-flaeche" d="M-280 -509 Q0 -523 280 -509 L280 -491 Q0 -479 -280 -491 Z" />
+          <path class="wg-schatten" d="M-280 -497 Q0 -485 280 -497 L280 -491 Q0 -479 -280 -491 Z" />
+          <path class="wg-kante" d="M-272 -509 Q0 -522 272 -509" />
+          <circle cx="-270" cy="-500" r="13" fill="#1F3864" stroke="#F5F0E8" stroke-opacity="0.85" stroke-width="4" />
+          <circle cx="270" cy="-500" r="13" fill="#1F3864" stroke="#F5F0E8" stroke-opacity="0.85" stroke-width="4" />
         </g>
-        <circle cx="0" cy="-500" r="17" class="wg-flaeche" stroke="#F5F0E8" stroke-opacity="0.8" stroke-width="3" />
-        <!-- Schalen: Ursprung = Mitte des Schalenrands; Vorderseite trägt den Namen. -->
+        <circle cx="0" cy="-500" r="21" class="wg-flaeche" stroke="#F5F0E8" stroke-opacity="0.85" stroke-width="4" />
+        <circle cx="-4" cy="-504" r="6" fill="#F5F0E8" fill-opacity="0.85" />
+        <!-- Schild an der Säule: vorn "Behalten", hinten "Verkaufen" (sichtbar nach der Drehung). -->
+        <g id="w-schild">
+          <rect class="wg-flaeche" x="-134" y="-31" width="268" height="62" rx="6" />
+          <rect class="wg-schatten" x="-134" y="17" width="268" height="14" rx="6" />
+          <rect x="-134" y="-31" width="268" height="62" rx="6" fill="none" stroke="#F5F0E8" stroke-opacity="0.85" stroke-width="3" />
+          <text id="w-schild-vorn" class="wg-schild-text" x="0" y="17" text-anchor="middle">Behalten</text>
+          <text id="w-schild-hinten" class="wg-schild-text" x="0" y="17" text-anchor="middle">Verkaufen</text>
+        </g>
+        <!-- Stempel "0 €" unter dem Schild ("Behalten keinen Cent"). Tritt vor der Drehung ab. -->
+        <g transform="translate(0 -362)">
+          <g id="w-null-behalten">
+            <rect class="wg-stempel-rand" x="-56" y="-33" width="112" height="66" rx="8" />
+            <text class="wg-stempel-text" x="0" y="17" text-anchor="middle">0&#160;€</text>
+          </g>
+        </g>
+        <!-- Schalen: Ursprung = Mitte des Schalenrands, 400 breit. Jede trägt beide Wörter; render()
+             zeigt links immer "Kosten", rechts immer "Nutzen" (auch nach der Drehung). -->
         <g id="w-schale-l">
-          <ellipse cx="0" cy="0" rx="170" ry="15" fill="#0E1726" />
-          <path class="wg-flaeche" d="M-170 0 L170 0 L150 66 L-150 66 Z" />
-          <path class="wg-kante" d="M-170 0 L170 0" />
-          <text class="wg-front-text" x="0" y="49" text-anchor="middle">Kosten</text>
+          <ellipse cx="0" cy="0" rx="200" ry="17" fill="#0E1726" />
+          <path class="wg-kante-leise" d="M-198 -1 A200 17 0 0 1 198 -1" />
+          <path class="wg-flaeche" d="M-200 0 L200 0 L178 66 L-178 66 Z" />
+          <path class="wg-schatten" d="M128 0 L200 0 L178 66 L114 66 Z" />
+          <path class="wg-kante" d="M-198 0 L198 0" />
+          <text class="wg-front-text" x="0" y="49" text-anchor="middle" data-schale="a" data-seite-text="links">Kosten</text>
+          <text class="wg-front-text" x="0" y="49" text-anchor="middle" data-schale="a" data-seite-text="rechts">Nutzen</text>
         </g>
         <g id="w-schale-r">
-          <ellipse cx="0" cy="0" rx="170" ry="15" fill="#0E1726" />
-          <path class="wg-flaeche" d="M-170 0 L170 0 L150 66 L-150 66 Z" />
-          <path class="wg-kante" d="M-170 0 L170 0" />
-          <text class="wg-front-text" x="0" y="49" text-anchor="middle">Nutzen</text>
+          <ellipse cx="0" cy="0" rx="200" ry="17" fill="#0E1726" />
+          <path class="wg-kante-leise" d="M-198 -1 A200 17 0 0 1 198 -1" />
+          <path class="wg-flaeche" d="M-200 0 L200 0 L178 66 L-178 66 Z" />
+          <path class="wg-schatten" d="M128 0 L200 0 L178 66 L114 66 Z" />
+          <path class="wg-kante" d="M-198 0 L198 0" />
+          <text class="wg-front-text" x="0" y="49" text-anchor="middle" data-schale="b" data-seite-text="links">Kosten</text>
+          <text class="wg-front-text" x="0" y="49" text-anchor="middle" data-schale="b" data-seite-text="rechts">Nutzen</text>
         </g>
       </g>
     </svg>
   </div>
 
-  <!-- Darsteller 1: der Spieler als Spielfigur (Creme = gegeben), dazu Name und Preisschilder. -->
+  <!-- Darsteller 1: der Spieler als Tipp-Kick-Figur (Creme = gegeben), Name und Preisschilder. -->
   <div id="a-spieler-schatten" class="a-schatten"><div class="a-schatten-oval"></div></div>
   <div id="a-spieler" class="a-huelle">
     <div id="a-spieler-figur" class="a-figur">
-      <svg id="a-spieler-bild" viewBox="-80 -300 160 300" aria-hidden="true"><!-- @spielfigur --></svg>
+      <svg id="a-spieler-bild" class="a-svg" viewBox="-100 -310 200 320" aria-hidden="true"><!-- @spielfigur --></svg>
       <div id="a-spieler-name" class="a-etikett">Lewandowski</div>
+      <!-- Schnüre von der rechten Hand (50, -124) zu den Löchern der Schilder -->
       <svg id="a-schilder-faeden" aria-hidden="true">
-        <path id="a-faden-1" d="M38 -22 C80 40 120 120 156 188" />
-        <path id="a-faden-2" d="M44 -16 C90 60 128 170 156 282" />
-        <path id="a-faden-3" d="M50 -10 C96 80 134 220 156 376" />
+        <path id="a-faden-1" d="M50 -124 C78 -40 130 80 154 170" />
+        <path id="a-faden-2" d="M50 -124 C84 -10 118 150 126 266" />
+        <path id="a-faden-3" d="M50 -124 C92 20 140 230 148 362" />
       </svg>
-      <!-- Reihenfolge wie im Drehbuch: Irrtum, richtig, zweiter Irrtum. Die Breiten sind gemessen
-           (Text 48 px + 24 px links + 54 px Spitze mit Loch); rechte Kante bei x = +180 (Loch bei +156). -->
-      <div id="a-schild-1" class="a-schild" style="left: -254px; top: 150px; width: 434px; transform-origin: 410px 38px;">
-        <div class="a-schild-papier"></div><div class="a-schild-loch"></div><div class="a-schild-text">Nur sein Gehalt</div>
+      <!-- Reihenfolge wie im Drehbuch: Irrtum, richtig, zweiter Irrtum. Breiten gemessen
+           (Text 48 px + 24 px links + 54 px Spitze mit Loch). Leicht versetzt und schräg. -->
+      <div id="a-schild-1" class="a-schild" style="left: -256px; top: 132px; width: 434px; transform-origin: 410px 38px;">
+        <div class="a-schild-dreh" style="transform: rotate(-3deg); transform-origin: 410px 38px;"><div class="a-schild-papier"></div><div class="a-schild-loch"></div><div class="a-schild-text">Nur sein Gehalt</div></div>
       </div>
-      <div id="a-schild-2" class="a-schild" style="left: -385px; top: 244px; width: 565px; transform-origin: 541px 38px;">
-        <div class="a-schild-papier"></div><div class="a-schild-loch"></div><div class="a-schild-text">Gehalt + Barças Geld</div>
+      <div id="a-schild-2" class="a-schild" style="left: -415px; top: 228px; width: 565px; transform-origin: 541px 38px;">
+        <div class="a-schild-dreh" style="transform: rotate(2.5deg); transform-origin: 541px 38px;"><div class="a-schild-papier"></div><div class="a-schild-loch"></div><div class="a-schild-text">Gehalt + Barças Geld</div></div>
       </div>
-      <div id="a-schild-3" class="a-schild" style="left: -311px; top: 338px; width: 491px; transform-origin: 467px 38px;">
-        <div class="a-schild-papier"></div><div class="a-schild-loch"></div><div class="a-schild-text">Nichts, er ist ja da</div>
+      <div id="a-schild-3" class="a-schild" style="left: -319px; top: 324px; width: 491px; transform-origin: 467px 38px;">
+        <div class="a-schild-dreh" style="transform: rotate(-1.5deg); transform-origin: 467px 38px;"><div class="a-schild-papier"></div><div class="a-schild-loch"></div><div class="a-schild-text">Nichts, er ist ja da</div></div>
       </div>
     </div>
   </div>
@@ -189,33 +275,75 @@
   <!-- Darsteller 2: der Gehalt-Beleg (Creme = bezahlt, gegeben). -->
   <div id="a-beleg" class="a-huelle">
     <div id="a-beleg-figur" class="a-figur">
-      <div id="a-beleg-papier">
-        <div id="a-beleg-titel">Gehalt</div>
-        <div class="a-beleg-zeile" style="top: 96px"></div>
-        <div class="a-beleg-zeile" style="top: 112px; right: 70px"></div>
-        <div class="a-beleg-zeile" style="top: 200px; right: 110px"></div>
-        <div id="a-beleg-stempel">bezahlt</div>
+      <div id="a-beleg-papier" class="a-papier">
+        <div id="a-beleg-titel" class="a-druck">Gehalt</div>
+        <div class="a-zeile" style="left: 22px; right: 22px; top: 96px"></div>
+        <div class="a-zeile" style="left: 22px; right: 70px; top: 112px"></div>
+        <div class="a-zeile" style="left: 22px; right: 110px; top: 200px"></div>
+        <div id="a-beleg-stempel" class="a-stempel">bezahlt</div>
       </div>
     </div>
   </div>
 
-  <!-- Darsteller 3: das Geld aus Barcelona (Gold = gesuchte Größe). Wechselt nie die Form. -->
-  <div id="a-geld-schatten" class="a-schatten"><div class="a-schatten-oval"></div></div>
-  <div id="a-geld" class="a-huelle">
-    <div id="a-geld-figur" class="a-figur">
-      <svg id="a-geld-bild" viewBox="-80 -300 160 310" aria-hidden="true"><!-- @muenzen --></svg>
+  <!-- Darsteller 3: der Vertrag (Beat 4), ein Blatt wie der Beleg. Stempel "ablösefrei". -->
+  <div id="a-vertrag" class="a-huelle">
+    <div id="a-vertrag-figur" class="a-figur">
+      <div id="a-vertrag-papier" class="a-papier">
+        <div id="a-vertrag-titel" class="a-druck">Vertrag</div>
+        <div id="a-vertrag-datum" class="a-druck">bis 30.06.2023</div>
+        <!-- Zeitleiste auf dem Blatt: eine Saison = das Band bis zum Vertragsende -->
+        <div id="zl-saison" class="zl a-druck">1&nbsp;Saison</div>
+        <div id="zl-start" class="zl zl-strich"></div>
+        <div id="zl-band" class="zl zl-strich"></div>
+        <div id="zl-ende" class="zl zl-strich"></div>
+        <div id="zl-verl" class="zl"></div>
+        <div id="zl-verl-text" class="zl a-druck">verlängern</div>
+        <div id="a-vertrag-stempel" class="a-stempel" style="transform: rotate(-7deg)">ablösefrei</div>
+        <div id="a-vertrag-null" class="a-stempel" style="transform: rotate(4deg)">0&nbsp;€</div>
+      </div>
     </div>
   </div>
 
-  <!-- Etiketten an den Schalen. Unter dem Stapel: "45 Mio. €" -> "entgangen" -> "aufgegeben" (Morphs). -->
-  <div id="w-reihe" class="w-anker" data-anker="schale:links">
-    <div id="w-reihe-zahl" class="w-etikett w-gold">45&nbsp;Mio.&nbsp;€</div>
-    <div id="w-reihe-entgangen" class="w-etikett w-gold">entgangen</div>
-    <div id="w-reihe-aufgegeben" class="w-etikett w-gold">aufgegeben</div>
+  <!-- Darsteller 4: das Geld in Barcelona (Gold = gesuchte Größe). Es bleibt dort. -->
+  <div id="a-geld-schatten" class="a-schatten"><div class="a-schatten-oval"></div></div>
+  <div id="a-geld" class="a-huelle">
+    <div id="a-geld-figur" class="a-figur">
+      <svg id="a-geld-bild" class="a-svg" viewBox="-100 -310 200 320" aria-hidden="true"><!-- @muenzen --></svg>
+    </div>
+  </div>
+
+  <!-- Darsteller 5: das Geld in München. Erst ein GEIST (gestrichelt = nur eine Möglichkeit),
+       ab "Bayern nimmt das Geld" echt (Morph: Umriss -> Münzen). -->
+  <div id="a-geist" class="a-huelle">
+    <div id="a-geist-figur" class="a-figur">
+      <svg id="a-geist-umriss" class="a-svg" viewBox="-100 -310 200 320" aria-hidden="true"><!-- @geist-stapel --></svg>
+      <svg id="a-geist-echt" class="a-svg" viewBox="-100 -310 200 320" aria-hidden="true"><!-- @muenzen-muenchen --></svg>
+    </div>
+  </div>
+
+  <!-- Darsteller 6: der Umriss des Spielers. Er bleibt auf der Kosten-Schale, wenn der Spieler
+       abfliegt: Das, was Verkaufen kostet, ist nicht mehr da. -->
+  <div id="a-umriss" class="a-huelle">
+    <div id="a-umriss-figur" class="a-figur">
+      <svg id="a-umriss-bild" class="a-svg" viewBox="-100 -310 200 320" aria-hidden="true"><!-- @geist-figur --></svg>
+    </div>
+  </div>
+
+  <!-- Etiketten unter der linken Schale (immer "Kosten"): Zeile 1 "45 Mio. €" (erst Geist-Stil),
+       Zeile 2 "entgangen" -> "beste Alternative" (Morph); nach der Drehung "Opportunitätskosten"
+       und "1 Saison". Kein Name mehr unter der Nutzen-Schale (40 px, unter der Schriftstufe). -->
+  <div id="w-reihe-l" class="w-anker" data-anker="seite:links">
+    <div id="w-reihe-zahl" class="w-etikett w-gold"><span id="w-zahl-text">45&nbsp;Mio.&nbsp;€</span><div id="w-zahl-strich"></div></div>
+    <div id="w-reihe-entgangen" class="w-etikett w-gold w-zeile2">entgangen</div>
+    <div id="w-reihe-alternative" class="w-etikett w-gold w-zeile2">beste Alternative</div>
+    <div id="w-ok" class="w-etikett w-gold">Opportunitäts-<br />kosten</div>
+    <div id="w-saison" class="w-etikett w-gold">1&nbsp;Saison</div>
   </div>
   <div id="w-tore-anker" class="w-anker" data-anker="schale:rechts"><div id="w-tore" class="w-etikett w-creme">Tore</div></div>
-  <div id="w-ok-anker" class="w-anker" data-anker="schale:rechts">
-    <div id="w-ok" class="w-etikett w-creme">Opportunitäts-<br />kosten</div>
-    <div id="w-saison" class="w-etikett w-creme">1&nbsp;Saison</div>
-  </div>
+
+  <!-- Marker-Ebene: handgezeichnete Striche, die an Darstellern kleben (data-anker). -->
+  <svg id="m-ebene" viewBox="0 0 1080 1920" aria-hidden="true" data-layout-ignore>
+    <g id="m-anker-geld" data-anker="akteur:geist" data-anker-dy="-144"></g>
+  </svg>
+ </div>
 </div>

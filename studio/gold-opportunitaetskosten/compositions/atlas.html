@@ -18,6 +18,9 @@
 @font-face { font-family: "DT Inter"; src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: block; }
 /* @schriften:ende */
   #w-buehne { position: absolute; inset: 0; overflow: hidden; background: #0E1726; }
+  /* Welt-Hülle: Ursprung oben links, damit render() translate + scale einfach rechnen kann.
+     isolation: immer ein eigener Stapelkontext (auch ohne Zoom gleiche Reihenfolge). */
+  #w-welt { position: absolute; inset: 0; transform-origin: 0 0; isolation: isolate; }
   #w-svg { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
   /* Karte: entsättigt, dunkel, eine Region leuchtet (Kartentöne aus DESIGN.md §4). */
   #w-land { fill: #222D40; stroke: #5A6880; stroke-linejoin: round; filter: url(#w-papier); }
@@ -35,6 +38,9 @@
   .w-anker { position: absolute; left: 0; top: 0; width: 0; height: 0; }
   .w-rand { position: absolute; left: 0; top: 0; width: 0; height: 0; }
   .w-ort { z-index: 2; }
+  /* Der Name München liegt ÜBER der Waage (z 4): Beim Heranfahren verdeckte ihn sonst der
+     Schatten des Waagenfußes halb (Kritik Prüfung 1). Der Punkt bleibt darunter. */
+  #w-ortname-muenchen { z-index: 4; }
   .w-punkt { position: absolute; left: -12px; top: -12px; width: 24px; height: 24px; border-radius: 50%;
     background: #F5F0E8; box-shadow: 0 0 0 6px rgba(14, 23, 38, 0.85); }
   .w-name { position: absolute; top: -31px; white-space: nowrap;
@@ -45,18 +51,25 @@
   /* München: weiter links, damit der Fuß der Spielfigur den Namen nicht verdeckt. */
   #w-name-muenchen { right: 92px; }
   .w-rand.w-mitte { display: flex; justify-content: center; }
-  .w-land-name { position: relative; top: -21px; flex: none; white-space: nowrap;
-    font-family: "DT Inter", sans-serif; font-weight: 600; font-size: 34px; line-height: 42px;
-    letter-spacing: 0.32em; color: rgba(245, 240, 232, 0.46); }
-  #w-land-frankreich, #w-land-spanien, #w-land-italien { z-index: 2; }
 
-  /* Waage: Navy-Fläche mit Creme-Lichtkante und Schlagschatten, eigene Zeichnung. */
+  /* Waage: ein Gegenstand der Welt wie Figur und Münzen (Runde 2, Prüfung 1: vorher ein
+     Drahtgestell aus 2-px-Linien, am Handy unsichtbar). Licht von links oben wie bei der Figur:
+     Navy-Fläche, Creme-Lichtkante oben/links, Navy-Schatten rechts/unten, Schlagschatten am Boden.
+     Ketten 4 px Creme 80 % (DESIGN.md §7: Ketten 4 px). */
   #w-waage { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 3; }
   #w-waage-svg { position: absolute; left: -540px; top: -720px; width: 1080px; height: 800px; overflow: visible; }
   .wg-flaeche { fill: #1F3864; }
-  .wg-kante { fill: none; stroke: #F5F0E8; stroke-opacity: 0.75; stroke-width: 2.5; stroke-linecap: round; }
-  .wg-kette { fill: none; stroke: #F5F0E8; stroke-opacity: 0.55; stroke-width: 2; }
+  .wg-schatten { fill: #0E1726; fill-opacity: 0.42; }
+  .wg-kante { fill: none; stroke: #F5F0E8; stroke-opacity: 0.85; stroke-width: 4; stroke-linecap: round; }
+  .wg-kante-leise { fill: none; stroke: #F5F0E8; stroke-opacity: 0.35; stroke-width: 3; stroke-linecap: round; }
+  .wg-kette { fill: none; stroke: #F5F0E8; stroke-opacity: 0.8; stroke-width: 4; stroke-linecap: round; }
+  /* Stempel "0 €" am Schild: Creme auf Navy (auf der Waage, nicht auf Papier) */
+  .wg-stempel-rand { fill: #1F3864; stroke: #F5F0E8; stroke-width: 4; }
+  .wg-stempel-text { font-family: "DT Inter", sans-serif; font-weight: 600; font-size: 48px; fill: #F5F0E8; }
   .wg-front-text { font-family: "DT Inter", sans-serif; font-weight: 600; font-size: 48px; fill: #F5F0E8; }
+  /* Schild an der Säule: sagt, WELCHE Entscheidung die Waage wiegt ("Behalten", nach der
+     Drehung "Verkaufen"). Navy-Fläche wie die Waage, Creme-Schrift. */
+  .wg-schild-text { font-family: "DT Inter", sans-serif; font-weight: 600; font-size: 48px; fill: #F5F0E8; }
 
   /* Darsteller: Hülle = Fußpunkt (Mitte unten). render() besitzt Hülle, Figur-Neigung, Schatten. */
   .a-huelle { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 5; }
@@ -64,44 +77,70 @@
   .a-schatten { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 4; }
   .a-schatten-oval { position: absolute; left: -96px; top: -20px; width: 192px; height: 40px; border-radius: 50%;
     background: radial-gradient(closest-side, rgba(14, 23, 38, 0.95), rgba(14, 23, 38, 0)); }
-  #a-spieler-bild { position: absolute; left: -80px; top: -300px; width: 160px; height: 300px; overflow: visible; }
-  #a-geld-bild { position: absolute; left: -80px; top: -300px; width: 160px; height: 310px; overflow: visible; }
+  .a-svg { position: absolute; left: -100px; top: -310px; width: 200px; height: 320px; overflow: visible; }
   .a-etikett { position: absolute; white-space: nowrap; font-family: "DT Inter", sans-serif; font-weight: 600;
     font-size: 52px; line-height: 62px; color: #F5F0E8; text-shadow: 0 2px 18px rgba(14, 23, 38, 0.9), 0 0 4px rgba(14, 23, 38, 0.9); }
-  #a-spieler-name { right: 104px; top: -118px; }
+  #a-spieler-name { right: 104px; top: -118px; font-size: 48px; }
 
   /* Preisschilder: Creme-Papier mit Loch, Navy-Schrift (Navy auf Creme 15,8 : 1). Sie hängen
-     an Fäden von der Spielfigur. Drehpunkt ist das Loch, darum pendeln sie beim Einhängen. */
+     an Schnüren an der Hand der Figur, leicht versetzt und schräg (keine bündige Liste).
+     Drehpunkt ist das Loch, darum pendeln sie beim Einhängen. Schnüre 3 px (am Handy sichtbar). */
   #a-schilder-faeden { position: absolute; left: 0; top: 0; width: 1px; height: 1px; overflow: visible; }
-  #a-schilder-faeden path { fill: none; stroke: #F5F0E8; stroke-opacity: 0.7; stroke-width: 2; }
+  #a-schilder-faeden path { fill: none; stroke: #F5F0E8; stroke-opacity: 0.8; stroke-width: 3; stroke-linecap: round; }
   .a-schild { position: absolute; height: 76px; filter: drop-shadow(0 6px 10px rgba(14, 23, 38, 0.75)); }
   .a-schild-papier { position: absolute; inset: 0; background: #F5F0E8;
     clip-path: polygon(0 0, calc(100% - 40px) 0, 100% 50%, calc(100% - 40px) 100%, 0 100%); }
   .a-schild-loch { position: absolute; right: 22px; top: 31px; width: 14px; height: 14px; border-radius: 50%; background: #0E1726; }
   .a-schild-text { position: absolute; left: 24px; top: 7px; white-space: nowrap; font-family: "DT Inter", sans-serif;
     font-weight: 600; font-size: 48px; line-height: 62px; color: #0E1726; }
+  .a-schild-dreh { position: absolute; inset: 0; }
 
-  /* Gehalt-Beleg: Creme-Papier, gedruckt "Gehalt", Stempel "bezahlt" (Navy). */
-  #a-beleg-papier { position: absolute; left: -102px; top: -232px; width: 204px; height: 232px; background: #F5F0E8;
-    box-shadow: 0 8px 16px rgba(14, 23, 38, 0.7); transform: rotate(-2deg); transform-origin: 50% 100%; }
-  #a-beleg-titel { position: absolute; left: 0; right: 0; top: 18px; text-align: center; font-family: "DT Inter", sans-serif;
-    font-weight: 600; font-size: 48px; line-height: 62px; color: #0E1726; }
-  .a-beleg-zeile { position: absolute; left: 22px; right: 22px; height: 6px; background: #0E1726; opacity: 0.18; }
-  #a-beleg-stempel { position: absolute; left: 5px; top: 128px; padding: 0 6px; border: 4px solid #1F3864; border-radius: 8px;
+  /* Papier-Gegenstände (Gehalt-Beleg, Vertrag): Creme-Papier, Navy-Druck, Stempel in Navy. */
+  .a-papier { position: absolute; background: #F5F0E8; box-shadow: 0 8px 16px rgba(14, 23, 38, 0.7); transform-origin: 50% 100%; }
+  .a-druck { position: absolute; white-space: nowrap; font-family: "DT Inter", sans-serif; font-weight: 600;
+    font-size: 48px; line-height: 62px; color: #0E1726; }
+  .a-zeile { position: absolute; height: 6px; background: #0E1726; opacity: 0.18; }
+  .a-stempel { position: absolute; padding: 0 6px; border: 4px solid #1F3864; border-radius: 8px;
     font-family: "DT Inter", sans-serif; font-weight: 600; font-size: 48px; line-height: 58px; color: #1F3864; white-space: nowrap; }
+  /* Beleg 196 breit (Runde 2): Er steht NEBEN dem Geist, nicht davor (Prüfung 1). */
+  #a-beleg-papier { left: -98px; top: -232px; width: 196px; height: 232px; transform: rotate(-2deg); }
+  #a-beleg-titel { left: 0; right: 0; top: 18px; text-align: center; }
+  #a-beleg-stempel { left: 5px; top: 128px; }
+  /* Vertrag (Runde 2, Prüfung 1): EIN Blatt trägt alles, was der Vertrag sagt. Die Zeitleiste ist
+     daraufgedruckt (Band = eine Saison bis zum 30.06.2023), dahinter die gestrichelte Verlängerung,
+     die auf "nicht" zurücktritt; "ablösefrei" und "0 €" sind zwei Stempel. Vorher schwebten
+     Zeitleiste und "0 €" ohne Verbindung auf der Karte. */
+  #a-vertrag-papier { left: -360px; top: -370px; width: 720px; height: 370px; transform: rotate(-1deg); }
+  #a-vertrag-titel { left: 32px; top: 18px; }
+  #a-vertrag-datum { left: 32px; top: 80px; }
+  #a-vertrag-stempel { left: 430px; top: 34px; }
+  #a-vertrag-null { left: 436px; top: 172px; }
+  .zl { position: absolute; }
+  .zl-strich { background: #0E1726; border-radius: 4px; }
+  #zl-start { left: 36px; top: 238px; width: 8px; height: 44px; }
+  #zl-band { left: 40px; top: 255px; width: 360px; height: 10px; transform-origin: 0 50%; }
+  #zl-ende { left: 396px; top: 238px; width: 8px; height: 44px; }
+  #zl-verl { left: 414px; top: 257px; width: 270px; height: 0; border-top: 6px dashed rgba(14, 23, 38, 0.6); }
+  #zl-saison { left: 126px; top: 180px; }
+  #zl-verl-text { left: 430px; top: 284px; }
 
   /* Etiketten an der Waage (an Schalen verankert). Gold nur für die gesuchte Größe. */
   .w-etikett { position: absolute; white-space: nowrap; font-family: "DT Inter", sans-serif; font-weight: 600;
     font-size: 52px; line-height: 62px; text-shadow: 0 2px 18px rgba(14, 23, 38, 0.9), 0 0 4px rgba(14, 23, 38, 0.9); }
   .w-gold { color: #C9A84C; }
   .w-creme { color: #F5F0E8; }
-  #w-reihe { z-index: 6; }
-  #w-reihe .w-etikett { left: -162px; top: 80px; }
+  /* Zeilen unter der LINKEN Schale (seite:links, immer "Kosten"): linksbündig an x = 108.
+     Zeile 1 der Betrag, Zeile 2 sein Wort (Runde 2, Prüfung 2: Beim Begriff fehlte sonst die Zahl). */
+  #w-reihe-l { z-index: 6; }
+  #w-reihe-l .w-etikett { left: -164px; top: 80px; }
+  #w-reihe-l .w-zeile2 { top: 142px; }
+  #w-ok { line-height: 62px; }
+  #w-reihe-l #w-saison { top: 204px; }
+  /* "45 Mio. €" im Geist-Stil: gestrichelte Gold-Unterkante wie der Umriss des Geistes (nur eine
+     Möglichkeit). Auf "genauso" wird die Zahl fest (volle Deckkraft) und der Strich geht. */
+  #w-zahl-strich { position: absolute; left: 0; right: 0; top: 60px; height: 0; border-top: 5px dashed #C9A84C; }
   #w-tore-anker { z-index: 6; }
-  #w-tore { left: -210px; top: -260px; }
-  #w-ok-anker { z-index: 6; }
-  #w-ok { left: -230px; width: 460px; top: -276px; text-align: center; }
-  #w-saison { left: -230px; width: 460px; top: -134px; text-align: center; }
+  #w-tore { left: -222px; top: -170px; }
 
   /* Licht: Vignette (radial, kein linearer Verlauf: der bildet im H.264-Video Streifen). */
   #w-vignette { position: absolute; inset: 0; pointer-events: none; z-index: 1;
@@ -109,6 +148,7 @@
   #m-ebene { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; z-index: 7; overflow: visible; pointer-events: none; }
 </style>
 <div id="w-buehne">
+ <div id="w-welt" data-rig>
   <svg id="w-svg" viewBox="0 0 1080 1920" aria-hidden="true" data-layout-allow-overflow>
     <defs>
       <filter id="w-weich" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="4" /></filter>
@@ -124,11 +164,11 @@
     </g>
   </svg>
   <div id="w-vignette" data-layout-ignore></div>
-  <div id="w-land-frankreich" class="w-anker" data-anker="ort:frankreich"><div class="w-rand w-mitte" data-bis-zoom="1.9"><div class="w-land-name">FRANKREICH</div></div></div>
-  <div id="w-land-spanien" class="w-anker" data-anker="ort:spanien"><div class="w-rand w-mitte" data-bis-zoom="1.9"><div class="w-land-name">SPANIEN</div></div></div>
-  <div id="w-land-italien" class="w-anker" data-anker="ort:italien"><div class="w-rand w-mitte" data-bis-zoom="1.9"><div class="w-land-name">ITALIEN</div></div></div>
+  
   <div id="w-ort-muenchen" class="w-anker w-ort" data-anker="ort:muenchen">
     <div id="w-punkt-muenchen" class="w-punkt"></div>
+  </div>
+  <div id="w-ortname-muenchen" class="w-anker" data-anker="ort:muenchen">
     <div class="w-rand" data-bis-zoom="1.9"><div id="w-name-muenchen" class="w-name w-name-links">München</div></div>
   </div>
   <div id="w-ort-barcelona" class="w-anker w-ort" data-anker="ort:barcelona">
@@ -136,67 +176,99 @@
     <div class="w-rand"><div id="w-name-barcelona" class="w-name w-name-links">Barcelona</div></div>
   </div>
 
-  <!-- Waage. render() setzt: Fuß (#w-waage) an München, Balken-Drehung, Schalen, Ketten.
+  <!-- Waage. render() setzt: Fuß (#w-waage) an München, Balken-Drehung, Schalen, Ketten, Schild.
        GSAP besitzt nur #w-saeule-auf und #w-oben (Aufrichten beim ersten Auftritt). -->
   <div id="w-waage">
     <svg id="w-waage-svg" viewBox="-540 -720 1080 800" aria-hidden="true">
-      <ellipse cx="0" cy="4" rx="230" ry="20" fill="#0E1726" fill-opacity="0.75" filter="url(#w-weich)" />
+      <!-- Schlagschatten am Boden -->
+      <ellipse cx="0" cy="4" rx="240" ry="22" fill="#0E1726" fill-opacity="0.8" filter="url(#w-weich)" />
       <g id="w-saeule-auf">
-        <path class="wg-flaeche" d="M-92 0 L-62 -26 L62 -26 L92 0 Z" />
-        <path class="wg-kante" d="M-62 -26 L62 -26" />
-        <rect class="wg-flaeche" x="-11" y="-500" width="22" height="476" />
-        <path class="wg-kante" d="M-6 -490 L-6 -30" />
+        <!-- Fuß: Fläche, Licht oben und links, Schatten rechts -->
+        <path class="wg-flaeche" d="M-100 0 L-68 -30 L68 -30 L100 0 Z" />
+        <path class="wg-schatten" d="M38 -30 L68 -30 L100 0 L52 0 Z" />
+        <path class="wg-kante" d="M-64 -30 L64 -30" />
+        <path class="wg-kante-leise" d="M-98 -2 L-68 -28" />
+        <!-- Säule: 30 px, Licht links, Schatten rechts -->
+        <rect class="wg-flaeche" x="-15" y="-500" width="30" height="472" />
+        <rect class="wg-schatten" x="4" y="-500" width="11" height="472" />
+        <path class="wg-kante" d="M-10 -486 L-10 -36" />
       </g>
       <g id="w-oben">
         <path id="w-kette-l" class="wg-kette" d="" />
         <path id="w-kette-r" class="wg-kette" d="" />
-        <!-- Balken mit Zunge: dreht um den Drehpunkt (0, -500). -->
+        <!-- Balken mit Zunge: dreht um den Drehpunkt (0, -500). 18 px stark, Licht oben. -->
         <g id="w-balken">
-          <path class="wg-flaeche" d="M0 -546 L7 -508 L-7 -508 Z" />
-          <path class="wg-flaeche" d="M-270 -505 Q0 -517 270 -505 L270 -495 Q0 -484 -270 -495 Z" />
-          <path class="wg-kante" d="M-262 -505 Q0 -516 262 -505" />
-          <circle cx="-270" cy="-500" r="9" fill="none" stroke="#F5F0E8" stroke-opacity="0.8" stroke-width="3" />
-          <circle cx="270" cy="-500" r="9" fill="none" stroke="#F5F0E8" stroke-opacity="0.8" stroke-width="3" />
+          <path class="wg-flaeche" d="M0 -560 L10 -512 L-10 -512 Z" />
+          <path class="wg-kante" d="M-2 -552 L-7 -514" />
+          <path class="wg-flaeche" d="M-280 -509 Q0 -523 280 -509 L280 -491 Q0 -479 -280 -491 Z" />
+          <path class="wg-schatten" d="M-280 -497 Q0 -485 280 -497 L280 -491 Q0 -479 -280 -491 Z" />
+          <path class="wg-kante" d="M-272 -509 Q0 -522 272 -509" />
+          <circle cx="-270" cy="-500" r="13" fill="#1F3864" stroke="#F5F0E8" stroke-opacity="0.85" stroke-width="4" />
+          <circle cx="270" cy="-500" r="13" fill="#1F3864" stroke="#F5F0E8" stroke-opacity="0.85" stroke-width="4" />
         </g>
-        <circle cx="0" cy="-500" r="17" class="wg-flaeche" stroke="#F5F0E8" stroke-opacity="0.8" stroke-width="3" />
-        <!-- Schalen: Ursprung = Mitte des Schalenrands; Vorderseite trägt den Namen. -->
+        <circle cx="0" cy="-500" r="21" class="wg-flaeche" stroke="#F5F0E8" stroke-opacity="0.85" stroke-width="4" />
+        <circle cx="-4" cy="-504" r="6" fill="#F5F0E8" fill-opacity="0.85" />
+        <!-- Schild an der Säule: vorn "Behalten", hinten "Verkaufen" (sichtbar nach der Drehung). -->
+        <g id="w-schild">
+          <rect class="wg-flaeche" x="-134" y="-31" width="268" height="62" rx="6" />
+          <rect class="wg-schatten" x="-134" y="17" width="268" height="14" rx="6" />
+          <rect x="-134" y="-31" width="268" height="62" rx="6" fill="none" stroke="#F5F0E8" stroke-opacity="0.85" stroke-width="3" />
+          <text id="w-schild-vorn" class="wg-schild-text" x="0" y="17" text-anchor="middle">Behalten</text>
+          <text id="w-schild-hinten" class="wg-schild-text" x="0" y="17" text-anchor="middle">Verkaufen</text>
+        </g>
+        <!-- Stempel "0 €" unter dem Schild ("Behalten keinen Cent"). Tritt vor der Drehung ab. -->
+        <g transform="translate(0 -362)">
+          <g id="w-null-behalten">
+            <rect class="wg-stempel-rand" x="-56" y="-33" width="112" height="66" rx="8" />
+            <text class="wg-stempel-text" x="0" y="17" text-anchor="middle">0&#160;€</text>
+          </g>
+        </g>
+        <!-- Schalen: Ursprung = Mitte des Schalenrands, 400 breit. Jede trägt beide Wörter; render()
+             zeigt links immer "Kosten", rechts immer "Nutzen" (auch nach der Drehung). -->
         <g id="w-schale-l">
-          <ellipse cx="0" cy="0" rx="170" ry="15" fill="#0E1726" />
-          <path class="wg-flaeche" d="M-170 0 L170 0 L150 66 L-150 66 Z" />
-          <path class="wg-kante" d="M-170 0 L170 0" />
-          <text class="wg-front-text" x="0" y="49" text-anchor="middle">Kosten</text>
+          <ellipse cx="0" cy="0" rx="200" ry="17" fill="#0E1726" />
+          <path class="wg-kante-leise" d="M-198 -1 A200 17 0 0 1 198 -1" />
+          <path class="wg-flaeche" d="M-200 0 L200 0 L178 66 L-178 66 Z" />
+          <path class="wg-schatten" d="M128 0 L200 0 L178 66 L114 66 Z" />
+          <path class="wg-kante" d="M-198 0 L198 0" />
+          <text class="wg-front-text" x="0" y="49" text-anchor="middle" data-schale="a" data-seite-text="links">Kosten</text>
+          <text class="wg-front-text" x="0" y="49" text-anchor="middle" data-schale="a" data-seite-text="rechts">Nutzen</text>
         </g>
         <g id="w-schale-r">
-          <ellipse cx="0" cy="0" rx="170" ry="15" fill="#0E1726" />
-          <path class="wg-flaeche" d="M-170 0 L170 0 L150 66 L-150 66 Z" />
-          <path class="wg-kante" d="M-170 0 L170 0" />
-          <text class="wg-front-text" x="0" y="49" text-anchor="middle">Nutzen</text>
+          <ellipse cx="0" cy="0" rx="200" ry="17" fill="#0E1726" />
+          <path class="wg-kante-leise" d="M-198 -1 A200 17 0 0 1 198 -1" />
+          <path class="wg-flaeche" d="M-200 0 L200 0 L178 66 L-178 66 Z" />
+          <path class="wg-schatten" d="M128 0 L200 0 L178 66 L114 66 Z" />
+          <path class="wg-kante" d="M-198 0 L198 0" />
+          <text class="wg-front-text" x="0" y="49" text-anchor="middle" data-schale="b" data-seite-text="links">Kosten</text>
+          <text class="wg-front-text" x="0" y="49" text-anchor="middle" data-schale="b" data-seite-text="rechts">Nutzen</text>
         </g>
       </g>
     </svg>
   </div>
 
-  <!-- Darsteller 1: der Spieler als Spielfigur (Creme = gegeben), dazu Name und Preisschilder. -->
+  <!-- Darsteller 1: der Spieler als Tipp-Kick-Figur (Creme = gegeben), Name und Preisschilder. -->
   <div id="a-spieler-schatten" class="a-schatten"><div class="a-schatten-oval"></div></div>
   <div id="a-spieler" class="a-huelle">
     <div id="a-spieler-figur" class="a-figur">
-      <svg id="a-spieler-bild" viewBox="-80 -300 160 300" aria-hidden="true"><defs><linearGradient id="g-figur" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0E1726" stop-opacity="0.05"/><stop offset="0.38" stop-color="#F5F0E8" stop-opacity="0.35"/><stop offset="0.7" stop-color="#0E1726" stop-opacity="0.28"/><stop offset="1" stop-color="#0E1726" stop-opacity="0.6"/></linearGradient><radialGradient id="g-kopf" cx="0.35" cy="0.32" r="0.75"><stop offset="0" stop-color="#F5F0E8" stop-opacity="0.6"/><stop offset="0.55" stop-color="#0E1726" stop-opacity="0.05"/><stop offset="1" stop-color="#0E1726" stop-opacity="0.55"/></radialGradient></defs><ellipse cx="0" cy="-14" rx="76" ry="16" fill="#F5F0E8"/><ellipse cx="0" cy="-14" rx="76" ry="16" fill="#0E1726" fill-opacity="0.35"/><path d="M-74 -14 C-74 -40 -44 -52 -38 -78 C-30 -120 -22 -160 -20 -196 L20 -196 C22 -160 30 -120 38 -78 C44 -52 74 -40 74 -14 Z" fill="#F5F0E8"/><path d="M-74 -14 C-74 -40 -44 -52 -38 -78 C-30 -120 -22 -160 -20 -196 L20 -196 C22 -160 30 -120 38 -78 C44 -52 74 -40 74 -14 Z" fill="url(#g-figur)"/><path d="M-46 -196 C-46 -210 46 -210 46 -196 C46 -184 -46 -184 -46 -196 Z" fill="#F5F0E8"/><path d="M-46 -196 C-46 -210 46 -210 46 -196 C46 -184 -46 -184 -46 -196 Z" fill="url(#g-figur)"/><circle cx="0" cy="-246" r="52" fill="#F5F0E8"/><circle cx="0" cy="-246" r="52" fill="url(#g-kopf)"/><path d="M-62 -36 C-52 -56 -38 -64 -34 -86 C-28 -122 -22 -160 -18 -192" fill="none" stroke="#F5F0E8" stroke-width="3" stroke-linecap="round"/><path d="M-30 -268 A 40 40 0 0 1 10 -290" fill="none" stroke="#F5F0E8" stroke-width="4" stroke-linecap="round"/></svg>
+      <svg id="a-spieler-bild" class="a-svg" viewBox="-100 -310 200 320" aria-hidden="true"><defs><linearGradient id="tk-licht" gradientUnits="userSpaceOnUse" x1="-60" y1="0" x2="60" y2="0"><stop offset="0" stop-color="#0E1726" stop-opacity="0.04"/><stop offset="0.35" stop-color="#F5F0E8" stop-opacity="0.3"/><stop offset="0.7" stop-color="#0E1726" stop-opacity="0.26"/><stop offset="1" stop-color="#0E1726" stop-opacity="0.58"/></linearGradient><radialGradient id="tk-kopf" cx="0.36" cy="0.32" r="0.75"><stop offset="0" stop-color="#F5F0E8" stop-opacity="0.65"/><stop offset="0.55" stop-color="#0E1726" stop-opacity="0.04"/><stop offset="1" stop-color="#0E1726" stop-opacity="0.5"/></radialGradient></defs><path d="M-60 -30 L-60 -14 A60 13 0 0 0 60 -14 L60 -30 Z" fill="#F5F0E8"/><path d="M-60 -30 L-60 -14 A60 13 0 0 0 60 -14 L60 -30 Z" fill="url(#tk-licht)"/><path d="M-60 -30 L-60 -14 A60 13 0 0 0 60 -14 L60 -30 Z" fill="#0E1726" fill-opacity="0.32"/><ellipse cx="0" cy="-30" rx="60" ry="13" fill="#F5F0E8"/><ellipse cx="0" cy="-30" rx="60" ry="13" fill="url(#tk-licht)"/><circle cx="78" cy="-27" r="15" fill="#F5F0E8"/><circle cx="78" cy="-27" r="15" fill="url(#tk-kopf)"/><path d="M73 -31 L79 -35 L84 -30 L82 -23 L75 -23 Z" fill="#0E1726" fill-opacity="0.55"/><path d="M-26 -112 L-6 -112 L-8 -40 L-26 -40 Z" fill="#F5F0E8"/><path d="M-26 -112 L-6 -112 L-8 -40 L-26 -40 Z" fill="url(#tk-licht)"/><path d="M2 -112 L20 -116 L58 -72 L44 -60 Z" fill="#F5F0E8"/><path d="M2 -112 L20 -116 L58 -72 L44 -60 Z" fill="url(#tk-licht)"/><path d="M-26 -62 L-7 -62 L-7 -52 L-26 -52 Z M27 -94 L38 -101 L45 -92 L33 -85 Z" fill="#0E1726" fill-opacity="0.22"/><ellipse cx="-17" cy="-38" rx="20" ry="9" fill="#0E1726" fill-opacity="0.62"/><ellipse cx="54" cy="-62" rx="18" ry="9" transform="rotate(-38 54 -62)" fill="#0E1726" fill-opacity="0.62"/><path d="M-31 -136 L31 -136 L33 -104 L4 -104 L1 -114 L-1 -114 L-4 -104 L-33 -104 Z" fill="#F5F0E8"/><path d="M-31 -136 L31 -136 L33 -104 L4 -104 L1 -114 L-1 -114 L-4 -104 L-33 -104 Z" fill="url(#tk-licht)"/><path d="M-31 -136 L31 -136 L33 -104 L4 -104 L1 -114 L-1 -114 L-4 -104 L-33 -104 Z" fill="#0E1726" fill-opacity="0.2"/><path d="M-35 -198 L-59 -185 L-52 -163 L-32 -172 Z" fill="#F5F0E8"/><path d="M-35 -198 L-59 -185 L-52 -163 L-32 -172 Z" fill="url(#tk-licht)"/><path d="M35 -198 L59 -185 L52 -163 L32 -172 Z" fill="#F5F0E8"/><path d="M35 -198 L59 -185 L52 -163 L32 -172 Z" fill="url(#tk-licht)"/><path d="M-31 -134 L31 -134 L35 -198 Q0 -209 -35 -198 Z" fill="#F5F0E8"/><path d="M-31 -134 L31 -134 L35 -198 Q0 -209 -35 -198 Z" fill="url(#tk-licht)"/><path d="M-15 -203 L0 -184 L15 -203" fill="none" stroke="#0E1726" stroke-opacity="0.45" stroke-width="4" stroke-linejoin="round"/><path d="M-57 -170 L-37 -178 M57 -170 L37 -178" stroke="#0E1726" stroke-opacity="0.35" stroke-width="5"/><path d="M-57 -170 L-45 -168 L-43 -128 L-56 -129 Z" fill="#F5F0E8"/><path d="M-57 -170 L-45 -168 L-43 -128 L-56 -129 Z" fill="url(#tk-licht)"/><path d="M57 -170 L45 -168 L43 -128 L56 -129 Z" fill="#F5F0E8"/><path d="M57 -170 L45 -168 L43 -128 L56 -129 Z" fill="url(#tk-licht)"/><circle cx="-50" cy="-124" r="8" fill="#F5F0E8"/><circle cx="50" cy="-124" r="8" fill="#F5F0E8"/><circle cx="50" cy="-124" r="8" fill="#0E1726" fill-opacity="0.3"/><rect x="-9" y="-215" width="18" height="14" fill="#F5F0E8"/><rect x="-9" y="-215" width="18" height="14" fill="url(#tk-licht)"/><circle cx="0" cy="-248" r="36" fill="#F5F0E8"/><circle cx="0" cy="-248" r="36" fill="url(#tk-kopf)"/><path d="M-36 -252 Q-35 -285 0 -285 Q35 -285 36 -252 Q19 -266 0 -266 Q-19 -266 -36 -252 Z" fill="#0E1726" fill-opacity="0.38"/><rect x="-11" y="-298" width="22" height="16" rx="4" fill="#F5F0E8"/><rect x="-11" y="-298" width="22" height="16" rx="4" fill="#0E1726" fill-opacity="0.25"/><path d="M-29 -194 L-28 -140 M-24 -108 L-24 -46" fill="none" stroke="#F5F0E8" stroke-width="3" stroke-linecap="round"/><path d="M-26 -268 A30 30 0 0 1 6 -281" fill="none" stroke="#F5F0E8" stroke-width="4" stroke-linecap="round"/></svg>
       <div id="a-spieler-name" class="a-etikett">Lewandowski</div>
+      <!-- Schnüre von der rechten Hand (50, -124) zu den Löchern der Schilder -->
       <svg id="a-schilder-faeden" aria-hidden="true">
-        <path id="a-faden-1" d="M38 -22 C80 40 120 120 156 188" />
-        <path id="a-faden-2" d="M44 -16 C90 60 128 170 156 282" />
-        <path id="a-faden-3" d="M50 -10 C96 80 134 220 156 376" />
+        <path id="a-faden-1" d="M50 -124 C78 -40 130 80 154 170" />
+        <path id="a-faden-2" d="M50 -124 C84 -10 118 150 126 266" />
+        <path id="a-faden-3" d="M50 -124 C92 20 140 230 148 362" />
       </svg>
-      <!-- Reihenfolge wie im Drehbuch: Irrtum, richtig, zweiter Irrtum. Die Breiten sind gemessen
-           (Text 48 px + 24 px links + 54 px Spitze mit Loch); rechte Kante bei x = +180 (Loch bei +156). -->
-      <div id="a-schild-1" class="a-schild" style="left: -254px; top: 150px; width: 434px; transform-origin: 410px 38px;">
-        <div class="a-schild-papier"></div><div class="a-schild-loch"></div><div class="a-schild-text">Nur sein Gehalt</div>
+      <!-- Reihenfolge wie im Drehbuch: Irrtum, richtig, zweiter Irrtum. Breiten gemessen
+           (Text 48 px + 24 px links + 54 px Spitze mit Loch). Leicht versetzt und schräg. -->
+      <div id="a-schild-1" class="a-schild" style="left: -256px; top: 132px; width: 434px; transform-origin: 410px 38px;">
+        <div class="a-schild-dreh" style="transform: rotate(-3deg); transform-origin: 410px 38px;"><div class="a-schild-papier"></div><div class="a-schild-loch"></div><div class="a-schild-text">Nur sein Gehalt</div></div>
       </div>
-      <div id="a-schild-2" class="a-schild" style="left: -385px; top: 244px; width: 565px; transform-origin: 541px 38px;">
-        <div class="a-schild-papier"></div><div class="a-schild-loch"></div><div class="a-schild-text">Gehalt + Barças Geld</div>
+      <div id="a-schild-2" class="a-schild" style="left: -415px; top: 228px; width: 565px; transform-origin: 541px 38px;">
+        <div class="a-schild-dreh" style="transform: rotate(2.5deg); transform-origin: 541px 38px;"><div class="a-schild-papier"></div><div class="a-schild-loch"></div><div class="a-schild-text">Gehalt + Barças Geld</div></div>
       </div>
-      <div id="a-schild-3" class="a-schild" style="left: -311px; top: 338px; width: 491px; transform-origin: 467px 38px;">
-        <div class="a-schild-papier"></div><div class="a-schild-loch"></div><div class="a-schild-text">Nichts, er ist ja da</div>
+      <div id="a-schild-3" class="a-schild" style="left: -319px; top: 324px; width: 491px; transform-origin: 467px 38px;">
+        <div class="a-schild-dreh" style="transform: rotate(-1.5deg); transform-origin: 467px 38px;"><div class="a-schild-papier"></div><div class="a-schild-loch"></div><div class="a-schild-text">Nichts, er ist ja da</div></div>
       </div>
     </div>
   </div>
@@ -204,50 +276,93 @@
   <!-- Darsteller 2: der Gehalt-Beleg (Creme = bezahlt, gegeben). -->
   <div id="a-beleg" class="a-huelle">
     <div id="a-beleg-figur" class="a-figur">
-      <div id="a-beleg-papier">
-        <div id="a-beleg-titel">Gehalt</div>
-        <div class="a-beleg-zeile" style="top: 96px"></div>
-        <div class="a-beleg-zeile" style="top: 112px; right: 70px"></div>
-        <div class="a-beleg-zeile" style="top: 200px; right: 110px"></div>
-        <div id="a-beleg-stempel">bezahlt</div>
+      <div id="a-beleg-papier" class="a-papier">
+        <div id="a-beleg-titel" class="a-druck">Gehalt</div>
+        <div class="a-zeile" style="left: 22px; right: 22px; top: 96px"></div>
+        <div class="a-zeile" style="left: 22px; right: 70px; top: 112px"></div>
+        <div class="a-zeile" style="left: 22px; right: 110px; top: 200px"></div>
+        <div id="a-beleg-stempel" class="a-stempel">bezahlt</div>
       </div>
     </div>
   </div>
 
-  <!-- Darsteller 3: das Geld aus Barcelona (Gold = gesuchte Größe). Wechselt nie die Form. -->
-  <div id="a-geld-schatten" class="a-schatten"><div class="a-schatten-oval"></div></div>
-  <div id="a-geld" class="a-huelle">
-    <div id="a-geld-figur" class="a-figur">
-      <svg id="a-geld-bild" viewBox="-80 -300 160 310" aria-hidden="true"><defs><linearGradient id="g-rand" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0E1726" stop-opacity="0.55"/><stop offset="0.35" stop-color="#0E1726" stop-opacity="0"/><stop offset="0.5" stop-color="#F5F0E8" stop-opacity="0.18"/><stop offset="0.8" stop-color="#0E1726" stop-opacity="0.3"/><stop offset="1" stop-color="#0E1726" stop-opacity="0.65"/></linearGradient><radialGradient id="g-oben" cx="0.35" cy="0.3" r="0.85"><stop offset="0" stop-color="#F5F0E8" stop-opacity="0.55"/><stop offset="0.5" stop-color="#F5F0E8" stop-opacity="0.08"/><stop offset="1" stop-color="#0E1726" stop-opacity="0.25"/></radialGradient></defs><path d="M-64 -44.8 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="#C9A84C"/><path d="M-64 -44.8 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="url(#g-rand)"/><path d="M-60.9 -35.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-54.0 -31.1 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-43.8 -27.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-30.8 -24.3 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-15.9 -22.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-0.0 -21.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M15.9 -22.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M30.8 -24.3 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M43.8 -27.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M54.0 -31.1 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M60.9 -35.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><ellipse cx="0" cy="-44.8" rx="64" ry="20" fill="#C9A84C"/><ellipse cx="0" cy="-44.8" rx="64" ry="20" fill="url(#g-oben)"/><ellipse cx="0" cy="-44.8" rx="64" ry="20" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="1.5"/><path d="M-57 -47.8 q 32 -19 73.6 -18" fill="none" stroke="#F5F0E8" stroke-opacity="0.7" stroke-width="2" stroke-linecap="round"/><path d="M-61 -69.6 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="#C9A84C"/><path d="M-61 -69.6 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="url(#g-rand)"/><path d="M-57.9 -60.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-51.0 -55.9 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-40.8 -52.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-27.8 -49.1 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-12.9 -47.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M3.0 -46.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M18.9 -47.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M33.8 -49.1 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M46.8 -52.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M57.0 -55.9 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M63.9 -60.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><ellipse cx="3" cy="-69.6" rx="64" ry="20" fill="#C9A84C"/><ellipse cx="3" cy="-69.6" rx="64" ry="20" fill="url(#g-oben)"/><ellipse cx="3" cy="-69.6" rx="64" ry="20" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="1.5"/><path d="M-54 -72.6 q 32 -19 73.6 -18" fill="none" stroke="#F5F0E8" stroke-opacity="0.7" stroke-width="2" stroke-linecap="round"/><path d="M-66 -94.4 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="#C9A84C"/><path d="M-66 -94.4 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="url(#g-rand)"/><path d="M-62.9 -85.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-56.0 -80.7 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-45.8 -76.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-32.8 -73.9 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-17.9 -72.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-2.0 -71.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M13.9 -72.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M28.8 -73.9 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M41.8 -76.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M52.0 -80.7 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M58.9 -85.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><ellipse cx="-2" cy="-94.4" rx="64" ry="20" fill="#C9A84C"/><ellipse cx="-2" cy="-94.4" rx="64" ry="20" fill="url(#g-oben)"/><ellipse cx="-2" cy="-94.4" rx="64" ry="20" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="1.5"/><path d="M-59 -97.4 q 32 -19 73.6 -18" fill="none" stroke="#F5F0E8" stroke-opacity="0.7" stroke-width="2" stroke-linecap="round"/><path d="M-60 -119.2 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="#C9A84C"/><path d="M-60 -119.2 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="url(#g-rand)"/><path d="M-56.9 -110.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-50.0 -105.5 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-39.8 -101.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-26.8 -98.7 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-11.9 -96.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M4.0 -96.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M19.9 -96.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M34.8 -98.7 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M47.8 -101.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M58.0 -105.5 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M64.9 -110.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><ellipse cx="4" cy="-119.2" rx="64" ry="20" fill="#C9A84C"/><ellipse cx="4" cy="-119.2" rx="64" ry="20" fill="url(#g-oben)"/><ellipse cx="4" cy="-119.2" rx="64" ry="20" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="1.5"/><path d="M-53 -122.2 q 32 -19 73.6 -18" fill="none" stroke="#F5F0E8" stroke-opacity="0.7" stroke-width="2" stroke-linecap="round"/><path d="M-67 -144 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="#C9A84C"/><path d="M-67 -144 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="url(#g-rand)"/><path d="M-63.9 -134.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-57.0 -130.3 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-46.8 -126.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-33.8 -123.5 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-18.9 -121.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-3.0 -121.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M12.9 -121.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M27.8 -123.5 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M40.8 -126.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M51.0 -130.3 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M57.9 -134.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><ellipse cx="-3" cy="-144" rx="64" ry="20" fill="#C9A84C"/><ellipse cx="-3" cy="-144" rx="64" ry="20" fill="url(#g-oben)"/><ellipse cx="-3" cy="-144" rx="64" ry="20" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="1.5"/><path d="M-60 -147 q 32 -19 73.6 -18" fill="none" stroke="#F5F0E8" stroke-opacity="0.7" stroke-width="2" stroke-linecap="round"/><path d="M-62 -168.8 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="#C9A84C"/><path d="M-62 -168.8 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="url(#g-rand)"/><path d="M-58.9 -159.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-52.0 -155.1 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-41.8 -151.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-28.8 -148.3 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-13.9 -146.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M2.0 -145.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M17.9 -146.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M32.8 -148.3 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M45.8 -151.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M56.0 -155.1 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M62.9 -159.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><ellipse cx="2" cy="-168.8" rx="64" ry="20" fill="#C9A84C"/><ellipse cx="2" cy="-168.8" rx="64" ry="20" fill="url(#g-oben)"/><ellipse cx="2" cy="-168.8" rx="64" ry="20" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="1.5"/><path d="M-55 -171.8 q 32 -19 73.6 -18" fill="none" stroke="#F5F0E8" stroke-opacity="0.7" stroke-width="2" stroke-linecap="round"/><path d="M-65 -193.60000000000002 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="#C9A84C"/><path d="M-65 -193.60000000000002 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="url(#g-rand)"/><path d="M-61.9 -184.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-55.0 -179.9 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-44.8 -176.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-31.8 -173.1 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-16.9 -171.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-1.0 -170.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M14.9 -171.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M29.8 -173.1 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M42.8 -176.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M53.0 -179.9 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M59.9 -184.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><ellipse cx="-1" cy="-193.60000000000002" rx="64" ry="20" fill="#C9A84C"/><ellipse cx="-1" cy="-193.60000000000002" rx="64" ry="20" fill="url(#g-oben)"/><ellipse cx="-1" cy="-193.60000000000002" rx="64" ry="20" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="1.5"/><path d="M-58 -196.60000000000002 q 32 -19 73.6 -18" fill="none" stroke="#F5F0E8" stroke-opacity="0.7" stroke-width="2" stroke-linecap="round"/><path d="M-61 -218.39999999999998 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="#C9A84C"/><path d="M-61 -218.39999999999998 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="url(#g-rand)"/><path d="M-57.9 -209.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-51.0 -204.7 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-40.8 -200.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-27.8 -197.9 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-12.9 -196.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M3.0 -195.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M18.9 -196.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M33.8 -197.9 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M46.8 -200.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M57.0 -204.7 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M63.9 -209.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><ellipse cx="3" cy="-218.39999999999998" rx="64" ry="20" fill="#C9A84C"/><ellipse cx="3" cy="-218.39999999999998" rx="64" ry="20" fill="url(#g-oben)"/><ellipse cx="3" cy="-218.39999999999998" rx="64" ry="20" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="1.5"/><path d="M-54 -221.39999999999998 q 32 -19 73.6 -18" fill="none" stroke="#F5F0E8" stroke-opacity="0.7" stroke-width="2" stroke-linecap="round"/><path d="M-66 -243.2 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="#C9A84C"/><path d="M-66 -243.2 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="url(#g-rand)"/><path d="M-62.9 -234.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-56.0 -229.5 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-45.8 -225.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-32.8 -222.7 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-17.9 -220.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-2.0 -220.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M13.9 -220.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M28.8 -222.7 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M41.8 -225.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M52.0 -229.5 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M58.9 -234.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><ellipse cx="-2" cy="-243.2" rx="64" ry="20" fill="#C9A84C"/><ellipse cx="-2" cy="-243.2" rx="64" ry="20" fill="url(#g-oben)"/><ellipse cx="-2" cy="-243.2" rx="64" ry="20" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="1.5"/><path d="M-59 -246.2 q 32 -19 73.6 -18" fill="none" stroke="#F5F0E8" stroke-opacity="0.7" stroke-width="2" stroke-linecap="round"/><path d="M-63 -268 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="#C9A84C"/><path d="M-63 -268 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="url(#g-rand)"/><path d="M-59.9 -258.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-53.0 -254.3 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-42.8 -250.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-29.8 -247.5 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-14.9 -245.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M1.0 -245.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M16.9 -245.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M31.8 -247.5 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M44.8 -250.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M55.0 -254.3 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M61.9 -258.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><ellipse cx="1" cy="-268" rx="64" ry="20" fill="#C9A84C"/><ellipse cx="1" cy="-268" rx="64" ry="20" fill="url(#g-oben)"/><ellipse cx="1" cy="-268" rx="64" ry="20" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="1.5"/><path d="M-56 -271 q 32 -19 73.6 -18" fill="none" stroke="#F5F0E8" stroke-opacity="0.7" stroke-width="2" stroke-linecap="round"/><ellipse cx="1" cy="-268" rx="46" ry="14" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="2.5"/><text x="1" y="-259" text-anchor="middle" font-family="DT Playfair, serif" font-weight="900" font-size="34" fill="#0E1726" fill-opacity="0.4" transform="translate(0 -268) scale(1 0.6) translate(0 268)">€</text></svg>
+  <!-- Darsteller 3: der Vertrag (Beat 4), ein Blatt wie der Beleg. Stempel "ablösefrei". -->
+  <div id="a-vertrag" class="a-huelle">
+    <div id="a-vertrag-figur" class="a-figur">
+      <div id="a-vertrag-papier" class="a-papier">
+        <div id="a-vertrag-titel" class="a-druck">Vertrag</div>
+        <div id="a-vertrag-datum" class="a-druck">bis 30.06.2023</div>
+        <!-- Zeitleiste auf dem Blatt: eine Saison = das Band bis zum Vertragsende -->
+        <div id="zl-saison" class="zl a-druck">1&nbsp;Saison</div>
+        <div id="zl-start" class="zl zl-strich"></div>
+        <div id="zl-band" class="zl zl-strich"></div>
+        <div id="zl-ende" class="zl zl-strich"></div>
+        <div id="zl-verl" class="zl"></div>
+        <div id="zl-verl-text" class="zl a-druck">verlängern</div>
+        <div id="a-vertrag-stempel" class="a-stempel" style="transform: rotate(-7deg)">ablösefrei</div>
+        <div id="a-vertrag-null" class="a-stempel" style="transform: rotate(4deg)">0&nbsp;€</div>
+      </div>
     </div>
   </div>
 
-  <!-- Etiketten an den Schalen. Unter dem Stapel: "45 Mio. €" -> "entgangen" -> "aufgegeben" (Morphs). -->
-  <div id="w-reihe" class="w-anker" data-anker="schale:links">
-    <div id="w-reihe-zahl" class="w-etikett w-gold">45&nbsp;Mio.&nbsp;€</div>
-    <div id="w-reihe-entgangen" class="w-etikett w-gold">entgangen</div>
-    <div id="w-reihe-aufgegeben" class="w-etikett w-gold">aufgegeben</div>
+  <!-- Darsteller 4: das Geld in Barcelona (Gold = gesuchte Größe). Es bleibt dort. -->
+  <div id="a-geld-schatten" class="a-schatten"><div class="a-schatten-oval"></div></div>
+  <div id="a-geld" class="a-huelle">
+    <div id="a-geld-figur" class="a-figur">
+      <svg id="a-geld-bild" class="a-svg" viewBox="-100 -310 200 320" aria-hidden="true"><defs><linearGradient id="mz-bcn-rand" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0E1726" stop-opacity="0.55"/><stop offset="0.35" stop-color="#0E1726" stop-opacity="0"/><stop offset="0.5" stop-color="#F5F0E8" stop-opacity="0.18"/><stop offset="0.8" stop-color="#0E1726" stop-opacity="0.3"/><stop offset="1" stop-color="#0E1726" stop-opacity="0.65"/></linearGradient><radialGradient id="mz-bcn-oben" cx="0.35" cy="0.3" r="0.85"><stop offset="0" stop-color="#F5F0E8" stop-opacity="0.55"/><stop offset="0.5" stop-color="#F5F0E8" stop-opacity="0.08"/><stop offset="1" stop-color="#0E1726" stop-opacity="0.25"/></radialGradient></defs><path d="M-64 -44.8 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="#C9A84C"/><path d="M-64 -44.8 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="url(#mz-bcn-rand)"/><path d="M-60.9 -35.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-54.0 -31.1 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-43.8 -27.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-30.8 -24.3 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-15.9 -22.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-0.0 -21.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M15.9 -22.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M30.8 -24.3 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M43.8 -27.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M54.0 -31.1 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M60.9 -35.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><ellipse cx="0" cy="-44.8" rx="64" ry="20" fill="#C9A84C"/><ellipse cx="0" cy="-44.8" rx="64" ry="20" fill="url(#mz-bcn-oben)"/><ellipse cx="0" cy="-44.8" rx="64" ry="20" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="1.5"/><path d="M-57 -47.8 q 32 -19 73.6 -18" fill="none" stroke="#F5F0E8" stroke-opacity="0.7" stroke-width="2" stroke-linecap="round"/><path d="M-61 -69.6 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="#C9A84C"/><path d="M-61 -69.6 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="url(#mz-bcn-rand)"/><path d="M-57.9 -60.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-51.0 -55.9 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-40.8 -52.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-27.8 -49.1 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-12.9 -47.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M3.0 -46.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M18.9 -47.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M33.8 -49.1 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M46.8 -52.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M57.0 -55.9 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M63.9 -60.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><ellipse cx="3" cy="-69.6" rx="64" ry="20" fill="#C9A84C"/><ellipse cx="3" cy="-69.6" rx="64" ry="20" fill="url(#mz-bcn-oben)"/><ellipse cx="3" cy="-69.6" rx="64" ry="20" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="1.5"/><path d="M-54 -72.6 q 32 -19 73.6 -18" fill="none" stroke="#F5F0E8" stroke-opacity="0.7" stroke-width="2" stroke-linecap="round"/><path d="M-66 -94.4 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="#C9A84C"/><path d="M-66 -94.4 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="url(#mz-bcn-rand)"/><path d="M-62.9 -85.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-56.0 -80.7 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-45.8 -76.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-32.8 -73.9 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-17.9 -72.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-2.0 -71.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M13.9 -72.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M28.8 -73.9 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M41.8 -76.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M52.0 -80.7 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M58.9 -85.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><ellipse cx="-2" cy="-94.4" rx="64" ry="20" fill="#C9A84C"/><ellipse cx="-2" cy="-94.4" rx="64" ry="20" fill="url(#mz-bcn-oben)"/><ellipse cx="-2" cy="-94.4" rx="64" ry="20" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="1.5"/><path d="M-59 -97.4 q 32 -19 73.6 -18" fill="none" stroke="#F5F0E8" stroke-opacity="0.7" stroke-width="2" stroke-linecap="round"/><path d="M-60 -119.2 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="#C9A84C"/><path d="M-60 -119.2 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="url(#mz-bcn-rand)"/><path d="M-56.9 -110.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-50.0 -105.5 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-39.8 -101.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-26.8 -98.7 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-11.9 -96.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M4.0 -96.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M19.9 -96.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M34.8 -98.7 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M47.8 -101.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M58.0 -105.5 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M64.9 -110.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><ellipse cx="4" cy="-119.2" rx="64" ry="20" fill="#C9A84C"/><ellipse cx="4" cy="-119.2" rx="64" ry="20" fill="url(#mz-bcn-oben)"/><ellipse cx="4" cy="-119.2" rx="64" ry="20" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="1.5"/><path d="M-53 -122.2 q 32 -19 73.6 -18" fill="none" stroke="#F5F0E8" stroke-opacity="0.7" stroke-width="2" stroke-linecap="round"/><path d="M-67 -144 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="#C9A84C"/><path d="M-67 -144 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="url(#mz-bcn-rand)"/><path d="M-63.9 -134.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-57.0 -130.3 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-46.8 -126.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-33.8 -123.5 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-18.9 -121.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-3.0 -121.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M12.9 -121.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M27.8 -123.5 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M40.8 -126.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M51.0 -130.3 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M57.9 -134.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><ellipse cx="-3" cy="-144" rx="64" ry="20" fill="#C9A84C"/><ellipse cx="-3" cy="-144" rx="64" ry="20" fill="url(#mz-bcn-oben)"/><ellipse cx="-3" cy="-144" rx="64" ry="20" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="1.5"/><path d="M-60 -147 q 32 -19 73.6 -18" fill="none" stroke="#F5F0E8" stroke-opacity="0.7" stroke-width="2" stroke-linecap="round"/><path d="M-62 -168.8 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="#C9A84C"/><path d="M-62 -168.8 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="url(#mz-bcn-rand)"/><path d="M-58.9 -159.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-52.0 -155.1 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-41.8 -151.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-28.8 -148.3 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-13.9 -146.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M2.0 -145.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M17.9 -146.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M32.8 -148.3 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M45.8 -151.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M56.0 -155.1 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M62.9 -159.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><ellipse cx="2" cy="-168.8" rx="64" ry="20" fill="#C9A84C"/><ellipse cx="2" cy="-168.8" rx="64" ry="20" fill="url(#mz-bcn-oben)"/><ellipse cx="2" cy="-168.8" rx="64" ry="20" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="1.5"/><path d="M-55 -171.8 q 32 -19 73.6 -18" fill="none" stroke="#F5F0E8" stroke-opacity="0.7" stroke-width="2" stroke-linecap="round"/><path d="M-65 -193.60000000000002 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="#C9A84C"/><path d="M-65 -193.60000000000002 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="url(#mz-bcn-rand)"/><path d="M-61.9 -184.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-55.0 -179.9 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-44.8 -176.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-31.8 -173.1 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-16.9 -171.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-1.0 -170.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M14.9 -171.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M29.8 -173.1 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M42.8 -176.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M53.0 -179.9 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M59.9 -184.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><ellipse cx="-1" cy="-193.60000000000002" rx="64" ry="20" fill="#C9A84C"/><ellipse cx="-1" cy="-193.60000000000002" rx="64" ry="20" fill="url(#mz-bcn-oben)"/><ellipse cx="-1" cy="-193.60000000000002" rx="64" ry="20" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="1.5"/><path d="M-58 -196.60000000000002 q 32 -19 73.6 -18" fill="none" stroke="#F5F0E8" stroke-opacity="0.7" stroke-width="2" stroke-linecap="round"/><path d="M-61 -218.39999999999998 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="#C9A84C"/><path d="M-61 -218.39999999999998 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="url(#mz-bcn-rand)"/><path d="M-57.9 -209.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-51.0 -204.7 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-40.8 -200.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-27.8 -197.9 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-12.9 -196.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M3.0 -195.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M18.9 -196.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M33.8 -197.9 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M46.8 -200.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M57.0 -204.7 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M63.9 -209.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><ellipse cx="3" cy="-218.39999999999998" rx="64" ry="20" fill="#C9A84C"/><ellipse cx="3" cy="-218.39999999999998" rx="64" ry="20" fill="url(#mz-bcn-oben)"/><ellipse cx="3" cy="-218.39999999999998" rx="64" ry="20" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="1.5"/><path d="M-54 -221.39999999999998 q 32 -19 73.6 -18" fill="none" stroke="#F5F0E8" stroke-opacity="0.7" stroke-width="2" stroke-linecap="round"/><path d="M-66 -243.2 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="#C9A84C"/><path d="M-66 -243.2 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="url(#mz-bcn-rand)"/><path d="M-62.9 -234.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-56.0 -229.5 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-45.8 -225.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-32.8 -222.7 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-17.9 -220.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-2.0 -220.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M13.9 -220.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M28.8 -222.7 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M41.8 -225.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M52.0 -229.5 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M58.9 -234.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><ellipse cx="-2" cy="-243.2" rx="64" ry="20" fill="#C9A84C"/><ellipse cx="-2" cy="-243.2" rx="64" ry="20" fill="url(#mz-bcn-oben)"/><ellipse cx="-2" cy="-243.2" rx="64" ry="20" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="1.5"/><path d="M-59 -246.2 q 32 -19 73.6 -18" fill="none" stroke="#F5F0E8" stroke-opacity="0.7" stroke-width="2" stroke-linecap="round"/><path d="M-63 -268 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="#C9A84C"/><path d="M-63 -268 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="url(#mz-bcn-rand)"/><path d="M-59.9 -258.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-53.0 -254.3 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-42.8 -250.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-29.8 -247.5 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-14.9 -245.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M1.0 -245.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M16.9 -245.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M31.8 -247.5 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M44.8 -250.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M55.0 -254.3 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M61.9 -258.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><ellipse cx="1" cy="-268" rx="64" ry="20" fill="#C9A84C"/><ellipse cx="1" cy="-268" rx="64" ry="20" fill="url(#mz-bcn-oben)"/><ellipse cx="1" cy="-268" rx="64" ry="20" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="1.5"/><path d="M-56 -271 q 32 -19 73.6 -18" fill="none" stroke="#F5F0E8" stroke-opacity="0.7" stroke-width="2" stroke-linecap="round"/><ellipse cx="1" cy="-268" rx="46" ry="14" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="2.5"/><path d="M10 -11 A15 15 0 1 0 10 11 M-22 -4 L5 -4 M-22 4 L5 4" fill="none" stroke="#0E1726" stroke-opacity="0.42" stroke-width="4" stroke-linecap="round" transform="translate(1 -268) scale(1 0.5)"/></svg>
+    </div>
+  </div>
+
+  <!-- Darsteller 5: das Geld in München. Erst ein GEIST (gestrichelt = nur eine Möglichkeit),
+       ab "Bayern nimmt das Geld" echt (Morph: Umriss -> Münzen). -->
+  <div id="a-geist" class="a-huelle">
+    <div id="a-geist-figur" class="a-figur">
+      <svg id="a-geist-umriss" class="a-svg" viewBox="-100 -310 200 320" aria-hidden="true"><defs><mask id="gs-maske" maskUnits="userSpaceOnUse" x="-200" y="-400" width="400" height="460"><rect x="-200" y="-400" width="400" height="460" fill="#fff"/><path fill="#000" d="M-66 -268 L-66 -20 A66 20 0 0 0 67 -20 L67 -268 Z"/><ellipse fill="#000" cx="0.5" cy="-268" rx="66.5" ry="20"/></mask></defs><g opacity="0.14" fill="#C9A84C"><path d="M-66 -268 L-66 -20 A66 20 0 0 0 67 -20 L67 -268 Z"/><ellipse cx="0.5" cy="-268" rx="66.5" ry="20"/></g><g mask="url(#gs-maske)" fill="none" stroke="#C9A84C" stroke-width="10" stroke-dasharray="16 11" stroke-linejoin="round"><path d="M-66 -268 L-66 -20 A66 20 0 0 0 67 -20 L67 -268 Z"/><ellipse cx="0.5" cy="-268" rx="66.5" ry="20"/></g><path d="M-64 -94.4 A64 20 0 0 0 64 -94.4" fill="none" stroke="#C9A84C" stroke-opacity="0.55" stroke-width="3" stroke-dasharray="10 9"/><path d="M-64 -168.8 A64 20 0 0 0 64 -168.8" fill="none" stroke="#C9A84C" stroke-opacity="0.55" stroke-width="3" stroke-dasharray="10 9"/><ellipse cx="0.5" cy="-268" rx="44" ry="13" fill="none" stroke="#C9A84C" stroke-opacity="0.55" stroke-width="3" stroke-dasharray="10 9"/></svg>
+      <svg id="a-geist-echt" class="a-svg" viewBox="-100 -310 200 320" aria-hidden="true"><defs><linearGradient id="mz-mue-rand" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0E1726" stop-opacity="0.55"/><stop offset="0.35" stop-color="#0E1726" stop-opacity="0"/><stop offset="0.5" stop-color="#F5F0E8" stop-opacity="0.18"/><stop offset="0.8" stop-color="#0E1726" stop-opacity="0.3"/><stop offset="1" stop-color="#0E1726" stop-opacity="0.65"/></linearGradient><radialGradient id="mz-mue-oben" cx="0.35" cy="0.3" r="0.85"><stop offset="0" stop-color="#F5F0E8" stop-opacity="0.55"/><stop offset="0.5" stop-color="#F5F0E8" stop-opacity="0.08"/><stop offset="1" stop-color="#0E1726" stop-opacity="0.25"/></radialGradient></defs><path d="M-64 -44.8 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="#C9A84C"/><path d="M-64 -44.8 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="url(#mz-mue-rand)"/><path d="M-60.9 -35.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-54.0 -31.1 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-43.8 -27.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-30.8 -24.3 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-15.9 -22.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-0.0 -21.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M15.9 -22.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M30.8 -24.3 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M43.8 -27.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M54.0 -31.1 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M60.9 -35.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><ellipse cx="0" cy="-44.8" rx="64" ry="20" fill="#C9A84C"/><ellipse cx="0" cy="-44.8" rx="64" ry="20" fill="url(#mz-mue-oben)"/><ellipse cx="0" cy="-44.8" rx="64" ry="20" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="1.5"/><path d="M-57 -47.8 q 32 -19 73.6 -18" fill="none" stroke="#F5F0E8" stroke-opacity="0.7" stroke-width="2" stroke-linecap="round"/><path d="M-61 -69.6 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="#C9A84C"/><path d="M-61 -69.6 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="url(#mz-mue-rand)"/><path d="M-57.9 -60.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-51.0 -55.9 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-40.8 -52.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-27.8 -49.1 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-12.9 -47.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M3.0 -46.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M18.9 -47.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M33.8 -49.1 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M46.8 -52.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M57.0 -55.9 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M63.9 -60.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><ellipse cx="3" cy="-69.6" rx="64" ry="20" fill="#C9A84C"/><ellipse cx="3" cy="-69.6" rx="64" ry="20" fill="url(#mz-mue-oben)"/><ellipse cx="3" cy="-69.6" rx="64" ry="20" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="1.5"/><path d="M-54 -72.6 q 32 -19 73.6 -18" fill="none" stroke="#F5F0E8" stroke-opacity="0.7" stroke-width="2" stroke-linecap="round"/><path d="M-66 -94.4 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="#C9A84C"/><path d="M-66 -94.4 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="url(#mz-mue-rand)"/><path d="M-62.9 -85.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-56.0 -80.7 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-45.8 -76.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-32.8 -73.9 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-17.9 -72.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-2.0 -71.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M13.9 -72.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M28.8 -73.9 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M41.8 -76.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M52.0 -80.7 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M58.9 -85.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><ellipse cx="-2" cy="-94.4" rx="64" ry="20" fill="#C9A84C"/><ellipse cx="-2" cy="-94.4" rx="64" ry="20" fill="url(#mz-mue-oben)"/><ellipse cx="-2" cy="-94.4" rx="64" ry="20" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="1.5"/><path d="M-59 -97.4 q 32 -19 73.6 -18" fill="none" stroke="#F5F0E8" stroke-opacity="0.7" stroke-width="2" stroke-linecap="round"/><path d="M-60 -119.2 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="#C9A84C"/><path d="M-60 -119.2 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="url(#mz-mue-rand)"/><path d="M-56.9 -110.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-50.0 -105.5 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-39.8 -101.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-26.8 -98.7 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-11.9 -96.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M4.0 -96.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M19.9 -96.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M34.8 -98.7 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M47.8 -101.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M58.0 -105.5 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M64.9 -110.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><ellipse cx="4" cy="-119.2" rx="64" ry="20" fill="#C9A84C"/><ellipse cx="4" cy="-119.2" rx="64" ry="20" fill="url(#mz-mue-oben)"/><ellipse cx="4" cy="-119.2" rx="64" ry="20" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="1.5"/><path d="M-53 -122.2 q 32 -19 73.6 -18" fill="none" stroke="#F5F0E8" stroke-opacity="0.7" stroke-width="2" stroke-linecap="round"/><path d="M-67 -144 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="#C9A84C"/><path d="M-67 -144 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="url(#mz-mue-rand)"/><path d="M-63.9 -134.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-57.0 -130.3 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-46.8 -126.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-33.8 -123.5 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-18.9 -121.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-3.0 -121.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M12.9 -121.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M27.8 -123.5 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M40.8 -126.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M51.0 -130.3 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M57.9 -134.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><ellipse cx="-3" cy="-144" rx="64" ry="20" fill="#C9A84C"/><ellipse cx="-3" cy="-144" rx="64" ry="20" fill="url(#mz-mue-oben)"/><ellipse cx="-3" cy="-144" rx="64" ry="20" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="1.5"/><path d="M-60 -147 q 32 -19 73.6 -18" fill="none" stroke="#F5F0E8" stroke-opacity="0.7" stroke-width="2" stroke-linecap="round"/><path d="M-62 -168.8 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="#C9A84C"/><path d="M-62 -168.8 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="url(#mz-mue-rand)"/><path d="M-58.9 -159.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-52.0 -155.1 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-41.8 -151.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-28.8 -148.3 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-13.9 -146.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M2.0 -145.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M17.9 -146.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M32.8 -148.3 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M45.8 -151.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M56.0 -155.1 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M62.9 -159.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><ellipse cx="2" cy="-168.8" rx="64" ry="20" fill="#C9A84C"/><ellipse cx="2" cy="-168.8" rx="64" ry="20" fill="url(#mz-mue-oben)"/><ellipse cx="2" cy="-168.8" rx="64" ry="20" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="1.5"/><path d="M-55 -171.8 q 32 -19 73.6 -18" fill="none" stroke="#F5F0E8" stroke-opacity="0.7" stroke-width="2" stroke-linecap="round"/><path d="M-65 -193.60000000000002 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="#C9A84C"/><path d="M-65 -193.60000000000002 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="url(#mz-mue-rand)"/><path d="M-61.9 -184.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-55.0 -179.9 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-44.8 -176.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-31.8 -173.1 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-16.9 -171.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-1.0 -170.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M14.9 -171.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M29.8 -173.1 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M42.8 -176.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M53.0 -179.9 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M59.9 -184.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><ellipse cx="-1" cy="-193.60000000000002" rx="64" ry="20" fill="#C9A84C"/><ellipse cx="-1" cy="-193.60000000000002" rx="64" ry="20" fill="url(#mz-mue-oben)"/><ellipse cx="-1" cy="-193.60000000000002" rx="64" ry="20" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="1.5"/><path d="M-58 -196.60000000000002 q 32 -19 73.6 -18" fill="none" stroke="#F5F0E8" stroke-opacity="0.7" stroke-width="2" stroke-linecap="round"/><path d="M-61 -218.39999999999998 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="#C9A84C"/><path d="M-61 -218.39999999999998 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="url(#mz-mue-rand)"/><path d="M-57.9 -209.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-51.0 -204.7 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-40.8 -200.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-27.8 -197.9 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-12.9 -196.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M3.0 -195.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M18.9 -196.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M33.8 -197.9 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M46.8 -200.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M57.0 -204.7 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M63.9 -209.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><ellipse cx="3" cy="-218.39999999999998" rx="64" ry="20" fill="#C9A84C"/><ellipse cx="3" cy="-218.39999999999998" rx="64" ry="20" fill="url(#mz-mue-oben)"/><ellipse cx="3" cy="-218.39999999999998" rx="64" ry="20" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="1.5"/><path d="M-54 -221.39999999999998 q 32 -19 73.6 -18" fill="none" stroke="#F5F0E8" stroke-opacity="0.7" stroke-width="2" stroke-linecap="round"/><path d="M-66 -243.2 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="#C9A84C"/><path d="M-66 -243.2 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="url(#mz-mue-rand)"/><path d="M-62.9 -234.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-56.0 -229.5 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-45.8 -225.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-32.8 -222.7 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-17.9 -220.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-2.0 -220.2 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M13.9 -220.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M28.8 -222.7 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M41.8 -225.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M52.0 -229.5 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M58.9 -234.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><ellipse cx="-2" cy="-243.2" rx="64" ry="20" fill="#C9A84C"/><ellipse cx="-2" cy="-243.2" rx="64" ry="20" fill="url(#mz-mue-oben)"/><ellipse cx="-2" cy="-243.2" rx="64" ry="20" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="1.5"/><path d="M-59 -246.2 q 32 -19 73.6 -18" fill="none" stroke="#F5F0E8" stroke-opacity="0.7" stroke-width="2" stroke-linecap="round"/><path d="M-63 -268 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="#C9A84C"/><path d="M-63 -268 v24.8 a64 20 0 0 0 128 0 v-24.8 z" fill="url(#mz-mue-rand)"/><path d="M-59.9 -258.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-53.0 -254.3 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-42.8 -250.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-29.8 -247.5 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M-14.9 -245.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M1.0 -245.0 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M16.9 -245.6 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M31.8 -247.5 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M44.8 -250.4 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M55.0 -254.3 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><path d="M61.9 -258.8 v18.8" stroke="#0E1726" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round"/><ellipse cx="1" cy="-268" rx="64" ry="20" fill="#C9A84C"/><ellipse cx="1" cy="-268" rx="64" ry="20" fill="url(#mz-mue-oben)"/><ellipse cx="1" cy="-268" rx="64" ry="20" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="1.5"/><path d="M-56 -271 q 32 -19 73.6 -18" fill="none" stroke="#F5F0E8" stroke-opacity="0.7" stroke-width="2" stroke-linecap="round"/><ellipse cx="1" cy="-268" rx="46" ry="14" fill="none" stroke="#0E1726" stroke-opacity="0.35" stroke-width="2.5"/><path d="M10 -11 A15 15 0 1 0 10 11 M-22 -4 L5 -4 M-22 4 L5 4" fill="none" stroke="#0E1726" stroke-opacity="0.42" stroke-width="4" stroke-linecap="round" transform="translate(1 -268) scale(1 0.5)"/></svg>
+    </div>
+  </div>
+
+  <!-- Darsteller 6: der Umriss des Spielers. Er bleibt auf der Kosten-Schale, wenn der Spieler
+       abfliegt: Das, was Verkaufen kostet, ist nicht mehr da. -->
+  <div id="a-umriss" class="a-huelle">
+    <div id="a-umriss-figur" class="a-figur">
+      <svg id="a-umriss-bild" class="a-svg" viewBox="-100 -310 200 320" aria-hidden="true"><defs><mask id="gf-maske" maskUnits="userSpaceOnUse" x="-200" y="-400" width="400" height="460"><rect x="-200" y="-400" width="400" height="460" fill="#fff"/><path fill="#000" d="M-60 -30 L-60 -14 A60 13 0 0 0 60 -14 L60 -30 Z"/><ellipse fill="#000" cx="0" cy="-30" rx="60" ry="13"/><path fill="#000" d="M-26 -112 L-6 -112 L-8 -40 L-26 -40 Z"/><ellipse fill="#000" cx="-17" cy="-38" rx="20" ry="9"/><path fill="#000" d="M2 -112 L20 -116 L58 -72 L44 -60 Z"/><ellipse fill="#000" cx="54" cy="-62" rx="18" ry="9" transform="rotate(-38 54 -62)"/><path fill="#000" d="M-31 -136 L31 -136 L33 -104 L4 -104 L1 -114 L-1 -114 L-4 -104 L-33 -104 Z"/><path fill="#000" d="M-31 -134 L31 -134 L35 -198 Q0 -209 -35 -198 Z"/><path fill="#000" d="M-35 -198 L-59 -185 L-52 -163 L-32 -172 Z"/><path fill="#000" d="M35 -198 L59 -185 L52 -163 L32 -172 Z"/><path fill="#000" d="M-57 -170 L-45 -168 L-43 -128 L-56 -129 Z"/><path fill="#000" d="M57 -170 L45 -168 L43 -128 L56 -129 Z"/><rect fill="#000" x="-9" y="-215" width="18" height="14"/><circle fill="#000" cx="0" cy="-248" r="36"/><rect fill="#000" x="-11" y="-296" width="22" height="16" rx="4"/></mask></defs><g opacity="0.14" fill="#C9A84C"><path d="M-60 -30 L-60 -14 A60 13 0 0 0 60 -14 L60 -30 Z"/><ellipse cx="0" cy="-30" rx="60" ry="13"/><path d="M-26 -112 L-6 -112 L-8 -40 L-26 -40 Z"/><ellipse cx="-17" cy="-38" rx="20" ry="9"/><path d="M2 -112 L20 -116 L58 -72 L44 -60 Z"/><ellipse cx="54" cy="-62" rx="18" ry="9" transform="rotate(-38 54 -62)"/><path d="M-31 -136 L31 -136 L33 -104 L4 -104 L1 -114 L-1 -114 L-4 -104 L-33 -104 Z"/><path d="M-31 -134 L31 -134 L35 -198 Q0 -209 -35 -198 Z"/><path d="M-35 -198 L-59 -185 L-52 -163 L-32 -172 Z"/><path d="M35 -198 L59 -185 L52 -163 L32 -172 Z"/><path d="M-57 -170 L-45 -168 L-43 -128 L-56 -129 Z"/><path d="M57 -170 L45 -168 L43 -128 L56 -129 Z"/><rect x="-9" y="-215" width="18" height="14"/><circle cx="0" cy="-248" r="36"/><rect x="-11" y="-296" width="22" height="16" rx="4"/></g><g mask="url(#gf-maske)" fill="none" stroke="#C9A84C" stroke-width="10" stroke-dasharray="16 11" stroke-linejoin="round"><path d="M-60 -30 L-60 -14 A60 13 0 0 0 60 -14 L60 -30 Z"/><ellipse cx="0" cy="-30" rx="60" ry="13"/><path d="M-26 -112 L-6 -112 L-8 -40 L-26 -40 Z"/><ellipse cx="-17" cy="-38" rx="20" ry="9"/><path d="M2 -112 L20 -116 L58 -72 L44 -60 Z"/><ellipse cx="54" cy="-62" rx="18" ry="9" transform="rotate(-38 54 -62)"/><path d="M-31 -136 L31 -136 L33 -104 L4 -104 L1 -114 L-1 -114 L-4 -104 L-33 -104 Z"/><path d="M-31 -134 L31 -134 L35 -198 Q0 -209 -35 -198 Z"/><path d="M-35 -198 L-59 -185 L-52 -163 L-32 -172 Z"/><path d="M35 -198 L59 -185 L52 -163 L32 -172 Z"/><path d="M-57 -170 L-45 -168 L-43 -128 L-56 -129 Z"/><path d="M57 -170 L45 -168 L43 -128 L56 -129 Z"/><rect x="-9" y="-215" width="18" height="14"/><circle cx="0" cy="-248" r="36"/><rect x="-11" y="-296" width="22" height="16" rx="4"/></g></svg>
+    </div>
+  </div>
+
+  <!-- Etiketten unter der linken Schale (immer "Kosten"): Zeile 1 "45 Mio. €" (erst Geist-Stil),
+       Zeile 2 "entgangen" -> "beste Alternative" (Morph); nach der Drehung "Opportunitätskosten"
+       und "1 Saison". Kein Name mehr unter der Nutzen-Schale (40 px, unter der Schriftstufe). -->
+  <div id="w-reihe-l" class="w-anker" data-anker="seite:links">
+    <div id="w-reihe-zahl" class="w-etikett w-gold"><span id="w-zahl-text">45&nbsp;Mio.&nbsp;€</span><div id="w-zahl-strich"></div></div>
+    <div id="w-reihe-entgangen" class="w-etikett w-gold w-zeile2">entgangen</div>
+    <div id="w-reihe-alternative" class="w-etikett w-gold w-zeile2">beste Alternative</div>
+    <div id="w-ok" class="w-etikett w-gold">Opportunitäts-<br />kosten</div>
+    <div id="w-saison" class="w-etikett w-gold">1&nbsp;Saison</div>
   </div>
   <div id="w-tore-anker" class="w-anker" data-anker="schale:rechts"><div id="w-tore" class="w-etikett w-creme">Tore</div></div>
-  <div id="w-ok-anker" class="w-anker" data-anker="schale:rechts">
-    <div id="w-ok" class="w-etikett w-creme">Opportunitäts-<br />kosten</div>
-    <div id="w-saison" class="w-etikett w-creme">1&nbsp;Saison</div>
-  </div>
+
+  <!-- Marker-Ebene: handgezeichnete Striche, die an Darstellern kleben (data-anker). -->
+  <svg id="m-ebene" viewBox="0 0 1080 1920" aria-hidden="true" data-layout-ignore>
+    <g id="m-anker-geld" data-anker="akteur:geist" data-anker-dy="-144"></g>
+  </svg>
+ </div>
 </div>
 
 <!-- @atlas:ende -->
 
-    <!-- Marker-Ebene: handgezeichnete Striche, die an Darstellern kleben (data-anker). -->
-    <svg id="m-ebene" viewBox="0 0 1080 1920" aria-hidden="true" data-layout-ignore>
-      <g id="m-anker-geld" data-anker="akteur:geld" data-anker-dy="-144"></g>
-    </svg>
+    <!-- Die Marker-Ebene liegt jetzt in der Welt-Hülle (lib/atlas.html): Sie zoomt mit. -->
 
     <!-- Beat-Marken: unsichtbar, nur damit "snapshot --review" die Abschnitte dieser langen
          Zeitachse findet (Schnitte innerhalb der Bühne). Zeiten schreibt der Bau aus data-cue. -->
-    <div id="b-beat-pause" class="clip b-beat" data-cue="pause" data-cue-versatz="1.2" data-cue-bis="pauseEnde" data-start="7.254" data-duration="1.3" data-beat="denkpause" data-track-index="3"></div>
-    <div id="b-beat-zahl" class="clip b-beat" data-cue="geldLandetBcn" data-cue-versatz="0.8" data-cue-bis="abflugGeld" data-start="24.82" data-duration="4.18" data-beat="angebot" data-track-index="3"></div>
-    <div id="b-beat-flug" class="clip b-beat" data-cue="fahrtMuenchen" data-cue-versatz="0.6" data-cue-bis="landung" data-start="29.85" data-duration="0.85" data-beat="flug" data-track-index="3"></div>
-    <div id="b-beat-ok" class="clip b-beat" data-cue="saisonText" data-cue-versatz="0.6" data-cue-bis="schnitt" data-start="48.2" data-duration="2.067" data-beat="ok-verkaufen" data-track-index="3"></div>
+    <div id="b-beat-pause" class="clip b-beat" data-cue="pause" data-cue-versatz="1.2" data-cue-bis="pauseEnde" data-start="7.397" data-duration="1.2" data-beat="denkpause" data-track-index="3"></div>
+    <div id="b-beat-vertrag" class="clip b-beat" data-cue="nullEuro" data-cue-versatz="0.5" data-cue-bis="vertragAus" data-start="22.067" data-duration="1.25" data-beat="vertrag" data-track-index="3"></div>
+    <div id="b-beat-zahl" class="clip b-beat" data-cue="geldLandetBcn" data-cue-versatz="0.8" data-cue-bis="abflugGeist" data-start="25.453" data-duration="3.98" data-beat="angebot" data-track-index="3"></div>
+    <div id="b-beat-flug" class="clip b-beat" data-cue="fahrtMuenchen" data-cue-versatz="0.6" data-cue-bis="landung" data-start="30.283" data-duration="0.85" data-beat="flug" data-track-index="3"></div>
+    <div id="b-beat-geist" class="clip b-beat" data-cue="geldEtikett" data-cue-versatz="0.6" data-cue-bis="etikettEntgangen" data-start="31.853" data-duration="1.914" data-beat="geist" data-track-index="3"></div>
+    <div id="b-beat-nah" class="clip b-beat" data-cue="nahReinEnde" data-cue-versatz="0.3" data-cue-bis="alternative" data-start="40.05" data-duration="1.25" data-beat="nachfahrt" data-track-index="3"></div>
+    <div id="b-beat-dreh" class="clip b-beat" data-cue="dreh" data-cue-versatz="0.2" data-cue-bis="okEtikett" data-start="46.367" data-duration="0.533" data-beat="drehung" data-track-index="3"></div>
+    <div id="b-beat-ok" class="clip b-beat" data-cue="nahRausEnde" data-cue-versatz="0.3" data-cue-bis="schnitt" data-start="43.935" data-duration="7.765" data-beat="ok-verkaufen" data-track-index="3"></div>
   </div>
   <script>
     (function () {
@@ -497,6 +612,10 @@
  *   - Anker für Orte, Schalen und Darsteller (Marker und Etiketten kleben daran),
  *   - eine Kamerafahrt mit Bogen (beim Weg von München nach Barcelona fährt die Kamera
  *     kurz heraus und wieder hinein, wie ein Flug über die Karte).
+ *   - Runde 1 (Kritik): eine DREHUNG der Waage (Spur "dreh", 0 -> 1). Die Waage dreht sich um
+ *     ihre Säule und zeigt die andere Seite: Schild "Behalten" wird "Verkaufen", die Schalen
+ *     tauschen die Plätze, die Darsteller fahren mit. Und eine NACHFAHRT ("nah"): Welt, Waage
+ *     und Darsteller werden zusammen größer, wie wenn die Kamera näher an ein Detail rückt.
  *
  * Grundidee wie im Spike: Alles, was sich in der Welt bewegt, ist ein ZUSTAND aus Zahlen.
  * Der Zustand kommt aus einem PLAN (Schlüsselbild-Spuren). Daraus folgt jedes Bild:
@@ -583,23 +702,66 @@
     return { kx: s.a.kx + (s.b.kx - s.a.kx) * s.f, ky: s.a.ky + (s.b.ky - s.a.ky) * s.f, zoom: Math.exp(lz) };
   }
 
+  /*
+   * Nachfahrt (Detail-Zoom): Schlüsselbilder {t, r, fx, fy}. r wächst logarithmisch (wirkt
+   * gleichmäßig), der Brennpunkt (fx, fy) bleibt auf dem Bildschirm stehen. Alles in der
+   * Hülle [data-rig] (Karte, Waage, Darsteller, Etiketten, Marker) wird gleich behandelt,
+   * das HUD nicht: So bleibt die Schrift oben fest, während die Welt näher kommt.
+   */
+  /*
+   * Runde 2: optional (zx, zy) = wohin der Brennpunkt wandert (Standard: er bleibt stehen).
+   * So kann eine Nachfahrt einen Gegenstand vom Rand in die Bildmitte holen, statt ihn nur zu
+   * vergrößern (Diagramm: Kosten-Schale ab "Gratis").
+   */
+  function nahBei(spur, t) {
+    var s = abschnitt(spur, t);
+    var lr = Math.log(s.a.r) + (Math.log(s.b.r) - Math.log(s.a.r)) * s.f;
+    var zxa = s.a.zx === undefined ? s.a.fx : s.a.zx;
+    var zxb = s.b.zx === undefined ? s.b.fx : s.b.zx;
+    var zya = s.a.zy === undefined ? s.a.fy : s.a.zy;
+    var zyb = s.b.zy === undefined ? s.b.fy : s.b.zy;
+    return { r: Math.exp(lr), fx: s.a.fx + (s.b.fx - s.a.fx) * s.f, fy: s.a.fy + (s.b.fy - s.a.fy) * s.f,
+      zx: zxa + (zxb - zxa) * s.f, zy: zya + (zyb - zya) * s.f };
+  }
+
   // ---------------------------------------------------------------------------
   // Waage: Geometrie in Bildpixeln, relativ zum Fußpunkt. Gleiche Funktion für die
   // Atlas-Waage (Fläche) und die Diagramm-Waage (Strich), damit der Schnitt passt.
   //   W = {saeule, arm, kette, schale, ...}, theta in Grad (positiv = rechts unten)
   // ---------------------------------------------------------------------------
-  function waageGeometrie(W, theta) {
+  /*
+   * Drehung um die Säule (dreh = 0 ... 1, also 0° ... 180°). Wir zeichnen flach, darum wird
+   * die Tiefe nur angedeutet:
+   *   s = cos(Winkel): x-Lage jedes Punkts relativ zur Säule wird mit s gestaucht (bei 90° steht
+   *       der Balken von der Seite gesehen, bei 180° ist links und rechts vertauscht);
+   *   e = sin(Winkel): Tiefe. Was nach vorn kommt (Schale A, anfangs links), wird etwas größer
+   *       und tiefer, die hintere Schale kleiner und höher. So kreuzen sich die Schalen nicht
+   *       platt in der Mitte, sondern fahren wie auf einem Drehteller aneinander vorbei.
+   * Die Neigung theta dreht sich mit: Was vorher links unten hing, hängt danach rechts unten.
+   */
+  var TIEFE_Y = 26; // px: so viel tiefer steht die vordere Schale in der Mitte der Drehung
+  var TIEFE_K = 0.1; // so viel größer (10 %)
+  function waageGeometrie(W, theta, dreh) {
     var r = (theta * Math.PI) / 180;
     var dx = Math.cos(r) * W.arm;
     var dy = Math.sin(r) * W.arm;
     var py = -W.saeule;
+    var phi = Math.PI * (dreh || 0);
+    var s = Math.cos(phi);
+    var e = Math.sin(phi);
+    // Tiefe der Schalen: A (links) kommt nach vorn (+e), B (rechts) geht nach hinten (-e)
+    var tA = e;
+    var tB = -e;
     return {
+      s: s,
+      e: e,
       drehpunkt: { x: 0, y: py },
-      hakenL: { x: -dx, y: py - dy },
-      hakenR: { x: dx, y: py + dy },
+      hakenL: { x: -dx * s, y: py - dy },
+      hakenR: { x: dx * s, y: py + dy },
       // Schalen hängen senkrecht unter den Haken (Pendel), egal wie der Balken steht.
-      schaleL: { x: -dx, y: py - dy + W.kette },
-      schaleR: { x: dx, y: py + dy + W.kette },
+      // L/R heißt hier: physische Schale A/B. Nach der Drehung hängt A rechts.
+      schaleL: { x: -dx * s, y: py - dy + W.kette + TIEFE_Y * tA, k: 1 + TIEFE_K * tA, tiefe: tA },
+      schaleR: { x: dx * s, y: py + dy + W.kette + TIEFE_Y * tB, k: 1 + TIEFE_K * tB, tiefe: tB },
     };
   }
 
@@ -629,6 +791,7 @@
 
     // ---- Plan prüfen, bevor irgendetwas gemalt wird ----
     if (plan.kamera) pruefeSpur("kamera", plan.kamera, ["kx", "ky", "zoom"]);
+    if (plan.nah) pruefeSpur("nah", plan.nah, ["r", "fx", "fy"]);
     var spuren = plan.spuren || {};
     Object.keys(spuren).forEach(function (n) {
       pruefeSpur(n, spuren[n], ["v"]);
@@ -666,8 +829,15 @@
           schaleR: q("#" + P + "-schale-r"),
           ketteL: q("#" + P + "-kette-l"),
           ketteR: q("#" + P + "-kette-r"),
+          // Schild an der Säule: Vorderseite/Rückseite (bei der Drehung sichtbar je nach Seite)
+          schild: q("#" + P + "-schild", false),
+          vorn: q("#" + P + "-schild-vorn", false),
+          hinten: q("#" + P + "-schild-hinten", false),
+          // Beschriftung der Schalen: Jede Schale trägt beide Wörter, sichtbar ist das ihrer Seite.
+          seitenText: Array.prototype.slice.call(w.querySelectorAll("[data-seite-text]")),
         }
       : null;
+    var rigEls = Array.prototype.slice.call(w.querySelectorAll("[data-rig]"));
 
     // Fußpunkt der Waage in Bildpixeln: an einem Weltort (Atlas) oder fest (Diagramm)
     function waageFuss(k) {
@@ -679,7 +849,9 @@
       return { x: W.fuss[0], y: W.fuss[1] };
     }
 
-    // ---- Plätze: "ort:barcelona", "schale:links:-90", "bild:540:900" ----
+    // ---- Plätze: "ort:barcelona", "schale:links:-90", "seite:links", "bild:540:900" ----
+    //   schale:links/rechts = physische Schale A/B (Darsteller fahren bei der Drehung mit),
+    //   seite:links/rechts  = die Schale, die gerade links/rechts im Bild hängt (Etiketten).
     function platz(name, k, g, fuss) {
       var teile = name.split(":");
       if (teile[0] === "ort") {
@@ -688,9 +860,16 @@
         var p = welt2bild(o[0], o[1], k);
         return { x: p.x + Number(teile[2] || 0), y: p.y + Number(teile[3] || 0), schale: false };
       }
-      if (teile[0] === "schale") {
-        var s = teile[1] === "links" ? g.schaleL : g.schaleR;
-        return { x: fuss.x + s.x + Number(teile[2] || 0), y: fuss.y + s.y + Number(teile[3] || 0), schale: true };
+      if (teile[0] === "schale" || teile[0] === "seite") {
+        var links = teile[1] === "links";
+        if (teile[0] === "seite" && g.s < 0) links = !links; // nach der Drehung hängt B links
+        var sch = links ? g.schaleL : g.schaleR;
+        // Versatz auf der Schale dreht und wächst mit (Tiefe), damit der Darsteller auf seinem
+        // Platz bleibt. Für Etiketten ("seite") nur verschieben, nie stauchen.
+        var ox = Number(teile[2] || 0);
+        var oy = Number(teile[3] || 0);
+        if (teile[0] === "schale") ox *= g.s * sch.k;
+        return { x: fuss.x + sch.x + ox, y: fuss.y + sch.y + oy, schale: true, tiefe: sch.tiefe, k: sch.k };
       }
       if (teile[0] === "bild") return { x: Number(teile[1]), y: Number(teile[2]), schale: false };
       throw new Error("Bühne: unbekannter Platz '" + name + "'");
@@ -737,7 +916,8 @@
       var sicht = i === 0 ? klemme((t - s.ab) / 0.08) : 1;
       if (s.sicht !== undefined && t >= s.ab) sicht = s.sicht; // z. B. 0 = verschwindet am Ziel
       if (t >= s.bis || s.art === "sofort") {
-        return { sicht: sicht, x: ziel.x, y: ziel.y, h: 0, gx: ziel.x, gy: ziel.y, neigung: 0, schatten: ziel.schale ? 0 : 1 };
+        return { sicht: sicht, x: ziel.x, y: ziel.y, h: 0, gx: ziel.x, gy: ziel.y, neigung: 0, schatten: ziel.schale ? 0 : 1,
+          tiefe: ziel.tiefe || 0, k: ziel.k || 1 };
       }
       var u = (t - s.ab) / (s.bis - s.ab || 1e-9);
       if (s.art === "fall") {
@@ -745,6 +925,38 @@
         return { sicht: sicht, x: ziel.x, y: ziel.y - hoehe, h: hoehe, gx: ziel.x, gy: ziel.y, neigung: 0, schatten: ziel.schale ? 0 : u };
       }
       var von = platz(liste[i - 1] ? liste[i - 1].nach : s.von, k, g, fuss);
+      if (s.art === "abflug") {
+        // Abflug aus dem Bild (Runde 1, Kritik "fällt von der Waage"): erst senkrecht steigen
+        // (steigzeit, power2.out), dann auf einem Bogen beschleunigt hinaus (power1.in).
+        // "bogenX/bogenY": Kontrollpunkt des Bogens relativ zum Gipfel.
+        var steigA = PHYSIK.steigzeit || 0.45;
+        var hoch = s.hoehe || 300;
+        var ta = t - s.ab;
+        if (ta < steigA) {
+          var hh = hoch * easeFn("power2.out")(ta / steigA);
+          return { sicht: sicht, x: von.x, y: von.y - hh, h: hh, gx: von.x, gy: von.y, neigung: 0, schatten: 0 };
+        }
+        var ua = easeFn("power1.in")(klemme((ta - steigA) / (s.bis - s.ab - steigA || 1e-9)));
+        var p0x = von.x;
+        var p0y = von.y - hoch;
+        var cxa = p0x + (s.bogenX || 0);
+        var cya = p0y + (s.bogenY || 0);
+        var aa = (1 - ua) * (1 - ua);
+        var ba = 2 * (1 - ua) * ua;
+        var ca = ua * ua;
+        var xa = aa * p0x + ba * cxa + ca * ziel.x;
+        var ya = aa * p0y + ba * cya + ca * ziel.y;
+        var richtungA = ziel.x >= von.x ? 1 : -1;
+        return { sicht: sicht, x: xa, y: ya, h: hoch, gx: xa, gy: ya, neigung: richtungA * 12 * Math.sin(Math.PI * Math.min(1, ua * 1.6)), schatten: 0 };
+      }
+      if (s.art === "sturz") {
+        // Sturz von der jetzigen Stelle auf den Platz darunter (Lohntüte ins Fach): senkrecht
+        // beschleunigt (power2.in) wie "fall", aber von dort aus, wo der Darsteller gerade ist.
+        var fs = easeFn("power2.in")(u);
+        var sx = von.x + (ziel.x - von.x) * u;
+        var sy = von.y + (ziel.y - von.y) * fs;
+        return { sicht: sicht, x: sx, y: sy, h: 0, gx: sx, gy: sy, neigung: 0, schatten: 0 };
+      }
       if (s.art === "schritt") {
         var f = easeFn("power2.inOut")(u);
         var hs = (s.hoehe || 90) * Math.sin(Math.PI * u);
@@ -816,9 +1028,12 @@
       });
       e.kamera = "translate(" + (B / 2 - k.kx * k.zoom).toFixed(2) + " " + (H / 2 - k.ky * k.zoom).toFixed(2) + ") scale(" + k.zoom.toFixed(4) + ")";
       var theta = e.spuren.neigung || 0;
-      var g = W ? waageGeometrie(W, theta) : null;
+      var dreh = e.spuren.dreh || 0;
+      var g = W ? waageGeometrie(W, theta, dreh) : null;
+      // Nachfahrt (Detail): Faktor r um den Bildpunkt (fx, fy). 1 = keine.
+      e.nah = plan.nah ? nahBei(plan.nah, t) : { r: 1, fx: 0, fy: 0, zx: 0, zy: 0 };
       var fuss = W ? waageFuss(k) : null;
-      e.waage = W ? { g: g, fuss: fuss, theta: theta } : null;
+      e.waage = W ? { g: g, fuss: fuss, theta: theta, dreh: dreh } : null;
       e.akteure = {};
       namen.forEach(function (n) {
         e.akteure[n] = darsteller(n, t, k, g, fuss);
@@ -847,6 +1062,12 @@
       var e = berechne(t);
       var s = e.k.zoom;
       if (kamera) kamera.setAttribute("transform", e.kamera);
+      // Nachfahrt: eine Transformation für die ganze Welt-Hülle (Ursprung oben links).
+      var n = e.nah;
+      // Punkt (fx, fy) landet nach scale(r) bei (zx, zy): translate = z - f * r.
+      var ruhig = n.r === 1 && n.zx === n.fx && n.zy === n.fy;
+      var rigT = ruhig ? "none" : "translate(" + (n.zx - n.fx * n.r).toFixed(2) + "px, " + (n.zy - n.fy * n.r).toFixed(2) + "px) scale(" + n.r.toFixed(4) + ")";
+      for (var ri = 0; ri < rigEls.length; ri++) rigEls[ri].style.transform = rigT;
       // Linien bleiben auf dem Bildschirm gleich dick: Breite / Zoom (auch Strichmuster).
       for (var i = 0; i < striche.length; i++) {
         var st = striche[i];
@@ -866,17 +1087,43 @@
       if (waage) {
         var g = e.waage.g;
         waage.fuss.style.transform = "translate(" + e.waage.fuss.x.toFixed(1) + "px, " + e.waage.fuss.y.toFixed(1) + "px)";
-        waage.balken.setAttribute("transform", "rotate(" + e.waage.theta.toFixed(3) + " 0 " + (-W.saeule) + ")");
-        waage.schaleL.setAttribute("transform", "translate(" + g.schaleL.x.toFixed(1) + " " + g.schaleL.y.toFixed(1) + ")");
-        waage.schaleR.setAttribute("transform", "translate(" + g.schaleR.x.toFixed(1) + " " + g.schaleR.y.toFixed(1) + ")");
+        // Balken: um den Drehpunkt neigen, dann mit s stauchen (Drehung um die Säule).
+        waage.balken.setAttribute("transform", "translate(0 " + (-W.saeule) + ") scale(" + g.s.toFixed(4) + " 1) rotate(" +
+          e.waage.theta.toFixed(3) + ") translate(0 " + W.saeule + ")");
+        var schaleT = function (sch) {
+          return "translate(" + sch.x.toFixed(1) + " " + sch.y.toFixed(1) + ") scale(" + sch.k.toFixed(4) + ")";
+        };
+        waage.schaleL.setAttribute("transform", schaleT(g.schaleL));
+        waage.schaleR.setAttribute("transform", schaleT(g.schaleR));
         // Ketten: vom Haken zu beiden Rändern der Schale (zwei Linien je Seite)
         var halb = W.schale / 2 - 8;
         var kette = function (h, sch) {
-          return "M" + h.x.toFixed(1) + " " + h.y.toFixed(1) + " L" + (sch.x - halb).toFixed(1) + " " + sch.y.toFixed(1) +
-            " M" + h.x.toFixed(1) + " " + h.y.toFixed(1) + " L" + (sch.x + halb).toFixed(1) + " " + sch.y.toFixed(1);
+          var hb = halb * sch.k;
+          return "M" + h.x.toFixed(1) + " " + h.y.toFixed(1) + " L" + (sch.x - hb).toFixed(1) + " " + sch.y.toFixed(1) +
+            " M" + h.x.toFixed(1) + " " + h.y.toFixed(1) + " L" + (sch.x + hb).toFixed(1) + " " + sch.y.toFixed(1);
         };
         waage.ketteL.setAttribute("d", kette(g.hakenL, g.schaleL));
         waage.ketteR.setAttribute("d", kette(g.hakenR, g.schaleR));
+        // Schild: flach an der Säule, also mit |s| gestaucht; die Seite wechselt bei 90°.
+        if (waage.schild) {
+          waage.schild.setAttribute("transform", "translate(0 " + (W.schildY || 0) + ") scale(" + Math.max(0.001, Math.abs(g.s)).toFixed(4) + " 1)");
+          if (waage.vorn) waage.vorn.style.opacity = g.s >= 0 ? "1" : "0";
+          if (waage.hinten) waage.hinten.style.opacity = g.s >= 0 ? "0" : "1";
+        }
+        // Schalen-Wörter: Links steht immer "Kosten", rechts immer "Nutzen". Während der Drehung
+        // (|s| klein) sind sie aus, damit nichts gespiegelt oder doppelt zu lesen ist.
+        var deckSeite = klemme((Math.abs(g.s) - 0.35) / 0.4);
+        // Spur "textRechts" (optional): blendet das Wort der rechten Schale aus, wenn eine
+        // Nachfahrt die rechte Schale an den Bildrand schiebt (sonst stünde dort halbe Schrift).
+        var rechtsFaktor = e.spuren.textRechts === undefined ? 1 : e.spuren.textRechts;
+        for (var si = 0; si < waage.seitenText.length; si++) {
+          var st = waage.seitenText[si];
+          var istA = st.getAttribute("data-schale") === "a";
+          var linksImBild = istA ? g.s >= 0 : g.s < 0;
+          var soll = st.getAttribute("data-seite-text") === "links" ? linksImBild : !linksImBild;
+          var faktor = st.getAttribute("data-seite-text") === "rechts" ? rechtsFaktor : 1;
+          st.style.opacity = soll ? (deckSeite * faktor).toFixed(3) : "0";
+        }
       }
 
       // Darsteller
@@ -886,7 +1133,9 @@
         el.huelle.style.transform = "translate(" + d.x.toFixed(1) + "px, " + d.y.toFixed(1) + "px)";
         el.huelle.style.opacity = d.sicht.toFixed(3);
         el.huelle.style.visibility = d.sicht > 0.001 ? "visible" : "hidden";
-        el.figur.style.transform = "rotate(" + d.neigung.toFixed(2) + "deg) scale(" + d.skala.toFixed(4) + ")";
+        el.figur.style.transform = "rotate(" + d.neigung.toFixed(2) + "deg) scale(" + (d.skala * (d.k || 1)).toFixed(4) + ")";
+        // Hinter der Säule, solange der Darsteller bei der Drehung hinten fährt
+        el.huelle.style.zIndex = (d.tiefe || 0) < -0.05 ? "2" : "";
         if (el.schatten) {
           var hs = Math.max(0, 1 - d.h / 260); // je höher, desto kleiner und blasser
           el.schatten.style.transform = "translate(" + d.gx.toFixed(1) + "px, " + d.gy.toFixed(1) + "px) scale(" + (0.55 + 0.45 * hs).toFixed(3) + ")";
@@ -909,7 +1158,7 @@
       }
     }
 
-    return { plan: plan, berechne: berechne, render: render, welt2bild: welt2bild, waageGeometrie: waageGeometrie };
+    return { plan: plan, berechne: berechne, render: render, welt2bild: welt2bild, waageGeometrie: waageGeometrie, platz: platz };
   }
 
   /*
@@ -932,6 +1181,7 @@
     erstelle: erstelle,
     wert: wert,
     kameraBei: kameraBei,
+    nahBei: nahBei,
     pruefeSpur: pruefeSpur,
     waageGeometrie: waageGeometrie,
     nachSchriften: nachSchriften,
@@ -942,11 +1192,11 @@
       /* @datenAtlas:anfang */
 // eingesetzt von build/bauen.mjs (nicht von Hand ändern)
 // WORTE: Wort-Cues aus assets/timing.json (Bild 2 Bilder vor dem Wort). ZEIT: Cues plus abgeleitete Zeiten.
-const WORTE = {"bcn":0.3,"lewa":1.0666666666666667,"verkaufen":2.7,"behalten":3.433333333333333,"frage":4.566666666666666,"optionen":5.566666666666666,"waage":8.566666666666666,"gehalt":10.4,"bezahlt":11.666666666666666,"tore":13.7,"vertrag":15.033333333333333,"saison":16.366666666666667,"verlaengern":17.966666666666665,"frei":19.466666666666665,"angebot":22,"zahl":23.6,"falsch":27.733333333333334,"landung":30.7,"entgangen":33.1,"korrektur":34.833333333333336,"begriff":37.56666666666667,"alternative":40.266666666666666,"aufgibt":41.5,"juli":42.733333333333334,"genommen":43.8,"ok_verkauf":45.46666666666667,"landung_spieler":47.6,"modell":50.266666666666666,"karte":52.166666666666664,"geschenkt":53.56666666666667,"nachhilfe":55.666666666666664,"lohn_da":56.2,"lohn":59.233333333333334,"gratis":61.3,"aufgeben":63.6,"kosten2":64.16666666666667,"rechnung":66.06666666666666};
-const ZEIT = {"anfang":0,"bcn":0.3,"lewa":1.0666666666666667,"verkaufen":2.7,"behalten":3.433333333333333,"frage":4.566666666666666,"optionen":5.566666666666666,"waage":8.566666666666666,"gehalt":10.4,"bezahlt":11.666666666666666,"tore":13.7,"vertrag":15.033333333333333,"saison":16.366666666666667,"verlaengern":17.966666666666665,"frei":19.466666666666665,"angebot":22,"zahl":23.6,"falsch":27.733333333333334,"landung":30.7,"entgangen":33.1,"korrektur":34.833333333333336,"begriff":37.56666666666667,"alternative":40.266666666666666,"aufgibt":41.5,"juli":42.733333333333334,"genommen":43.8,"ok_verkauf":45.46666666666667,"landung_spieler":47.6,"modell":50.266666666666666,"karte":52.166666666666664,"geschenkt":53.56666666666667,"nachhilfe":55.666666666666664,"lohn_da":56.2,"lohn":59.233333333333334,"gratis":61.3,"aufgeben":63.6,"kosten2":64.16666666666667,"rechnung":66.06666666666666,"s_hook":0.3,"s_naheliegend":8.566666666666666,"s_vertrag":14.633333333333333,"s_angebot":22,"s_widerlegung":25.833333333333332,"s_entgangen":33.1,"s_begriff":36.13333333333333,"s_verkauf":42.63333333333333,"s_modell":48.93333333333333,"s_transfer":51.3,"s_transfer_lohn":57.7,"s_satz":63.06666666666667,"ende":68.6,"pause":6.054,"pauseEnde":8.554,"spielerFall":1.0666666666666667,"nameSpieler":1.4866666666666666,"routeAus":3.5,"hookAus":8.566666666666666,"zoomIn":8.816666666666666,"zoomInEnde":9.416666666666666,"waageAuf":9.266666666666666,"spielerHopp":9.716666666666665,"belegFall":10.4,"behauptung":10.82,"stempel":11.666666666666666,"neigungRechts":13.7,"toreText":13.85,"band":15.133333333333333,"bandEnde":16.133333333333333,"vertragAus":21.6,"fahrtBarcelona":22,"fahrtBarcelonaEnde":22.7,"geldFall":23.6,"geldLandetBcn":24.020000000000003,"zahlText":24.080000000000002,"widerlegung":25.833333333333332,"abflugGeld":29,"fahrtMuenchen":29.25,"fahrtMuenchenEnde":30.55,"zahlTextAus":29,"geldEtikett":30.82,"etikettEntgangen":33.1,"etikettAufgegeben":41.5,"julAus":42.733333333333334,"datumJuli":42.93333333333334,"neigungLinks":43.8,"abflugSpieler":45.46666666666667,"landungSpieler":47.16666666666667,"okEtikett":45.91666666666667,"saisonText":47.6,"schnitt":50.266666666666666,"kaesten":50.416666666666664,"gleichung":50.86666666666667,"karteFall":52.166666666666664,"neigungKarte":52.586666666666666,"lohnZeichnen":56.2,"lohnFlug":59.233333333333334,"lohnFlugEnde":59.833333333333336,"nachhilfeAus":62.66666666666667,"gratisAus":63.91666666666667};
-const SZENEN = [{"id":"hook","beginn":0,"ende":8.866666666666667},{"id":"naheliegend","beginn":8.866666666666667,"ende":14.5},{"id":"vertrag","beginn":14.5,"ende":21.866666666666667},{"id":"angebot","beginn":21.866666666666667,"ende":25.7},{"id":"widerlegung","beginn":25.7,"ende":32.96666666666667},{"id":"entgangen","beginn":32.96666666666667,"ende":36},{"id":"begriff","beginn":36,"ende":42.5},{"id":"verkauf","beginn":42.5,"ende":50.266666666666666},{"id":"modell","beginn":50.266666666666666,"ende":51.166666666666664},{"id":"transfer","beginn":51.166666666666664,"ende":57.56666666666667},{"id":"transfer_lohn","beginn":57.56666666666667,"ende":62.93333333333333},{"id":"satz","beginn":62.93333333333333,"ende":68.6}];
-const BUEHNEN = {"atlas":{"beginn":0,"ende":50.266666666666666},"diagramm":{"beginn":50.266666666666666,"ende":68.6}};
-const DATEN = {"orte":{"muenchen":[83.2,-56.4],"barcelona":[-249.3,261.3],"frankreich":[-268.6,34.4],"spanien":[-491.7,297.7],"italien":[135.9,210]},"route":[[83.2,-56.4],[78.9,-49.8],[74.6,-43.2],[70.2,-36.7],[65.8,-30.3],[61.3,-23.8],[56.8,-17.4],[52.3,-11.1],[47.7,-4.8],[43,1.4],[38.4,7.6],[33.7,13.8],[28.9,19.9],[24.1,26],[19.3,32],[14.4,38],[9.4,43.9],[4.5,49.8],[-0.5,55.7],[-5.6,61.5],[-10.7,67.2],[-15.8,72.9],[-21,78.6],[-26.2,84.2],[-31.5,89.8],[-36.8,95.4],[-42.2,100.9],[-47.6,106.3],[-53,111.7],[-58.5,117.1],[-64,122.4],[-69.6,127.7],[-75.2,132.9],[-80.8,138.1],[-86.5,143.2],[-92.2,148.3],[-98,153.4],[-103.8,158.4],[-109.7,163.3],[-115.6,168.3],[-121.5,173.1],[-127.5,178],[-133.5,182.7],[-139.6,187.5],[-145.7,192.2],[-151.9,196.8],[-158.1,201.4],[-164.3,206],[-170.6,210.5],[-176.9,215],[-183.3,219.4],[-189.7,223.8],[-196.2,228.2],[-202.7,232.5],[-209.2,236.7],[-215.8,240.9],[-222.4,245.1],[-229.1,249.2],[-235.8,253.3],[-242.5,257.3],[-249.3,261.3]],"kamera":{"totale":{"kx":-134.2,"ky":169.7,"zoom":1.15},"muenchen":{"kx":83.2,"ky":-106.4,"zoom":2.4},"barcelona":{"kx":-199.3,"ky":319.6,"zoom":2.4}},"breite":1080,"hoehe":1920,"physik":{"fallhoehe":560,"fallzeit":0.42,"flughoehe":130,"steigzeit":0.45,"sinkzeit":0.5,"flugzeit":1.7,"schrittzeit":0.5},"marker":{"kreis":0.5,"linie":0.35,"strich":0.3,"klammer":0.5},"waage":{"saeule":500,"arm":270,"kette":360,"schale":340,"front":66,"neigung":7,"ort":"muenchen"}};
+const WORTE = {"bcn":0.3,"lewa":1.1333333333333333,"verkaufen":2.7,"behalten":3.466666666666667,"frage":4.833333333333333,"optionen":5.733333333333333,"waage":8.633333333333333,"nur":10.2,"gehalt":10.6,"bezahlt":12.033333333333333,"schiesst":13.733333333333333,"tore":14.1,"vertrag":15.466666666666667,"saison":16.7,"verlaengern_an":17.533333333333335,"verlaengern":18.333333333333332,"danach":19,"frei":19.9,"nichts":21.566666666666666,"angebot":22.633333333333333,"bietet":23.266666666666666,"zahl":24.233333333333334,"falsch":28.133333333333333,"landung":31.133333333333333,"cent":32.56666666666667,"entgangen":33.766666666666666,"gewicht":34.833333333333336,"korrektur":35.5,"begriff":38.4,"alternative":41.3,"aufgibt":42.56666666666667,"juli":43.833333333333336,"nimmt":44.233333333333334,"genommen":44.96666666666667,"dreh":46.166666666666664,"ok_verkauf":46.9,"abflug_spieler":48.36666666666667,"ok_saison":48.53333333333333,"modell":51.7,"karte":53.46666666666667,"geschenkt":54.86666666666667,"genau":55.9,"nachhilfe":57.06666666666667,"lohn_da":57.63333333333333,"gleichung":59.5,"lohn":60.733333333333334,"gratis":63,"gratis_nicht":63.8,"aufgeben":65.63333333333334,"kosten2":66.3,"rechnung":68.16666666666667};
+const ZEIT = {"anfang":0,"bcn":0.3,"lewa":1.1333333333333333,"verkaufen":2.7,"behalten":3.466666666666667,"frage":4.833333333333333,"optionen":5.733333333333333,"waage":8.633333333333333,"nur":10.2,"gehalt":10.6,"bezahlt":12.033333333333333,"schiesst":13.733333333333333,"tore":14.1,"vertrag":15.466666666666667,"saison":16.7,"verlaengern_an":17.533333333333335,"verlaengern":18.333333333333332,"danach":19,"frei":19.9,"nichts":21.566666666666666,"angebot":22.633333333333333,"bietet":23.266666666666666,"zahl":24.233333333333334,"falsch":28.133333333333333,"landung":31.133333333333333,"cent":32.56666666666667,"entgangen":33.766666666666666,"gewicht":34.833333333333336,"korrektur":35.5,"begriff":38.4,"alternative":41.3,"aufgibt":42.56666666666667,"juli":43.833333333333336,"nimmt":44.233333333333334,"genommen":44.96666666666667,"dreh":46.166666666666664,"ok_verkauf":46.9,"abflug_spieler":48.36666666666667,"ok_saison":48.53333333333333,"modell":51.7,"karte":53.46666666666667,"geschenkt":54.86666666666667,"genau":55.9,"nachhilfe":57.06666666666667,"lohn_da":57.63333333333333,"gleichung":59.5,"lohn":60.733333333333334,"gratis":63,"gratis_nicht":63.8,"aufgeben":65.63333333333334,"kosten2":66.3,"rechnung":68.16666666666667,"s_hook":0.3,"s_naheliegend":8.633333333333333,"s_vertrag":15.066666666666666,"s_angebot":22.633333333333333,"s_widerlegung":26.466666666666665,"s_entgangen":33.766666666666666,"s_begriff":36.86666666666667,"s_verkauf":43.7,"s_aufloesung":45.96666666666667,"s_modell":50.333333333333336,"s_transfer":52.7,"s_transfer_lohn":59.2,"s_satz":65.06666666666666,"ende":70.7,"pause":6.197,"pauseEnde":8.597,"nameSpieler":1.1333333333333333,"routeAus":3.5,"dimBcn":3.466666666666667,"schilder":4.933333333333333,"hookAus":8.733333333333333,"zoomIn":8.933333333333334,"zoomInEnde":9.533333333333333,"waageAuf":9.383333333333333,"behauptung":10.2,"belegFall":10.6,"neigungKosten":11.02,"stempel":12.033333333333333,"spielerHopp":13.733333333333333,"neigungRechts":14.233333333333333,"toreText":14.219999999999999,"behauptungAus":14.716666666666667,"vertragFall":15.466666666666667,"dimWaage":15.466666666666667,"toreAus":15.919999999999998,"band":16.7,"bandEnde":17.4,"nahVertrag":19,"nahVertragEnde":19.5,"nullEuro":21.566666666666666,"vertragAus":23.316666666666666,"fahrtBarcelona":23.466666666666665,"fahrtBarcelonaEnde":24.166666666666664,"routeHell":23.466666666666665,"hellWaage":24.166666666666664,"geldFall":24.233333333333334,"geldLandetBcn":24.653333333333336,"zahlText":24.233333333333334,"widerlegung":26.466666666666665,"abflugGeist":29.433333333333334,"fahrtMuenchen":29.683333333333334,"fahrtMuenchenEnde":30.983333333333334,"behauptungDunkel":29.483333333333334,"zahlTextAus":29.433333333333334,"geldEtikett":31.253333333333334,"routeDunkel":31.433333333333334,"nullBehalten":32.56666666666667,"etikettEntgangen":33.766666666666666,"waagerecht":34.833333333333336,"nullBehaltenAus":38.4,"nahRein":39.25,"nahReinEnde":39.75,"etikettAlternative":41.3,"julAus":43.135,"nahRaus":43.135,"nahRausEnde":43.635,"datumJuli":43.95333333333333,"neigungLinks":44.233333333333334,"drehStart":45.86666666666667,"drehEnde":46.46666666666666,"massiv":46.21666666666666,"okEtikett":46.9,"geldDunkel":46.9,"abflugSpieler":48.36666666666667,"spielerWeg":49.46666666666667,"umriss":48.486666666666665,"saisonText":48.53333333333333,"schnitt":51.7,"karteFall":53.46666666666667,"schildKino":53.586666666666666,"neigungKarte":53.88666666666667,"rechnungFall":54.86666666666667,"fach":55.9,"lohnZeichnen":57.63333333333333,"lohnFall":60.733333333333334,"lohnLandet":61.153333333333336,"nachhilfeAus":60.733333333333334,"gleichungAus":63,"dimRest":63,"nahSatz":63.2,"nahSatzEnde":63.800000000000004,"puls":63.800000000000004};
+const SZENEN = [{"id":"hook","beginn":0,"ende":9.033333333333333},{"id":"naheliegend","beginn":9.033333333333333,"ende":14.933333333333334},{"id":"vertrag","beginn":14.933333333333334,"ende":22.5},{"id":"angebot","beginn":22.5,"ende":26.333333333333332},{"id":"widerlegung","beginn":26.333333333333332,"ende":33.63333333333333},{"id":"entgangen","beginn":33.63333333333333,"ende":36.733333333333334},{"id":"begriff","beginn":36.733333333333334,"ende":43.56666666666667},{"id":"verkauf","beginn":43.56666666666667,"ende":45.833333333333336},{"id":"aufloesung","beginn":45.833333333333336,"ende":51.7},{"id":"modell","beginn":51.7,"ende":52.56666666666667},{"id":"transfer","beginn":52.56666666666667,"ende":59.06666666666667},{"id":"transfer_lohn","beginn":59.06666666666667,"ende":64.9},{"id":"satz","beginn":64.9,"ende":70.7}];
+const BUEHNEN = {"atlas":{"beginn":0,"ende":51.7},"diagramm":{"beginn":51.7,"ende":70.7}};
+const DATEN = {"orte":{"muenchen":[83.2,-56.4],"barcelona":[-249.3,261.3]},"route":[[83.2,-56.4],[78.9,-49.8],[74.6,-43.2],[70.2,-36.7],[65.8,-30.3],[61.3,-23.8],[56.8,-17.4],[52.3,-11.1],[47.7,-4.8],[43,1.4],[38.4,7.6],[33.7,13.8],[28.9,19.9],[24.1,26],[19.3,32],[14.4,38],[9.4,43.9],[4.5,49.8],[-0.5,55.7],[-5.6,61.5],[-10.7,67.2],[-15.8,72.9],[-21,78.6],[-26.2,84.2],[-31.5,89.8],[-36.8,95.4],[-42.2,100.9],[-47.6,106.3],[-53,111.7],[-58.5,117.1],[-64,122.4],[-69.6,127.7],[-75.2,132.9],[-80.8,138.1],[-86.5,143.2],[-92.2,148.3],[-98,153.4],[-103.8,158.4],[-109.7,163.3],[-115.6,168.3],[-121.5,173.1],[-127.5,178],[-133.5,182.7],[-139.6,187.5],[-145.7,192.2],[-151.9,196.8],[-158.1,201.4],[-164.3,206],[-170.6,210.5],[-176.9,215],[-183.3,219.4],[-189.7,223.8],[-196.2,228.2],[-202.7,232.5],[-209.2,236.7],[-215.8,240.9],[-222.4,245.1],[-229.1,249.2],[-235.8,253.3],[-242.5,257.3],[-249.3,261.3]],"kamera":{"totale":{"kx":-134.2,"ky":169.7,"zoom":1.15},"muenchen":{"kx":83.2,"ky":-127.2,"zoom":2.4},"barcelona":{"kx":-199.3,"ky":319.6,"zoom":2.4}},"breite":1080,"hoehe":1920,"physik":{"fallhoehe":560,"fallzeit":0.42,"flughoehe":130,"steigzeit":0.45,"sinkzeit":0.5,"flugzeit":1.7,"schrittzeit":0.5},"marker":{"kreis":0.5,"linie":0.35,"strich":0.3,"klammer":0.5},"waage":{"saeule":500,"arm":270,"kette":360,"schale":400,"front":66,"neigung":7,"schildY":-438,"ort":"muenchen"},"nah":{"vertrag":{"r":1.12,"fx":540,"fy":400},"begriff":{"r":1.1,"fx":108,"fy":1100}}};
 
 /* @datenAtlas:ende */
 
@@ -964,12 +1214,35 @@ const DATEN = {"orte":{"muenchen":[83.2,-56.4],"barcelona":[-249.3,261.3],"frank
 //
 // Richtung: Ein Darsteller fährt in die Richtung dessen, was er bedeutet. Das Geld ist die
 // Ablöse: Barcelona zahlt an Bayern, also fliegt es von Barcelona nach München. Der Spieler
-// wechselt nach Barcelona, also fliegt er von München nach Barcelona.
+// wechselt nach Barcelona, also fliegt er nach Westen aus dem Bild.
+//
+// Runde 1 (Kritik), die drei wichtigsten Änderungen:
+//   1. Nach München fliegt nur ein GEIST des Geldes (gestrichelter Umriss): Solange Bayern
+//      behält, ist das Geld nur eine Möglichkeit. "Behalten keinen Cent" widerspricht dem Bild
+//      nicht mehr. Erst auf "Bayern nimmt das Geld" wird es echt.
+//   2. Auf "Verkaufen" dreht sich die Waage um (Schild "Behalten" -> "Verkaufen"). Danach liegt
+//      das Geld auf "Nutzen" und der Spieler auf "Kosten"; er fliegt ab, sein Umriss bleibt.
+//      Opportunitätskosten liegen damit in JEDEM Bild links auf "Kosten".
+//   3. Eine Nachfahrt auf den Geist beim Begriff und zurück vor dem Schnitt: Die Kamera steht
+//      nicht mehr 20 s auf demselben Ausschnitt.
+//
+// Runde 2 (Kritik), die wichtigsten Änderungen:
+//   1. Die Waage neigt sich nur, wenn etwas aufsetzt: Beleg -> links, Spieler (erst auf
+//      "schießt") -> rechts, Geist bekommt Gewicht -> waagerecht, Bayern entscheidet -> links.
+//   2. Beat 4: Die Waage tritt zurück (35 %), Held ist das Vertragsblatt; auf "Danach" fährt die
+//      Welt näher an das Blatt, mit der Fahrt nach Barcelona wieder zurück.
+//   3. Beat 8: Rückfahrt schon in der Atempause nach der Definition; "nimmt" in der Totale; die
+//      Drehung in der Atempause nach "Geld", das Schild kippt auf "Verkaufen"; der Geist wird erst
+//      auf der Nutzen-Seite echt. Der Spieler fliegt nach Südwesten (Richtung Barcelona) hinaus.
 const Z = ZEIT;
 const K = DATEN.kamera;
 const PH = DATEN.physik;
 const N = DATEN.waage.neigung;
+const NV = DATEN.nah.vertrag;
+const NB = DATEN.nah.begriff;
 const kam = (t, e, extra) => Object.assign({ t: t }, e, extra || {});
+// Schlüsselbild der Nachfahrt: Einstellung e (Brennpunkt), Faktor r
+const nah = (t, e, r, ease) => Object.assign({}, e, { t: t, r: r }, ease ? { ease: ease } : {});
 
 const plan = {
   // Kamera: Zwischen zwei gleichen Einstellungen steht sie (Lesezeit). "bogen" lässt sie auf
@@ -981,7 +1254,22 @@ const plan = {
     kam(Z.fahrtBarcelona, K.muenchen),
     kam(Z.fahrtBarcelonaEnde, K.barcelona, { ease: "power2.inOut", bogen: 0.75 }), // zum Angebot
     kam(Z.fahrtMuenchen, K.barcelona),
-    kam(Z.fahrtMuenchenEnde, K.muenchen, { ease: "power2.inOut", bogen: 0.75 }), // folgt dem Geld
+    kam(Z.fahrtMuenchenEnde, K.muenchen, { ease: "power2.inOut", bogen: 0.75 }), // folgt dem Geist
+  ],
+  // Nachfahrten (Detail): 1. auf das Vertragsblatt ab "Danach", zurück mit der Fahrt nach
+  // Barcelona (eine Bewegung: heraus und hinüber). 2. leicht auf Geist und Kreis beim Begriff,
+  // zurück in der Atempause nach der Definition. Bei r = 1 ist der Brennpunkt egal: Dort wird er
+  // vom Vertrag auf den Begriff umgestellt.
+  nah: [
+    nah(0, NV, 1),
+    nah(Z.nahVertrag, NV, 1),
+    nah(Z.nahVertragEnde, NV, NV.r, "power2.inOut"),
+    nah(Z.fahrtBarcelona, NV, NV.r),
+    nah(Z.fahrtBarcelonaEnde, NV, 1, "power2.inOut"),
+    nah(Z.nahRein, NB, 1),
+    nah(Z.nahReinEnde, NB, NB.r, "power2.inOut"),
+    nah(Z.nahRaus, NB, NB.r),
+    nah(Z.nahRausEnde, NB, 1, "power2.inOut"),
   ],
   spuren: {
     // Genau eine Region leuchtet: Deutschland (Bayern entscheidet). Nah dran füllt sie mehr
@@ -997,33 +1285,56 @@ const plan = {
       { t: Z.verkaufen, v: 0 },
       { t: Z.routeAus, v: 1, ease: "power1.inOut" },
     ],
-    // Neigung der Waage in Grad (positiv = rechts unten). Nur drei Lagen: rechts, waagerecht,
-    // links. Sie zeigt eine Richtung, nie ein Verhältnis (drehbuch.md "Warum eine Waage").
+    // Neigung der Waage in Grad (positiv = rechts unten). Nur drei Lagen: links, waagerecht,
+    // rechts. Sie zeigt eine Richtung, nie ein Verhältnis (drehbuch.md "Warum eine Waage").
+    // Runde 2: Jede Neigung hat eine Ursache, die man sieht (Prüfung 2: "Neigung = Gewicht").
     neigung: [
       { t: 0, v: 0 },
-      { t: Z.neigungRechts, v: 0 },
-      { t: Z.neigungRechts + 0.8, v: N, ease: "back.out(1.6)" }, // "Dafür schießt er Tore"
-      { t: Z.landung, v: N },
-      { t: Z.landung + 0.9, v: 0, ease: "back.out(2.2)" }, // Geld landet: waagerecht, federt aus
+      { t: Z.neigungKosten, v: 0 },
+      { t: Z.neigungKosten + 0.8, v: -N, ease: "back.out(1.6)" }, // Beleg landet auf "Kosten"
+      { t: Z.neigungRechts, v: -N },
+      { t: Z.neigungRechts + 0.8, v: N, ease: "back.out(1.6)" }, // Spieler landet: "Dafür schießt er Tore"
+      { t: Z.waagerecht, v: N },
+      { t: Z.waagerecht + 0.9, v: 0, ease: "back.out(2.2)" }, // "fehlt GENAUSO": der Geist wiegt
       { t: Z.neigungLinks, v: 0 },
-      { t: Z.neigungLinks + 0.8, v: -N, ease: "back.out(1.6)" }, // "Im Juli nimmt Bayern das Geld"
+      // "Im Juli NIMMT Bayern das Geld": Behalten kostet mehr, als es bringt. Nach der Drehung
+      // hängt dieselbe Schale rechts: Beim Verkaufen wiegt der Nutzen mehr.
+      { t: Z.neigungLinks + 0.8, v: -N, ease: "back.out(1.6)" },
+    ],
+    // Drehung um die Säule: 0 = Seite "Behalten", 1 = Seite "Verkaufen" (lib/buehne.js).
+    // Mitte der Drehung (Schild steht auf der Kante und wechselt) = Wort "Verkaufen".
+    dreh: [
+      { t: 0, v: 0 },
+      { t: Z.drehStart, v: 0 },
+      { t: Z.drehEnde, v: 1, ease: "power2.inOut" },
     ],
   },
-  // Darsteller als Abschnitte: ab..bis bewegt er sich auf "nach" (fall, schritt, flug).
+  // Darsteller als Abschnitte: ab..bis bewegt er sich auf "nach" (fall, schritt, flug, abflug).
+  // "schale:links/rechts" = physische Schale (fährt bei der Drehung mit).
   akteure: {
     spieler: [
-      { ab: Z.spielerFall, bis: Z.spielerFall + PH.fallzeit, nach: "ort:muenchen", art: "fall" },
+      // Steht schon in Bild 0 auf München: Das Vorschaubild hat einen Helden (Prüfung 3).
+      { ab: -1, bis: -1, nach: "ort:muenchen", art: "sofort" },
+      // Steigt erst auf "schießt" auf die Nutzen-Schale (vorher stand er am Fuß der Waage).
       { ab: Z.spielerHopp, bis: Z.spielerHopp + PH.schrittzeit, nach: "schale:rechts:0", art: "schritt", hoehe: 140 },
-      // Abflug auf "Opportunitätskosten": Er verlässt die Schale, die Landung in Barcelona
-      // liegt außerhalb des Bildes (REVIEW.md, Abweichung 3).
-      { ab: Z.abflugSpieler, bis: Z.landungSpieler, nach: "ort:barcelona", art: "flug", bogen: -0.08 },
+      // Abflug (Runde 2, Prüfung 1): erst senkrecht steigen, dann im Bogen nach links UNTEN aus
+      // dem Bild, also nach Südwesten wie die Route nach Barcelona (vorher: Nordwesten).
+      { ab: Z.abflugSpieler, bis: Z.spielerWeg, nach: "bild:-200:900", art: "abflug", hoehe: 300, bogenX: -150, bogenY: 0 },
     ],
-    beleg: [{ ab: Z.belegFall, bis: Z.belegFall + PH.fallzeit, nach: "schale:links:70", art: "fall" }],
-    geld: [
-      // Der Stapel steht 50 px rechts vom Punkt: links davon steht der Name "Barcelona".
-      { ab: Z.geldFall, bis: Z.geldFall + PH.fallzeit, nach: "ort:barcelona:50:0", art: "fall" },
-      { ab: Z.abflugGeld, bis: Z.landung, nach: "schale:links:-100", art: "flug", bogen: 0.1 },
+    // Der Beleg steht rechts auf der Kosten-Schale, der Geist links daneben (ohne Überlappung).
+    // Fallhöhe 420: So kreuzt er die Behauptung oben links nicht (Prüfung 3).
+    beleg: [{ ab: Z.belegFall, bis: Z.belegFall + PH.fallzeit, nach: "schale:links:104", art: "fall", hoehe: 420 }],
+    // Der Vertrag: ein großes Blatt über der Waage (feste Bildstelle; die Kamera steht in Beat 4).
+    vertrag: [{ ab: Z.vertragFall, bis: Z.vertragFall + PH.fallzeit, nach: "bild:540:575", art: "fall", hoehe: 420 }],
+    // Das echte Geld bleibt in Barcelona. Der Stapel steht 50 px rechts vom Punkt (Name links).
+    geld: [{ ab: Z.geldFall, bis: Z.geldFall + PH.fallzeit, nach: "ort:barcelona:50:0", art: "fall" }],
+    // Der Geist löst sich vom echten Stapel und fliegt auf die Kosten-Schale (links vom Beleg).
+    geist: [
+      { ab: Z.abflugGeist, bis: Z.abflugGeist, nach: "ort:barcelona:50:0", art: "sofort" },
+      { ab: Z.abflugGeist, bis: Z.landung, nach: "schale:links:-74", art: "flug", bogen: 0.1 },
     ],
+    // Umriss des Spielers: entsteht dort, wo er stand (physische Schale B, nach der Drehung links).
+    umriss: [{ ab: Z.umriss, bis: Z.umriss, nach: "schale:rechts:0", art: "sofort" }],
   },
 };
 
@@ -1078,61 +1389,118 @@ function aufprall(sel, t, staerke, erst) {
   tl.fromTo(sel, { scaleY: 1, transformOrigin: "50% 100%" }, { scaleY: staerke, duration: 0.07, ease: "power1.out", immediateRender: erst }, t);
   tl.fromTo(sel, { scaleY: staerke }, { scaleY: 1, duration: 0.3, ease: "back.out(3)", immediateRender: false }, t + 0.07);
 }
+// Stempel: fällt groß und schräg auf das Papier und federt in seine Lage.
+function stempel(sel, t, winkel) {
+  tl.fromTo(sel, { opacity: 0 }, { opacity: 1, duration: 0.06, ease: "none" }, t);
+  tl.fromTo(sel, { scale: 1.6, rotation: winkel - 6 }, { scale: 1, rotation: winkel, duration: 0.28, ease: "back.out(2.2)" }, t);
+}
 
 // Ort setzen (Atlas): Punkt rastet ein, Name kommt 0,12 s später aus der Unschärfe.
 tl.fromTo("#w-punkt-barcelona", { scale: 0 }, { scale: 1, duration: 0.35, ease: "back.out(2.2)" }, Z.bcn);
 rein("#w-name-barcelona", Z.bcn + 0.12);
+// Abdunkeln (DESIGN.md §6): Liste von Elementen von a auf b, ab dem zweiten Mal ohne immediateRender.
+const dunkel = (sel, t, von, nach, erst) =>
+  tl.fromTo(sel, { opacity: von }, { opacity: nach, duration: 0.3, ease: "power2.inOut", immediateRender: !!erst }, t);
 
-// Beat 1: Spieler fällt auf München, Name, Kreis, Preisschilder
-aufprall("#a-spieler-bild", Z.spielerFall + PH.fallzeit, 0.86, true);
+// Beat 1: Die Figur steht schon (Bild 0); ihr Name kommt auf "Lewandowski".
 rein("#a-spieler-name", Z.nameSpieler);
 const M = window.DeepTokMarker;
-// "verkaufen oder behalten": Auf "behalten" tritt der Weg nach Barcelona zurück (Abdunkeln,
-// DESIGN.md §6), die Figur bleibt hell. Höchstens 1 Kreis je Video: Der steht beim Begriff.
-tl.fromTo("#w-route", { opacity: 1 }, { opacity: 0.35, duration: 0.3, ease: "power2.inOut" }, Z.behalten);
-tl.fromTo("#w-route", { opacity: 0.35 }, { opacity: 1, duration: 0.3, ease: "power2.inOut", immediateRender: false }, Z.hookAus);
-// Preisschilder hängen sich nacheinander ein: Faden erscheint, Schild pendelt um sein Loch aus.
+// "verkaufen oder BEHALTEN": Route und Barcelona treten zurück. So liest man in der Denkpause
+// "Barcelona" nicht als Teil des untersten Schilds (Runde 2, Prüfung 1). Die Route bleibt
+// zurückgenommen, bis die Kamera nach Barcelona fährt (sonst sticht sie durch die Credits).
+dunkel("#w-route", Z.dimBcn, 1, 0.35, true);
+dunkel("#w-route", Z.routeHell, 0.35, 1);
+dunkel("#w-route", Z.routeDunkel, 1, 0.35);
+dunkel(["#w-name-barcelona", "#w-punkt-barcelona"], Z.dimBcn, 1, 0.35);
+dunkel(["#w-name-barcelona", "#w-punkt-barcelona"], Z.hookAus, 0.35, 1);
+// Preisschilder hängen sich auf "kostet" nacheinander ein: Schnur erscheint, Schild pendelt
+// kurz um sein Loch und steht (0,35 s; was gelesen wird, steht still).
 [1, 2, 3].forEach(function (i) {
-  const t = Z.optionen + (i - 1) * 0.16;
+  const t = Z.schilder + (i - 1) * 0.12;
   tl.fromTo("#a-faden-" + i, { opacity: 0 }, { opacity: 1, duration: 0.12, ease: "none" }, t);
   tl.fromTo("#a-schild-" + i, { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "none" }, t);
-  tl.fromTo("#a-schild-" + i, { rotation: 16 }, { rotation: 0, duration: 0.7, ease: "back.out(2.6)" }, t);
+  tl.fromTo("#a-schild-" + i, { rotation: 10 }, { rotation: 0, duration: 0.35, ease: "back.out(1.4)" }, t);
 });
-// Beat 3: Schilder, Name treten ab (vor dem Zoom), Waage richtet sich auf, Spieler hüpft auf die Schale
+// Beat 3: Schilder, Name treten ab (vor dem Zoom), die Waage richtet sich am Fuß der Figur auf.
 raus(["#a-schild-1", "#a-schild-2", "#a-schild-3", "#a-faden-1", "#a-faden-2", "#a-faden-3", "#a-spieler-name"], Z.hookAus, { stagger: 0.03 });
 tl.fromTo("#w-saeule-auf", { scaleY: 0, transformOrigin: "50% 100%" }, { scaleY: 1, duration: 0.35, ease: "expo.out" }, Z.waageAuf);
 tl.fromTo("#w-oben", { opacity: 0, scale: 0.86, transformOrigin: "50% 0%" },
   { opacity: 1, scale: 1, duration: 0.35, ease: "expo.out" }, Z.waageAuf + 0.12);
 tl.fromTo("#w-waage", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "none" }, Z.waageAuf);
-aufprall("#a-spieler-bild", Z.spielerHopp + PH.schrittzeit, 0.9, false);
-// Beleg fällt in die Kosten-Schale; Stempel "bezahlt" auf "bezahlt"
+// Beleg fällt in die Kosten-Schale (die Waage kippt links); Stempel "bezahlt" auf "bezahlt"
 aufprall("#a-beleg-papier", Z.belegFall + PH.fallzeit, 0.9, true);
-tl.fromTo("#a-beleg-stempel", { opacity: 0 }, { opacity: 1, duration: 0.06, ease: "none" }, Z.stempel);
-tl.fromTo("#a-beleg-stempel", { scale: 1.6, rotation: -14 }, { scale: 1, rotation: -8, duration: 0.28, ease: "back.out(2.2)" }, Z.stempel);
-// "Tore" an der Figur; tritt ab, wenn der Vertrag kommt
+stempel("#a-beleg-stempel", Z.stempel, -8);
+// Der Spieler landet auf der Nutzen-Schale (die Waage kippt rechts), "Tore" an der Figur
+aufprall("#a-spieler-bild", Z.neigungRechts, 0.9, true);
 rein("#w-tore", Z.toreText);
-raus("#w-tore", Z.vertragAus);
+raus("#w-tore", Z.toreAus);
+
+// Beat 4: Die Waage tritt zurück (Held ist das Blatt). Vertrag fällt; die gedruckte Zeitleiste
+// läuft auf "Saison"; die Verlängerung erscheint auf "Verlängern" und tritt auf "nicht" zurück
+// (35 %, sie bleibt lesbar als verworfene Möglichkeit); Stempel "ablösefrei" und "0 €".
+const WAAGE_TEILE = ["#w-waage-svg", "#a-beleg-papier", "#a-spieler-bild"];
+dunkel(WAAGE_TEILE, Z.dimWaage, 1, 0.35, true);
+aufprall("#a-vertrag-papier", Z.vertragFall + PH.fallzeit, 0.92, true);
+tl.fromTo("#zl-start", { opacity: 0, scaleY: 0 }, { opacity: 1, scaleY: 1, duration: 0.25, ease: "back.out(2.2)" }, Z.band);
+// Das Band läuft gleichmäßig (linear: konstantes Tempo IST hier die Aussage) und steht dann.
+tl.fromTo("#zl-band", { scaleX: 0 }, { scaleX: 1, duration: Z.bandEnde - Z.band, ease: "none" }, Z.band);
+rein("#zl-saison", Z.band);
+tl.fromTo("#zl-ende", { opacity: 0, scaleY: 0 }, { opacity: 1, scaleY: 1, duration: 0.25, ease: "back.out(2.2)" }, Z.bandEnde);
+tl.fromTo(["#zl-verl", "#zl-verl-text"], { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, Z.verlaengern_an);
+dunkel(["#zl-verl", "#zl-verl-text"], Z.verlaengern, 1, 0.35);
+stempel("#a-vertrag-stempel", Z.frei, -7);
+stempel("#a-vertrag-null", Z.nullEuro, 4);
+raus("#a-vertrag-papier", Z.vertragAus);
+// Die Kamera ist in Barcelona, die Waage außer Sicht: wieder volle Deckkraft.
+dunkel(WAAGE_TEILE, Z.hellWaage, 0.35, 1);
 
 // Beat 5: Geld fällt auf Barcelona (auf "45"), staucht beim Aufprall
 aufprall("#a-geld-bild", Z.geldLandetBcn, 0.84, true);
-aufprall("#a-geld-bild", Z.landung, 0.9, false);
-// Beat 6a/6b/7: Etikett unter dem Stapel verwandelt sich mit dem Gesagten
+// Beat 6a: Der Geist löst sich vom Stapel (Umriss erscheint), fliegt, landet auf der Kosten-Schale.
+tl.fromTo("#a-geist-umriss", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power2.out" }, Z.abflugGeist);
+tl.fromTo("#a-geist-echt", { opacity: 0 }, { opacity: 0, duration: 0.01, ease: "none" }, 0);
+aufprall("#a-geist-umriss", Z.landung, 0.92, true);
+// "45 Mio. €" unter der Kosten-Schale im Geist-Stil (Zahl 60 %, gestrichelte Unterkante): eine
+// Möglichkeit. "Behalten keinen CENT": Stempel "0 €" am Schild. Damit steht der Vergleich als
+// Bildpaar da: Geist mit 45 Mio. € gegen Behalten 0 € (Prüfung 2).
 rein("#w-reihe-zahl", Z.geldEtikett);
-morph("#w-reihe-zahl", "#w-reihe-entgangen", Z.etikettEntgangen);
-morph("#w-reihe-entgangen", "#w-reihe-aufgegeben", Z.etikettAufgegeben);
-// Kreis Gold um den Stapel, wenn der Begriff fällt (Gold = gesuchte Größe)
+tl.fromTo("#w-null-behalten", { opacity: 0 }, { opacity: 1, duration: 0.06, ease: "none" }, Z.nullBehalten);
+tl.fromTo("#w-null-behalten", { scale: 1.6, rotation: -12, svgOrigin: "0 0" }, { scale: 1, rotation: -6, duration: 0.28, ease: "back.out(2.2)" }, Z.nullBehalten);
+// Beat 6b: "Entgangenes": Zeile 2 sagt, was der Geist ist.
+rein("#w-reihe-entgangen", Z.etikettEntgangen);
+// "fehlt GENAUSO wie bezahltes": Der Geist drückt die Schale (er hat Gewicht), die Waage schwingt,
+// und die Zahl wird fest (volle Deckkraft, ohne Strichelung).
+aufprall("#a-geist-umriss", Z.waagerecht, 0.9, false);
+tl.fromTo("#w-zahl-text", { opacity: 0.6 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, Z.waagerecht);
+tl.fromTo("#w-zahl-strich", { opacity: 1 }, { opacity: 0, duration: 0.3, ease: "power2.in" }, Z.waagerecht);
+// Beat 7: Kreis Gold um den Geist, wenn der Begriff fällt (Gold = gesuchte Größe)
 const kreisGeld = M.marker(tl, document.getElementById("m-anker-geld"), "kreis",
-  { cx: 0, cy: -6, rx: 100, ry: 160 },
+  { cx: 0, cy: -6, rx: 80, ry: 160 },
   { farbe: "#C9A84C", breite: 10, seed: 7, beginn: Z.begriff, dauer: DATEN.marker.kreis, id: "m-kreis-geld" });
-// Abdunkeln (DESIGN.md §6): Solange der Begriff am Stapel steht, treten Beleg und Figur auf 35 %
-// zurück. So ist der Gold-Kreis im Umfeld das einzige helle Zeichen.
-tl.fromTo(["#a-beleg-papier", "#a-spieler-bild"], { opacity: 1 }, { opacity: 0.35, duration: 0.3, ease: "power2.inOut" }, Z.begriff);
-tl.fromTo(["#a-beleg-papier", "#a-spieler-bild"], { opacity: 0.35 }, { opacity: 1, duration: 0.3, ease: "power2.inOut", immediateRender: false }, Z.neigungLinks);
-// Beat 8: Bayern nimmt das Geld. Danach ist es Einnahme, nicht mehr "aufgegeben".
-raus(["#w-reihe-aufgegeben", kreisGeld], Z.neigungLinks, { stagger: 0.05 });
-// "Auch Verkaufen hat Opportunitätskosten": Etikett an der leeren Nutzen-Schale, dann "1 Saison"
-tl.fromTo("#w-ok", { opacity: 0, filter: "blur(8px)", scale: 0.9, transformOrigin: "50% 100%" },
-  { opacity: 1, filter: "blur(0px)", scale: 1, duration: 0.35, ease: "expo.out" }, Z.okEtikett);
+// Abdunkeln: Solange der Begriff steht, treten Beleg und Figur auf 35 % zurück, der Stempel
+// "0 €" geht. So ist der Gold-Kreis im Umfeld das einzige helle Zeichen.
+dunkel(["#a-beleg-papier", "#a-spieler-bild"], Z.begriff, 1, 0.35);
+tl.fromTo("#w-null-behalten", { opacity: 1 }, { opacity: 0, duration: 0.2, ease: "power2.in", immediateRender: false }, Z.nullBehaltenAus);
+// "Wert der besten ALTERNATIVE": Zeile 2 verwandelt sich (Morph), das Etikett hängt am Geist.
+morph("#w-reihe-entgangen", "#w-reihe-alternative", Z.etikettAlternative);
+// Atempause nach der Definition: Begriff, Kreis, Etiketten und Beleg treten ab, die Figur kommt
+// zurück. Wer verkauft, zahlt kein Gehalt mehr; der Beleg war schon zurückgetreten.
+raus(["#w-reihe-zahl", "#w-reihe-alternative", kreisGeld], Z.julAus, { stagger: 0.05 });
+tl.fromTo("#a-beleg-papier", { opacity: 0.35, filter: "blur(0px)" },
+  { opacity: 0, filter: "blur(8px)", duration: 0.25, ease: "power2.in", immediateRender: false }, Z.julAus);
+dunkel("#a-spieler-bild", Z.julAus, 0.35, 1);
+// Beat 8: "nimmt" -> Neigung (Spur). Drehung in der Atempause, das Schild kippt auf "Verkaufen".
+// Der Geist wird erst echt, wenn er auf der Nutzen-Seite ankommt (zweite Hälfte der Drehung).
+tl.fromTo("#a-geist-umriss", { opacity: 1, scale: 1, transformOrigin: "50% 100%" },
+  { opacity: 0, scale: 1.06, duration: 0.2, ease: "power2.in", immediateRender: false }, Z.massiv);
+tl.fromTo("#a-geist-echt", { opacity: 0, scale: 0.9, transformOrigin: "50% 100%" },
+  { opacity: 1, scale: 1, duration: 0.32, ease: "expo.out", immediateRender: false }, Z.massiv + 0.06);
+// "Auch Verkaufen hat OPPORTUNITÄTSKOSTEN": Etikett unter der Kosten-Schale (jetzt mit dem Spieler).
+// Das Geld tritt zurück (35 %): Gold heißt "gesucht", und gesucht ist jetzt die eine Saison.
+rein("#w-ok", Z.okEtikett, { duration: 0.25 });
+dunkel("#a-geist-echt", Z.geldDunkel, 1, 0.35);
+// "eine Saison": Der Spieler fliegt ab, sein Umriss bleibt, dann "1 Saison"
+tl.fromTo("#a-umriss-bild", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.35, ease: "power2.out" }, Z.umriss);
 rein("#w-saison", Z.saisonText);
 
 // Die Uhr: Die Zeitachse ruft bei jedem Bild render(t) auf. Der leere Tween gibt ihr die volle Länge.

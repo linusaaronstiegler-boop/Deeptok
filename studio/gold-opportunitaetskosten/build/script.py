@@ -12,6 +12,8 @@
 #     Cue-Namen sind im ganzen Video eindeutig: Der Bau sammelt sie in EINEM Wörterbuch (WORTE),
 #     wie im Bühnen-Spike (studio/spike-buehne/build/bauen.mjs).
 #   - "pause_s": deklarierte Denkpause NACH der Szene (Stille, Optionen sichtbar).
+#   - "atem_s": deklarierte Atempause NACH der Szene, vor einer Pointe (Stille, Bild steht).
+#     Kürzer als die Denkpause (0,6-1,1 s), damit G4 sie nicht als "lange Stille" zählt.
 #   - "hold_s": Halten am Ende (Stille, letztes Bild steht).
 #   - "interaction": "pause_for_answer" hält in der App an, bis getippt wurde.
 #   - "betont": Wörter, die die Stimme betonen soll (Markup *betont* aus VIDEO-PIPELINE §4;
@@ -36,13 +38,17 @@ SCENES = [
     # liest sie NICHT vor, sonst liest und hört man denselben Text.
     # Vor der Pause ist KEIN Geld im Bild: Gold bedeutet „gesuchte Größe“, ein goldener
     # Münzstapel würde hier die richtige Antwort verraten.
-    {"id": "hook", "beat": "frage", "interaction": "pause_for_answer", "pause_s": 2.5,
+    # pause_s 2,4 (Runde 2): Im MP4 kommen an den Blockrändern je 0,03 s Rand dazu; mit 2,5 lag die
+    # gemessene Stille bei 2,57 s, knapp über der Spanne aus DESIGN.md §9 (1,5-2,5 s, Prüfung 3).
+    {"id": "hook", "beat": "frage", "interaction": "pause_for_answer", "pause_s": 2.4,
      "facts": ["will", "datum", "dilemma", "behalten"],
      "sentences": [
          "Barcelona|Barsselona will Lewandowski.",
          "Bayern kann verkaufen oder behalten.",
          "Was kostet es, ihn zu behalten?",
      ],
+     # Die drei Antwort-Schilder hängen sich schon auf "kostet" (Cue frage) an die Figur, nicht erst
+     # auf das letzte Wort: So stehen sie ca. 4 s lesbar, ohne das Video zu verlängern.
      "cues": {"bcn": "Barcelona", "lewa": "Lewandowski", "verkaufen": "verkaufen",
               "behalten": "behalten#1", "frage": "kostet", "optionen": "behalten#2"},
      # "behalten#1": Nur das erste „behalten“ wird betont. Im Fragesatz liegt der Ton auf „kostet“.
@@ -58,7 +64,11 @@ SCENES = [
          "Denn nur das bezahlt Bayern.",
          "Dafür schießt er Tore.",
      ],
-     "cues": {"waage": "Naheliegend", "gehalt": "Gehalt", "bezahlt": "bezahlt", "tore": "Tore"},
+     # "nur#1": Die Behauptung erscheint oben links, sobald sie gesprochen wird ("nur sein Gehalt").
+     # "schiesst" (Runde 2, Prüfung 2): Erst hier steigt der Spieler auf die Nutzen-Schale, und die
+     # Waage neigt sich, WEIL etwas aufsetzt. Vorher stand er schon da, und nichts geschah.
+     "cues": {"waage": "Naheliegend", "nur": "nur#1", "gehalt": "Gehalt", "bezahlt": "bezahlt",
+              "schiesst": "schießt", "tore": "Tore"},
      "betont": ["Gehalt", "bezahlt"]},
 
     # Beat 4: Gegenbefund, Teil 1. Warum Behalten hier die GANZE Ablöse kostet: Nach dem
@@ -73,8 +83,13 @@ SCENES = [
      ],
      # „0 €“ erscheint schon auf „ablösefrei“ (nicht erst auf „nichts“), damit es 1,2 s steht,
      # bevor die Kamera in Beat 5 losfährt (Kamera steht in der Lesezeit, DESIGN.md §5).
-     "cues": {"vertrag": "Vertrag", "saison": "Saison", "verlaengern": "nicht",
-              "frei": "ablösefrei"},
+     # Der Vertrag ist ein Gegenstand (Blatt mit Zeitleiste). "verlaengern_an": Die gestrichelte
+     # Verlängerung erscheint auf "Verlängern" und erlischt auf "nicht".
+     # Runde 2: Die Zeitleiste ist auf das Vertragsblatt gedruckt. "danach" („Danach“): Die Welt fährt
+     # näher an das Blatt (Detail: was nach dem Vertrag kommt). "nichts": Stempel „0 €“ auf dem Wort,
+     # das ihn nennt („Bayern bekommt nichts“), neben dem Stempel „ablösefrei“.
+     "cues": {"vertrag": "Vertrag", "saison": "Saison", "verlaengern_an": "Verlängern",
+              "verlaengern": "nicht", "danach": "Danach", "frei": "ablösefrei", "nichts": "nichts"},
      "betont": ["eine", "nichts"]},
 
     # Beat 5: Gegenbefund, Teil 2. Erst JETZT fällt das Geld (Münzstapel, Gold) auf Barcelona,
@@ -84,35 +99,44 @@ SCENES = [
      "sentences": [
          "Barcelona|Barsselona bietet Bayern jetzt 45|fünfundvierzig Millionen Euro.",
      ],
-     "cues": {"angebot": "Barcelona", "zahl": "45"},
+     # "bietet": Die Kamera fährt erst hier los und kommt kurz vor "45" in Barcelona an
+     # (vorher stand nach der Fahrt ein leeres Bild).
+     "cues": {"angebot": "Barcelona", "bietet": "bietet", "zahl": "45"},
      "betont": ["jetzt", "45"]},
 
     # Beat 6a: Widerlegung. Nur hier ist Rot erlaubt (Durchstrich auf dem Schild „Nur sein Gehalt“).
     # Statt den Lehrsatz zu behaupten, vergleicht der zweite Satz die beiden Ausgänge.
-    # Das Geld fliegt dabei von Barcelona nach München (Richtung der Ablöse) und landet auf der
-    # Kosten-Schale des Behaltens; die Waage schwingt von „Behalten“ auf waagerecht.
-    {"id": "widerlegung", "beat": "widerlegung", "facts": ["abl", "frei"],
+    # Ein GEIST des Stapels (gestrichelter Umriss = nur eine Möglichkeit) fliegt von Barcelona nach
+    # München und landet auf der Kosten-Schale. Das echte Geld bleibt in Barcelona: Während
+    # „Behalten keinen Cent“ liegt bei Bayern also kein Geld, nur sein Umriss.
+    # atem_s: eine Atempause vor dem Schluss „Entgangenes Geld …“ (Pointe, Prüfung 2).
+    {"id": "widerlegung", "beat": "widerlegung", "facts": ["abl", "frei"], "atem_s": 0.9,
      "sentences": [
          "Nur sein Gehalt? Das stimmt nicht.",
          "Verkaufen bringt 45|fünfundvierzig Millionen Ablöse, Behalten keinen Cent.",
      ],
      # Landung auf „Ablöse“, nicht auf „Cent“: So hat die Waage 1,7 s Zeit auszuschwingen,
      # bevor in Beat 6b das Etikett „entgangen“ kommt (höchstens 2 Bewegungen zugleich).
-     "cues": {"falsch": "nicht", "landung": "Ablöse"},
+     # "cent" (Runde 2, Prüfung 2): Auf "keinen Cent" kommt der Stempel "0 €" an das Schild
+     # "Behalten". Der Vergleich der beiden Ausgänge steht damit als Bildpaar da.
+     "cues": {"falsch": "nicht", "landung": "Ablöse", "cent": "Cent"},
      "betont": ["nicht", "Verkaufen", "Behalten"],
      "steigt": ["Nur sein Gehalt?"]},
 
     # Beat 6b: der Schluss aus dem Vergleich. Das Paar „entgangen/bezahlt“ ist der Kern.
+    # Auf „genauso“ bekommt der Geist Gewicht: Die Waage schwingt auf waagerecht.
     # Auf „bezahltes“ verwandelt sich das durchgestrichene Schild in die richtige Antwort.
     {"id": "entgangen", "beat": "widerlegung",
      "sentences": [
          "Entgangenes Geld fehlt genauso wie bezahltes.",
      ],
-     "cues": {"entgangen": "Entgangenes", "korrektur": "bezahltes"},
+     "cues": {"entgangen": "Entgangenes", "gewicht": "genauso", "korrektur": "bezahltes"},
      "betont": ["genauso"]},
 
     # Beat 7: Begriff erst jetzt, nach dem Beispiel. „man“ statt „du“: Noch ist es Bayerns Fall.
-    {"id": "begriff", "beat": "begriff", "facts": ["begriff"],
+    # atem_s (Runde 2, Prüfung 2): Die Definition hat 10 Wörter in 2,8 s. Danach eine Atempause,
+    # in der Begriff und Kreis abtreten und die Kamera auf die ganze Waage zurückfährt.
+    {"id": "begriff", "beat": "begriff", "facts": ["begriff"], "atem_s": 0.6,
      "sentences": [
          "Ökonomen nennen dieses Geld Opportunitätskosten.",
          "Das ist der Wert der besten Alternative, die man aufgibt.",
@@ -121,17 +145,32 @@ SCENES = [
      "betont": ["Opportunitätskosten", "aufgibt"]},
 
     # Beat 8: Auflösung des Falls. Der neue Begriff wird sofort angewendet: Auch Verkaufen hat
-    # Opportunitätskosten. Der Spieler fliegt von München nach Barcelona (Richtung des Spielers),
-    # das Etikett „Opportunitätskosten“ wandert vom Geld an die leere Nutzen-Schale.
-    {"id": "verkauf", "beat": "aufloesung", "facts": ["datum", "kahn_summe", "saison"],
+    # Opportunitätskosten. Die Waage dreht sich um (Schild „Behalten“ -> „Verkaufen“): Jetzt
+    # liegt das Geld auf „Nutzen“, der Spieler auf „Kosten“. Er fliegt ab (Richtung Barcelona),
+    # sein gestrichelter Umriss bleibt auf der Kosten-Schale: „Opportunitätskosten / 1 Saison“.
+    # So liegen Opportunitätskosten in jedem Bild links auf „Kosten“ (Prüfung 1 und 2, P0).
+    #
+    # Runde 2 (Prüfung 2, P1 „fünf Bedeutungswechsel in 2,3 s“): Beat 8 ist jetzt zwei Szenen.
+    # Nach „Im Juli nimmt Bayern das Geld.“ steht eine Atempause (atem_s, Sprechtext unverändert).
+    # In ihr beginnt die Drehung bei stehender Kamera; der Geist wird erst echt, wenn er auf der
+    # Nutzen-Seite ankommt. Die Atempause braucht eine Szenengrenze, denn voice.py teilt die
+    # Stimme nur an deklarierten Pausen nach einer Szene.
+    {"id": "verkauf", "beat": "aufloesung", "facts": ["datum", "kahn_summe"], "atem_s": 0.7,
      "sentences": [
          "Im Juli nimmt Bayern das Geld.",
+     ],
+     # "nimmt": Die Waage neigt sich (Bayerns Entscheidung), in der Totale (Kamera steht).
+     "cues": {"juli": "Juli", "nimmt": "nimmt", "genommen": "Geld"},
+     "betont": ["nimmt"]},
+
+    # "dreh" („Verkaufen“): Die Waage hat sich gedreht; das Schild zeigt „Verkaufen“, sobald das Wort
+    # fällt. "abflug_spieler" („eine“): Der Spieler fliegt ab, "ok_saison" („Saison“): „1 Saison“.
+    {"id": "aufloesung", "beat": "aufloesung", "facts": ["saison"],
+     "sentences": [
          "Auch Verkaufen hat Opportunitätskosten: eine Saison Lewandowski.",
      ],
-     # Nur die Landung ist ein Cue; den Abflug rechnet der Bau zurück (Landung - Flugzeit),
-     # wie beim Geld im Spike. So hebt der Spieler etwa auf „Opportunitätskosten“ ab.
-     "cues": {"juli": "Juli", "genommen": "Geld", "ok_verkauf": "Opportunitätskosten",
-              "landung_spieler": "Lewandowski"},
+     "cues": {"dreh": "Verkaufen", "ok_verkauf": "Opportunitätskosten", "abflug_spieler": "eine",
+              "ok_saison": "Saison"},
      "betont": ["Verkaufen", "Saison"]},
 
     # Beat 9: das Modell wird allgemein. Harter Schnitt auf das Nomen „Waage“ (neues Thema: jede
@@ -152,17 +191,24 @@ SCENES = [
          "Du bekommst eine Kinokarte für heute Abend geschenkt.",
          "Genau dann könntest du mit Nachhilfe Geld verdienen.",
      ],
-     "cues": {"karte": "Kinokarte", "geschenkt": "geschenkt", "nachhilfe": "Nachhilfe",
+     # "genau" (Runde 2, Prüfung 2): Das gestrichelte Gold-Fach „aufgegeben“ kommt erst mit seinem
+     # Beispiel („Genau dann könntest du …“), die Rechnung mit „geschenkt“. Vorher ist die Waage leer.
+     "cues": {"karte": "Kinokarte", "geschenkt": "geschenkt", "genau": "Genau", "nachhilfe": "Nachhilfe",
               "lohn_da": "Geld"},
      "betont": ["geschenkt", "dann"]},
 
-    {"id": "transfer_lohn", "beat": "transfer",
+    # "gleichung" („kostet“): Erst hier erscheint „Kosten = bezahlt + aufgegeben“, wenn es
+    # gesprochen wird (vorher stand es ohne Ton im Bild, Prüfung 2).
+    # atem_s: Atempause vor dem Satz fürs Gespräch.
+    {"id": "transfer_lohn", "beat": "transfer", "atem_s": 0.9,
      "sentences": [
          "Also kostet dich das Kino diesen Lohn.",
          "Das kann es wert sein.",
          "Gratis ist es nicht.",
      ],
-     "cues": {"lohn": "Lohn", "gratis": "Gratis"},
+     # "gratis_nicht" (Runde 2): Auf „nicht“ zuckt die Lohntüte neben der Rechnung „0 €“. Das Bild
+     # sagt „nicht gratis“, statt den Satz als Formel hinzuschreiben (Prüfung 2).
+     "cues": {"gleichung": "kostet", "lohn": "Lohn", "gratis": "Gratis", "gratis_nicht": "nicht"},
      "betont": ["Lohn", "nicht"]},
 
     # Beat 12: Satz fürs Gespräch (Linus) = Satz für die Stunde (Bruder). Dann Halten.
@@ -193,6 +239,7 @@ LEAD_IN = 0.35          # Stille vor dem ersten Wort (wie voice.py)
 MAX_WOERTER = 19        # Kit-Konstante: höchstens 19 Wörter pro Szene (VIDEO-PIPELINE §3)
 FRAGE_BIS = 8.0         # Frage muss in den ersten 8 s stehen (§5 „Immer gilt“)
 PAUSE_SPANNE = (1.5, 2.5)   # deklarierte Denkpausen (§4 Regeln, DESIGN.md §9)
+ATEM_SPANNE = (0.6, 1.1)    # Atempausen: hörbar länger als eine Satzpause, kürzer als G4s 1,2 s
 SATZZEICHEN = ".,:;?!…"
 
 
@@ -255,10 +302,13 @@ def pruefe(tempo=2.3):
         pause = szene.get("pause_s", 0)
         if pause and not PAUSE_SPANNE[0] <= pause <= PAUSE_SPANNE[1]:
             fehler.append(f"Szene {szene['id']}: Denkpause {pause} s außerhalb {PAUSE_SPANNE}")
+        atem = szene.get("atem_s", 0)
+        if atem and not ATEM_SPANNE[0] <= atem <= ATEM_SPANNE[1]:
+            fehler.append(f"Szene {szene['id']}: Atempause {atem} s außerhalb {ATEM_SPANNE}")
         t += len(woerter) / tempo
         if szene.get("interaction") == "pause_for_answer" and t > FRAGE_BIS:
             fehler.append(f"Frage endet bei {tempo} Wörtern/s ca. {t:.1f} s, Ziel <= {FRAGE_BIS} s")
-        t += pause + szene.get("hold_s", 0)
+        t += pause + atem + szene.get("hold_s", 0)
         zeilen.append((szene["id"], len(woerter), start, t))
     return fehler, zeilen, t, cue_zeiten
 
@@ -274,7 +324,7 @@ if __name__ == "__main__":
     for sid, n, a, e in zeilen:
         print(f"{sid:14s} {n:6d} {a:7.1f} {e:7.1f}")
     gesamt = sum(n for _, n, _, _ in zeilen)
-    pausen = LEAD_IN + sum(s.get("pause_s", 0) + s.get("hold_s", 0) for s in SCENES)
+    pausen = LEAD_IN + sum(s.get("pause_s", 0) + s.get("atem_s", 0) + s.get("hold_s", 0) for s in SCENES)
     print(f"gesamt {gesamt} Wörter; Dauer bei 2,0 / 2,3 / 2,6 Wörtern/s: "
           + " / ".join(f"{gesamt / v + pausen:.1f} s" for v in (2.0, 2.3, 2.6)))
     if "--cues" in sys.argv:

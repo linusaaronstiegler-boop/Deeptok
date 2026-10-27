@@ -1,6 +1,6 @@
 # DeepTok Haus-Design
 
-Stand 27.10.2026 (Phase 1, Goldstandard). Gilt für jedes Video in `studio/` und jede Szene der Bibliothek.
+Stand 27.10.2026 (Phase 1, Goldstandard; Runde 1 der Kritik eingearbeitet, abends). Gilt für jedes Video in `studio/` und jede Szene der Bibliothek.
 Grundlage sind `docs/VIDEO-PIPELINE.md` §3/§5/§6, `studio/spike-buehne/REVIEW.md` (gemessen) und die Beat-Blätter von alter Probe und Spike A+.
 
 - Maße in Bildpixeln bei 1080 × 1920, 30 fps. **Handy-Maßstab 0,36:** Auf einem 390-pt-Handy werden 34 px zu 12 pt und 2 px zu 0,7 pt. Was dort verschwindet, gibt es nicht (Korn-Lehre).
@@ -29,7 +29,8 @@ Grundlage sind `docs/VIDEO-PIPELINE.md` §3/§5/§6, `studio/spike-buehne/REVIEW
 - Text steht linksbündig an x = 108. Zentriert ist Text nur, wenn er an einem zentrierten Gegenstand hängt (Name unter einem Punkt).
 - Die Welt (Karte, Rasterpapier, Spaltenraster, Foto) reicht an alle vier Bildränder. Nichts schwebt auf leerem Navy.
 - **Held:** Entweder füllt die Welt das Bild und ein Darsteller ist ≥ 288 px (15 % der Bildhöhe) groß, oder ein Gegenstand bzw. Diagramm misst ≥ 465 px hoch (40 % des Lesefensters) bzw. ≥ 691 px breit (80 %).
-- **Bild statt Text:** Ein Videobild zählt als „Bild“, wenn der Held kein Text ist und alle Textkästen zusammen ≤ 20 % der Lesefenster-Fläche bedecken (≤ 251 000 px²). Das gilt für ≥ 50 % aller Bilder (G0/G6).
+- **Bild statt Text:** Ein Videobild zählt als „Bild“, wenn der Held kein Text ist und alle Textkästen zusammen ≤ 20 % der Lesefenster-Fläche bedecken (≤ 251 000 px²). Das gilt für ≥ 50 % aller Bilder (G0/G6). Abgedunkelte Texte (§6, 35 %) zählen nicht mit. Gemessen wird im Player Bild für Bild (`build/messen-bild.mjs` im Goldstandard), auch Texte in der Welt.
+- **Nach einer Fahrt** steht kein Text halb am Bildrand: Was eine Nachfahrt (§5) aus dem Lesefenster schiebt, tritt vorher zurück (Goldstandard, Runde 1).
 - Tor für die Untertitel-Zone (geprüft am 27.10. an einer Kopie von A+: 0 Fehler; eine Credit-Zeile auf y = 1420 gibt `caption_zone_collision`, Exit 1):
   `npx hyperframes check --caption-zone "x0=0;y0=.693;x1=1;y1=1;severity=error"`. Untertitel tragen `data-layout-allow-caption-zone`.
 
@@ -51,7 +52,9 @@ Grundlage sind `docs/VIDEO-PIPELINE.md` §3/§5/§6, `studio/spike-buehne/REVIEW
 - **Zahlformat:** echtes Minus „−“ (U+2212). Zwischen Zahl und Einheit ein geschütztes Leerzeichen („45 Mio. €“). Tausenderpunkt ab fünf Stellen, Datum als TT.MM.JJJJ. Im Bild steht „Mio.“/„Mrd.“, im Ton das ausgeschriebene Wort; G1 normalisiert beides.
 - **Eigennamen:** so geschrieben wie in der Quelle, Vereine mit offizieller Kurzform („FC Bayern“). Die Aussprache-Schreibung (`Barsselona`) steht nie im Bild. Anführungszeichen „…“.
 - **Nie:** kursiv, Versalien außerhalb von L und Editorial-Balken, Monospace.
-- **Lesbarkeit über Karte oder Foto** nur mit dunklem Schatten `0 2px 18px rgba(14,23,38,.9)`, nie mit hellem Schein.
+- **Lesbarkeit über Karte oder Foto** nur mit dunklem Schatten `0 2px 18px rgba(14,23,38,.9)`, nie mit hellem Schein. Credits über Linien der Karte (Route) bekommen dazu einen engen zweiten Schatten `0 0 4px rgba(14,23,38,.9)`.
+- **D2 zweizeilig mit Unterstreichung:** Zeilenhöhe 1,1 statt 1,0, sonst berührt der Strich die Oberlängen der zweiten Zeile (gemessen am Goldstandard).
+- **Daten stehen in der Credit-Zeile,** nicht als eigene Dateline über der Schlagzeile: Sie kostete im Hook eines von elf Textelementen, und Darsteller flogen durch sie hindurch (Goldstandard, Runde 1).
 
 ## 4. Farbe
 
@@ -104,6 +107,8 @@ Grundlage sind `docs/VIDEO-PIPELINE.md` §3/§5/§6, `studio/spike-buehne/REVIEW
 | Zoom-in | Detail derselben Welt | Kamerafahrt 0,5 s, Spanne 0,4–0,7 s (gemessen, docs/research/referenz-destillation.md), `power2.inOut`, Zoom logarithmisch; erst nach der Lesezeit |
 | Morph | derselbe Gegenstand verwandelt | alt: Unschärfe 0 → 10 px, Maßstab 1 → 1,3, 0,18 s `power2.in`; neu nach +0,06 s: Unschärfe 10 → 0 px, Maßstab 0,72 → 1, 0,32 s `expo.out` |
 | Schnitt | neues Thema | hart, 0 Bilder, auf dem Nomen des neuen Gegenstands |
+| Nachfahrt | Detail derselben Einstellung, wenn der Held nicht von selbst wächst | Welt, Darsteller, Etiketten und Marker zusammen (eine Hülle `data-rig`), Faktor 1,25 bis 2, 0,5 s `power2.inOut`, logarithmisch, um einen festen Bildpunkt. Das HUD bleibt fest. Erst nach der Lesezeit; der Bildpunkt liegt so, dass kein Text aus dem Lesefenster rutscht (am linken Rand: fx = 108); was am anderen Rand halb stünde, tritt vorher zurück |
+| Drehung | dieselbe Sache von der anderen Seite (Perspektivwechsel, z. B. Behalten → Verkaufen) | Gegenstand dreht sich um seine Achse, 0,6 s `power2.inOut`: flache Teile stauchen mit cos, die vordere Seite wird 10 % größer und 26 px tiefer, die hintere läuft hinter der Säule. Beschriftungen bleiben auf ihrer Bildseite und sind aus, solange der Betrag von cos unter 0,35 liegt; ein Schild hat Vorder- und Rückseite |
 
 Verboten sind Kreuzblenden zwischen Welten, Wischblenden und Deko-Übergänge.
 
@@ -134,13 +139,15 @@ Verboten sind Kreuzblenden zwischen Welten, Wischblenden und Deko-Übergänge.
 | Flusspfeil | 8 px | 0,4–0,6 s, kommt auf dem Wort an (gemessen) | folgt der Flussrichtung des Bedeuteten (Geld, Ware, Person) | mit der Szene |
 | Textmarker | Fläche 35 % Gold unter dem Wort | 0,4 s von links (gemessen) | 1,15 × Zeilenhöhe | steht mit dem Text |
 | Abdunkeln | alles außer dem Gemeinten auf 35 % Deckkraft | 0,3 s | kein Strich | bis zum nächsten Beat |
+| Stempel | Rahmen 4 px, Navy `#1F3864` auf Papier | 0,28 s, `back.out(2.2)`, Maßstab 1,6 → 1, Drehung −6° → Endlage | Wort in Inter 600, ±8° gedreht | steht mit dem Papier |
 
 - **Häufigkeit (gemessen):** In 778 s Vorbild-Material kommt kein handgezeichneter Kreis vor; Kreise gibt es dort nur in Vorschaubildern. Häufig sind Haken/Kreuz, Klammern, Flusspfeile, Textmarker und Abdunkeln. Deshalb: höchstens 1 Kreis je Video, sonst die übrigen Marker.
-- **Farbe:** Creme für Ort oder Gegebenes, Gold für die gesuchte Größe, Rot nur für den Irrtum.
+- **Farbe:** Creme für Ort oder Gegebenes, Gold für die gesuchte Größe, Rot nur für den Irrtum. **Auf Papier** (Beleg, Rechnung, Vertrag, Creme-Fläche) zeichnet der Marker in Stempel-Navy `#1F3864`: Creme auf Creme ist unsichtbar (Goldstandard, Runde 1).
 - **Timing:** Das Zeichnen beginnt am Anfang des Cue-Worts (±150 ms). Danach steht der Marker ≥ 1,2 s fertig (Bau prüft).
 - **Ruhe im Umfeld:** Im Umkreis von 200 px ist der Marker das einzige helle Zeichen. Regionsrand ≤ 70 %, Schein ≤ 55 %; der Ortsname darf stehen.
 - **Menge:** ≤ 1 Marker zeichnet gleichzeitig, ≤ 2 sind je Bild sichtbar. Markiert wird nur, was gerade gesprochen wird.
 - **Anker:** Auf Karte und Diagramm hängen Marker weltverankert in `<g data-anker>`. Marker im HUD gibt es nur bei stehender Kamera.
+- **Gebaut** (`lib/marker.js` im Goldstandard): Kreis, Unterstreichung, Durchstrich, Klammer. Abstand der Unterstreichung: 0,09 × Schriftgröße unter der GEMESSENEN Grundlinie (ein leerer Inline-Block im Text liefert sie), nicht unter der geschätzten Zeilenhöhe.
 - **Seek-sicher** (`lib/marker.js`): fester `seed` statt `Math.random()`, nur `fromTo`, Deckkraft 0 bis zum Cue, Strichmuster L/L+20 mit Offset L+10 → 0.
 
 ## 7. Identitäten
@@ -162,10 +169,11 @@ Jedes Video hat eine Hauptidentität. Eine zweite kommt nur per Schnitt (neues T
 
 ### Diagramm (Naturwissenschaft, Mathe, Schul-Transfer, Wirtschaftsmodelle)
 
-- **Rasterpapier bis an die Bildränder:** Kleinkaro 24 px (1 px, Creme 6 %), Großkaro 144 px = 6 × 6 Kleinkaro (2 px, Creme 12 %), ausgerichtet an x = 108 und y = 168.
+- **Rasterpapier bis an die Bildränder:** Kleinkaro 24 px (1 px, Creme 9 %), Großkaro 144 px = 6 × 6 Kleinkaro (2 px, Creme 18 %), ausgerichtet an x = 108 und y = 168. (Bis 27.10.: 6 % / 12 %; im Handy-Blatt war das Raster dabei praktisch weg, Kritik am Goldstandard.)
 - **Anker:** Jeder Punkt, jede Achse und jede Beschriftung sitzt auf einem Großkaro-Knoten oder an einer Achse; der Bau rundet auf 24 px.
 - **Achsen:** 4 px, Creme 80 %, Pfeilspitze 20 px. Beschriftung in Stufe T, ≤ 2 Wörter, direkt an der Achse.
-- **Kurven und Linien** 8 px, Punkte 24 px. Gold für die gesuchte Größe, Creme für das Gegebene.
+- **Kurven und Linien** 8 px, Punkte 24 px. Gold für die gesuchte Größe, Creme für das Gegebene. Ketten und Hilfslinien 4 px.
+- **Gegenstände im Diagramm** (Kinokarte, Rechnung) dürfen gefüllt sein (Creme-Papier, Navy-Druck), ohne Schatten. Was die gesuchte Größe trägt (Lohntüte), bleibt Gold-Strich.
 - **Herleitung:** ein Diagramm, eine Kamera, kein Schnitt. Neue Elemente kommen ins bestehende Diagramm, Details per Zoom-in.
 - **Verbote:**
   1. ein Diagramm in einer Karte oder Box mit runden Ecken (wie die „Tauschkurve“ der alten Probe);
@@ -180,6 +188,9 @@ Jedes Video hat eine Hauptidentität. Eine zweite kommt nur per Schnitt (neues T
 - **Darsteller:** ≥ 288 px, beleuchtet (Verlauf und Lichtkante), mit Schlagschatten am Boden. Nur die Karte zoomt, Darsteller und Namen bleiben bildschirmgroß.
 - **Route:** gepunktet in Gold, 5 px, Strich 2 px, Lücke 16 px, in Flussrichtung.
 - **Fotos und Belege:** Archivfotos (Wikimedia, Library of Congress) im Duoton mit „Foto: Urheber, Archiv, Jahr“. Schlagzeilen-Belege mit Quelle und Datum.
+- **Geist** (Goldstandard, Runde 1): gestrichelter Gold-Umriss eines Darstellers, sichtbarer Strich 5 px, Muster 16/11, Fläche Gold 14 %. Bedeutet **Möglichkeit oder Aufgegebenes** (Geld, das man nicht bekommt; der Spieler, den man abgibt), also Opportunitätskosten. Wird er echt, verwandelt er sich per Morph in den gefüllten Darsteller. Im Diagramm reimt er auf das gestrichelte Gold-Fach.
+- **Gegenstände tragen Bedeutung, nicht Text:** Ein Vertrag ist ein Blatt mit Stempel, eine Rechnung ein Beleg, eine Laufzeit eine Zeitleiste. Darsteller dürfen auf Gegenständen der Welt stehen (Schalen als Plätze).
+- **Schild an einem Modell-Gegenstand** (Waage): nennt, welche Entscheidung gewogen wird („Behalten“, „Verkaufen“, „Kino“), Inter 600 48 px auf Navy-Fläche. Es wechselt nur per Drehung (§5).
 - **Vignette:** radial, unter Text und Darsteller (sonst meldet `check` eine Verdeckung).
 - **Verbote:**
   1. Karten-Pins, Tropfen-Icons und Flaggen-Icons statt Punkt und Name;
@@ -206,6 +217,9 @@ Was nach Folie oder Standard-KI aussieht. G8 fragt an jedem Beat-Blatt: „Triff
 14. Musik, Soundeffekte unter Sprache, Whoosh auf Übergängen.
 15. KI-Bilder echter Personen oder als Beleg; KI-Bilder ohne das Label „Illustration“.
 16. Kreuzblende zwischen zwei Welten; ein harter Schnitt ohne neu genannten Gegenstand (Testschnitt des Spikes bei 7,5 s).
+17. Symbolfiguren mit falscher Nebenbedeutung: ein Schach-Bauer für den besten Stürmer („Bauernopfer“). Eine Figur muss auf den ersten Blick sagen, wer oder was sie ist (Goldstandard, Kritik).
+18. Ein Etikett wechselt die Seite eines Modells, ohne dass das Bild den Grund zeigt („Opportunitätskosten“ plötzlich über „Nutzen“). Wechselt die Sicht, dann per Drehung mit Schild (§5).
+19. Eine Formel als Merksatz, die einer anderen Formel im selben Bild widerspricht („Aufgeben = Kosten“ unter „Kosten = bezahlt + aufgegeben“).
 
 ## 9. Offene Werte (vorläufig)
 
@@ -221,7 +235,7 @@ Die Referenz-Destillation vom 27.10.2026 hat Schnitt, Titel-Timing und Tempo an 
 | Sprechtempo | 2,2 Wörter/s (G4: 2,0–2,6) (gemessen, docs/research/referenz-destillation.md) | Casting, Destillation |
 | Kamerafahrt / Flug | 0,5 s, Spanne 0,4–0,7 s (gemessen, docs/research/referenz-destillation.md) / 1,7 s (vorläufig, kein Vorbild) | Destillation |
 | Denkpause vor der Auflösung (im MP4) | 2,0 s (1,5–2,5) | Kalibrierung |
-| Abstand der Unterstreichung, Pfeil-Maße | siehe §6 | Goldstandard |
+| Abstand der Unterstreichung, Pfeil-Maße | Unterstreichung 0,09 × Schriftgröße unter der gemessenen Grundlinie (Goldstandard, Runde 1); Pfeil siehe §6 | Goldstandard |
 | Passer-Versatz / Rasterpunkt-Zelle | 4 px / im Handy-Blatt sichtbar | Goldstandard (Handy-Blatt 360 px) |
 | Untertitel- und App-Zone | y 1350–1490 / ab 1520 | Gerätetest |
 | Text-Standard | 52 px (Grenze 48–56); Vorbild-Labels entsprechen im Median 51 px (gemessen, docs/research/referenz-destillation.md) | Goldstandard |

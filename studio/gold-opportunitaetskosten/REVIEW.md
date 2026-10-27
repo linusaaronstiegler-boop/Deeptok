@@ -1,117 +1,152 @@
-# Review: Goldstandard „Was kostet es, Lewandowski zu behalten?“ (27.10.2026, abends)
+# Review: Goldstandard „Was kostet es, Lewandowski zu behalten?“ (Runde 1, 27.10.2026 spät)
 
-Phase 1 nach `docs/VIDEO-PIPELINE.md` §9: die Probe „Opportunitätskosten“ von Hand im neuen Look, gebaut nach `drehbuch.md`, `fakten.json`, `build/script.py` und `../DESIGN.md`. Bauweise A+ aus dem Bühnen-Spike. Nichts committet, nichts gepusht.
+Phase 1 nach `docs/VIDEO-PIPELINE.md` §9. Gebaut nach `drehbuch.md`, `fakten.json`, `build/script.py` und `../DESIGN.md`, Bauweise A+ aus dem Bühnen-Spike. Diese Fassung arbeitet die drei Prüfungen der Runde 1 ein (Bild, Didaktik, Technik). Nichts committet, nichts gepusht.
 
-**Die Stimme ist ein Platzhalter.** Piper „thorsten-high“ liefert nur das Timing. Die echte Stimme kommt aus dem Casting (Entscheidung am 1.11.), getauscht wird mit einer Zeile: `python build/voice.py --anbieter <sieger>`.
+**Die Stimme ist weiter ein Platzhalter** (Piper „thorsten-high“, nur für das Timing). Der Tausch ist eine Zeile: `python build/voice.py --anbieter <sieger>`, danach `node build/bauen.mjs`. Alle Bildzeiten folgen den neuen Wortzeiten; die Tore im Bau melden, wenn eine Zeit dabei nicht mehr passt.
 
 ## Messwerte
 
-| Wert | Ergebnis | Ziel |
-|---|---|---|
-| Dauer | 68,6 s (153 Wörter, 12 Szenen) | ≤ 90 s |
-| `hyperframes check` | **0 Fehler**, 8 Warnungen (unten begründet) | 0 Fehler |
-| `check --caption-zone` (DESIGN.md §2) | bestanden, 0 Fehler | 0 Fehler |
-| Hör-Check (`fabrik.py hoercheck`, Whisper `small`) | **WER 2,0 %**, −16,1 LUFS, Spitze −1,3 dBTP, 2 lange Stillen (beide deklariert), 2,43 Wörter/s, 44,1 kHz, 119 kbps, `ok: true` | G4 |
-| Bildanteil (`build/messen-bild.mjs`, alle 0,25 s im Player) | **58,9 %** der Zeit Held im Bild und Text ≤ 20 % des Lesefensters (vor Runde 3: 62,2 %; „Tore“ steht jetzt länger) | ≥ 50 % |
-| Renderzeit (`--workers 3`, 4 Kerne, Software-GPU) | **103 s** gesamt, davon 93,9 s Bilder (2058 Bilder); 9,1 MB | – |
-| Cue: Bild zum Wort | Jedes Bild setzt **2 Bilder (67 ms) vor** dem Wortanfang ein (Wortzeiten aus Pipers eigenem Laut-Alignment) | ±150 ms |
-| Cue: Gegenprobe Energie | Nach 26 Pausen beginnt der Ton **max. 99 ms, Median 6 ms** neben der Wortzeit | – |
-| Cue: Gegenprobe Whisper | 35 von 37 Cues gehört. Roh: **max. 374 ms**, Median 79 ms. Whisper setzt Wortanfänge systematisch 79 ms zu früh; bereinigt liegen 33 von 35 unter 150 ms | ≤ 150 ms |
+| Wert | Runde 1 | vorher | Ziel |
+|---|---|---|---|
+| Dauer | 69,4 s (153 Wörter, 12 Szenen; +0,8 s durch zwei Atempausen) | 68,6 s | ≤ 90 s |
+| `hyperframes check` | **0 Fehler**, 7 Warnungen (unten begründet) | 0 / 8 | 0 Fehler |
+| `check --caption-zone` (DESIGN.md §2) | 0 Fehler | 0 | 0 Fehler |
+| Hör-Check **auf dem gerenderten MP4** | WER **3,3 %**, **−16,1 LUFS**, −4,4 dBTP, 2 lange Stillen (beide deklariert), 2,38 Wörter/s, 48 kHz Stereo, `ok: true` | WER 2,0 %, im MP4 −13,1 LUFS | G4 |
+| Bildanteil (`build/messen-bild.mjs`, alle 0,1 s im Player) | **55,5 %** | 58,9 % (alle 0,25 s, andere Zählung) | ≥ 50 % |
+| Renderzeit (`--workers 3`) | **111,9 s**, 10,9 MB | 103 s, 9,1 MB | – |
+| Cue: Text gegen Wortanfang (Tor im Bau, 28 Texte) | **max. 83 ms** | bis 443 ms | ≤ 150 ms |
+| Cue: Energie-Probe (25 Einsätze nach Pausen) | max. 53 ms, Median 4 ms | max. 99 ms | – |
+| Cue: Whisper roh | max. 378 ms (siehe unten) | 374 ms | – |
+| Einzelbild-Scan (`build/flackern.py`, 2082 Bilder) | **0 Ausreißer an 12 Nähten** | 1 (Bild 989) | 0 |
+| Seek-Test (`build/seek-test.mjs`, 15 Bilder) | alle pfadunabhängig und bildgenau | – | alle |
+| Ton im Render gegen `voice.m4a` | 0 Samples Versatz | 0 | 0 |
+| Längste Einstellung ohne Fahrt/Schnitt | 13,8 s (Beats 3–4), danach 12,3 s (Diagramm); Median ≈ 6 s | 19,7 s, 18,3 s, 12,8 s | p90 12 s |
 
-**Zur Cue-Abweichung.** Die Wortzeiten kommen nicht aus einer Schätzung, sondern aus der Stimme selbst: Piper gibt mit dem Paket `onnx` an, wie viele Samples jeder Laut bekommt. Daraus sind sie exakt. Zwei unabhängige Prüfungen:
-- **Energie** (ohne Whisper): Nach jeder Pause ist der Wortanfang der erste laute Moment. Abweichung höchstens 99 ms.
-- **Whisper** liegt bei 5 Cues über 150 ms. Zwei davon sind nachweislich Fehler von Whisper, denn es legt den Wortanfang in die Stille: „Barcelona“ bei 0,0 s (vor dem Vorlauf) und „Naheliegend“ in die Denkpause. Bereinigt um den festen Versatz bleibt „Ablöse“ (−215 ms) an einer Wortfuge ohne Pause. Laut Alignment beginnt das „A“ erst nach „Millionen“.
-- **Folgerung:** Gemessen mit Whisper allein ist das Ziel „≤ 150 ms“ nicht erreicht (max. 374 ms). Mit dem Alignment der Stimme und der Energie-Probe ist es erreicht. Whisper misst Wortgrenzen nur auf ±100–200 ms genau (`docs/research/referenz-destillation.md` §2). Darum taugt es als Grob-Tor, nicht als Maßstab für 150 ms.
+**Zur Lautheit.** `voice.m4a` ist jetzt Stereo (beide Kanäle gleich) mit −16 LUFS. Vorher war sie Mono mit −16 LUFS, und der Render mischte sie auf Stereo; nach BS.1770 sind das +3 LU, also −13,1 LUFS im fertigen MP4. Der Hör-Check läuft jetzt auf dem MP4 selbst, nicht auf der Zwischenstufe.
 
-**Hör-Check im Detail.** Whisper hörte zweimal „Obortunitätskosten“ statt „Opportunitätskosten“ und einmal „keine“ statt „keiner“. Das ist eine Schwäche von Piper. Für die Casting-Stimme gehört eine nötige Umschreibung ins Lexikon der Stimme, nicht ins Skript.
+**Zur Cue-Abweichung.** Whisper meldet 7 Cues über 150 ms. Zwei Anfänge legt es in Stille („Barcelona“ in den Vorlauf, „Naheliegend“ in die Denkpause). Die beiden größten übrigen habe ich an der Hüllkurve nachgemessen:
+- „nur“: Whisper 9,94 s, also mitten in „Antwort“. Laut Hüllkurve ist es dort bis 10,34 s still, die Stimme setzt bei 10,34 s ein. Das Alignment sagt 10,28 s.
+- „Ablöse“: Whisper 30,98 s. Die Hüllkurve hat bei 31,16 s eine Delle zwischen „Millionen“ und „Ablöse“, dann folgt der Verschlusslaut von „Ab-“ bei 31,28 s. Das Alignment sagt 31,24 s.
 
-## Was gebaut ist
+Die Wortzeiten stimmen also auf etwa 60 ms. Gemessen mit Whisper allein bleibt das 150-ms-Ziel trotzdem unerreicht; Whisper taugt hier nur als Grob-Tor.
 
-- **Wurzel** (`index.html`): zwei Bühnen, 12 HUD-Szenen, die Tonspur. GSAP lokal (`assets/gsap.min.js`), Schriften lokal (`assets/fonts/`). Beide werden beim Bau per SHA-256 geprüft. Zur Laufzeit lädt nichts aus dem Netz.
-- **Bühne „atlas“** (Beats 1–8): Europakarte (Natural Earth 1:50m, Lambert), Deutschland leuchtet. Kamera mit drei benannten Einstellungen (`totale`, `nah:muenchen`, `nah:barcelona`). Waage an München, drei Darsteller (Spielfigur, Gehalt-Beleg, Münzstapel), Etiketten an den Schalen, ein Marker-Kreis, der am Stapel klebt.
-- **Bühne „diagramm“** (Beats 9–12): Rasterpapier, dieselbe Waage als Strichzeichnung mit gleichen Maßen und gleichem Fußpunkt. Der harte Schnitt auf „Waage“ ist darum ein Passschnitt. Zwei Fächer, Kinokarte, Lohntüte.
-- **HUD je Szene:** nur fester Text, also Schlagzeilen, Zahlen, Schlüsselwörter und Credits. Läuft ein Text über eine Szenengrenze, hat die nächste Szene eine Kopie ohne Eintritt.
-- **Zeiten:** `build/voice.py` schreibt `assets/timing.json`, `build/bauen.mjs` leitet daraus alle Zeiten ab und schreibt jedes `data-start` aus `data-cue`. Keine Zeit steht von Hand im HTML. Der Bau bricht ab, wenn eine Haltezeit unter 1,2 s fällt, die Frage nach 8 s endet oder ein Text über das Lesefenster hinausragt (gemessen im Browser mit geladener Schrift).
-- **Stimm-Schritt:** `build/voice.py --anbieter piper|elevenlabs|…`. Jeder Anbieter hat dieselbe Schnittstelle `synthese(text, stimme, vorher, nachher)`; für Piper steht der Adapter in `voice.py`, für die anderen in `factory/werk/stimme/`.
-  - Pausen kommen nur aus dem Skript (`pause_s` 2,5 s, `hold_s` 2,0 s). Satz- und Absatzpausen sind Eigenschaften der Stimme (`build/stimme-piper.json`).
-  - Prüfungen nach jedem Lauf: Whisper-Abgleich der Cues und die Energie-Probe nach Pausen (`--nur-pruefen` misst neu, ohne neu zu vertonen).
-  - Mastering: Hochpass 80 Hz, De-Esser, Kompression 2:1, −16 LUFS.
-- **Bibliotheken** (aus dem Spike kopiert, keine Abhängigkeit auf `studio/spike-buehne/`):
-  - `lib/buehne.js`: neu für mehrere Darsteller, mit Abschnitten (fällt, Schritt, Flug), Plätzen auf Schalen, Größe je Abschnitt, Ankern an Darstellern und einer Kamerafahrt mit Bogen.
-  - `lib/marker.js`: dazu Durchstrich und Klammer.
+## Was in Runde 1 geändert ist
 
-## Runden
+**Beat 8, die Auflösung (Prüfung 2 P0, Prüfung 1 P1).** Vorher lagen Gehalt und 45 Mio. nach dem Verkauf weiter unter „Kosten“, und „Opportunitätskosten“ stand über „Nutzen“. Jetzt:
+- An der Säule hängt ein **Schild**, das sagt, welche Entscheidung die Waage wiegt: „Behalten“ ab Beat 3.
+- Auf „Im Juli **nimmt** Bayern das Geld“ neigt sich die Waage, auf „Geld“ wird der Geist (siehe nächster Punkt) zu echten Münzen, der Gehalt-Beleg geht (wer verkauft, zahlt kein Gehalt mehr).
+- Auf „Auch **Verkaufen** …“ **dreht sich die Waage um** (0,6 s, wie ein Drehteller): Das Schild zeigt „Verkaufen“, das Geld fährt auf „Nutzen“, der Spieler auf „Kosten“. Die Neigung dreht sich mit; die Nutzen-Seite hängt danach unten.
+- Auf „Opportunitätskosten“ steht das Etikett in Gold unter der **Kosten**-Schale. Auf „eine Saison“ fliegt der Spieler ab und lässt einen gestrichelten Gold-Umriss zurück, dazu „1 Saison“.
+- Damit liegen Opportunitätskosten in jedem Bild links auf „Kosten“. Der Passschnitt reimt jetzt auch inhaltlich: gestrichelter Gold-Umriss auf „Kosten“ → gestricheltes Gold-Fach auf „Kosten“.
 
-**Runde 1** (Beat-, Naht- und Handy-Blätter), Befunde und Änderungen:
-- t 4,6 · Schlagzeile · Unterstreichung unter „kostet“ lag mitten im Wort und las sich als Durchstrich → feste Lage unter der Grundlinie.
-- t 5,2 · Figur · Kreis um die Figur schnitt „Behalten?“ → München tiefer (Totale 790/700), Kreis enger.
-- t 23,8 · Barcelona · linke Waagschale ragte oben rechts ins Bild → Barcelona höher (420/820), München liegt dann über dem Bildrand; „45 Mio. €“ unter den Stapel.
-- t 24,4 · Barcelona · Name berührte den Stapel → Stapel steht 50 px rechts vom Punkt.
-- t 32,97 · Naht widerlegung/entgangen · Durchstrich fehlte ein Bild lang → statisch gezeichnet.
-- t 37,9 · Begriff · Gold-Kreis neben hellem Beleg (Regel „einziges helles Zeichen“) → Beleg tritt auf 40 % zurück, solange der Kreis steht.
-- t 54,4 · Kinokarte · „heute Abend“ stieß an die Kerbe → Karte breiter.
-- t 60,3 · Gold-Fach · Lohntüte und Kreis lagen auf „aufgegeben“ → Fächer höher, Tüte kleiner; ihr Aufdruck tritt ab (er wäre im Fach 22 px, unter der Lesegrenze).
-- t 3,8 · `check` · Fehler `content_overlap` (Name „Lewandowski“ auf der Schlagzeile) → Name tiefer.
+**Widerlegung (Prüfung 2 P1).** Nach München fliegt nur ein **Geist** des Stapels: ein gestrichelter Gold-Umriss, das Geld ist nur eine Möglichkeit. Das echte Geld bleibt in Barcelona. Während „Behalten keinen Cent“ liegt bei Bayern also kein Geld, nur sein Umriss. Auf „fehlt **genauso** wie bezahltes“ bekommt der Geist Gewicht: Er drückt die Schale, die Waage schwingt auf waagerecht. Beim Begriff umkreist der Gold-Kreis denselben Geist.
 
-**Runde 2:** Schlüsselbilder, Kamerafahrten (Zoom, Schwenk nach Barcelona, Flug mit folgender Kamera) und das gerenderte MP4 an 11 Stellen. Ich habe keinen neuen P0 gefunden.
+**Spieler (Prüfung 1 und 2).** Statt des Schach-Bauern („Bauernopfer“) eine **Tipp-Kick-Figur**: Sockel, Trikot, Schussbein, Druckknopf auf dem Kopf, Ball am Fuß. Keine Rückennummer, denn jede Zahl im Bild braucht einen Beleg. Der Name steht im Hook neben der Figur und auf der Waage 5 s klein unter ihr. Der Abflug geht erst senkrecht über den Balken, dann im Bogen oben links aus dem Bild. Die Figur kreuzt weder Säule noch Beleg noch Text.
 
-**Runde 3** (nach dem Update von `DESIGN.md` heute Abend: höchstens 1 Kreis je Video, Text steht ≥ 1,7 s):
-- Von vier Kreisen bleibt einer, der goldene um den Stapel beim Begriff.
-  - Statt des Kreises um die Figur tritt auf „behalten“ der Weg nach Barcelona zurück (Abdunkeln auf 35 %).
-  - Statt des Kreises um „30.06.2023“ gibt es eine Unterstreichung.
-  - Der Kreis um die Lohntüte entfällt.
-- Beim Begriff treten Beleg und Figur auf 35 % zurück (Abdunkeln), bis Bayern das Geld nimmt.
-- Zu kurze Texte stehen jetzt länger:
-  - „Tore“: 1,2 → 7,8 s;
-  - „aufgegeben“: 1,2 → 2,3 s, tritt jetzt auf „Geld“ ab, wenn Bayern es nimmt;
-  - „geschenkt ≠ gratis“: 1,4 → 2,6 s, steht bis kurz vor „Aufgeben = Kosten“.
-  - Der Bau prüft diese Standzeiten jetzt.
-- Klammer 6 px.
+**Vertrag (Prüfung 1 P1, Prüfung 2 P2).** Statt eines Textstapels oben links gibt es jetzt Gegenstände:
+- ein Blatt „Vertrag / bis 30.06.2023“, das auf „Vertrag“ fällt;
+- daneben eine Zeitleiste, die auf „Saison“ einmal abläuft („1 Saison“);
+- eine gestrichelte Verlängerung, die auf „Verlängern“ erscheint und auf „nicht“ erlischt;
+- auf „ablösefrei“ der Stempel „ablösefrei“ auf dem Blatt (Reim zum Stempel „bezahlt“) und „0 €“ am Ende der Zeitleiste.
 
-## Entscheidungen und Abweichungen vom Drehbuch
+Die doppelte Linie (Unterstreichung plus Band) ist weg.
 
-1. **Kein `halbnah:route`.** Die Waage ist 860 px breit und das Lesefenster 864 px. Mit beiden Städten und der Route passt sie nicht ins Bild. Ich habe den Rückfall aus dem Drehbuch genommen: Die Kamera schwenkt für das Angebot nach Barcelona und folgt dem Geld zurück nach München, in Flussrichtung. Dauer 0,7 s hin und 1,3 s zurück; der Rückweg ist an den Flug gebunden.
-2. **Kamerafahrten 0,6/0,7 s statt 1,4 s.** `DESIGN.md` hat seit heute Abend gemessene Werte (0,4–0,7 s).
-3. **Der Spieler fliegt aus dem Bild.** Er hebt auf „Opportunitätskosten“ ab und fliegt Richtung Barcelona; die Landung liegt außerhalb des Bildes. Die Kamera bleibt auf der Waage, denn die leere Schale mit „Opportunitätskosten / 1 Saison“ trägt die Auflösung. Das Drehbuch wollte die Landung in Barcelona zeigen.
-4. **Spielfigur statt Foto.** Für Lewandowski steht eine gezeichnete Spielfigur (Creme, beleuchtet, 300 px) mit dem Namen daneben. Kein Foto (Lizenz ungeklärt), kein KI-Bild. Das ist eine offene Frage an dich (unten).
-5. **Die Figur steigt auf die Schale, wenn die Waage erscheint,** nicht erst auf „Tore“, denn Figur und Waage stehen beide auf München. Auf „Tore“ kippt die Waage nach rechts.
-6. **„bezahlt“ ist ein Stempel auf dem Gehalt-Beleg.** Unter dem Stapel steht eine Zeile, die sich verwandelt: „45 Mio. €“ → „entgangen“ → „aufgegeben“. Zwei Etiketten nebeneinander passten unter die Schale nicht.
-7. **„Opportunitätskosten“ steht als Schlagzeile (D2) oben,** verbunden mit dem Stapel über den Gold-Kreis. Es steht also nicht am Stapel und wandert auch nicht von dort zur Schale. Auf „Juli“ tritt die Schlagzeile ab. Nach dem Abflug erscheint das Etikett an der leeren Nutzen-Schale.
-8. **Die Dateline steht nur in Beat 1–2 („Sommer 2022“) und Beat 8 („Juli 2022“).** Sonst führe die Kamera unter stehendem Text. Aus demselben Grund tritt „Nur sein Gehalt“ vor dem Schwenk ab und kommt zurück, wenn es gesprochen wird („Nur sein Gehalt?“).
-9. **„45 Mio. €“ erscheint mit dem Aufprall** des Stapels (+0,41 s nach dem Wort statt +0,12 s), denn der fallende Stapel liefe sonst durch die Zahl. Gemessene Vorbilder liegen bei Labels im Median +60 bis +180 ms; das hier ist später, aber am Bild verankert.
-10. **Die Fächer liegen übereinander, nicht nebeneinander:** „aufgegeben“ (278 px) und „bezahlt“ passen nicht nebeneinander auf eine Schale. „geschenkt ≠ gratis“ steht als HUD-Zeile (466 px passen in kein Fach). Die Klammer „Rechnung“ greift links um das Fach „bezahlt“. Das Wort steht unter der Schale am Ende der Klammer, nicht am Scheitel wie in `DESIGN.md` §6, denn links davon ist kein Platz.
-11. **Kein Etikett „Satz fürs Gespräch / für die Stunde“** im MP4: offene Frage, ob der Player es je Profil setzt.
-12. **Länder:** kein Schriftzug „DEUTSCHLAND“, er läge unter der Figur; Deutschland ist durch das Leuchten markiert. FRANKREICH und ITALIEN ja.
-13. **Karte 50m bei Zoom 2,4** statt 10m bei ≈ 3 (`DESIGN.md` §7: 10m erst ab Zoom 2,5).
+**Diagramm (Prüfung 1 P1, Prüfung 2 P1/P2).**
+- Die Kosten-Schale trägt dieselben zwei Dinge an denselben Plätzen wie im Atlas: links das gestrichelte Gold-Fach „aufgegeben“, rechts eine Rechnung aus Papier mit dem Stempel „bezahlt“.
+- Auf „geschenkt“ steht als Summe **0 €** auf der Rechnung. Damit ist „bezahlt geschenkt“ weg.
+- Die Kinokarte ist eine echte Karte mit Abriss und Kerben, das Schild an der Säule sagt „Kino“.
+- Die Lohntüte steht 1,4-fach groß neben „Nachhilfe, heute Abend“ und fällt auf „Lohn“ senkrecht ins Fach.
+- Striche 8 px, Raster 9 %/18 % (vorher 6/12 %), sichtbar im Handy-Blatt.
+- Die Gleichung erscheint erst, wenn sie gesprochen wird („Also **kostet** dich …“).
+
+**Satz und Schlussbild (Prüfung 2 P1, Prüfung 1 P1/P2).** Kein „Aufgeben = Kosten“ mehr: Als Gleichung widersprach es der Zeile darüber, und ohne „auch“ lehrte es den umgekehrten Fehler.
+- In der Atempause vor dem Satz fährt die Welt 2-fach an die Kosten-Schale heran: links der Lohn im Gold-Fach, rechts die Rechnung mit 0 €.
+- Auf „aufgibst“ kommt die Gold-Unterstreichung in der Gleichung.
+- Auf „Rechnung“ wird der Kopf der Rechnung unterstrichen, in Stempel-Navy. Das Bild sagt so den Satz: Der Lohn steht auf keiner Rechnung.
+- Klammer und D2 entfallen; das Schild „Kino“ tritt vor der Fahrt zurück.
+
+**Hook (Prüfung 2 P1, Prüfung 1 P2).**
+- Die Schilder hängen sich schon auf „kostet“ an und stehen 3,8 s statt 2,6 s. Sie pendeln 0,35 s statt 0,7 s und hängen versetzt und schräg an 3-px-Schnüren.
+- Keine Dateline und keine Ländernamen mehr: 9 statt 11 Textelemente.
+- Zeilenhöhe der Schlagzeile 1,1; die Unterstreichung sitzt 0,09 × Schriftgröße unter der gemessenen Grundlinie und tritt zusammen mit dem Text ab.
+
+**Rhythmus (Prüfung 1 P1).** Die Waage hängt 80 px tiefer, so ist über ihr Platz und das Schlussbild ist nicht kopflastig. Neu sind:
+- eine Nachfahrt auf Geist und Kreis nach der Lesezeit des Begriffs;
+- die Rückfahrt zusammen mit der Drehung;
+- eine Nachfahrt im Satz;
+- die Fahrt nach Barcelona startet erst auf „bietet“ (vorher stand danach ein leeres Bild).
+
+Längste Einstellung jetzt 13,8 s statt 19,7 s.
+
+**Technik (Prüfung 3).**
+- Naht-Rundung: Beginn und Ende werden als absolute Zeit auf ms gerundet, die Dauer ist ihre Differenz. Ein Clip endet damit genau mit seinem Host; die Probe über alle Clips ergibt 0 Abweichungen.
+- Lautheit: Stereo-m4a mit −16 LUFS.
+- `timing.json` trägt die SHA-256 von `voice.m4a`; `bauen.mjs` bricht bei Abweichung ab.
+- `voice.py --nur-pruefen` dekodiert die m4a und braucht die (gitignorierte) WAV nicht mehr; geprüft mit weggeräumter WAV.
+- Neues Tor im Bau: Jeder Text erscheint höchstens 150 ms neben seinem Wort (28 Texte, max. 83 ms). Neue Ruhe-Prüfung: Der Spieler steht nach der Drehung 1,55 s, bevor er abfliegt.
+- `messen-bild.mjs` prüft jetzt auch jeden Welt-Text auf das Lesefenster und meldet HUD-Text über Gegenständen.
+- Neu: `flackern.py` (Einzelbild-Scan nach jedem Render) und `seek-test.mjs` (Nachbar-Kriterium statt fester 28 dB).
+
+**Ton (Prüfung 2 P2).** Zwei deklarierte Atempausen (`atem_s` 0,9 s im Skript): nach „Behalten keinen Cent.“ und vor „Auch was du aufgibst“. Sie gelten auch für die Casting-Stimme. Die neue Piper-Aufnahme habe ich zweimal erzeugt und die bessere genommen (WER 3,3 % gegen 7,8 %).
+
+## Abweichungen vom Drehbuch
+
+1. **Geist statt fliegendem Geld.** Der Stapel in Barcelona bleibt; nach München fliegt sein Umriss und wird erst auf „Geld“ (Beat 8) echt. Das Drehbuch sagt „Darsteller geld … wechselt nie die Form“.
+2. **Die Waage dreht sich in Beat 8** und hat ein Schild („Behalten“ → „Verkaufen“; im Diagramm „Kino“). Neigung links schon auf „nimmt“ (vorher „Geld“), damit der Spieler nach der Bewegung lange genug steht.
+3. **„Opportunitätskosten“ und „1 Saison“** stehen in Gold unter der Kosten-Schale, nicht am Stapel und nicht über der Nutzen-Schale. Der Begriff in Beat 7 bleibt D2 oben.
+4. **Der Spieler landet nicht in Barcelona**, er fliegt oben links aus dem Bild. Die Kamera bleibt auf der Waage, denn der Umriss auf „Kosten“ trägt die Auflösung.
+5. **Tipp-Kick-Figur** statt Foto (Lizenz offen, KI-Bild verboten).
+6. **Vertrag als Blatt mit Zeitleiste** statt HUD-Text; keine Unterstreichung unter „30.06.2023“.
+7. **Keine Datelines** („Sommer 2022“, „Juli 2022“): Die Daten stehen in den Credits („Lage: … 14.05.2022“, „Wechsel: FC Barcelona, 19.07.2022“). Grund: Text-Last im Hook (Prüfung 1), und der abfliegende Spieler kreuzte „Juli 2022“.
+8. **Keine Ländernamen.**
+9. **Diagramm:** Rechnung und Gold-Fach statt zweier Textkästen; „geschenkt“ zeigt sich als „0 €“ auf der Rechnung; keine Klammer „Rechnung“; kein „Aufgeben = Kosten“.
+10. **Gleichung erst in Beat 11** (auf „kostet“), nicht ab dem Schnitt.
+11. **Skript (`build/script.py`)**, Sprechtext unverändert:
+    - neue Cues `nur`, `verlaengern_an`, `bietet`, `gewicht`, `nimmt`, `dreh`, `abflug_spieler`, `ok_saison`, `gleichung`; `landung_spieler` entfällt;
+    - neues Feld `atem_s`.
+    - Die Tabelle in `drehbuch.md` kennt diese Cues noch nicht (Wunsch unten).
+12. **Waage 80 px tiefer** (Fuß y = 1160), zwei Nachfahrten. Kamerafahrten 0,6/0,7 s wie zuvor.
 
 ## Warnungen, die bleiben
 
-- `composition_file_too_large` (3×): `atlas.html` (1051 Zeilen) und `diagramm.html` (902) enthalten die eingesetzten Bibliotheken und die Karte, `vertrag.html` (314) den Marker. Wie im Spike: Der Bau setzt Blöcke ein, von Hand bearbeitet wird nur der Teil außerhalb der Marken.
-- `timeline_track_too_dense` (2×): Beat-Marken in der Bühne und die 7 Elemente des Vertragsbands.
-- `line_unread` (3×): Credit „Ablöse“, Credit „Gabler“ und die Gleichung stehen in ihrer Szene kurz, laufen aber als Kopie in der nächsten weiter. `check` sieht jede Datei einzeln. Tatsächlich stehen sie 11,9 s, 5,4 s und 17,7 s.
+- `composition_file_too_large` (3×): `atlas.html` (1317 Zeilen), `diagramm.html` (1071) und `satz.html` (302) enthalten die eingesetzten Bibliotheken und die Karte. Von Hand bearbeitet wird nur der Teil außerhalb der Marken.
+- `timeline_track_too_dense` (1×): die Beat-Marken der Atlas-Bühne. Sie sind unsichtbar und dienen nur `snapshot --review`.
+- `line_unread` (3×): „Opportunitätskosten“ und der Gabler-Credit in `verkauf`, „geschenkt ≠ gratis“ in `satz`. Alle drei sind Fortsetzungen aus der Szene davor. Tatsächlich stehen sie 5,4 s, 5,4 s und 1,9 s; `check` sieht jede Datei einzeln.
+- `dead_stretch` ist weg: Die Denkpause trägt `data-hold`, die Stille ist gewollt.
 
 ## Schwächste Stelle
 
-**Die Denkpause (6,1–8,6 s) ist das textlastigste Bild:** Schlagzeile, Dateline, drei Preisschilder, zwei Namen und zwei Credits. Nach der 20-%-Regel ist sie kein „Bild“; knapp ein Drittel der 24,8 s mit zu viel Text liegt hier (1,3–8,8 s). Die Schilder sind die Antworten und müssen stehen. Mit mehr Zeit würde ich die Dateline in die Credit-Zeile legen („Lage: t-online/dpa, 14.05.2022“ trägt das Datum schon) und den Namen „Lewandowski“ in die Schlagzeile ziehen.
+**Beats 3–4 (9,6–23,4 s).** Das ist die längste Einstellung (13,8 s) und das textreichste Bild nach dem Hook. Dort stehen Behauptung, Vertrag, Zeitleiste, „0 €“, Beleg mit Stempel, Schild und Credits zugleich. Alle 1–2 s kommt etwas Neues, aber eine Kamerafahrt geht hier nicht: Vertrag und Zeitleiste reichen von x 125 bis 960, und jede Nachfahrt schöbe Text aus dem Lesefenster. Mit mehr Zeit würde ich die Zeitleiste auf das Vertragsblatt drucken. Dann wäre rechts Platz für eine kurze Fahrt auf den Vertrag.
 
 Danach kommen diese Stellen:
-- **Klammer „Rechnung“:** Das Wort steht direkt unter „Kosten“ und liest sich kurz als „Kosten / Rechnung“.
-- **Diagramm-Teil:** Er ist dünn gezeichnet (6-px-Striche auf 6-%-Raster). Im Handy-Blatt ist das Raster kaum zu sehen; nach `DESIGN.md` gilt: „Was dort verschwindet, gibt es nicht“.
-- **Kein Relief:** Die Karte ist eine flache Fläche, wie im Spike.
+- **Die Stimme.** Piper liest „Opportunitätskosten“ als „Oportunitätskosten“ und „eine Saison“ undeutlich. Die Echo-Frage „Nur sein Gehalt?“ steigt nicht.
+- **Kurze Überdeckungen.** Der Geist streift beim Mitschwenken für etwa 0,1 s das Ende der durchgestrichenen Behauptung, und fallende Gegenstände (Beleg, Vertrag) kreuzen sie für 1–2 Bilder. `messen-bild.mjs` meldet alle Stellen mit Zeit.
+- **Die Lohntüte im Fach** ist vor der Nachfahrt nur 120 px breit; groß ist sie beim Zeichnen (1,4-fach) und in der Nachfahrt (2-fach).
+
+## Nicht behoben (mit Grund)
+
+- **Platzhalter-Stimme (Prüfung 3 P0):** Die Casting-Entscheidung fällt am 1.11. Bis dahin taugt eine Bewertung durch die Brüder nicht als Freigabe.
+- **Echo-Frage „Nur sein Gehalt? Das stimmt nicht.“ (Prüfung 2 P2):** Der Text ist von der Chefredaktion geprüft und bleibt. Beim Casting-Hör-Check auf den Anstieg achten (`steigt` steht im Skript).
+- **Bildpaar „Verkaufen 45 Mio. € · Behalten 0 €“ (Prüfung 2 P1, Zusatz):** Den Widerspruch löst der Geist. Ein zweites Textpaar hätte die Widerlegung zur Folie gemacht (Bildanteil).
+- **Rotes Kreuz für „Nichts, er ist ja da“ (Prüfung 2 P2):** Rot gibt es genau einmal (Durchstrich). Der Ablenker wird widerlegt, wenn der Gehalt-Beleg auf die Kosten-Schale fällt; im Info-Blatt steht es ausdrücklich.
+- **Schild per Morph nach oben links (Prüfung 2 P2):** Nach dem Zoom hinge das Schild unterhalb des Lesefensters. Die Behauptung erscheint jetzt auf „nur sein Gehalt“, 1,4 s nach den Schildern (vorher 2,2 s).
+- **Rückennummer 9 (Prüfung 1):** Sie wäre eine Zahl ohne Beleg im Faktenblatt.
+- **Einstellungen über 12 s:** Beats 3–4 mit 13,8 s (siehe „Schwächste Stelle“) und das Diagramm bis zur Nachfahrt mit 12,3 s. Im Diagramm ist die Waage 880 px breit, jede Fahrt schneidet eine Schale ab, darum erst im Satz.
+- **Tempo 2,38 statt 2,2 Wörter/s:** Das Tempo ist eine Eigenschaft der Stimme und kommt mit dem Casting.
 
 ## Gemessen, nur angesehen, ungeprüft
 
 - **Gemessen:**
-  - `check` (auch mit Untertitel-Zone), Lesefenster aller HUD-Texte im Bau, Haltezeiten im Bau;
-  - Hör-Check, Lautheit, Bildanteil, Renderzeit;
-  - Cue-Abweichung (Alignment, Energie, Whisper).
-- **Angesehen:** Beat-, Naht- und Handy-Blätter, Kamerafahrten (je 6–8 Bilder), 11 Bilder aus dem MP4. Belege in `belege/` (je 3 Bilder aus dem MP4, 360 px breit).
-- **Ungeprüft:**
-  - Ton gehört hat niemand: Whisper prüft Verständlichkeit, nicht Klang.
-  - Seek-Test im Player (wie im Spike) nicht wiederholt.
-  - iPhone/Safari.
-  - `snapshot --against` gegen Vorbild-Clips: Die Clips sind gelöscht, nur die Zahlen der Destillation gibt es.
-  - Bewertung durch die Brüder.
+  - `check` (auch mit Untertitel-Zone);
+  - Lesefenster aller HUD-Texte im Bau; Lesefenster aller Welt-Texte im Player;
+  - Kollisionen HUD/Welt, Bildanteil;
+  - Cue-Tor, Haltezeiten, Hör-Check auf dem MP4, Lautheit, Ton-Versatz;
+  - Einzelbild-Scan, Seek-Test, Renderzeit.
+- **Angesehen:**
+  - Beat-, Naht- und Handy-Blätter aus `snapshot --review` (zwei Durchgänge);
+  - 28 Einzelbilder und die Drehung (6 Bilder) aus dem MP4.
+  - Belege in `belege/`: `frage-geist.jpg`, `drehung-verkaufen.jpg`, `rechnung-schluss.jpg`.
+- **Ungeprüft:** iPhone/Safari; wie die Drehung auf einem echten Handy wirkt; Ton am Kopfhörer; Bewertung durch die Brüder.
 
 ## Wiederholen
 
@@ -119,38 +154,46 @@ Danach kommen diese Stellen:
 . /opt/deeptok/env.sh
 cd studio/gold-opportunitaetskosten
 # Stimme (nur bei neuem Skript oder neuer Stimme). Ohne das Paket onnx fällt voice.py auf
-# geschätzte Wortzeiten zurück; heute lag onnx nur im Scratchpad (Wunsch unten).
+# geschätzte Wortzeiten zurück; heute lag onnx nur im Scratchpad (PYTHONPATH, Wunsch unten).
 /home/user/Deeptok/.venv/bin/python build/voice.py --anbieter piper
-python build/script.py --cues                     # Selbstprüfung des Skripts
-node build/bauen.mjs                              # Karte, Schriften, GSAP, Zeiten, Messen
+python build/script.py --cues                       # Selbstprüfung des Skripts
+node build/bauen.mjs                                # Prüfsummen, Zeiten, Cue-Tor, Messen
 npx hyperframes check && npx hyperframes snapshot --review
 npx hyperframes render --workers 3 -o renders/gold.mp4
-python ../../factory/fabrik.py hoercheck --audio assets/voice.m4a --text <sprechtext.txt> --erlaubte-stillen 2 --json
-npx hyperframes play . --port 3115 --no-open &   # Player im Hintergrund, dann:
-node build/messen-bild.mjs 3115                    # Bildanteil
+/home/user/Deeptok/.venv/bin/python build/flackern.py renders/gold.mp4   # Nähte, Exit 1 bei Ausreißer
+python ../../factory/fabrik.py hoercheck --audio renders/gold.mp4 --text <sprechtext.txt> --erlaubte-stillen 2 --json
+npx hyperframes play . --port 3115 --no-open &      # Player im Hintergrund, dann:
+node build/messen-bild.mjs 3115 0.1                   # Bildanteil, Lesefenster, Kollisionen
+node build/seek-test.mjs 3115 renders/gold.mp4      # Seek-Test gegen den Render
 ```
 
-Piper rechnet mit Zufallsrauschen: Ein neuer Lauf von `voice.py` gibt leicht andere Wortzeiten. Der Bau übernimmt sie selbst, weil jede Zeit aus `data-cue` kommt.
+## Was Linus jetzt tun und prüfen soll
 
-## Offene Fragen an Linus
-
-1. **Spielfigur oder Foto?** Statt eines Fotos steht eine Spielfigur mit Namen da. Passt dir das, oder soll ich ein Wikimedia-Foto mit geprüfter Lizenz als Duoton einsetzen?
-2. **Schilder-Bild zu voll?** In der Denkpause stehen Schlagzeile, Schilder und Namen zugleich. Darf die Dateline dort weg?
-3. **Etikett am Satz:** zwei MP4 oder setzt der Player es je Profil?
+1. **Das MP4 am Handy ansehen** (`renders/gold.mp4`, gitignored: nur in dieser Sitzung oder nach neuem Render). Die Stimme bitte wegdenken. Achte auf:
+   - 44–51 s: Drehung der Waage, Abflug, Umriss;
+   - 29–36 s: Geist;
+   - 63–69 s: Nachfahrt auf die Rechnung.
+2. **Die drei Belegbilder in `belege/`** ansehen; sie zeigen die drei großen Änderungen.
+3. **Entscheiden:** Tipp-Kick-Figur oder Wikimedia-Foto (Duoton, Lizenz prüfen)?
+4. **Noch keine Freigabe-Bewertung durch die Brüder:** Erst nach dem Stimmtausch am 1.11. Dann `voice.py --anbieter <sieger>`, `node build/bauen.mjs`, neu rendern und die Tore oben laufen lassen. Für den Bruder bei etwa 6,5 s von Hand anhalten (Denkpause): Einen Player mit Halt gibt es noch nicht.
+5. **Beim Casting-Hör-Check** auf „Opportunitätskosten“, „eine Saison“ und den Anstieg bei „Nur sein Gehalt?“ achten.
 
 ## Wünsche an andere Dateien (nicht geändert)
 
-1. **`tools/setup-umgebung.sh`:**
-   - `onnx` (bzw. `piper-tts[alignment]`) in die Werkstatt-venv aufnehmen. Ohne das Paket gibt es nur geschätzte Wortzeiten.
-   - Danach `SETUP_VERSION` hochzählen.
-2. **`factory/werk/hoercheck.py`:**
-   - `--text` sollte auch Text direkt annehmen, nicht nur einen Dateipfad.
-   - Für Cue-Prüfungen die Energie-Probe aus `build/voice.py` (`pruefe_einsaetze`) übernehmen. Whisper bleibt das Grob-Tor.
-3. **`studio/DESIGN.md`:**
-   - §6: Durchstrich und Klammer sind gebaut (`lib/marker.js`).
-   - §6: Abdunkeln als Werkzeug für „Ruhe im Umfeld“ ausdrücklich nennen. Hier wurde es zweimal genutzt: Weg auf „behalten“, Beleg und Figur beim Begriff.
-   - §7 Atlas: Darsteller dürfen auf Gegenständen der Welt stehen (Schalen als Plätze).
-   - §9: Beim Hook gilt das Schild-Bild als Ausnahme der 20-%-Regel.
-   - Abstand Unterstreichung: Grundlinie + 8 px bei 124 px gemessen (offener Wert in §9).
-4. **`docs/VIDEO-PIPELINE.md` §6, G6:** `build/messen-bild.mjs` ist ein Kandidat für die Bildanteil-Messung (DOM im Player).
-5. **Bogen-Prüfung G0:** eingeschobene Beats Begriff, Auflösung und Satz zulassen (wie im Drehbuch-Bericht).
+1. **`drehbuch.md` (Chefredaktion):** Tabelle und Kamera-Vertrag an Runde 1 anpassen. Gemeint sind Geist, Drehung mit Schild, Vertrag als Blatt, Rechnung und Gold-Fach im Diagramm, keine Datelines, kein „Aufgeben = Kosten“, neue Cues und `atem_s`.
+2. **`factory/` (G0, Bogen-Prüfung):** eingeschobene Beats Begriff, Auflösung und Satz zulassen, dazu zwei Widerlegungs-Szenen hintereinander; das Feld `atem_s` kennen (0,6–1,1 s, keine „lange Stille“).
+3. **`factory/werk/hoercheck.py` und der Ablauf der Fabrik:**
+   - G4 nach dem Render auf dem MP4 laufen lassen, nicht auf der Zwischenstufe.
+   - `--text` auch direkt als Text annehmen.
+   - Für Cue-Prüfungen die Energie-Probe `pruefe_einsaetze` aus `build/voice.py` übernehmen, Whisper nur als Grob-Tor.
+4. **`docs/VIDEO-PIPELINE.md` §6:** als Kandidaten für die Tore aufnehmen:
+   - für G6: `build/messen-bild.mjs` (Bildanteil, Lesefenster aller Texte, Kollisionen) und das Cue-Tor in `build/bauen.mjs`;
+   - für G7: `build/flackern.py` und `build/seek-test.mjs`.
+5. **`tools/setup-umgebung.sh`:** das Paket `onnx` (bzw. `piper-tts[alignment]`) in die Werkstatt-venv aufnehmen und danach `SETUP_VERSION` hochzählen. Ohne `onnx` gibt es nur geschätzte Wortzeiten.
+
+`studio/DESIGN.md` habe ich selbst ergänzt (erlaubt):
+- Raster 9/18 %, Gegenstände im Diagramm dürfen gefüllt sein, Ketten 4 px;
+- Geist, Schild, Papier-Gegenstände;
+- Nachfahrt und Drehung als Übergänge, Stempel als Marker, Marker auf Papier in Navy, Unterstreichung 0,09 × Schriftgröße unter der gemessenen Grundlinie;
+- D2 zweizeilig mit Zeilenhöhe 1,1, Daten in die Credit-Zeile, abgedunkelte Texte zählen nicht als Text;
+- BANNED 17–19.

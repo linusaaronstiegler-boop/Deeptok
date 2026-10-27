@@ -3,6 +3,9 @@
     python build/voice.py                         # heute: Piper thorsten-high als PLATZHALTER
     python build/voice.py --anbieter elevenlabs   # später: Casting-Sieger über factory/werk/stimme
     python build/voice.py --nur-pruefen           # nur den Whisper-Abgleich der Cues neu messen
+                                                  # (dekodiert assets/voice.m4a, braucht keine WAV)
+    python build/voice.py --nur-cues              # nur die Cues aus script.py neu zuordnen (gleiche
+                                                  # Tonspur, gleiche Wortzeiten; neuer Cue ohne Neuvertonung)
 
 Der Tausch der Stimme ist EINE Zeile: --anbieter. Alles danach (Pausen, Lautheit, Wortzeiten,
 Cues, Whisper-Prüfung) ist für jeden Anbieter gleich. Jeder Anbieter liefert dasselbe:
@@ -12,11 +15,17 @@ Für Piper steht der Adapter hier unten (PiperAdapter), für die anderen in fact
 Ablauf:
   1. Text bauen: Szenen als Absätze, Betonungen als *wort*, steigende Fragen als ?↑ (§4).
   2. Blöcke: Das Skript wird nur an DEKLARIERTEN Pausen geteilt (pause_s = Denkpause nach der
-     Frage). Jeder Block geht in einem Stück an die Stimme, mit dem Nachbartext als Kontext.
-     Alle anderen Pausen macht die Stimme selbst.
-  3. Zusammensetzen: Vorlauf, Block 1, Denkpause (genau pause_s), Block 2, Halten (hold_s).
+     Frage, atem_s = Atempause vor einer Pointe). Jeder Block geht in einem Stück an die Stimme,
+     mit dem Nachbartext als Kontext. Alle anderen Pausen macht die Stimme selbst.
+  3. Zusammensetzen: Vorlauf, Block 1, Denkpause (genau pause_s), Block 2, Atempause (atem_s),
+     ..., Halten (hold_s).
   4. Mastering: 80-Hz-Hochpass, De-Esser, Kompression 2:1, Lautheit -16 LUFS, Spitze -1 dBTP.
-  5. timing.json: Szenen, Sätze, Wörter mit Zeiten, dazu jeder Cue aus script.py ("cues").
+     voice.m4a ist STEREO (beide Kanäle gleich): Der Render mischt ohnehin auf Stereo, und eine
+     Mono-Spur mit -16 LUFS wird dabei nach BS.1770 zu -13 LUFS (Prüfung 3). Darum wird die
+     Stereo-Fassung selbst auf -16 LUFS gesetzt.
+  5. timing.json: Szenen, Sätze, Wörter mit Zeiten, dazu jeder Cue aus script.py ("cues") und die
+     SHA-256 von voice.m4a ("audio"): Der Bau prüft damit, dass Wortzeiten und Tonspur
+     zusammengehören.
   6. Prüfung: faster-whisper hört die fertige Tonspur unabhängig ab. Für jedes Cue-Wort wird
      gemessen, wie weit die Zeit in timing.json von der gehörten Zeit abweicht (Ziel <= 150 ms).
 
@@ -84,12 +93,17 @@ def szenen_text(szene: dict) -> str:
     return " ".join(saetze)
 
 
+def pause_nach(szene: dict) -> float:
+    """Deklarierte Stille nach einer Szene: Denkpause, Atempause oder Halten am Ende."""
+    return szene.get("pause_s", 0) + szene.get("atem_s", 0) + szene.get("hold_s", 0)
+
+
 def bloecke() -> list[dict]:
-    """Teilt das Skript an deklarierten Pausen. Ein Block = Szenen bis einschließlich pause_s."""
+    """Teilt das Skript an deklarierten Pausen. Ein Block = Szenen bis einschließlich der Pause."""
     liste, aktuell = [], []
     for szene in SCENES:
         aktuell.append(szene)
-        if szene.get("pause_s"):
+        if szene.get("pause_s") or szene.get("atem_s"):
             liste.append(aktuell)
             aktuell = []
     if aktuell:
@@ -281,11 +295,22 @@ def kappe(audio: np.ndarray, wortzeiten: list[dict]) -> tuple[np.ndarray, list[d
     return audio[int(a * RATE): int(e * RATE)], verschoben
 
 
+def sha256(pfad: Path) -> str:
+    import hashlib
+    return hashlib.sha256(pfad.read_bytes()).hexdigest()
+
+
 def mastere(roh: Path, ziel_wav: Path, ziel_m4a: Path) -> dict:
     """Mastering nach VIDEO-PIPELINE §3, Lautheit in zwei Durchgängen (erst messen, dann setzen).
 
     Keiner dieser Filter verschiebt die Zeit: Die Wortzeiten bleiben gültig (geprüft: Länge
     vorher = Länge nachher, siehe Ausgabe).
+
+    Lautheit und Kanäle: ebur128 (BS.1770) zählt die Kanäle zusammen. Dieselbe Spur auf zwei
+    Kanälen ist darum 3 LU lauter als in Mono. Die WAV (nur für Prüfungen) bleibt Mono mit
+    -16 LUFS; die m4a für das Video wird auf zwei Kanäle verteilt, jeder um 3 dB leiser
+    (Faktor 0,7071 = 1/Wurzel 2). So hat die Stereo-Spur wieder genau -16 LUFS, und der
+    Render (mischt immer auf Stereo) ändert die Lautheit nicht mehr.
     """
     kette = "highpass=f=80,deesser=i=0.4,acompressor=ratio=2:threshold=-20dB:attack=8:release=120"
     r = ffmpeg("-i", str(roh), "-af", kette + ",loudnorm=I=-16:TP=-1.5:LRA=11:print_format=json",
@@ -296,12 +321,25 @@ def mastere(roh: Path, ziel_wav: Path, ziel_m4a: Path) -> dict:
             f":offset={mess['target_offset']}:linear=true")
     ffmpeg("-y", "-i", str(roh), "-af", f"{kette},{norm}", "-ar", str(RATE), "-ac", "1",
            "-c:a", "pcm_s16le", str(ziel_wav))
-    ffmpeg("-y", "-i", str(ziel_wav), "-c:a", "aac", "-b:a", "128k", "-ar", str(RATE), str(ziel_m4a))
-    r = ffmpeg("-i", str(ziel_wav), "-af", "ebur128=peak=true", "-f", "null", "-")
+    ffmpeg("-y", "-i", str(ziel_wav), "-af", "pan=stereo|c0=0.70711*c0|c1=0.70711*c0",
+           "-c:a", "aac", "-b:a", "160k", "-ar", str(RATE), str(ziel_m4a))
+    return miss(ziel_m4a)
+
+
+def miss(pfad: Path) -> dict:
+    """Integrierte Lautheit und Spitze einer Datei, so wie G4 sie misst (ebur128)."""
+    r = ffmpeg("-i", str(pfad), "-af", "ebur128=peak=true", "-f", "null", "-")
     text = r.stderr.decode()
     lufs = float(re.findall(r"I:\s+(-?[\d.]+) LUFS", text)[-1])
     spitze = float(re.findall(r"Peak:\s+(-?[\d.]+) dBFS", text)[-1])
-    return {"lufs": lufs, "true_peak_db": spitze}
+    return {"datei": pfad.name, "lufs": lufs, "true_peak_db": spitze}
+
+
+def pruef_wav(m4a: Path) -> Path:
+    """Mono-WAV aus voice.m4a für die Prüfungen (die WAV ist gitignored, die m4a nicht)."""
+    ziel = CACHE / "voice-pruefen.wav"
+    ffmpeg("-y", "-i", str(m4a), "-ac", "1", "-ar", str(RATE), "-c:a", "pcm_s16le", str(ziel))
+    return ziel
 
 
 # ------------------------------------------------------------------------------------------
@@ -373,11 +411,34 @@ def baue_timing(teile: list[dict], dauer: float, anbieter: str, stimme: dict) ->
         if szene.get("pause_s"):
             timing["pausen"].append({"art": "denkpause", "nach": szene["id"], "start": sc["end"],
                                      "end": round(sc["end"] + szene["pause_s"], 3)})
+        if szene.get("atem_s"):
+            timing["pausen"].append({"art": "atem", "nach": szene["id"], "start": sc["end"],
+                                     "end": round(sc["end"] + szene["atem_s"], 3)})
         if szene.get("hold_s"):
             timing["pausen"].append({"art": "halten", "nach": szene["id"], "start": sc["end"],
                                      "end": round(sc["end"] + szene["hold_s"], 3)})
         timing["scenes"].append(sc)
     return timing
+
+
+def neue_cues(timing: dict) -> dict:
+    """Cues aus script.py auf die Wörter in timing.json legen (für --nur-cues).
+
+    Bricht ab, wenn Szenen oder Wörter nicht mehr zum Skript passen: Dann muss neu vertont werden.
+    """
+    szenen = {s["id"]: s for s in timing["scenes"]}
+    cues = {}
+    for szene in SCENES:
+        if szene["id"] not in szenen:
+            raise SystemExit(f"Szene {szene['id']} fehlt in timing.json: neu vertonen")
+        woerter = [w for satz in szenen[szene["id"]]["sentences"] for w in satz["words"]]
+        skript = [anzeige for satz in szene["sentences"] for anzeige, _ in tokens(satz)]
+        if [w["text"] for w in woerter] != skript:
+            raise SystemExit(f"Szene {szene['id']}: Sprechtext geändert, neu vertonen")
+        for name, wort in szene.get("cues", {}).items():
+            w = woerter[finde_wort(szene, wort)]
+            cues[name] = {"szene": szene["id"], "wort": wort, "start": w["start"], "end": w["end"]}
+    return cues
 
 
 # ------------------------------------------------------------------------------------------
@@ -471,6 +532,7 @@ def main() -> None:
     ap.add_argument("--anbieter", default="piper", help="piper (Platzhalter) oder ein Fabrik-Anbieter")
     ap.add_argument("--stimme", help="Pfad zur Stimm-Datei (Standard: build/stimme-piper.json bzw. voices/)")
     ap.add_argument("--nur-pruefen", action="store_true", help="nur den Whisper-Abgleich neu messen")
+    ap.add_argument("--nur-cues", action="store_true", help="nur die Cues aus script.py neu zuordnen")
     args = ap.parse_args()
 
     ASSETS.mkdir(exist_ok=True)
@@ -478,10 +540,24 @@ def main() -> None:
     timing_pfad = ASSETS / "timing.json"
     if args.nur_pruefen:
         timing = json.loads(timing_pfad.read_text())
-        timing["pruefung"] = pruefe_cues(timing, ASSETS / "voice.wav")
-        timing["pruefung_einsaetze"] = pruefe_einsaetze(timing, ASSETS / "voice.wav")
+        m4a = ASSETS / "voice.m4a"
+        if timing.get("audio", {}).get("sha256") != sha256(m4a):
+            raise SystemExit("timing.json gehört nicht zu assets/voice.m4a (SHA-256 verschieden): neu vertonen")
+        wav = pruef_wav(m4a)
+        timing["pruefung"] = pruefe_cues(timing, wav)
+        timing["pruefung_einsaetze"] = pruefe_einsaetze(timing, wav)
         timing_pfad.write_text(json.dumps(timing, ensure_ascii=False, indent=1))
         zeige_pruefung(timing["pruefung"], timing["pruefung_einsaetze"])
+        return
+
+    if args.nur_cues:
+        # Ein neuer Cue im Skript (z. B. "nichts") braucht keine neue Aufnahme: Die Wörter und ihre
+        # Zeiten stehen schon in timing.json. Neu ist nur, welches Wort welchen Namen trägt.
+        # Der Sprechtext muss dafür gleich geblieben sein; sonst passt die Zuordnung nicht.
+        timing = json.loads(timing_pfad.read_text())
+        timing["cues"] = neue_cues(timing)
+        timing_pfad.write_text(json.dumps(timing, ensure_ascii=False, indent=1))
+        print(f"{len(timing['cues'])} Cues neu zugeordnet (Tonspur und Wortzeiten unverändert)")
         return
 
     adapter, stimme = lade_anbieter(args.anbieter, args.stimme)
@@ -508,9 +584,9 @@ def main() -> None:
             i += n
         teile_audio.append(audio)
         t += len(audio) / RATE
-        # Deklarierte Pausen: nur aus dem Skript (pause_s nach der Frage, hold_s am Ende).
-        letzte = block["szenen"][-1]
-        pause = letzte.get("pause_s", 0) + letzte.get("hold_s", 0)
+        # Deklarierte Pausen: nur aus dem Skript (pause_s nach der Frage, atem_s vor einer
+        # Pointe, hold_s am Ende).
+        pause = pause_nach(block["szenen"][-1])
         if pause:
             teile_audio.append(np.zeros(int(round(pause * RATE)), np.float32))
             t += pause
@@ -528,11 +604,13 @@ def main() -> None:
     mess = mastere(roh, ASSETS / "voice.wav", ASSETS / "voice.m4a")
     with wave.open(str(ASSETS / "voice.wav")) as w:
         dauer_nach = w.getnframes() / w.getframerate()
-    print(f"Mastering: {mess['lufs']:.1f} LUFS, Spitze {mess['true_peak_db']:.1f} dBFS, "
+    print(f"Mastering (voice.m4a, stereo): {mess['lufs']:.1f} LUFS, Spitze {mess['true_peak_db']:.1f} dBFS, "
           f"Länge {dauer:.3f} s -> {dauer_nach:.3f} s")
 
     timing = baue_timing(szenen_zeiten, dauer, args.anbieter, stimme)
     timing["mastering"] = mess
+    # Fingerabdruck der Tonspur: bauen.mjs bricht ab, wenn timing.json zu einer anderen m4a gehört.
+    timing["audio"] = {"datei": "assets/voice.m4a", "sha256": sha256(ASSETS / "voice.m4a"), "kanaele": 2}
     if args.anbieter == "piper":
         timing["wortzeiten_quelle"] = "piper-alignment" if adapter.exakt else "geschaetzt-nach-lauten"
     else:

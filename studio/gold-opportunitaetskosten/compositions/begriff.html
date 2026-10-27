@@ -1,5 +1,7 @@
 <template>
-  <!-- HUD-Szene "begriff" (Beat 7, Begriff): "Opportunitätskosten" (D2) und "beste Alternative".
+  <!-- HUD-Szene "begriff" (Beat 7, Begriff): "Opportunitätskosten" (D2). Runde 2: "beste Alternative" hängt als
+       Etikett am Geist (Welt), nicht mehr auf der Grundlinie der D2-Zeile (Prüfung 1). Alles tritt in der
+       Atempause nach der Definition ab (julAus).
        Nur fester Text (Zahlen, Schlüsselwörter, Credits); Welt und Darsteller liegen auf der Bühne.
        data-start/data-duration schreibt build/bauen.mjs aus data-cue (relativ zur Szene). -->
   <style>
@@ -19,7 +21,7 @@
     .d2 { font-size: 124px; line-height: 124px; }
     .gold { color: #C9A84C; }
     /* Lesbarkeit über der Karte nur mit dunklem Schatten, nie mit hellem Schein (DESIGN.md §3). */
-    .schatten { text-shadow: 0 2px 18px rgba(14, 23, 38, 0.9); }
+    .schatten { text-shadow: 0 2px 18px rgba(14, 23, 38, 0.9), 0 0 4px rgba(14, 23, 38, 0.9); }
     /* Credit-Ecke: rechtsbündig an x = 972, Unterkante y = 1304, nach oben gestapelt (DESIGN.md §2). */
     #root .credit { left: auto; right: 108px; text-align: right; font-size: 34px; line-height: 42px; font-weight: 400;
       color: rgba(245, 240, 232, 0.62); white-space: nowrap; }
@@ -27,26 +29,261 @@
     .c2 { bottom: 658px; }
     .c3 { bottom: 700px; }
     #root .hud-marker { left: 0; top: 0; width: 1080px; height: 1920px; overflow: visible; }
-    #bg-korrigiert { top: 214px; }
+    #bg-korrigiert { top: 214px; width: 864px; height: 62px; }
+    #bg-korr-text { position: absolute; left: 0; top: 0; }
+    #bg-korrigiert svg { position: absolute; left: -108px; top: -214px; width: 1080px; height: 1920px; overflow: visible; }
     #bg-begriff { top: 214px; }
-    #bg-alternative { left: 520px !important; top: 380px; }
   </style>
   <div id="root" data-composition-id="begriff" data-width="1080" data-height="1920">
-    <div id="bg-korrigiert" class="clip t schatten" data-cue="anfang" data-cue-bis="begriff" data-cue-bis-versatz="0.2" data-start="0" data-duration="1.767" data-track-index="1">Gehalt + Barças Geld</div>
-    <div id="bg-begriff" class="clip d2 schatten" data-cue="begriff" data-start="1.567" data-duration="4.933" data-track-index="1" data-beat="begriff"><span class="w">Opportunitäts-</span><br /><span class="w">kosten</span></div>
-    <div id="bg-alternative" class="clip t schatten" data-cue="alternative" data-start="4.267" data-duration="2.233" data-track-index="1">beste Alternative</div>
-    <div id="bg-credit-gabler" class="clip credit schatten c2" data-cue="begriff" data-start="1.567" data-duration="4.933" data-track-index="2">Definition: Gabler Wirtschaftslexikon, 19.02.2018</div>
-    <div id="bg-credit-karte" class="clip credit schatten c1" data-cue="anfang" data-start="0" data-duration="6.5" data-track-index="2">Karte: Natural Earth</div>
+    <div id="bg-korrigiert" class="clip" data-cue="anfang" data-cue-bis="begriff" data-cue-bis-versatz="0.2" data-start="0" data-duration="1.867" data-track-index="1"><div id="bg-korr-text" class="t schatten"><span id="bg-nur">Nur</span> sein Gehalt + <span class="gold">Barças Geld</span></div><svg id="bg-strich" viewBox="0 0 1080 1920" aria-hidden="true"></svg></div>
+    <div id="bg-begriff" class="clip d2 schatten" data-cue="begriff" data-cue-bis="julAus" data-cue-bis-versatz="0.2" data-start="1.667" data-duration="4.935" data-track-index="1" data-beat="begriff"><span class="w">Opportunitäts-</span><br /><span class="w">kosten</span></div>
+    <div id="bg-credit-gabler" class="clip credit schatten c2" data-cue="begriff" data-cue-bis="julAus" data-cue-bis-versatz="0.2" data-start="1.667" data-duration="4.935" data-track-index="2">Definition: Gabler Wirtschaftslexikon, 19.02.2018</div>
+    <div id="bg-credit-karte" class="clip credit schatten c1" data-cue="anfang" data-start="0" data-duration="6.834" data-track-index="2">Karte: Natural Earth</div>
   </div>
   <script>
     (function () {
+      /* @marker:anfang */
+/*
+ * DeepTok Marker-Ebene (Goldstandard; aus studio/spike-buehne/lib/marker.js kopiert und erweitert)
+ *
+ * Handgezeichnete Markierungen, die sich genau auf ein Wort zeichnen:
+ * Kreis (um einen Ort oder eine Zahl), Unterstreichung (unter einer Zahl),
+ * Durchstrich (über dem Irrtum, nur Rot) und Klammer (fasst einen Teil zusammen).
+ * Maße und Farben: studio/DESIGN.md §6.
+ * Vorbild: Simplicissimus (rote Kreise auf Karten) und Veritasium
+ * (Unterstreichung unter der Schlagzeile). Angelehnt an die Registry-Bausteine
+ * `marker-highlight` und `hw-boil`, aber ohne Laufzeit-Variablen, damit das
+ * Stück beim Bauen in jede Szene kopiert werden kann (siehe docs/VIDEO-PIPELINE.md §5).
+ *
+ * Drei Regeln machen das Modul "seek-sicher", also richtig an jedem Zeitpunkt,
+ * auch wenn der Player rückwärts oder mitten hinein springt:
+ *   1. Kein Math.random(): Das "Zittern" der Hand kommt aus einer festen
+ *      Hash-Funktion mit Startwert (seed). Gleicher seed = gleiche Linie.
+ *   2. Nur fromTo-Tweens mit beiden Endpunkten. Ein `from` liest seinen
+ *      ENDwert beim Erstellen aus dem DOM. Allein ist das harmlos. Bewegen aber
+ *      mehrere Tweens dieselbe Eigenschaft, liest der zweite den Startwert des
+ *      ersten als "Endwert" und steht nach einem Sprung falsch. fromTo legt
+ *      beide Endpunkte fest; ab dem zweiten Tween auf derselben Eigenschaft
+ *      kommt immediateRender: false dazu.
+ *   3. Bis zum Cue ist der Strich unsichtbar (opacity 0). Sonst malt die runde
+ *      Linienkappe schon vorher einen Punkt an den Anfang.
+ *
+ * Wird beim Bauen (build/bauen.mjs) zwischen die Marken @marker:anfang/@marker:ende
+ * eingesetzt. Doppelt eingesetzt ist harmlos: der Wächter unten bricht ab.
+ */
+(function () {
+  "use strict";
+  if (window.DeepTokMarker) return;
+
+  // Fester Pseudo-Zufall: gleiche Eingabe -> gleiche Zahl zwischen -1 und 1.
+  function hash(n, seed) {
+    var x = Math.sin(n * 127.1 + (seed || 1) * 311.7) * 43758.5453;
+    return (x - Math.floor(x)) * 2 - 1;
+  }
+
+  // Punkte -> glatter Pfad (quadratische Kurven durch die Mittelpunkte).
+  // So entstehen weiche Bögen statt Ecken, wie bei einem Filzstift.
+  function glatt(punkte) {
+    var d = "M" + punkte[0][0].toFixed(1) + " " + punkte[0][1].toFixed(1);
+    for (var i = 1; i < punkte.length - 1; i++) {
+      var p = punkte[i];
+      var q = punkte[i + 1];
+      var mx = (p[0] + q[0]) / 2;
+      var my = (p[1] + q[1]) / 2;
+      d += " Q" + p[0].toFixed(1) + " " + p[1].toFixed(1) + " " + mx.toFixed(1) + " " + my.toFixed(1);
+    }
+    var l = punkte[punkte.length - 1];
+    d += " L" + l[0].toFixed(1) + " " + l[1].toFixed(1);
+    return d;
+  }
+
+  function polylinienLaenge(punkte) {
+    var s = 0;
+    for (var i = 1; i < punkte.length; i++) {
+      s += Math.hypot(punkte[i][0] - punkte[i - 1][0], punkte[i][1] - punkte[i - 1][1]);
+    }
+    return s;
+  }
+
+  /*
+   * Handgezeichneter Kreis um (cx, cy).
+   * Eine Hand schließt einen Kreis nie genau: Der Strich läuft etwa 1,15-mal
+   * herum, der Radius wächst dabei leicht (Spirale), und die Ellipse ist ein
+   * wenig gekippt. Ergebnis: Anfang und Ende überlappen versetzt.
+   */
+  function kreisPunkte(cx, cy, rx, ry, seed, opts) {
+    opts = opts || {};
+    var umlauf = opts.umlauf || 1.15; // wie oft der Stift herumfährt
+    var start = opts.startWinkel !== undefined ? opts.startWinkel : -2.2; // oben links beginnen
+    var kipp = (opts.kippen !== undefined ? opts.kippen : -0.12) + hash(3, seed) * 0.05;
+    var n = 26;
+    var pts = [];
+    for (var i = 0; i <= n; i++) {
+      var f = i / n;
+      var a = start + f * umlauf * Math.PI * 2;
+      // Radius: leichtes Wachsen über den Umlauf + kleines Handzittern
+      var wachs = 1 - 0.06 + f * 0.12;
+      var zitter = 1 + hash(i * 7 + 11, seed) * 0.025;
+      var x = Math.cos(a) * rx * wachs * zitter;
+      var y = Math.sin(a) * ry * wachs * zitter;
+      // kippen (Drehung um den Mittelpunkt)
+      pts.push([cx + x * Math.cos(kipp) - y * Math.sin(kipp), cy + x * Math.sin(kipp) + y * Math.cos(kipp)]);
+    }
+    return pts;
+  }
+
+  /*
+   * Unterstreichung von x0 bis x1 auf Höhe y.
+   * Leicht ansteigend, mit kleinem Bogen und einem Auslauf am Ende,
+   * so wie ein schneller Strich mit dem Marker.
+   */
+  function linienPunkte(x0, y, x1, seed, opts) {
+    opts = opts || {};
+    var anstieg = opts.anstieg !== undefined ? opts.anstieg : -10; // Ende etwas höher
+    var bogen = opts.bogen !== undefined ? opts.bogen : 7;
+    var n = 9;
+    var pts = [];
+    for (var i = 0; i <= n; i++) {
+      var f = i / n;
+      var x = x0 + (x1 - x0) * f;
+      var yy = y + anstieg * f + Math.sin(f * Math.PI) * bogen + hash(i * 5 + 2, seed) * 1.6;
+      pts.push([x, yy]);
+    }
+    return pts;
+  }
+
+  /*
+   * Durchstrich von x0 bis x1 auf Höhe y (DESIGN.md §6: ein Strich, -4°, 12 px Überstand).
+   * Leicht durchgebogen, damit er nicht wie eine CSS-Linie aussieht.
+   */
+  function strichPunkte(x0, y, x1, seed) {
+    var n = 7;
+    var pts = [];
+    var neigung = Math.tan((-4 * Math.PI) / 180);
+    for (var i = 0; i <= n; i++) {
+      var f = i / n;
+      var x = x0 - 12 + (x1 - x0 + 24) * f;
+      var yy = y + neigung * (x - x0) - Math.sin(f * Math.PI) * 3 + hash(i * 3 + 5, seed) * 1.2;
+      pts.push([x, yy]);
+    }
+    return pts;
+  }
+
+  /*
+   * Klammer an der linken Seite eines Kastens (oben y0, unten y1, Kante bei x),
+   * die unten in einen Bogen zum Etikett ausläuft (bis yEtikett). Wie mit dem Stift:
+   * kurzer Haken oben, senkrechter Strich, Bogen unten.
+   */
+  function klammerPunkte(x, y0, y1, yEtikett, seed) {
+    var pts = [[x + 22, y0 + hash(1, seed)], [x + 4, y0 + 4]];
+    var n = 8;
+    for (var i = 1; i <= n; i++) {
+      var f = i / n;
+      pts.push([x - 6 + Math.sin(f * Math.PI) * -3 + hash(i + 9, seed) * 1.2, y0 + (yEtikett - y0) * f]);
+    }
+    pts.push([x + 6, yEtikett + 14]);
+    pts.push([x + 26, yEtikett + 18]);
+    return pts;
+  }
+
+  /*
+   * Zeichnet einen Pfad seek-sicher auf die Zeitachse.
+   *   pfad   : SVG-<path> mit fertigem d, der schon im DOM hängt. Nur dann
+   *            kann getTotalLength() messen; sonst gilt die Ersatzlänge.
+   *   beginn : Sekunde auf der Zeitachse (lokal zur Komposition) = Cue-Wort
+   *   dauer  : wie lange der Stift braucht (Kreis ca. 0,6 s, Linie ca. 0,35 s)
+   *   laenge : Ersatzlänge, falls getTotalLength() noch 0 liefert
+   */
+  function zeichne(tl, pfad, beginn, dauer, laenge, opts) {
+    opts = opts || {};
+    var L = 0;
+    try {
+      L = pfad.getTotalLength();
+    } catch (e) {
+      L = 0;
+    }
+    if (!(L > 0)) L = laenge || 1000;
+    // Strich-Muster: ein Strich so lang wie der Pfad, danach eine etwas
+    // längere Lücke. Bei Offset L+10 sieht man nur Lücke, bei 0 den ganzen Strich.
+    pfad.setAttribute("stroke-dasharray", L.toFixed(1) + " " + (L + 20).toFixed(1));
+    var ease = opts.ease || "power1.inOut";
+    // Unsichtbar bis zum Cue (gegen den Punkt der runden Linienkappe).
+    tl.fromTo(pfad, { opacity: 0 }, { opacity: 1, duration: 0.001, ease: "none" }, beginn);
+    tl.fromTo(
+      pfad,
+      { strokeDashoffset: L + 10 },
+      { strokeDashoffset: 0, duration: dauer, ease: ease },
+      beginn,
+    );
+    return L;
+  }
+
+  /*
+   * Bequeme Hülle: legt den Pfad an, setzt d und zeichnet ihn.
+   *   svg   : das SVG, in das der Marker kommt (Marker-Ebene)
+   *   art   : "kreis" | "linie"
+   *   p     : {cx, cy, rx, ry} für Kreis, {x0, x1, y} für Linie
+   *   stil  : {farbe, breite, seed, beginn, dauer, id}
+   */
+  function marker(tl, svg, art, p, stil) {
+    var ns = "http://www.w3.org/2000/svg";
+    var seed = stil.seed || 1;
+    var pts =
+      art === "kreis"
+        ? kreisPunkte(p.cx, p.cy, p.rx, p.ry, seed, stil)
+        : art === "strich"
+          ? strichPunkte(p.x0, p.y, p.x1, seed)
+          : art === "klammer"
+            ? klammerPunkte(p.x, p.y0, p.y1, p.yEtikett, seed)
+            : linienPunkte(p.x0, p.y, p.x1, seed, stil);
+    var g = document.createElementNS(ns, "g");
+    if (stil.id) g.setAttribute("id", stil.id);
+    // Erst einhängen, dann zeichnen: zeichne() misst die Pfadlänge im DOM.
+    svg.appendChild(g);
+    // Hauptstrich und eine dünne zweite Spur (trockener Filzstift):
+    // beide zeichnen sich gleichzeitig, die Spur ist leicht versetzt.
+    var spuren = [
+      { dx: 0, dy: 0, breite: stil.breite || 8, deckkraft: 1 },
+      { dx: 1.5, dy: -2, breite: (stil.breite || 8) * 0.35, deckkraft: 0.45 },
+    ];
+    var laenge = polylinienLaenge(pts);
+    spuren.forEach(function (s, i) {
+      var path = document.createElementNS(ns, "path");
+      path.setAttribute("d", glatt(pts));
+      path.setAttribute("fill", "none");
+      path.setAttribute("stroke-linecap", "round");
+      path.setAttribute("stroke-linejoin", "round");
+      path.setAttribute("stroke-width", String(s.breite));
+      path.setAttribute("transform", "translate(" + s.dx + " " + s.dy + ")");
+      path.style.stroke = stil.farbe || "#F5F0E8";
+      path.style.strokeOpacity = String(s.deckkraft);
+      g.appendChild(path);
+      var standard = { kreis: 0.5, strich: 0.3, klammer: 0.5 }[art] || 0.35;
+      zeichne(tl, path, stil.beginn, stil.dauer || standard, laenge, stil);
+    });
+    return g;
+  }
+
+  window.DeepTokMarker = {
+    hash: hash,
+    kreisPunkte: kreisPunkte,
+    linienPunkte: linienPunkte,
+    strichPunkte: strichPunkte,
+    klammerPunkte: klammerPunkte,
+    glatt: glatt,
+    zeichne: zeichne,
+    marker: marker,
+  };
+})();
+
+/* @marker:ende */
       /* @daten:anfang */
 // eingesetzt von build/bauen.mjs (nicht von Hand ändern)
 // WORTE: Wort-Cues aus assets/timing.json (Bild 2 Bilder vor dem Wort). ZEIT: Cues plus abgeleitete Zeiten.
-const WORTE = {"bcn":0.3,"lewa":1.0666666666666667,"verkaufen":2.7,"behalten":3.433333333333333,"frage":4.566666666666666,"optionen":5.566666666666666,"waage":8.566666666666666,"gehalt":10.4,"bezahlt":11.666666666666666,"tore":13.7,"vertrag":15.033333333333333,"saison":16.366666666666667,"verlaengern":17.966666666666665,"frei":19.466666666666665,"angebot":22,"zahl":23.6,"falsch":27.733333333333334,"landung":30.7,"entgangen":33.1,"korrektur":34.833333333333336,"begriff":37.56666666666667,"alternative":40.266666666666666,"aufgibt":41.5,"juli":42.733333333333334,"genommen":43.8,"ok_verkauf":45.46666666666667,"landung_spieler":47.6,"modell":50.266666666666666,"karte":52.166666666666664,"geschenkt":53.56666666666667,"nachhilfe":55.666666666666664,"lohn_da":56.2,"lohn":59.233333333333334,"gratis":61.3,"aufgeben":63.6,"kosten2":64.16666666666667,"rechnung":66.06666666666666};
-const ZEIT = {"anfang":0,"bcn":0.3,"lewa":1.0666666666666667,"verkaufen":2.7,"behalten":3.433333333333333,"frage":4.566666666666666,"optionen":5.566666666666666,"waage":8.566666666666666,"gehalt":10.4,"bezahlt":11.666666666666666,"tore":13.7,"vertrag":15.033333333333333,"saison":16.366666666666667,"verlaengern":17.966666666666665,"frei":19.466666666666665,"angebot":22,"zahl":23.6,"falsch":27.733333333333334,"landung":30.7,"entgangen":33.1,"korrektur":34.833333333333336,"begriff":37.56666666666667,"alternative":40.266666666666666,"aufgibt":41.5,"juli":42.733333333333334,"genommen":43.8,"ok_verkauf":45.46666666666667,"landung_spieler":47.6,"modell":50.266666666666666,"karte":52.166666666666664,"geschenkt":53.56666666666667,"nachhilfe":55.666666666666664,"lohn_da":56.2,"lohn":59.233333333333334,"gratis":61.3,"aufgeben":63.6,"kosten2":64.16666666666667,"rechnung":66.06666666666666,"s_hook":0.3,"s_naheliegend":8.566666666666666,"s_vertrag":14.633333333333333,"s_angebot":22,"s_widerlegung":25.833333333333332,"s_entgangen":33.1,"s_begriff":36.13333333333333,"s_verkauf":42.63333333333333,"s_modell":48.93333333333333,"s_transfer":51.3,"s_transfer_lohn":57.7,"s_satz":63.06666666666667,"ende":68.6,"pause":6.054,"pauseEnde":8.554,"spielerFall":1.0666666666666667,"nameSpieler":1.4866666666666666,"routeAus":3.5,"hookAus":8.566666666666666,"zoomIn":8.816666666666666,"zoomInEnde":9.416666666666666,"waageAuf":9.266666666666666,"spielerHopp":9.716666666666665,"belegFall":10.4,"behauptung":10.82,"stempel":11.666666666666666,"neigungRechts":13.7,"toreText":13.85,"band":15.133333333333333,"bandEnde":16.133333333333333,"vertragAus":21.6,"fahrtBarcelona":22,"fahrtBarcelonaEnde":22.7,"geldFall":23.6,"geldLandetBcn":24.020000000000003,"zahlText":24.080000000000002,"widerlegung":25.833333333333332,"abflugGeld":29,"fahrtMuenchen":29.25,"fahrtMuenchenEnde":30.55,"zahlTextAus":29,"geldEtikett":30.82,"etikettEntgangen":33.1,"etikettAufgegeben":41.5,"julAus":42.733333333333334,"datumJuli":42.93333333333334,"neigungLinks":43.8,"abflugSpieler":45.46666666666667,"landungSpieler":47.16666666666667,"okEtikett":45.91666666666667,"saisonText":47.6,"schnitt":50.266666666666666,"kaesten":50.416666666666664,"gleichung":50.86666666666667,"karteFall":52.166666666666664,"neigungKarte":52.586666666666666,"lohnZeichnen":56.2,"lohnFlug":59.233333333333334,"lohnFlugEnde":59.833333333333336,"nachhilfeAus":62.66666666666667,"gratisAus":63.91666666666667};
-const SZENEN = [{"id":"hook","beginn":0,"ende":8.866666666666667},{"id":"naheliegend","beginn":8.866666666666667,"ende":14.5},{"id":"vertrag","beginn":14.5,"ende":21.866666666666667},{"id":"angebot","beginn":21.866666666666667,"ende":25.7},{"id":"widerlegung","beginn":25.7,"ende":32.96666666666667},{"id":"entgangen","beginn":32.96666666666667,"ende":36},{"id":"begriff","beginn":36,"ende":42.5},{"id":"verkauf","beginn":42.5,"ende":50.266666666666666},{"id":"modell","beginn":50.266666666666666,"ende":51.166666666666664},{"id":"transfer","beginn":51.166666666666664,"ende":57.56666666666667},{"id":"transfer_lohn","beginn":57.56666666666667,"ende":62.93333333333333},{"id":"satz","beginn":62.93333333333333,"ende":68.6}];
-const BUEHNEN = {"atlas":{"beginn":0,"ende":50.266666666666666},"diagramm":{"beginn":50.266666666666666,"ende":68.6}};
+const WORTE = {"bcn":0.3,"lewa":1.1333333333333333,"verkaufen":2.7,"behalten":3.466666666666667,"frage":4.833333333333333,"optionen":5.733333333333333,"waage":8.633333333333333,"nur":10.2,"gehalt":10.6,"bezahlt":12.033333333333333,"schiesst":13.733333333333333,"tore":14.1,"vertrag":15.466666666666667,"saison":16.7,"verlaengern_an":17.533333333333335,"verlaengern":18.333333333333332,"danach":19,"frei":19.9,"nichts":21.566666666666666,"angebot":22.633333333333333,"bietet":23.266666666666666,"zahl":24.233333333333334,"falsch":28.133333333333333,"landung":31.133333333333333,"cent":32.56666666666667,"entgangen":33.766666666666666,"gewicht":34.833333333333336,"korrektur":35.5,"begriff":38.4,"alternative":41.3,"aufgibt":42.56666666666667,"juli":43.833333333333336,"nimmt":44.233333333333334,"genommen":44.96666666666667,"dreh":46.166666666666664,"ok_verkauf":46.9,"abflug_spieler":48.36666666666667,"ok_saison":48.53333333333333,"modell":51.7,"karte":53.46666666666667,"geschenkt":54.86666666666667,"genau":55.9,"nachhilfe":57.06666666666667,"lohn_da":57.63333333333333,"gleichung":59.5,"lohn":60.733333333333334,"gratis":63,"gratis_nicht":63.8,"aufgeben":65.63333333333334,"kosten2":66.3,"rechnung":68.16666666666667};
+const ZEIT = {"anfang":0,"bcn":0.3,"lewa":1.1333333333333333,"verkaufen":2.7,"behalten":3.466666666666667,"frage":4.833333333333333,"optionen":5.733333333333333,"waage":8.633333333333333,"nur":10.2,"gehalt":10.6,"bezahlt":12.033333333333333,"schiesst":13.733333333333333,"tore":14.1,"vertrag":15.466666666666667,"saison":16.7,"verlaengern_an":17.533333333333335,"verlaengern":18.333333333333332,"danach":19,"frei":19.9,"nichts":21.566666666666666,"angebot":22.633333333333333,"bietet":23.266666666666666,"zahl":24.233333333333334,"falsch":28.133333333333333,"landung":31.133333333333333,"cent":32.56666666666667,"entgangen":33.766666666666666,"gewicht":34.833333333333336,"korrektur":35.5,"begriff":38.4,"alternative":41.3,"aufgibt":42.56666666666667,"juli":43.833333333333336,"nimmt":44.233333333333334,"genommen":44.96666666666667,"dreh":46.166666666666664,"ok_verkauf":46.9,"abflug_spieler":48.36666666666667,"ok_saison":48.53333333333333,"modell":51.7,"karte":53.46666666666667,"geschenkt":54.86666666666667,"genau":55.9,"nachhilfe":57.06666666666667,"lohn_da":57.63333333333333,"gleichung":59.5,"lohn":60.733333333333334,"gratis":63,"gratis_nicht":63.8,"aufgeben":65.63333333333334,"kosten2":66.3,"rechnung":68.16666666666667,"s_hook":0.3,"s_naheliegend":8.633333333333333,"s_vertrag":15.066666666666666,"s_angebot":22.633333333333333,"s_widerlegung":26.466666666666665,"s_entgangen":33.766666666666666,"s_begriff":36.86666666666667,"s_verkauf":43.7,"s_aufloesung":45.96666666666667,"s_modell":50.333333333333336,"s_transfer":52.7,"s_transfer_lohn":59.2,"s_satz":65.06666666666666,"ende":70.7,"pause":6.197,"pauseEnde":8.597,"nameSpieler":1.1333333333333333,"routeAus":3.5,"dimBcn":3.466666666666667,"schilder":4.933333333333333,"hookAus":8.733333333333333,"zoomIn":8.933333333333334,"zoomInEnde":9.533333333333333,"waageAuf":9.383333333333333,"behauptung":10.2,"belegFall":10.6,"neigungKosten":11.02,"stempel":12.033333333333333,"spielerHopp":13.733333333333333,"neigungRechts":14.233333333333333,"toreText":14.219999999999999,"behauptungAus":14.716666666666667,"vertragFall":15.466666666666667,"dimWaage":15.466666666666667,"toreAus":15.919999999999998,"band":16.7,"bandEnde":17.4,"nahVertrag":19,"nahVertragEnde":19.5,"nullEuro":21.566666666666666,"vertragAus":23.316666666666666,"fahrtBarcelona":23.466666666666665,"fahrtBarcelonaEnde":24.166666666666664,"routeHell":23.466666666666665,"hellWaage":24.166666666666664,"geldFall":24.233333333333334,"geldLandetBcn":24.653333333333336,"zahlText":24.233333333333334,"widerlegung":26.466666666666665,"abflugGeist":29.433333333333334,"fahrtMuenchen":29.683333333333334,"fahrtMuenchenEnde":30.983333333333334,"behauptungDunkel":29.483333333333334,"zahlTextAus":29.433333333333334,"geldEtikett":31.253333333333334,"routeDunkel":31.433333333333334,"nullBehalten":32.56666666666667,"etikettEntgangen":33.766666666666666,"waagerecht":34.833333333333336,"nullBehaltenAus":38.4,"nahRein":39.25,"nahReinEnde":39.75,"etikettAlternative":41.3,"julAus":43.135,"nahRaus":43.135,"nahRausEnde":43.635,"datumJuli":43.95333333333333,"neigungLinks":44.233333333333334,"drehStart":45.86666666666667,"drehEnde":46.46666666666666,"massiv":46.21666666666666,"okEtikett":46.9,"geldDunkel":46.9,"abflugSpieler":48.36666666666667,"spielerWeg":49.46666666666667,"umriss":48.486666666666665,"saisonText":48.53333333333333,"schnitt":51.7,"karteFall":53.46666666666667,"schildKino":53.586666666666666,"neigungKarte":53.88666666666667,"rechnungFall":54.86666666666667,"fach":55.9,"lohnZeichnen":57.63333333333333,"lohnFall":60.733333333333334,"lohnLandet":61.153333333333336,"nachhilfeAus":60.733333333333334,"gleichungAus":63,"dimRest":63,"nahSatz":63.2,"nahSatzEnde":63.800000000000004,"puls":63.800000000000004};
+const SZENEN = [{"id":"hook","beginn":0,"ende":9.033333333333333},{"id":"naheliegend","beginn":9.033333333333333,"ende":14.933333333333334},{"id":"vertrag","beginn":14.933333333333334,"ende":22.5},{"id":"angebot","beginn":22.5,"ende":26.333333333333332},{"id":"widerlegung","beginn":26.333333333333332,"ende":33.63333333333333},{"id":"entgangen","beginn":33.63333333333333,"ende":36.733333333333334},{"id":"begriff","beginn":36.733333333333334,"ende":43.56666666666667},{"id":"verkauf","beginn":43.56666666666667,"ende":45.833333333333336},{"id":"aufloesung","beginn":45.833333333333336,"ende":51.7},{"id":"modell","beginn":51.7,"ende":52.56666666666667},{"id":"transfer","beginn":52.56666666666667,"ende":59.06666666666667},{"id":"transfer_lohn","beginn":59.06666666666667,"ende":64.9},{"id":"satz","beginn":64.9,"ende":70.7}];
+const BUEHNEN = {"atlas":{"beginn":0,"ende":51.7},"diagramm":{"beginn":51.7,"ende":70.7}};
 
 /* @daten:ende */
       const S = SZENEN.find((s) => s.id === "begriff");
@@ -69,10 +306,20 @@ const BUEHNEN = {"atlas":{"beginn":0,"ende":50.266666666666666},"diagramm":{"beg
         tl.fromTo(neu, { opacity: 0, filter: "blur(10px)", scale: 0.72, transformOrigin: "0% 50%" },
           { opacity: 1, filter: "blur(0px)", scale: 1, duration: 0.32, ease: "expo.out" }, t + 0.06);
       };
+      // Die korrigierte Behauptung (mit Durchstrich auf "Nur") steht bis zum Begriff.
+      const nur = document.getElementById("bg-nur");
+      document.fonts.load('600 52px "DT Inter"').catch(function () {}).then(function () {
+        const fertig = gsap.timeline({ paused: true });
+        window.DeepTokMarker.marker(fertig, document.getElementById("bg-strich"), "strich",
+          { x0: 108 + nur.offsetLeft, x1: 108 + nur.offsetLeft + nur.offsetWidth, y: 214 + 36 },
+          { farbe: "#E07A5F", breite: 10, seed: 9, beginn: 0, dauer: 0.3, id: "bg-strich-l" });
+        fertig.progress(1);
+      });
       raus("#bg-korrigiert", T("begriff"));
       setzen("#bg-begriff .w", T("begriff") + 0.06);
-      rein("#bg-alternative", T("alternative"));
       rein("#bg-credit-gabler", T("begriff"));
+      // Atempause nach der Definition: Begriff und Credit treten ab, die Welt fährt zurück.
+      raus(["#bg-begriff", "#bg-credit-gabler"], T("julAus"));
       tl.to({}, { duration: S.ende - S.beginn }, 0);
       window.__timelines["begriff"] = tl;
     })();

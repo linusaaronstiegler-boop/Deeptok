@@ -8,6 +8,10 @@
  *   - Anker für Orte, Schalen und Darsteller (Marker und Etiketten kleben daran),
  *   - eine Kamerafahrt mit Bogen (beim Weg von München nach Barcelona fährt die Kamera
  *     kurz heraus und wieder hinein, wie ein Flug über die Karte).
+ *   - Runde 1 (Kritik): eine DREHUNG der Waage (Spur "dreh", 0 -> 1). Die Waage dreht sich um
+ *     ihre Säule und zeigt die andere Seite: Schild "Behalten" wird "Verkaufen", die Schalen
+ *     tauschen die Plätze, die Darsteller fahren mit. Und eine NACHFAHRT ("nah"): Welt, Waage
+ *     und Darsteller werden zusammen größer, wie wenn die Kamera näher an ein Detail rückt.
  *
  * Grundidee wie im Spike: Alles, was sich in der Welt bewegt, ist ein ZUSTAND aus Zahlen.
  * Der Zustand kommt aus einem PLAN (Schlüsselbild-Spuren). Daraus folgt jedes Bild:
@@ -94,23 +98,66 @@
     return { kx: s.a.kx + (s.b.kx - s.a.kx) * s.f, ky: s.a.ky + (s.b.ky - s.a.ky) * s.f, zoom: Math.exp(lz) };
   }
 
+  /*
+   * Nachfahrt (Detail-Zoom): Schlüsselbilder {t, r, fx, fy}. r wächst logarithmisch (wirkt
+   * gleichmäßig), der Brennpunkt (fx, fy) bleibt auf dem Bildschirm stehen. Alles in der
+   * Hülle [data-rig] (Karte, Waage, Darsteller, Etiketten, Marker) wird gleich behandelt,
+   * das HUD nicht: So bleibt die Schrift oben fest, während die Welt näher kommt.
+   */
+  /*
+   * Runde 2: optional (zx, zy) = wohin der Brennpunkt wandert (Standard: er bleibt stehen).
+   * So kann eine Nachfahrt einen Gegenstand vom Rand in die Bildmitte holen, statt ihn nur zu
+   * vergrößern (Diagramm: Kosten-Schale ab "Gratis").
+   */
+  function nahBei(spur, t) {
+    var s = abschnitt(spur, t);
+    var lr = Math.log(s.a.r) + (Math.log(s.b.r) - Math.log(s.a.r)) * s.f;
+    var zxa = s.a.zx === undefined ? s.a.fx : s.a.zx;
+    var zxb = s.b.zx === undefined ? s.b.fx : s.b.zx;
+    var zya = s.a.zy === undefined ? s.a.fy : s.a.zy;
+    var zyb = s.b.zy === undefined ? s.b.fy : s.b.zy;
+    return { r: Math.exp(lr), fx: s.a.fx + (s.b.fx - s.a.fx) * s.f, fy: s.a.fy + (s.b.fy - s.a.fy) * s.f,
+      zx: zxa + (zxb - zxa) * s.f, zy: zya + (zyb - zya) * s.f };
+  }
+
   // ---------------------------------------------------------------------------
   // Waage: Geometrie in Bildpixeln, relativ zum Fußpunkt. Gleiche Funktion für die
   // Atlas-Waage (Fläche) und die Diagramm-Waage (Strich), damit der Schnitt passt.
   //   W = {saeule, arm, kette, schale, ...}, theta in Grad (positiv = rechts unten)
   // ---------------------------------------------------------------------------
-  function waageGeometrie(W, theta) {
+  /*
+   * Drehung um die Säule (dreh = 0 ... 1, also 0° ... 180°). Wir zeichnen flach, darum wird
+   * die Tiefe nur angedeutet:
+   *   s = cos(Winkel): x-Lage jedes Punkts relativ zur Säule wird mit s gestaucht (bei 90° steht
+   *       der Balken von der Seite gesehen, bei 180° ist links und rechts vertauscht);
+   *   e = sin(Winkel): Tiefe. Was nach vorn kommt (Schale A, anfangs links), wird etwas größer
+   *       und tiefer, die hintere Schale kleiner und höher. So kreuzen sich die Schalen nicht
+   *       platt in der Mitte, sondern fahren wie auf einem Drehteller aneinander vorbei.
+   * Die Neigung theta dreht sich mit: Was vorher links unten hing, hängt danach rechts unten.
+   */
+  var TIEFE_Y = 26; // px: so viel tiefer steht die vordere Schale in der Mitte der Drehung
+  var TIEFE_K = 0.1; // so viel größer (10 %)
+  function waageGeometrie(W, theta, dreh) {
     var r = (theta * Math.PI) / 180;
     var dx = Math.cos(r) * W.arm;
     var dy = Math.sin(r) * W.arm;
     var py = -W.saeule;
+    var phi = Math.PI * (dreh || 0);
+    var s = Math.cos(phi);
+    var e = Math.sin(phi);
+    // Tiefe der Schalen: A (links) kommt nach vorn (+e), B (rechts) geht nach hinten (-e)
+    var tA = e;
+    var tB = -e;
     return {
+      s: s,
+      e: e,
       drehpunkt: { x: 0, y: py },
-      hakenL: { x: -dx, y: py - dy },
-      hakenR: { x: dx, y: py + dy },
+      hakenL: { x: -dx * s, y: py - dy },
+      hakenR: { x: dx * s, y: py + dy },
       // Schalen hängen senkrecht unter den Haken (Pendel), egal wie der Balken steht.
-      schaleL: { x: -dx, y: py - dy + W.kette },
-      schaleR: { x: dx, y: py + dy + W.kette },
+      // L/R heißt hier: physische Schale A/B. Nach der Drehung hängt A rechts.
+      schaleL: { x: -dx * s, y: py - dy + W.kette + TIEFE_Y * tA, k: 1 + TIEFE_K * tA, tiefe: tA },
+      schaleR: { x: dx * s, y: py + dy + W.kette + TIEFE_Y * tB, k: 1 + TIEFE_K * tB, tiefe: tB },
     };
   }
 
@@ -140,6 +187,7 @@
 
     // ---- Plan prüfen, bevor irgendetwas gemalt wird ----
     if (plan.kamera) pruefeSpur("kamera", plan.kamera, ["kx", "ky", "zoom"]);
+    if (plan.nah) pruefeSpur("nah", plan.nah, ["r", "fx", "fy"]);
     var spuren = plan.spuren || {};
     Object.keys(spuren).forEach(function (n) {
       pruefeSpur(n, spuren[n], ["v"]);
@@ -177,8 +225,15 @@
           schaleR: q("#" + P + "-schale-r"),
           ketteL: q("#" + P + "-kette-l"),
           ketteR: q("#" + P + "-kette-r"),
+          // Schild an der Säule: Vorderseite/Rückseite (bei der Drehung sichtbar je nach Seite)
+          schild: q("#" + P + "-schild", false),
+          vorn: q("#" + P + "-schild-vorn", false),
+          hinten: q("#" + P + "-schild-hinten", false),
+          // Beschriftung der Schalen: Jede Schale trägt beide Wörter, sichtbar ist das ihrer Seite.
+          seitenText: Array.prototype.slice.call(w.querySelectorAll("[data-seite-text]")),
         }
       : null;
+    var rigEls = Array.prototype.slice.call(w.querySelectorAll("[data-rig]"));
 
     // Fußpunkt der Waage in Bildpixeln: an einem Weltort (Atlas) oder fest (Diagramm)
     function waageFuss(k) {
@@ -190,7 +245,9 @@
       return { x: W.fuss[0], y: W.fuss[1] };
     }
 
-    // ---- Plätze: "ort:barcelona", "schale:links:-90", "bild:540:900" ----
+    // ---- Plätze: "ort:barcelona", "schale:links:-90", "seite:links", "bild:540:900" ----
+    //   schale:links/rechts = physische Schale A/B (Darsteller fahren bei der Drehung mit),
+    //   seite:links/rechts  = die Schale, die gerade links/rechts im Bild hängt (Etiketten).
     function platz(name, k, g, fuss) {
       var teile = name.split(":");
       if (teile[0] === "ort") {
@@ -199,9 +256,16 @@
         var p = welt2bild(o[0], o[1], k);
         return { x: p.x + Number(teile[2] || 0), y: p.y + Number(teile[3] || 0), schale: false };
       }
-      if (teile[0] === "schale") {
-        var s = teile[1] === "links" ? g.schaleL : g.schaleR;
-        return { x: fuss.x + s.x + Number(teile[2] || 0), y: fuss.y + s.y + Number(teile[3] || 0), schale: true };
+      if (teile[0] === "schale" || teile[0] === "seite") {
+        var links = teile[1] === "links";
+        if (teile[0] === "seite" && g.s < 0) links = !links; // nach der Drehung hängt B links
+        var sch = links ? g.schaleL : g.schaleR;
+        // Versatz auf der Schale dreht und wächst mit (Tiefe), damit der Darsteller auf seinem
+        // Platz bleibt. Für Etiketten ("seite") nur verschieben, nie stauchen.
+        var ox = Number(teile[2] || 0);
+        var oy = Number(teile[3] || 0);
+        if (teile[0] === "schale") ox *= g.s * sch.k;
+        return { x: fuss.x + sch.x + ox, y: fuss.y + sch.y + oy, schale: true, tiefe: sch.tiefe, k: sch.k };
       }
       if (teile[0] === "bild") return { x: Number(teile[1]), y: Number(teile[2]), schale: false };
       throw new Error("Bühne: unbekannter Platz '" + name + "'");
@@ -248,7 +312,8 @@
       var sicht = i === 0 ? klemme((t - s.ab) / 0.08) : 1;
       if (s.sicht !== undefined && t >= s.ab) sicht = s.sicht; // z. B. 0 = verschwindet am Ziel
       if (t >= s.bis || s.art === "sofort") {
-        return { sicht: sicht, x: ziel.x, y: ziel.y, h: 0, gx: ziel.x, gy: ziel.y, neigung: 0, schatten: ziel.schale ? 0 : 1 };
+        return { sicht: sicht, x: ziel.x, y: ziel.y, h: 0, gx: ziel.x, gy: ziel.y, neigung: 0, schatten: ziel.schale ? 0 : 1,
+          tiefe: ziel.tiefe || 0, k: ziel.k || 1 };
       }
       var u = (t - s.ab) / (s.bis - s.ab || 1e-9);
       if (s.art === "fall") {
@@ -256,6 +321,38 @@
         return { sicht: sicht, x: ziel.x, y: ziel.y - hoehe, h: hoehe, gx: ziel.x, gy: ziel.y, neigung: 0, schatten: ziel.schale ? 0 : u };
       }
       var von = platz(liste[i - 1] ? liste[i - 1].nach : s.von, k, g, fuss);
+      if (s.art === "abflug") {
+        // Abflug aus dem Bild (Runde 1, Kritik "fällt von der Waage"): erst senkrecht steigen
+        // (steigzeit, power2.out), dann auf einem Bogen beschleunigt hinaus (power1.in).
+        // "bogenX/bogenY": Kontrollpunkt des Bogens relativ zum Gipfel.
+        var steigA = PHYSIK.steigzeit || 0.45;
+        var hoch = s.hoehe || 300;
+        var ta = t - s.ab;
+        if (ta < steigA) {
+          var hh = hoch * easeFn("power2.out")(ta / steigA);
+          return { sicht: sicht, x: von.x, y: von.y - hh, h: hh, gx: von.x, gy: von.y, neigung: 0, schatten: 0 };
+        }
+        var ua = easeFn("power1.in")(klemme((ta - steigA) / (s.bis - s.ab - steigA || 1e-9)));
+        var p0x = von.x;
+        var p0y = von.y - hoch;
+        var cxa = p0x + (s.bogenX || 0);
+        var cya = p0y + (s.bogenY || 0);
+        var aa = (1 - ua) * (1 - ua);
+        var ba = 2 * (1 - ua) * ua;
+        var ca = ua * ua;
+        var xa = aa * p0x + ba * cxa + ca * ziel.x;
+        var ya = aa * p0y + ba * cya + ca * ziel.y;
+        var richtungA = ziel.x >= von.x ? 1 : -1;
+        return { sicht: sicht, x: xa, y: ya, h: hoch, gx: xa, gy: ya, neigung: richtungA * 12 * Math.sin(Math.PI * Math.min(1, ua * 1.6)), schatten: 0 };
+      }
+      if (s.art === "sturz") {
+        // Sturz von der jetzigen Stelle auf den Platz darunter (Lohntüte ins Fach): senkrecht
+        // beschleunigt (power2.in) wie "fall", aber von dort aus, wo der Darsteller gerade ist.
+        var fs = easeFn("power2.in")(u);
+        var sx = von.x + (ziel.x - von.x) * u;
+        var sy = von.y + (ziel.y - von.y) * fs;
+        return { sicht: sicht, x: sx, y: sy, h: 0, gx: sx, gy: sy, neigung: 0, schatten: 0 };
+      }
       if (s.art === "schritt") {
         var f = easeFn("power2.inOut")(u);
         var hs = (s.hoehe || 90) * Math.sin(Math.PI * u);
@@ -327,9 +424,12 @@
       });
       e.kamera = "translate(" + (B / 2 - k.kx * k.zoom).toFixed(2) + " " + (H / 2 - k.ky * k.zoom).toFixed(2) + ") scale(" + k.zoom.toFixed(4) + ")";
       var theta = e.spuren.neigung || 0;
-      var g = W ? waageGeometrie(W, theta) : null;
+      var dreh = e.spuren.dreh || 0;
+      var g = W ? waageGeometrie(W, theta, dreh) : null;
+      // Nachfahrt (Detail): Faktor r um den Bildpunkt (fx, fy). 1 = keine.
+      e.nah = plan.nah ? nahBei(plan.nah, t) : { r: 1, fx: 0, fy: 0, zx: 0, zy: 0 };
       var fuss = W ? waageFuss(k) : null;
-      e.waage = W ? { g: g, fuss: fuss, theta: theta } : null;
+      e.waage = W ? { g: g, fuss: fuss, theta: theta, dreh: dreh } : null;
       e.akteure = {};
       namen.forEach(function (n) {
         e.akteure[n] = darsteller(n, t, k, g, fuss);
@@ -358,6 +458,12 @@
       var e = berechne(t);
       var s = e.k.zoom;
       if (kamera) kamera.setAttribute("transform", e.kamera);
+      // Nachfahrt: eine Transformation für die ganze Welt-Hülle (Ursprung oben links).
+      var n = e.nah;
+      // Punkt (fx, fy) landet nach scale(r) bei (zx, zy): translate = z - f * r.
+      var ruhig = n.r === 1 && n.zx === n.fx && n.zy === n.fy;
+      var rigT = ruhig ? "none" : "translate(" + (n.zx - n.fx * n.r).toFixed(2) + "px, " + (n.zy - n.fy * n.r).toFixed(2) + "px) scale(" + n.r.toFixed(4) + ")";
+      for (var ri = 0; ri < rigEls.length; ri++) rigEls[ri].style.transform = rigT;
       // Linien bleiben auf dem Bildschirm gleich dick: Breite / Zoom (auch Strichmuster).
       for (var i = 0; i < striche.length; i++) {
         var st = striche[i];
@@ -377,17 +483,43 @@
       if (waage) {
         var g = e.waage.g;
         waage.fuss.style.transform = "translate(" + e.waage.fuss.x.toFixed(1) + "px, " + e.waage.fuss.y.toFixed(1) + "px)";
-        waage.balken.setAttribute("transform", "rotate(" + e.waage.theta.toFixed(3) + " 0 " + (-W.saeule) + ")");
-        waage.schaleL.setAttribute("transform", "translate(" + g.schaleL.x.toFixed(1) + " " + g.schaleL.y.toFixed(1) + ")");
-        waage.schaleR.setAttribute("transform", "translate(" + g.schaleR.x.toFixed(1) + " " + g.schaleR.y.toFixed(1) + ")");
+        // Balken: um den Drehpunkt neigen, dann mit s stauchen (Drehung um die Säule).
+        waage.balken.setAttribute("transform", "translate(0 " + (-W.saeule) + ") scale(" + g.s.toFixed(4) + " 1) rotate(" +
+          e.waage.theta.toFixed(3) + ") translate(0 " + W.saeule + ")");
+        var schaleT = function (sch) {
+          return "translate(" + sch.x.toFixed(1) + " " + sch.y.toFixed(1) + ") scale(" + sch.k.toFixed(4) + ")";
+        };
+        waage.schaleL.setAttribute("transform", schaleT(g.schaleL));
+        waage.schaleR.setAttribute("transform", schaleT(g.schaleR));
         // Ketten: vom Haken zu beiden Rändern der Schale (zwei Linien je Seite)
         var halb = W.schale / 2 - 8;
         var kette = function (h, sch) {
-          return "M" + h.x.toFixed(1) + " " + h.y.toFixed(1) + " L" + (sch.x - halb).toFixed(1) + " " + sch.y.toFixed(1) +
-            " M" + h.x.toFixed(1) + " " + h.y.toFixed(1) + " L" + (sch.x + halb).toFixed(1) + " " + sch.y.toFixed(1);
+          var hb = halb * sch.k;
+          return "M" + h.x.toFixed(1) + " " + h.y.toFixed(1) + " L" + (sch.x - hb).toFixed(1) + " " + sch.y.toFixed(1) +
+            " M" + h.x.toFixed(1) + " " + h.y.toFixed(1) + " L" + (sch.x + hb).toFixed(1) + " " + sch.y.toFixed(1);
         };
         waage.ketteL.setAttribute("d", kette(g.hakenL, g.schaleL));
         waage.ketteR.setAttribute("d", kette(g.hakenR, g.schaleR));
+        // Schild: flach an der Säule, also mit |s| gestaucht; die Seite wechselt bei 90°.
+        if (waage.schild) {
+          waage.schild.setAttribute("transform", "translate(0 " + (W.schildY || 0) + ") scale(" + Math.max(0.001, Math.abs(g.s)).toFixed(4) + " 1)");
+          if (waage.vorn) waage.vorn.style.opacity = g.s >= 0 ? "1" : "0";
+          if (waage.hinten) waage.hinten.style.opacity = g.s >= 0 ? "0" : "1";
+        }
+        // Schalen-Wörter: Links steht immer "Kosten", rechts immer "Nutzen". Während der Drehung
+        // (|s| klein) sind sie aus, damit nichts gespiegelt oder doppelt zu lesen ist.
+        var deckSeite = klemme((Math.abs(g.s) - 0.35) / 0.4);
+        // Spur "textRechts" (optional): blendet das Wort der rechten Schale aus, wenn eine
+        // Nachfahrt die rechte Schale an den Bildrand schiebt (sonst stünde dort halbe Schrift).
+        var rechtsFaktor = e.spuren.textRechts === undefined ? 1 : e.spuren.textRechts;
+        for (var si = 0; si < waage.seitenText.length; si++) {
+          var st = waage.seitenText[si];
+          var istA = st.getAttribute("data-schale") === "a";
+          var linksImBild = istA ? g.s >= 0 : g.s < 0;
+          var soll = st.getAttribute("data-seite-text") === "links" ? linksImBild : !linksImBild;
+          var faktor = st.getAttribute("data-seite-text") === "rechts" ? rechtsFaktor : 1;
+          st.style.opacity = soll ? (deckSeite * faktor).toFixed(3) : "0";
+        }
       }
 
       // Darsteller
@@ -397,7 +529,9 @@
         el.huelle.style.transform = "translate(" + d.x.toFixed(1) + "px, " + d.y.toFixed(1) + "px)";
         el.huelle.style.opacity = d.sicht.toFixed(3);
         el.huelle.style.visibility = d.sicht > 0.001 ? "visible" : "hidden";
-        el.figur.style.transform = "rotate(" + d.neigung.toFixed(2) + "deg) scale(" + d.skala.toFixed(4) + ")";
+        el.figur.style.transform = "rotate(" + d.neigung.toFixed(2) + "deg) scale(" + (d.skala * (d.k || 1)).toFixed(4) + ")";
+        // Hinter der Säule, solange der Darsteller bei der Drehung hinten fährt
+        el.huelle.style.zIndex = (d.tiefe || 0) < -0.05 ? "2" : "";
         if (el.schatten) {
           var hs = Math.max(0, 1 - d.h / 260); // je höher, desto kleiner und blasser
           el.schatten.style.transform = "translate(" + d.gx.toFixed(1) + "px, " + d.gy.toFixed(1) + "px) scale(" + (0.55 + 0.45 * hs).toFixed(3) + ")";
@@ -420,7 +554,7 @@
       }
     }
 
-    return { plan: plan, berechne: berechne, render: render, welt2bild: welt2bild, waageGeometrie: waageGeometrie };
+    return { plan: plan, berechne: berechne, render: render, welt2bild: welt2bild, waageGeometrie: waageGeometrie, platz: platz };
   }
 
   /*
@@ -443,6 +577,7 @@
     erstelle: erstelle,
     wert: wert,
     kameraBei: kameraBei,
+    nahBei: nahBei,
     pruefeSpur: pruefeSpur,
     waageGeometrie: waageGeometrie,
     nachSchriften: nachSchriften,

@@ -1,7 +1,8 @@
 <template>
   <!--
     Bühne 2 "Diagramm" (Beats 9-12, ab dem harten Schnitt auf "Waage"): Rasterpapier, die Waage als
-    Strichzeichnung, Transfer Kinokarte gegen Lohn. Keine Kamera: Ein Diagramm, eine Einstellung.
+    Strichzeichnung, Transfer Kinokarte gegen Lohn. Eine Einstellung; im Satz eine Nachfahrt auf die
+    Kosten-Schale (Detail). Die Marker-Ebene liegt in der Welt-Hülle (lib/diagramm.html).
     Alles zwischen @...:anfang und @...:ende setzt build/bauen.mjs ein. Nicht von Hand ändern.
   -->
   <style>
@@ -17,124 +18,175 @@
 @font-face { font-family: "DT Inter"; src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: block; }
 /* @schriften:ende */
   #d-buehne { position: absolute; inset: 0; overflow: hidden; background: #0E1726; }
+  #d-welt { position: absolute; inset: 0; transform-origin: 0 0; isolation: isolate; }
   #d-raster { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
   #d-waage { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 3; }
   #d-waage-svg { position: absolute; left: -540px; top: -720px; width: 1080px; height: 800px; overflow: visible; }
-  /* Strich: Creme 80 %, 6 px. Flächen nur in Navy, damit das Raster nicht durch Text läuft. */
-  .dg-strich { fill: none; stroke: rgba(245, 240, 232, 0.8); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
-  .dg-flaeche { fill: #0E1726; stroke: rgba(245, 240, 232, 0.8); stroke-width: 6; stroke-linejoin: round; }
-  .dg-kette { fill: none; stroke: rgba(245, 240, 232, 0.55); stroke-width: 3; }
+  /* Strich: Creme 80 %, 8 px (DESIGN.md §7). Flächen nur in Navy, damit das Raster nicht durch Text läuft. */
+  .dg-strich { fill: none; stroke: rgba(245, 240, 232, 0.8); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; }
+  .dg-flaeche { fill: #0E1726; stroke: rgba(245, 240, 232, 0.8); stroke-width: 8; stroke-linejoin: round; }
+  .dg-kette { fill: none; stroke: rgba(245, 240, 232, 0.6); stroke-width: 4; }
   .dg-front-text { font-family: "DT Inter", sans-serif; font-weight: 600; font-size: 48px; fill: #F5F0E8; }
 
   .d-anker { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 4; }
-  #d-kaesten-svg { position: absolute; left: -170px; top: -330px; width: 340px; height: 340px; overflow: visible; }
-  .d-text { position: absolute; white-space: nowrap; font-family: "DT Inter", sans-serif; font-weight: 600;
-    font-size: 48px; line-height: 62px; }
-  .d-creme { color: #F5F0E8; }
-  .d-gold { color: #C9A84C; }
-  #d-fach-bezahlt { left: -134px; top: -152px; }
-  #d-fach-geschenkt { left: -134px; top: -90px; }
-  #d-fach-aufgegeben { left: -134px; top: -316px; }
+  /* Gold-Fach "aufgegeben": gestrichelt (wie der Geist im Atlas), deckend (keine Kette scheint durch). */
+  #d-fach-svg { position: absolute; left: -200px; top: -226px; width: 172px; height: 232px; overflow: visible; }
+  /* Rechnung: Papier wie der Gehalt-Beleg, 254 breit (für "Rechnung" in 48 px), Navy-Druck,
+     Stempel "bezahlt", Summe "0 €". Steht 24 px über den Schalenrand hinaus (Papier liegt auf). */
+  #d-rechnung { position: absolute; left: -30px; top: -246px; width: 254px; height: 246px; background: #F5F0E8;
+    transform: rotate(-2deg); transform-origin: 50% 100%; }
+  .d-druck { position: absolute; white-space: nowrap; font-family: "DT Inter", sans-serif; font-weight: 600;
+    font-size: 48px; line-height: 62px; color: #0E1726; }
+  #d-rechnung-titel { left: 0; right: 0; top: 8px; text-align: center; }
+  .d-zeile { position: absolute; height: 6px; background: #0E1726; opacity: 0.18; }
+  #d-rechnung-stempel { position: absolute; left: 12px; top: 96px; padding: 0 6px; border: 4px solid #1F3864; border-radius: 8px;
+    font-family: "DT Inter", sans-serif; font-weight: 600; font-size: 48px; line-height: 58px; color: #1F3864; white-space: nowrap; transform: rotate(-8deg); }
+  #d-rechnung-summe { right: 20px; top: 174px; }
 
   .a-huelle { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 5; }
   .a-figur { position: absolute; left: 0; top: 0; width: 0; height: 0; }
-  #a-karte-bild { position: absolute; left: -195px; top: -170px; width: 390px; height: 170px; overflow: visible; }
-  #a-lohn-bild { position: absolute; left: -120px; top: -170px; width: 240px; height: 170px; overflow: visible; }
-  .d-ding-text { font-family: "DT Inter", sans-serif; font-weight: 600; font-size: 48px; }
+  /* Kinokarte: Creme-Karte mit Abriss (Perforation), "heute / Abend", 3° gedreht. */
+  #a-karte-bild { position: absolute; left: -150px; top: -184px; width: 300px; height: 190px; overflow: visible; }
+  /* Lohntüte: stehende Papiertüte, Gold-Strich (gesuchte Größe des Transfers), 140 breit. */
+  #a-lohn-bild { position: absolute; left: -76px; top: -184px; width: 152px; height: 188px; overflow: visible; }
+  .d-ding-text { font-family: "DT Inter", sans-serif; font-weight: 600; }
 
-  /* Feste Beschriftungen, an Rasterlinien ausgerichtet (Kleinkaro 24 px ab y = 168). */
-  .d-fest { position: absolute; left: 108px; white-space: nowrap; font-family: "DT Inter", sans-serif; font-weight: 600;
+  .d-etikett { position: absolute; white-space: nowrap; font-family: "DT Inter", sans-serif; font-weight: 600;
+    font-size: 52px; line-height: 62px; }
+  .d-gold { color: #C9A84C; }
+  #d-reihe-l { z-index: 6; }
+  #d-aufgegeben { left: -164px; top: 80px; }
+  /* Nachhilfe: neben der Lohntüte (Text hängt am Gegenstand), oben links über der Waage. */
+  .d-fest { position: absolute; white-space: nowrap; font-family: "DT Inter", sans-serif; font-weight: 600;
     font-size: 52px; line-height: 62px; color: #F5F0E8; z-index: 6; }
-  #d-nachhilfe { top: 1016px; }
-  #d-abend { top: 1078px; color: rgba(245, 240, 232, 0.8); }
-  #d-rechnung { left: 140px; top: 1016px; }
+  #d-nachhilfe { left: 312px; top: 400px; }
+  #d-abend { left: 312px; top: 462px; color: rgba(245, 240, 232, 0.8); }
   #d-marker { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; z-index: 7; overflow: visible; pointer-events: none; }
 </style>
 <div id="d-buehne">
-  <!-- Rasterpapier: Kleinkaro 24 px (Creme 6 %), Großkaro 144 px (Creme 12 %), ausgerichtet an
+ <div id="d-welt" data-rig>
+  <!-- Rasterpapier: Kleinkaro 24 px (Creme 9 %), Großkaro 144 px (Creme 18 %), ausgerichtet an
        x = 108 und y = 168 (DESIGN.md §7). Muster statt tausender Linien: klein und scharf. -->
   <svg id="d-raster" viewBox="0 0 1080 1920" aria-hidden="true" data-layout-ignore>
     <defs>
       <pattern id="d-klein" x="12" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
-        <path d="M24 0 L0 0 0 24" fill="none" stroke="#F5F0E8" stroke-opacity="0.06" stroke-width="1" />
+        <path d="M24 0 L0 0 0 24" fill="none" stroke="#F5F0E8" stroke-opacity="0.09" stroke-width="1" />
       </pattern>
       <pattern id="d-gross" x="108" y="24" width="144" height="144" patternUnits="userSpaceOnUse">
-        <path d="M144 0 L0 0 0 144" fill="none" stroke="#F5F0E8" stroke-opacity="0.12" stroke-width="2" />
+        <path d="M144 0 L0 0 0 144" fill="none" stroke="#F5F0E8" stroke-opacity="0.18" stroke-width="2" />
       </pattern>
     </defs>
-    <rect width="1080" height="1920" fill="url(#d-klein)" />
-    <rect width="1080" height="1920" fill="url(#d-gross)" />
+    <!-- Größer als das Bild: Bei der Nachfahrt (bis 2-fach) reicht das Papier noch an alle Ränder. -->
+    <rect x="-1080" y="-1920" width="3240" height="5760" fill="url(#d-klein)" />
+    <rect x="-1080" y="-1920" width="3240" height="5760" fill="url(#d-gross)" />
   </svg>
 
-  <!-- Waage als Strichzeichnung. render() setzt Fuß, Balken-Drehung, Schalen und Ketten. -->
+  <!-- Waage als Strichzeichnung. render() setzt Fuß, Balken-Drehung, Schalen, Ketten, Schild. -->
   <div id="d-waage">
     <svg id="d-waage-svg" viewBox="-540 -720 1080 800" aria-hidden="true">
-      <path class="dg-strich" d="M-92 0 L-62 -26 L62 -26 L92 0 Z M-92 0 L92 0" />
-      <path class="dg-strich" d="M0 -26 L0 -500" />
-      <path id="d-kette-l" class="dg-kette" d="" />
-      <path id="d-kette-r" class="dg-kette" d="" />
-      <g id="d-balken">
-        <path class="dg-strich" d="M0 -500 L0 -540" />
-        <path class="dg-strich" d="M-270 -500 L270 -500" />
-        <circle cx="-270" cy="-500" r="9" class="dg-flaeche" />
-        <circle cx="270" cy="-500" r="9" class="dg-flaeche" />
+      <!-- Gestell. Ab "Gratis": Fuß, Säule und Schild gehen (sie stünden nach der Nachfahrt halb am
+           rechten Rand, Prüfung 1), der Balken tritt zurück (35 %): An ihm hängt die Kosten-Schale. -->
+      <g id="d-gestell-unten">
+        <path class="dg-strich" d="M-100 0 L-68 -30 L68 -30 L100 0 Z M-100 0 L100 0" />
+        <path class="dg-strich" d="M0 -30 L0 -483" />
+        <!-- Schild an der Säule: die Entscheidung, die gewogen wird ("Kino"), erst ab "Kinokarte". -->
+        <g id="d-schild"><g id="d-schild-inhalt">
+          <rect class="dg-flaeche" x="-92" y="-31" width="184" height="62" />
+          <text id="d-schild-vorn" class="dg-front-text" x="0" y="17" text-anchor="middle">Kino</text>
+        </g></g>
       </g>
-      <circle cx="0" cy="-500" r="15" class="dg-flaeche" />
+      <g id="d-gestell">
+        <g id="d-balken">
+          <path class="dg-strich" d="M0 -500 L0 -540" />
+          <path class="dg-strich" d="M-270 -500 L270 -500" />
+          <circle cx="-270" cy="-500" r="11" class="dg-flaeche" />
+          <circle cx="270" cy="-500" r="11" class="dg-flaeche" />
+        </g>
+        <circle cx="0" cy="-500" r="17" class="dg-flaeche" />
+      </g>
+      <!-- Kosten-Seite: Kette und Schale bleiben hell -->
+      <path id="d-kette-l" class="dg-kette" d="" />
       <g id="d-schale-l">
-        <path class="dg-flaeche" d="M-170 0 L170 0 L150 66 L-150 66 Z" />
+        <path class="dg-flaeche" d="M-200 0 L200 0 L178 66 L-178 66 Z" />
         <text class="dg-front-text" x="0" y="49" text-anchor="middle">Kosten</text>
       </g>
-      <g id="d-schale-r">
-        <path class="dg-flaeche" d="M-170 0 L170 0 L150 66 L-150 66 Z" />
-        <text class="dg-front-text" x="0" y="49" text-anchor="middle">Nutzen</text>
+      <!-- Nutzen-Seite: tritt ab "Gratis" zurück -->
+      <g id="d-rechts">
+        <path id="d-kette-r" class="dg-kette" d="" />
+        <g id="d-schale-r">
+          <path class="dg-flaeche" d="M-200 0 L200 0 L178 66 L-178 66 Z" />
+          <text class="dg-front-text" x="0" y="49" text-anchor="middle">Nutzen</text>
+        </g>
       </g>
     </svg>
   </div>
 
-  <!-- Zwei Fächer auf der Kosten-Schale: unten "bezahlt" (Creme), oben "aufgegeben" (Gold, leer). -->
-  <div id="d-kaesten" class="d-anker" data-anker="schale:links">
-    <svg id="d-kaesten-svg" viewBox="-170 -330 340 340" aria-hidden="true">
-      <rect id="d-kasten-bezahlt" x="-150" y="-160" width="300" height="158" fill="#0E1726" stroke="#F5F0E8" stroke-opacity="0.85" stroke-width="4" />
-      <rect id="d-kasten-aufgegeben" x="-150" y="-322" width="300" height="158" fill="#0E1726" stroke="#C9A84C" stroke-width="4" stroke-dasharray="14 10" />
+  <!-- Kosten-Schale: links das Gold-Fach "aufgegeben" (leer), rechts die Rechnung ("bezahlt"). -->
+  <div id="d-kosten" class="d-anker" data-anker="schale:links">
+    <svg id="d-fach-svg" viewBox="-200 -226 172 232" aria-hidden="true">
+      <!-- Deckend (Runde 2): Durch ein halb durchsichtiges Fach schien die Kette. Fläche und Rahmen
+           kommen zusammen (sonst stanzte die Fläche vorher ein Loch ins Raster, Kritik 1). -->
+      <rect id="d-fach" x="-190" y="-216" width="152" height="212" fill="#0E1726"
+        stroke="#C9A84C" stroke-width="6" stroke-dasharray="16 11" />
     </svg>
-    <div id="d-fach-bezahlt" class="d-text d-creme">bezahlt</div>
-    <div id="d-fach-geschenkt" class="d-text d-creme">geschenkt</div>
-    <div id="d-fach-aufgegeben" class="d-text d-gold">aufgegeben</div>
+    <div id="d-rechnung">
+      <div id="d-rechnung-titel" class="d-druck">Rechnung</div>
+      <div class="d-zeile" style="left: 22px; right: 22px; top: 76px"></div>
+      <div class="d-zeile" style="left: 22px; right: 90px; top: 90px"></div>
+      <div id="d-rechnung-stempel">bezahlt</div>
+      <div class="d-zeile" style="left: 22px; right: 22px; top: 170px; height: 3px; opacity: 0.35"></div>
+      <div id="d-rechnung-summe" class="d-druck">0&nbsp;€</div>
+    </div>
+  </div>
+  <div id="d-reihe-l" class="d-anker" data-anker="seite:links">
+    <div id="d-aufgegeben" class="d-etikett d-gold">aufgegeben</div>
   </div>
 
-  <!-- Kinokarte (Creme = gegeben): Eintrittskarte mit Kerben und Abriss, Aufdruck "heute Abend". -->
+  <!-- Kinokarte (Creme = gegeben): Karte mit Abriss und Kerben, Aufdruck "heute Abend". -->
   <div id="a-karte" class="a-huelle">
     <div id="a-karte-figur" class="a-figur">
-      <svg id="a-karte-bild" viewBox="-195 -170 390 170" aria-hidden="true">
-        <path class="dg-flaeche" d="M-190 -166 L190 -166 L190 -102 A 18 18 0 0 0 190 -66 L190 -4 L-190 -4 L-190 -66 A 18 18 0 0 0 -190 -102 Z" stroke="#F5F0E8" />
-        <path d="M158 -156 L158 -14" fill="none" stroke="#F5F0E8" stroke-opacity="0.7" stroke-width="4" stroke-dasharray="10 9" />
-        <!-- Abstand zu den Kerben links (bis x = -172) und zum Abriss rechts (x = 158) -->
-        <text class="d-ding-text" x="-12" y="-68" text-anchor="middle" fill="#F5F0E8">heute Abend</text>
+      <svg id="a-karte-bild" viewBox="-150 -184 300 190" aria-hidden="true">
+        <g transform="rotate(-3 0 0)">
+          <path d="M-140 -172 L140 -172 L140 -4 L-140 -4 Z M86 -172 A12 12 0 0 0 110 -172 Z M86 -4 A12 12 0 0 1 110 -4 Z"
+            fill="#F5F0E8" fill-rule="evenodd" />
+          <path d="M98 -156 L98 -20" fill="none" stroke="#0E1726" stroke-opacity="0.55" stroke-width="4" stroke-dasharray="9 8" />
+          <text class="d-ding-text" x="-118" y="-112" font-size="52" fill="#0E1726">heute</text>
+          <text class="d-ding-text" x="-118" y="-44" font-size="52" fill="#0E1726">Abend</text>
+          <path d="M112 -140 L128 -140 M112 -124 L128 -124 M112 -108 L124 -108" stroke="#0E1726" stroke-opacity="0.3" stroke-width="4" />
+        </g>
       </svg>
     </div>
   </div>
 
-  <!-- Lohntüte (Gold = gesuchte Größe des Transfers). Zeichnet sich, wandert ins Gold-Fach. -->
+  <!-- Lohntüte (Gold = gesuchte Größe des Transfers). Zeichnet sich, fällt ins Gold-Fach. -->
   <div id="a-lohn" class="a-huelle">
     <div id="a-lohn-figur" class="a-figur">
-      <svg id="a-lohn-bild" viewBox="-120 -170 240 170" aria-hidden="true">
-        <path id="d-lohn-umriss" d="M-116 -164 L116 -164 L116 -4 L-116 -4 Z" fill="#0E1726" stroke="#C9A84C" stroke-width="5" stroke-linejoin="round" />
-        <path id="d-lohn-klappe" d="M-116 -164 L0 -96 L116 -164" fill="none" stroke="#C9A84C" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" />
-        <text id="d-lohn-text" class="d-ding-text" x="0" y="-26" text-anchor="middle" fill="#C9A84C">Lohn</text>
+      <svg id="a-lohn-bild" viewBox="-76 -184 152 188" aria-hidden="true">
+        <!-- 140 breit, damit "Lohn" in 48 px (114 px) mit 13 px Rand hineinpasst (Prüfung 3).
+             Klappe deckend gefüllt: Vorher schien die Kette durch die offene Klappe. -->
+        <path id="d-lohn-umriss" d="M-70 -2 L-70 -152 L70 -152 L70 -2 Z" fill="#0E1726" stroke="#C9A84C" stroke-width="6" stroke-linejoin="round" />
+        <path id="d-lohn-klappe" d="M-70 -152 L-61 -176 L61 -176 L70 -152 Z M-52 -152 L-46 -166 L46 -166 L52 -152" fill="#0E1726" stroke="#C9A84C" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" />
+        <text id="d-lohn-text" class="d-ding-text" x="0" y="-60" text-anchor="middle" font-size="48" fill="#C9A84C">Lohn</text>
       </svg>
     </div>
   </div>
 
   <div id="d-nachhilfe" class="d-fest">Nachhilfe</div>
   <div id="d-abend" class="d-fest">heute Abend</div>
-  <div id="d-rechnung" class="d-fest">Rechnung</div>
+
+  <!-- Marker-Ebene der Welt: Unterstreichungen kleben an der Kosten-Schale ("Rechnung" auf dem
+       Papier) und an ihrer Etikett-Zeile ("aufgegeben"). -->
+  <svg id="d-marker" viewBox="0 0 1080 1920" aria-hidden="true" data-layout-ignore>
+    <g id="d-marker-kosten" data-anker="schale:links"></g>
+    <g id="d-marker-reihe" data-anker="seite:links"></g>
+  </svg>
+ </div>
 </div>
 
 <!-- @diagramm:ende -->
-    <svg id="d-marker" viewBox="0 0 1080 1920" aria-hidden="true" data-layout-ignore>
-      <g id="m-rechnung"></g>
-    </svg>
-    <div id="b-beat-lohn" class="clip b-beat" data-cue="lohnFlugEnde" data-cue-versatz="1.0" data-cue-bis="gratis" data-start="10.567" data-duration="0.467" data-beat="lohn-im-fach" data-track-index="3"></div>
+    <div id="b-beat-lohn" class="clip b-beat" data-cue="lohnLandet" data-cue-versatz="1.0" data-cue-bis="gratis" data-start="10.453" data-duration="0.847" data-beat="lohn-im-fach" data-track-index="3"></div>
+    <div id="b-beat-nah" class="clip b-beat" data-cue="nahSatzEnde" data-cue-versatz="0.3" data-cue-bis="rechnung" data-start="12.4" data-duration="4.067" data-beat="nachfahrt" data-track-index="3"></div>
+    <div id="b-beat-rechnung" class="clip b-beat" data-cue="rechnung" data-cue-versatz="0.6" data-start="17.067" data-duration="1.933" data-beat="rechnung" data-track-index="3"></div>
   </div>
   <script>
     (function () {
@@ -384,6 +436,10 @@
  *   - Anker für Orte, Schalen und Darsteller (Marker und Etiketten kleben daran),
  *   - eine Kamerafahrt mit Bogen (beim Weg von München nach Barcelona fährt die Kamera
  *     kurz heraus und wieder hinein, wie ein Flug über die Karte).
+ *   - Runde 1 (Kritik): eine DREHUNG der Waage (Spur "dreh", 0 -> 1). Die Waage dreht sich um
+ *     ihre Säule und zeigt die andere Seite: Schild "Behalten" wird "Verkaufen", die Schalen
+ *     tauschen die Plätze, die Darsteller fahren mit. Und eine NACHFAHRT ("nah"): Welt, Waage
+ *     und Darsteller werden zusammen größer, wie wenn die Kamera näher an ein Detail rückt.
  *
  * Grundidee wie im Spike: Alles, was sich in der Welt bewegt, ist ein ZUSTAND aus Zahlen.
  * Der Zustand kommt aus einem PLAN (Schlüsselbild-Spuren). Daraus folgt jedes Bild:
@@ -470,23 +526,66 @@
     return { kx: s.a.kx + (s.b.kx - s.a.kx) * s.f, ky: s.a.ky + (s.b.ky - s.a.ky) * s.f, zoom: Math.exp(lz) };
   }
 
+  /*
+   * Nachfahrt (Detail-Zoom): Schlüsselbilder {t, r, fx, fy}. r wächst logarithmisch (wirkt
+   * gleichmäßig), der Brennpunkt (fx, fy) bleibt auf dem Bildschirm stehen. Alles in der
+   * Hülle [data-rig] (Karte, Waage, Darsteller, Etiketten, Marker) wird gleich behandelt,
+   * das HUD nicht: So bleibt die Schrift oben fest, während die Welt näher kommt.
+   */
+  /*
+   * Runde 2: optional (zx, zy) = wohin der Brennpunkt wandert (Standard: er bleibt stehen).
+   * So kann eine Nachfahrt einen Gegenstand vom Rand in die Bildmitte holen, statt ihn nur zu
+   * vergrößern (Diagramm: Kosten-Schale ab "Gratis").
+   */
+  function nahBei(spur, t) {
+    var s = abschnitt(spur, t);
+    var lr = Math.log(s.a.r) + (Math.log(s.b.r) - Math.log(s.a.r)) * s.f;
+    var zxa = s.a.zx === undefined ? s.a.fx : s.a.zx;
+    var zxb = s.b.zx === undefined ? s.b.fx : s.b.zx;
+    var zya = s.a.zy === undefined ? s.a.fy : s.a.zy;
+    var zyb = s.b.zy === undefined ? s.b.fy : s.b.zy;
+    return { r: Math.exp(lr), fx: s.a.fx + (s.b.fx - s.a.fx) * s.f, fy: s.a.fy + (s.b.fy - s.a.fy) * s.f,
+      zx: zxa + (zxb - zxa) * s.f, zy: zya + (zyb - zya) * s.f };
+  }
+
   // ---------------------------------------------------------------------------
   // Waage: Geometrie in Bildpixeln, relativ zum Fußpunkt. Gleiche Funktion für die
   // Atlas-Waage (Fläche) und die Diagramm-Waage (Strich), damit der Schnitt passt.
   //   W = {saeule, arm, kette, schale, ...}, theta in Grad (positiv = rechts unten)
   // ---------------------------------------------------------------------------
-  function waageGeometrie(W, theta) {
+  /*
+   * Drehung um die Säule (dreh = 0 ... 1, also 0° ... 180°). Wir zeichnen flach, darum wird
+   * die Tiefe nur angedeutet:
+   *   s = cos(Winkel): x-Lage jedes Punkts relativ zur Säule wird mit s gestaucht (bei 90° steht
+   *       der Balken von der Seite gesehen, bei 180° ist links und rechts vertauscht);
+   *   e = sin(Winkel): Tiefe. Was nach vorn kommt (Schale A, anfangs links), wird etwas größer
+   *       und tiefer, die hintere Schale kleiner und höher. So kreuzen sich die Schalen nicht
+   *       platt in der Mitte, sondern fahren wie auf einem Drehteller aneinander vorbei.
+   * Die Neigung theta dreht sich mit: Was vorher links unten hing, hängt danach rechts unten.
+   */
+  var TIEFE_Y = 26; // px: so viel tiefer steht die vordere Schale in der Mitte der Drehung
+  var TIEFE_K = 0.1; // so viel größer (10 %)
+  function waageGeometrie(W, theta, dreh) {
     var r = (theta * Math.PI) / 180;
     var dx = Math.cos(r) * W.arm;
     var dy = Math.sin(r) * W.arm;
     var py = -W.saeule;
+    var phi = Math.PI * (dreh || 0);
+    var s = Math.cos(phi);
+    var e = Math.sin(phi);
+    // Tiefe der Schalen: A (links) kommt nach vorn (+e), B (rechts) geht nach hinten (-e)
+    var tA = e;
+    var tB = -e;
     return {
+      s: s,
+      e: e,
       drehpunkt: { x: 0, y: py },
-      hakenL: { x: -dx, y: py - dy },
-      hakenR: { x: dx, y: py + dy },
+      hakenL: { x: -dx * s, y: py - dy },
+      hakenR: { x: dx * s, y: py + dy },
       // Schalen hängen senkrecht unter den Haken (Pendel), egal wie der Balken steht.
-      schaleL: { x: -dx, y: py - dy + W.kette },
-      schaleR: { x: dx, y: py + dy + W.kette },
+      // L/R heißt hier: physische Schale A/B. Nach der Drehung hängt A rechts.
+      schaleL: { x: -dx * s, y: py - dy + W.kette + TIEFE_Y * tA, k: 1 + TIEFE_K * tA, tiefe: tA },
+      schaleR: { x: dx * s, y: py + dy + W.kette + TIEFE_Y * tB, k: 1 + TIEFE_K * tB, tiefe: tB },
     };
   }
 
@@ -516,6 +615,7 @@
 
     // ---- Plan prüfen, bevor irgendetwas gemalt wird ----
     if (plan.kamera) pruefeSpur("kamera", plan.kamera, ["kx", "ky", "zoom"]);
+    if (plan.nah) pruefeSpur("nah", plan.nah, ["r", "fx", "fy"]);
     var spuren = plan.spuren || {};
     Object.keys(spuren).forEach(function (n) {
       pruefeSpur(n, spuren[n], ["v"]);
@@ -553,8 +653,15 @@
           schaleR: q("#" + P + "-schale-r"),
           ketteL: q("#" + P + "-kette-l"),
           ketteR: q("#" + P + "-kette-r"),
+          // Schild an der Säule: Vorderseite/Rückseite (bei der Drehung sichtbar je nach Seite)
+          schild: q("#" + P + "-schild", false),
+          vorn: q("#" + P + "-schild-vorn", false),
+          hinten: q("#" + P + "-schild-hinten", false),
+          // Beschriftung der Schalen: Jede Schale trägt beide Wörter, sichtbar ist das ihrer Seite.
+          seitenText: Array.prototype.slice.call(w.querySelectorAll("[data-seite-text]")),
         }
       : null;
+    var rigEls = Array.prototype.slice.call(w.querySelectorAll("[data-rig]"));
 
     // Fußpunkt der Waage in Bildpixeln: an einem Weltort (Atlas) oder fest (Diagramm)
     function waageFuss(k) {
@@ -566,7 +673,9 @@
       return { x: W.fuss[0], y: W.fuss[1] };
     }
 
-    // ---- Plätze: "ort:barcelona", "schale:links:-90", "bild:540:900" ----
+    // ---- Plätze: "ort:barcelona", "schale:links:-90", "seite:links", "bild:540:900" ----
+    //   schale:links/rechts = physische Schale A/B (Darsteller fahren bei der Drehung mit),
+    //   seite:links/rechts  = die Schale, die gerade links/rechts im Bild hängt (Etiketten).
     function platz(name, k, g, fuss) {
       var teile = name.split(":");
       if (teile[0] === "ort") {
@@ -575,9 +684,16 @@
         var p = welt2bild(o[0], o[1], k);
         return { x: p.x + Number(teile[2] || 0), y: p.y + Number(teile[3] || 0), schale: false };
       }
-      if (teile[0] === "schale") {
-        var s = teile[1] === "links" ? g.schaleL : g.schaleR;
-        return { x: fuss.x + s.x + Number(teile[2] || 0), y: fuss.y + s.y + Number(teile[3] || 0), schale: true };
+      if (teile[0] === "schale" || teile[0] === "seite") {
+        var links = teile[1] === "links";
+        if (teile[0] === "seite" && g.s < 0) links = !links; // nach der Drehung hängt B links
+        var sch = links ? g.schaleL : g.schaleR;
+        // Versatz auf der Schale dreht und wächst mit (Tiefe), damit der Darsteller auf seinem
+        // Platz bleibt. Für Etiketten ("seite") nur verschieben, nie stauchen.
+        var ox = Number(teile[2] || 0);
+        var oy = Number(teile[3] || 0);
+        if (teile[0] === "schale") ox *= g.s * sch.k;
+        return { x: fuss.x + sch.x + ox, y: fuss.y + sch.y + oy, schale: true, tiefe: sch.tiefe, k: sch.k };
       }
       if (teile[0] === "bild") return { x: Number(teile[1]), y: Number(teile[2]), schale: false };
       throw new Error("Bühne: unbekannter Platz '" + name + "'");
@@ -624,7 +740,8 @@
       var sicht = i === 0 ? klemme((t - s.ab) / 0.08) : 1;
       if (s.sicht !== undefined && t >= s.ab) sicht = s.sicht; // z. B. 0 = verschwindet am Ziel
       if (t >= s.bis || s.art === "sofort") {
-        return { sicht: sicht, x: ziel.x, y: ziel.y, h: 0, gx: ziel.x, gy: ziel.y, neigung: 0, schatten: ziel.schale ? 0 : 1 };
+        return { sicht: sicht, x: ziel.x, y: ziel.y, h: 0, gx: ziel.x, gy: ziel.y, neigung: 0, schatten: ziel.schale ? 0 : 1,
+          tiefe: ziel.tiefe || 0, k: ziel.k || 1 };
       }
       var u = (t - s.ab) / (s.bis - s.ab || 1e-9);
       if (s.art === "fall") {
@@ -632,6 +749,38 @@
         return { sicht: sicht, x: ziel.x, y: ziel.y - hoehe, h: hoehe, gx: ziel.x, gy: ziel.y, neigung: 0, schatten: ziel.schale ? 0 : u };
       }
       var von = platz(liste[i - 1] ? liste[i - 1].nach : s.von, k, g, fuss);
+      if (s.art === "abflug") {
+        // Abflug aus dem Bild (Runde 1, Kritik "fällt von der Waage"): erst senkrecht steigen
+        // (steigzeit, power2.out), dann auf einem Bogen beschleunigt hinaus (power1.in).
+        // "bogenX/bogenY": Kontrollpunkt des Bogens relativ zum Gipfel.
+        var steigA = PHYSIK.steigzeit || 0.45;
+        var hoch = s.hoehe || 300;
+        var ta = t - s.ab;
+        if (ta < steigA) {
+          var hh = hoch * easeFn("power2.out")(ta / steigA);
+          return { sicht: sicht, x: von.x, y: von.y - hh, h: hh, gx: von.x, gy: von.y, neigung: 0, schatten: 0 };
+        }
+        var ua = easeFn("power1.in")(klemme((ta - steigA) / (s.bis - s.ab - steigA || 1e-9)));
+        var p0x = von.x;
+        var p0y = von.y - hoch;
+        var cxa = p0x + (s.bogenX || 0);
+        var cya = p0y + (s.bogenY || 0);
+        var aa = (1 - ua) * (1 - ua);
+        var ba = 2 * (1 - ua) * ua;
+        var ca = ua * ua;
+        var xa = aa * p0x + ba * cxa + ca * ziel.x;
+        var ya = aa * p0y + ba * cya + ca * ziel.y;
+        var richtungA = ziel.x >= von.x ? 1 : -1;
+        return { sicht: sicht, x: xa, y: ya, h: hoch, gx: xa, gy: ya, neigung: richtungA * 12 * Math.sin(Math.PI * Math.min(1, ua * 1.6)), schatten: 0 };
+      }
+      if (s.art === "sturz") {
+        // Sturz von der jetzigen Stelle auf den Platz darunter (Lohntüte ins Fach): senkrecht
+        // beschleunigt (power2.in) wie "fall", aber von dort aus, wo der Darsteller gerade ist.
+        var fs = easeFn("power2.in")(u);
+        var sx = von.x + (ziel.x - von.x) * u;
+        var sy = von.y + (ziel.y - von.y) * fs;
+        return { sicht: sicht, x: sx, y: sy, h: 0, gx: sx, gy: sy, neigung: 0, schatten: 0 };
+      }
       if (s.art === "schritt") {
         var f = easeFn("power2.inOut")(u);
         var hs = (s.hoehe || 90) * Math.sin(Math.PI * u);
@@ -703,9 +852,12 @@
       });
       e.kamera = "translate(" + (B / 2 - k.kx * k.zoom).toFixed(2) + " " + (H / 2 - k.ky * k.zoom).toFixed(2) + ") scale(" + k.zoom.toFixed(4) + ")";
       var theta = e.spuren.neigung || 0;
-      var g = W ? waageGeometrie(W, theta) : null;
+      var dreh = e.spuren.dreh || 0;
+      var g = W ? waageGeometrie(W, theta, dreh) : null;
+      // Nachfahrt (Detail): Faktor r um den Bildpunkt (fx, fy). 1 = keine.
+      e.nah = plan.nah ? nahBei(plan.nah, t) : { r: 1, fx: 0, fy: 0, zx: 0, zy: 0 };
       var fuss = W ? waageFuss(k) : null;
-      e.waage = W ? { g: g, fuss: fuss, theta: theta } : null;
+      e.waage = W ? { g: g, fuss: fuss, theta: theta, dreh: dreh } : null;
       e.akteure = {};
       namen.forEach(function (n) {
         e.akteure[n] = darsteller(n, t, k, g, fuss);
@@ -734,6 +886,12 @@
       var e = berechne(t);
       var s = e.k.zoom;
       if (kamera) kamera.setAttribute("transform", e.kamera);
+      // Nachfahrt: eine Transformation für die ganze Welt-Hülle (Ursprung oben links).
+      var n = e.nah;
+      // Punkt (fx, fy) landet nach scale(r) bei (zx, zy): translate = z - f * r.
+      var ruhig = n.r === 1 && n.zx === n.fx && n.zy === n.fy;
+      var rigT = ruhig ? "none" : "translate(" + (n.zx - n.fx * n.r).toFixed(2) + "px, " + (n.zy - n.fy * n.r).toFixed(2) + "px) scale(" + n.r.toFixed(4) + ")";
+      for (var ri = 0; ri < rigEls.length; ri++) rigEls[ri].style.transform = rigT;
       // Linien bleiben auf dem Bildschirm gleich dick: Breite / Zoom (auch Strichmuster).
       for (var i = 0; i < striche.length; i++) {
         var st = striche[i];
@@ -753,17 +911,43 @@
       if (waage) {
         var g = e.waage.g;
         waage.fuss.style.transform = "translate(" + e.waage.fuss.x.toFixed(1) + "px, " + e.waage.fuss.y.toFixed(1) + "px)";
-        waage.balken.setAttribute("transform", "rotate(" + e.waage.theta.toFixed(3) + " 0 " + (-W.saeule) + ")");
-        waage.schaleL.setAttribute("transform", "translate(" + g.schaleL.x.toFixed(1) + " " + g.schaleL.y.toFixed(1) + ")");
-        waage.schaleR.setAttribute("transform", "translate(" + g.schaleR.x.toFixed(1) + " " + g.schaleR.y.toFixed(1) + ")");
+        // Balken: um den Drehpunkt neigen, dann mit s stauchen (Drehung um die Säule).
+        waage.balken.setAttribute("transform", "translate(0 " + (-W.saeule) + ") scale(" + g.s.toFixed(4) + " 1) rotate(" +
+          e.waage.theta.toFixed(3) + ") translate(0 " + W.saeule + ")");
+        var schaleT = function (sch) {
+          return "translate(" + sch.x.toFixed(1) + " " + sch.y.toFixed(1) + ") scale(" + sch.k.toFixed(4) + ")";
+        };
+        waage.schaleL.setAttribute("transform", schaleT(g.schaleL));
+        waage.schaleR.setAttribute("transform", schaleT(g.schaleR));
         // Ketten: vom Haken zu beiden Rändern der Schale (zwei Linien je Seite)
         var halb = W.schale / 2 - 8;
         var kette = function (h, sch) {
-          return "M" + h.x.toFixed(1) + " " + h.y.toFixed(1) + " L" + (sch.x - halb).toFixed(1) + " " + sch.y.toFixed(1) +
-            " M" + h.x.toFixed(1) + " " + h.y.toFixed(1) + " L" + (sch.x + halb).toFixed(1) + " " + sch.y.toFixed(1);
+          var hb = halb * sch.k;
+          return "M" + h.x.toFixed(1) + " " + h.y.toFixed(1) + " L" + (sch.x - hb).toFixed(1) + " " + sch.y.toFixed(1) +
+            " M" + h.x.toFixed(1) + " " + h.y.toFixed(1) + " L" + (sch.x + hb).toFixed(1) + " " + sch.y.toFixed(1);
         };
         waage.ketteL.setAttribute("d", kette(g.hakenL, g.schaleL));
         waage.ketteR.setAttribute("d", kette(g.hakenR, g.schaleR));
+        // Schild: flach an der Säule, also mit |s| gestaucht; die Seite wechselt bei 90°.
+        if (waage.schild) {
+          waage.schild.setAttribute("transform", "translate(0 " + (W.schildY || 0) + ") scale(" + Math.max(0.001, Math.abs(g.s)).toFixed(4) + " 1)");
+          if (waage.vorn) waage.vorn.style.opacity = g.s >= 0 ? "1" : "0";
+          if (waage.hinten) waage.hinten.style.opacity = g.s >= 0 ? "0" : "1";
+        }
+        // Schalen-Wörter: Links steht immer "Kosten", rechts immer "Nutzen". Während der Drehung
+        // (|s| klein) sind sie aus, damit nichts gespiegelt oder doppelt zu lesen ist.
+        var deckSeite = klemme((Math.abs(g.s) - 0.35) / 0.4);
+        // Spur "textRechts" (optional): blendet das Wort der rechten Schale aus, wenn eine
+        // Nachfahrt die rechte Schale an den Bildrand schiebt (sonst stünde dort halbe Schrift).
+        var rechtsFaktor = e.spuren.textRechts === undefined ? 1 : e.spuren.textRechts;
+        for (var si = 0; si < waage.seitenText.length; si++) {
+          var st = waage.seitenText[si];
+          var istA = st.getAttribute("data-schale") === "a";
+          var linksImBild = istA ? g.s >= 0 : g.s < 0;
+          var soll = st.getAttribute("data-seite-text") === "links" ? linksImBild : !linksImBild;
+          var faktor = st.getAttribute("data-seite-text") === "rechts" ? rechtsFaktor : 1;
+          st.style.opacity = soll ? (deckSeite * faktor).toFixed(3) : "0";
+        }
       }
 
       // Darsteller
@@ -773,7 +957,9 @@
         el.huelle.style.transform = "translate(" + d.x.toFixed(1) + "px, " + d.y.toFixed(1) + "px)";
         el.huelle.style.opacity = d.sicht.toFixed(3);
         el.huelle.style.visibility = d.sicht > 0.001 ? "visible" : "hidden";
-        el.figur.style.transform = "rotate(" + d.neigung.toFixed(2) + "deg) scale(" + d.skala.toFixed(4) + ")";
+        el.figur.style.transform = "rotate(" + d.neigung.toFixed(2) + "deg) scale(" + (d.skala * (d.k || 1)).toFixed(4) + ")";
+        // Hinter der Säule, solange der Darsteller bei der Drehung hinten fährt
+        el.huelle.style.zIndex = (d.tiefe || 0) < -0.05 ? "2" : "";
         if (el.schatten) {
           var hs = Math.max(0, 1 - d.h / 260); // je höher, desto kleiner und blasser
           el.schatten.style.transform = "translate(" + d.gx.toFixed(1) + "px, " + d.gy.toFixed(1) + "px) scale(" + (0.55 + 0.45 * hs).toFixed(3) + ")";
@@ -796,7 +982,7 @@
       }
     }
 
-    return { plan: plan, berechne: berechne, render: render, welt2bild: welt2bild, waageGeometrie: waageGeometrie };
+    return { plan: plan, berechne: berechne, render: render, welt2bild: welt2bild, waageGeometrie: waageGeometrie, platz: platz };
   }
 
   /*
@@ -819,6 +1005,7 @@
     erstelle: erstelle,
     wert: wert,
     kameraBei: kameraBei,
+    nahBei: nahBei,
     pruefeSpur: pruefeSpur,
     waageGeometrie: waageGeometrie,
     nachSchriften: nachSchriften,
@@ -829,11 +1016,11 @@
       /* @datenDiagramm:anfang */
 // eingesetzt von build/bauen.mjs (nicht von Hand ändern)
 // WORTE: Wort-Cues aus assets/timing.json (Bild 2 Bilder vor dem Wort). ZEIT: Cues plus abgeleitete Zeiten.
-const WORTE = {"bcn":0.3,"lewa":1.0666666666666667,"verkaufen":2.7,"behalten":3.433333333333333,"frage":4.566666666666666,"optionen":5.566666666666666,"waage":8.566666666666666,"gehalt":10.4,"bezahlt":11.666666666666666,"tore":13.7,"vertrag":15.033333333333333,"saison":16.366666666666667,"verlaengern":17.966666666666665,"frei":19.466666666666665,"angebot":22,"zahl":23.6,"falsch":27.733333333333334,"landung":30.7,"entgangen":33.1,"korrektur":34.833333333333336,"begriff":37.56666666666667,"alternative":40.266666666666666,"aufgibt":41.5,"juli":42.733333333333334,"genommen":43.8,"ok_verkauf":45.46666666666667,"landung_spieler":47.6,"modell":50.266666666666666,"karte":52.166666666666664,"geschenkt":53.56666666666667,"nachhilfe":55.666666666666664,"lohn_da":56.2,"lohn":59.233333333333334,"gratis":61.3,"aufgeben":63.6,"kosten2":64.16666666666667,"rechnung":66.06666666666666};
-const ZEIT = {"anfang":0,"bcn":0.3,"lewa":1.0666666666666667,"verkaufen":2.7,"behalten":3.433333333333333,"frage":4.566666666666666,"optionen":5.566666666666666,"waage":8.566666666666666,"gehalt":10.4,"bezahlt":11.666666666666666,"tore":13.7,"vertrag":15.033333333333333,"saison":16.366666666666667,"verlaengern":17.966666666666665,"frei":19.466666666666665,"angebot":22,"zahl":23.6,"falsch":27.733333333333334,"landung":30.7,"entgangen":33.1,"korrektur":34.833333333333336,"begriff":37.56666666666667,"alternative":40.266666666666666,"aufgibt":41.5,"juli":42.733333333333334,"genommen":43.8,"ok_verkauf":45.46666666666667,"landung_spieler":47.6,"modell":50.266666666666666,"karte":52.166666666666664,"geschenkt":53.56666666666667,"nachhilfe":55.666666666666664,"lohn_da":56.2,"lohn":59.233333333333334,"gratis":61.3,"aufgeben":63.6,"kosten2":64.16666666666667,"rechnung":66.06666666666666,"s_hook":0.3,"s_naheliegend":8.566666666666666,"s_vertrag":14.633333333333333,"s_angebot":22,"s_widerlegung":25.833333333333332,"s_entgangen":33.1,"s_begriff":36.13333333333333,"s_verkauf":42.63333333333333,"s_modell":48.93333333333333,"s_transfer":51.3,"s_transfer_lohn":57.7,"s_satz":63.06666666666667,"ende":68.6,"pause":6.054,"pauseEnde":8.554,"spielerFall":1.0666666666666667,"nameSpieler":1.4866666666666666,"routeAus":3.5,"hookAus":8.566666666666666,"zoomIn":8.816666666666666,"zoomInEnde":9.416666666666666,"waageAuf":9.266666666666666,"spielerHopp":9.716666666666665,"belegFall":10.4,"behauptung":10.82,"stempel":11.666666666666666,"neigungRechts":13.7,"toreText":13.85,"band":15.133333333333333,"bandEnde":16.133333333333333,"vertragAus":21.6,"fahrtBarcelona":22,"fahrtBarcelonaEnde":22.7,"geldFall":23.6,"geldLandetBcn":24.020000000000003,"zahlText":24.080000000000002,"widerlegung":25.833333333333332,"abflugGeld":29,"fahrtMuenchen":29.25,"fahrtMuenchenEnde":30.55,"zahlTextAus":29,"geldEtikett":30.82,"etikettEntgangen":33.1,"etikettAufgegeben":41.5,"julAus":42.733333333333334,"datumJuli":42.93333333333334,"neigungLinks":43.8,"abflugSpieler":45.46666666666667,"landungSpieler":47.16666666666667,"okEtikett":45.91666666666667,"saisonText":47.6,"schnitt":50.266666666666666,"kaesten":50.416666666666664,"gleichung":50.86666666666667,"karteFall":52.166666666666664,"neigungKarte":52.586666666666666,"lohnZeichnen":56.2,"lohnFlug":59.233333333333334,"lohnFlugEnde":59.833333333333336,"nachhilfeAus":62.66666666666667,"gratisAus":63.91666666666667};
-const SZENEN = [{"id":"hook","beginn":0,"ende":8.866666666666667},{"id":"naheliegend","beginn":8.866666666666667,"ende":14.5},{"id":"vertrag","beginn":14.5,"ende":21.866666666666667},{"id":"angebot","beginn":21.866666666666667,"ende":25.7},{"id":"widerlegung","beginn":25.7,"ende":32.96666666666667},{"id":"entgangen","beginn":32.96666666666667,"ende":36},{"id":"begriff","beginn":36,"ende":42.5},{"id":"verkauf","beginn":42.5,"ende":50.266666666666666},{"id":"modell","beginn":50.266666666666666,"ende":51.166666666666664},{"id":"transfer","beginn":51.166666666666664,"ende":57.56666666666667},{"id":"transfer_lohn","beginn":57.56666666666667,"ende":62.93333333333333},{"id":"satz","beginn":62.93333333333333,"ende":68.6}];
-const BUEHNEN = {"atlas":{"beginn":0,"ende":50.266666666666666},"diagramm":{"beginn":50.266666666666666,"ende":68.6}};
-const DATEN = {"orte":{},"breite":1080,"hoehe":1920,"physik":{"fallhoehe":560,"fallzeit":0.42,"flughoehe":130,"steigzeit":0.45,"sinkzeit":0.5,"flugzeit":1.7,"schrittzeit":0.5},"marker":{"kreis":0.5,"linie":0.35,"strich":0.3,"klammer":0.5},"waage":{"saeule":500,"arm":270,"kette":360,"schale":340,"front":66,"neigung":7,"fuss":[540,1080]}};
+const WORTE = {"bcn":0.3,"lewa":1.1333333333333333,"verkaufen":2.7,"behalten":3.466666666666667,"frage":4.833333333333333,"optionen":5.733333333333333,"waage":8.633333333333333,"nur":10.2,"gehalt":10.6,"bezahlt":12.033333333333333,"schiesst":13.733333333333333,"tore":14.1,"vertrag":15.466666666666667,"saison":16.7,"verlaengern_an":17.533333333333335,"verlaengern":18.333333333333332,"danach":19,"frei":19.9,"nichts":21.566666666666666,"angebot":22.633333333333333,"bietet":23.266666666666666,"zahl":24.233333333333334,"falsch":28.133333333333333,"landung":31.133333333333333,"cent":32.56666666666667,"entgangen":33.766666666666666,"gewicht":34.833333333333336,"korrektur":35.5,"begriff":38.4,"alternative":41.3,"aufgibt":42.56666666666667,"juli":43.833333333333336,"nimmt":44.233333333333334,"genommen":44.96666666666667,"dreh":46.166666666666664,"ok_verkauf":46.9,"abflug_spieler":48.36666666666667,"ok_saison":48.53333333333333,"modell":51.7,"karte":53.46666666666667,"geschenkt":54.86666666666667,"genau":55.9,"nachhilfe":57.06666666666667,"lohn_da":57.63333333333333,"gleichung":59.5,"lohn":60.733333333333334,"gratis":63,"gratis_nicht":63.8,"aufgeben":65.63333333333334,"kosten2":66.3,"rechnung":68.16666666666667};
+const ZEIT = {"anfang":0,"bcn":0.3,"lewa":1.1333333333333333,"verkaufen":2.7,"behalten":3.466666666666667,"frage":4.833333333333333,"optionen":5.733333333333333,"waage":8.633333333333333,"nur":10.2,"gehalt":10.6,"bezahlt":12.033333333333333,"schiesst":13.733333333333333,"tore":14.1,"vertrag":15.466666666666667,"saison":16.7,"verlaengern_an":17.533333333333335,"verlaengern":18.333333333333332,"danach":19,"frei":19.9,"nichts":21.566666666666666,"angebot":22.633333333333333,"bietet":23.266666666666666,"zahl":24.233333333333334,"falsch":28.133333333333333,"landung":31.133333333333333,"cent":32.56666666666667,"entgangen":33.766666666666666,"gewicht":34.833333333333336,"korrektur":35.5,"begriff":38.4,"alternative":41.3,"aufgibt":42.56666666666667,"juli":43.833333333333336,"nimmt":44.233333333333334,"genommen":44.96666666666667,"dreh":46.166666666666664,"ok_verkauf":46.9,"abflug_spieler":48.36666666666667,"ok_saison":48.53333333333333,"modell":51.7,"karte":53.46666666666667,"geschenkt":54.86666666666667,"genau":55.9,"nachhilfe":57.06666666666667,"lohn_da":57.63333333333333,"gleichung":59.5,"lohn":60.733333333333334,"gratis":63,"gratis_nicht":63.8,"aufgeben":65.63333333333334,"kosten2":66.3,"rechnung":68.16666666666667,"s_hook":0.3,"s_naheliegend":8.633333333333333,"s_vertrag":15.066666666666666,"s_angebot":22.633333333333333,"s_widerlegung":26.466666666666665,"s_entgangen":33.766666666666666,"s_begriff":36.86666666666667,"s_verkauf":43.7,"s_aufloesung":45.96666666666667,"s_modell":50.333333333333336,"s_transfer":52.7,"s_transfer_lohn":59.2,"s_satz":65.06666666666666,"ende":70.7,"pause":6.197,"pauseEnde":8.597,"nameSpieler":1.1333333333333333,"routeAus":3.5,"dimBcn":3.466666666666667,"schilder":4.933333333333333,"hookAus":8.733333333333333,"zoomIn":8.933333333333334,"zoomInEnde":9.533333333333333,"waageAuf":9.383333333333333,"behauptung":10.2,"belegFall":10.6,"neigungKosten":11.02,"stempel":12.033333333333333,"spielerHopp":13.733333333333333,"neigungRechts":14.233333333333333,"toreText":14.219999999999999,"behauptungAus":14.716666666666667,"vertragFall":15.466666666666667,"dimWaage":15.466666666666667,"toreAus":15.919999999999998,"band":16.7,"bandEnde":17.4,"nahVertrag":19,"nahVertragEnde":19.5,"nullEuro":21.566666666666666,"vertragAus":23.316666666666666,"fahrtBarcelona":23.466666666666665,"fahrtBarcelonaEnde":24.166666666666664,"routeHell":23.466666666666665,"hellWaage":24.166666666666664,"geldFall":24.233333333333334,"geldLandetBcn":24.653333333333336,"zahlText":24.233333333333334,"widerlegung":26.466666666666665,"abflugGeist":29.433333333333334,"fahrtMuenchen":29.683333333333334,"fahrtMuenchenEnde":30.983333333333334,"behauptungDunkel":29.483333333333334,"zahlTextAus":29.433333333333334,"geldEtikett":31.253333333333334,"routeDunkel":31.433333333333334,"nullBehalten":32.56666666666667,"etikettEntgangen":33.766666666666666,"waagerecht":34.833333333333336,"nullBehaltenAus":38.4,"nahRein":39.25,"nahReinEnde":39.75,"etikettAlternative":41.3,"julAus":43.135,"nahRaus":43.135,"nahRausEnde":43.635,"datumJuli":43.95333333333333,"neigungLinks":44.233333333333334,"drehStart":45.86666666666667,"drehEnde":46.46666666666666,"massiv":46.21666666666666,"okEtikett":46.9,"geldDunkel":46.9,"abflugSpieler":48.36666666666667,"spielerWeg":49.46666666666667,"umriss":48.486666666666665,"saisonText":48.53333333333333,"schnitt":51.7,"karteFall":53.46666666666667,"schildKino":53.586666666666666,"neigungKarte":53.88666666666667,"rechnungFall":54.86666666666667,"fach":55.9,"lohnZeichnen":57.63333333333333,"lohnFall":60.733333333333334,"lohnLandet":61.153333333333336,"nachhilfeAus":60.733333333333334,"gleichungAus":63,"dimRest":63,"nahSatz":63.2,"nahSatzEnde":63.800000000000004,"puls":63.800000000000004};
+const SZENEN = [{"id":"hook","beginn":0,"ende":9.033333333333333},{"id":"naheliegend","beginn":9.033333333333333,"ende":14.933333333333334},{"id":"vertrag","beginn":14.933333333333334,"ende":22.5},{"id":"angebot","beginn":22.5,"ende":26.333333333333332},{"id":"widerlegung","beginn":26.333333333333332,"ende":33.63333333333333},{"id":"entgangen","beginn":33.63333333333333,"ende":36.733333333333334},{"id":"begriff","beginn":36.733333333333334,"ende":43.56666666666667},{"id":"verkauf","beginn":43.56666666666667,"ende":45.833333333333336},{"id":"aufloesung","beginn":45.833333333333336,"ende":51.7},{"id":"modell","beginn":51.7,"ende":52.56666666666667},{"id":"transfer","beginn":52.56666666666667,"ende":59.06666666666667},{"id":"transfer_lohn","beginn":59.06666666666667,"ende":64.9},{"id":"satz","beginn":64.9,"ende":70.7}];
+const BUEHNEN = {"atlas":{"beginn":0,"ende":51.7},"diagramm":{"beginn":51.7,"ende":70.7}};
+const DATEN = {"orte":{},"breite":1080,"hoehe":1920,"physik":{"fallhoehe":560,"fallzeit":0.42,"flughoehe":130,"steigzeit":0.45,"sinkzeit":0.5,"flugzeit":1.7,"schrittzeit":0.5},"marker":{"kreis":0.5,"linie":0.35,"strich":0.3,"klammer":0.5},"waage":{"saeule":500,"arm":270,"kette":360,"schale":400,"front":66,"neigung":7,"schildY":-438,"fuss":[540,1130]},"nah":{"r":1.9,"fx":285,"fy":940,"zx":540,"zy":760}};
 
 /* @datenDiagramm:ende */
 
@@ -844,29 +1031,54 @@ const DATEN = {"orte":{},"breite":1080,"hoehe":1920,"physik":{"fallhoehe":560,"f
 // Erwartet im selben Gültigkeitsbereich: tl, ZEIT, DATEN, BUEHNEN (von build/bauen.mjs).
 // Die Bühne beginnt mit dem harten Schnitt auf "Waage". Ihre Zeitachse zählt ab dort:
 // lokale Zeit = absolute Zeit - T0.
+//
+// Runde 1 (Kritik): Die Kosten-Schale zeigt die Pointe als Bild. Links das Gold-Fach
+// "aufgegeben" (dort landet der Lohn), rechts die Rechnung "bezahlt: 0 €" (die Kinokarte war
+// geschenkt).
+//
+// Runde 2 (Kritik):
+//   - Nach dem Schnitt steht nur die leere Waage. Jede Kategorie kommt mit ihrem Beispiel
+//     (Beispiel vor Regel, Prüfung 2): die Rechnung FÄLLT auf "geschenkt" (schon mit "0 €"),
+//     das Gold-Fach "aufgegeben" rastet auf "Genau dann" ein.
+//   - Schrift auf Gegenständen >= 48 px, Fach und Tüte deckend (Prüfung 1 und 3).
+//   - Auf "Gratis" treten Gestell und Nutzen-Seite zurück, die Welt fährt groß an die
+//     Kosten-Schale (Prüfung 1: vorher 13 s dieselbe Totale). Auf "nicht" zuckt die Lohntüte
+//     neben der Rechnung "0 €": Das Bild sagt "nicht gratis" (statt "geschenkt ≠ gratis").
+//   - Im Satz liegen die Marker am Helden: Gold unter "aufgegeben", Navy unter "Rechnung".
 const Z = ZEIT;
 const T0 = BUEHNEN.diagramm.beginn;
 const L = (name) => Z[name] - T0;
 const PH = DATEN.physik;
 const N = DATEN.waage.neigung;
+const NAH = DATEN.nah;
 
 const plan = {
+  // Nachfahrt ab "Gratis": Die Mitte der Kosten-Schale (fx, fy) wandert in die Bildmitte (zx, zy)
+  // und wird r-mal so groß (DESIGN.md §7 Diagramm: "Details per Zoom-in").
+  nah: [
+    Object.assign({}, NAH, { t: 0, r: 1, zx: NAH.fx, zy: NAH.fy }),
+    Object.assign({}, NAH, { t: L("nahSatz"), r: 1, zx: NAH.fx, zy: NAH.fy }),
+    Object.assign({}, NAH, { t: L("nahSatzEnde"), ease: "power2.inOut" }),
+  ],
   spuren: {
     // Die Waage bleibt im Transfer am Ende WAAGERECHT: Die Wahl bleibt offen, kein Rat.
+    // Die Rechnung (0 €) wiegt nichts: Sie ändert die Neigung nicht.
     neigung: [
       { t: 0, v: 0 },
       { t: L("neigungKarte"), v: 0 },
       { t: L("neigungKarte") + 0.8, v: N, ease: "back.out(1.6)" }, // Kinokarte: Nutzen
-      { t: L("lohnFlugEnde"), v: N },
-      { t: L("lohnFlugEnde") + 0.9, v: 0, ease: "back.out(2.2)" }, // Lohn im Gold-Fach: waagerecht
+      { t: L("lohnLandet"), v: N },
+      { t: L("lohnLandet") + 0.9, v: 0, ease: "back.out(2.2)" }, // Lohn im Gold-Fach: waagerecht
     ],
   },
   akteure: {
     karte: [{ ab: L("karteFall"), bis: L("karteFall") + PH.fallzeit, nach: "schale:rechts:0", art: "fall", hoehe: 420 }],
     lohn: [
-      { ab: L("lohnZeichnen"), bis: L("lohnZeichnen"), nach: "bild:240:1306", art: "sofort" },
-      // In das Gold-Fach (über dem Fach "bezahlt"): kleiner, damit es hineinpasst.
-      { ab: L("lohnFlug"), bis: L("lohnFlugEnde"), nach: "schale:links:66:-170", art: "schritt", hoehe: 160, skala: 0.42 },
+      // Die Tüte zeichnet sich über dem Gold-Fach (neben "Nachhilfe, heute Abend") ...
+      // Groß (1,4-fach), solange sie allein steht: Sie ist der Gold-Held des Transfers.
+      { ab: L("lohnZeichnen"), bis: L("lohnZeichnen"), nach: "bild:188:552", art: "sofort", skala: 1.4 },
+      // ... und fällt auf "Lohn" senkrecht hinein (Mitte des Fachs: 114 px links der Schalenmitte).
+      { ab: L("lohnFall"), bis: L("lohnLandet"), nach: "schale:links:-114:-8", art: "sturz", skala: 1 },
     ],
   },
 };
@@ -884,47 +1096,75 @@ const rein = (sel, t, extra) =>
 const raus = (sel, t, extra) =>
   tl.fromTo(sel, { opacity: 1, filter: "blur(0px)" },
     Object.assign({ opacity: 0, filter: "blur(8px)", duration: 0.18, ease: "power2.in", immediateRender: false }, extra || {}), t);
-// "Zeichnen" (DESIGN.md §5 Diagramm): Strich-Offset L -> 0, ca. 1000 px/s.
+// "Zeichnen" (DESIGN.md §5 Diagramm): Strich-Offset L -> 0, ca. 1000 px/s. Die Fläche kommt MIT
+// dem Strich (Deckkraft der Füllung 0 -> 1 in derselben Zeit): Vorher stand sie schon vor dem
+// Strich als dunkles Loch im Raster (Prüfung 1).
 function zeichnen(sel, t) {
   const el = document.querySelector(sel);
   const laenge = el.getTotalLength ? el.getTotalLength() : 1000;
+  const dauer = Math.max(0.3, laenge / 1000);
   el.setAttribute("stroke-dasharray", laenge.toFixed(1) + " " + (laenge + 20).toFixed(1));
   tl.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.001, ease: "none" }, t);
-  tl.fromTo(el, { strokeDashoffset: laenge + 10 }, { strokeDashoffset: 0, duration: Math.max(0.3, laenge / 1000), ease: "power1.inOut" }, t);
+  tl.fromTo(el, { strokeDashoffset: laenge + 10 }, { strokeDashoffset: 0, duration: dauer, ease: "power1.inOut" }, t);
+  tl.fromTo(el, { fillOpacity: 0 }, { fillOpacity: 1, duration: dauer, ease: "power1.in" }, t);
 }
-// "Einrasten": Maßstab 0 -> 1 mit Feder, Beschriftung 0,12 s später aus der Unschärfe.
-function einrasten(sel, t) {
-  tl.fromTo(sel, { opacity: 0, scale: 0.6, filter: "blur(8px)", transformOrigin: "0% 50%" },
+// "Einrasten": Maßstab klein -> 1 mit Feder, Unschärfe weg.
+function einrasten(sel, t, ursprung) {
+  tl.fromTo(sel, { opacity: 0, scale: 0.6, filter: "blur(8px)", transformOrigin: ursprung || "0% 50%" },
     { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.35, ease: "back.out(2.2)" }, t);
 }
+// Aufprall: Stauchen am Boden (Ursprung unten), dann zurückfedern.
+function aufprall(sel, t, staerke, erst) {
+  tl.fromTo(sel, { scaleY: 1, transformOrigin: "50% 100%" }, { scaleY: staerke, duration: 0.07, ease: "power1.out", immediateRender: erst !== false }, t);
+  tl.fromTo(sel, { scaleY: staerke }, { scaleY: 1, duration: 0.3, ease: "back.out(3)", immediateRender: false }, t + 0.07);
+}
+// Abdunkeln (DESIGN.md §6): auf 35 %
+const dunkel = (sel, t) => tl.fromTo(sel, { opacity: 1 }, { opacity: 0.35, duration: 0.3, ease: "power2.inOut" }, t);
 
-// Beat 9: Die Fächer der Kosten-Schale bauen sich kurz nach dem Schnitt auf.
-zeichnen("#d-kasten-bezahlt", L("kaesten"));
-tl.fromTo("#d-kasten-aufgegeben", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" }, L("kaesten") + 0.25);
-rein("#d-fach-bezahlt", L("kaesten") + 0.12);
-rein("#d-fach-aufgegeben", L("kaesten") + 0.37);
-// Beat 10: Kinokarte fällt auf "Kinokarte" (render), "geschenkt" im leeren Fach "bezahlt"
-rein("#d-fach-geschenkt", L("geschenkt"));
+// Beat 9: Schnitt auf "Waage": nur die leere Waage ("Kosten" / "Nutzen"). Rechnung und Gold-Fach
+// sind noch nicht da (Kategorie erst mit Beispiel).
+// Beat 10: Kinokarte fällt auf "Kinokarte" (render), das Schild sagt, was gewogen wird: "Kino".
+aufprall("#a-karte-bild", L("karteFall") + PH.fallzeit, 0.9);
+tl.fromTo("#d-schild-inhalt", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" }, L("schildKino"));
+// "geschenkt": Die Rechnung FÄLLT auf die Kosten-Schale (volle Deckkraft, Fallen wie im Atlas,
+// kein graues Einblenden), auf ihr steht schon "0 €"; nach dem Aufprall der Stempel "bezahlt".
+// Sie wiegt nichts: Die Waage bleibt, wie sie ist.
+tl.fromTo("#d-rechnung", { opacity: 0 }, { opacity: 1, duration: 0.04, ease: "none" }, L("rechnungFall"));
+tl.fromTo("#d-rechnung", { y: -420 }, { y: 0, duration: PH.fallzeit, ease: "power2.in" }, L("rechnungFall"));
+aufprall("#d-rechnung", L("rechnungFall") + PH.fallzeit, 0.92, false);
+tl.fromTo("#d-rechnung-stempel", { opacity: 0, scale: 1.6 }, { opacity: 1, scale: 1, duration: 0.28, ease: "back.out(2.2)" }, L("rechnungFall") + PH.fallzeit + 0.15);
+// "Genau dann": Das gestrichelte Gold-Fach rastet neben der Rechnung ein, darunter "aufgegeben".
+einrasten("#d-fach-svg", L("fach"), "50% 100%");
+rein("#d-aufgegeben", L("fach") + 0.12);
+// "Nachhilfe": oben links, mit derselben Zeitmarke "heute Abend" (beides zugleich geht nicht)
 einrasten("#d-nachhilfe", L("nachhilfe"));
 einrasten("#d-abend", L("nachhilfe") + 0.12);
-// Lohntüte zeichnet sich auf "Geld"
+// "Geld": Die Lohntüte zeichnet sich neben "Nachhilfe"
 zeichnen("#d-lohn-umriss", L("lohnZeichnen"));
-zeichnen("#d-lohn-klappe", L("lohnZeichnen") + 0.35);
-rein("#d-lohn-text", L("lohnZeichnen") + 0.5);
-// Im Fach wird die Tüte klein; ihr Aufdruck wäre dort unter 28 px (unlesbar). Er tritt ab,
-// das Fach "aufgegeben" benennt sie jetzt.
-raus("#d-lohn-text", L("lohnFlug"));
-// Beat 11: Die Tüte wandert ins Gold-Fach, die Waage schwingt auf waagerecht. Kein Kreis:
-// höchstens 1 Kreis je Video (DESIGN.md §6), die Bewegung ist hier das Zeichen.
-const M = window.DeepTokMarker;
+zeichnen("#d-lohn-klappe", L("lohnZeichnen") + 0.3);
+rein("#d-lohn-text", L("lohnZeichnen") + 0.45);
+// Beat 11: Auf "Lohn" fällt die Tüte ins Gold-Fach (render). "Nachhilfe, heute Abend" gehen mit
+// ihr (sonst schwebten sie ohne Gegenstand, Prüfung 1). Beim Aufprall staucht die Tüte.
 raus(["#d-nachhilfe", "#d-abend"], L("nachhilfeAus"), { stagger: 0.05 });
-// Beat 12: Klammer "Rechnung" umfasst nur das Fach "bezahlt"; das Gold-Fach liegt außerhalb.
-const g = DATEN.waage;
-const randY = g.fuss[1] - g.saeule + g.kette; // Schalenrand bei waagerechter Waage
-M.marker(tl, document.getElementById("m-rechnung"), "klammer",
-  { x: g.fuss[0] - g.arm - 152, y0: randY - 160, y1: randY, yEtikett: 1030 },
-  { farbe: "#F5F0E8", breite: 6, seed: 3, beginn: L("rechnung"), dauer: DATEN.marker.klammer, id: "m-klammer" });
-rein("#d-rechnung", L("rechnung") + 0.3);
+aufprall("#a-lohn-bild", L("lohnLandet"), 0.9);
+// "Gratis": Gestell, Nutzen-Seite und Kinokarte treten zurück; die Welt fährt an die Kosten-Schale.
+dunkel(["#d-gestell", "#d-rechts", "#a-karte-bild"], L("dimRest"));
+raus("#d-gestell-unten", L("dimRest"), { duration: 0.3 });
+// "nicht" (gratis): Die Tüte zuckt neben der Rechnung "0 €" (Maßstab 1 -> 1,12 -> 1).
+tl.fromTo("#a-lohn-bild", { scale: 1, transformOrigin: "50% 100%" },
+  { scale: 1.12, duration: 0.16, ease: "power2.out", immediateRender: false }, L("puls"));
+tl.fromTo("#a-lohn-bild", { scale: 1.12 }, { scale: 1, duration: 0.32, ease: "back.out(2.5)", immediateRender: false }, L("puls") + 0.16);
+// Beat 12: "Auch was du AUFGIBST": Gold-Unterstreichung unter "aufgegeben" (am Gold-Fach).
+// "Es steht nur auf keiner RECHNUNG": Navy-Unterstreichung unter dem Kopf der Rechnung, in der
+// Tinte des Stempels (Creme auf Creme-Papier wäre unsichtbar). Der Lohn daneben steht auf keiner.
+const M = window.DeepTokMarker;
+const etikett = document.getElementById("d-aufgegeben");
+M.marker(tl, document.getElementById("d-marker-reihe"), "linie",
+  { x0: etikett.offsetLeft - 6, x1: etikett.offsetLeft + etikett.offsetWidth + 14, y: etikett.offsetTop + 58 },
+  { farbe: "#C9A84C", breite: 10, seed: 6, beginn: L("aufgeben"), dauer: DATEN.marker.linie, id: "d-linie-aufgegeben" });
+M.marker(tl, document.getElementById("d-marker-kosten"), "linie",
+  { x0: -8, x1: 214, y: -170 },
+  { farbe: "#1F3864", breite: 8, seed: 3, beginn: L("rechnung"), dauer: DATEN.marker.linie, id: "d-linie-rechnung", anstieg: -8, bogen: 4 });
 
 tl.to({}, { duration: BUEHNEN.diagramm.ende - T0 }, 0);
 tl.eventCallback("onUpdate", function () {
