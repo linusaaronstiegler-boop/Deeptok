@@ -1,11 +1,7 @@
 {
   "version": 1,
   "nacht": "2026-10-27",
-  "lauf": {
-    "id": "probe-20261027T190633Z",
-    "beginn": "2026-10-27T19:07:11Z",
-    "herzschlag": "2026-10-27T19:07:15Z"
-  },
+  "lauf": null,
   "videos": [],
   "verworfen": [],
   "laeufe": [
@@ -27,19 +23,27 @@
     {
       "id": "probe-20261027T190633Z",
       "beginn": "2026-10-27T19:07:11Z",
-      "ende": null,
+      "ende": "2026-10-27T19:07:20Z",
       "uebernommen_von": null,
-      "bericht": null
+      "bericht": {
+        "lauf": "probe-20261027T190633Z",
+        "beginn": "2026-10-27T19:07:11Z",
+        "ende": "2026-10-27T19:07:20Z",
+        "dauer_min": 0.2,
+        "videos": {},
+        "verworfen": 0,
+        "notiz": "Go/No-Go-Probe"
+      }
     }
   ],
   "bericht": {
-    "lauf": "probe-20261027T151415Z",
-    "beginn": "2026-10-27T15:14:41Z",
-    "ende": "2026-10-27T15:14:47Z",
-    "dauer_min": 0.1,
+    "lauf": "probe-20261027T190633Z",
+    "beginn": "2026-10-27T19:07:11Z",
+    "ende": "2026-10-27T19:07:20Z",
+    "dauer_min": 0.2,
     "videos": {},
     "verworfen": 0,
     "notiz": "Go/No-Go-Probe"
   },
-  "aktualisiert": "2026-10-27T19:07:15Z"
+  "aktualisiert": "2026-10-27T19:07:20Z"
 }
