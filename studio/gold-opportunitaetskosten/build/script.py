@@ -26,8 +26,9 @@
 # Prüfen:  python build/script.py   (Cues, Wortzahl je Szene, geschätzte Dauer, Frage in 8 s)
 
 SCENES = [
-    # Beat 1+2: Frage in den ersten 8 s, danach Denkpause. Die drei Antworten stehen als Chips im
-    # Bild, die Stimme liest sie NICHT vor (sonst liest und hört man denselben Text).
+    # Beat 1+2: Frage in den ersten 8 s, danach Denkpause. Die drei Antworten stehen im Bild
+    # (Preisschilder an der Spieler-Figur, keine Pillen-Chips: DESIGN.md BANNED 12). Die Stimme
+    # liest sie NICHT vor, sonst liest und hört man denselben Text.
     {"id": "hook", "beat": "frage", "interaction": "pause_for_answer", "pause_s": 2.2,
      "facts": ["datum", "dilemma", "behalten"],
      "sentences": [
@@ -67,7 +68,7 @@ SCENES = [
      "cues": {"bietet": "bietet", "zahl": "45"},
      "betont": ["jetzt", "45"]},
 
-    # Beat 6: Widerlegung. Nur hier ist Rot erlaubt (Strich durch den Chip „Nur sein Gehalt“).
+    # Beat 6: Widerlegung. Nur hier ist Rot erlaubt (Durchstrich auf dem Schild „Nur sein Gehalt“).
     # Das Geld fliegt von Barcelona nach München (Richtung der Ablöse) und kippt die Waage.
     {"id": "widerlegung", "beat": "widerlegung", "facts": ["abl"],
      "sentences": [
@@ -100,7 +101,8 @@ SCENES = [
      "cues": {"juli": "Juli", "genommen": "Geld", "preis": "Preis", "landung_spieler": "Saison"},
      "betont": ["Preis"]},
 
-    # Beat 9: das Modell wird allgemein. Harter Schnitt (neues Thema: jede Entscheidung).
+    # Beat 9: das Modell wird allgemein. Harter Schnitt auf das Nomen „Waage“ (neues Thema: jede
+    # Entscheidung). Ab hier Identität Diagramm statt Atlas; zwei Identitäten nie im selben Bild.
     {"id": "modell", "beat": "modell",
      "sentences": [
          "Jede Entscheidung hat so eine Waage.",
