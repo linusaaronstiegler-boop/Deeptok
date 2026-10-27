@@ -360,6 +360,8 @@ Die Stimme kostet extra: $5–99 im Monat.
 
 Wird es knapp, rückt der Freeze nach hinten und die Testwoche läuft mit weniger Videos; der Goldstandard wird nicht abgekürzt.
 
+**Go/No-Go 27.10., 20:10: Go.** Die ganze Kette Zeitplan → Starter → frische Sitzung in `Deptok_Fabrik` lief in 4 min durch: Drive-Connector liest den Digest, Push auf `factory-state`, Doppellauf-Schutz, Sonnet- und Opus-Subagent, Render 77 s, Hör-Check, Lint, keine Sperre im Auto-Modus. Auflage: Setup-Skript der Umgebung ist noch nicht gecacht, der Hook-Rückfall braucht 48 s pro Lauf. Bericht: Branch `claude/probe-2026-10-27-2010`.
+
 **Stand 27.10. abends:**
 - Erledigt: Setup-Skript und Hostliste; Hook prüft nur noch; `fabrik.py` mit Zustand, Herzschlag, Deckeln, `PAUSE`, Lint (G1), Hör-Check (G4), `check`/`render` mit Sperre; `factory/tasks/probe.md`; Stimm-Adapter und Blind-Casting (`factory/casting.py`); Bühnen-Spike. 296 Tests grün.
 - Offen: `build` und `publish` in `fabrik.py`; Task-Prompts für Nachtschicht, Weiterlauf, Morgen-Redaktion, Serienplaner; Goldstandard.

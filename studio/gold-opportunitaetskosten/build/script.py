@@ -65,7 +65,7 @@ SCENES = [
      "sentences": [
          "Barcelona|Barsselona bietet jetzt 45|fünfundvierzig Millionen Euro.",
      ],
-     "cues": {"bietet": "bietet", "zahl": "45"},
+     "cues": {"angebot": "Barcelona", "zahl": "45"},
      "betont": ["jetzt", "45"]},
 
     # Beat 6: Widerlegung. Nur hier ist Rot erlaubt (Durchstrich auf dem Schild „Nur sein Gehalt“).
