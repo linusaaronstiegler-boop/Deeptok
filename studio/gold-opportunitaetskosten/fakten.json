@@ -1,0 +1,93 @@
+[
+  {
+    "id": "abl",
+    "claim": "Barcelona zahlt für Lewandowski eine Ablöse von 45 Mio. € fest, dazu bis zu 5 Mio. € variabel (Bonus).",
+    "src": "https://www.fcbarcelona.com/en/news/2683853/agreement-with-bayern-munich-for-the-transfer-of-robert-lewandowski",
+    "date": "2022-07-19",
+    "quote": "for a total of €45 million + €5 million in variables."
+  },
+  {
+    "id": "abl2",
+    "claim": "Zweitquelle auf Deutsch: Die Ablöse liegt bei 45 Millionen Euro, dazu 5 Millionen Euro als Bonuszahlungen.",
+    "src": "https://www.sport1.de/news/transfermarkt/2022/07/fc-bayern-robert-lewandowski-barcelona-transfer-besiegelt-45-millionen-euro-ablose-und-drei-jahresvertrag",
+    "date": "2022-07-16",
+    "quote": "Die Ablösesumme für den 33 Jahre alten Polen liegt bei 45 Millionen Euro"
+  },
+  {
+    "id": "datum",
+    "claim": "Im Juli 2022 (Sommer 2022) einigen sich FC Barcelona und FC Bayern auf den Wechsel von Lewandowski.",
+    "src": "https://www.fcbarcelona.com/en/news/2683853/agreement-with-bayern-munich-for-the-transfer-of-robert-lewandowski",
+    "date": "2022-07-19",
+    "quote": "FC Barcelona and Bayern Munich have arrived at an agreement for the transfer of Robert Lewandowski"
+  },
+  {
+    "id": "vertrag",
+    "claim": "Lewandowskis Vertrag beim FC Bayern läuft bis zum 30.06.2023 (Juni 2023).",
+    "src": "https://www.t-online.de/sport/fussball/bundesliga/id_92186698/fc-bayern-muenchen-salihamidzic-bestaetigt-lewandowski-will-bayern-verlassen.html",
+    "date": "2022-05-14",
+    "quote": "Lewa hat einen Vertrag bis zum 30. Juni 2023. Das ist Fakt."
+  },
+  {
+    "id": "verlaengern",
+    "claim": "Lewandowski will seinen Vertrag beim FC Bayern nicht verlängern.",
+    "src": "https://www.t-online.de/sport/fussball/bundesliga/id_92186698/fc-bayern-muenchen-salihamidzic-bestaetigt-lewandowski-will-bayern-verlassen.html",
+    "date": "2022-05-14",
+    "quote": "dass er unser Angebot, den Vertrag zu verlängern, nicht annehmen möchte"
+  },
+  {
+    "id": "dilemma",
+    "claim": "Bayern kann verkaufen oder behalten: noch 1 Saison mit Lewandowski spielen und ihn danach ohne Einnahmen gehen lassen, oder 2022 eine Ablöse bekommen.",
+    "src": "https://www.t-online.de/sport/fussball/bundesliga/id_92186698/fc-bayern-muenchen-salihamidzic-bestaetigt-lewandowski-will-bayern-verlassen.html",
+    "date": "2022-05-14",
+    "quote": "vor dem Dilemma, eine Saison mit einem eher verärgerten Lewandowski zu spielen […] ohne weitere Einnahmen ziehen lassen zu müssen oder dieses Jahr noch eine hohe Ablöse zu kassieren."
+  },
+  {
+    "id": "saison",
+    "claim": "Bis zum Vertragsende bleibt Bayern mit Lewandowski noch 1 Saison (2022/23).",
+    "src": "https://www.t-online.de/sport/fussball/bundesliga/id_92186698/fc-bayern-muenchen-salihamidzic-bestaetigt-lewandowski-will-bayern-verlassen.html",
+    "date": "2022-05-14",
+    "quote": "eine Saison mit einem eher verärgerten Lewandowski zu spielen"
+  },
+  {
+    "id": "behalten",
+    "claim": "Behalten ist eine echte Option: Vorstandschef Oliver Kahn besteht im Mai 2022 darauf, dass Lewandowski seinen Vertrag erfüllt.",
+    "src": "https://www.t-online.de/sport/fussball/bundesliga/id_92188644/bundesliga-kahns-machtwort-lewandowski-wird-vertrag-erfuellen-basta-.html",
+    "date": "2022-05-15",
+    "quote": "Diesen Vertrag wird er erfüllen - basta!"
+  },
+  {
+    "id": "frei",
+    "claim": "Nach Vertragsende darf ein Fußballprofi ablösefrei wechseln; der alte Verein bekommt dann 0 € Ablöse (Bosman-Urteil des EuGH, 1995).",
+    "src": "https://www.bpb.de/kurz-knapp/lexika/das-europalexikon/176722/bosman-urteil/",
+    "date": "2020",
+    "quote": "Danach dürfen Fußballer nach Beendigung ihres Vertrages ablösefrei den Verein wechseln."
+  },
+  {
+    "id": "begriff",
+    "claim": "Opportunitätskosten sind der Wert der besten Alternative, die man aufgibt (entgangener Ertrag oder Nutzen der besten nicht gewählten Möglichkeit).",
+    "src": "https://wirtschaftslexikon.gabler.de/definition/opportunitaetskosten-42091/version-265445",
+    "date": "2018-02-19",
+    "quote": "Alternativkosten; entgangene Erträge oder Nutzen im Vergleich zur besten, nicht realisierten Handlungsalternative."
+  },
+  {
+    "id": "nachhilfe",
+    "claim": "Nachhilfeunterricht gehört zu den leichten Tätigkeiten, mit denen Kinder über 13 Jahre und vollzeitschulpflichtige Jugendliche beschäftigt werden dürfen (KindArbSchV § 2 Abs. 1 Nr. 2 d).",
+    "src": "https://www.gesetze-im-internet.de/kindarbschv/__2.html",
+    "date": "1998-06-23",
+    "quote": "d) Nachhilfeunterricht,"
+  },
+  {
+    "id": "nv_tore",
+    "claim": "Nicht im Video: Für den FC Bayern erzielte Lewandowski 344 Tore in 375 Pflichtspielen (alle Wettbewerbe, 2014 bis 2022).",
+    "src": "https://bundesliga.com/en/bundesliga/news/robert-lewandowski-bayern-munich-transfer-to-barcelona-legend-20569",
+    "date": "2023-08-01",
+    "quote": "Robert Lewandowski scored 344 goals in 375 games for Bayern Munich"
+  },
+  {
+    "id": "nv_tore_bl",
+    "claim": "Nicht im Video: Davon fallen 238 Tore auf die Bundesliga.",
+    "src": "https://bundesliga.com/en/bundesliga/news/robert-lewandowski-bayern-munich-transfer-to-barcelona-legend-20569",
+    "date": "2023-08-01",
+    "quote": "Robert Lewandowski scored 238 of his 312 Bundesliga goals for Bayern"
+  }
+]

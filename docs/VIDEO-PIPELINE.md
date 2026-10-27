@@ -66,6 +66,7 @@ AUSGABE   public/cards/<id>/ (index.html, voice.m4a, timing.json, spec.json)
 Fable 5.1 wird nicht eingesetzt. Batch und Cache der API entfallen; sie kommen nur mit dem optionalen Turbo zurück (§8).
 
 **Die Nacht läuft als Scheduled Tasks** (claude.ai/code/routines).
+- **Weg über einen Starter (27.10.):** Scheduled Tasks, die Claude selbst anlegt, bekommen weder Repo noch Connectors. Deshalb weckt jeder Task eine kleine, dauerhafte Starter-Sitzung (Nachricht `START <auftrag>`). Der Starter startet per `create_session` eine frische Sitzung mit Repo, Modell und Auftrag aus einer festen Tabelle; andere Aufträge lehnt er ab. Er nimmt auch keine Regeländerungen von anderen Sitzungen an (im Test so passiert). Starter und Fabrik-Sitzungen laufen in der Umgebung `deeptok-fabrik`, nie in „Trading“.
 - Jeder Lauf ist eine frische Cloud-Sitzung. Sie klont das Repo neu, arbeitet im Auto-Modus und zählt gegen Linus' Abo-Kontingent wie eine interaktive Sitzung.
 - Einzelne Befehle enden nach 10 min. Bei ca. 130 s CPU pro Video ist das kein Problem; die Sitzung selbst darf stundenlang laufen.
 
@@ -135,7 +136,7 @@ Auf den Bildschirm kommen Objekte, Zahlen und Schlüsselwörter, nie der gesproc
 - **Entfern-Test** statt `zeigt:`: Jede Zahl und jedes Bild braucht einen späteren Kausalschritt oder eine Abruffrage; Bilder zeigen Beziehung, Menge, Ort, Abfolge oder Zustand. Hook-Zahlen kommen aus der Kausalkette, nie aus Trivia. KI-Bilder tragen das Label „Illustration“ und zeigen nie echte Personen oder News-Belege.
 
 **Ton.**
-- Keine Musik, auch nicht in Pausen; dort soll selbst gedacht werden (Moreno & Mayer 2000). Mit Linus klären, was er mit „Ton“ meinte, und offen sagen: Beide Vorbilder haben Musik, DeepTok nicht. Signal-Geräusche nur auf sichtbaren Ereignissen ohne Sprechtext.
+- Keine Musik, auch nicht in Pausen; dort soll selbst gedacht werden (Moreno & Mayer 2000). „Ton“ meinte laut Linus nur die Stimme (27.10.). Beide Vorbilder haben Musik, DeepTok nicht. Signal-Geräusche nur auf sichtbaren Ereignissen ohne Sprechtext.
 - Mastering: 80-Hz-Hochpass, De-Esser, 2:1-Kompression, −16 LUFS, −1 dBTP; vorher am Handylautsprecher gegen das rohe Signal hören.
 
 **Was die Vorbilder zeigen** (je 12 Vorschaubilder, 27.10.; Bewegung, Schnitt und Tempo sind noch ungemessen).
@@ -157,13 +158,14 @@ Auf den Bildschirm kommen Objekte, Zahlen und Schlüsselwörter, nie der gesproc
   - Gold bleibt die gesuchte Größe, Rot bleibt Irrtum und Verlust. Beide Vorbilder nutzen Rot als Signal, das passt.
 
 **Inspirations-Werkzeuge.**
-- **Referenz-Destillation (einmalig):** YouTube blockiert Downloads aus der Cloud (Bot-Prüfung), Umgehungen sind tabu. Deshalb legt Linus 2–3 Ausschnitte (je ≤ 60 s) von Simplicissimus und Veritasium in den Drive-Ordner `07-Projekte/DeepTok/Referenzen`, oder eine Desktop-Sitzung schaut sie in seinem Browser an. ffmpeg misst Schnittlängen und Titel-Timing. Nur die Zahlen kommen in die `DESIGN.md`, die Clips werden gelöscht.
+- **Referenz-Destillation (einmalig):** YouTube blockiert Downloads aus der Cloud (Bot-Prüfung), Umgehungen sind tabu. Legal und aus der Cloud erreichbar ist die ZDF-Mediathek: Sie hostet die funk-Folgen von Simplicissimus (2019–2022), Kurzgesagt (deutsch) und maiLab. Gemessen werden je die ersten 180 s; maiLab steht als legaler Ersatz für Veritasium. Ergebnis: `docs/research/referenz-destillation.md`. ffmpeg misst Schnittlängen und Titel-Timing. Nur die Zahlen kommen in die `DESIGN.md`, die Clips werden gelöscht.
 - **Nutzen:** `npx hyperframes snapshot --against ref.mp4`, `npx hyperframes capture <url> --json`; Registry-Blöcke `count-up`, `before-after-wipe`, `marker-highlight`, `hw-callout-circle`, `chart-story`, `world-map`; UXKIN (`design-md`, `no-ui-slop`) für die App.
 - **Weglassen:** Bright-Data design-mirror, WebGPU-Shader.
 
 ## 4. Stimme
 
 **Casting.**
+- Seit 27.10. über den ElevenLabs-Connector mit Linus' vorhandenen Credits (Freigabe von Linus): Runde 1 mit sechs deutschen Stimmen auf v4 (Thomas, Hans, Konrad Fichte, Jonas, Lea Voss, Victoria), blind auf der Werkstatt-Seite; Runde 2 mit den zwei besten am ganzen Skript. Kosten Runde 1: 12 Proben à 326 Credits, zusammen etwa 1,40 $. Gemessen: Wortfehlerrate 0–8 %, 44,1 kHz, 128 kbps.
 - 27.10.: Modelle und Bedingungen prüfen, auch Inworlds Regeln für Minderjährige; Mail an ElevenLabs.
 - Test: Hook, Vorhersagefrage, Widerlegung („nicht X, sondern Y“) und ein ganzes 60-s-Skript mit Zahlen, Namen und Lehnwörtern. Paarweise Zwangswahl, blind, beide Brüder, Handy-Lautsprecher; Wortfehlerrate und Namens-Treffer automatisch.
 - Volumen: bei ca. 6 Videos pro Tag ca. 0,26 Mio. Zeichen pro Monat (inkl. 1,3× Puffer für Neuvertonung), Ziel ca. 0,5 Mio.
@@ -369,9 +371,9 @@ Wird es knapp, rückt der Freeze nach hinten und die Testwoche läuft mit wenige
   - Network access „Custom“, Häkchen für die Standardliste, Hosts aus `tools/umgebung-hosts.txt` (ohne #-Zeilen);
   - TTS-Keys als Network secrets nach der Tabelle in §4.
 - Overage auf claude.ai/settings/usage ausgeschaltet lassen.
-- Kein Console-Link und kein API-Key nötig, solange der Turbo nicht gebraucht wird.
-- Mail an ElevenLabs schicken; sagen, was er mit „Ton“ meinte.
-- 2–3 Referenz-Ausschnitte in den Drive-Ordner `07-Projekte/DeepTok/Referenzen`; Casting und Goldstandard mit dem Bruder bewerten.
+- Kein Console-Link und kein API-Key nötig, solange der Turbo nicht gebraucht wird; TTS-Keys erst, falls ein anderer Anbieter als ElevenLabs ins Casting soll.
+- Mail an ElevenLabs wegen Nutzung für unter 18 (der Bruder hört die Videos).
+- Casting und Goldstandard mit dem Bruder auf der Werkstatt-Seite bewerten. Die Referenz-Clips holt Claude selbst aus der ZDF-Mediathek.
 - Starter-Assets: Recraft-Key oder am 31.10./1.11. den PC laufen lassen.
 
 ## 10. Risiken & Gegenmaßnahmen
