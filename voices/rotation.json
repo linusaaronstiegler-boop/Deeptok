@@ -1,0 +1,57 @@
+{
+  "_hinweis": "Stimmen- und Look-Rotation der Videofabrik (Stand 28.10.2026, Überarbeitung). Wunsch von Linus: Stimmen und Looks variieren; alle sechs Casting-Stimmen waren gut. Regeln in Worten: studio/looks/README.md, Abschnitte „Stimmen“ und „Variation im Feed“. Ändern nur per Commit.",
+  "_quelle": "Blind-Casting 27./28.10.2026 auf der Werkstatt-Seite, beide Brüder: Jonas Platz 1, Thomas Platz 2 (bei beiden gleich). Gemessen: Wortfehlerrate 0–8 %, 44,1 kHz, 128 kbit/s, etwa 1 Credit je Zeichen.",
+  "anbieter": "elevenlabs",
+  "modell": "eleven_v4",
+  "modell_hinweis": "Das Casting lief mit eleven_v4; voices/elevenlabs.json pinnt eleven_v4_turbo und noch keine Stimm-ID. Vor der ersten Nacht klären (offen, nicht hier entschieden).",
+  "pool": [
+    {"id": "jonas", "name": "Jonas", "voice_id": "xlbJQnFFGB01bv7HK5CZ", "geschlecht": "m", "rolle": "hauptstimme", "casting": "Platz 1 bei beiden Brüdern", "bibliothek": "Jonas - Knowledgeable Tour Guide"},
+    {"id": "thomas", "name": "Thomas", "voice_id": "vv3bG6FrcGtmeOdRSriS", "geschlecht": "m", "rolle": "zweitstimme", "casting": "Platz 2 bei beiden Brüdern"},
+    {"id": "konrad", "name": "Konrad Fichte", "voice_id": "loz8rFIyEGZqFnwI07Yo", "geschlecht": "m", "rolle": "pool", "casting": "gut, ohne Rangplatz"},
+    {"id": "lea", "name": "Lea Voss", "voice_id": "BWfLElHIfDtE09FrC6tz", "geschlecht": "w", "rolle": "pool", "casting": "gut, ohne Rangplatz", "hinweis": "im Casting als Wissenschaftsstimme geführt"},
+    {"id": "hans", "name": "Hans", "voice_id": "yamcvgNdKmgh0Ron7Bsz", "geschlecht": "m", "rolle": "pool", "casting": "gut, ohne Rangplatz"},
+    {"id": "victoria", "name": "Victoria", "voice_id": "iiABcyfvsoqbxubwCKFM", "geschlecht": "w", "rolle": "pool", "casting": "gut, ohne Rangplatz"}
+  ],
+  "anteil": {
+    "_hinweis": "Gezählt in Videominuten der letzten 14 Tage, nur im Profil Linus (solange das Profil des Bruders ausgenommen ist, siehe regeln.bruder). Ziel ist die Mitte; die Mitten ergeben zusammen 100 %. Es gibt genau eine Schwelle: Abweichung von der Mitte um mehr als schwelle_pp Prozentpunkte.",
+    "schwelle_pp": 5,
+    "mitte": {"jonas": 0.375, "thomas": 0.175, "konrad": 0.125, "lea": 0.125, "hans": 0.10, "victoria": 0.10}
+  },
+  "stammformate": {
+    "_hinweis": "Tägliche Formate im Bereich „Heute“ (docs/PLAN.md, Aufbau der App). Sie sind keine Serien: Stimme und Look stehen fest. Sie zählen beim Anteil mit, aber nicht bei der Regel „aktive Serien paarweise verschieden“; dafür gilt in „Heute“ eine eigene Nachbarregel (regeln.heute_nachbarn).",
+    "weltlage_briefing": {"profil": "linus", "stimme": "jonas", "look": "zeitungspapier", "rueckfall": {"stimme": "konrad", "look": "atlas-nacht"},
+                          "warum": "größtes tägliches Volumen; die Hauptstimme wird die Stimme des Morgens. Echte Fotos vom Ereignis passen zum Zeitungspapier."},
+    "maerkte_karte": {"profil": "linus", "stimme": "thomas", "look": "kurstafel", "rueckfall": {"stimme": "victoria", "look": "kurstafel"},
+                      "warum": "folgt direkt auf die Weltlage-Karten; andere Stimme und anderer Look als das Briefing."}
+  },
+  "regeln": {
+    "eine_stimme_je_serie": true,
+    "eine_stimme_je_serie_hinweis": "Wiedererkennung: Alle Teile einer Serie behalten Stimme UND Look. Fällt der Anbieter aus, wechselt nur bei News die Stimme; Evergreens warten höchstens 48 h (docs/VIDEO-PIPELINE.md §4).",
+    "aktive_serien_eines_profils_paarweise_verschieden": ["stimme", "look"],
+    "aktive_serien_hinweis": "Ein Profil hat 2–3 aktive Serien (VIDEO-PIPELINE §2) im Bereich „Für dich“. Haben sie paarweise verschiedene Stimmen und Looks, folgen dort nie zwei Videos verschiedener Serien mit gleicher Stimme oder gleichem Look aufeinander. Stammformate zählen hier nicht mit.",
+    "nie_hintereinander_im_feed": ["look", "bogen", "stimme"],
+    "nie_hintereinander_hinweis": "Gilt für zwei aufeinanderfolgende Videos verschiedener Serien in „Für dich“. Innerhalb einer Serie bleiben Look und Stimme gleich; der Bogen wechselt von Teil zu Teil (nie zweimal derselbe Bogen hintereinander).",
+    "heute_nachbarn": "In „Heute“ haben zwei aufeinanderfolgende Karten mit Ton verschiedene Stimmen und verschiedene Looks (Weltlage: Jonas/Zeitungspapier → Märkte: Thomas/Kurstafel).",
+    "stimme_fuer_neue_serie": [
+      "1) Kandidaten: alle Stimmen des Pools außer denen der übrigen aktiven Serien desselben Profils.",
+      "2) Liegt ein Kandidat mehr als schwelle_pp unter seiner Mitte, nimm den Kandidaten mit dem größten Rückstand (Mitte minus Anteil).",
+      "3) Sonst die erste Wahl des Kanals, wenn sie Kandidat ist und nicht mehr als schwelle_pp über ihrer Mitte liegt; sonst die Alternative unter derselben Bedingung; sonst den Kandidaten mit dem größten Rückstand.",
+      "4) Kanal ohne Vorschlag: Jonas, wenn er Kandidat ist und nicht über der Schwelle liegt; sonst wie 3."
+    ],
+    "look_fuer_neue_serie": "Reine Rotation, keine Anteile: erste Wahl des Kanals, wenn keine andere aktive Serie desselben Profils diesen Look hat; sonst die Alternative; sonst der Look, den das Profil am längsten nicht benutzt hat. Ein Kanal ohne Vorschlag nimmt gleich den am längsten unbenutzten Look.",
+    "briefing_ueber_ziel": "Liegt Jonas über Mitte + schwelle_pp, obwohl keine neue Serie ihn mehr bekommt (das Briefing allein ist zu groß), spricht an jedem zweiten Tag die Rückfallstimme des Briefings, bis der Anteil wieder in der Schwelle liegt.",
+    "bruder": "Für das Profil des Bruders (15) keine ElevenLabs-Stimme, bis ElevenLabs schriftlich für Hörer unter 18 freigibt (Mail offen, VIDEO-PIPELINE §4). Rückfall bis dahin: die Stimme, die die Entscheidung am 1.11. für beide Profile freigibt (Kandidaten in VIDEO-PIPELINE §4); bis zu dieser Entscheidung bekommt er Inhalte als Erklär-Karte ohne Stimme (docs/PLAN.md, Kartentypen). Seine Videos zählen nicht beim Anteil. Der Look-Teil der Rotation gilt für ihn sofort."
+  },
+  "kanal_start": {
+    "_hinweis": "Startvorschlag je Serien-Kanal (Kanäle aus docs/PLAN.md, Bereich „Für dich“). Look aus studio/looks/, Stimme aus dem Pool. Nach den ersten Bewertungen der Brüder anpassen.",
+    "rhetorik_charisma": {"stimme": "jonas", "stimme_alternative": "victoria", "look": "archiv-duoton", "look_alternative": "zeitungspapier"},
+    "denken_philosophie": {"stimme": "hans", "stimme_alternative": "lea", "look": "flach", "look_alternative": "archiv-duoton"},
+    "wissenschaft": {"stimme": "lea", "stimme_alternative": "jonas", "look": "labor", "look_alternative": "flach"},
+    "geopolitik_geschichte": {"stimme": "konrad", "stimme_alternative": "jonas", "look": "atlas-nacht", "look_alternative": "archiv-duoton"},
+    "wirtschaft_maerkte": {"stimme": "thomas", "stimme_alternative": "jonas", "look": "kurstafel", "look_alternative": "zeitungspapier"},
+    "disziplin": {"stimme": "hans", "stimme_alternative": "konrad", "look": "zeitungspapier", "look_alternative": "labor"},
+    "stil_auftreten": {"stimme": "thomas", "stimme_alternative": "victoria", "look": "labor", "look_alternative": "zeitungspapier"},
+    "buecher": {"stimme": "victoria", "stimme_alternative": "lea", "look": "archiv-duoton", "look_alternative": "flach"},
+    "schule_transfer": {"profil": "bruder", "stimme": "rueckfall_bruder", "look": "flach", "look_alternative": "labor", "hinweis": "Stimme nach regeln.bruder. Beide Looks zeigen echte Fotos: Flach als Foto-Einlage, die sich in die Zeichnung verwandelt; Labor mit echten Gegenständen."}
+  }
+}

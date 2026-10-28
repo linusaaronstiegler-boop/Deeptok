@@ -1,0 +1,133 @@
+{
+ "_hinweis": "Stimme der Fassung v2 (28.10.2026): Jonas, Favorit beider Brüder im Blind-Casting. Erzeugt über den claude.ai-Connector ElevenLabs (creative_generate_speech), je Block genau ein Aufruf mit 2 Varianten; nie wiederholt. Die mp3-Dateien liegen im gitignorten build/cache/elevenlabs/ und lassen sich über Flow und generation_id neu laden (creative_get_generations, Link gilt 2 h). Bau: python build/voice.py --anbieter datei",
+ "anbieter": "elevenlabs-connector",
+ "name": "Jonas - Knowledgeable Tour Guide",
+ "voice_id": "xlbJQnFFGB01bv7HK5CZ",
+ "modell": "eleven_v4",
+ "flow_id": "9v8PYl192MkLFjhcAMIf",
+ "flow_name": "DeepTok Gold v2 Stimme",
+ "datum": "2026-10-28",
+ "text_regel": "Anzeige-Seite der Tokens „Anzeige|Gesprochen“ (ElevenLabs spricht Barcelona und Zahlen richtig); Betonungs-Sternchen und ?↑ entfernt, Fragezeichen behalten; Szenen eines Blocks als Absätze.",
+ "format": "mp3, 44,1 kHz, 128 kbit/s, mono (vom Connector)",
+ "rueckfall": "build/stimme-piper.json",
+ "_rueckfall_hinweis": "Blöcke ohne Datei spricht Piper (Aussprache-Schreibungen gelten dort). Sobald wieder Credits da sind: für diese Blöcke je einen Aufruf creative_generate_speech (eleven_v4, voice_id oben, Text aus 'text'), Datei nach build/cache/elevenlabs/b<nr>-<generation_id>.mp3, hier eintragen, voice.py --anbieter datei neu laufen lassen.",
+ "credits_ausgegeben": 375,
+ "credits_fehlen_fuer_rest": 723,
+ "plan": "ElevenLabs Free (Kontingent 10 000 Credits im Monat laut Fehlermeldung vom 28.10.2026). Free erlaubt laut ElevenLabs-Nutzungsbedingungen (Abschnitt 1(c)(i), von der Kritik am 28.10.2026 nachgelesen) nur nichtkommerzielle Nutzung. DeepTok ist nichtkommerziell; vor jeder anderen Nutzung Plan mit kommerzieller Lizenz (ab Starter).",
+ "zweiter_connector": "Der zweite eingebundene Connector 'ElevenLabs-fb85a6fe' zeigt dieselben Flows (DeepTok Gold v2 Stimme, Casting Runde 1), ist also dasselbe Konto mit demselben Kontingent (geprüft 28.10., nur gelesen).",
+ "bruder_regel": "voices/rotation.json: ElevenLabs-Stimmen für das Profil des Bruders erst nach der Antwort von ElevenLabs (Mail offen). Das Gold-Video ist für beide gedacht; vor der Freigabe an den Bruder klären.",
+ "bloecke": [
+  {
+   "nr": 1,
+   "szenen": [
+    "hook"
+   ],
+   "text": "Barcelona will Lewandowski. Bayern kann verkaufen oder behalten. Was kostet es, ihn zu behalten?",
+   "node_id": "cKBW2j1PduA2C3c3dRXF",
+   "credits_je_variante": 96,
+   "generation_id": "xxs8BkxHwbJNMK8TvPOM",
+   "datei": "build/cache/elevenlabs/b1-xxs8BkxHwbJNMK8TvPOM.mp3",
+   "verworfen": [
+    "yH0WEySnR1JscDgGqLus"
+   ],
+   "wahl": "Beide Varianten 0 % Wortfehler (Hör-Check, Whisper small). Gewählt xxs8: Kontrast auf „verkaufen“ (F0 195 Hz) gegen „oder“ (106 Hz), Ton der Frage auf „kostet“ (222 Hz), Frage fällt wie eine W-Frage. yH0W legt den Ton auf „kann“ (219 Hz) und „oder behalten“.",
+   "fehlgeschlagen": [],
+   "credits": 192
+  },
+  {
+   "nr": 2,
+   "szenen": [
+    "naheliegend",
+    "vertrag",
+    "angebot",
+    "widerlegung"
+   ],
+   "text": "Naheliegend ist die Antwort: nur sein Gehalt. Denn nur das bezahlt Bayern. Dafür schießt er Tore.\n\nDoch sein Vertrag läuft nur noch eine Saison. Verlängern will er nicht. Danach geht er ablösefrei: Bayern bekommt nichts.\n\nBarcelona bietet Bayern jetzt 45 Millionen Euro.\n\nNur sein Gehalt? Das stimmt nicht. Verkaufen bringt 45 Millionen Ablöse, Behalten keinen Cent.",
+   "node_id": "uULs3ocW1kX3C4nSStqk",
+   "credits_je_variante": 366,
+   "generation_id": null,
+   "datei": null,
+   "fehlgeschlagen": [
+    "jy7O9ZCEXld2iMg6nCL9",
+    "WwSCF0hKDTlYdpdmnc4P"
+   ],
+   "credits": 0,
+   "grund": "Kontingent erschöpft (ElevenLabs: quota 10000, Rest 26 Credits)",
+   "rueckfall": "piper"
+  },
+  {
+   "nr": 3,
+   "szenen": [
+    "entgangen",
+    "begriff"
+   ],
+   "text": "Entgangenes Geld fehlt genauso wie bezahltes.\n\nÖkonomen nennen dieses Geld Opportunitätskosten. Das ist der Wert der besten Alternative, die man aufgibt.",
+   "node_id": "M3j5e8DCHoyC7jDzJlzo",
+   "credits_je_variante": 153,
+   "generation_id": "Hmhg2sUYns9jEjVC45zm",
+   "datei": "build/cache/elevenlabs/b3-Hmhg2sUYns9jEjVC45zm.mp3",
+   "verworfen": [],
+   "wahl": "Nur eine Variante fertig (zweite: Kontingent erschöpft). 0 % Wortfehler, „Opportunitätskosten“ richtig gehört.",
+   "fehlgeschlagen": [
+    "48KrSWx3bNx43E4CQLX1"
+   ],
+   "credits": 153
+  },
+  {
+   "nr": 4,
+   "szenen": [
+    "verkauf"
+   ],
+   "text": "Im Juli nimmt Bayern das Geld.",
+   "node_id": "bOMFcnOQ1NJnbiCjskg5",
+   "credits_je_variante": 30,
+   "generation_id": "jwy59iGXOGD9dZr8iRta",
+   "datei": "build/cache/elevenlabs/b4-jwy59iGXOGD9dZr8iRta.mp3",
+   "verworfen": [],
+   "wahl": "Nur eine Variante fertig (zweite: Kontingent erschöpft). 0 % Wortfehler.",
+   "fehlgeschlagen": [
+    "SW0pfzCFBbRe9QxwK8Yx"
+   ],
+   "credits": 30
+  },
+  {
+   "nr": 5,
+   "szenen": [
+    "aufloesung",
+    "modell",
+    "transfer",
+    "transfer_lohn"
+   ],
+   "text": "Auch Verkaufen hat Opportunitätskosten: eine Saison Lewandowski.\n\nJede Entscheidung hat so eine Waage.\n\nDu bekommst eine Kinokarte für heute Abend geschenkt. Genau dann könntest du mit Nachhilfe Geld verdienen.\n\nAlso kostet dich das Kino diesen Lohn. Das kann es wert sein. Gratis ist es nicht.",
+   "node_id": "CjzUSuk89VEsW5IYuX1U",
+   "credits_je_variante": 294,
+   "generation_id": null,
+   "datei": null,
+   "fehlgeschlagen": [
+    "1HjXB4lV5uFahgySejL3",
+    "4FWS5MMe3kLwJ0MxyP4F"
+   ],
+   "credits": 0,
+   "grund": "Kontingent erschöpft (ElevenLabs: quota 10000, Rest 26 Credits)",
+   "rueckfall": "piper"
+  },
+  {
+   "nr": 6,
+   "szenen": [
+    "satz"
+   ],
+   "text": "Auch was du aufgibst, kostet. Es steht nur auf keiner Rechnung.",
+   "node_id": "4OdHN6kVroY4r5GGsGxj",
+   "credits_je_variante": 63,
+   "generation_id": null,
+   "datei": null,
+   "fehlgeschlagen": [
+    "DYAdAH5qjRfXatLRKN9n",
+    "5v3Jl6ts2EnpaAquF3di"
+   ],
+   "credits": 0,
+   "grund": "Kontingent erschöpft (ElevenLabs: quota 10000, Rest 26 Credits)",
+   "rueckfall": "piper"
+  }
+ ]
+}

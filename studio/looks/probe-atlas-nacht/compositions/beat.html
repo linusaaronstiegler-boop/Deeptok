@@ -1,0 +1,124 @@
+<template>
+  <!-- Atlas Nacht: Karte als Welt, Münzstapel als Held, Gold = gesucht, Creme = gegeben; Beat 2 mit Kamerafahrt Barcelona → München. -->
+  <style>
+@font-face { font-family: "DT Playfair"; src: url("assets/fonts/playfair-display-latin-900-normal.woff2") format("woff2"); font-weight: 900; font-style: normal; font-display: block; }
+@font-face { font-family: "DT Inter"; src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "DT Inter"; src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: block; }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #0E1726; }
+    #root .clip { position: absolute; }
+    #root .frei { position: absolute; left: 0; top: 0; }
+    #an-welt { left: 0; top: 0; width: 1080px; height: 1920px; }
+    #an-kamera { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 0 0; }
+    .an-ebene { position: absolute; left: -360px; top: -1100px; width: 2340px; height: 3520px; }
+    #an-deutschland { opacity: 0; }
+    .an-anker { position: absolute; width: 0; height: 0; }
+    #an-bcn { left: 520px; top: 880px; }
+    #an-muc { left: 760px; top: 700px; }
+    .an-punkt { left: -18px; top: -18px; width: 36px; height: 36px; }
+    .an-punkt i { display: block; width: 36px; height: 36px; border-radius: 50%; background: #F5F0E8; border: 6px solid #0E1726; }
+    .an-name { top: 30px; font: 600 48px/62px "DT Inter"; color: #F5F0E8; white-space: nowrap; text-shadow: 0 2px 18px rgba(14,23,38,.9), 0 0 4px rgba(14,23,38,.9); }
+    #an-ort { left: -116.5px; }
+    #an-muc-name { left: -108.0px; }
+    #an-bis { left: -178.5px; top: 96px; }
+    .an-schatten { left: -200px; top: -34px; width: 400px; height: 68px; }
+    .an-stapel { left: -180px; top: -330px; width: 360px; height: 340px; }
+    .an-d1 { left: 108px; top: 250px; font: 900 173px/1 "DT Playfair"; letter-spacing: -0.02em; white-space: nowrap;
+      font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; text-shadow: 0 2px 18px rgba(14,23,38,.9), 0 0 4px rgba(14,23,38,.9); }
+    #an-zahl { color: #C9A84C; }
+    #an-null { color: #F5F0E8; }
+    .an-marker { left: 0; top: 0; width: 1080px; height: 1920px; }
+    .an-credit { right: 108px; text-align: right; font: 400 34px/42px "DT Inter"; color: rgba(245,240,232,.62); white-space: nowrap;
+      text-shadow: 0 2px 18px rgba(14,23,38,.9), 0 0 4px rgba(14,23,38,.9); }
+  </style>
+  <div id="root" data-composition-id="beat" data-width="1080" data-height="1920">
+    <!-- Welt: Karte bis an alle Ränder. Die Kamera bewegt nur die Karte; Orte, Stapel und Namen bleiben
+         bildschirmgroß und wandern mit ihrem Ort mit (Anker). -->
+    <div id="an-welt" class="clip" data-start="0" data-duration="12.0" data-track-index="0" data-layout-allow-overflow>
+      <div id="an-kamera">
+        <img class="an-ebene" src="assets/karte.svg" alt="Karte Westeuropa" />
+        <img id="an-spanien" class="an-ebene" src="assets/karte-spanien.svg" alt="Spanien leuchtet" />
+        <img id="an-deutschland" class="an-ebene" src="assets/karte-deutschland.svg" alt="Deutschland leuchtet" />
+      </div>
+    </div>
+    <div id="an-bcn" class="an-anker">
+    <div id="an-punkt" class="clip an-punkt" data-start="0.433" data-duration="1.1" data-track-index="1"><i></i></div>
+    <div id="an-schatten" class="clip an-schatten" data-start="0.983" data-duration="11.017" data-track-index="1" data-layout-allow-overflow><svg width="400" height="68" viewBox="0 0 400 68"><defs><filter id="an-weich" x="-20%" y="-60%" width="140%" height="220%"><feGaussianBlur stdDeviation="7" /></filter></defs><ellipse cx="200" cy="34" rx="185" ry="22" fill="#0E1726" fill-opacity="0.85" filter="url(#an-weich)" /></svg></div>
+    <div id="an-stapel" class="clip an-stapel" data-start="0.983" data-duration="11.017" data-track-index="3" data-layout-allow-overflow><svg id="an-stapel-k" width="360" height="340" viewBox="0 0 360 340"><path d="M24.7 290.0 A150 36 0 0 0 324.7 290.0 L324.7 320 A150 36 0 0 1 24.7 320 Z" fill="#C9A84C" /><path d="M24.7 290.0 A150 36 0 0 0 324.7 290.0 L324.7 320 A150 36 0 0 1 24.7 320 Z" fill="#0E1726" fill-opacity="0.34" /><ellipse cx="174.7" cy="290" rx="150" ry="36" fill="#C9A84C" /><path d="M32.7 295 A150 36 0 0 1 204.7 255" fill="none" stroke="#F5F0E8" stroke-opacity="0.55" stroke-width="3" stroke-linecap="round" /><path d="M30.7 257.0 A150 36 0 0 0 330.7 257.0 L330.7 287 A150 36 0 0 1 30.7 287 Z" fill="#C9A84C" /><path d="M30.7 257.0 A150 36 0 0 0 330.7 257.0 L330.7 287 A150 36 0 0 1 30.7 287 Z" fill="#0E1726" fill-opacity="0.34" /><ellipse cx="180.7" cy="257" rx="150" ry="36" fill="#C9A84C" /><path d="M38.7 262 A150 36 0 0 1 210.7 222" fill="none" stroke="#F5F0E8" stroke-opacity="0.55" stroke-width="3" stroke-linecap="round" /><path d="M31.8 224.0 A150 36 0 0 0 331.8 224.0 L331.8 254 A150 36 0 0 1 31.8 254 Z" fill="#C9A84C" /><path d="M31.8 224.0 A150 36 0 0 0 331.8 224.0 L331.8 254 A150 36 0 0 1 31.8 254 Z" fill="#0E1726" fill-opacity="0.34" /><ellipse cx="181.8" cy="224" rx="150" ry="36" fill="#C9A84C" /><path d="M39.8 229 A150 36 0 0 1 211.8 189" fill="none" stroke="#F5F0E8" stroke-opacity="0.55" stroke-width="3" stroke-linecap="round" /><path d="M21.4 191.0 A150 36 0 0 0 321.4 191.0 L321.4 221 A150 36 0 0 1 21.4 221 Z" fill="#C9A84C" /><path d="M21.4 191.0 A150 36 0 0 0 321.4 191.0 L321.4 221 A150 36 0 0 1 21.4 221 Z" fill="#0E1726" fill-opacity="0.34" /><ellipse cx="171.4" cy="191" rx="150" ry="36" fill="#C9A84C" /><path d="M29.4 196 A150 36 0 0 1 201.4 156" fill="none" stroke="#F5F0E8" stroke-opacity="0.55" stroke-width="3" stroke-linecap="round" /><path d="M22.8 158.0 A150 36 0 0 0 322.8 158.0 L322.8 188 A150 36 0 0 1 22.8 188 Z" fill="#C9A84C" /><path d="M22.8 158.0 A150 36 0 0 0 322.8 158.0 L322.8 188 A150 36 0 0 1 22.8 188 Z" fill="#0E1726" fill-opacity="0.34" /><ellipse cx="172.8" cy="158" rx="150" ry="36" fill="#C9A84C" /><path d="M30.8 163 A150 36 0 0 1 202.8 123" fill="none" stroke="#F5F0E8" stroke-opacity="0.55" stroke-width="3" stroke-linecap="round" /><path d="M22.0 125.0 A150 36 0 0 0 322.0 125.0 L322.0 155 A150 36 0 0 1 22.0 155 Z" fill="#C9A84C" /><path d="M22.0 125.0 A150 36 0 0 0 322.0 125.0 L322.0 155 A150 36 0 0 1 22.0 155 Z" fill="#0E1726" fill-opacity="0.34" /><ellipse cx="172.0" cy="125" rx="150" ry="36" fill="#C9A84C" /><path d="M30.0 130 A150 36 0 0 1 202.0 90" fill="none" stroke="#F5F0E8" stroke-opacity="0.55" stroke-width="3" stroke-linecap="round" /><path d="M24.3 92.0 A150 36 0 0 0 324.3 92.0 L324.3 122 A150 36 0 0 1 24.3 122 Z" fill="#C9A84C" /><path d="M24.3 92.0 A150 36 0 0 0 324.3 92.0 L324.3 122 A150 36 0 0 1 24.3 122 Z" fill="#0E1726" fill-opacity="0.34" /><ellipse cx="174.3" cy="92" rx="150" ry="36" fill="#C9A84C" /><path d="M32.3 97 A150 36 0 0 1 204.3 57" fill="none" stroke="#F5F0E8" stroke-opacity="0.55" stroke-width="3" stroke-linecap="round" /></svg></div>
+    <div id="an-ort" class="clip an-name" data-start="0.553" data-duration="11.447" data-track-index="2">Barcelona</div>
+    </div>
+    <div id="an-muc" class="an-anker">
+    <div id="an-muc-punkt" class="clip an-punkt" data-start="6.283" data-duration="5.717" data-track-index="1"><i></i></div>
+    <div id="an-geist" class="clip an-stapel" data-start="6.8" data-duration="5.2" data-track-index="3" data-layout-allow-overflow><svg width="360" height="340" viewBox="0 0 360 340"><path d="M24.7 290.0 A150 36 0 0 0 324.7 290.0 L324.7 320 A150 36 0 0 1 24.7 320 Z" fill="none" stroke="#F5F0E8" stroke-opacity="0.8" stroke-width="4" stroke-dasharray="14 10" /><ellipse cx="174.7" cy="290" rx="150" ry="36" fill="none" stroke="#F5F0E8" stroke-opacity="0.8" stroke-width="4" stroke-dasharray="14 10" /><path d="M30.7 257.0 A150 36 0 0 0 330.7 257.0 L330.7 287 A150 36 0 0 1 30.7 287 Z" fill="none" stroke="#F5F0E8" stroke-opacity="0.8" stroke-width="4" stroke-dasharray="14 10" /><ellipse cx="180.7" cy="257" rx="150" ry="36" fill="none" stroke="#F5F0E8" stroke-opacity="0.8" stroke-width="4" stroke-dasharray="14 10" /><path d="M31.8 224.0 A150 36 0 0 0 331.8 224.0 L331.8 254 A150 36 0 0 1 31.8 254 Z" fill="none" stroke="#F5F0E8" stroke-opacity="0.8" stroke-width="4" stroke-dasharray="14 10" /><ellipse cx="181.8" cy="224" rx="150" ry="36" fill="none" stroke="#F5F0E8" stroke-opacity="0.8" stroke-width="4" stroke-dasharray="14 10" /><path d="M21.4 191.0 A150 36 0 0 0 321.4 191.0 L321.4 221 A150 36 0 0 1 21.4 221 Z" fill="none" stroke="#F5F0E8" stroke-opacity="0.8" stroke-width="4" stroke-dasharray="14 10" /><ellipse cx="171.4" cy="191" rx="150" ry="36" fill="none" stroke="#F5F0E8" stroke-opacity="0.8" stroke-width="4" stroke-dasharray="14 10" /><path d="M22.8 158.0 A150 36 0 0 0 322.8 158.0 L322.8 188 A150 36 0 0 1 22.8 188 Z" fill="none" stroke="#F5F0E8" stroke-opacity="0.8" stroke-width="4" stroke-dasharray="14 10" /><ellipse cx="172.8" cy="158" rx="150" ry="36" fill="none" stroke="#F5F0E8" stroke-opacity="0.8" stroke-width="4" stroke-dasharray="14 10" /><path d="M22.0 125.0 A150 36 0 0 0 322.0 125.0 L322.0 155 A150 36 0 0 1 22.0 155 Z" fill="none" stroke="#F5F0E8" stroke-opacity="0.8" stroke-width="4" stroke-dasharray="14 10" /><ellipse cx="172.0" cy="125" rx="150" ry="36" fill="none" stroke="#F5F0E8" stroke-opacity="0.8" stroke-width="4" stroke-dasharray="14 10" /><path d="M24.3 92.0 A150 36 0 0 0 324.3 92.0 L324.3 122 A150 36 0 0 1 24.3 122 Z" fill="none" stroke="#F5F0E8" stroke-opacity="0.8" stroke-width="4" stroke-dasharray="14 10" /><ellipse cx="174.3" cy="92" rx="150" ry="36" fill="none" stroke="#F5F0E8" stroke-opacity="0.8" stroke-width="4" stroke-dasharray="14 10" /></svg></div>
+    <div id="an-muc-name" class="clip an-name" data-start="6.403" data-duration="5.597" data-track-index="2">München</div>
+    <div id="an-bis" class="clip an-name" data-start="7.033" data-duration="4.967" data-track-index="2">bis 30.06.2023</div>
+    </div>
+    <div id="an-zahl" class="clip an-d1" data-start="1.433" data-duration="4.167" data-track-index="4" data-hold>45 Mio. €</div>
+    <div id="an-null" class="clip an-d1" data-start="9.233" data-duration="2.767" data-track-index="4">0 €</div>
+    <div id="an-marker-a" class="clip an-marker" data-start="2.233" data-duration="3.367" data-track-index="5" data-layout-ignore><svg width="1080" height="1920" viewBox="0 0 1080 1920"><path id="an-unter-a" class="strich" d="M102.0 424.0 Q185.1 423.8 226.6 424.6 Q268.2 425.4 309.8 426.0 Q351.3 426.6 392.8 426.2 Q434.4 425.9 475.9 425.1 Q517.5 424.2 559.0 423.0 Q600.6 421.7 642.1 420.7 Q683.7 419.7 725.2 419.0 Q766.8 418.2 808.3 415.8 L849.9 413.5" fill="none" stroke="#C9A84C" stroke-opacity="1.0" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" data-laenge="750.2" />
+<path id="an-unter-a-spur" class="strich" d="M102.0 424.0 Q185.1 423.8 226.6 424.6 Q268.2 425.4 309.8 426.0 Q351.3 426.6 392.8 426.2 Q434.4 425.9 475.9 425.1 Q517.5 424.2 559.0 423.0 Q600.6 421.7 642.1 420.7 Q683.7 419.7 725.2 419.0 Q766.8 418.2 808.3 415.8 L849.9 413.5" fill="none" stroke="#C9A84C" stroke-opacity="0.45" stroke-width="3.5" stroke-linecap="round" transform="translate(1.5 -2)" data-laenge="750.2" /></svg></div>
+    <div id="an-marker-b" class="clip an-marker" data-start="9.633" data-duration="2.367" data-track-index="5" data-layout-ignore><svg width="1080" height="1920" viewBox="0 0 1080 1920"><path id="an-unter-b" class="strich" d="M102.0 423.5 Q133.5 424.9 149.3 425.9 Q165.0 426.9 180.8 426.4 Q196.5 426.0 212.3 426.5 Q228.0 427.1 243.8 426.1 Q259.6 425.2 275.3 424.6 Q291.1 424.0 306.8 422.5 Q322.6 421.0 338.3 419.5 Q354.1 418.0 369.8 415.6 L385.6 413.2" fill="none" stroke="#F5F0E8" stroke-opacity="1.0" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" data-laenge="286.5" />
+<path id="an-unter-b-spur" class="strich" d="M102.0 423.5 Q133.5 424.9 149.3 425.9 Q165.0 426.9 180.8 426.4 Q196.5 426.0 212.3 426.5 Q228.0 427.1 243.8 426.1 Q259.6 425.2 275.3 424.6 Q291.1 424.0 306.8 422.5 Q322.6 421.0 338.3 419.5 Q354.1 418.0 369.8 415.6 L385.6 413.2" fill="none" stroke="#F5F0E8" stroke-opacity="0.45" stroke-width="3.5" stroke-linecap="round" transform="translate(1.5 -2)" data-laenge="286.5" /></svg></div>
+    <div id="an-c-karte" class="clip an-credit" data-start="0" data-duration="12.0" data-track-index="6" style="bottom: 616px">Karte: Natural Earth, gemeinfrei</div>
+    <div id="an-c-abl" class="clip an-credit" data-start="1.433" data-duration="4.167" data-track-index="7" style="bottom: 658px">Ablöse: FC Barcelona, 19.07.2022</div>
+    <div id="an-c-vertrag" class="clip an-credit" data-start="7.033" data-duration="4.967" data-track-index="6" style="bottom: 658px">Vertrag: t-online, 14.05.2022</div>
+    <div id="an-c-frei" class="clip an-credit" data-start="9.233" data-duration="2.767" data-track-index="8" style="bottom: 700px">Ablösefrei: EuGH, 15.12.1995</div>
+  </div>
+  <script>
+    (function () {
+
+      const tl = gsap.timeline({ paused: true });
+      // Seek-sicher: nur fromTo; ab dem zweiten Tween auf derselben Eigenschaft immediateRender: false.
+      const rein = (sel, t, d) => tl.fromTo(sel, { opacity: 0, filter: "blur(8px)" },
+        { opacity: 1, filter: "blur(0px)", duration: d || 0.2, ease: "power2.out" }, t);
+      // Austritt: 40–50 % der Eintrittsdauer, Unschärfe plus Deckkraft, power2.in (DESIGN.md §5).
+      const raus = (sel, t, d) => tl.fromTo(sel, { opacity: 1, filter: "blur(0px)" },
+        { opacity: 0, filter: "blur(8px)", duration: d || 0.2, ease: "power2.in", immediateRender: false }, t);
+      const hart = (sel, t) => tl.fromTo(sel, { opacity: 0 }, { opacity: 1, duration: 0.001, ease: "none" }, t);
+      // Marker zeichnen: Strichmuster L/L+20, Offset L+10 -> 0; bis zum Cue unsichtbar (runde Kappe).
+      const zeichne = (sel, t, d, ease) => document.querySelectorAll(sel).forEach((p) => {
+        let L = 0;
+        try { L = p.getTotalLength(); } catch (e) { L = 0; }
+        if (!(L > 0)) L = parseFloat(p.dataset.laenge) || 1000;
+        p.setAttribute("stroke-dasharray", L.toFixed(1) + " " + (L + 20).toFixed(1));
+        tl.fromTo(p, { opacity: 0 }, { opacity: 1, duration: 0.001, ease: "none" }, t);
+        tl.fromTo(p, { strokeDashoffset: L + 10 }, { strokeDashoffset: 0, duration: d, ease: ease || "power1.inOut" }, t);
+      });
+
+      // Beat 1 – Ort setzen: Punkt rastet ein, Name +0,12 s aus der Unschärfe (DESIGN.md §5, Atlas).
+      tl.fromTo("#an-punkt i", { scale: 0 }, { scale: 1, duration: 0.35, ease: "back.out(2.2)" }, 0.433);
+      rein("#an-ort", 0.553);
+      // Fallen: Der Stapel fällt 560 px auf Barcelona, staucht beim Aufprall und federt zurück.
+      tl.fromTo("#an-stapel-k", { y: -560 }, { y: 0, duration: 0.42, ease: "power2.in" }, 0.983);
+      tl.fromTo("#an-stapel-k", { scaleY: 1, transformOrigin: "50% 100%" }, { scaleY: 0.84, duration: 0.07, ease: "power2.out", immediateRender: false }, 1.403);
+      tl.fromTo("#an-stapel-k", { scaleY: 0.84 }, { scaleY: 1, duration: 0.3, ease: "back.out(3)", immediateRender: false }, 1.473);
+      tl.fromTo("#an-schatten svg", { opacity: 0 }, { opacity: 1, duration: 0.42, ease: "power2.in" }, 0.983);
+      // Der Punkt geht, sobald ein Gegenstand auf dem Ort steht (der Fuß markiert den Ort).
+      tl.fromTo("#an-punkt", { opacity: 1 }, { opacity: 0, duration: 0.15, ease: "power2.in", immediateRender: false }, 1.383);
+      rein("#an-zahl", 1.433);
+      rein("#an-c-abl", 1.433);
+      zeichne("#an-marker-a .strich", 2.233, 0.35);
+      // Übergang: Beat-1-Texte treten zurück, dann fährt die Kamera (0,6 s, power2.inOut) zum
+      // Überblick Barcelona–München. Die Anker laufen mit derselben Kurve mit, so bleiben Stapel und
+      // Namen auf ihrem Ort, obwohl sie bildschirmgroß bleiben.
+      raus("#an-zahl", 5.4);
+      raus("#an-marker-a", 5.4);
+      raus("#an-c-abl", 5.4);
+      tl.fromTo("#an-kamera", { scale: 1, x: 0, y: 0 }, { scale: 0.62, x: 24.68, y: 610.35, duration: 0.6, ease: "power2.inOut" }, 5.65);
+      tl.fromTo("#an-bcn", { x: 0, y: 0 }, { x: -172.9, y: 276.0, duration: 0.6, ease: "power2.inOut" }, 5.65);
+      // Genau eine Region leuchtet: Spanien geht während der Fahrt, Deutschland kommt am Ende.
+      tl.fromTo("#an-spanien", { opacity: 1 }, { opacity: 0, duration: 0.3, ease: "power1.inOut" }, 5.65);
+      tl.fromTo("#an-deutschland", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.inOut" }, 5.95);
+      // Beat 2: München setzen, Geist-Stapel (leer), Datum, „0 €“ in Creme mit Unterstreichung.
+      tl.fromTo("#an-muc-punkt i", { scale: 0 }, { scale: 1, duration: 0.35, ease: "back.out(2.2)" }, 6.283);
+      rein("#an-muc-name", 6.403);
+      rein("#an-geist", 6.80, 0.3);
+      rein("#an-bis", 7.033);
+      rein("#an-c-vertrag", 7.033);
+      rein("#an-null", 9.233);
+      rein("#an-c-frei", 9.233);
+      zeichne("#an-marker-b .strich", 9.633, 0.35);
+      tl.to({}, { duration: 12.0 }, 0);
+      window.__timelines["beat"] = tl;
+    })();
+  </script>
+</template>

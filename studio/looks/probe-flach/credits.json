@@ -1,0 +1,92 @@
+{
+  "_hinweis": "Fremdquellen dieses Videos mit Urheber, Lizenz, Link und Datum. Erzeugt von factory/werk/bilder.py.",
+  "video": "probe-flach",
+  "quellen": [
+    {
+      "datei": "assets/fotos/camp-nou.jpg",
+      "titel": "File:2014. Camp Nou. Més que un club. Barcelona B40.jpg",
+      "urheber": "Luis Miguel Bugallo Sánchez (Lmbuga)",
+      "lizenz": "CC BY-SA 3.0",
+      "lizenz_art": "cc-by-sa",
+      "lizenz_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "quelle": "https://commons.wikimedia.org/wiki/File:2014._Camp_Nou._M%C3%A9s_que_un_club._Barcelona_B40.jpg",
+      "kurzlink": "https://commons.wikimedia.org/?curid=34595480",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/a/a9/2014._Camp_Nou._M%C3%A9s_que_un_club._Barcelona_B40.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "datum_commons": "2014-04-08 10:57:09",
+      "datum_foto": "2014",
+      "datum_foto_quelle": "Commons-Datum (Aufnahme- oder Werkdatum der Dateiseite)",
+      "datum_objekt": null,
+      "objekt": null,
+      "abgerufen": "2026-10-28",
+      "einschraenkungen": [],
+      "personen_freigabe": null,
+      "lizenz_vorlagen": [
+        "Ca",
+        "Category handler",
+        "Cc-by-sa-3.0",
+        "Cc-by-sa-layout",
+        "Center",
+        "Edit",
+        "En",
+        "Full stop",
+        "Gl",
+        "I18n/Click here for more information",
+        "I18n/Quality image",
+        "I18n/click here",
+        "I18n/click here for more information",
+        "I18n/image",
+        "I18n/quality image",
+        "I18n/quality x",
+        "Infobox template tag",
+        "Information",
+        "Label",
+        "Lang",
+        "LangSwitch",
+        "License template tag",
+        "Own",
+        "Quality image",
+        "Quality image/en",
+        "Quality image/lang",
+        "Quality image/layout",
+        "QualityImage",
+        "Self",
+        "Top icon",
+        "Top icon hover i18n"
+      ],
+      "bearbeitung": "Ausschnitt ohne Dachbanner, sonst unverändert (Farbe)",
+      "lizenz_bearbeitung": "CC BY-SA 3.0 (ShareAlike: die Bearbeitung steht unter derselben Lizenz)",
+      "credit_zeile": "Foto: Luis Miguel Bugallo Sánchez (Lmbuga), 2014, CC BY-SA 3.0, commons.wikimedia.org/?curid=34595480, bearbeitet",
+      "inhalt": "Ort: das Stadion des FC Barcelona, der bietet (Schriftzug „Més que un club“)."
+    }
+  ],
+  "fakten": [
+    {
+      "id": "abl",
+      "claim": "Barcelona zahlt für Lewandowski eine Ablöse von 45 Mio. € fest, dazu 5 Mio. € variabel.",
+      "src": "https://www.fcbarcelona.com/en/news/2683853/agreement-with-bayern-munich-for-the-transfer-of-robert-lewandowski",
+      "date": "2022-07-19",
+      "quote": "for a total of €45 million + €5 million in variables."
+    },
+    {
+      "id": "vertrag",
+      "claim": "Lewandowskis Vertrag beim FC Bayern läuft bis zum 30.06.2023.",
+      "src": "https://www.t-online.de/sport/fussball/bundesliga/id_92186698/fc-bayern-muenchen-salihamidzic-bestaetigt-lewandowski-will-bayern-verlassen.html",
+      "date": "2022-05-14",
+      "quote": "Lewa hat einen Vertrag bis zum 30. Juni 2023. Das ist Fakt."
+    },
+    {
+      "id": "frei",
+      "claim": "Nach Vertragsende darf ein Fußballprofi ablösefrei wechseln; der alte Verein bekommt dann 0 € Ablöse (Bosman-Urteil des EuGH, 15.12.1995).",
+      "src": "https://www.bpb.de/kurz-knapp/lexika/das-europalexikon/176722/bosman-urteil/",
+      "date": "2020",
+      "quote": "Danach dürfen Fußballer nach Beendigung ihres Vertrages ablösefrei den Verein wechseln."
+    },
+    {
+      "id": "frei_urteil",
+      "claim": "Das Bosman-Urteil des EuGH (Rs. C-415/93) fiel am 15.12.1995.",
+      "src": "https://de.wikipedia.org/w/index.php?title=Bosman-Entscheidung&oldid=271664610",
+      "date": "1995-12-15",
+      "quote": "Der EuGH fällte am 15. Dezember 1995 (EuGH RS C-415/93"
+    }
+  ]
+}

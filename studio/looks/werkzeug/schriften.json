@@ -1,0 +1,155 @@
+{
+  "_hinweis": "Schriften je Look: @fontsource-Pakete auf jsDelivr, Version gepinnt. Alle unter der SIL Open Font License 1.1. Ändern nur mit dem Look-Blatt zusammen (studio/looks/<look>.md).",
+  "looks": {
+    "atlas-nacht": {
+      "schriften": [
+        {
+          "familie": "DT Playfair",
+          "gewicht": 900,
+          "paket": "playfair-display@5.1.0",
+          "datei": "playfair-display-latin-900-normal.woff2",
+          "sha256": "10795faaa4bd86f12f542b9451ed24b2948f7a4117328adcd068fcd8190f48b4"
+        },
+        {
+          "familie": "DT Inter",
+          "gewicht": 400,
+          "paket": "inter@5.1.0",
+          "datei": "inter-latin-400-normal.woff2",
+          "sha256": "dd05e326cf8eac3b55acecf29c842ed73e6e6dd06491cf47f7e8800680ab3e33"
+        },
+        {
+          "familie": "DT Inter",
+          "gewicht": 600,
+          "paket": "inter@5.1.0",
+          "datei": "inter-latin-600-normal.woff2",
+          "sha256": "62553d159189834af73c9a6264704be5b2bee9a08da66a14768d8e5c6ffd2cdb"
+        }
+      ]
+    },
+    "zeitungspapier": {
+      "schriften": [
+        {
+          "familie": "ZP Anton",
+          "gewicht": 400,
+          "paket": "anton@5.3.0",
+          "datei": "anton-latin-400-normal.woff2",
+          "sha256": "d0fa07ff63dd60cbc0e2f58e29c802dca2a5ae0276c999f59c6111ab7bbaec3b"
+        },
+        {
+          "familie": "ZP Source Serif",
+          "gewicht": 400,
+          "paket": "source-serif-4@5.3.1",
+          "datei": "source-serif-4-latin-400-normal.woff2",
+          "sha256": "02194deb92d3975dd30e11a3824a1f1db32b48c93654e60560cb81ce8e7b5f95"
+        },
+        {
+          "familie": "ZP Source Serif",
+          "gewicht": 600,
+          "paket": "source-serif-4@5.3.1",
+          "datei": "source-serif-4-latin-600-normal.woff2",
+          "sha256": "f2b7e1cf1d277b7608231868135648f8ad8e2b58d8e97ca088bee15dc357bee7"
+        }
+      ]
+    },
+    "labor": {
+      "schriften": [
+        {
+          "familie": "LB Plex Cond",
+          "gewicht": 600,
+          "datei": "ibm-plex-sans-condensed-latin-600-normal.woff2",
+          "paket": "ibm-plex-sans-condensed@5.3.0",
+          "sha256": "3d72a0923c5830358b0a8e25b258aecadbecbf542b6ee9a25f387803e37d56b9"
+        },
+        {
+          "familie": "LB Plex Cond",
+          "gewicht": 700,
+          "datei": "ibm-plex-sans-condensed-latin-700-normal.woff2",
+          "paket": "ibm-plex-sans-condensed@5.3.0",
+          "sha256": "4768878c107d92c528a65bba206a87cdcf2c694514e75907fb91772cf8a388a5"
+        },
+        {
+          "familie": "LB Plex Sans",
+          "gewicht": 400,
+          "datei": "ibm-plex-sans-latin-400-normal.woff2",
+          "paket": "ibm-plex-sans@5.3.0",
+          "sha256": "3b646991d30055a93a4ecc499713d4347953a74a947ecab435ab72070cbdab0e"
+        }
+      ]
+    },
+    "archiv-duoton": {
+      "schriften": [
+        {
+          "familie": "AD Franklin",
+          "gewicht": 400,
+          "datei": "libre-franklin-latin-400-normal.woff2",
+          "paket": "libre-franklin@5.3.0",
+          "sha256": "50a24a85106ad722ab9d1353977c1f7b3b3d18465a807c0d6f1551b57a705f41"
+        },
+        {
+          "familie": "AD Franklin",
+          "gewicht": 600,
+          "datei": "libre-franklin-latin-600-normal.woff2",
+          "paket": "libre-franklin@5.3.0",
+          "sha256": "aaa877781157fd03a54d6b0f27283e5b153a6d1b44a20c2d80c695f5e07d242b"
+        },
+        {
+          "familie": "AD Franklin",
+          "gewicht": 800,
+          "datei": "libre-franklin-latin-800-normal.woff2",
+          "paket": "libre-franklin@5.3.0",
+          "sha256": "bb07291260c4b6cc7fbb4fe455d41ce6897c42c226552863dfa5a833c15b215d"
+        }
+      ]
+    },
+    "flach": {
+      "schriften": [
+        {
+          "familie": "FL Rubik",
+          "gewicht": 400,
+          "paket": "rubik@5.3.0",
+          "datei": "rubik-latin-400-normal.woff2",
+          "sha256": "82ac0e78285c43d0cd203427c57ab30fb07b18f8e6166045f729442eb1abfa26"
+        },
+        {
+          "familie": "FL Rubik",
+          "gewicht": 600,
+          "paket": "rubik@5.3.0",
+          "datei": "rubik-latin-600-normal.woff2",
+          "sha256": "6182043a20faf3fe1a8f0e2c7c964009e11de5e09852617fef3517cbf3c35513"
+        },
+        {
+          "familie": "FL Rubik",
+          "gewicht": 800,
+          "paket": "rubik@5.3.0",
+          "datei": "rubik-latin-800-normal.woff2",
+          "sha256": "8329d791ea5bc0ec67b2a01465a751e37f6699fc14ef45baac618c0b7c0789b3"
+        }
+      ]
+    },
+    "kurstafel": {
+      "schriften": [
+        {
+          "familie": "KT Barlow Condensed",
+          "gewicht": 600,
+          "paket": "barlow-condensed@5.3.0",
+          "datei": "barlow-condensed-latin-600-normal.woff2",
+          "sha256": "215a93c696f442034a46fbb382958f753fda60e30490683aeea6b235fcbb2b66"
+        },
+        {
+          "familie": "KT Barlow",
+          "gewicht": 400,
+          "paket": "barlow@5.3.0",
+          "datei": "barlow-latin-400-normal.woff2",
+          "sha256": "b0a8ad37ac45f5fb22ced461576db72e44e295107aad7a9c8a7a4bad728fd03b"
+        },
+        {
+          "familie": "KT Barlow",
+          "gewicht": 500,
+          "paket": "barlow@5.3.0",
+          "datei": "barlow-latin-500-normal.woff2",
+          "sha256": "cd759df8ef9efc98fee14307b4eb5ba27f08b1f8f2f3ad2872432e25c89907a8"
+        }
+      ]
+    }
+  }
+}

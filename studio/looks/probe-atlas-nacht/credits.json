@@ -1,0 +1,56 @@
+{
+  "_hinweis": "Fremdquellen dieses Videos mit Urheber, Lizenz, Link und Datum. Erzeugt von factory/werk/bilder.py.",
+  "video": "probe-atlas-nacht",
+  "quellen": [
+    {
+      "datei": "assets/karte.svg",
+      "titel": "Natural Earth 1:50m Admin 0 – Countries (als TopoJSON: world-atlas@2.0.2)",
+      "urheber": "Natural Earth (naturalearthdata.com)",
+      "lizenz": "gemeinfrei (Public Domain)",
+      "lizenz_art": "pd",
+      "lizenz_url": "https://www.naturalearthdata.com/about/terms-of-use/",
+      "quelle": "https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-50m.json",
+      "kurzlink": null,
+      "original": "https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-50m.json",
+      "datum_commons": null,
+      "datum_foto": null,
+      "datum_objekt": null,
+      "abgerufen": "2026-10-28",
+      "einschraenkungen": [],
+      "bearbeitung": "Lambert konform-konisch, Ausschnitt Westeuropa, Kartentöne und Regionen Spanien/Deutschland aus studio/DESIGN.md (werkzeug/karte.mjs)",
+      "lizenz_bearbeitung": "frei (Original ohne Lizenzauflage)",
+      "credit_zeile": "Karte: Natural Earth, gemeinfrei",
+      "inhalt": "Ort: Barcelona und München, die Strecke des Wechsels."
+    }
+  ],
+  "fakten": [
+    {
+      "id": "abl",
+      "claim": "Barcelona zahlt für Lewandowski eine Ablöse von 45 Mio. € fest, dazu 5 Mio. € variabel.",
+      "src": "https://www.fcbarcelona.com/en/news/2683853/agreement-with-bayern-munich-for-the-transfer-of-robert-lewandowski",
+      "date": "2022-07-19",
+      "quote": "for a total of €45 million + €5 million in variables."
+    },
+    {
+      "id": "vertrag",
+      "claim": "Lewandowskis Vertrag beim FC Bayern läuft bis zum 30.06.2023.",
+      "src": "https://www.t-online.de/sport/fussball/bundesliga/id_92186698/fc-bayern-muenchen-salihamidzic-bestaetigt-lewandowski-will-bayern-verlassen.html",
+      "date": "2022-05-14",
+      "quote": "Lewa hat einen Vertrag bis zum 30. Juni 2023. Das ist Fakt."
+    },
+    {
+      "id": "frei",
+      "claim": "Nach Vertragsende darf ein Fußballprofi ablösefrei wechseln; der alte Verein bekommt dann 0 € Ablöse (Bosman-Urteil des EuGH, 15.12.1995).",
+      "src": "https://www.bpb.de/kurz-knapp/lexika/das-europalexikon/176722/bosman-urteil/",
+      "date": "2020",
+      "quote": "Danach dürfen Fußballer nach Beendigung ihres Vertrages ablösefrei den Verein wechseln."
+    },
+    {
+      "id": "frei_urteil",
+      "claim": "Das Bosman-Urteil des EuGH (Rs. C-415/93) fiel am 15.12.1995.",
+      "src": "https://de.wikipedia.org/w/index.php?title=Bosman-Entscheidung&oldid=271664610",
+      "date": "1995-12-15",
+      "quote": "Der EuGH fällte am 15. Dezember 1995 (EuGH RS C-415/93"
+    }
+  ]
+}

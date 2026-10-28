@@ -22,6 +22,10 @@
 #   - "steigt": Fragesätze, deren Stimme am Ende steigt (Markup „?↑“ aus §4). Alle anderen
 #     Fragen fallen, wie W-Fragen im Deutschen üblich („Was kostet es, ihn zu behalten?“).
 #   - "facts": IDs aus ../fakten.json für jede Zahl und jede Behauptung der Szene.
+#   - "luft" (Fassung v2.1): Wort -> Sekunden. Nach diesem Wort steht MINDESTENS so viel Stille
+#     (voice.py setzt sie in die Aufnahme ein, auch mitten in einem Block). Für Kernsätze, die
+#     sonst ohne Atem aufeinanderfolgen (Kritik 28.10.: „bezahltes.“ -> „Ökonomen“ 0,30 s,
+#     „Opportunitätskosten.“ -> „Das ist …“ 0,34 s; Vorbilder: vor einer Wende 1,0-1,5 s).
 #
 # Fakten geprüft am 27.10.2026 (Quellen, Daten und Zitate in ../fakten.json):
 #   Ablöse 45 Mio. € fest + 5 Mio. € variabel (FC Barcelona, 19.07.2022),
@@ -49,7 +53,9 @@ SCENES = [
      ],
      # Die drei Antwort-Schilder hängen sich schon auf "kostet" (Cue frage) an die Figur, nicht erst
      # auf das letzte Wort: So stehen sie ca. 4 s lesbar, ohne das Video zu verlängern.
-     "cues": {"bcn": "Barcelona", "lewa": "Lewandowski", "verkaufen": "verkaufen",
+     # "bayern" (Fassung v2.1): Bis hier liegt das echte Foto als Abzug auf der Karte; auf „Bayern“
+     # wird es zum Darsteller und steigt nach München (Bayern entscheidet, dort steht die Waage).
+     "cues": {"bcn": "Barcelona", "lewa": "Lewandowski", "bayern": "Bayern", "verkaufen": "verkaufen",
               "behalten": "behalten#1", "frage": "kostet", "optionen": "behalten#2"},
      # "behalten#1": Nur das erste „behalten“ wird betont. Im Fragesatz liegt der Ton auf „kostet“.
      "betont": ["verkaufen", "behalten#1", "kostet"]},
@@ -131,6 +137,8 @@ SCENES = [
          "Entgangenes Geld fehlt genauso wie bezahltes.",
      ],
      "cues": {"entgangen": "Entgangenes", "gewicht": "genauso", "korrektur": "bezahltes"},
+     # Fassung v2.1: Vor dem neuen Beat „Begriff“ eine Absatzpause (vorher 0,30 s).
+     "luft": {"bezahltes": 0.7},
      "betont": ["genauso"]},
 
     # Beat 7: Begriff erst jetzt, nach dem Beispiel. „man“ statt „du“: Noch ist es Bayerns Fall.
@@ -142,6 +150,8 @@ SCENES = [
          "Das ist der Wert der besten Alternative, die man aufgibt.",
      ],
      "cues": {"begriff": "Opportunitätskosten", "alternative": "Alternative", "aufgibt": "aufgibt"},
+     # Fassung v2.1: Der Begriff steht kurz für sich, bevor die Definition kommt (vorher 0,34 s).
+     "luft": {"Opportunitätskosten": 0.6},
      "betont": ["Opportunitätskosten", "aufgibt"]},
 
     # Beat 8: Auflösung des Falls. Der neue Begriff wird sofort angewendet: Auch Verkaufen hat
@@ -155,7 +165,12 @@ SCENES = [
     # In ihr beginnt die Drehung bei stehender Kamera; der Geist wird erst echt, wenn er auf der
     # Nutzen-Seite ankommt. Die Atempause braucht eine Szenengrenze, denn voice.py teilt die
     # Stimme nur an deklarierten Pausen nach einer Szene.
-    {"id": "verkauf", "beat": "aufloesung", "facts": ["datum", "kahn_summe"], "atem_s": 0.7,
+    #
+    # Fassung v2 (Abnahme 28.10.): atem_s 1,0 statt 0,7. Die Pause ist LUFT: Die Neigung auf "nimmt"
+    # ist ausgeschwungen, das Bild steht. Die Drehung beginnt am Ende der Pause; ihre Mitte bleibt
+    # auf "Verkaufen" (Vorrang: das Schild ist Text und kippt auf seinem Wort). So liegen Neigung,
+    # Drehung mit Echtwerden des Geldes und Etikett je knapp 1 s auseinander statt in 1,1 s.
+    {"id": "verkauf", "beat": "aufloesung", "facts": ["datum", "kahn_summe"], "atem_s": 1.0,
      "sentences": [
          "Im Juli nimmt Bayern das Geld.",
      ],
@@ -167,7 +182,10 @@ SCENES = [
     # fällt. "abflug_spieler" („eine“): Der Spieler fliegt ab, "ok_saison" („Saison“): „1 Saison“.
     {"id": "aufloesung", "beat": "aufloesung", "facts": ["saison"],
      "sentences": [
-         "Auch Verkaufen hat Opportunitätskosten: eine Saison Lewandowski.",
+         # „Oppor-tunitätskosten“ nur für Piper (Rückfall-Block): Ohne Trennstrich hörte Whisper den
+         # einzeln ausgeschnittenen Satz als „Operatunitätskosten“ (0 von 2 Synthesen richtig, mit
+         # Trennstrich 3 von 4; 28.10.). Jonas liest die Anzeige-Seite.
+         "Auch Verkaufen hat Opportunitätskosten|Oppor-tunitätskosten: eine Saison Lewandowski.",
      ],
      "cues": {"dreh": "Verkaufen", "ok_verkauf": "Opportunitätskosten", "abflug_spieler": "eine",
               "ok_saison": "Saison"},
@@ -195,6 +213,8 @@ SCENES = [
      # Beispiel („Genau dann könntest du …“), die Rechnung mit „geschenkt“. Vorher ist die Waage leer.
      "cues": {"karte": "Kinokarte", "geschenkt": "geschenkt", "genau": "Genau", "nachhilfe": "Nachhilfe",
               "lohn_da": "Geld"},
+     # Fassung v2.1: Luft vor der Wende „Genau dann …“ (Vorbilder: vor einer Wende 1,0-1,5 s).
+     "luft": {"geschenkt": 0.7},
      "betont": ["geschenkt", "dann"]},
 
     # "gleichung" („kostet“): Erst hier erscheint „Kosten = bezahlt + aufgegeben“, wenn es
@@ -209,12 +229,16 @@ SCENES = [
      # "gratis_nicht" (Runde 2): Auf „nicht“ zuckt die Lohntüte neben der Rechnung „0 €“. Das Bild
      # sagt „nicht gratis“, statt den Satz als Formel hinzuschreiben (Prüfung 2).
      "cues": {"gleichung": "kostet", "lohn": "Lohn", "gratis": "Gratis", "gratis_nicht": "nicht"},
+     # Fassung v2.1: Luft nach der Rechnung, bevor sie bewertet wird („Das kann es wert sein“).
+     "luft": {"Lohn": 0.7},
      "betont": ["Lohn", "nicht"]},
 
     # Beat 12: Satz fürs Gespräch (Linus) = Satz für die Stunde (Bruder). Dann Halten.
     # „kostet“ statt „Preis“: Die Priming-Frage fragt nach Kosten, und „Preis“ ist in WR ein
     # eigener Begriff (Markt).
-    {"id": "satz", "beat": "satz", "hold_s": 2.0,
+    # hold_s 2,8 statt 2,0 (Fassung v2.1): Im stehenden Schlussbild steht jetzt der Abspann
+    # (Bildnachweis mit Kurzlink, Lizenz des Videos); check verlangt für ihn >= 2,63 s.
+    {"id": "satz", "beat": "satz", "hold_s": 2.8,
      "sentences": [
          "Auch was du aufgibst, kostet.",
          "Es steht nur auf keiner Rechnung.",
@@ -236,6 +260,10 @@ for _szene in SCENES:
 # Selbstprüfung. Läuft nur bei "python build/script.py", nicht beim Import durch voice.py.
 # ------------------------------------------------------------------------------------------
 LEAD_IN = 0.35          # Stille vor dem ersten Wort (wie voice.py)
+LUFT_SPANNE = (0.4, 1.0)    # "luft": hörbar länger als eine Satzpause, kürzer als eine Atempause+
+# Pflichtwörter (Kritik 28.10.): Der Hör-Check prüft sie auch an EINZELN ausgeschnittenen Sätzen
+# ohne Vorkontext. Auf der ganzen Spur rät Whisper ein undeutliches Wort aus dem Zusammenhang.
+PFLICHTWOERTER = ["Opportunitätskosten", "Saison", "keiner", "Ablöse"]
 MAX_WOERTER = 19        # Kit-Konstante: höchstens 19 Wörter pro Szene (VIDEO-PIPELINE §3)
 FRAGE_BIS = 8.0         # Frage muss in den ersten 8 s stehen (§5 „Immer gilt“)
 PAUSE_SPANNE = (1.5, 2.5)   # deklarierte Denkpausen (§4 Regeln, DESIGN.md §9)
@@ -305,7 +333,14 @@ def pruefe(tempo=2.3):
         atem = szene.get("atem_s", 0)
         if atem and not ATEM_SPANNE[0] <= atem <= ATEM_SPANNE[1]:
             fehler.append(f"Szene {szene['id']}: Atempause {atem} s außerhalb {ATEM_SPANNE}")
-        t += len(woerter) / tempo
+        for wort, sek in szene.get("luft", {}).items():
+            try:
+                finde_wort(szene, wort)
+            except ValueError as e:
+                fehler.append("luft: " + str(e))
+            if not LUFT_SPANNE[0] <= sek <= LUFT_SPANNE[1]:
+                fehler.append(f"Szene {szene['id']}: luft {sek} s außerhalb {LUFT_SPANNE}")
+        t += len(woerter) / tempo + sum(szene.get("luft", {}).values())
         if szene.get("interaction") == "pause_for_answer" and t > FRAGE_BIS:
             fehler.append(f"Frage endet bei {tempo} Wörtern/s ca. {t:.1f} s, Ziel <= {FRAGE_BIS} s")
         t += pause + atem + szene.get("hold_s", 0)
@@ -324,7 +359,8 @@ if __name__ == "__main__":
     for sid, n, a, e in zeilen:
         print(f"{sid:14s} {n:6d} {a:7.1f} {e:7.1f}")
     gesamt = sum(n for _, n, _, _ in zeilen)
-    pausen = LEAD_IN + sum(s.get("pause_s", 0) + s.get("atem_s", 0) + s.get("hold_s", 0) for s in SCENES)
+    pausen = LEAD_IN + sum(s.get("pause_s", 0) + s.get("atem_s", 0) + s.get("hold_s", 0)
+                           + sum(s.get("luft", {}).values()) for s in SCENES)
     print(f"gesamt {gesamt} Wörter; Dauer bei 2,0 / 2,3 / 2,6 Wörtern/s: "
           + " / ".join(f"{gesamt / v + pausen:.1f} s" for v in (2.0, 2.3, 2.6)))
     if "--cues" in sys.argv:

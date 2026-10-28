@@ -3,8 +3,8 @@
   Beleg, Vertrag, Geld in Barcelona, Geld/Geist in München, Umriss des Spielers), Zeitleiste,
   Etiketten an Schalen und die Marker-Ebene. build/bauen.mjs setzt dieses Stück in
   compositions/atlas.html ein und füllt dabei Karte (@karte), Ländernamen (@laender), Münzen
-  (@muenzen, @muenzen-muenchen), Geister (@geist-stapel, @geist-figur) und Spielfigur
-  (@spielfigur) ein. Alle Positionen setzt lib/buehne.js -> render(t); hier steht nur das
+  (@muenzen, @muenzen-muenchen), Geister (@geist-stapel, @geist-figur), das Spielerfoto
+  (@spielfoto) und den Fadenanfang an seiner Hand (@hand) ein. Alle Positionen setzt lib/buehne.js -> render(t); hier steht nur das
   Aussehen. Maße der Waage: DATEN.waage (bauen.mjs), Farben: studio/DESIGN.md §4.
 
   Runde 1: Alles, was zur Welt gehört, liegt in EINER Hülle (#w-welt, data-rig). Die Nachfahrt
@@ -16,12 +16,17 @@
   "Behalten" gibt es den Stempel "0 €" ("Behalten keinen Cent"). Unter der Kosten-Schale stehen
   zwei Zeilen: der Betrag ("45 Mio. €", erst im Geist-Stil) und sein Wort ("entgangen" ->
   "beste Alternative").
+
+  Fassung v2.1 (Kritik 28.10.): Das echte Foto hat einen eigenen Auftritt. Im Hook liegt die
+  Spielszene als Abzug in Farbe auf der Karte (@foto-hook, außerhalb der Kamera-Hülle, denn die
+  Kamera steht im Hook); auf "Bayern" wird daraus der Darsteller. Der Darsteller hat eine helle und
+  eine dunkle, deckende Fassung (Zurücktreten ohne Durchscheinen). Camp Nou ist entfernt.
 -->
 <style>
   /* @schriften:anfang */
   /* @schriften:ende */
   #w-buehne { position: absolute; inset: 0; overflow: hidden; background: #0E1726; }
-  /* Welt-Hülle: Ursprung oben links, damit render() translate + scale einfach rechnen kann.
+  /* Welt-Hülle: Ursprung oben links, damit render() translate + scale direkt rechnen kann.
      isolation: immer ein eigener Stapelkontext (auch ohne Zoom gleiche Reihenfolge). */
   #w-welt { position: absolute; inset: 0; transform-origin: 0 0; isolation: isolate; }
   #w-svg { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
@@ -51,8 +56,12 @@
     text-shadow: 0 2px 18px rgba(14, 23, 38, 0.9), 0 0 4px rgba(14, 23, 38, 0.9); }
   /* Namen links vom Punkt: rechts davon stehen Spielfigur, Preisschilder und Stapel. */
   .w-name-links { right: 30px; }
-  /* München: weiter links, damit der Fuß der Spielfigur den Namen nicht verdeckt. */
-  #w-name-muenchen { right: 92px; }
+  /* München: weiter links, damit Fuß und Ball des Spielers den Namen nicht verdecken (v2.1: der
+     Ball liegt bis 137 px links vom Fuß). Den Punkt gibt es nicht: Auf München steht immer jemand
+     (erst der Spieler, dann die Waage), und DESIGN.md §7 sagt, dann geht der Punkt. Vorher lag der
+     graue Punkt genau vor dem Fuß und sah aus wie ein Ball (Kritik 28.10.). */
+  #w-name-muenchen { right: 168px; }
+  #w-punkt-muenchen { display: none; }
   .w-rand.w-mitte { display: flex; justify-content: center; }
 
   /* Waage: ein Gegenstand der Welt wie Figur und Münzen (Runde 2, Prüfung 1: vorher ein
@@ -81,6 +90,21 @@
   .a-schatten-oval { position: absolute; left: -96px; top: -20px; width: 192px; height: 40px; border-radius: 50%;
     background: radial-gradient(closest-side, rgba(14, 23, 38, 0.95), rgba(14, 23, 38, 0)); }
   .a-svg { position: absolute; left: -100px; top: -310px; width: 200px; height: 320px; overflow: visible; }
+  /* Fotos (Fassung v2). Das Duoton ist in die Datei gebacken (build/foto.py), kein CSS-Filter.
+     v2.1: Der Darsteller ist eine Hülle mit zwei deckenden Bildern. Zurücktreten heißt: das helle
+     Bild blendet aus und gibt das dunkle frei. So scheint nie die Karte durch das Gesicht. */
+  .a-foto { position: absolute; display: block; }
+  .a-foto img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  /* Abzug im Hook (v2.1): die Spielszene in Farbe, Creme-Rand wie ein Fotoabzug, Schatten wie die
+     Papiere. Liegt über der Welt (z 8), unter dem HUD. Die Kamera steht im Hook, darum Bildpixel. */
+  #fh-ebene { position: absolute; inset: 0; z-index: 8; pointer-events: none; }
+  #fh-abzug { position: absolute; }
+  #fh-rahmen { position: absolute; left: -12px; top: -12px; right: -12px; bottom: -12px; background: #F5F0E8;
+    box-shadow: 0 10px 22px rgba(3, 7, 14, 0.75); }
+  #fh-foto { position: absolute; left: 12px; top: 12px; display: block; }
+  #fh-figur { position: absolute; display: block; }
+  /* Name neben dem Abzug (links, auf Kopfhöhe): steht auf der Karte, nicht auf dem Gesicht. */
+  #fh-name { position: absolute; }
   .a-etikett { position: absolute; white-space: nowrap; font-family: "DT Inter", sans-serif; font-weight: 600;
     font-size: 52px; line-height: 62px; color: #F5F0E8; text-shadow: 0 2px 18px rgba(14, 23, 38, 0.9), 0 0 4px rgba(14, 23, 38, 0.9); }
   #a-spieler-name { right: 104px; top: -118px; font-size: 48px; }
@@ -248,17 +272,20 @@
     </svg>
   </div>
 
-  <!-- Darsteller 1: der Spieler als Tipp-Kick-Figur (Creme = gegeben), Name und Preisschilder. -->
+  <!-- Darsteller 1: der Spieler. Fassung v2: ein echtes Foto (Lewandowski im Bundesligaspiel,
+       freigestellt, Duoton; build/foto.py) statt der Tipp-Kick-Figur. v2.1: mit Ball, als Hülle
+       mit heller und dunkler Fassung. bauen.mjs setzt sie mit den Maßen aus
+       build/foto-lewandowski.json ein (@spielfoto). Name und Preisschilder. -->
   <div id="a-spieler-schatten" class="a-schatten"><div class="a-schatten-oval"></div></div>
   <div id="a-spieler" class="a-huelle">
     <div id="a-spieler-figur" class="a-figur">
-      <svg id="a-spieler-bild" class="a-svg" viewBox="-100 -310 200 320" aria-hidden="true"><!-- @spielfigur --></svg>
+      <!-- @spielfoto -->
       <div id="a-spieler-name" class="a-etikett">Lewandowski</div>
-      <!-- Schnüre von der rechten Hand (50, -124) zu den Löchern der Schilder -->
+      <!-- Schnüre von seiner linken Hand an der Hüfte (@hand, aus dem Foto) zu den Löchern der Schilder -->
       <svg id="a-schilder-faeden" aria-hidden="true">
-        <path id="a-faden-1" d="M50 -124 C78 -40 130 80 154 170" />
-        <path id="a-faden-2" d="M50 -124 C84 -10 118 150 126 266" />
-        <path id="a-faden-3" d="M50 -124 C92 20 140 230 148 362" />
+        <path id="a-faden-1" d="M@hand C78 -40 130 80 154 170" />
+        <path id="a-faden-2" d="M@hand C84 -10 118 150 126 266" />
+        <path id="a-faden-3" d="M@hand C92 20 140 230 148 362" />
       </svg>
       <!-- Reihenfolge wie im Drehbuch: Irrtum, richtig, zweiter Irrtum. Breiten gemessen
            (Text 48 px + 24 px links + 54 px Spitze mit Loch). Leicht versetzt und schräg. -->
@@ -348,4 +375,6 @@
     <g id="m-anker-geld" data-anker="akteur:geist" data-anker-dy="-144"></g>
   </svg>
  </div>
+ <!-- Abzug im Hook (Fassung v2.1): die echte Spielszene, dann "Foto wird Darsteller". -->
+ <!-- @foto-hook -->
 </div>

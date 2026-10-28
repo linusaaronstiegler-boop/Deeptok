@@ -35,6 +35,21 @@ FETT = str(INTER / "Inter-SemiBold.otf") if INTER.exists() else "DejaVu-Sans-Bol
 NORMAL = str(INTER / "Inter-Regular.otf") if INTER.exists() else "DejaVu-Sans"
 
 
+
+def stimme_text() -> str:
+    """Wer spricht: v2 mischt Jonas (ElevenLabs) und Piper je Block (Kontingent erschöpft)."""
+    quellen = TIMING.get("quellen_je_block")
+    if not quellen:
+        return TIMING.get("anbieter", "?") + (" (Platzhalter)" if TIMING.get("platzhalter") else "")
+    jonas = [str(q["block"]) for q in quellen if q["quelle"] != "piper"]
+    piper = [str(q["block"]) for q in quellen if q["quelle"] == "piper"]
+    text = f"Jonas (ElevenLabs) in Block {', '.join(jonas)}"
+    text += f", Piper in Block {', '.join(piper)}" if piper else ""
+    # Fassung v2.1: Tor aus voice.py. Eine Mischung zweier Stimmen ist nicht zur Bewertung freigegeben.
+    if not TIMING.get("bewertbar", {}).get("ok", True):
+        text += " · NICHT BEWERTBAR (Stimmen gemischt)"
+    return text
+
 def denkpause_mitte():
     return (DENKPAUSE["start"] + DENKPAUSE["end"]) / 2
 
@@ -42,6 +57,8 @@ def denkpause_mitte():
 # Beat (Drehbuch-Nummer), Szene aus index.html, Zeitpunkt. Der Versatz nach dem Cue ist so gewählt,
 # dass das Bild des Beats fertig steht (Stempel gelandet, Etikett gesetzt, Fahrt zu Ende).
 BEATS = [
+    # Fassung v2.1: der Foto-Moment (echte Spielszene als Abzug), bevor sie zum Darsteller wird
+    ("1 Foto (Abzug)", "hook", lambda: CUES["lewa"] + 0.5),
     ("1 Frage", "hook", lambda: CUES["optionen"] + 0.3),
     ("2 Denkpause", "hook", denkpause_mitte),
     ("3 Naheliegend", "naheliegend", lambda: CUES["tore"] + 0.7),
@@ -119,20 +136,20 @@ def main():
     with tempfile.TemporaryDirectory() as tmp:
         tmp = Path(tmp)
 
-        # 1. Kontaktbogen: 14 Kacheln in zwei Reihen zu sieben
+        # 1. Kontaktbogen: 15 Kacheln in zwei Reihen zu acht
         kacheln = []
         for i, (beat, szene, zeit) in enumerate(BEATS, 1):
             t = zeit()
             bild(GOLD, t, tmp / f"k{i:02d}.png")
             kachel(tmp / f"k{i:02d}.png", tmp / f"t{i:02d}.png", 288, beat, f"{sekunden(t)} · {szene}")
             kacheln.append(tmp / f"t{i:02d}.png")
-        lauf("montage", *kacheln, "-tile", "7x", "-geometry", "+6+6", "-background", NAVY, tmp / "raster.png")
+        lauf("montage", *kacheln, "-tile", "8x", "-geometry", "+6+6", "-background", NAVY, tmp / "raster.png")
         breite = int(subprocess.run(["identify", "-format", "%w", tmp / "raster.png"],
                                     capture_output=True, text=True, check=True).stdout)
         kopf(tmp / "kopf.png", breite,
              "Kontaktbogen · Goldstandard „Was kostet es, Lewandowski zu behalten?“",
              f"renders/gold.mp4 · {sekunden(dauer)} · ein Bild je Beat (Drehbuch-Nummern) · "
-             f"Stimme: {TIMING.get('anbieter', '?')}" + (" (Platzhalter)" if TIMING.get("platzhalter") else ""))
+             f"Stimme: {stimme_text()}")
         ok &= als_jpeg([tmp / "kopf.png", tmp / "raster.png"], BELEGE / "kontaktbogen.jpg", 300)
 
         # 2. Alt (obere Reihe) gegen neu (untere Reihe)

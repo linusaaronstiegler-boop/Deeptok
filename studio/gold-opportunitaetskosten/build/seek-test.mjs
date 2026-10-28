@@ -63,6 +63,12 @@ async function zustand(p) {
       const e = document.querySelector(sel);
       if (e) teile.push(sel + "=" + tr(e));
     }
+    // Fassung v2.1: Abzug im Hook (Morph "Foto wird Darsteller") und die Foto-Hülle des Darstellers
+    // (Zurücktreten über die dunkle Fassung, Unschärfe-Austritt)
+    for (const sel of ["#fh-abzug", "#fh-rahmen", "#fh-figur", "#fh-name", "#a-spieler-bild", "#a-spieler-hell"]) {
+      const e = document.querySelector(sel);
+      if (e) teile.push(sel + "=" + tr(e) + "|" + Number(getComputedStyle(e).opacity).toFixed(2) + "|" + e.style.filter);
+    }
     for (const e of document.querySelectorAll(".a-huelle")) teile.push(e.id + "=" + tr(e) + "|" + e.style.opacity);
     for (const e of document.querySelectorAll(".clip")) teile.push(e.id + ":" + Number(getComputedStyle(e).opacity).toFixed(2));
     for (const e of document.querySelectorAll("svg path")) {
@@ -117,10 +123,10 @@ const ZEIT = JSON.parse(fs.readFileSync("compositions/atlas.html", "utf8").match
 const schnitt = Math.round(ZEIT.schnitt * FPS);
 // [Zeitpunkt, Versatz in s]: mitten in einer Bewegung oder einem Marker, der gerade zeichnet
 const MOMENTE = [
-  ["anfang", 0.5], ["frage", 0.15], ["pause", 1.2], ["vertragFall", 0.25], ["band", 0.35], ["nahVertrag", 0.25],
+  ["anfang", 0.5], ["morph", 0.15], ["morph", 0.4], ["entfaerben", 0.12], ["frage", 0.15], ["pause", 1.2], ["vertragFall", 0.25], ["band", 0.35], ["nahVertrag", 0.25],
   ["frei", 0.1], ["geldFall", 0.2], ["falsch", 0.15], ["falsch", 0.35], ["abflugGeist", 0.9], ["nullBehalten", 0.1],
   ["korrektur", 0.1], ["begriff", 0.25], ["nahRein", 0.25], ["drehStart", 0.2], ["drehStart", 0.45],
-  ["abflugSpieler", 0.3], ["abflugSpieler", 0.8], ["fach", 0.1], ["lohnZeichnen", 0.2], ["lohnFall", 0.3],
+  ["abflugSpieler", 0.1], ["abflugSpieler", 0.3], ["abflugSpieler", 0.8], ["dimWaage", 0.15], ["fach", 0.1], ["lohnZeichnen", 0.2], ["lohnFall", 0.3],
   ["nahSatz", 0.3], ["puls", 0.1], ["aufgeben", 0.15], ["rechnung", 0.15],
 ];
 const BILDER = [...new Set([

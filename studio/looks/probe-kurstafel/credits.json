@@ -1,0 +1,35 @@
+{
+  "_hinweis": "Fremdquellen dieses Videos mit Urheber, Lizenz, Link und Datum. Erzeugt von factory/werk/bilder.py.",
+  "video": "probe-kurstafel",
+  "quellen": [],
+  "fakten": [
+    {
+      "id": "abl",
+      "claim": "Barcelona zahlt für Lewandowski eine Ablöse von 45 Mio. € fest, dazu 5 Mio. € variabel.",
+      "src": "https://www.fcbarcelona.com/en/news/2683853/agreement-with-bayern-munich-for-the-transfer-of-robert-lewandowski",
+      "date": "2022-07-19",
+      "quote": "for a total of €45 million + €5 million in variables."
+    },
+    {
+      "id": "vertrag",
+      "claim": "Lewandowskis Vertrag beim FC Bayern läuft bis zum 30.06.2023.",
+      "src": "https://www.t-online.de/sport/fussball/bundesliga/id_92186698/fc-bayern-muenchen-salihamidzic-bestaetigt-lewandowski-will-bayern-verlassen.html",
+      "date": "2022-05-14",
+      "quote": "Lewa hat einen Vertrag bis zum 30. Juni 2023. Das ist Fakt."
+    },
+    {
+      "id": "frei",
+      "claim": "Nach Vertragsende darf ein Fußballprofi ablösefrei wechseln; der alte Verein bekommt dann 0 € Ablöse (Bosman-Urteil des EuGH, 15.12.1995).",
+      "src": "https://www.bpb.de/kurz-knapp/lexika/das-europalexikon/176722/bosman-urteil/",
+      "date": "2020",
+      "quote": "Danach dürfen Fußballer nach Beendigung ihres Vertrages ablösefrei den Verein wechseln."
+    },
+    {
+      "id": "frei_urteil",
+      "claim": "Das Bosman-Urteil des EuGH (Rs. C-415/93) fiel am 15.12.1995.",
+      "src": "https://de.wikipedia.org/w/index.php?title=Bosman-Entscheidung&oldid=271664610",
+      "date": "1995-12-15",
+      "quote": "Der EuGH fällte am 15. Dezember 1995 (EuGH RS C-415/93"
+    }
+  ]
+}

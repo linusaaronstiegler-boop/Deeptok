@@ -1,0 +1,9 @@
+{
+  "name": "probe-archiv-duoton",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "npx --yes hyperframes@0.8.206 check",
+    "render": "npx --yes hyperframes@0.8.206 render --quality looks --workers 3 -o renders/probe-archiv-duoton.mp4"
+  }
+}

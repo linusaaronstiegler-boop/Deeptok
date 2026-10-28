@@ -14,6 +14,11 @@
 //      nicht). Mindestens 48 px, Credits 34 px (DESIGN.md §3). Ausgenommen sind Bilder während
 //      einer Drehung der Waage (dort stauchen Schild und Schalen absichtlich mit cos).
 //
+//   5. FOTO OHNE CREDIT (Fassung v2.1, Kritik 28.10.: das Foto stand zweimal kurz ohne seine Zeile):
+//      In jedem Bild, in dem das Foto, der Abzug oder der aus ihm gezeichnete Umriss zu sehen ist,
+//      muss die Credit-Zeile des Fotografen sichtbar sein. Dazu schreibt das Skript in credits.json,
+//      WANN das Foto zu sehen ist (Zeitspannen und Szenen), statt das von Hand zu pflegen.
+//
 //   . /opt/deeptok/env.sh
 //   npx hyperframes play . --port 3115 --no-open &      (aus studio/gold-opportunitaetskosten/)
 //   node build/messen-bild.mjs 3115 [schritt_s]
@@ -32,11 +37,17 @@ const puppeteer = require_("puppeteer-core");
 const port = process.argv[2] || "3115";
 const schritt = Number(process.argv[3] || 0.25);
 const BASIS = `http://localhost:${port}`;
-const HELDEN = ["#w-waage", "#a-spieler", "#a-geld", "#a-geist", "#a-beleg", "#a-vertrag", "#a-umriss", "#d-waage", "#a-karte", "#a-lohn"];
+// Fassung v2.1: Der Abzug im Hook (echtes Foto) ist ein Held und ein Gegenstand, den kein HUD-Text
+// überdecken darf. Camp Nou ist entfernt.
+const HELDEN = ["#w-waage", "#a-spieler", "#a-geld", "#a-geist", "#a-beleg", "#a-vertrag", "#a-umriss", "#d-waage", "#a-karte", "#a-lohn", "#fh-abzug"];
 // Gegenstände der Welt, die ein HUD-Text nicht überdecken soll
 const DINGE = ["#a-spieler-bild", "#a-geld-bild", "#a-geist-umriss", "#a-geist-echt", "#a-umriss-bild", "#a-beleg-papier",
   "#a-vertrag-papier", "#w-schild", "#w-schale-l", "#w-schale-r", "#a-karte-bild", "#a-lohn-bild", "#d-rechnung", "#d-fach-svg",
-  "#a-schild-1", "#a-schild-2", "#a-schild-3"];
+  "#a-schild-1", "#a-schild-2", "#a-schild-3", "#fh-rahmen", "#fh-figur"];
+// Was aus dem Foto stammt (Abzug, Freisteller in Farbe und Duoton, Umriss) und welche Zeile dazu gehört
+const FOTO_TEILE = ["#fh-rahmen", "#fh-figur", "#a-spieler-bild", "#a-umriss-bild"];
+const CREDITS = JSON.parse(fs.readFileSync(path.join(HIER, "..", "credits.json"), "utf8"));
+const FOTO_ZEILE = CREDITS.quellen[0].credit_zeilen_im_bild[0];
 const LESEFENSTER = { l: 108, r: 972, o: 168, u: 1330 };
 const GRENZE = 0.2 * (LESEFENSTER.r - LESEFENSTER.l) * (LESEFENSTER.u - LESEFENSTER.o);
 
@@ -61,7 +72,7 @@ async function messe(t) {
   await seite.evaluate((t) => document.getElementById("p").seek(t), t);
   await new Promise((r) => setTimeout(r, 60));
   return komp().evaluate(
-    (HELDEN, DINGE, LF, t) => {
+    (HELDEN, DINGE, LF, t, FOTO_TEILE, FOTO_ZEILE) => {
       // Sichtbarkeit = Produkt der Deckkraft aller Vorfahren (CSS-Deckkraft multipliziert sich)
       const deck = (el) => {
         let d = 1;
@@ -161,12 +172,21 @@ async function messe(t) {
           }
         }
       }
-      return { held, flaeche, raus, kollision, fahrt, klein };
+      // Foto sichtbar? (Deckkraft > 5 %, liegt im Bild) und steht seine Credit-Zeile da (>= 50 %)?
+      const foto = FOTO_TEILE.filter((s) => {
+        const el = document.querySelector(s);
+        return el && deck(el) > 0.05 && imBild(el.getBoundingClientRect());
+      });
+      const credit = Array.from(document.querySelectorAll(".credit")).some(
+        (el) => el.textContent.replace(/\u00a0/g, " ").trim() === FOTO_ZEILE && deck(el) >= 0.5);
+      return { held, flaeche, raus, kollision, fahrt, klein, foto, credit };
     },
     HELDEN,
     DINGE,
     LESEFENSTER,
     t,
+    FOTO_TEILE,
+    FOTO_ZEILE,
   );
 }
 
@@ -180,6 +200,7 @@ let bild = 0;
 let n = 0;
 const zeilen = [];
 const strecken = {}; // Befund -> [[von, bis], ...]
+const fotoZeiten = []; // Proben, in denen Foto, Abzug oder Umriss zu sehen sind
 const merke = (art, was, t) => {
   const k = `${art}: ${was}`;
   const s = (strecken[k] ||= []);
@@ -196,6 +217,8 @@ for (let t = 0; t < dauer; t += schritt) {
   zeilen.push({ t: tt, bild: istBild, held: m.held, textanteil: Math.round((m.flaeche / ((LESEFENSTER.r - LESEFENSTER.l) * (LESEFENSTER.u - LESEFENSTER.o))) * 1000) / 10 });
   if (!m.fahrt) for (const r of m.raus) merke("außerhalb Lesefenster", r.replace(/ [\d,-]+$/, ""), tt);
   for (const k of m.kollision) merke("HUD über Gegenstand", k, tt);
+  if (m.foto.length) fotoZeiten.push(tt);
+  if (m.foto.length && !m.credit) merke("Foto ohne Credit-Zeile", m.foto.join("+"), tt);
   if (!m.fahrt) for (const k of m.klein) merke("Schrift zu klein", k.replace(/ [\d.]+ px < \d+$/, ""), tt);
 }
 // "Schrift zu klein" in genau EINER Probe ist das Federn eines Stempels (Maßstab 1,6 -> 1 mit
@@ -215,6 +238,23 @@ const ergebnis = {
   hinweise,
   zeilen,
 };
+// credits.json: WANN das Foto zu sehen ist, aus der Messung (Zeitspannen, Szenen nach index.html)
+{
+  const spannen = [];
+  for (const t of fotoZeiten) {
+    const l = spannen[spannen.length - 1];
+    if (l && t - l[1] <= schritt * 1.5) l[1] = t;
+    else spannen.push([t, t]);
+  }
+  const index = fs.readFileSync(path.join(HIER, "..", "index.html"), "utf8");
+  const szenen = [...index.matchAll(/data-composition-id="([^"]+)" data-composition-src="compositions\/[^"]+"\s+data-start="([\d.]+)" data-duration="([\d.]+)" data-track-index="2"/g)]
+    .map((m) => ({ id: m[1], von: Number(m[2]), bis: Number(m[2]) + Number(m[3]) }));
+  const inSzenen = szenen.filter((s) => fotoZeiten.some((t) => t >= s.von && t < s.bis)).map((s) => s.id);
+  CREDITS.quellen[0].sichtbar = { gemessen: `build/messen-bild.mjs, Proben alle ${schritt} s im Player`,
+    zeitspannen_s: spannen.map(([a, b]) => [a, Math.round((b + schritt) * 1000) / 1000]), szenen: inSzenen };
+  fs.writeFileSync(path.join(HIER, "..", "credits.json"), JSON.stringify(CREDITS, null, 2) + "\n");
+  console.log("credits.json: Foto sichtbar", JSON.stringify(CREDITS.quellen[0].sichtbar.zeitspannen_s), "in", inSzenen.join(", "));
+}
 fs.mkdirSync(path.join(HIER, "cache"), { recursive: true });
 fs.writeFileSync(path.join(HIER, "cache/bildanteil.json"), JSON.stringify(ergebnis, null, 1));
 console.log(JSON.stringify({ ...ergebnis, zeilen: undefined, befunde: undefined, hinweise: undefined }));

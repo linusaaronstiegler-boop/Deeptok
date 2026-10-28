@@ -22,12 +22,22 @@ const L = (name) => Z[name] - T0;
 const PH = DATEN.physik;
 const N = DATEN.waage.neigung;
 const NAH = DATEN.nah;
+const ALT = DATEN.nahAlt;
 
 const plan = {
-  // Nachfahrt ab "Gratis": Die Mitte der Kosten-Schale (fx, fy) wandert in die Bildmitte (zx, zy)
-  // und wird r-mal so groß (DESIGN.md §7 Diagramm: "Details per Zoom-in").
+  // Fassung v2: zwei Nachfahrten statt einer 11-s-Totale (Abnahme, Vorbild-Median 5 s).
+  //   1. "Genau dann ...": 1,2-fach an die Alternative (links oben), Brennpunkt bleibt stehen;
+  //      "Das kann es wert sein": zurück in die Totale (beide Seiten).
+  //   2. "Gratis": Die Mitte der Kosten-Schale (fx, fy) wandert in die Bildmitte (zx, zy) und wird
+  //      r-mal so groß (DESIGN.md §7 Diagramm: "Details per Zoom-in").
+  // Zwischen zwei Schlüsseln mit r = 1 darf der Brennpunkt wechseln: Ziel = Brennpunkt heißt "keine
+  // Verschiebung", auch während beide gleitend vom einen zum anderen Punkt wandern.
   nah: [
-    Object.assign({}, NAH, { t: 0, r: 1, zx: NAH.fx, zy: NAH.fy }),
+    Object.assign({}, ALT, { t: 0, r: 1 }),
+    Object.assign({}, ALT, { t: L("nahAlt"), r: 1 }),
+    Object.assign({}, ALT, { t: L("nahAltEnde"), ease: "power2.inOut" }),
+    Object.assign({}, ALT, { t: L("nahZurueck") }),
+    Object.assign({}, ALT, { t: L("nahZurueckEnde"), r: 1, ease: "power2.inOut" }),
     Object.assign({}, NAH, { t: L("nahSatz"), r: 1, zx: NAH.fx, zy: NAH.fy }),
     Object.assign({}, NAH, { t: L("nahSatzEnde"), ease: "power2.inOut" }),
   ],
@@ -89,8 +99,14 @@ function aufprall(sel, t, staerke, erst) {
   tl.fromTo(sel, { scaleY: 1, transformOrigin: "50% 100%" }, { scaleY: staerke, duration: 0.07, ease: "power1.out", immediateRender: erst !== false }, t);
   tl.fromTo(sel, { scaleY: staerke }, { scaleY: 1, duration: 0.3, ease: "back.out(3)", immediateRender: false }, t + 0.07);
 }
-// Abdunkeln (DESIGN.md §6): auf 35 %
-const dunkel = (sel, t) => tl.fromTo(sel, { opacity: 1 }, { opacity: 0.35, duration: 0.3, ease: "power2.inOut" }, t);
+// Abdunkeln (DESIGN.md §6): auf 35 %. Ab dem zweiten Tween derselben Elemente ohne immediateRender
+// (seek-sicher): Die Nutzen-Seite tritt in Fassung v2 zweimal zurück.
+const dunkel = (sel, t, erst) => tl.fromTo(sel, { opacity: 1 }, { opacity: 0.35, duration: 0.3, ease: "power2.inOut", immediateRender: !!erst }, t);
+const hell = (sel, t) => tl.fromTo(sel, { opacity: 0.35 }, { opacity: 1, duration: 0.3, ease: "power2.inOut", immediateRender: false }, t);
+// Fassung v2: Für die Fahrt an die Alternative tritt die Nutzen-Seite zurück (sie ragt rechts aus dem
+// Bild, halb abgeschnittener Text wäre sonst lesbar). Auf "Das kann es wert sein" kommt sie zurück.
+dunkel(["#d-rechts", "#a-karte-bild"], L("nahAlt"), true);
+hell(["#d-rechts", "#a-karte-bild"], L("nahZurueck"));
 
 // Beat 9: Schnitt auf "Waage": nur die leere Waage ("Kosten" / "Nutzen"). Rechnung und Gold-Fach
 // sind noch nicht da (Kategorie erst mit Beispiel).
@@ -119,7 +135,8 @@ rein("#d-lohn-text", L("lohnZeichnen") + 0.45);
 raus(["#d-nachhilfe", "#d-abend"], L("nachhilfeAus"), { stagger: 0.05 });
 aufprall("#a-lohn-bild", L("lohnLandet"), 0.9);
 // "Gratis": Gestell, Nutzen-Seite und Kinokarte treten zurück; die Welt fährt an die Kosten-Schale.
-dunkel(["#d-gestell", "#d-rechts", "#a-karte-bild"], L("dimRest"));
+dunkel("#d-gestell", L("dimRest"), true);
+dunkel(["#d-rechts", "#a-karte-bild"], L("dimRest"));
 raus("#d-gestell-unten", L("dimRest"), { duration: 0.3 });
 // "nicht" (gratis): Die Tüte zuckt neben der Rechnung "0 €" (Maßstab 1 -> 1,12 -> 1).
 tl.fromTo("#a-lohn-bild", { scale: 1, transformOrigin: "50% 100%" },

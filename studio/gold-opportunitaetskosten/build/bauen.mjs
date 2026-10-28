@@ -80,10 +80,13 @@ const PHYSIK = {
 // (DESIGN.md §5/§9, docs/research/referenz-destillation.md §3.10). Der lange Schwenk von
 // München nach Barcelona nimmt die Obergrenze.
 const FAHRT = 0.6;
-const SCHWENK = 0.7;
+// Fassung v2: 0,6 statt 0,7 s (gemessene Spanne 0,4-0,7 s). Mit der neuen Stimme liegen "nichts" und
+// "45" nur 2,4 s auseinander; Stempel (1,7 s), Schwenk und Ankunft vor dem Geld passen sonst nicht.
+const SCHWENK = 0.6;
 const HALTEN = 1.2; // nach jeder Landung mindestens so lange ruhen
 const MARKER = { kreis: 0.5, linie: 0.35, strich: 0.3, klammer: 0.5 };
 const NAH_FAHRT = 0.5; // Nachfahrt (Detail): DESIGN.md §5 Zoom-in 0,5 s
+const NAH_FAHRT_KURZ = 0.45; // Diagramm, Fassung v2: Median der gemessenen Übergangsfahrten (0,45 s)
 const DREH_FAHRT = 0.6; // Drehung der Waage (Behalten -> Verkaufen)
 const STAND = 1.7; // Standdauer eines Textes (DESIGN.md §5)
 
@@ -98,9 +101,18 @@ function ableiten(w) {
   z.pause = DENKPAUSE.start; // Ende der Frage = Anfang der Denkpause
   z.pauseEnde = DENKPAUSE.end;
 
-  // Beat 1-2: Frage. Die Figur steht schon in Bild 0 auf München (Runde 2, Prüfung 3: das
-  // Vorschaubild hatte keinen Helden). Auf "Lewandowski" kommt ihr Name.
+  // Beat 1-2: Frage. Fassung v2.1 (Kritik 28.10.: kein echter Foto-Moment): Bild 0 zeigt die
+  // Spielszene als großen Abzug auf der Karte (Vorschaubild mit Held und Frage). Auf "Lewandowski"
+  // kommt sein Name neben den Abzug. Auf "Bayern" wird das Foto zum Darsteller: Der Grund des
+  // Abzugs blendet aus, die Figur steigt nach München und schrumpft auf Darsteller-Größe (0,55 s),
+  // dann verliert sie die Farbe (Überblendung Farbe -> Duoton am Ziel, 0,25 s).
   z.nameSpieler = w.lewa;
+  // Die Bewegung beginnt im Atem vor "Bayern" und ist da, wenn "Bayern" fällt (Bayern = München).
+  z.morph = w.bayern - 0.25;
+  z.morphEnde = z.morph + 0.55;
+  z.entfaerben = z.morphEnde;
+  z.entfaerbtEnde = z.entfaerben + 0.25;
+  z.nameAtlas = z.morphEnde; // der Name wandert an den Darsteller (Morph des Etiketts)
   z.routeAus = w.verkaufen + 0.8; // Route ist gezeichnet
   // "verkaufen oder BEHALTEN": Route und Barcelona treten zurück (Abdunkeln). So liest man
   // "Barcelona" in der Denkpause nicht mehr als Teil des untersten Schilds (Prüfung 1).
@@ -128,18 +140,22 @@ function ableiten(w) {
   z.behauptungAus = z.s_vertrag - 0.35; // vor dem Ende der HUD-Szene "naheliegend"
   z.vertragFall = w.vertrag;
   z.dimWaage = w.vertrag;
-  z.toreAus = Math.max(w.vertrag + 0.2, z.toreText + STAND);
+  // Fassung v2 (Standdauer, DESIGN.md §5): "Tore" geht mit der Naht (Fahrt nach Barcelona), nicht
+  // mitten in der Einstellung. Auf "Vertrag" tritt es mit der Waage auf 35 % zurück.
   z.band = w.saison;
   z.bandEnde = z.band + 0.7;
   // "Danach": Die Welt fährt näher an das Blatt (Detail: was nach dem Vertrag kommt).
   z.nahVertrag = w.danach;
   z.nahVertragEnde = w.danach + NAH_FAHRT;
   z.nullEuro = w.nichts; // Stempel "0 €" auf "Bayern bekommt NICHTS"
-  // Beat 5: Angebot. Das Blatt tritt ab, dann fährt die Kamera nach Barcelona (und zugleich aus
-  // der Nachfahrt zurück). Sie steht, bevor der Stapel auf "45" fällt.
-  z.vertragAus = w.bietet + 0.05;
-  z.fahrtBarcelona = w.bietet + 0.2;
-  z.fahrtBarcelonaEnde = z.fahrtBarcelona + SCHWENK;
+  // Beat 5: Angebot. Die Kamera fährt nach Barcelona (und zugleich aus der Nachfahrt zurück). Sie
+  // steht, bevor der Stapel auf "45" fällt. Fassung v2: Das Blatt geht MIT der Naht (Beginn der
+  // Fahrt), nicht davor; die Fahrt endet spätestens 50 ms vor "45".
+  z.fahrtBarcelonaEnde = Math.min(w.bietet + 0.2 + SCHWENK, w.zahl - 0.05);
+  z.fahrtBarcelona = z.fahrtBarcelonaEnde - SCHWENK;
+  z.vertragAus = z.fahrtBarcelona;
+  z.toreAus = z.fahrtBarcelona;
+  // Fassung v2.1: Camp Nou ist entfernt (Schriftzug am Handy unlesbar, Kritik 28.10.).
   z.routeHell = z.fahrtBarcelona; // auf dem Weg nach Barcelona zeigt die Route wieder den Weg
   z.hellWaage = z.fahrtBarcelonaEnde; // die Waage ist jetzt außer Sicht: wieder volle Deckkraft
   z.geldFall = w.zahl;
@@ -151,7 +167,9 @@ function ableiten(w) {
   z.fahrtMuenchen = Math.max(z.abflugGeist + 0.25, w.falsch + MARKER.strich + HALTEN);
   z.fahrtMuenchenEnde = w.landung - 0.15;
   z.behauptungDunkel = z.fahrtMuenchen - 0.2; // widerlegt: tritt zurück, bevor der Geist durchfliegt
-  z.zahlTextAus = z.abflugGeist;
+  // Fassung v2: "45 Mio. €" geht MIT der Naht (Fahrt nach München), nicht schon beim Abflug des
+  // Geistes 0,25 s davor. Der Geist steigt nach oben, die Zahl steht darunter: Sie kreuzen sich nicht.
+  z.zahlTextAus = z.fahrtMuenchen;
   z.geldEtikett = w.landung + 0.12; // "45 Mio. €" unter der Kosten-Schale, im Geist-Stil
   z.routeDunkel = w.landung + 0.3;
   z.nullBehalten = w.cent; // "Behalten keinen CENT": Stempel "0 €" am Schild "Behalten"
@@ -176,12 +194,21 @@ function ableiten(w) {
   z.neigungLinks = w.nimmt;
   z.drehStart = w.dreh - DREH_FAHRT / 2;
   z.drehEnde = w.dreh + DREH_FAHRT / 2;
-  z.massiv = w.dreh + 0.05;
+  // Fassung v2: Das Geld wird auf "Verkaufen" echt, sobald die Drehung die Mitte überschritten hat
+  // (der Stapel ist auf der Nutzen-Seite); Morph 0,38 s, also fertig kurz nach der Drehung.
+  z.massiv = w.dreh;
+  const atem = TIMING.pausen.find((p) => p.art === "atem" && p.nach === "verkauf");
+  z.atemVerkauf = atem.start; // Atempause nach "Geld." (script.py: atem_s)
+  z.atemVerkaufEnde = atem.end;
   z.okEtikett = w.ok_verkauf;
   z.geldDunkel = w.ok_verkauf; // Gold-Etikett unter "Kosten": das Geld tritt zurück (ein Gold-Ding)
+  // Fassung v2.1 (Kritik 28.10.: der Umriss lag 0,4 s über dem stehenden Foto, dann rutschte ein
+  // starres Foto hinaus wie ein Pappaufsteller; DFL-Auflage: keine videoähnliche Verwertung): Das
+  // Foto geht mit einem Unschärfe-Austritt (0,22 s, leicht nach Südwesten, DESIGN.md §5), der
+  // Umriss kommt erst, wenn es fast weg ist.
   z.abflugSpieler = w.abflug_spieler;
-  z.spielerWeg = w.abflug_spieler + 1.1; // steigen 0,45 s + hinaus 0,65 s
-  z.umriss = w.abflug_spieler + 0.12;
+  z.spielerWeg = w.abflug_spieler + 0.25;
+  z.umriss = w.abflug_spieler + 0.18;
   z.saisonText = w.ok_saison;
   // Beat 9-12: Diagramm. Jede Kategorie kommt mit ihrem Beispiel (Prüfung 2): die Rechnung auf
   // "geschenkt", das Gold-Fach "aufgegeben" auf "Genau dann".
@@ -195,6 +222,16 @@ function ableiten(w) {
   z.lohnFall = w.lohn;
   z.lohnLandet = w.lohn + PHYSIK.fallzeit;
   z.nachhilfeAus = w.lohn; // "Nachhilfe, heute Abend" gehen mit der Tüte (Prüfung 1: schwebte sonst)
+  // Fassung v2 (Abnahme: Diagramm 11,5 s ohne Fahrt): Auf "Genau dann ..." fährt die Welt 1,2-fach an
+  // die linke Seite, an die ALTERNATIVE (Nachhilfe, Lohn, Gold-Fach, Kosten-Schale); die Nutzen-Seite
+  // tritt dafür zurück. Erst wenn Rechnung und "aufgegeben" gelesen sind. Nachhilfe rastet in den
+  // letzten Bildern der Fahrt ein und landet, wenn die Kamera steht.
+  z.nahAlt = Math.max(w.genau + 0.12 + 0.8, w.geschenkt + PHYSIK.fallzeit + 1.4);
+  z.nahAltEnde = z.nahAlt + NAH_FAHRT_KURZ;
+  // Auf "Das kann es wert sein" zurück in die Totale: Ob es das wert ist, wiegt BEIDE Seiten. Erst
+  // wenn die Gleichung (HUD) gelesen ist (0,5 + 0,3 x 5 = 2,0 s).
+  z.nahZurueck = w.gleichung + 2.0;
+  z.nahZurueckEnde = z.nahZurueck + NAH_FAHRT_KURZ;
   // "Gratis ist es nicht": Gleichung tritt ab, die Nutzen-Seite tritt zurück, die Welt fährt an die
   // Kosten-Schale. Auf "nicht" zuckt die Lohntüte neben der Rechnung "0 €".
   z.gleichungAus = w.gratis;
@@ -202,6 +239,8 @@ function ableiten(w) {
   z.nahSatz = w.gratis + 0.2;
   z.nahSatzEnde = z.nahSatz + 0.6;
   z.puls = Math.max(w.gratis_nicht, z.nahSatzEnde); // erst zucken, wenn die Welt steht
+  // Abspann (v2.1): Im stehenden Schlussbild (hold_s) stehen Bildnachweis und Lizenz des Videos.
+  z.abspann = bild(SZENEN_ENDE.satz);
   return z;
 }
 export const ZEIT = ableiten(WORTE);
@@ -214,6 +253,10 @@ function pruefeZeiten(z) {
     if (ist < soll - 1e-6) fehler.push(`${was}: ${ist.toFixed(2)} s < ${soll} s`);
   };
   mindestens("Frage steht in den ersten 8 s (8 - Ende der Frage)", 8 - z.pause, 0);
+  // Fassung v2.1: der Foto-Moment im Hook
+  mindestens("Abzug (echtes Foto) steht, bevor er zum Darsteller wird", z.morph, 2.0);
+  mindestens("Name am Abzug gelesen (0,5 + 0,3 × 1 Wort)", z.morph - z.nameSpieler, 0.8);
+  mindestens("Darsteller steht in Farbe und Duoton fertig, bevor die Route läuft", z.verkaufen - z.entfaerbtEnde, 0);
   mindestens("Denkpause", z.pauseEnde - z.pause, 1.5);
   mindestens("Schilder stehen vor dem Austritt (Lesezeit 0,5 + 0,3 × 11 Wörter)", z.hookAus - z.schilder, 3.8);
   mindestens("Zoom endet, bevor der Beleg fällt", z.belegFall - z.zoomInEnde, 0);
@@ -239,6 +282,11 @@ function pruefeZeiten(z) {
   mindestens("Welt ist zurückgefahren, bevor die Waage kippt", z.neigungLinks - z.nahRausEnde, 0);
   mindestens("Waage steht gekippt, bevor sie sich dreht", z.drehStart - (z.neigungLinks + 0.8), 0.5);
   mindestens("Etikett 'Opportunitätskosten' erst nach der Drehung", z.okEtikett - z.drehEnde, 0);
+  // Fassung v2, Beat 8 entzerrt: Die Atempause ist Luft (die Neigung auf "nimmt" ist ausgeschwungen,
+  // bevor sie beginnt), und das Etikett kommt erst, wenn das Geld schon echt ist.
+  mindestens("Neigung auf 'nimmt' ausgeschwungen vor der Atempause", z.atemVerkauf - (z.neigungLinks + 0.8), 0);
+  mindestens("Drehung beginnt nicht vor dem Ende der Atempause (- 0,2 s)", z.drehStart - (z.atemVerkaufEnde - 0.2), 0);
+  mindestens("Etikett erst 0,3 s nach dem Echtwerden des Geldes", z.okEtikett - (z.massiv + 0.38), 0.3);
   mindestens("Waage steht nach der Drehung, bevor der Spieler abfliegt", z.abflugSpieler - z.drehEnde, HALTEN);
   mindestens("Ganze Waage steht vor dem Passschnitt", z.schnitt - (z.spielerWeg), HALTEN);
   mindestens("Kinokarte ruht vor der Rechnung", z.rechnungFall - (z.karteFall + PHYSIK.fallzeit), 0.6);
@@ -247,6 +295,10 @@ function pruefeZeiten(z) {
   mindestens("Gleichung steht (0,5 + 0,3 × 5)", z.gleichungAus - z.gleichung, 2.0);
   // 1,0 s statt HALTEN: Das Ausschwingen (0,9 s) ist schon Teil der Ruhe, sichtbar steht sie ab +0,6 s.
   mindestens("Waage steht waagerecht, bevor die Welt näher fährt", z.nahSatz - (z.lohnLandet + 0.9), 1.0);
+  mindestens("Fahrt zur Alternative endet, bevor 'Nachhilfe' gelandet ist", (z.nachhilfe + 0.35) - z.nahAltEnde, 0);
+  mindestens("Fahrt zur Alternative erst nach der Lesezeit von 'aufgegeben'", z.nahAlt - (z.fach + 0.12 + 0.8), 0);
+  mindestens("Kamera steht, solange die Gleichung gelesen wird", z.nahZurueck - (z.gleichung + 2.0), 0);
+  mindestens("Totale steht vor der Nachfahrt auf 'Gratis'", z.nahSatz - z.nahZurueckEnde, HALTEN);
   mindestens("Nachfahrt endet vor dem Zucken der Tüte", z.puls - z.nahSatzEnde, 0);
   mindestens("Zucken auf 'nicht' (Toleranz 150 ms)", 0.15 - (z.puls - z.gratis_nicht), 0);
   mindestens("Nachfahrt endet vor der Unterstreichung", z.aufgeben - z.nahSatzEnde, 0);
@@ -272,7 +324,7 @@ pruefeZeiten(ZEIT);
 // ---------------------------------------------------------------------------
 const TEXT_CUES = [
   ["Unterstreichung 'kostet'", "frage", "frage"],
-  ["Name 'Lewandowski'", "nameSpieler", "lewa"],
+  ["Name 'Lewandowski' (am Abzug)", "nameSpieler", "lewa"],
   ["Behauptung 'Nur sein Gehalt'", "behauptung", "nur"],
   ["Beleg 'Gehalt'", "belegFall", "gehalt"],
   ["Stempel 'bezahlt'", "stempel", "bezahlt"],
@@ -528,9 +580,14 @@ function einstellung(p, bx, by, zoom) {
 // Runde 2: noch einmal 30 px höher (Fuß y = 1130). So sitzen die Credits (ab y 1178) nicht mehr
 // auf dem Schatten des Waagenfußes (Prüfung 1).
 const FUSS = [540, 1130];
+const TOTALE_MUENCHEN = [820, 748]; // Bildpunkt von München in der Totale (Hook): dort landet der Morph
 const kamera = {
   // totale:europa: München oben rechts (Figur neben der Schlagzeile), Barcelona links unten
-  totale: einstellung(orte.muenchen, 790, 700, 1.15),
+  // Fassung v2: München 30 px weiter rechts und tiefer (vorher 790/700). Das Foto ist höher als die
+  // Spielfigur (380 statt 300 px); seine ausgestreckte Hand stand sonst am "?" des Titels.
+  // Fassung v2.1: 18 px tiefer (730 -> 748). Mit Ball ist der Darsteller 275 statt 191 px breit; sein
+  // Rahmen reichte sonst in die Zeile "kostet" der Schlagzeile (messen-bild.mjs, Rahmen gegen Rahmen).
+  totale: einstellung(orte.muenchen, ...TOTALE_MUENCHEN, 1.15),
   // nah:muenchen: Fuß der Waage auf München, Waage füllt das Lesefenster
   muenchen: einstellung(orte.muenchen, FUSS[0], FUSS[1], 2.4),
   // nah:barcelona: der Stapel fällt auf Barcelona, darüber Platz für "45 Mio. €"
@@ -566,11 +623,17 @@ const NAH = {
   // vertrag: 1,12, nicht mehr: Sonst rutschte die (abgedunkelte) Nutzen-Schale unter die Credits.
   atlas: { vertrag: { r: 1.12, fx: 540, fy: 400 }, begriff: { r: 1.1, fx: 108, fy: 1100 } },
   diagramm: { r: 1.9, fx: 290, fy: 940, zx: 540, zy: 760 },
+  // Fassung v2: Nachfahrt an die Alternative. Der Brennpunkt (108, 300) bleibt stehen: links hält
+  // "aufgegeben" die Kante x = 108, oben bleibt die Lohntüte unter der Gleichung (HUD, y 195-255),
+  // unten endet "aufgegeben" bei y 1260 (Lesefenster bis 1330). 1,2 statt 1,25: Beim Nachschwingen
+  // der Waage (Lohn landet) lag "aufgegeben" mit 1,25 eine Probe lang unter y 1330 (messen-bild.mjs).
+  // Die Nutzen-Seite ragt rechts hinaus und ist dafür abgedunkelt (DESIGN.md §5 Nachfahrt).
+  diagrammAlt: { r: 1.2, fx: 108, fy: 300 },
 };
 const DATEN_ATLAS = { orte, route, kamera, breite: BREITE, hoehe: HOEHE, physik: PHYSIK, marker: MARKER,
-  waage: { ...WAAGE, ort: "muenchen" }, nah: NAH.atlas };
+  waage: { ...WAAGE, ort: "muenchen" }, nah: NAH.atlas }; // .abzug kommt unten (nach foto-lewandowski.json)
 const DATEN_DIAGRAMM = { orte: {}, breite: BREITE, hoehe: HOEHE, physik: PHYSIK, marker: MARKER,
-  waage: { ...WAAGE, fuss: FUSS }, nah: NAH.diagramm };
+  waage: { ...WAAGE, fuss: FUSS }, nah: NAH.diagramm, nahAlt: NAH.diagrammAlt };
 
 // ---------------------------------------------------------------------------
 // Darsteller-Grafiken (SVG). Licht nur über Deckkraft von Palettenfarben: Grundton,
@@ -661,76 +724,50 @@ function geistStapel(id) {
   return geist(id, stapelFormen()) + fugen.join("") + `<ellipse cx="0.5" cy="${-ry - dicke - (versatz.length - 1) * dicke}" rx="44" ry="13" fill="none" stroke="#C9A84C" stroke-opacity="0.55" stroke-width="3" stroke-dasharray="10 9"/>`;
 }
 
-// Tipp-Kick-Figur (Runde 1, Kritik "Schach-Bauer = Bauernopfer"): Fußballer auf rundem Sockel,
-// ein Bein zum Schuss angehoben, Druckknopf auf dem Kopf, Ball am Fuß. Creme = gegeben,
-// Licht von links oben. Fuß des Sockels bei (0,0), knapp 300 px hoch. Keine Rückennummer:
-// Jede Zahl im Bild braucht einen Beleg im Faktenblatt.
-const FIGUR = {
-  sockelSeite: "M-60 -30 L-60 -14 A60 13 0 0 0 60 -14 L60 -30 Z",
-  sockelOben: '<ellipse cx="0" cy="-30" rx="60" ry="13"/>',
-  standbein: "M-26 -112 L-6 -112 L-8 -40 L-26 -40 Z",
-  schuh: '<ellipse cx="-17" cy="-38" rx="20" ry="9"/>',
-  schussbein: "M2 -112 L20 -116 L58 -72 L44 -60 Z",
-  schuh2: '<ellipse cx="54" cy="-62" rx="18" ry="9" transform="rotate(-38 54 -62)"/>',
-  hose: "M-31 -136 L31 -136 L33 -104 L4 -104 L1 -114 L-1 -114 L-4 -104 L-33 -104 Z",
-  trikot: "M-31 -134 L31 -134 L35 -198 Q0 -209 -35 -198 Z",
-  aermelL: "M-35 -198 L-59 -185 L-52 -163 L-32 -172 Z",
-  aermelR: "M35 -198 L59 -185 L52 -163 L32 -172 Z",
-  armL: "M-57 -170 L-45 -168 L-43 -128 L-56 -129 Z",
-  armR: "M57 -170 L45 -168 L43 -128 L56 -129 Z",
-  hals: '<rect x="-9" y="-215" width="18" height="14"/>',
-  kopf: '<circle cx="0" cy="-248" r="36"/>',
-  knopf: '<rect x="-11" y="-296" width="22" height="16" rx="4"/>',
-};
-function figurFormen() {
-  const f = FIGUR;
-  const pfad = (d) => `<path d="${d}"/>`;
-  return [pfad(f.sockelSeite), f.sockelOben, pfad(f.standbein), f.schuh, pfad(f.schussbein), f.schuh2, pfad(f.hose),
-    pfad(f.trikot), pfad(f.aermelL), pfad(f.aermelR), pfad(f.armL), pfad(f.armR), f.hals, f.kopf, f.knopf];
+// Spieler (Fassung v2): ein echtes Foto statt der Tipp-Kick-Figur. build/foto.py holt es von
+// Wikimedia Commons (Lewandowski im Bundesligaspiel, Steffen Prößdorf, CC BY-SA 4.0), stellt es
+// frei, färbt es Duoton und schreibt Maße, Umriss und Hand nach build/foto-lewandowski.json.
+// Fuß der Hülle bei (0, 0), Figur waagerecht mittig. Credits: credits.json und die HUD-Szenen.
+const FOTO = JSON.parse(fs.readFileSync(path.join(HIER, "foto-lewandowski.json"), "utf8"));
+for (const datei of [FOTO.bild, FOTO.dunkel, FOTO.abzug.bild, FOTO.abzug.figur]) {
+  if (!fs.existsSync(path.join(PROJEKT, datei))) throw new Error(`${datei} fehlt: erst build/foto.py laufen lassen`);
 }
-function tippkick() {
-  const f = FIGUR;
-  // Licht nur über Deckkraft von Palettenfarben (DESIGN.md §4): Creme-Grund, darüber ein
-  // waagerechter Verlauf (links Licht, rechts Navy-Schatten).
-  const teil = (form, extra = "") => {
-    const mitFarbe = (fill) => (form.startsWith("<") ? form.replace(/\/>$/, ` fill="${fill}"${extra}/>`) : `<path d="${form}" fill="${fill}"${extra}/>`);
-    return mitFarbe("#F5F0E8") + mitFarbe("url(#tk-licht)");
-  };
-  return [
-    `<defs>`,
-    `<linearGradient id="tk-licht" gradientUnits="userSpaceOnUse" x1="-60" y1="0" x2="60" y2="0"><stop offset="0" stop-color="#0E1726" stop-opacity="0.04"/>` +
-      `<stop offset="0.35" stop-color="#F5F0E8" stop-opacity="0.3"/><stop offset="0.7" stop-color="#0E1726" stop-opacity="0.26"/>` +
-      `<stop offset="1" stop-color="#0E1726" stop-opacity="0.58"/></linearGradient>`,
-    `<radialGradient id="tk-kopf" cx="0.36" cy="0.32" r="0.75"><stop offset="0" stop-color="#F5F0E8" stop-opacity="0.65"/>` +
-      `<stop offset="0.55" stop-color="#0E1726" stop-opacity="0.04"/><stop offset="1" stop-color="#0E1726" stop-opacity="0.5"/></radialGradient>`,
-    `</defs>`,
-    // Sockel (rund, die Figur steht fest) und Ball am Schussfuß
-    teil(f.sockelSeite), `<path d="${f.sockelSeite}" fill="#0E1726" fill-opacity="0.32"/>`, teil(f.sockelOben),
-    `<circle cx="78" cy="-27" r="15" fill="#F5F0E8"/><circle cx="78" cy="-27" r="15" fill="url(#tk-kopf)"/>`,
-    `<path d="M73 -31 L79 -35 L84 -30 L82 -23 L75 -23 Z" fill="#0E1726" fill-opacity="0.55"/>`,
-    // Beine, Schuhe (dunkler), Hose (etwas dunkler als das Trikot)
-    teil(f.standbein), teil(f.schussbein),
-    `<path d="M-26 -62 L-7 -62 L-7 -52 L-26 -52 Z M27 -94 L38 -101 L45 -92 L33 -85 Z" fill="#0E1726" fill-opacity="0.22"/>`,
-    f.schuh.replace("/>", ' fill="#0E1726" fill-opacity="0.62"/>'), f.schuh2.replace("/>", ' fill="#0E1726" fill-opacity="0.62"/>'),
-    teil(f.hose), `<path d="${f.hose}" fill="#0E1726" fill-opacity="0.2"/>`,
-    // Trikot mit Ärmeln, Kragen (V) und Ärmelbündchen
-    teil(f.aermelL), teil(f.aermelR), teil(f.trikot),
-    `<path d="M-15 -203 L0 -184 L15 -203" fill="none" stroke="#0E1726" stroke-opacity="0.45" stroke-width="4" stroke-linejoin="round"/>`,
-    `<path d="M-57 -170 L-37 -178 M57 -170 L37 -178" stroke="#0E1726" stroke-opacity="0.35" stroke-width="5"/>`,
-    teil(f.armL), teil(f.armR),
-    `<circle cx="-50" cy="-124" r="8" fill="#F5F0E8"/><circle cx="50" cy="-124" r="8" fill="#F5F0E8"/><circle cx="50" cy="-124" r="8" fill="#0E1726" fill-opacity="0.3"/>`,
-    teil(f.hals),
-    // Kopf mit Haar und Druckknopf (daran erkennt man Tipp-Kick)
-    `<circle cx="0" cy="-248" r="36" fill="#F5F0E8"/><circle cx="0" cy="-248" r="36" fill="url(#tk-kopf)"/>`,
-    `<path d="M-36 -252 Q-35 -285 0 -285 Q35 -285 36 -252 Q19 -266 0 -266 Q-19 -266 -36 -252 Z" fill="#0E1726" fill-opacity="0.38"/>`,
-    `<rect x="-11" y="-298" width="22" height="16" rx="4" fill="#F5F0E8"/><rect x="-11" y="-298" width="22" height="16" rx="4" fill="#0E1726" fill-opacity="0.25"/>`,
-    // Lichtkanten links (Creme, voll): plastisch statt flach
-    `<path d="M-29 -194 L-28 -140 M-24 -108 L-24 -46" fill="none" stroke="#F5F0E8" stroke-width="3" stroke-linecap="round"/>`,
-    `<path d="M-26 -268 A30 30 0 0 1 6 -281" fill="none" stroke="#F5F0E8" stroke-width="4" stroke-linecap="round"/>`,
-  ].join("");
+// v2.1: Hülle mit zwei deckenden Bildern. "dunkel" liegt unten, "hell" darüber; Zurücktreten =
+// "hell" blendet aus (drehbuch-atlas.js). Sonst schien die Karte durch das Foto (Kritik 28.10.).
+function spielfoto() {
+  const b = FOTO.breite;
+  const h = FOTO.hoehe;
+  return `<div id="a-spieler-bild" class="a-foto" style="left: ${-b / 2}px; top: ${-h}px; width: ${b}px; height: ${h}px;">` +
+    `<img id="a-spieler-dunkel" src="${FOTO.dunkel}" alt="" /><img id="a-spieler-hell" src="${FOTO.bild}" alt="" /></div>`;
 }
+// Abzug im Hook (v2.1): Lage auf dem Bild (Bildpixel, die Kamera steht im Hook). Rechts unter der
+// Schlagzeile: oben frei für den Titel (y <= 486), links frei für Barcelona und den Namen, unten
+// endet er vor der Untertitel-Zone (y 1350). 1,5 Grad gedreht wie ein hingelegter Abzug.
+const ABZUG_LAGE = { x: 490, y: 489, rot: 0.6 };
+const AB = (() => {
+  const a = FOTO.abzug;
+  const [k0, k1, k2, k3] = a.figur_kasten.map((v) => v * a.skala);
+  const fuss = [(k0 + k2) / 2, k3]; // Fuß der Figur im Abzug (Mitte ihrer Unterkante)
+  return { ...ABZUG_LAGE, w: a.breite, h: a.hoehe, figur: { x: k0, y: k1, w: k2 - k0, h: k3 - k1 }, fuss,
+    // Ziel: Fuß auf München in der Totale (dort steht der Darsteller), Größe wie der Darsteller
+    ziel: TOTALE_MUENCHEN, k: FOTO.hoehe / (k3 - k1) };
+})();
+DATEN_ATLAS.abzug = AB;
+function fotoHook() {
+  const r = (v) => Math.round(v * 10) / 10;
+  return `<div id="fh-ebene" data-layout-ignore>` +
+    `<div id="fh-abzug" style="left: ${AB.x}px; top: ${AB.y}px; width: ${r(AB.w)}px; height: ${r(AB.h)}px;">` +
+    `<div id="fh-rahmen"><img id="fh-foto" src="${FOTO.abzug.bild}" alt="" style="width: ${r(AB.w)}px; height: ${r(AB.h)}px;" /></div>` +
+    `<img id="fh-figur" src="${FOTO.abzug.figur}" alt="" style="left: ${r(AB.figur.x)}px; top: ${r(AB.figur.y)}px; width: ${r(AB.figur.w)}px; height: ${r(AB.figur.h)}px;" />` +
+    // Name links neben dem Abzug auf Brusthöhe (24 % der Abzughöhe): auf Kopfhöhe stünde er direkt
+    // unter der Schlagzeile und läse sich als ihre dritte Zeile.
+    `<div id="fh-name" class="a-etikett" style="right: ${r(AB.w + 30)}px; top: ${r(0.24 * AB.h - 31)}px; font-size: 48px;">Lewandowski</div>` +
+    `</div></div>`;
+}
+// Der GEIST des Spielers ist der Rand des Fotos (Randverfolgung in build/foto.py): Was nach dem
+// Abflug auf der Kosten-Schale bleibt, ist wirklich sein Umriss.
 function geistFigur(id) {
-  return geist(id, figurFormen());
+  return geist(id, [`<path d="${FOTO.umriss}"/>`]);
 }
 
 // ---------------------------------------------------------------------------
@@ -749,7 +786,11 @@ atlasFragment = ersetzePlatzhalter(atlasFragment, "<!-- @laender -->", laenderHt
 atlasFragment = ersetzePlatzhalter(atlasFragment, "<!-- @muenzen -->", muenzen("mz-bcn"), "lib/atlas.html");
 atlasFragment = ersetzePlatzhalter(atlasFragment, "<!-- @muenzen-muenchen -->", muenzen("mz-mue"), "lib/atlas.html");
 atlasFragment = ersetzePlatzhalter(atlasFragment, "<!-- @geist-stapel -->", geistStapel("gs"), "lib/atlas.html");
-atlasFragment = ersetzePlatzhalter(atlasFragment, "<!-- @spielfigur -->", tippkick(), "lib/atlas.html");
+atlasFragment = ersetzePlatzhalter(atlasFragment, "<!-- @spielfoto -->", spielfoto(), "lib/atlas.html");
+atlasFragment = ersetzePlatzhalter(atlasFragment, "<!-- @foto-hook -->", fotoHook(), "lib/atlas.html");
+// Die drei Schnüre der Preisschilder beginnen an seiner Hand (aus dem Foto gemessen)
+if (atlasFragment.split("M@hand ").length !== 4) throw new Error("lib/atlas.html: drei Schnüre mit M@hand erwartet");
+atlasFragment = atlasFragment.replaceAll("M@hand ", `M${FOTO.hand[0]} ${FOTO.hand[1]} `);
 atlasFragment = ersetzePlatzhalter(atlasFragment, "<!-- @geist-figur -->", geistFigur("gf"), "lib/atlas.html");
 const diagrammFragment = ohneKopfKommentar(lies("lib/diagramm.html"));
 
@@ -859,6 +900,26 @@ const ZIELE = {
   "compositions/atlas.html": { bloecke: ["atlas", "schriften", "marker", "buehne", "datenAtlas", "drehbuchAtlas"], basis: BUEHNEN.atlas },
   "compositions/diagramm.html": { bloecke: ["diagramm", "schriften", "marker", "buehne", "datenDiagramm", "drehbuchDiagramm"], basis: BUEHNEN.diagramm },
 };
+// Tor "Credit-Zeilen" (Fassung v2.1, Kritik 28.10.: im Bild stand eine andere Zeile als in
+// credits.json): Jede Foto-Zeile, jeder Kurzlink und die Lizenz-Zeile im Bild stehen WÖRTLICH so
+// in credits.json. Ob die Zeile auch dann zu sehen ist, wenn das Foto zu sehen ist, misst
+// build/messen-bild.mjs im Player (Tor "Foto ohne Credit").
+{
+  const CREDITS = JSON.parse(lies("credits.json"));
+  const erlaubt = new Set([...CREDITS.quellen.flatMap((q) => q.credit_zeilen_im_bild), CREDITS.lizenz_video.zeile_im_bild]);
+  const fehler = [];
+  let zahl = 0;
+  for (const s of SZENEN) {
+    for (const m of lies(`compositions/${s.id}.html`).matchAll(/class="clip credit[^"]*"[^>]*>([^<]*)</g)) {
+      const zeile = m[1].replace(/&nbsp;/g, " ").trim();
+      if (!/^(Foto|Video):|curid=/.test(zeile)) continue;
+      zahl++;
+      if (!erlaubt.has(zeile)) fehler.push(`${s.id}: "${zeile}"`);
+    }
+  }
+  if (fehler.length) throw new Error("Credit-Zeile im Bild steht so nicht in credits.json:\n  " + fehler.join("\n  "));
+  console.log(`Credit-Zeilen: ${zahl} Foto-/Lizenz-Zeilen im Bild, alle wörtlich in credits.json`);
+}
 for (const s of SZENEN) {
   const datei = `compositions/${s.id}.html`;
   const text = lies(datei);

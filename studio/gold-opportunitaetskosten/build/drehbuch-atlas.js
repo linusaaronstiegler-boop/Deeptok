@@ -27,6 +27,15 @@
 //   3. Beat 8: Rückfahrt schon in der Atempause nach der Definition; "nimmt" in der Totale; die
 //      Drehung in der Atempause nach "Geld", das Schild kippt auf "Verkaufen"; der Geist wird erst
 //      auf der Nutzen-Seite echt. Der Spieler fliegt nach Südwesten (Richtung Barcelona) hinaus.
+//
+// Fassung v2.1 (Kritik 28.10.), die wichtigsten Änderungen:
+//   1. Foto-Moment: Der Hook öffnet auf der echten Spielszene (Abzug in Farbe). Auf "Bayern" wird
+//      sie zum Darsteller ("Foto wird Darsteller"): Grund aus, Figur nach München, Farbe weg.
+//   2. Zurücktreten des Fotos über eine dunkle, DECKENDE Fassung statt 35 % Deckkraft.
+//   3. Abgang: Unschärfe-Austritt statt Laufen aus dem Bild; der Umriss kommt erst danach.
+//   4. Der Beleg "Gehalt" bleibt (abgedunkelt) auf "Kosten", bis die Waage sich auf "Verkaufen" dreht:
+//      Erst dann hat er eine sichtbare Ursache zu gehen (wer verkauft, zahlt kein Gehalt mehr).
+//   5. Camp Nou ist entfernt.
 const Z = ZEIT;
 const K = DATEN.kamera;
 const PH = DATEN.physik;
@@ -110,9 +119,8 @@ const plan = {
       { ab: -1, bis: -1, nach: "ort:muenchen", art: "sofort" },
       // Steigt erst auf "schießt" auf die Nutzen-Schale (vorher stand er am Fuß der Waage).
       { ab: Z.spielerHopp, bis: Z.spielerHopp + PH.schrittzeit, nach: "schale:rechts:0", art: "schritt", hoehe: 140 },
-      // Abflug (Runde 2, Prüfung 1): erst senkrecht steigen, dann im Bogen nach links UNTEN aus
-      // dem Bild, also nach Südwesten wie die Route nach Barcelona (vorher: Nordwesten).
-      { ab: Z.abflugSpieler, bis: Z.spielerWeg, nach: "bild:-200:900", art: "abflug", hoehe: 300, bogenX: -150, bogenY: 0 },
+      // Abgang: Fassung v2.1 kein Weg mehr aus dem Bild (unten: Unschärfe-Austritt am Ort). Ein
+      // starres Foto, das hinausrutscht, wirkte wie ein Pappaufsteller (Kritik 28.10.).
     ],
     // Der Beleg steht rechts auf der Kosten-Schale, der Geist links daneben (ohne Überlappung).
     // Fallhöhe 420: So kreuzt er die Behauptung oben links nicht (Prüfung 3).
@@ -195,8 +203,31 @@ rein("#w-name-barcelona", Z.bcn + 0.12);
 const dunkel = (sel, t, von, nach, erst) =>
   tl.fromTo(sel, { opacity: von }, { opacity: nach, duration: 0.3, ease: "power2.inOut", immediateRender: !!erst }, t);
 
-// Beat 1: Die Figur steht schon (Bild 0); ihr Name kommt auf "Lewandowski".
-rein("#a-spieler-name", Z.nameSpieler);
+// Beat 1 (Fassung v2.1): Bild 0 zeigt die echte Spielszene als Abzug. Auf "Lewandowski" kommt sein
+// Name neben den Abzug. Auf "Bayern" wird das Foto zum Darsteller ("Foto wird Darsteller"):
+//   1. Der Rahmen (Creme-Rand, Rasen, Publikum) blendet aus, die freigestellte Figur in Farbe bleibt.
+//   2. Die Figur fährt mit dem Abzug nach München, dreht sich gerade und schrumpft auf Darsteller-
+//      größe (Ursprung der Bewegung ist ihr Fuß; er landet genau auf dem Fuß des Darstellers).
+//   3. Am Ziel liegt der Duoton-Darsteller schon deckend darunter; die Farbe blendet darüber aus.
+// Der Darsteller (#a-spieler-bild) steht in der Welt seit Bild 0 auf München, aber unsichtbar.
+const AB = DATEN.abzug;
+const zielX = AB.ziel[0] - (AB.x + AB.fuss[0]);
+const zielY = AB.ziel[1] - (AB.y + AB.fuss[1]);
+tl.fromTo("#fh-abzug", { x: 0, y: 0, rotation: AB.rot, scale: 1, transformOrigin: AB.fuss[0] + "px " + AB.fuss[1] + "px" },
+  { x: zielX, y: zielY, rotation: 0, scale: AB.k, duration: Z.morphEnde - Z.morph, ease: "power2.inOut" }, Z.morph);
+tl.fromTo("#fh-rahmen", { opacity: 1 }, { opacity: 0, duration: 0.3, ease: "power2.in" }, Z.morph);
+rein("#fh-name", Z.nameSpieler);
+raus("#fh-name", Z.morph);
+// Erster Tween auf #a-spieler-bild: setzt ab Bild 0 auch Unschärfe und Versatz auf ihre Ruhewerte.
+// Der Austritt (unten) beginnt bei denselben Werten; so ist der Zustand nach jedem Sprung derselbe
+// (seek-test.mjs vergleicht auch die Inline-Stile).
+tl.fromTo("#a-spieler-bild", { opacity: 0, filter: "blur(0px)", x: 0, y: 0 },
+  { opacity: 1, filter: "blur(0px)", x: 0, y: 0, duration: 0.06, ease: "none" }, Z.entfaerben);
+tl.fromTo("#fh-figur", { opacity: 1 }, { opacity: 0, duration: Z.entfaerbtEnde - Z.entfaerben, ease: "power1.inOut" }, Z.entfaerben + 0.03);
+// Der Name wandert mit: am Abzug aus, am Darsteller ein (DESIGN.md §5 Morph: dasselbe Etikett).
+rein("#a-spieler-name", Z.nameAtlas);
+// "München" liegt unter dem Abzug und kommt, wenn der Abzug geht (sonst lugte das "M" am Rand vor).
+tl.fromTo("#w-name-muenchen", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, Z.morph + 0.15);
 const M = window.DeepTokMarker;
 // "verkaufen oder BEHALTEN": Route und Barcelona treten zurück. So liest man in der Denkpause
 // "Barcelona" nicht als Teil des untersten Schilds (Runde 2, Prüfung 1). Die Route bleibt
@@ -209,9 +240,7 @@ dunkel("#w-route", Z.dimBcn, 1, 0.35, true);
 dunkel("#w-route", Z.zoomIn, 0.35, 0);
 dunkel("#w-route", Z.routeHell, 0, 1);
 dunkel("#w-route", Z.routeDunkel, 1, 0);
-// Der Punkt "München" geht, sobald die Waage steht: Ihr Fuß markiert den Ort. Vorher saß der Punkt
-// in Beat 4 mitten in der Credit-Zeile "ablösefrei: EuGH, • Bosman-Urteil" (Prüfung 1).
-dunkel("#w-punkt-muenchen", Z.waageAuf, 1, 0);
+// Den Punkt "München" gibt es seit v2.1 nicht mehr: Auf München steht immer jemand (lib/atlas.html).
 dunkel(["#w-name-barcelona", "#w-punkt-barcelona"], Z.dimBcn, 1, 0.35);
 dunkel(["#w-name-barcelona", "#w-punkt-barcelona"], Z.hookAus, 0.35, 1);
 // Preisschilder hängen sich auf "kostet" nacheinander ein: Schnur erscheint, Schild pendelt
@@ -234,13 +263,20 @@ stempel("#a-beleg-stempel", Z.stempel, -8);
 // Der Spieler landet auf der Nutzen-Schale (die Waage kippt rechts), "Tore" an der Figur
 aufprall("#a-spieler-bild", Z.neigungRechts, 0.9, true);
 rein("#w-tore", Z.toreText);
-raus("#w-tore", Z.toreAus);
+// Fassung v2: "Tore" tritt auf "Vertrag" mit der Waage zurück und geht erst mit der Naht (Fahrt
+// nach Barcelona), statt mitten in der Einstellung zu verschwinden (DESIGN.md §5 Standdauer).
+dunkel("#w-tore", Z.dimWaage, 1, 0.35);
+tl.fromTo("#w-tore", { opacity: 0.35, filter: "blur(0px)" },
+  { opacity: 0, filter: "blur(8px)", duration: 0.18, ease: "power2.in", immediateRender: false }, Z.toreAus);
 
 // Beat 4: Die Waage tritt zurück (Held ist das Blatt). Vertrag fällt; die gedruckte Zeitleiste
 // läuft auf "Saison"; die Verlängerung erscheint auf "Verlängern" und tritt auf "nicht" zurück
 // (35 %, sie bleibt lesbar als verworfene Möglichkeit); Stempel "ablösefrei" und "0 €".
-const WAAGE_TEILE = ["#w-waage-svg", "#a-beleg-papier", "#a-spieler-bild"];
+// v2.1: Das Foto tritt über seine dunkle, deckende Fassung zurück ("hell" blendet aus), nicht über
+// Deckkraft: Mit 35 % liefen Grenzlinie und Waagenkette durch Gesicht und Brust (Kritik 28.10.).
+const WAAGE_TEILE = ["#w-waage-svg", "#a-beleg-papier"];
 dunkel(WAAGE_TEILE, Z.dimWaage, 1, 0.35, true);
+dunkel("#a-spieler-hell", Z.dimWaage, 1, 0, true);
 aufprall("#a-vertrag-papier", Z.vertragFall + PH.fallzeit, 0.92, true);
 tl.fromTo("#zl-start", { opacity: 0, scaleY: 0 }, { opacity: 1, scaleY: 1, duration: 0.25, ease: "back.out(2.2)" }, Z.band);
 // Das Band läuft gleichmäßig (linear: konstantes Tempo IST hier die Aussage) und steht dann.
@@ -254,8 +290,9 @@ stempel("#a-vertrag-null", Z.nullEuro, 4);
 raus("#a-vertrag-papier", Z.vertragAus);
 // Die Kamera ist in Barcelona, die Waage außer Sicht: wieder volle Deckkraft.
 dunkel(WAAGE_TEILE, Z.hellWaage, 0.35, 1);
+dunkel("#a-spieler-hell", Z.hellWaage, 0, 1);
 
-// Beat 5: Geld fällt auf Barcelona (auf "45"), staucht beim Aufprall
+// Geld fällt auf Barcelona (auf "45"), staucht beim Aufprall
 aufprall("#a-geld-bild", Z.geldLandetBcn, 0.84, true);
 // Beat 6a: Der Geist löst sich vom Stapel (Umriss erscheint), fliegt, landet auf der Kosten-Schale.
 tl.fromTo("#a-geist-umriss", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power2.out" }, Z.abflugGeist);
@@ -280,27 +317,36 @@ const kreisGeld = M.marker(tl, document.getElementById("m-anker-geld"), "kreis",
   { farbe: "#C9A84C", breite: 10, seed: 7, beginn: Z.begriff, dauer: DATEN.marker.kreis, id: "m-kreis-geld" });
 // Abdunkeln: Solange der Begriff steht, treten Beleg und Figur auf 35 % zurück, der Stempel
 // "0 €" geht. So ist der Gold-Kreis im Umfeld das einzige helle Zeichen.
-dunkel(["#a-beleg-papier", "#a-spieler-bild"], Z.begriff, 1, 0.35);
+dunkel("#a-beleg-papier", Z.begriff, 1, 0.35);
+dunkel("#a-spieler-hell", Z.begriff, 1, 0);
 tl.fromTo("#w-null-behalten", { opacity: 1 }, { opacity: 0, duration: 0.2, ease: "power2.in", immediateRender: false }, Z.nullBehaltenAus);
 // "Wert der besten ALTERNATIVE": Zeile 2 verwandelt sich (Morph), das Etikett hängt am Geist.
 morph("#w-reihe-entgangen", "#w-reihe-alternative", Z.etikettAlternative);
-// Atempause nach der Definition: Begriff, Kreis, Etiketten und Beleg treten ab, die Figur kommt
-// zurück. Wer verkauft, zahlt kein Gehalt mehr; der Beleg war schon zurückgetreten.
+// Atempause nach der Definition: Begriff, Kreis und Etiketten treten ab, die Figur kommt zurück.
+// v2.1 (Kritik 28.10.): Der Beleg BLEIBT abgedunkelt auf "Kosten". Gerade war gelehrt worden:
+// Kosten = Gehalt + Barças Geld; auf "nimmt" wiegt die Waage beides gegen den Spieler.
 raus(["#w-reihe-zahl", "#w-reihe-alternative", kreisGeld], Z.julAus, { stagger: 0.05 });
-tl.fromTo("#a-beleg-papier", { opacity: 0.35, filter: "blur(0px)" },
-  { opacity: 0, filter: "blur(8px)", duration: 0.25, ease: "power2.in", immediateRender: false }, Z.julAus);
-dunkel("#a-spieler-bild", Z.julAus, 0.35, 1);
-// Beat 8: "nimmt" -> Neigung (Spur). Drehung in der Atempause, das Schild kippt auf "Verkaufen".
-// Der Geist wird erst echt, wenn er auf der Nutzen-Seite ankommt (zweite Hälfte der Drehung).
+dunkel("#a-spieler-hell", Z.julAus, 0, 1);
+// Beat 8: "nimmt" -> Neigung (Spur). Fassung v2 (Abnahme): Die Atempause nach "Geld." ist Luft, das
+// Bild steht. Die Drehung beginnt an ihrem Ende; ihre Mitte (Schild auf der Kante) liegt auf
+// "Verkaufen" (Vorrang: das Schild ist Text). Ab der Mitte liegt der Geist auf der Nutzen-Seite und
+// wird echt (Morph, 0,38 s); das Etikett "Opportunitätskosten" folgt erst auf seinem Wort.
 tl.fromTo("#a-geist-umriss", { opacity: 1, scale: 1, transformOrigin: "50% 100%" },
   { opacity: 0, scale: 1.06, duration: 0.2, ease: "power2.in", immediateRender: false }, Z.massiv);
+// Der Beleg geht MIT der Drehung (erste Hälfte, bevor das Geld echt wird): In der Sicht "Verkaufen"
+// zahlt Bayern kein Gehalt mehr. Die Drehung ist die sichtbare Ursache (DESIGN.md §5).
+tl.fromTo("#a-beleg-papier", { opacity: 0.35, filter: "blur(0px)" },
+  { opacity: 0, filter: "blur(8px)", duration: Z.massiv - Z.drehStart, ease: "power2.in", immediateRender: false }, Z.drehStart);
 tl.fromTo("#a-geist-echt", { opacity: 0, scale: 0.9, transformOrigin: "50% 100%" },
   { opacity: 1, scale: 1, duration: 0.32, ease: "expo.out", immediateRender: false }, Z.massiv + 0.06);
 // "Auch Verkaufen hat OPPORTUNITÄTSKOSTEN": Etikett unter der Kosten-Schale (jetzt mit dem Spieler).
 // Das Geld tritt zurück (35 %): Gold heißt "gesucht", und gesucht ist jetzt die eine Saison.
 rein("#w-ok", Z.okEtikett, { duration: 0.25 });
 dunkel("#a-geist-echt", Z.geldDunkel, 1, 0.35);
-// "eine Saison": Der Spieler fliegt ab, sein Umriss bleibt, dann "1 Saison"
+// "eine Saison": Der Spieler geht (v2.1: Unschärfe-Austritt am Ort, leicht nach Südwesten, also
+// Richtung Barcelona; DESIGN.md §5). Sein Umriss kommt, wenn das Foto fast weg ist, dann "1 Saison".
+tl.fromTo("#a-spieler-bild", { opacity: 1, filter: "blur(0px)", x: 0, y: 0 },
+  { opacity: 0, filter: "blur(10px)", x: -40, y: 20, duration: Z.spielerWeg - Z.abflugSpieler, ease: "power2.in", immediateRender: false }, Z.abflugSpieler);
 tl.fromTo("#a-umriss-bild", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.35, ease: "power2.out" }, Z.umriss);
 rein("#w-saison", Z.saisonText);
 

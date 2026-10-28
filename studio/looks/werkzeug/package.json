@@ -1,0 +1,10 @@
+{
+  "name": "deeptok-looks-werkzeug",
+  "private": true,
+  "type": "module",
+  "description": "Bau-Werkzeug der Look-Proben: Karte für Atlas Nacht projizieren (d3-geo, Natural Earth über world-atlas).",
+  "dependencies": {
+    "d3-geo": "3.1.1",
+    "topojson-client": "3.1.0"
+  }
+}

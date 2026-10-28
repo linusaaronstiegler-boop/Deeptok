@@ -1,0 +1,93 @@
+{
+  "_hinweis": "Fremdquellen dieses Videos mit Urheber, Lizenz, Link und Datum. Erzeugt von build/foto.py; 'sichtbar' trägt build/messen-bild.mjs aus der Messung im Player ein.",
+  "video": "studio/gold-opportunitaetskosten",
+  "lizenz_video": {
+    "lizenz": "CC BY-SA 4.0",
+    "url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "zeile_im_bild": "Video: creativecommons.org/licenses/by-sa/4.0",
+    "grund": "Das Video enthält Bearbeitungen eines CC-BY-SA-4.0-Fotos (Abzug im eigenen Ton, Freisteller im Duoton, der Umriss als Geist ab 'eine Saison'). ShareAlike (Abschnitt 3(b)) verlangt für Bearbeitungen dieselbe Lizenz. Statt abzuwägen, ob das Video nur eine Sammlung ist, steht das ganze Video unter CC BY-SA 4.0: Für ein öffentliches, nichtkommerzielles Lernprojekt kostet das nichts und beendet die Unklarheit (Entscheidung 28.10.2026)."
+  },
+  "quellen": [
+    {
+      "dateien": [
+        "assets/fotos/lewandowski-szene.jpg",
+        "assets/fotos/lewandowski-farbe.webp",
+        "assets/fotos/lewandowski.png",
+        "assets/fotos/lewandowski-dunkel.png"
+      ],
+      "titel": "File:2019-03-09 Fußball, Männer, 1. Bundesliga, FC Bayern München - VfL Wolfsburg StP 2672 by Stepro.jpg",
+      "beschreibung": "Fußball, Männer, 1. Bundesliga, FC Bayern München - VfL Wolfsburg: Robert Lewandowski (FC Bayern München, 9)",
+      "urheber": "Steffen Prößdorf",
+      "lizenz": "CC BY-SA 4.0",
+      "lizenz_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "quelle": "https://commons.wikimedia.org/wiki/File:2019-03-09_Fu%C3%9Fball,_M%C3%A4nner,_1._Bundesliga,_FC_Bayern_M%C3%BCnchen_-_VfL_Wolfsburg_StP_2672_by_Stepro.jpg",
+      "kurzlink": "https://commons.wikimedia.org/?curid=117528166",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/9/91/2019-03-09_Fu%C3%9Fball%2C_M%C3%A4nner%2C_1._Bundesliga%2C_FC_Bayern_M%C3%BCnchen_-_VfL_Wolfsburg_StP_2672_by_Stepro.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "datum_werk": "2019-03-09",
+      "abgerufen": "2026-10-28",
+      "credit_zeilen_im_bild": [
+        "Foto: Steffen Prößdorf, 2019, CC BY-SA 4.0, bearb.",
+        "commons.wikimedia.org/?curid=117528166"
+      ],
+      "credit_regel": "Zeile 1 (Urheber, Jahr, Lizenz, bearb.) steht in JEDER Szene, in der das Foto oder sein Umriss zu sehen ist; der Kurzlink (Zeile 2) überall, wo die Credit-Ecke Platz hat (DESIGN.md §2: höchstens 3 Zeilen) und kein Etikett der Welt sie kreuzt: im Hook (Abzug), in 'naheliegend', 'verkauf' und im Abspann (letzte 2,8 s). In 'begriff' und 'aufloesung' stehen links unter der Kosten-Schale Etiketten auf denselben Zeilen; dort nur Zeile 1.",
+      "bearbeitung": [
+        "Vorschaufassung 960 x 1440 statt Original (Commons lehnte das Original am 28.10.2026 fünfmal mit 429 ab)",
+        "Abzug: Ausschnitt (20, 120, 940, 1300) der Vorschau, Sättigung 70 %, Schatten Richtung #0E1726, Hintergrund weichgezeichnet und abgedunkelt",
+        "Freisteller: Person (hyperframes remove-background) und Ball (Ellipse ohne Rasen); Gesicht des Linienrichters wegradiert",
+        "Darsteller: Duoton #0E1726 -> #F5F0E8 mit Licht- und Schattenkante; dunkle, deckende Fassung zum Zurücktreten",
+        "Umriss des Spielers als gestrichelter Gold-Geist (Randverfolgung der Freistell-Maske)"
+      ],
+      "lizenz_bearbeitung": "CC BY-SA 4.0 (ShareAlike: Bearbeitungen stehen unter derselben Lizenz)",
+      "einschraenkungen": [
+        "personality"
+      ],
+      "auflagen_ausserhalb_urheberrecht": {
+        "persoenlichkeitsrecht": "Commons markiert das Foto mit 'personality rights' (Vorlage Personality rights). Abgebildet ist eine Person des öffentlichen Lebens in ihrer Rolle als Fußballprofi; genutzt wird es im Lernvideo über seinen tatsächlichen Wechsel, nicht als Werbung oder Empfehlung.",
+        "dfl_hinweis_fotograf": {
+          "vorlage": "User:Stepro/DFL (Commons-Vorlage auf der Dateiseite, dazu 'Template:Non-copyright restriction')",
+          "link": "https://commons.wikimedia.org/wiki/User:Stepro/DFL",
+          "wortlaut_auszug": "„Die Fotos dürfen aufgrund von Marken- und Persönlichkeitsrechten ausschließlich für redaktionelle Publikationszwecke verwendet werden … Gemäß den Vorgaben der DFL … ist es untersagt, … Fotoaufnahmen in Form von Sequenzbildern und/oder videoähnlichen Fotostrecken zu verwerten.“",
+          "wortlaut_quelle": "zitiert nach dem Abruf der Kritik am 28.10.2026 (Commons-API, nach mehreren 429). Eigener Abruf am 28.10.2026 abends: 429, aus Rücksicht nicht wiederholt.",
+          "abwaegung": "Entscheidung 28.10.2026: (1) Genutzt wird EIN Foto, keine Serie: Es gibt keine Sequenzbilder und keine Fotostrecke, die ein Spiel nachstellt. (2) Die Nutzung ist redaktionell-erklärend: ein nichtkommerzielles Lernvideo über den tatsächlichen Wechsel (Quellen in fakten.json), keine Werbung. (3) Das Foto selbst 'spielt' nicht: Es liegt als Abzug still, wird zum Darsteller (Kamerafahrt auf ein Standbild), steigt auf die Schale und geht am Ende mit einem Unschärfe-Austritt, statt wie in Fassung v2 aus dem Bild zu laufen. (4) Wird DeepTok je kommerziell oder ändert sich die Nutzung, dieses Foto gegen eines ohne DFL-Auflage tauschen (Nationalmannschaft, Pressetermin)."
+        }
+      },
+      "abgebildete_dritte": "Publikum und Linienrichter im Hintergrund: weichgezeichnet und abgedunkelt, nicht im Mittelpunkt; das Gesicht des Linienrichters ist aus dem Freisteller entfernt.",
+      "werbung_im_bild": "Bande 'BUNDESLIGA' im Hintergrund weichgezeichnet. Sponsor am Ärmel und Hersteller-Logos gehören zur Kleidung des Spielers und bleiben (kein Werbeplatz im Bild).",
+      "verwendung": {
+        "abzug": "Hook bis 'Bayern', dann Morph zum Darsteller",
+        "darsteller": "Atlas-Beats bis 'eine Saison'",
+        "umriss": "Geist auf der Kosten-Schale ab 'eine Saison' bis zum Schnitt",
+        "pixel_abzug_figur_kasten": [
+          52,
+          34,
+          863,
+          1155
+        ]
+      },
+      "sichtbar": {
+        "gemessen": "build/messen-bild.mjs, Proben alle 0.1 s im Player",
+        "zeitspannen_s": [
+          [
+            0,
+            24.9
+          ],
+          [
+            31.1,
+            54.5
+          ]
+        ],
+        "szenen": [
+          "hook",
+          "naheliegend",
+          "vertrag",
+          "angebot",
+          "widerlegung",
+          "entgangen",
+          "begriff",
+          "verkauf",
+          "aufloesung"
+        ]
+      }
+    }
+  ]
+}

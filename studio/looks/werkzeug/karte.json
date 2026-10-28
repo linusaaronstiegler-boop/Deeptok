@@ -1,0 +1,27 @@
+{
+ "welt": {
+  "x0": -360,
+  "y0": -1100,
+  "x1": 1980,
+  "y1": 2420
+ },
+ "barcelona": [
+  520,
+  880
+ ],
+ "muenchen": [
+  1186,
+  144.6
+ ],
+ "balearen": [
+  [
+   429.9,
+   1013.2
+  ],
+  [
+   699.2,
+   1170.5
+  ]
+ ],
+ "quelle": "https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-50m.json"
+}

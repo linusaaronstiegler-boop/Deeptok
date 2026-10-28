@@ -18,7 +18,7 @@
 @font-face { font-family: "DT Inter"; src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: block; }
 /* @schriften:ende */
   #w-buehne { position: absolute; inset: 0; overflow: hidden; background: #0E1726; }
-  /* Welt-Hülle: Ursprung oben links, damit render() translate + scale einfach rechnen kann.
+  /* Welt-Hülle: Ursprung oben links, damit render() translate + scale direkt rechnen kann.
      isolation: immer ein eigener Stapelkontext (auch ohne Zoom gleiche Reihenfolge). */
   #w-welt { position: absolute; inset: 0; transform-origin: 0 0; isolation: isolate; }
   #w-svg { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
@@ -48,8 +48,12 @@
     text-shadow: 0 2px 18px rgba(14, 23, 38, 0.9), 0 0 4px rgba(14, 23, 38, 0.9); }
   /* Namen links vom Punkt: rechts davon stehen Spielfigur, Preisschilder und Stapel. */
   .w-name-links { right: 30px; }
-  /* München: weiter links, damit der Fuß der Spielfigur den Namen nicht verdeckt. */
-  #w-name-muenchen { right: 92px; }
+  /* München: weiter links, damit Fuß und Ball des Spielers den Namen nicht verdecken (v2.1: der
+     Ball liegt bis 137 px links vom Fuß). Den Punkt gibt es nicht: Auf München steht immer jemand
+     (erst der Spieler, dann die Waage), und DESIGN.md §7 sagt, dann geht der Punkt. Vorher lag der
+     graue Punkt genau vor dem Fuß und sah aus wie ein Ball (Kritik 28.10.). */
+  #w-name-muenchen { right: 168px; }
+  #w-punkt-muenchen { display: none; }
   .w-rand.w-mitte { display: flex; justify-content: center; }
 
   /* Waage: ein Gegenstand der Welt wie Figur und Münzen (Runde 2, Prüfung 1: vorher ein
@@ -78,6 +82,21 @@
   .a-schatten-oval { position: absolute; left: -96px; top: -20px; width: 192px; height: 40px; border-radius: 50%;
     background: radial-gradient(closest-side, rgba(14, 23, 38, 0.95), rgba(14, 23, 38, 0)); }
   .a-svg { position: absolute; left: -100px; top: -310px; width: 200px; height: 320px; overflow: visible; }
+  /* Fotos (Fassung v2). Das Duoton ist in die Datei gebacken (build/foto.py), kein CSS-Filter.
+     v2.1: Der Darsteller ist eine Hülle mit zwei deckenden Bildern. Zurücktreten heißt: das helle
+     Bild blendet aus und gibt das dunkle frei. So scheint nie die Karte durch das Gesicht. */
+  .a-foto { position: absolute; display: block; }
+  .a-foto img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  /* Abzug im Hook (v2.1): die Spielszene in Farbe, Creme-Rand wie ein Fotoabzug, Schatten wie die
+     Papiere. Liegt über der Welt (z 8), unter dem HUD. Die Kamera steht im Hook, darum Bildpixel. */
+  #fh-ebene { position: absolute; inset: 0; z-index: 8; pointer-events: none; }
+  #fh-abzug { position: absolute; }
+  #fh-rahmen { position: absolute; left: -12px; top: -12px; right: -12px; bottom: -12px; background: #F5F0E8;
+    box-shadow: 0 10px 22px rgba(3, 7, 14, 0.75); }
+  #fh-foto { position: absolute; left: 12px; top: 12px; display: block; }
+  #fh-figur { position: absolute; display: block; }
+  /* Name neben dem Abzug (links, auf Kopfhöhe): steht auf der Karte, nicht auf dem Gesicht. */
+  #fh-name { position: absolute; }
   .a-etikett { position: absolute; white-space: nowrap; font-family: "DT Inter", sans-serif; font-weight: 600;
     font-size: 52px; line-height: 62px; color: #F5F0E8; text-shadow: 0 2px 18px rgba(14, 23, 38, 0.9), 0 0 4px rgba(14, 23, 38, 0.9); }
   #a-spieler-name { right: 104px; top: -118px; font-size: 48px; }
@@ -249,17 +268,20 @@
     </svg>
   </div>
 
-  <!-- Darsteller 1: der Spieler als Tipp-Kick-Figur (Creme = gegeben), Name und Preisschilder. -->
+  <!-- Darsteller 1: der Spieler. Fassung v2: ein echtes Foto (Lewandowski im Bundesligaspiel,
+       freigestellt, Duoton; build/foto.py) statt der Tipp-Kick-Figur. v2.1: mit Ball, als Hülle
+       mit heller und dunkler Fassung. bauen.mjs setzt sie mit den Maßen aus
+       build/foto-lewandowski.json ein (@spielfoto). Name und Preisschilder. -->
   <div id="a-spieler-schatten" class="a-schatten"><div class="a-schatten-oval"></div></div>
   <div id="a-spieler" class="a-huelle">
     <div id="a-spieler-figur" class="a-figur">
-      <svg id="a-spieler-bild" class="a-svg" viewBox="-100 -310 200 320" aria-hidden="true"><defs><linearGradient id="tk-licht" gradientUnits="userSpaceOnUse" x1="-60" y1="0" x2="60" y2="0"><stop offset="0" stop-color="#0E1726" stop-opacity="0.04"/><stop offset="0.35" stop-color="#F5F0E8" stop-opacity="0.3"/><stop offset="0.7" stop-color="#0E1726" stop-opacity="0.26"/><stop offset="1" stop-color="#0E1726" stop-opacity="0.58"/></linearGradient><radialGradient id="tk-kopf" cx="0.36" cy="0.32" r="0.75"><stop offset="0" stop-color="#F5F0E8" stop-opacity="0.65"/><stop offset="0.55" stop-color="#0E1726" stop-opacity="0.04"/><stop offset="1" stop-color="#0E1726" stop-opacity="0.5"/></radialGradient></defs><path d="M-60 -30 L-60 -14 A60 13 0 0 0 60 -14 L60 -30 Z" fill="#F5F0E8"/><path d="M-60 -30 L-60 -14 A60 13 0 0 0 60 -14 L60 -30 Z" fill="url(#tk-licht)"/><path d="M-60 -30 L-60 -14 A60 13 0 0 0 60 -14 L60 -30 Z" fill="#0E1726" fill-opacity="0.32"/><ellipse cx="0" cy="-30" rx="60" ry="13" fill="#F5F0E8"/><ellipse cx="0" cy="-30" rx="60" ry="13" fill="url(#tk-licht)"/><circle cx="78" cy="-27" r="15" fill="#F5F0E8"/><circle cx="78" cy="-27" r="15" fill="url(#tk-kopf)"/><path d="M73 -31 L79 -35 L84 -30 L82 -23 L75 -23 Z" fill="#0E1726" fill-opacity="0.55"/><path d="M-26 -112 L-6 -112 L-8 -40 L-26 -40 Z" fill="#F5F0E8"/><path d="M-26 -112 L-6 -112 L-8 -40 L-26 -40 Z" fill="url(#tk-licht)"/><path d="M2 -112 L20 -116 L58 -72 L44 -60 Z" fill="#F5F0E8"/><path d="M2 -112 L20 -116 L58 -72 L44 -60 Z" fill="url(#tk-licht)"/><path d="M-26 -62 L-7 -62 L-7 -52 L-26 -52 Z M27 -94 L38 -101 L45 -92 L33 -85 Z" fill="#0E1726" fill-opacity="0.22"/><ellipse cx="-17" cy="-38" rx="20" ry="9" fill="#0E1726" fill-opacity="0.62"/><ellipse cx="54" cy="-62" rx="18" ry="9" transform="rotate(-38 54 -62)" fill="#0E1726" fill-opacity="0.62"/><path d="M-31 -136 L31 -136 L33 -104 L4 -104 L1 -114 L-1 -114 L-4 -104 L-33 -104 Z" fill="#F5F0E8"/><path d="M-31 -136 L31 -136 L33 -104 L4 -104 L1 -114 L-1 -114 L-4 -104 L-33 -104 Z" fill="url(#tk-licht)"/><path d="M-31 -136 L31 -136 L33 -104 L4 -104 L1 -114 L-1 -114 L-4 -104 L-33 -104 Z" fill="#0E1726" fill-opacity="0.2"/><path d="M-35 -198 L-59 -185 L-52 -163 L-32 -172 Z" fill="#F5F0E8"/><path d="M-35 -198 L-59 -185 L-52 -163 L-32 -172 Z" fill="url(#tk-licht)"/><path d="M35 -198 L59 -185 L52 -163 L32 -172 Z" fill="#F5F0E8"/><path d="M35 -198 L59 -185 L52 -163 L32 -172 Z" fill="url(#tk-licht)"/><path d="M-31 -134 L31 -134 L35 -198 Q0 -209 -35 -198 Z" fill="#F5F0E8"/><path d="M-31 -134 L31 -134 L35 -198 Q0 -209 -35 -198 Z" fill="url(#tk-licht)"/><path d="M-15 -203 L0 -184 L15 -203" fill="none" stroke="#0E1726" stroke-opacity="0.45" stroke-width="4" stroke-linejoin="round"/><path d="M-57 -170 L-37 -178 M57 -170 L37 -178" stroke="#0E1726" stroke-opacity="0.35" stroke-width="5"/><path d="M-57 -170 L-45 -168 L-43 -128 L-56 -129 Z" fill="#F5F0E8"/><path d="M-57 -170 L-45 -168 L-43 -128 L-56 -129 Z" fill="url(#tk-licht)"/><path d="M57 -170 L45 -168 L43 -128 L56 -129 Z" fill="#F5F0E8"/><path d="M57 -170 L45 -168 L43 -128 L56 -129 Z" fill="url(#tk-licht)"/><circle cx="-50" cy="-124" r="8" fill="#F5F0E8"/><circle cx="50" cy="-124" r="8" fill="#F5F0E8"/><circle cx="50" cy="-124" r="8" fill="#0E1726" fill-opacity="0.3"/><rect x="-9" y="-215" width="18" height="14" fill="#F5F0E8"/><rect x="-9" y="-215" width="18" height="14" fill="url(#tk-licht)"/><circle cx="0" cy="-248" r="36" fill="#F5F0E8"/><circle cx="0" cy="-248" r="36" fill="url(#tk-kopf)"/><path d="M-36 -252 Q-35 -285 0 -285 Q35 -285 36 -252 Q19 -266 0 -266 Q-19 -266 -36 -252 Z" fill="#0E1726" fill-opacity="0.38"/><rect x="-11" y="-298" width="22" height="16" rx="4" fill="#F5F0E8"/><rect x="-11" y="-298" width="22" height="16" rx="4" fill="#0E1726" fill-opacity="0.25"/><path d="M-29 -194 L-28 -140 M-24 -108 L-24 -46" fill="none" stroke="#F5F0E8" stroke-width="3" stroke-linecap="round"/><path d="M-26 -268 A30 30 0 0 1 6 -281" fill="none" stroke="#F5F0E8" stroke-width="4" stroke-linecap="round"/></svg>
+      <div id="a-spieler-bild" class="a-foto" style="left: -137.45px; top: -380px; width: 274.9px; height: 380px;"><img id="a-spieler-dunkel" src="assets/fotos/lewandowski-dunkel.png" alt="" /><img id="a-spieler-hell" src="assets/fotos/lewandowski.png" alt="" /></div>
       <div id="a-spieler-name" class="a-etikett">Lewandowski</div>
-      <!-- Schnüre von der rechten Hand (50, -124) zu den Löchern der Schilder -->
+      <!-- Schnüre von seiner linken Hand an der Hüfte (@hand, aus dem Foto) zu den Löchern der Schilder -->
       <svg id="a-schilder-faeden" aria-hidden="true">
-        <path id="a-faden-1" d="M50 -124 C78 -40 130 80 154 170" />
-        <path id="a-faden-2" d="M50 -124 C84 -10 118 150 126 266" />
-        <path id="a-faden-3" d="M50 -124 C92 20 140 230 148 362" />
+        <path id="a-faden-1" d="M35.8 -176.3 C78 -40 130 80 154 170" />
+        <path id="a-faden-2" d="M35.8 -176.3 C84 -10 118 150 126 266" />
+        <path id="a-faden-3" d="M35.8 -176.3 C92 20 140 230 148 362" />
       </svg>
       <!-- Reihenfolge wie im Drehbuch: Irrtum, richtig, zweiter Irrtum. Breiten gemessen
            (Text 48 px + 24 px links + 54 px Spitze mit Loch). Leicht versetzt und schräg. -->
@@ -328,7 +350,7 @@
        abfliegt: Das, was Verkaufen kostet, ist nicht mehr da. -->
   <div id="a-umriss" class="a-huelle">
     <div id="a-umriss-figur" class="a-figur">
-      <svg id="a-umriss-bild" class="a-svg" viewBox="-100 -310 200 320" aria-hidden="true"><defs><mask id="gf-maske" maskUnits="userSpaceOnUse" x="-200" y="-400" width="400" height="460"><rect x="-200" y="-400" width="400" height="460" fill="#fff"/><path fill="#000" d="M-60 -30 L-60 -14 A60 13 0 0 0 60 -14 L60 -30 Z"/><ellipse fill="#000" cx="0" cy="-30" rx="60" ry="13"/><path fill="#000" d="M-26 -112 L-6 -112 L-8 -40 L-26 -40 Z"/><ellipse fill="#000" cx="-17" cy="-38" rx="20" ry="9"/><path fill="#000" d="M2 -112 L20 -116 L58 -72 L44 -60 Z"/><ellipse fill="#000" cx="54" cy="-62" rx="18" ry="9" transform="rotate(-38 54 -62)"/><path fill="#000" d="M-31 -136 L31 -136 L33 -104 L4 -104 L1 -114 L-1 -114 L-4 -104 L-33 -104 Z"/><path fill="#000" d="M-31 -134 L31 -134 L35 -198 Q0 -209 -35 -198 Z"/><path fill="#000" d="M-35 -198 L-59 -185 L-52 -163 L-32 -172 Z"/><path fill="#000" d="M35 -198 L59 -185 L52 -163 L32 -172 Z"/><path fill="#000" d="M-57 -170 L-45 -168 L-43 -128 L-56 -129 Z"/><path fill="#000" d="M57 -170 L45 -168 L43 -128 L56 -129 Z"/><rect fill="#000" x="-9" y="-215" width="18" height="14"/><circle fill="#000" cx="0" cy="-248" r="36"/><rect fill="#000" x="-11" y="-296" width="22" height="16" rx="4"/></mask></defs><g opacity="0.14" fill="#C9A84C"><path d="M-60 -30 L-60 -14 A60 13 0 0 0 60 -14 L60 -30 Z"/><ellipse cx="0" cy="-30" rx="60" ry="13"/><path d="M-26 -112 L-6 -112 L-8 -40 L-26 -40 Z"/><ellipse cx="-17" cy="-38" rx="20" ry="9"/><path d="M2 -112 L20 -116 L58 -72 L44 -60 Z"/><ellipse cx="54" cy="-62" rx="18" ry="9" transform="rotate(-38 54 -62)"/><path d="M-31 -136 L31 -136 L33 -104 L4 -104 L1 -114 L-1 -114 L-4 -104 L-33 -104 Z"/><path d="M-31 -134 L31 -134 L35 -198 Q0 -209 -35 -198 Z"/><path d="M-35 -198 L-59 -185 L-52 -163 L-32 -172 Z"/><path d="M35 -198 L59 -185 L52 -163 L32 -172 Z"/><path d="M-57 -170 L-45 -168 L-43 -128 L-56 -129 Z"/><path d="M57 -170 L45 -168 L43 -128 L56 -129 Z"/><rect x="-9" y="-215" width="18" height="14"/><circle cx="0" cy="-248" r="36"/><rect x="-11" y="-296" width="22" height="16" rx="4"/></g><g mask="url(#gf-maske)" fill="none" stroke="#C9A84C" stroke-width="10" stroke-dasharray="16 11" stroke-linejoin="round"><path d="M-60 -30 L-60 -14 A60 13 0 0 0 60 -14 L60 -30 Z"/><ellipse cx="0" cy="-30" rx="60" ry="13"/><path d="M-26 -112 L-6 -112 L-8 -40 L-26 -40 Z"/><ellipse cx="-17" cy="-38" rx="20" ry="9"/><path d="M2 -112 L20 -116 L58 -72 L44 -60 Z"/><ellipse cx="54" cy="-62" rx="18" ry="9" transform="rotate(-38 54 -62)"/><path d="M-31 -136 L31 -136 L33 -104 L4 -104 L1 -114 L-1 -114 L-4 -104 L-33 -104 Z"/><path d="M-31 -134 L31 -134 L35 -198 Q0 -209 -35 -198 Z"/><path d="M-35 -198 L-59 -185 L-52 -163 L-32 -172 Z"/><path d="M35 -198 L59 -185 L52 -163 L32 -172 Z"/><path d="M-57 -170 L-45 -168 L-43 -128 L-56 -129 Z"/><path d="M57 -170 L45 -168 L43 -128 L56 -129 Z"/><rect x="-9" y="-215" width="18" height="14"/><circle cx="0" cy="-248" r="36"/><rect x="-11" y="-296" width="22" height="16" rx="4"/></g></svg>
+      <svg id="a-umriss-bild" class="a-svg" viewBox="-100 -310 200 320" aria-hidden="true"><defs><mask id="gf-maske" maskUnits="userSpaceOnUse" x="-200" y="-400" width="400" height="460"><rect x="-200" y="-400" width="400" height="460" fill="#fff"/><path fill="#000" d="M-18.8 -378.6 L-11.7 -378.0 L-5.6 -373.6 L-0.8 -368.1 L1.2 -362.4 L1.2 -356.9 L-1.2 -341.7 L-1.2 -338.6 L0.2 -334.6 L1.5 -331.9 L4.6 -329.2 L6.6 -326.1 L11.7 -321.7 L18.5 -314.2 L25.6 -301.0 L27.6 -299.0 L30.7 -297.3 L34.7 -292.5 L40.8 -283.7 L42.2 -280.0 L43.2 -272.9 L41.9 -268.8 L39.8 -267.8 L36.8 -267.8 L35.1 -267.1 L34.1 -266.1 L34.1 -264.1 L36.8 -257.3 L37.1 -253.2 L38.8 -247.1 L39.2 -238.3 L41.2 -228.5 L41.2 -225.8 L42.2 -223.1 L46.9 -218.0 L50.0 -212.5 L54.1 -199.0 L54.4 -189.5 L52.0 -181.4 L52.4 -172.2 L53.4 -165.4 L55.4 -160.0 L56.4 -151.9 L57.5 -148.5 L61.2 -141.4 L61.2 -139.7 L60.5 -138.6 L56.4 -135.9 L54.1 -131.9 L49.3 -126.4 L50.0 -118.0 L51.0 -114.9 L54.4 -111.5 L59.2 -110.8 L62.9 -107.1 L65.9 -105.4 L68.0 -105.1 L75.1 -100.3 L83.2 -91.9 L96.4 -82.4 L101.2 -78.0 L102.5 -77.6 L112.4 -68.8 L114.7 -67.5 L118.5 -67.1 L121.2 -65.8 L128.0 -65.1 L132.7 -62.4 L134.7 -60.0 L136.1 -50.5 L134.1 -49.2 L134.4 -45.8 L133.7 -44.4 L132.7 -43.7 L131.0 -43.7 L129.3 -41.4 L126.6 -32.5 L126.3 -27.5 L124.2 -24.7 L122.9 -21.4 L115.4 -13.6 L110.3 -10.2 L106.9 -9.8 L105.6 -10.8 L104.9 -12.5 L105.3 -16.9 L108.0 -27.5 L108.0 -32.9 L106.6 -39.7 L107.3 -45.4 L105.9 -49.8 L104.2 -52.5 L99.5 -57.3 L93.7 -60.7 L91.0 -63.1 L86.6 -65.1 L82.5 -65.4 L81.2 -66.4 L79.2 -66.8 L77.8 -68.1 L76.8 -68.1 L75.4 -69.5 L71.0 -71.2 L69.7 -72.5 L68.0 -72.9 L61.2 -77.3 L56.8 -79.0 L51.7 -84.7 L44.6 -84.7 L41.2 -85.4 L39.8 -88.5 L29.0 -99.0 L24.6 -107.8 L21.5 -116.9 L20.5 -123.7 L18.5 -129.2 L17.5 -136.6 L15.8 -141.0 L15.1 -141.7 L13.7 -141.7 L9.0 -136.9 L4.9 -136.6 L-0.2 -131.5 L-4.9 -124.1 L-9.7 -119.0 L-11.0 -116.3 L-11.0 -112.9 L-1.9 -92.9 L-0.8 -88.8 L-0.5 -78.0 L2.5 -67.5 L4.9 -62.4 L5.6 -57.6 L8.6 -47.1 L13.1 -37.6 L18.8 -31.9 L20.5 -29.2 L21.9 -26.1 L21.9 -24.1 L20.5 -21.4 L19.2 -20.7 L17.8 -16.6 L13.7 -16.3 L11.7 -14.2 L10.3 -14.9 L4.9 -14.6 L-2.2 -10.2 L-4.2 -7.1 L-7.3 -6.4 L-10.3 -4.1 L-14.7 -4.7 L-22.2 -4.1 L-24.2 -5.4 L-26.9 -5.8 L-28.0 -7.1 L-28.3 -9.8 L-26.9 -12.9 L-24.6 -14.9 L-18.5 -18.3 L-14.7 -21.4 L-12.0 -24.7 L-9.0 -31.9 L-6.9 -34.9 L-6.3 -40.3 L-8.6 -47.5 L-12.7 -54.9 L-13.7 -58.3 L-15.4 -59.3 L-18.8 -63.4 L-25.9 -77.3 L-29.0 -86.4 L-30.0 -92.2 L-32.4 -97.3 L-33.1 -101.0 L-35.4 -105.8 L-38.1 -108.8 L-40.2 -112.5 L-40.5 -116.3 L-38.5 -124.1 L-38.1 -129.8 L-34.4 -138.0 L-32.4 -144.1 L-31.0 -152.2 L-26.9 -163.4 L-22.2 -173.9 L-20.5 -179.3 L-16.8 -181.4 L-12.0 -186.1 L-11.0 -188.5 L-10.7 -192.9 L-6.9 -199.0 L-6.9 -202.0 L-9.0 -208.1 L-9.0 -215.9 L-11.0 -226.4 L-13.7 -232.5 L-18.1 -245.8 L-18.8 -246.4 L-20.5 -246.1 L-20.8 -264.1 L-22.2 -269.2 L-23.2 -270.2 L-31.7 -271.9 L-36.1 -271.9 L-46.3 -270.2 L-42.5 -277.6 L-42.5 -279.3 L-43.6 -280.3 L-45.3 -280.7 L-50.7 -279.3 L-51.4 -280.7 L-48.0 -283.7 L-43.2 -286.4 L-34.7 -286.1 L-30.3 -285.1 L-24.6 -282.4 L-23.2 -282.7 L-22.2 -284.4 L-20.8 -293.2 L-19.2 -299.0 L-18.8 -303.7 L-16.8 -309.8 L-16.8 -312.9 L-18.5 -315.9 L-22.2 -319.7 L-31.0 -322.7 L-33.1 -324.7 L-34.4 -328.5 L-36.4 -331.2 L-36.4 -332.5 L-37.8 -333.9 L-40.2 -333.9 L-41.5 -335.3 L-41.9 -336.3 L-40.5 -340.3 L-39.8 -346.4 L-42.2 -349.5 L-42.2 -357.3 L-45.6 -360.7 L-47.6 -364.7 L-46.3 -368.8 L-43.9 -370.5 L-40.5 -371.2 L-35.8 -373.6 L-28.0 -375.6 L-21.9 -378.3 Z"/></mask></defs><g opacity="0.14" fill="#C9A84C"><path d="M-18.8 -378.6 L-11.7 -378.0 L-5.6 -373.6 L-0.8 -368.1 L1.2 -362.4 L1.2 -356.9 L-1.2 -341.7 L-1.2 -338.6 L0.2 -334.6 L1.5 -331.9 L4.6 -329.2 L6.6 -326.1 L11.7 -321.7 L18.5 -314.2 L25.6 -301.0 L27.6 -299.0 L30.7 -297.3 L34.7 -292.5 L40.8 -283.7 L42.2 -280.0 L43.2 -272.9 L41.9 -268.8 L39.8 -267.8 L36.8 -267.8 L35.1 -267.1 L34.1 -266.1 L34.1 -264.1 L36.8 -257.3 L37.1 -253.2 L38.8 -247.1 L39.2 -238.3 L41.2 -228.5 L41.2 -225.8 L42.2 -223.1 L46.9 -218.0 L50.0 -212.5 L54.1 -199.0 L54.4 -189.5 L52.0 -181.4 L52.4 -172.2 L53.4 -165.4 L55.4 -160.0 L56.4 -151.9 L57.5 -148.5 L61.2 -141.4 L61.2 -139.7 L60.5 -138.6 L56.4 -135.9 L54.1 -131.9 L49.3 -126.4 L50.0 -118.0 L51.0 -114.9 L54.4 -111.5 L59.2 -110.8 L62.9 -107.1 L65.9 -105.4 L68.0 -105.1 L75.1 -100.3 L83.2 -91.9 L96.4 -82.4 L101.2 -78.0 L102.5 -77.6 L112.4 -68.8 L114.7 -67.5 L118.5 -67.1 L121.2 -65.8 L128.0 -65.1 L132.7 -62.4 L134.7 -60.0 L136.1 -50.5 L134.1 -49.2 L134.4 -45.8 L133.7 -44.4 L132.7 -43.7 L131.0 -43.7 L129.3 -41.4 L126.6 -32.5 L126.3 -27.5 L124.2 -24.7 L122.9 -21.4 L115.4 -13.6 L110.3 -10.2 L106.9 -9.8 L105.6 -10.8 L104.9 -12.5 L105.3 -16.9 L108.0 -27.5 L108.0 -32.9 L106.6 -39.7 L107.3 -45.4 L105.9 -49.8 L104.2 -52.5 L99.5 -57.3 L93.7 -60.7 L91.0 -63.1 L86.6 -65.1 L82.5 -65.4 L81.2 -66.4 L79.2 -66.8 L77.8 -68.1 L76.8 -68.1 L75.4 -69.5 L71.0 -71.2 L69.7 -72.5 L68.0 -72.9 L61.2 -77.3 L56.8 -79.0 L51.7 -84.7 L44.6 -84.7 L41.2 -85.4 L39.8 -88.5 L29.0 -99.0 L24.6 -107.8 L21.5 -116.9 L20.5 -123.7 L18.5 -129.2 L17.5 -136.6 L15.8 -141.0 L15.1 -141.7 L13.7 -141.7 L9.0 -136.9 L4.9 -136.6 L-0.2 -131.5 L-4.9 -124.1 L-9.7 -119.0 L-11.0 -116.3 L-11.0 -112.9 L-1.9 -92.9 L-0.8 -88.8 L-0.5 -78.0 L2.5 -67.5 L4.9 -62.4 L5.6 -57.6 L8.6 -47.1 L13.1 -37.6 L18.8 -31.9 L20.5 -29.2 L21.9 -26.1 L21.9 -24.1 L20.5 -21.4 L19.2 -20.7 L17.8 -16.6 L13.7 -16.3 L11.7 -14.2 L10.3 -14.9 L4.9 -14.6 L-2.2 -10.2 L-4.2 -7.1 L-7.3 -6.4 L-10.3 -4.1 L-14.7 -4.7 L-22.2 -4.1 L-24.2 -5.4 L-26.9 -5.8 L-28.0 -7.1 L-28.3 -9.8 L-26.9 -12.9 L-24.6 -14.9 L-18.5 -18.3 L-14.7 -21.4 L-12.0 -24.7 L-9.0 -31.9 L-6.9 -34.9 L-6.3 -40.3 L-8.6 -47.5 L-12.7 -54.9 L-13.7 -58.3 L-15.4 -59.3 L-18.8 -63.4 L-25.9 -77.3 L-29.0 -86.4 L-30.0 -92.2 L-32.4 -97.3 L-33.1 -101.0 L-35.4 -105.8 L-38.1 -108.8 L-40.2 -112.5 L-40.5 -116.3 L-38.5 -124.1 L-38.1 -129.8 L-34.4 -138.0 L-32.4 -144.1 L-31.0 -152.2 L-26.9 -163.4 L-22.2 -173.9 L-20.5 -179.3 L-16.8 -181.4 L-12.0 -186.1 L-11.0 -188.5 L-10.7 -192.9 L-6.9 -199.0 L-6.9 -202.0 L-9.0 -208.1 L-9.0 -215.9 L-11.0 -226.4 L-13.7 -232.5 L-18.1 -245.8 L-18.8 -246.4 L-20.5 -246.1 L-20.8 -264.1 L-22.2 -269.2 L-23.2 -270.2 L-31.7 -271.9 L-36.1 -271.9 L-46.3 -270.2 L-42.5 -277.6 L-42.5 -279.3 L-43.6 -280.3 L-45.3 -280.7 L-50.7 -279.3 L-51.4 -280.7 L-48.0 -283.7 L-43.2 -286.4 L-34.7 -286.1 L-30.3 -285.1 L-24.6 -282.4 L-23.2 -282.7 L-22.2 -284.4 L-20.8 -293.2 L-19.2 -299.0 L-18.8 -303.7 L-16.8 -309.8 L-16.8 -312.9 L-18.5 -315.9 L-22.2 -319.7 L-31.0 -322.7 L-33.1 -324.7 L-34.4 -328.5 L-36.4 -331.2 L-36.4 -332.5 L-37.8 -333.9 L-40.2 -333.9 L-41.5 -335.3 L-41.9 -336.3 L-40.5 -340.3 L-39.8 -346.4 L-42.2 -349.5 L-42.2 -357.3 L-45.6 -360.7 L-47.6 -364.7 L-46.3 -368.8 L-43.9 -370.5 L-40.5 -371.2 L-35.8 -373.6 L-28.0 -375.6 L-21.9 -378.3 Z"/></g><g mask="url(#gf-maske)" fill="none" stroke="#C9A84C" stroke-width="10" stroke-dasharray="16 11" stroke-linejoin="round"><path d="M-18.8 -378.6 L-11.7 -378.0 L-5.6 -373.6 L-0.8 -368.1 L1.2 -362.4 L1.2 -356.9 L-1.2 -341.7 L-1.2 -338.6 L0.2 -334.6 L1.5 -331.9 L4.6 -329.2 L6.6 -326.1 L11.7 -321.7 L18.5 -314.2 L25.6 -301.0 L27.6 -299.0 L30.7 -297.3 L34.7 -292.5 L40.8 -283.7 L42.2 -280.0 L43.2 -272.9 L41.9 -268.8 L39.8 -267.8 L36.8 -267.8 L35.1 -267.1 L34.1 -266.1 L34.1 -264.1 L36.8 -257.3 L37.1 -253.2 L38.8 -247.1 L39.2 -238.3 L41.2 -228.5 L41.2 -225.8 L42.2 -223.1 L46.9 -218.0 L50.0 -212.5 L54.1 -199.0 L54.4 -189.5 L52.0 -181.4 L52.4 -172.2 L53.4 -165.4 L55.4 -160.0 L56.4 -151.9 L57.5 -148.5 L61.2 -141.4 L61.2 -139.7 L60.5 -138.6 L56.4 -135.9 L54.1 -131.9 L49.3 -126.4 L50.0 -118.0 L51.0 -114.9 L54.4 -111.5 L59.2 -110.8 L62.9 -107.1 L65.9 -105.4 L68.0 -105.1 L75.1 -100.3 L83.2 -91.9 L96.4 -82.4 L101.2 -78.0 L102.5 -77.6 L112.4 -68.8 L114.7 -67.5 L118.5 -67.1 L121.2 -65.8 L128.0 -65.1 L132.7 -62.4 L134.7 -60.0 L136.1 -50.5 L134.1 -49.2 L134.4 -45.8 L133.7 -44.4 L132.7 -43.7 L131.0 -43.7 L129.3 -41.4 L126.6 -32.5 L126.3 -27.5 L124.2 -24.7 L122.9 -21.4 L115.4 -13.6 L110.3 -10.2 L106.9 -9.8 L105.6 -10.8 L104.9 -12.5 L105.3 -16.9 L108.0 -27.5 L108.0 -32.9 L106.6 -39.7 L107.3 -45.4 L105.9 -49.8 L104.2 -52.5 L99.5 -57.3 L93.7 -60.7 L91.0 -63.1 L86.6 -65.1 L82.5 -65.4 L81.2 -66.4 L79.2 -66.8 L77.8 -68.1 L76.8 -68.1 L75.4 -69.5 L71.0 -71.2 L69.7 -72.5 L68.0 -72.9 L61.2 -77.3 L56.8 -79.0 L51.7 -84.7 L44.6 -84.7 L41.2 -85.4 L39.8 -88.5 L29.0 -99.0 L24.6 -107.8 L21.5 -116.9 L20.5 -123.7 L18.5 -129.2 L17.5 -136.6 L15.8 -141.0 L15.1 -141.7 L13.7 -141.7 L9.0 -136.9 L4.9 -136.6 L-0.2 -131.5 L-4.9 -124.1 L-9.7 -119.0 L-11.0 -116.3 L-11.0 -112.9 L-1.9 -92.9 L-0.8 -88.8 L-0.5 -78.0 L2.5 -67.5 L4.9 -62.4 L5.6 -57.6 L8.6 -47.1 L13.1 -37.6 L18.8 -31.9 L20.5 -29.2 L21.9 -26.1 L21.9 -24.1 L20.5 -21.4 L19.2 -20.7 L17.8 -16.6 L13.7 -16.3 L11.7 -14.2 L10.3 -14.9 L4.9 -14.6 L-2.2 -10.2 L-4.2 -7.1 L-7.3 -6.4 L-10.3 -4.1 L-14.7 -4.7 L-22.2 -4.1 L-24.2 -5.4 L-26.9 -5.8 L-28.0 -7.1 L-28.3 -9.8 L-26.9 -12.9 L-24.6 -14.9 L-18.5 -18.3 L-14.7 -21.4 L-12.0 -24.7 L-9.0 -31.9 L-6.9 -34.9 L-6.3 -40.3 L-8.6 -47.5 L-12.7 -54.9 L-13.7 -58.3 L-15.4 -59.3 L-18.8 -63.4 L-25.9 -77.3 L-29.0 -86.4 L-30.0 -92.2 L-32.4 -97.3 L-33.1 -101.0 L-35.4 -105.8 L-38.1 -108.8 L-40.2 -112.5 L-40.5 -116.3 L-38.5 -124.1 L-38.1 -129.8 L-34.4 -138.0 L-32.4 -144.1 L-31.0 -152.2 L-26.9 -163.4 L-22.2 -173.9 L-20.5 -179.3 L-16.8 -181.4 L-12.0 -186.1 L-11.0 -188.5 L-10.7 -192.9 L-6.9 -199.0 L-6.9 -202.0 L-9.0 -208.1 L-9.0 -215.9 L-11.0 -226.4 L-13.7 -232.5 L-18.1 -245.8 L-18.8 -246.4 L-20.5 -246.1 L-20.8 -264.1 L-22.2 -269.2 L-23.2 -270.2 L-31.7 -271.9 L-36.1 -271.9 L-46.3 -270.2 L-42.5 -277.6 L-42.5 -279.3 L-43.6 -280.3 L-45.3 -280.7 L-50.7 -279.3 L-51.4 -280.7 L-48.0 -283.7 L-43.2 -286.4 L-34.7 -286.1 L-30.3 -285.1 L-24.6 -282.4 L-23.2 -282.7 L-22.2 -284.4 L-20.8 -293.2 L-19.2 -299.0 L-18.8 -303.7 L-16.8 -309.8 L-16.8 -312.9 L-18.5 -315.9 L-22.2 -319.7 L-31.0 -322.7 L-33.1 -324.7 L-34.4 -328.5 L-36.4 -331.2 L-36.4 -332.5 L-37.8 -333.9 L-40.2 -333.9 L-41.5 -335.3 L-41.9 -336.3 L-40.5 -340.3 L-39.8 -346.4 L-42.2 -349.5 L-42.2 -357.3 L-45.6 -360.7 L-47.6 -364.7 L-46.3 -368.8 L-43.9 -370.5 L-40.5 -371.2 L-35.8 -373.6 L-28.0 -375.6 L-21.9 -378.3 Z"/></g></svg>
     </div>
   </div>
 
@@ -349,6 +371,8 @@
     <g id="m-anker-geld" data-anker="akteur:geist" data-anker-dy="-144"></g>
   </svg>
  </div>
+ <!-- Abzug im Hook (Fassung v2.1): die echte Spielszene, dann "Foto wird Darsteller". -->
+ <div id="fh-ebene" data-layout-ignore><div id="fh-abzug" style="left: 490px; top: 489px; width: 523.5px; height: 671.4px;"><div id="fh-rahmen"><img id="fh-foto" src="assets/fotos/lewandowski-szene.jpg" alt="" style="width: 523.5px; height: 671.4px;" /></div><img id="fh-figur" src="assets/fotos/lewandowski-farbe.webp" alt="" style="left: 29.6px; top: 19.3px; width: 461.5px; height: 637.8px;" /><div id="fh-name" class="a-etikett" style="right: 553.5px; top: 130.1px; font-size: 48px;">Lewandowski</div></div></div>
 </div>
 
 <!-- @atlas:ende -->
@@ -357,14 +381,14 @@
 
     <!-- Beat-Marken: unsichtbar, nur damit "snapshot --review" die Abschnitte dieser langen
          Zeitachse findet (Schnitte innerhalb der Bühne). Zeiten schreibt der Bau aus data-cue. -->
-    <div id="b-beat-pause" class="clip b-beat" data-cue="pause" data-cue-versatz="1.2" data-cue-bis="pauseEnde" data-start="7.397" data-duration="1.2" data-beat="denkpause" data-track-index="3"></div>
-    <div id="b-beat-vertrag" class="clip b-beat" data-cue="nullEuro" data-cue-versatz="0.5" data-cue-bis="vertragAus" data-start="22.067" data-duration="1.25" data-beat="vertrag" data-track-index="3"></div>
-    <div id="b-beat-zahl" class="clip b-beat" data-cue="geldLandetBcn" data-cue-versatz="0.8" data-cue-bis="abflugGeist" data-start="25.453" data-duration="3.98" data-beat="angebot" data-track-index="3"></div>
-    <div id="b-beat-flug" class="clip b-beat" data-cue="fahrtMuenchen" data-cue-versatz="0.6" data-cue-bis="landung" data-start="30.283" data-duration="0.85" data-beat="flug" data-track-index="3"></div>
-    <div id="b-beat-geist" class="clip b-beat" data-cue="geldEtikett" data-cue-versatz="0.6" data-cue-bis="etikettEntgangen" data-start="31.853" data-duration="1.914" data-beat="geist" data-track-index="3"></div>
-    <div id="b-beat-nah" class="clip b-beat" data-cue="nahReinEnde" data-cue-versatz="0.3" data-cue-bis="alternative" data-start="40.05" data-duration="1.25" data-beat="nachfahrt" data-track-index="3"></div>
-    <div id="b-beat-dreh" class="clip b-beat" data-cue="dreh" data-cue-versatz="0.2" data-cue-bis="okEtikett" data-start="46.367" data-duration="0.533" data-beat="drehung" data-track-index="3"></div>
-    <div id="b-beat-ok" class="clip b-beat" data-cue="nahRausEnde" data-cue-versatz="0.3" data-cue-bis="schnitt" data-start="43.935" data-duration="7.765" data-beat="ok-verkaufen" data-track-index="3"></div>
+    <div id="b-beat-pause" class="clip b-beat" data-cue="pause" data-cue-versatz="1.2" data-cue-bis="pauseEnde" data-start="8.1" data-duration="1.2" data-beat="denkpause" data-track-index="3"></div>
+    <div id="b-beat-vertrag" class="clip b-beat" data-cue="nullEuro" data-cue-versatz="0.5" data-cue-bis="vertragAus" data-start="23.2" data-duration="1.3" data-beat="vertrag" data-track-index="3"></div>
+    <div id="b-beat-zahl" class="clip b-beat" data-cue="geldLandetBcn" data-cue-versatz="0.8" data-cue-bis="abflugGeist" data-start="26.42" data-duration="3.78" data-beat="angebot" data-track-index="3"></div>
+    <div id="b-beat-flug" class="clip b-beat" data-cue="fahrtMuenchen" data-cue-versatz="0.6" data-cue-bis="landung" data-start="31.267" data-duration="0.633" data-beat="flug" data-track-index="3"></div>
+    <div id="b-beat-geist" class="clip b-beat" data-cue="geldEtikett" data-cue-versatz="0.6" data-cue-bis="etikettEntgangen" data-start="32.62" data-duration="1.88" data-beat="geist" data-track-index="3"></div>
+    <div id="b-beat-nah" class="clip b-beat" data-cue="nahReinEnde" data-cue-versatz="0.3" data-cue-bis="alternative" data-start="41.317" data-duration="1.883" data-beat="nachfahrt" data-track-index="3"></div>
+    <div id="b-beat-dreh" class="clip b-beat" data-cue="dreh" data-cue-versatz="0.2" data-cue-bis="okEtikett" data-start="48.967" data-duration="0.633" data-beat="drehung" data-track-index="3"></div>
+    <div id="b-beat-ok" class="clip b-beat" data-cue="nahRausEnde" data-cue-versatz="0.3" data-cue-bis="schnitt" data-start="45.75" data-duration="8.75" data-beat="ok-verkaufen" data-track-index="3"></div>
   </div>
   <script>
     (function () {
@@ -1167,11 +1191,11 @@
       /* @datenAtlas:anfang */
 // eingesetzt von build/bauen.mjs (nicht von Hand ändern)
 // WORTE: Wort-Cues aus assets/timing.json (Bild 2 Bilder vor dem Wort). ZEIT: Cues plus abgeleitete Zeiten.
-const WORTE = {"bcn":0.3,"lewa":1.1333333333333333,"verkaufen":2.7,"behalten":3.466666666666667,"frage":4.833333333333333,"optionen":5.733333333333333,"waage":8.633333333333333,"nur":10.2,"gehalt":10.6,"bezahlt":12.033333333333333,"schiesst":13.733333333333333,"tore":14.1,"vertrag":15.466666666666667,"saison":16.7,"verlaengern_an":17.533333333333335,"verlaengern":18.333333333333332,"danach":19,"frei":19.9,"nichts":21.566666666666666,"angebot":22.633333333333333,"bietet":23.266666666666666,"zahl":24.233333333333334,"falsch":28.133333333333333,"landung":31.133333333333333,"cent":32.56666666666667,"entgangen":33.766666666666666,"gewicht":34.833333333333336,"korrektur":35.5,"begriff":38.4,"alternative":41.3,"aufgibt":42.56666666666667,"juli":43.833333333333336,"nimmt":44.233333333333334,"genommen":44.96666666666667,"dreh":46.166666666666664,"ok_verkauf":46.9,"abflug_spieler":48.36666666666667,"ok_saison":48.53333333333333,"modell":51.7,"karte":53.46666666666667,"geschenkt":54.86666666666667,"genau":55.9,"nachhilfe":57.06666666666667,"lohn_da":57.63333333333333,"gleichung":59.5,"lohn":60.733333333333334,"gratis":63,"gratis_nicht":63.8,"aufgeben":65.63333333333334,"kosten2":66.3,"rechnung":68.16666666666667};
-const ZEIT = {"anfang":0,"bcn":0.3,"lewa":1.1333333333333333,"verkaufen":2.7,"behalten":3.466666666666667,"frage":4.833333333333333,"optionen":5.733333333333333,"waage":8.633333333333333,"nur":10.2,"gehalt":10.6,"bezahlt":12.033333333333333,"schiesst":13.733333333333333,"tore":14.1,"vertrag":15.466666666666667,"saison":16.7,"verlaengern_an":17.533333333333335,"verlaengern":18.333333333333332,"danach":19,"frei":19.9,"nichts":21.566666666666666,"angebot":22.633333333333333,"bietet":23.266666666666666,"zahl":24.233333333333334,"falsch":28.133333333333333,"landung":31.133333333333333,"cent":32.56666666666667,"entgangen":33.766666666666666,"gewicht":34.833333333333336,"korrektur":35.5,"begriff":38.4,"alternative":41.3,"aufgibt":42.56666666666667,"juli":43.833333333333336,"nimmt":44.233333333333334,"genommen":44.96666666666667,"dreh":46.166666666666664,"ok_verkauf":46.9,"abflug_spieler":48.36666666666667,"ok_saison":48.53333333333333,"modell":51.7,"karte":53.46666666666667,"geschenkt":54.86666666666667,"genau":55.9,"nachhilfe":57.06666666666667,"lohn_da":57.63333333333333,"gleichung":59.5,"lohn":60.733333333333334,"gratis":63,"gratis_nicht":63.8,"aufgeben":65.63333333333334,"kosten2":66.3,"rechnung":68.16666666666667,"s_hook":0.3,"s_naheliegend":8.633333333333333,"s_vertrag":15.066666666666666,"s_angebot":22.633333333333333,"s_widerlegung":26.466666666666665,"s_entgangen":33.766666666666666,"s_begriff":36.86666666666667,"s_verkauf":43.7,"s_aufloesung":45.96666666666667,"s_modell":50.333333333333336,"s_transfer":52.7,"s_transfer_lohn":59.2,"s_satz":65.06666666666666,"ende":70.7,"pause":6.197,"pauseEnde":8.597,"nameSpieler":1.1333333333333333,"routeAus":3.5,"dimBcn":3.466666666666667,"schilder":4.933333333333333,"hookAus":8.733333333333333,"zoomIn":8.933333333333334,"zoomInEnde":9.533333333333333,"waageAuf":9.383333333333333,"behauptung":10.2,"belegFall":10.6,"neigungKosten":11.02,"stempel":12.033333333333333,"spielerHopp":13.733333333333333,"neigungRechts":14.233333333333333,"toreText":14.219999999999999,"behauptungAus":14.716666666666667,"vertragFall":15.466666666666667,"dimWaage":15.466666666666667,"toreAus":15.919999999999998,"band":16.7,"bandEnde":17.4,"nahVertrag":19,"nahVertragEnde":19.5,"nullEuro":21.566666666666666,"vertragAus":23.316666666666666,"fahrtBarcelona":23.466666666666665,"fahrtBarcelonaEnde":24.166666666666664,"routeHell":23.466666666666665,"hellWaage":24.166666666666664,"geldFall":24.233333333333334,"geldLandetBcn":24.653333333333336,"zahlText":24.233333333333334,"widerlegung":26.466666666666665,"abflugGeist":29.433333333333334,"fahrtMuenchen":29.683333333333334,"fahrtMuenchenEnde":30.983333333333334,"behauptungDunkel":29.483333333333334,"zahlTextAus":29.433333333333334,"geldEtikett":31.253333333333334,"routeDunkel":31.433333333333334,"nullBehalten":32.56666666666667,"etikettEntgangen":33.766666666666666,"waagerecht":34.833333333333336,"nullBehaltenAus":38.4,"nahRein":39.25,"nahReinEnde":39.75,"etikettAlternative":41.3,"julAus":43.135,"nahRaus":43.135,"nahRausEnde":43.635,"datumJuli":43.95333333333333,"neigungLinks":44.233333333333334,"drehStart":45.86666666666667,"drehEnde":46.46666666666666,"massiv":46.21666666666666,"okEtikett":46.9,"geldDunkel":46.9,"abflugSpieler":48.36666666666667,"spielerWeg":49.46666666666667,"umriss":48.486666666666665,"saisonText":48.53333333333333,"schnitt":51.7,"karteFall":53.46666666666667,"schildKino":53.586666666666666,"neigungKarte":53.88666666666667,"rechnungFall":54.86666666666667,"fach":55.9,"lohnZeichnen":57.63333333333333,"lohnFall":60.733333333333334,"lohnLandet":61.153333333333336,"nachhilfeAus":60.733333333333334,"gleichungAus":63,"dimRest":63,"nahSatz":63.2,"nahSatzEnde":63.800000000000004,"puls":63.800000000000004};
-const SZENEN = [{"id":"hook","beginn":0,"ende":9.033333333333333},{"id":"naheliegend","beginn":9.033333333333333,"ende":14.933333333333334},{"id":"vertrag","beginn":14.933333333333334,"ende":22.5},{"id":"angebot","beginn":22.5,"ende":26.333333333333332},{"id":"widerlegung","beginn":26.333333333333332,"ende":33.63333333333333},{"id":"entgangen","beginn":33.63333333333333,"ende":36.733333333333334},{"id":"begriff","beginn":36.733333333333334,"ende":43.56666666666667},{"id":"verkauf","beginn":43.56666666666667,"ende":45.833333333333336},{"id":"aufloesung","beginn":45.833333333333336,"ende":51.7},{"id":"modell","beginn":51.7,"ende":52.56666666666667},{"id":"transfer","beginn":52.56666666666667,"ende":59.06666666666667},{"id":"transfer_lohn","beginn":59.06666666666667,"ende":64.9},{"id":"satz","beginn":64.9,"ende":70.7}];
-const BUEHNEN = {"atlas":{"beginn":0,"ende":51.7},"diagramm":{"beginn":51.7,"ende":70.7}};
-const DATEN = {"orte":{"muenchen":[83.2,-56.4],"barcelona":[-249.3,261.3]},"route":[[83.2,-56.4],[78.9,-49.8],[74.6,-43.2],[70.2,-36.7],[65.8,-30.3],[61.3,-23.8],[56.8,-17.4],[52.3,-11.1],[47.7,-4.8],[43,1.4],[38.4,7.6],[33.7,13.8],[28.9,19.9],[24.1,26],[19.3,32],[14.4,38],[9.4,43.9],[4.5,49.8],[-0.5,55.7],[-5.6,61.5],[-10.7,67.2],[-15.8,72.9],[-21,78.6],[-26.2,84.2],[-31.5,89.8],[-36.8,95.4],[-42.2,100.9],[-47.6,106.3],[-53,111.7],[-58.5,117.1],[-64,122.4],[-69.6,127.7],[-75.2,132.9],[-80.8,138.1],[-86.5,143.2],[-92.2,148.3],[-98,153.4],[-103.8,158.4],[-109.7,163.3],[-115.6,168.3],[-121.5,173.1],[-127.5,178],[-133.5,182.7],[-139.6,187.5],[-145.7,192.2],[-151.9,196.8],[-158.1,201.4],[-164.3,206],[-170.6,210.5],[-176.9,215],[-183.3,219.4],[-189.7,223.8],[-196.2,228.2],[-202.7,232.5],[-209.2,236.7],[-215.8,240.9],[-222.4,245.1],[-229.1,249.2],[-235.8,253.3],[-242.5,257.3],[-249.3,261.3]],"kamera":{"totale":{"kx":-134.2,"ky":169.7,"zoom":1.15},"muenchen":{"kx":83.2,"ky":-127.2,"zoom":2.4},"barcelona":{"kx":-199.3,"ky":319.6,"zoom":2.4}},"breite":1080,"hoehe":1920,"physik":{"fallhoehe":560,"fallzeit":0.42,"flughoehe":130,"steigzeit":0.45,"sinkzeit":0.5,"flugzeit":1.7,"schrittzeit":0.5},"marker":{"kreis":0.5,"linie":0.35,"strich":0.3,"klammer":0.5},"waage":{"saeule":500,"arm":270,"kette":360,"schale":400,"front":66,"neigung":7,"schildY":-438,"ort":"muenchen"},"nah":{"vertrag":{"r":1.12,"fx":540,"fy":400},"begriff":{"r":1.1,"fx":108,"fy":1100}}};
+const WORTE = {"bcn":0.3,"lewa":1.2666666666666666,"bayern":2.3333333333333335,"verkaufen":3.033333333333333,"behalten":4.1,"frage":5.366666666666666,"optionen":6.4,"waage":9.333333333333334,"nur":10.933333333333334,"gehalt":11.333333333333334,"bezahlt":12.866666666666667,"schiesst":14.7,"tore":15.1,"vertrag":16.5,"saison":17.866666666666667,"verlaengern_an":18.733333333333334,"verlaengern":19.5,"danach":20.1,"frei":21,"nichts":22.7,"angebot":23.666666666666668,"bietet":24.3,"zahl":25.2,"falsch":29.166666666666668,"landung":31.9,"cent":33.266666666666666,"entgangen":34.5,"gewicht":36,"korrektur":36.63333333333333,"begriff":39.666666666666664,"alternative":43.2,"aufgibt":44.36666666666667,"juli":45.766666666666666,"nimmt":46.2,"genommen":47.1,"dreh":48.766666666666666,"ok_verkauf":49.6,"abflug_spieler":51.03333333333333,"ok_saison":51.233333333333334,"modell":54.5,"karte":56.5,"geschenkt":57.9,"genau":59.06666666666667,"nachhilfe":60.2,"lohn_da":60.733333333333334,"gleichung":62.43333333333333,"lohn":63.766666666666666,"gratis":66.03333333333333,"gratis_nicht":66.8,"aufgeben":68.6,"kosten2":69.16666666666667,"rechnung":71.1};
+const ZEIT = {"anfang":0,"bcn":0.3,"lewa":1.2666666666666666,"bayern":2.3333333333333335,"verkaufen":3.033333333333333,"behalten":4.1,"frage":5.366666666666666,"optionen":6.4,"waage":9.333333333333334,"nur":10.933333333333334,"gehalt":11.333333333333334,"bezahlt":12.866666666666667,"schiesst":14.7,"tore":15.1,"vertrag":16.5,"saison":17.866666666666667,"verlaengern_an":18.733333333333334,"verlaengern":19.5,"danach":20.1,"frei":21,"nichts":22.7,"angebot":23.666666666666668,"bietet":24.3,"zahl":25.2,"falsch":29.166666666666668,"landung":31.9,"cent":33.266666666666666,"entgangen":34.5,"gewicht":36,"korrektur":36.63333333333333,"begriff":39.666666666666664,"alternative":43.2,"aufgibt":44.36666666666667,"juli":45.766666666666666,"nimmt":46.2,"genommen":47.1,"dreh":48.766666666666666,"ok_verkauf":49.6,"abflug_spieler":51.03333333333333,"ok_saison":51.233333333333334,"modell":54.5,"karte":56.5,"geschenkt":57.9,"genau":59.06666666666667,"nachhilfe":60.2,"lohn_da":60.733333333333334,"gleichung":62.43333333333333,"lohn":63.766666666666666,"gratis":66.03333333333333,"gratis_nicht":66.8,"aufgeben":68.6,"kosten2":69.16666666666667,"rechnung":71.1,"s_hook":0.3,"s_naheliegend":9.333333333333334,"s_vertrag":16.066666666666666,"s_angebot":23.666666666666668,"s_widerlegung":27.366666666666667,"s_entgangen":34.5,"s_begriff":38,"s_verkauf":45.53333333333333,"s_aufloesung":48.56666666666667,"s_modell":53.166666666666664,"s_transfer":55.666666666666664,"s_transfer_lohn":62.2,"s_satz":68,"ende":74.4,"pause":6.9,"pauseEnde":9.3,"nameSpieler":1.2666666666666666,"morph":2.0833333333333335,"morphEnde":2.6333333333333337,"entfaerben":2.6333333333333337,"entfaerbtEnde":2.8833333333333337,"nameAtlas":2.6333333333333337,"routeAus":3.833333333333333,"dimBcn":4.1,"schilder":5.466666666666666,"hookAus":9.433333333333334,"zoomIn":9.633333333333335,"zoomInEnde":10.233333333333334,"waageAuf":10.083333333333334,"behauptung":10.933333333333334,"belegFall":11.333333333333334,"neigungKosten":11.753333333333334,"stempel":12.866666666666667,"spielerHopp":14.7,"neigungRechts":15.2,"toreText":15.219999999999999,"behauptungAus":15.716666666666667,"vertragFall":16.5,"dimWaage":16.5,"band":17.866666666666667,"bandEnde":18.566666666666666,"nahVertrag":20.1,"nahVertragEnde":20.6,"nullEuro":22.7,"fahrtBarcelonaEnde":25.1,"fahrtBarcelona":24.5,"vertragAus":24.5,"toreAus":24.5,"routeHell":24.5,"hellWaage":25.1,"geldFall":25.2,"geldLandetBcn":25.62,"zahlText":25.2,"widerlegung":27.366666666666667,"abflugGeist":30.2,"fahrtMuenchen":30.666666666666668,"fahrtMuenchenEnde":31.75,"behauptungDunkel":30.46666666666667,"zahlTextAus":30.666666666666668,"geldEtikett":32.019999999999996,"routeDunkel":32.199999999999996,"nullBehalten":33.266666666666666,"etikettEntgangen":34.5,"waagerecht":36,"nullBehaltenAus":39.666666666666664,"nahRein":40.516666666666666,"nahReinEnde":41.016666666666666,"etikettAlternative":43.2,"julAus":44.949999999999996,"nahRaus":44.949999999999996,"nahRausEnde":45.449999999999996,"datumJuli":45.88666666666666,"neigungLinks":46.2,"drehStart":48.46666666666667,"drehEnde":49.06666666666666,"massiv":48.766666666666666,"atemVerkauf":47.52,"atemVerkaufEnde":48.52,"okEtikett":49.6,"geldDunkel":49.6,"abflugSpieler":51.03333333333333,"spielerWeg":51.28333333333333,"umriss":51.21333333333333,"saisonText":51.233333333333334,"schnitt":54.5,"karteFall":56.5,"schildKino":56.62,"neigungKarte":56.92,"rechnungFall":57.9,"fach":59.06666666666667,"lohnZeichnen":60.733333333333334,"lohnFall":63.766666666666666,"lohnLandet":64.18666666666667,"nachhilfeAus":63.766666666666666,"nahAlt":59.986666666666665,"nahAltEnde":60.43666666666667,"nahZurueck":64.43333333333334,"nahZurueckEnde":64.88333333333334,"gleichungAus":66.03333333333333,"dimRest":66.03333333333333,"nahSatz":66.23333333333333,"nahSatzEnde":66.83333333333333,"puls":66.83333333333333,"abspann":71.56666666666666};
+const SZENEN = [{"id":"hook","beginn":0,"ende":9.733333333333333},{"id":"naheliegend","beginn":9.733333333333333,"ende":15.933333333333334},{"id":"vertrag","beginn":15.933333333333334,"ende":23.533333333333335},{"id":"angebot","beginn":23.533333333333335,"ende":27.233333333333334},{"id":"widerlegung","beginn":27.233333333333334,"ende":34.36666666666667},{"id":"entgangen","beginn":34.36666666666667,"ende":37.86666666666667},{"id":"begriff","beginn":37.86666666666667,"ende":45.4},{"id":"verkauf","beginn":45.4,"ende":48.43333333333333},{"id":"aufloesung","beginn":48.43333333333333,"ende":54.5},{"id":"modell","beginn":54.5,"ende":55.53333333333333},{"id":"transfer","beginn":55.53333333333333,"ende":62.06666666666667},{"id":"transfer_lohn","beginn":62.06666666666667,"ende":67.83333333333333},{"id":"satz","beginn":67.83333333333333,"ende":74.4}];
+const BUEHNEN = {"atlas":{"beginn":0,"ende":54.5},"diagramm":{"beginn":54.5,"ende":74.4}};
+const DATEN = {"orte":{"muenchen":[83.2,-56.4],"barcelona":[-249.3,261.3]},"route":[[83.2,-56.4],[78.9,-49.8],[74.6,-43.2],[70.2,-36.7],[65.8,-30.3],[61.3,-23.8],[56.8,-17.4],[52.3,-11.1],[47.7,-4.8],[43,1.4],[38.4,7.6],[33.7,13.8],[28.9,19.9],[24.1,26],[19.3,32],[14.4,38],[9.4,43.9],[4.5,49.8],[-0.5,55.7],[-5.6,61.5],[-10.7,67.2],[-15.8,72.9],[-21,78.6],[-26.2,84.2],[-31.5,89.8],[-36.8,95.4],[-42.2,100.9],[-47.6,106.3],[-53,111.7],[-58.5,117.1],[-64,122.4],[-69.6,127.7],[-75.2,132.9],[-80.8,138.1],[-86.5,143.2],[-92.2,148.3],[-98,153.4],[-103.8,158.4],[-109.7,163.3],[-115.6,168.3],[-121.5,173.1],[-127.5,178],[-133.5,182.7],[-139.6,187.5],[-145.7,192.2],[-151.9,196.8],[-158.1,201.4],[-164.3,206],[-170.6,210.5],[-176.9,215],[-183.3,219.4],[-189.7,223.8],[-196.2,228.2],[-202.7,232.5],[-209.2,236.7],[-215.8,240.9],[-222.4,245.1],[-229.1,249.2],[-235.8,253.3],[-242.5,257.3],[-249.3,261.3]],"kamera":{"totale":{"kx":-160.3,"ky":127.9,"zoom":1.15},"muenchen":{"kx":83.2,"ky":-127.2,"zoom":2.4},"barcelona":{"kx":-199.3,"ky":319.6,"zoom":2.4}},"breite":1080,"hoehe":1920,"physik":{"fallhoehe":560,"fallzeit":0.42,"flughoehe":130,"steigzeit":0.45,"sinkzeit":0.5,"flugzeit":1.7,"schrittzeit":0.5},"marker":{"kreis":0.5,"linie":0.35,"strich":0.3,"klammer":0.5},"waage":{"saeule":500,"arm":270,"kette":360,"schale":400,"front":66,"neigung":7,"schildY":-438,"ort":"muenchen"},"nah":{"vertrag":{"r":1.12,"fx":540,"fy":400},"begriff":{"r":1.1,"fx":108,"fy":1100}},"abzug":{"x":490,"y":489,"rot":0.6,"w":523.5,"h":671.4,"figur":{"x":29.587999999999997,"y":19.345999999999997,"w":461.45899999999995,"h":637.8489999999999},"fuss":[260.3175,657.1949999999999],"ziel":[820,748],"k":0.5957522861993984}};
 
 /* @datenAtlas:ende */
 
@@ -1209,6 +1233,15 @@ const DATEN = {"orte":{"muenchen":[83.2,-56.4],"barcelona":[-249.3,261.3]},"rout
 //   3. Beat 8: Rückfahrt schon in der Atempause nach der Definition; "nimmt" in der Totale; die
 //      Drehung in der Atempause nach "Geld", das Schild kippt auf "Verkaufen"; der Geist wird erst
 //      auf der Nutzen-Seite echt. Der Spieler fliegt nach Südwesten (Richtung Barcelona) hinaus.
+//
+// Fassung v2.1 (Kritik 28.10.), die wichtigsten Änderungen:
+//   1. Foto-Moment: Der Hook öffnet auf der echten Spielszene (Abzug in Farbe). Auf "Bayern" wird
+//      sie zum Darsteller ("Foto wird Darsteller"): Grund aus, Figur nach München, Farbe weg.
+//   2. Zurücktreten des Fotos über eine dunkle, DECKENDE Fassung statt 35 % Deckkraft.
+//   3. Abgang: Unschärfe-Austritt statt Laufen aus dem Bild; der Umriss kommt erst danach.
+//   4. Der Beleg "Gehalt" bleibt (abgedunkelt) auf "Kosten", bis die Waage sich auf "Verkaufen" dreht:
+//      Erst dann hat er eine sichtbare Ursache zu gehen (wer verkauft, zahlt kein Gehalt mehr).
+//   5. Camp Nou ist entfernt.
 const Z = ZEIT;
 const K = DATEN.kamera;
 const PH = DATEN.physik;
@@ -1292,9 +1325,8 @@ const plan = {
       { ab: -1, bis: -1, nach: "ort:muenchen", art: "sofort" },
       // Steigt erst auf "schießt" auf die Nutzen-Schale (vorher stand er am Fuß der Waage).
       { ab: Z.spielerHopp, bis: Z.spielerHopp + PH.schrittzeit, nach: "schale:rechts:0", art: "schritt", hoehe: 140 },
-      // Abflug (Runde 2, Prüfung 1): erst senkrecht steigen, dann im Bogen nach links UNTEN aus
-      // dem Bild, also nach Südwesten wie die Route nach Barcelona (vorher: Nordwesten).
-      { ab: Z.abflugSpieler, bis: Z.spielerWeg, nach: "bild:-200:900", art: "abflug", hoehe: 300, bogenX: -150, bogenY: 0 },
+      // Abgang: Fassung v2.1 kein Weg mehr aus dem Bild (unten: Unschärfe-Austritt am Ort). Ein
+      // starres Foto, das hinausrutscht, wirkte wie ein Pappaufsteller (Kritik 28.10.).
     ],
     // Der Beleg steht rechts auf der Kosten-Schale, der Geist links daneben (ohne Überlappung).
     // Fallhöhe 420: So kreuzt er die Behauptung oben links nicht (Prüfung 3).
@@ -1377,8 +1409,31 @@ rein("#w-name-barcelona", Z.bcn + 0.12);
 const dunkel = (sel, t, von, nach, erst) =>
   tl.fromTo(sel, { opacity: von }, { opacity: nach, duration: 0.3, ease: "power2.inOut", immediateRender: !!erst }, t);
 
-// Beat 1: Die Figur steht schon (Bild 0); ihr Name kommt auf "Lewandowski".
-rein("#a-spieler-name", Z.nameSpieler);
+// Beat 1 (Fassung v2.1): Bild 0 zeigt die echte Spielszene als Abzug. Auf "Lewandowski" kommt sein
+// Name neben den Abzug. Auf "Bayern" wird das Foto zum Darsteller ("Foto wird Darsteller"):
+//   1. Der Rahmen (Creme-Rand, Rasen, Publikum) blendet aus, die freigestellte Figur in Farbe bleibt.
+//   2. Die Figur fährt mit dem Abzug nach München, dreht sich gerade und schrumpft auf Darsteller-
+//      größe (Ursprung der Bewegung ist ihr Fuß; er landet genau auf dem Fuß des Darstellers).
+//   3. Am Ziel liegt der Duoton-Darsteller schon deckend darunter; die Farbe blendet darüber aus.
+// Der Darsteller (#a-spieler-bild) steht in der Welt seit Bild 0 auf München, aber unsichtbar.
+const AB = DATEN.abzug;
+const zielX = AB.ziel[0] - (AB.x + AB.fuss[0]);
+const zielY = AB.ziel[1] - (AB.y + AB.fuss[1]);
+tl.fromTo("#fh-abzug", { x: 0, y: 0, rotation: AB.rot, scale: 1, transformOrigin: AB.fuss[0] + "px " + AB.fuss[1] + "px" },
+  { x: zielX, y: zielY, rotation: 0, scale: AB.k, duration: Z.morphEnde - Z.morph, ease: "power2.inOut" }, Z.morph);
+tl.fromTo("#fh-rahmen", { opacity: 1 }, { opacity: 0, duration: 0.3, ease: "power2.in" }, Z.morph);
+rein("#fh-name", Z.nameSpieler);
+raus("#fh-name", Z.morph);
+// Erster Tween auf #a-spieler-bild: setzt ab Bild 0 auch Unschärfe und Versatz auf ihre Ruhewerte.
+// Der Austritt (unten) beginnt bei denselben Werten; so ist der Zustand nach jedem Sprung derselbe
+// (seek-test.mjs vergleicht auch die Inline-Stile).
+tl.fromTo("#a-spieler-bild", { opacity: 0, filter: "blur(0px)", x: 0, y: 0 },
+  { opacity: 1, filter: "blur(0px)", x: 0, y: 0, duration: 0.06, ease: "none" }, Z.entfaerben);
+tl.fromTo("#fh-figur", { opacity: 1 }, { opacity: 0, duration: Z.entfaerbtEnde - Z.entfaerben, ease: "power1.inOut" }, Z.entfaerben + 0.03);
+// Der Name wandert mit: am Abzug aus, am Darsteller ein (DESIGN.md §5 Morph: dasselbe Etikett).
+rein("#a-spieler-name", Z.nameAtlas);
+// "München" liegt unter dem Abzug und kommt, wenn der Abzug geht (sonst lugte das "M" am Rand vor).
+tl.fromTo("#w-name-muenchen", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, Z.morph + 0.15);
 const M = window.DeepTokMarker;
 // "verkaufen oder BEHALTEN": Route und Barcelona treten zurück. So liest man in der Denkpause
 // "Barcelona" nicht als Teil des untersten Schilds (Runde 2, Prüfung 1). Die Route bleibt
@@ -1391,9 +1446,7 @@ dunkel("#w-route", Z.dimBcn, 1, 0.35, true);
 dunkel("#w-route", Z.zoomIn, 0.35, 0);
 dunkel("#w-route", Z.routeHell, 0, 1);
 dunkel("#w-route", Z.routeDunkel, 1, 0);
-// Der Punkt "München" geht, sobald die Waage steht: Ihr Fuß markiert den Ort. Vorher saß der Punkt
-// in Beat 4 mitten in der Credit-Zeile "ablösefrei: EuGH, • Bosman-Urteil" (Prüfung 1).
-dunkel("#w-punkt-muenchen", Z.waageAuf, 1, 0);
+// Den Punkt "München" gibt es seit v2.1 nicht mehr: Auf München steht immer jemand (lib/atlas.html).
 dunkel(["#w-name-barcelona", "#w-punkt-barcelona"], Z.dimBcn, 1, 0.35);
 dunkel(["#w-name-barcelona", "#w-punkt-barcelona"], Z.hookAus, 0.35, 1);
 // Preisschilder hängen sich auf "kostet" nacheinander ein: Schnur erscheint, Schild pendelt
@@ -1416,13 +1469,20 @@ stempel("#a-beleg-stempel", Z.stempel, -8);
 // Der Spieler landet auf der Nutzen-Schale (die Waage kippt rechts), "Tore" an der Figur
 aufprall("#a-spieler-bild", Z.neigungRechts, 0.9, true);
 rein("#w-tore", Z.toreText);
-raus("#w-tore", Z.toreAus);
+// Fassung v2: "Tore" tritt auf "Vertrag" mit der Waage zurück und geht erst mit der Naht (Fahrt
+// nach Barcelona), statt mitten in der Einstellung zu verschwinden (DESIGN.md §5 Standdauer).
+dunkel("#w-tore", Z.dimWaage, 1, 0.35);
+tl.fromTo("#w-tore", { opacity: 0.35, filter: "blur(0px)" },
+  { opacity: 0, filter: "blur(8px)", duration: 0.18, ease: "power2.in", immediateRender: false }, Z.toreAus);
 
 // Beat 4: Die Waage tritt zurück (Held ist das Blatt). Vertrag fällt; die gedruckte Zeitleiste
 // läuft auf "Saison"; die Verlängerung erscheint auf "Verlängern" und tritt auf "nicht" zurück
 // (35 %, sie bleibt lesbar als verworfene Möglichkeit); Stempel "ablösefrei" und "0 €".
-const WAAGE_TEILE = ["#w-waage-svg", "#a-beleg-papier", "#a-spieler-bild"];
+// v2.1: Das Foto tritt über seine dunkle, deckende Fassung zurück ("hell" blendet aus), nicht über
+// Deckkraft: Mit 35 % liefen Grenzlinie und Waagenkette durch Gesicht und Brust (Kritik 28.10.).
+const WAAGE_TEILE = ["#w-waage-svg", "#a-beleg-papier"];
 dunkel(WAAGE_TEILE, Z.dimWaage, 1, 0.35, true);
+dunkel("#a-spieler-hell", Z.dimWaage, 1, 0, true);
 aufprall("#a-vertrag-papier", Z.vertragFall + PH.fallzeit, 0.92, true);
 tl.fromTo("#zl-start", { opacity: 0, scaleY: 0 }, { opacity: 1, scaleY: 1, duration: 0.25, ease: "back.out(2.2)" }, Z.band);
 // Das Band läuft gleichmäßig (linear: konstantes Tempo IST hier die Aussage) und steht dann.
@@ -1436,8 +1496,9 @@ stempel("#a-vertrag-null", Z.nullEuro, 4);
 raus("#a-vertrag-papier", Z.vertragAus);
 // Die Kamera ist in Barcelona, die Waage außer Sicht: wieder volle Deckkraft.
 dunkel(WAAGE_TEILE, Z.hellWaage, 0.35, 1);
+dunkel("#a-spieler-hell", Z.hellWaage, 0, 1);
 
-// Beat 5: Geld fällt auf Barcelona (auf "45"), staucht beim Aufprall
+// Geld fällt auf Barcelona (auf "45"), staucht beim Aufprall
 aufprall("#a-geld-bild", Z.geldLandetBcn, 0.84, true);
 // Beat 6a: Der Geist löst sich vom Stapel (Umriss erscheint), fliegt, landet auf der Kosten-Schale.
 tl.fromTo("#a-geist-umriss", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power2.out" }, Z.abflugGeist);
@@ -1462,27 +1523,36 @@ const kreisGeld = M.marker(tl, document.getElementById("m-anker-geld"), "kreis",
   { farbe: "#C9A84C", breite: 10, seed: 7, beginn: Z.begriff, dauer: DATEN.marker.kreis, id: "m-kreis-geld" });
 // Abdunkeln: Solange der Begriff steht, treten Beleg und Figur auf 35 % zurück, der Stempel
 // "0 €" geht. So ist der Gold-Kreis im Umfeld das einzige helle Zeichen.
-dunkel(["#a-beleg-papier", "#a-spieler-bild"], Z.begriff, 1, 0.35);
+dunkel("#a-beleg-papier", Z.begriff, 1, 0.35);
+dunkel("#a-spieler-hell", Z.begriff, 1, 0);
 tl.fromTo("#w-null-behalten", { opacity: 1 }, { opacity: 0, duration: 0.2, ease: "power2.in", immediateRender: false }, Z.nullBehaltenAus);
 // "Wert der besten ALTERNATIVE": Zeile 2 verwandelt sich (Morph), das Etikett hängt am Geist.
 morph("#w-reihe-entgangen", "#w-reihe-alternative", Z.etikettAlternative);
-// Atempause nach der Definition: Begriff, Kreis, Etiketten und Beleg treten ab, die Figur kommt
-// zurück. Wer verkauft, zahlt kein Gehalt mehr; der Beleg war schon zurückgetreten.
+// Atempause nach der Definition: Begriff, Kreis und Etiketten treten ab, die Figur kommt zurück.
+// v2.1 (Kritik 28.10.): Der Beleg BLEIBT abgedunkelt auf "Kosten". Gerade war gelehrt worden:
+// Kosten = Gehalt + Barças Geld; auf "nimmt" wiegt die Waage beides gegen den Spieler.
 raus(["#w-reihe-zahl", "#w-reihe-alternative", kreisGeld], Z.julAus, { stagger: 0.05 });
-tl.fromTo("#a-beleg-papier", { opacity: 0.35, filter: "blur(0px)" },
-  { opacity: 0, filter: "blur(8px)", duration: 0.25, ease: "power2.in", immediateRender: false }, Z.julAus);
-dunkel("#a-spieler-bild", Z.julAus, 0.35, 1);
-// Beat 8: "nimmt" -> Neigung (Spur). Drehung in der Atempause, das Schild kippt auf "Verkaufen".
-// Der Geist wird erst echt, wenn er auf der Nutzen-Seite ankommt (zweite Hälfte der Drehung).
+dunkel("#a-spieler-hell", Z.julAus, 0, 1);
+// Beat 8: "nimmt" -> Neigung (Spur). Fassung v2 (Abnahme): Die Atempause nach "Geld." ist Luft, das
+// Bild steht. Die Drehung beginnt an ihrem Ende; ihre Mitte (Schild auf der Kante) liegt auf
+// "Verkaufen" (Vorrang: das Schild ist Text). Ab der Mitte liegt der Geist auf der Nutzen-Seite und
+// wird echt (Morph, 0,38 s); das Etikett "Opportunitätskosten" folgt erst auf seinem Wort.
 tl.fromTo("#a-geist-umriss", { opacity: 1, scale: 1, transformOrigin: "50% 100%" },
   { opacity: 0, scale: 1.06, duration: 0.2, ease: "power2.in", immediateRender: false }, Z.massiv);
+// Der Beleg geht MIT der Drehung (erste Hälfte, bevor das Geld echt wird): In der Sicht "Verkaufen"
+// zahlt Bayern kein Gehalt mehr. Die Drehung ist die sichtbare Ursache (DESIGN.md §5).
+tl.fromTo("#a-beleg-papier", { opacity: 0.35, filter: "blur(0px)" },
+  { opacity: 0, filter: "blur(8px)", duration: Z.massiv - Z.drehStart, ease: "power2.in", immediateRender: false }, Z.drehStart);
 tl.fromTo("#a-geist-echt", { opacity: 0, scale: 0.9, transformOrigin: "50% 100%" },
   { opacity: 1, scale: 1, duration: 0.32, ease: "expo.out", immediateRender: false }, Z.massiv + 0.06);
 // "Auch Verkaufen hat OPPORTUNITÄTSKOSTEN": Etikett unter der Kosten-Schale (jetzt mit dem Spieler).
 // Das Geld tritt zurück (35 %): Gold heißt "gesucht", und gesucht ist jetzt die eine Saison.
 rein("#w-ok", Z.okEtikett, { duration: 0.25 });
 dunkel("#a-geist-echt", Z.geldDunkel, 1, 0.35);
-// "eine Saison": Der Spieler fliegt ab, sein Umriss bleibt, dann "1 Saison"
+// "eine Saison": Der Spieler geht (v2.1: Unschärfe-Austritt am Ort, leicht nach Südwesten, also
+// Richtung Barcelona; DESIGN.md §5). Sein Umriss kommt, wenn das Foto fast weg ist, dann "1 Saison".
+tl.fromTo("#a-spieler-bild", { opacity: 1, filter: "blur(0px)", x: 0, y: 0 },
+  { opacity: 0, filter: "blur(10px)", x: -40, y: 20, duration: Z.spielerWeg - Z.abflugSpieler, ease: "power2.in", immediateRender: false }, Z.abflugSpieler);
 tl.fromTo("#a-umriss-bild", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.35, ease: "power2.out" }, Z.umriss);
 rein("#w-saison", Z.saisonText);
 

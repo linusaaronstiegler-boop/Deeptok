@@ -2,7 +2,349 @@
 
 Phase 1 nach `docs/VIDEO-PIPELINE.md` §9. Gebaut nach `drehbuch.md`, `fakten.json`, `build/script.py` und `../DESIGN.md`, Bauweise A+ aus dem Bühnen-Spike. Diese Fassung arbeitet die drei Prüfungen der Runde 2 ein (Bild, Didaktik, Technik). Ein Teil davon lag schon im Commit 739829c der Parent-Sitzung (Zwischenstand vor dem Container-Neustart); der Rest liegt uncommittet darüber. Nichts committet, nichts gepusht.
 
-**Die Stimme ist weiter ein Platzhalter** (Piper „thorsten-high“, nur für das Timing). Der Tausch ist eine Zeile: `python build/voice.py --anbieter <sieger>`, danach `node build/bauen.mjs`. Alle Bildzeiten folgen den Wortzeiten; die Tore im Bau melden, wenn eine Zeit dabei nicht mehr passt.
+**Stand Runde 2:** Die Stimme war ein Platzhalter (Piper „thorsten-high“). **Stand Fassung v2 (unten):** Jonas aus dem Casting spricht drei der sechs Blöcke, Piper die anderen drei. **Stand Fassung v2.1 (gleich unten):** echter Foto-Moment im Hook, vollständige Credits mit Jahr und Link, Camp Nou entfernt; die Stimme ist weiter gemischt und darum nicht bewertbar. **Abnahme v2 (direkt darunter):** Der Look-Katalog ist reif für die Bewertung durch beide Brüder, das Gold-Video wegen der Stimme noch nicht.
+
+## Abnahme v2 (28.10.2026, spät abends)
+
+Unabhängige Prüfung beider Spuren: Gold-Video Fassung v2.1 und Look-Katalog (`studio/looks/`). Alles in der Tabelle habe ich selbst gemessen oder angesehen, nicht aus den Berichten übernommen. Nichts committet, nichts gepusht.
+
+**Urteil:**
+- **Look-Katalog: reif für die Bewertung durch beide Brüder.** Es sind sechs Proben à 12 s ohne Ton. `check` meldet 0 Fehler, die Tests sind grün, und jedes Fremdfoto hat eine Zeile im Bild und einen Eintrag in `credits.json`.
+- **Gold v2.1: nicht reif.** Bild und Rechte sind fertig, der Ton nicht. Zwei Stimmen wechseln sich dreimal ab, und Piper verschluckt das Schlüsselwort des Transfers. Das Video meldet das selbst: `timing.json` → `bewertbar.ok: false`, dazu der Kopf des Kontaktbogens.
+- **Für v2 als Ganzes heißt das: nein.** Die Looks können die Brüder jetzt sehen. Das Gold-Video erst, wenn eine einzige Stimme alle sechs Blöcke spricht. Bis dahin nur ohne Ton und nur für Punkt 3 unten, nicht als Gesamturteil.
+
+### Selbst gemessen
+
+| Prüfung | Ergebnis |
+|---|---|
+| `renders/gold.mp4` | 74,40 s, 1080 × 1920, 30 fps, H.264, AAC 48 kHz Stereo, 13,5 MB. Neuer als jede Quelldatei (`index.html`, `compositions/`, `lib/`, `assets/`, Bau-Skripte) |
+| `npx hyperframes check` (Gold) | **0 Fehler**, 7 Warnungen, dieselben wie im Bericht v2.1: 2× `composition_file_too_large`, `timeline_track_too_dense`, `rotation_pivot_drift`, `contrast_aa_failure` (Stempel „bezahlt“ 2,6 : 1), 2× `line_unread` (Foto-Zeile in „angebot“, „Nur sein Gehalt + Barças Geld“). Mit `--caption-zone` (DESIGN.md §2) ebenfalls bestanden |
+| Hör-Check auf dem MP4 (G4, wiederholt) | **`ok: true`**, WER 3,92 %, −16,1 LUFS, −3,8 dBTP, 2,26 Wörter/s, 2 deklarierte Stillen (ab 6,93 s 2,46 s; ab 71,58 s 2,83 s). Abweichungen: „schießt der Tore“, „Verlängen“, „Das Das“, „eines ist Song Lewandowski“, „diesen Lung“ |
+| Sätze einzeln ausgeschnitten (Whisper small) | „… Opportunitätskosten, eine Saison Lewandowski.“ richtig („Saison“ p 0,99), wie berichtet. **„Also kostet dich das Kino diesen Lung.“ ist auch einzeln falsch** (p 0,74). „Nur sein Gehalt.“ ohne Fragezeichen. „Opportunitätskosten“ (Jonas) p 0,93 |
+| Bilder aus dem MP4 gegen den Kontaktbogen | 12 eigene Bilder (0; 1,4; 2,3; 2,7; 3,2; 20; 31,5; 49; 54,6; 72,0; 73,5; 74,3 s) passen zu `belege/kontaktbogen.jpg`. Bild 0 zeigt den Farbabzug mit Ball, Rasen und weichgezeichnetem Publikum, darunter drei lesbare Credit-Zeilen. Der Abspann in den letzten 2,8 s nennt Foto, Kurzlink und Video-Lizenz |
+| `credits.json` (Gold) | Ein Foto (Prößdorf, CC BY-SA 4.0, curid 117528166) in 4 Dateien, alle vorhanden. Die Zeilen im Bild stehen wörtlich so in der Datei. Dazu `lizenz_video` CC BY-SA 4.0, Persönlichkeitsrecht und DFL-Auflage mit Abwägung, `sichtbar` 0–24,9 s und 31,1–54,5 s |
+| Looks: `werkzeug/check-alle.sh` (Untertitel-Zone als Fehler) | **alle sechs 0 Fehler.** Warnungen gibt es nur im Zeitungspapier: 5× die Konsolenmeldung „GPU stall“ der WebGL-Rasterbehandlung |
+| Looks: Render gegen aktuellen Stand | Bei fünf Proben wurden HTML und Fotos um 21:43/21:44 neu geschrieben, also nach dem Render. Snapshot des aktuellen Stands gegen das MP4 (`--against`, 0,6/3,2/11 s): mittlere Abweichung 1,3–3,1 von 255, höchstens 0,27 % der Pixel über 40. Das ist Kompression; die Renders zeigen den aktuellen Stand |
+| Looks: Vergleichstafel und eigene Bilder | `studio/looks/belege/vergleich.jpg` und 48 eigene Bilder (6 Looks × 8 Zeitpunkte) angesehen. Beat 2 hat in jedem Look einen eigenen Übergang und Takt |
+| Looks: `credits.json` je Probe | Jede Fremddatei in `assets/` hat einen Eintrag mit Urheber, Lizenz, Kurzlink, Fotojahr, Abrufdatum und den Lizenz-Vorlagen der Dateiseite. Ohne Eintrag sind nur eigene Grafiken (`pappe.jpg`, `stempel-maske.png`) und die Natural-Earth-Regionen (`karte-spanien.svg`, `karte-deutschland.svg`; gemeinfrei, unter `karte.svg` vermerkt) |
+| Tests | `factory/tests -m "not langsam"`: 349 bestanden, 3 übersprungen (in `/opt/deeptok/venv` fehlt Pillow). `-m langsam`: 2 bestanden. `test_bilder.py` mit Repo-`.venv`: 58 bestanden |
+| `git status` | **Keine Renders im Repo**: Alle MP4 liegen unter `renders/` bzw. `build/cache/` und sind gitignored. **Keine Datei über 1 MB**; die größte ist `assets/voice.m4a` (976 KB, Tonspur). 120 neue Dateien, zusammen 3,6 MB |
+| Fremde Clips | **keine.** Im Repo liegt keine Video-Datei, auch nicht gitignored unter `studio/looks/`. Der Commons-Clip für das Zeitungspapier ist nie geladen worden (429). Fremdmaterial sind nur frei lizenzierte Fotos mit `credits.json` |
+
+### Befunde
+
+1. **Ton (P0, bekannt):** Die Stimme ist gemischt. Neu gemessen: „Lohn“ hört Whisper auch im einzeln ausgeschnittenen Satz als „Lung“. Es ist das Schlüsselwort des Transfers, fehlt aber in `PFLICHTWOERTER` (`build/script.py`). Das Tor „6 von 6“ sieht es darum nicht. → „Lohn“ dort aufnehmen. Mit Jonas erledigt es sich vermutlich.
+2. **Das Gold-Video ist weiter ganz Navy-Gold.** Nur der Farbabzug in den ersten 2,9 s bricht das. Das ist folgerichtig, denn das Gold-Video ist der Look Atlas Nacht. Linus' Wunsch „nicht alles so goldmäßig“ beantwortet aber nur der Look-Katalog. Darum beides zusammen zeigen, sonst wirkt v2 wie „wieder Gold“.
+3. **DFL-Auflage fehlt in den Look-Proben.** Zeitungspapier und Archiv nutzen dasselbe Prößdorf-Foto. Ihre `credits.json` führen „Non-copyright restriction“ nur unter `lizenz_vorlagen`, ohne die Abwägung, die im Gold steht. Für unveröffentlichte Proben ist das harmlos. `bilder.py` sollte die Vorlage aber als Hinweis ausgeben (Wunsch 3 aus v2.1).
+4. **Proben ohne Video-Lizenz.** Zeitungspapier, Archiv und Flach enthalten Bearbeitungen von CC-BY-SA-Fotos, haben aber kein `lizenz_video` und keinen Abspann. Für interne Proben genügt das. Vor einer Veröffentlichung wie im Gold nachziehen.
+5. **Zeitungspapier ist unvollständig.** Der echte Clip fehlt, auf Seite 1 steht ein Ersatzfoto, und der Rotstift braucht Linus' Ja.
+6. **Labor:** Ein Stapel Cent-Münzen für „45 Mio. €“ ist ein schwaches Sinnbild; er ist ehrlich beschriftet, aber kein Beleg. Das leere Fadenkreuz für „0 €“ trägt dagegen.
+
+### Was die Brüder prüfen sollen
+
+Am Handy und ohne Ton. Der Bruder urteilt zuerst und blind: Er sieht die Looks ohne Namen und `belege/alt-neu.jpg` erst nach seinem Urteil.
+1. **Looks, 6 × 12 s:** Welche zwei wollt ihr im Feed sehen, welcher fliegt raus? Dazu je Look eine Note von 1 bis 5: Ist nach dem ersten Ansehen klar, dass Verkaufen 45 Mio. € bringt und Behalten 0 € Ablöse?
+2. **Echte Fotos:**
+   - Szenen: Gold 0–3 s (Farbabzug wird Figur), Flach 0–2 s (Stadionfoto wird Zeichnung), Archiv (Abzüge auf der Akte), Zeitung (ausgeschnittene Figur).
+   - Frage: Wirkt das Foto wie eine echte Situation und hilft beim Verstehen, oder ist es Deko?
+   - Frage: Stört der Wechsel von Foto zu Figur?
+   - Frage: Sind die Credit-Zeilen am Handy lesbar?
+3. **Gold 44–53 s ohne Ton (Begriff und Auflösung):** Verstehst du beim ersten Ansehen, warum nach „Im Juli nimmt Bayern das Geld“ der Umriss des Spielers auf „Kosten“ steht? Kein Gesamturteil über das Video, das kommt erst mit einer Stimme.
+
+### Stärkste Looks
+
+1. **Zeitungspapier.**
+   - Er ist am weitesten vom Navy-Gold entfernt. Die echten Fotos sind hier selbst der Held: Rasterdruck und eine ausgeschnittene Figur. Die Credits laufen wie in der Zeitung senkrecht an der Bildkante.
+   - Er passt zu „Aktuelles“ und zur Simplicissimus-Richtung.
+   - Vorbehalte: das Ja zum Rotstift und der fehlende Clip.
+2. **Archiv-Duoton.**
+   - Die echten Fotos liegen als Abzüge mit Büroklammer auf der Akte, die Herkunft steht auf dem Rand. Dazu kommen getippte Karteikarten und ein violetter Stempel. Das ist die natürlichste Antwort auf „echte Bilder“, denn die Quelle ist Teil des Bildes statt Fußnote.
+   - Er passt zu Geschichte und Allgemeinbildung.
+   - Vorbehalte: Er ist ruhig und schwer, hat die größte MP4 (1,6 MB für 12 s), und in echten Videos gilt die Datumsregel.
+
+Die übrigen:
+- **Flach** liegt knapp dahinter: hell, freundlich und gut für den Bruder. Das Foto steht aber nur 1,8 s.
+- **Kurstafel** taugt für die Märkte-Karte, nicht als allgemeiner Look, denn ihr Held ist Text.
+- **Labor** trägt nur mit einem echten Gegenstand.
+
+### Offen (Entscheidungen für Linus)
+
+1. **Stimme für das Gold-Video:** Jonas für Block 2, 5 und 6 (723 Credits) oder eine andere Stimme aus dem Pool für das ganze Video (Wunsch „Stimmen variieren“). Je Video immer nur eine Stimme.
+2. **Rotstift-Ausnahme im Zeitungspapier:** ja oder nein.
+3. **ElevenLabs und der Bruder:** `voices/rotation.json` → `regeln.bruder` sperrt ElevenLabs-Stimmen für sein Profil. Gilt das auch fürs Bewerten? Im Casting hat er die Stimmen schon gehört. Die Looks sind ohne Ton und davon nicht berührt.
+4. **Clip für das Zeitungspapier** nachladen, sobald Commons antwortet (`fotos.py zeitungspapier`), danach Render und Vergleichstafel neu.
+5. „Lohn“ in die Pflichtwörter aufnehmen. iPhone/Safari ist ungeprüft.
+
+## Fassung v2.1 (28.10.2026, spät): Überarbeitung nach drei Kritiken
+
+Drei Prüfungen (Look, Didaktik und Stimme, Technik und Rechte) haben die Fassung v2 bewertet; Bewertungen 3,5 / 3 / 3,5. Ich habe jeden Befund selbst nachgeprüft: am Render, im Player, an der Hüllkurve und mit einzeln ausgeschnittenen Sätzen. Was bestätigt war, ist unten behoben oder als Entscheidung begründet. Nichts committet, nichts gepusht.
+
+**Kurzurteil:**
+- **Bild:** Das echte Foto hat jetzt einen eigenen Auftritt. Bild 0 zeigt die Spielszene in Farbe als Abzug auf der Karte, mit Ball, Rasen und Publikum. Auf „Bayern“ wird daraus der Darsteller („Foto wird Darsteller“). Camp Nou ist entfernt.
+- **Rechte:** Jede Foto-Zeile im Bild nennt Urheber, Jahr, Lizenz und „bearb.“; wo Platz ist, steht der Kurzlink darunter. Im Schlussbild steht ein Abspann mit der Lizenz des Videos. Ein neues Tor prüft im Player Bild für Bild, dass zum sichtbaren Foto immer seine Zeile gehört: 0 Lücken.
+- **Ton:** weiter **nicht bewertbar**, weil zwei Stimmen sprechen. Das Kontingent ist leer, und beide eingebundenen ElevenLabs-Connectors sind dasselbe Konto (geprüft, nur gelesen). Neue Aufrufe: keine, also 0 Credits. `voice.py` markiert die Spur jetzt selbst als nicht bewertbar; der Kontaktbogen schreibt es in den Kopf.
+
+### 1. Befunde und was damit geschah
+
+| Befund (Schwere, Kritik) | selbst geprüft | Änderung |
+|---|---|---|
+| Credit-Zeilen im Bild ohne Jahr und Link (P0, alle drei) | ja: „Foto: Steffen Prößdorf, CC BY-SA 4.0, bearb.“, credits.json nannte eine andere Zeile | Zeile 1 „Foto: Steffen Prößdorf, 2019, CC BY-SA 4.0, bearb.“ (822 px gemessen) in **jeder** Foto-Szene. Zeile 2 `commons.wikimedia.org/?curid=117528166` im Hook, in „naheliegend“, „verkauf“ und im Abspann. Abspann in den letzten 2,8 s: Foto, Kurzlink, „Video: creativecommons.org/licenses/by-sa/4.0“. Bau-Tor: Jede Foto-, Link- und Lizenzzeile im Bild steht wörtlich so in credits.json |
+| Stimme wechselt dreimal (P0, Didaktik) | ja (gemessen in der Kritik, Jonas/Piper je Block in timing.json) | nicht behebbar ohne Credits (siehe 2). Tor in `voice.py`: `timing.json` → `"bewertbar": {"ok": false, …}`, Warnung im Bau der Stimme und im Kopf des Kontaktbogens |
+| Kein echter Foto-Moment, Freisteller 3,5 % der Fläche, alles Navy-Gold (P1, Look) | ja | Abzug der Spielszene in Farbe (523 × 671 px, 17 % der Fläche, Gesicht ca. 57 px), dann Morph zum Darsteller. Ball bleibt im Freisteller (siehe 3) |
+| Camp Nou trägt keinen Inhalt, Schriftzug unlesbar (P1 Look, P2 Didaktik) | ja: am Handy ist nur „FC Barcelona“ lesbar | **entfernt** (Foto, Credit, Bau-Tor, credits.json). Damit sind auch erledigt: Foto über Deutschland während der Fahrt (P1), Nike-Tafel (P2), Münzen durchs Foto (P2) |
+| Schlüsselbegriff in der Auflösung undeutlich (P1, Didaktik) | ja: einzeln „Operatunitätskosten“ (p 0,78) | Piper-Schreibung „Oppor-tunitätskosten“ (nur Rückfall-Block; einzeln 3 von 4 Synthesen richtig statt 0 von 2) und Takes (siehe 2). Neues Tor: Pflichtwörter im einzeln ausgeschnittenen Satz. Jetzt 6 von 6 |
+| „Nur sein Gehalt?“ steigt nicht (P1, Didaktik) | ja: F0 151 → 117 Hz, Whisper einzeln „.“ | nicht behebbar mit Piper (in 5 Takes stieg keiner). Neues Tor (F0 am Ende > 1,05 × erstes Wort UND „?“ im Einzelausschnitt) läuft bei jedem Bau; mit Jonas wiederholen. Den Satzbau habe ich nicht geändert: Block 2 ist für Jonas gedacht, und sein Text steht in stimme-jonas.json |
+| Kernsätze ohne Luft, Definition 3,1 W/s (P1, Didaktik) | ja: Pausen 0,33 und 0,36 s | neues Feld `luft` in script.py, `voice.py` setzt die Stille in die fertige Aufnahme (leiseste 10-ms-Stelle): vor „Ökonomen“ 0,70 s, nach „Opportunitätskosten.“ 0,60 s, dazu vor „Genau dann“ und nach „diesen Lohn“ je 0,70 s. Das Tempo der Definition selbst (3,09 W/s, Jonas) bleibt; Zeitdehnung hätte die Stimme verfälscht |
+| DFL-Auflage des Fotografen (P1, Rechte) | eigener Abruf: 429, aus Rücksicht nicht wiederholt; Wortlaut nach der Kritik | in credits.json mit Link, Auszug und Abwägung (siehe 4). Das Foto „läuft“ nicht mehr aus dem Bild |
+| Foto kurz ohne Credit (P2, Look und Rechte) | ja | Zeilen an die Sichtbarkeit gebunden (angebot bis Ende der Fahrt, widerlegung ab Beginn der Rückfahrt). Neues Tor in `messen-bild.mjs`: **0 von 744 Proben** mit Foto ohne Zeile. Es schreibt auch, WANN das Foto zu sehen ist, in credits.json (`sichtbar`: 0–24,9 s und 31,1–54,5 s, neun Szenen) |
+| Abgedunkeltes Foto durchsichtig (P2, Look) | ja | dunkle, **deckende** Fassung (`lewandowski-dunkel.png`, Navy + 35 % des Duotons); Zurücktreten = die helle Fassung blendet aus |
+| Umriss über stehendem Foto, Pappaufsteller (P2, Look) | ja | Unschärfe-Austritt am Ort (0,25 s, 40 px nach Südwesten), Umriss erst ab +0,18 s |
+| Ortspunkt München sieht aus wie ein Ball (P2, Look) | ja | Punkt entfernt (DESIGN.md §7: auf München steht immer jemand); der echte Ball liegt jetzt im Freisteller |
+| Beleg „Gehalt“ verschwindet ohne Ursache (P2, Didaktik) | ja | Beleg bleibt abgedunkelt auf „Kosten“, auch auf „nimmt“; er geht mit der ersten Hälfte der Drehung (in der Sicht „Verkaufen“ zahlt Bayern kein Gehalt) |
+| Lizenz des Videos offen (P2, Look und Rechte) | ja | `credits.json` → `lizenz_video`: CC BY-SA 4.0 mit Begründung; Zeile im Abspann |
+| credits.json veraltet (P2, Rechte) | ja | neu aus `foto.py` (Bearbeitungsschritte als Liste, Credit-Zeilen wörtlich, Dritte, Werbung) plus `sichtbar` aus der Messung |
+| timing.json: falsche Herkunft der Wortzeiten (P2, Didaktik und Rechte) | ja (Zeile 906) | „DTW gegen Piper-Vorlage + Energie-Anfänge nach Pausen“; Docstring angepasst; `stimme` je Block; `pruefung.whisper_daneben_huellkurve_ok` |
+| Free-Plan nur nichtkommerziell, Bruder-Regel (P2, Rechte) | Kontingent 10 000 = Free | in `stimme-jonas.json` vermerkt (`plan`, `bruder_regel`, `zweiter_connector`) |
+| AAC knapp an beiden Grenzen (P2, Rechte) | ja: 99,1 kbit/s bei 905 KB | `voice.py` kodiert vier Ziele und nimmt das mit dem größten Abstand zu BEIDEN Grenzen, sonst Abbruch: jetzt 128k → 103,5 kbit/s, 976 KB |
+| Werbung: Ärmel-Sponsor (P2, Look) | ja | bleibt (Teil der Kleidung, kein Werbeplatz); Bande „BUNDESLIGA“ ist weichgezeichnet; in credits.json begründet |
+| Transfer-Teil ohne Foto (P1, Look, Prüfauftrag) | geprüft | kein Foto: Der Transfer ist die Diagramm-Identität, und zwei Identitäten stehen nie im selben Bild (DESIGN.md §7). Ein Kinosaal wäre dort Deko |
+
+### 2. Stimme: was ging und was nicht
+
+- **Kein neuer ElevenLabs-Aufruf, 0 Credits.** Ein Satz ist nachweislich falsch gesprochen („Operatunitätskosten“ in Block 5), aber das spricht Piper, und das Konto hat noch 26 Credits (Block 5 braucht rund 300). Ein Aufruf wäre sicher gescheitert. Der zweite Connector `ElevenLabs-fb85a6fe` zeigt dieselben Flows, ist also dasselbe Konto.
+- **Piper-Takes** (`voice.py --piper-takes 2,5,6 --anzahl 5`): Piper würfelt. Ein Lauf machte aus „nur sein Gehalt“ „Müsern gehalten“. Darum werden je Block 5 Takes gehört und bewertet (Wortfehler + Pflichtwörter einzeln + Frage), der beste kommt in `build/cache/piper/`. Jeder weitere Bau nimmt genau diese Aufnahme. Auch die Piper-Vorlage für die DTW der Jonas-Blöcke ist damit fest.
+- **Wortzeiten an der Hüllkurve nachgeprüft:** „Opportunitätskosten“ Stille bis 39,734 s, Einsatz 39,739 s, `timing.json` 39,738 s. „genauso“ Einsatz 36,06 s, `timing.json` 36,062 s. „nur“ +20 ms. Whisper liegt bei beiden ersten 270–280 ms zu früh; das Tor `whisper_daneben_huellkurve_ok` erfasst nur Wörter nach Pausen ≥ 0,25 s, darum steht dort nur „nur“.
+
+### 3. Der Foto-Moment
+
+- **Ablauf:** Bild 0 zeigt Schlagzeile und Abzug. Auf „Lewandowski“ (1,27 s) kommt der Name neben den Abzug. Ab 2,08 s (im Atem vor „Bayern“) blendet der Rahmen samt Rasen und Publikum aus; die Figur in Farbe fährt nach München und schrumpft auf Darstellergröße (0,55 s). Am Ziel liegt der Duoton-Darsteller deckend darunter, die Farbe blendet darüber aus (2,63–2,88 s). Danach kommt die Route auf „verkaufen“ (3,03 s). Drei neue Bau-Tore sichern das: Abzug ≥ 2,0 s, Name ≥ 0,8 s gelesen, Darsteller fertig vor der Route.
+- **Ton des Fotos:** Sättigung 70 %, Schatten zum Navy der Karte hin, Hintergrund weichgezeichnet (normierte Unschärfe, also ohne hellen Saum) und auf 75 % abgedunkelt. Das gibt Tiefe, und Zuschauer sind nicht erkennbar. **Abweichung von DESIGN.md §4 („Sättigung 0“), bewusst:** Linus' Wunsch („echte Bilder von Live-Situationen“, „nicht alles so goldmäßig“) und die Look-Kritik. Der Darsteller bleibt Duoton: Im Atlas ist er Teil der Modellwelt, die Farbe geht beim Übergang.
+- **Lage:** Der Abzug liegt zwischen Schlagzeile und Credit-Ecke, 0,6° gedreht. Die Schlagzeile steht dafür 30 px höher (184 statt 214; höher geht nicht, der Zeilenrahmen von „kostet“ beginnt 15 px über der Box). Größer als 523 × 671 geht nicht sauber: Mit 598 × 811 (erster Versuch) lagen die Credit-Zeilen über dem Ball.
+- **Ball:** Er ist aus der Vorschau freigestellt (Ellipse ohne Rasen). Der Darsteller ist dadurch 275 statt 191 px breit. Die Totale setzt München deshalb 18 px tiefer, und der Name „München“ steht weiter links.
+- **Dateien:** `lewandowski-szene.jpg` (Abzug, 73 KB), `lewandowski-farbe.webp` (Figur in Farbe, 60 KB), `lewandowski.png` und `lewandowski-dunkel.png` (Duoton hell/dunkel, 113 und 88 KB). Alle aus einem Foto, alle aus `build/foto.py`.
+
+### 4. DFL-Auflage: Abwägung
+
+Das Foto trägt auf Commons den Hinweis des Fotografen: nur redaktionelle Zwecke, keine „Sequenzbilder und/oder videoähnlichen Fotostrecken“. Mein eigener Abruf am Abend lief zweimal in 429; den Wortlaut habe ich deshalb aus der Kritik übernommen und das in credits.json vermerkt. Entscheidung:
+1. Es ist **ein** Foto, keine Serie und keine Fotostrecke, die ein Spiel nachstellt.
+2. Die Nutzung ist redaktionell-erklärend: ein nichtkommerzielles Lernvideo über den tatsächlichen Wechsel, mit Quellen. Es ist keine Werbung.
+3. Das Foto „spielt“ nicht. Es liegt als Abzug still, wird per Kamerafahrt auf ein Standbild zum Darsteller, steigt auf die Schale und geht mit einem Unschärfe-Austritt. Der Lauf aus dem Bild (v2) ist weg.
+4. Wird DeepTok kommerziell, kommt ein Foto ohne DFL-Auflage (Nationalmannschaft, Pressetermin).
+
+### 5. Messwerte Fassung v2.1
+
+| Wert | v2.1 | v2 | Ziel |
+|---|---|---|---|
+| Dauer | **74,4 s** (Luft 4 × ca. 0,3 s, Halten 2,8 s, andere Piper-Takes) | 71,9 s | ≤ 90 s |
+| `hyperframes check` | **0 Fehler**, 7 Warnungen (dieselben wie in v2) | 0 / 7 | 0 Fehler |
+| Hör-Check auf dem MP4 (G4) | **`ok: true`**, WER 3,92 %, −16,1 LUFS, −3,8 dBTP, 2,26 W/s, 2 deklarierte Stillen (2,46 s Denkpause, 2,83 s Halten) | WER 1,96 % | G4 |
+| Abweichungen im Hör-Check | alle in Piper-Blöcken: „schießt der“, „verlängen“, „eine ist Song“ (Block 5, nur auf der ganzen Spur; einzeln „eine Saison“), „Lung“, 2 Einfügungen | 3, alle Piper | – |
+| Pflichtwörter, Satz einzeln | **6 von 6** | „Operatunitätskosten“ in Block 5 | alle |
+| „Nur sein Gehalt?“ steigt | **nein** (F0 151 → 117 Hz, „.“), Piper | nein | ja (mit Jonas) |
+| Tonspur bewertbar | **nein** (Jonas Block 1, 3, 4; Piper Block 2, 5, 6) | – | ja |
+| `voice.m4a` | 128k: 103,5 kbit/s, 976 KB | 99,1 kbit/s, 905 KB | ≥ 96 kbit/s, < 1 MB |
+| Bildanteil (`messen-bild.mjs`, 744 Proben) | **58,2 %**, 0 s ohne Held | 56,1 % | ≥ 50 % |
+| Foto sichtbar ohne Credit-Zeile | **0 Proben** | ca. 1 s (Kritik) | 0 |
+| Cue-Tor im Bau (32 Texte) | max. **83 ms** | 82 ms | ≤ 150 ms |
+| Energie-Probe (Wortanfang nach Pausen) | 26 Wörter, max. 53 ms, Median 4 ms | 64 / 3 ms | – |
+| Einzelbild-Scan (`flackern.py`, 2232 Bilder) | **0 Ausreißer an 13 Nähten**, 20 Hinweise (Morph, Stempel, Fach, Tüte) | 0 an 13 | 0 |
+| Seek-Test | **34 von 34**; neu: Morph (3 Bilder), Austritt, Abdunkeln; Zustand umfasst Abzug und Foto-Hülle | 29 / 29 | alle |
+| Render (`--quality looks --workers 3`) | 146 s, 13,5 MB | 128 s, 14,2 MB | – |
+
+**Befunde aus `messen-bild.mjs`, die bleiben** (alle während einer Bewegung, je 1–2 Proben):
+- Schlagzeile gegen Abzug bzw. Figur bei 2,3 und 2,4 s: Die Figur fliegt beim Morph an „Behalten?“ vorbei.
+- Fallendes Vertragsblatt (16,8 s) und Lohntüte (63,8 s) kurz außerhalb des Lesefensters: wie in v2.
+- Münzen unter der Foto-Zeile bei 31,3 s: Die Kamera fährt von Barcelona zurück, der Stapel wandert unter der Zeile durch. Die Zeile muss dort stehen, weil der Spieler schon im Bild ist.
+
+**Warnungen von `check`, die bleiben** (7, wie in v2):
+- `composition_file_too_large` 2×; `timeline_track_too_dense` (Atlas);
+- `rotation_pivot_drift` (falscher Alarm); `contrast_aa_failure` für den abgedunkelten Stempel „bezahlt“;
+- `line_unread` für „Nur sein Gehalt + Barças Geld“;
+- `line_unread` für die Foto-Zeile in „angebot“ (1,57 s): Sie setzt dieselbe Zeile an derselben Stelle aus „vertrag“ fort; `check` sieht jede Datei einzeln.
+- Neu und behoben: `content_overlap` (Gabler-Zeile über „entgangen“ bei der Nachfahrt). In „begriff“ und „aufloesung“ stehen links unter der Kosten-Schale Etiketten; dort darum nur Zeile 1, ohne Kurzlink. `dead_stretch` im Schluss-Satz (das Bild steht absichtlich, nur die Unterstreichungen zeichnen sich): `data-hold` am Etikett „aufgegeben“.
+
+### 6. Belege
+
+- `belege/kontaktbogen.jpg`: 15 Kacheln, neu „1 Foto (Abzug)“. Der Kopf sagt „NICHT BEWERTBAR (Stimmen gemischt)“.
+- `belege/poster.jpg`: weiter die Denkpause (Held, Frage, Antwort-Schilder), `belege/alt-neu.jpg` neu gebaut.
+- Morph und Austritt als Bildfolge: im Scratchpad dieser Sitzung (nicht im Repo).
+
+### 7. Offen
+
+1. **Jonas für Block 2, 5 und 6:** 723 Credits (eine Variante je Block). Erst dann ist das Video bewertbar und die Frage „Nur sein Gehalt?“ prüfbar. Der Weg steht in `build/stimme-jonas.json`. Danach: `voice.py --anbieter datei`, bauen, rendern; die neuen Tore (Pflichtwörter, Frage, Bitrate, bewertbar) laufen mit.
+2. **Tempo der Definition** (Jonas, 3,09 W/s): Die Luft davor und danach ist da. Langsamer ginge nur mit einer neuen Aufnahme von Block 3 (153 Credits).
+3. **DFL-Wortlaut** selbst nachlesen, sobald Commons wieder antwortet (`User:Stepro/DFL`).
+4. **Bruder-Regel** für ElevenLabs-Stimmen (voices/rotation.json) klären, bevor der Bruder bewertet.
+5. iPhone/Safari ungeprüft (WebP mit Alpha braucht Safari 14+), Kopfhörer ungeprüft, `snapshot --against` weiter nicht gelaufen.
+
+### 8. Wünsche an andere Dateien (nicht geändert)
+
+1. **`studio/DESIGN.md` §4/§6:** Ein Echtfoto-Moment in eigenem Ton (Sättigung ca. 70 %, Schatten Richtung Navy, Hintergrund weich) als erlaubte Ausnahme. Gebackenes Duoton als zweiter Weg. Fotos treten über eine dunkle, deckende Fassung zurück, nicht über Deckkraft.
+2. **`studio/DESIGN.md` §2 gegen `studio/looks/README.md`:** Credit-Ecke ≤ 3 Zeilen (DESIGN) oder 2–4 (README)? Dazu die Regel: Etiketten der Welt gehen vor dem Kurzlink; die Zeile mit Urheber, Jahr und Lizenz steht immer.
+3. **`factory/werk/bilder.py`:** zusätzlich `prop=templates` abfragen und bei „Non-copyright restriction“ oder `User:*/DFL` einen BildHinweis geben (extmetadata zeigt nur „personality“).
+4. **Fabrik (G4/G6):** `luft`, Piper-Takes, Pflichtwörter im Einzelsatz, Anstieg steigender Fragen (`voice.py`) und das Tor „Foto ohne Credit“ (`messen-bild.mjs`) als gemeinsame Werkzeuge.
+
+### Wiederholen (Fassung v2.1)
+
+```bash
+. /opt/deeptok/env.sh
+cd studio/gold-opportunitaetskosten
+/home/user/Deeptok/.venv/bin/python build/foto.py                      # Abzug, Freisteller, Umriss, credits.json
+/home/user/Deeptok/.venv/bin/python build/voice.py --piper-takes 2,5,6  # nur wenn sich ein Piper-Block ändert (Takes in build/cache/piper/)
+/home/user/Deeptok/.venv/bin/python build/voice.py --anbieter datei     # Jonas-Dateien + Piper-Takes, Luft, Tore
+node build/bauen.mjs
+npx hyperframes check && npx hyperframes snapshot --review
+npx hyperframes render --quality looks --workers 3 -o renders/gold.mp4
+/home/user/Deeptok/.venv/bin/python build/flackern.py renders/gold.mp4
+npx hyperframes play . --port 3115 --no-open &
+node build/messen-bild.mjs 3115 0.1 && node build/seek-test.mjs 3115 renders/gold.mp4   # messen-bild schreibt credits.json "sichtbar"
+python ../../factory/fabrik.py hoercheck --audio renders/gold.mp4 --text <sprechtext.txt> --erlaubte-stillen 2 --json
+/home/user/Deeptok/.venv/bin/python build/kontaktbogen.py
+```
+
+## Fassung v2 (28.10.2026, abends)
+
+Aufträge: Stimme Jonas über den ElevenLabs-Connector, echte Fotos statt Tipp-Kick-Figur, die Fixes aus der Abnahme (Beat 8, Diagramm-Einstellung, Standdauer). Nichts committet, nichts gepusht.
+
+**Kurzurteil:**
+- **Bild:** Lewandowski steht als echtes Foto auf der Waage, sein Umriss bleibt als Geist auf „Kosten“, Camp Nou zeigt, wer bietet. Die Einstellungen sind im Median 5,7 s statt 8,1 s lang.
+- **Ton:** nur halb gelöst. Das ElevenLabs-Kontingent war nach drei Blöcken leer (10 000 Credits im Monat, Rest 26). Jonas spricht Hook, Begriff und „Im Juli nimmt Bayern das Geld“; Piper spricht Irrtum, Widerlegung, Auflösung, Transfer und Satz.
+- **Für Linus' Urteil** taugt das MP4 im Bild. Im Ton wechselt die Stimme dreimal; das ist ein Zwischenstand, keine Fassung zum Bewerten.
+
+### 1. Stimme Jonas (ElevenLabs-Connector)
+
+| | |
+|---|---|
+| Flow | „DeepTok Gold v2 Stimme“, `9v8PYl192MkLFjhcAMIf`; je Block genau ein Aufruf `creative_generate_speech`, `eleven_v4`, voice_id `xlbJQnFFGB01bv7HK5CZ`, 2 Varianten; kein Aufruf wiederholt |
+| Text | Anzeige-Seite der Tokens („Barcelona“, „45“), ohne Sternchen und `?↑`, Fragezeichen behalten; Szenen eines Blocks als Absätze (`build/stimme-jonas.json`, Feld `text`) |
+| Fertig | Block 1 (Hook, 2 Varianten), Block 3 (Entgangen + Begriff, 1 Variante), Block 4 (Verkauf, 1 Variante) |
+| Fehlgeschlagen | Block 2 (Naheliegend bis Widerlegung), Block 5 (Auflösung bis Transfer), Block 6 (Satz), dazu je die zweite Variante von Block 3 und 4. Meldung: „exceeds your quota of 10000. You have 26 credits remaining“ |
+| Credits | **375 abgerechnet** (2 × 96 + 153 + 30). Angefordert waren 2004; für die fehlenden Blöcke braucht es 723 Credits für je eine Variante, 1446 für je zwei |
+| Wahl Block 1 | Beide Varianten 0 % Wortfehler. Gewählt `xxs8BkxHwbJNMK8TvPOM`: Kontrast „verkaufen“ (195 Hz) gegen „oder“ (106 Hz), Ton der Frage auf „kostet“ (222 Hz), die W-Frage fällt. Die andere legt den Ton auf „kann“ |
+| Hör-Check je Take | Block 1, 3, 4: je 0 % Wortfehler (Whisper small). „Opportunitätskosten“ richtig gehört |
+
+**Wie es gebaut ist** (`build/voice.py --anbieter datei`):
+- Der Connector liefert eine mp3 ohne Zeitstempel. Die gewählten Dateien liegen im gitignorten `build/cache/elevenlabs/`; Flow und generation_id in `build/stimme-jonas.json` reichen, um sie neu zu laden.
+- **Wortzeiten:** Piper spricht denselben Block mit exakten Laut-Zeiten. DTW über Log-Mel-Merkmale (10 ms) richtet beide Aufnahmen aneinander aus und überträgt Pipers Wortgrenzen auf Jonas. Danach werden Wortanfänge nach echten Pausen (≥ 100 ms) an die Lautstärke-Kante gesetzt.
+- **Warum nicht Whisper:** Whisper lag bei „Opportunitätskosten“ 0,24 s zu früh (blockrelativ 4,56 s gegen die Energiekante bei 4,80 s). Im ersten Lauf ordnete eine 60-ms-Lücke (das „d“ in „oder“) den Anfang von „behalten“ falsch zu und verschob Block 4 um 150 ms. Beides steht als Kommentar in `an_energie_ausrichten()`.
+- **Gegenprobe an der Hüllkurve** (Gesamtspur): „Opportunitätskosten“ setzt nach Stille bei 39,00 s ein, `timing.json` sagt 39,00; Whisper auf der Gesamtspur sagt 39,60, also mitten im Wort. „genauso“: Stille bis 35,67 s, `timing.json` 35,69; Whisper legt es in „fehlt“. In Block 4 trifft DTW „Bayern“ bei 1,050 s auf die Verschlusslücke bei 1,063 s.
+- **Rückfall:** Blöcke ohne Datei spricht Piper mit seinen Aussprache-Schreibungen. Jeder Block wird vor dem Zusammensetzen auf −20 LUFS gebracht, damit mit der Stimme nicht auch die Lautstärke springt.
+- **Mastering** wie bisher (−16 LUFS Stereo, SHA-256 in `timing.json`), AAC jetzt 120k: Der ffmpeg-Encoder bleibt bei Sprache unter dem Ziel (96k ergab gemessen 79,6 kbit/s, 120k ergibt 99,1). `voice.m4a` hat **905 KB** (v1 1,16 MB).
+
+**Prüfpunkte aus dem Auftrag:**
+- **Hör-Check:** WER 1,96 % auf dem MP4. Die drei Abweichungen stammen alle aus Piper-Blöcken: „Na, liegend“ und „der Tore“.
+- **„Opportunitätskosten“:** beide Male richtig erkannt, einmal Jonas, einmal Piper.
+- **„Nur sein Gehalt?“** liegt in Block 2, spricht also Piper. Whisper schreibt die Frage jetzt mit „?“ (v1: „.“). „Gehalt“ steigt nur von 106 auf 127 Hz. Die Prüfung mit Jonas steht aus.
+
+### 2. Echte Fotos
+
+| Foto | Quelle | Wo, wozu | Behandlung |
+|---|---|---|---|
+| Lewandowski im Bundesligaspiel (FC Bayern – VfL Wolfsburg, 09.03.2019, allein am Ball, ganze Figur) | Steffen Prößdorf, Wikimedia Commons, CC BY-SA 4.0, commons.wikimedia.org/?curid=117528166 | statt der Tipp-Kick-Figur in allen Atlas-Beats; sein **Umriss** ist der Geist auf „Kosten“ | freigestellt (`hyperframes remove-background`); Gesicht des Linienrichters unter seiner Hand wegradiert; Duoton Navy → Creme; Licht oben links, Schatten rechts unten; 380 px hoch |
+| Camp Nou mit „MÉS QUE UN CLUB“ auf den Rängen | Ivan Mlinaric, Wikimedia Commons, CC BY 2.0, commons.wikimedia.org/?curid=15606497 | Beat 5, „Barcelona bietet …“: zeigt, dass der Verein bietet, nicht die Stadt; Beschriftung „FC Barcelona“ | Ausschnitt 3 : 1, Graustufe mit Rotfilter (nur so bleibt der Schriftzug lesbar), Duoton; 864 × 288 px, an Barcelona verankert |
+
+- **Abruf:** über `factory/werk/bilder.py` (Lizenzprüfung über extmetadata, beschreibender User-Agent, 2 s Abstand). Commons lehnte das 3,9-MB-Original von Lewandowski fünfmal mit 429 ab; nicht umgangen. Genommen ist die Vorschau 960 × 1440; die Figur ist darin rund 1100 px hoch, angezeigt werden 380 px.
+- **Reproduzierbar:** `build/foto.py` macht alle Schritte, Zwischenstände im gitignorten `build/cache/fotos/`. Es schreibt `assets/fotos/`, `build/foto-lewandowski.json` (Maße, Umriss als SVG-Pfad mit 134 Punkten, Hand für die Fäden der Preisschilder) und `credits.json`.
+- **Credits im Bild:** „Foto: Steffen Prößdorf, CC BY-SA 4.0, bearb.“ in jeder Atlas-Szene, in der er zu sehen ist; „Foto: Ivan Mlinaric, CC BY 2.0, bearb.“ in Beat 5.
+  - Bei drei Zeilen hat die Lizenzpflicht Vorrang vor der Höflichkeitszeile „Karte: Natural Earth“ (gemeinfrei). Die Kartenzeile fehlt deshalb in vertrag, entgangen, begriff, verkauf und aufloesung.
+  - Jahr, Link und der genaue Bearbeitungsvermerk stehen in `credits.json`. Dort steht auch: Die Bearbeitung des CC-BY-SA-Fotos steht wieder unter CC BY-SA 4.0. Außerdem der Hinweis „personality rights“ von Commons (Person des öffentlichen Lebens in ihrer Rolle, keine Werbung).
+- **Abweichung von DESIGN.md §4:** Das Duoton ist in die Datei gebacken (Pillow), nicht über den media-use-Shader „Monochrome Screen Print“. Der rastert in Punkte, der Auftrag will das Foto kornfrei. Die Endfarben sind dieselben. Kein CSS-Filter (Wunsch unten).
+- **Bewegung:** Ein Mensch auf einem Foto „fliegt“ nicht 300 px hoch wie die Spielfigur. Er springt jetzt 70 px von der Schale und läuft im flachen Bogen nach Südwesten hinaus; das Foto zeigt ihn ohnehin laufend nach links.
+- **Am Bild gefundene und behobene Fehler** (snapshot --review):
+  - Das Camp-Nou-Foto hing nach der Rückfahrt unten links im Bild: Es ist an Barcelona verankert, bleibt aber bildschirmgroß.
+  - Die weiße Behauptung „Nur sein Gehalt?“ stand auf den hellen Rängen. Das Foto geht jetzt 0,25 s vor der Widerlegung und steht 2,25 s ab Ankunft der Kamera.
+  - Die dritte Credit-Zeile überdeckte „entgangen“ und „1 Saison“ (`check`: 2 Fehler). Dort steht das Foto-Credit jetzt in der untersten Zeile.
+
+### 3. Fixes aus der Abnahme
+
+**Beat 8, Entscheidung:** Die **Mitte der Drehung bleibt auf „Verkaufen“**, denn das Schild ist Text und muss auf seinem Wort kippen (Cue-Tor ±150 ms). Die Atempause nach „Geld.“ gibt Luft und ist dafür von 0,7 auf 1,0 s verlängert. Gemessen in `assets/timing.json` und den Bau-Zeiten:
+- Neigung auf „nimmt“ 45,23 s, ausgeschwungen 46,03 s;
+- Atempause 46,54–47,54 s, ein stehendes Bild;
+- Drehung 47,53–48,13 s; sie beginnt im letzten Bild der Pause, ihre Mitte bei 47,83 s liegt 2 Bilder vor „Verkaufen“;
+- das Geld wird ab der Mitte der Drehung echt (47,83–48,21 s), also auf „Verkaufen“ und erst auf der Nutzen-Seite;
+- das Etikett „Opportunitätskosten“ kommt bei 48,63 s, auf seinem Wort.
+
+Statt drei Bedeutungsänderungen in 1,1 s sind es jetzt: Neigung, nach 2,6 s Drehung samt Echtwerden, nach 0,8 s das Etikett. Drei neue Tore im Bau sichern das: Neigung ausgeschwungen vor der Pause; Drehung nicht vor dem Ende der Pause (−0,2 s); Etikett ≥ 0,3 s nach dem Echtwerden. Den Satz in Runde 2 („In ihr dreht sich die Waage“) ersetzt diese Beschreibung.
+
+**Diagramm-Einstellung** (vorher 11,5 s ohne Fahrt):
+- Auf „Genau dann …“ fährt die Welt 1,2-fach an die Alternative: Nachhilfe, Lohn, Gold-Fach, Kosten-Schale. Der Brennpunkt (108, 300) steht, die Nutzen-Seite tritt auf 35 % zurück, weil sie rechts hinausragt.
+- Auf „Das kann es wert sein“ geht es zurück in die Totale mit beiden Schalen: Ob es das wert ist, wiegt beide Seiten. Auf „Gratis“ folgt die Nachfahrt an die Kosten-Schale wie bisher.
+- Einstellungen: 4,85 + 3,96 + 1,38 s. Die 1,38-s-Totale ist kurz, liegt aber in der gemessenen Spanne (p10 1,2–3,1 s).
+- Die Fahrten dauern 0,45 s (Median der Vorbilder) und liegen außerhalb der Lesezeiten: Rechnung und „aufgegeben“ sind gelesen, die Gleichung (HUD) steht 2,0 s still. „Nachhilfe“ rastet in den letzten Bildern der Fahrt ein und landet, wenn die Kamera steht. Vier neue Tore im Bau.
+
+**Alle Einstellungen** (Nähte aus den Bau-Zeiten):
+
+| | v2 | v1 | Vorbild |
+|---|---|---|---|
+| Median | **5,7 s** | 8,1 s | 5 s |
+| längste | 9,6 s (Hook mit Denkpause) | 11,5 s | p90 12 s |
+| Nähte / harte Schnitte | 10 / 1 | 8 / 1 | ≤ ⅓ hart |
+
+**Text geht mit der Naht** (DESIGN.md §5 Standdauer):
+- „Tore“ tritt mit der Waage auf 35 % zurück und geht mit der Fahrt nach Barcelona.
+- Das Vertragsblatt geht mit dem Start der Fahrt, nicht 0,15 s davor.
+- „45 Mio. €“ geht mit der Fahrt nach München, nicht mit dem Abflug des Geistes 0,25 s davor.
+- Das Camp-Nou-Foto geht vor der Widerlegung (siehe 2).
+- Bewusst nicht so: Die Behauptung „Nur sein Gehalt“ geht weiter auf „Doch“, weil das fallende Vertragsblatt sie sonst überdeckt. „Nur sein Gehalt + Barças Geld“ geht auf „Opportunitätskosten“, weil der D2-Begriff an derselben Stelle steht. „Nachhilfe, heute Abend“ geht mit der fallenden Tüte.
+- **Barcelona-Timing:** Mit der neuen Stimme liegen „nichts“ und „45“ nur 2,4 s auseinander; zwei Tore rissen. Der Schwenk dauert jetzt 0,6 statt 0,7 s (gemessene Spanne 0,4–0,7) und endet spätestens 50 ms vor „45“.
+
+### 4. Messwerte Fassung v2
+
+| Wert | v2 | Runde 2 | Ziel |
+|---|---|---|---|
+| Dauer | **71,9 s** (Atempausen 0,9 + 0,6 + 1,0 + 0,9 s) | 70,7 s | ≤ 90 s |
+| `hyperframes check` | **0 Fehler**, 7 Warnungen (unten) | 0 / 6 | 0 Fehler |
+| Hör-Check auf dem MP4 (G4) | **`ok: true`**, WER 1,96 %, −16,1 LUFS, −4,1 dBTP, 2,32 Wörter/s, 2 deklarierte Stillen (2,47 s, 2,04 s), 48 kHz / 161 kbit/s | WER 1,31 % (nur Piper) | G4 |
+| `voice.m4a` | 905 KB, 99,1 kbit/s, 44,1 kHz Stereo | 1,16 MB, 130 kbit/s | < 1 MB, ≥ 96 kbit/s |
+| Bildanteil (`messen-bild.mjs`, 719 Proben) | **56,1 %**, 0 s ohne Held | 62,5 % | ≥ 50 % |
+| Lesefenster, Kollisionen, Schriftgröße im Player | 0 Befunde außer fallenden Gegenständen (Vertrag 16,4 s, Lohntüte 62,0 s, je eine Probe); 2 Hinweise Stempel | ebenso | 0 |
+| Cue-Tor im Bau (32 Texte) | max. **82 ms** | 80 ms | ≤ 150 ms |
+| Energie-Probe (Wortanfang nach Pausen, 26 Wörter) | max. 64 ms, Median 3 ms | 54 / 7 ms | – |
+| Einzelbild-Scan (`flackern.py`, 2157 Bilder) | **0 Ausreißer an 13 Nähten**; 33 Hinweise (Stempel, Foto beim Aufsteigen und Absprung, Fach, Nachhilfe, Tüte) | 0 an 13; 25 | 0 |
+| Seek-Test (`seek-test.mjs`) | **29 von 29** pfadunabhängig und bildgenau | 29 | alle |
+| Render (`--quality looks --workers 3`) | 128,2 s, 14,2 MB | 173,3 s, 11,8 MB | – |
+
+**Warum der Bildanteil sinkt** (−6,4 Punkte, etwa 5 s): Die Foto-Credits und „FC Barcelona“ sind Text. Die 1,2-fache Fahrt vergrößert die Etiketten im Diagramm. „45 Mio. €“ steht 0,25 s länger. Die Credits sind dafür schon auf Urheber, Lizenz und „bearb.“ gekürzt.
+
+**Warnungen, die bleiben** (7):
+- **Bekannt aus Runde 2 (5):**
+  - `composition_file_too_large` 2×;
+  - `timeline_track_too_dense` (Beat-Marken der Atlas-Bühne);
+  - `contrast_aa_failure` für den abgedunkelten Stempel „bezahlt“;
+  - `rotation_pivot_drift` (falscher Alarm);
+  - `line_unread` für „Nur sein Gehalt + Barças Geld“.
+- **Neu (1):** `line_unread` für die Prößdorf-Zeile in „angebot“ (1,0 s). Sie setzt dieselbe Zeile an derselben Stelle aus „vertrag“ fort und steht sichtbar 8,2 s am Stück. `check` sieht jede Datei einzeln.
+
+### 5. Belege (neu gebaut mit `python build/kontaktbogen.py`)
+
+- `belege/kontaktbogen.jpg`: 14 Beats mit Foto, Camp Nou und der Diagramm-Fahrt (Bild 10). Der Kopf nennt die Stimmen je Block.
+- `belege/alt-neu.jpg`, `belege/poster.jpg`: wie in Runde 2. Das Poster zeigt jetzt das Foto in der Denkpause.
+- Die drei Einzelbelege aus Runde 2 (`vertrag-blatt.jpg`, `vergleich-null-euro.jpg`, `abflug-suedwest.jpg`) zeigen noch die Tipp-Kick-Figur und die alten Zeiten.
+
+### 6. Offen und Wünsche (nicht geändert, nicht meine Dateien)
+
+1. **Credits für Jonas:** 723 Credits (eine Variante je Block) oder 1446 (zwei) für Block 2, 5 und 6. Dann je ein Aufruf mit dem `text` aus `build/stimme-jonas.json`, die Datei nach `build/cache/elevenlabs/` legen, eintragen, `voice.py --anbieter datei`, `node build/bauen.mjs`, neu rendern. Erst dann lässt sich prüfen, ob „Nur sein Gehalt?“ mit Jonas steigt.
+2. **`studio/DESIGN.md` §4:** ein gebackenes Duoton (Pillow, Endfarben #0E1726/#F5F0E8) als zweiten erlaubten Weg aufnehmen, wenn das Foto kornfrei sein soll. Dazu eine Regel: Foto-Credit (Lizenzpflicht) vor „Karte: Natural Earth“, wenn die Credit-Ecke voll ist.
+3. **`factory/werk/bilder.py`:** `credit_zeilen()` liefert „Foto: Urheber, Jahr, Lizenz“ plus Kurzlink. Die Zeile im Bild musste kürzer sein; eine Kurzform „Foto: Urheber, Lizenz, bearb.“ wäre nützlich. Außerdem: Bei 429 auf das Original von selbst die Vorschau versuchen (Commons-Thumbnails sind gecacht).
+4. **`factory/werk/stimme/`:** ein Adapter „connector“, der wie `--anbieter datei` fertige Block-Dateien liest. Dazu die DTW-Ausrichtung als gemeinsames Werkzeug, denn der Connector liefert keine Zeitstempel.
+5. **`snapshot --against` gegen Referenzsequenzen** ist weiter nicht gelaufen (Clips gelöscht).
+
+### Wiederholen (Fassung v2)
+
+```bash
+. /opt/deeptok/env.sh
+cd studio/gold-opportunitaetskosten
+/home/user/Deeptok/.venv/bin/python build/foto.py                 # Fotos, Umriss, credits.json (Cache in build/cache/fotos/)
+/home/user/Deeptok/.venv/bin/python build/voice.py --anbieter datei   # braucht build/cache/elevenlabs/*.mp3 und das Paket onnx
+node build/bauen.mjs
+npx hyperframes check && npx hyperframes snapshot --review
+npx hyperframes render --quality looks --workers 3 -o renders/gold.mp4
+/home/user/Deeptok/.venv/bin/python build/flackern.py renders/gold.mp4
+npx hyperframes play . --port 3115 --no-open &
+node build/messen-bild.mjs 3115 0.1 && node build/seek-test.mjs 3115 renders/gold.mp4
+python ../../factory/fabrik.py hoercheck --audio renders/gold.mp4 --text <sprechtext.txt> --erlaubte-stillen 2 --json
+/home/user/Deeptok/.venv/bin/python build/kontaktbogen.py
+```
 
 ## Abnahme (28.10.2026, nach Runde 2)
 

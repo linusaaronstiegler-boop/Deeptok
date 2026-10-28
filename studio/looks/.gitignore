@@ -1,0 +1,7 @@
+# Renders, Studio-Zwischenstände, Snapshots und Rohdownloads gehören nicht ins Repo.
+renders/
+.hyperframes/
+snapshots/
+werkzeug/cache/
+werkzeug/node_modules/
+__pycache__/
