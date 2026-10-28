@@ -4,7 +4,7 @@
 # Aufruf: . /opt/deeptok/env.sh && bash studio/looks/werkzeug/check-alle.sh [look …]
 set -u
 cd "$(dirname "$0")/.."
-looks=("$@"); [ ${#looks[@]} -eq 0 ] && looks=(atlas-nacht zeitungspapier labor archiv-duoton flach kurstafel)
+looks=("$@"); [ ${#looks[@]} -eq 0 ] && looks=(atlas-nacht zeitungspapier labor archiv-duoton flach)   # Kurstafel verworfen (28.10.)
 tmp="$(mktemp -d)"
 for l in "${looks[@]}"; do
   ( cd "probe-$l" && npx hyperframes check --json --caption-zone "x0=0;y0=.693;x1=1;y1=1;severity=error" \

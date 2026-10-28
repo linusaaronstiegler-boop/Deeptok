@@ -1,4 +1,9 @@
-"""Probe „Kurstafel“ (studio/looks/kurstafel.md): eine Fallblatt-Anzeige wie früher im Börsensaal
+"""VERWORFEN am 28.10.2026 (Blindbewertung: Klarheit 1 und 2 von 5, studio/looks/verworfen/kurstafel.md).
+Liegt nur noch als Beleg hier; proben.py kennt diesen Look nicht mehr. Läuft nur, wenn diese Datei
+wieder in studio/looks/werkzeug/ liegt (sie braucht probe_basis.py) und probe-kurstafel/ wieder in
+studio/looks/.
+
+Probe „Kurstafel“ (studio/looks/verworfen/kurstafel.md): eine Fallblatt-Anzeige wie früher im Börsensaal
 oder am Bahnhof. Das Medium ist die Tafel selbst: Gehäuse, Klappmodule bis an alle Ränder,
 jedes Zeichen ein eigenes Modul, das umklappt.
 

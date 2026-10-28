@@ -141,12 +141,18 @@ class Foto:
 FOTOS = [
     # Zeitungspapier: zwei echte Stücke, je eines pro Seite: ein Clip (Live-Situation im Stadion)
     # und ein Spielfoto (Graustufen; der Rasterdruck kommt im Video als HyperFrames-Behandlung dazu).
-    Foto("zeitungspapier", "fans-2022", "assets/fotos/fans-2022.mp4", (0.0, 0.25, 1.0, 0.72), "clip-grau",
+    # Ausschnitt fast quadratisch (480 × 466): Die senkrechte Bildnachweis-Spalte daneben darf nicht
+    # länger sein als das Bild (Kurzlink ≈ 680 px in 34 px), looks_zeitung.py prüft das beim Bau.
+    # Ungesehen gewählt (der Clip kam noch nicht von Commons): beim ersten Laden ansehen.
+    Foto("zeitungspapier", "fans-2022", "assets/fotos/fans-2022.mp4", (0.0, 0.22, 1.0, 0.77), "clip-grau",
          "6,4 s aus dem Original, Ausschnitt, Graustufen, ohne Ton, H.264; im Video Rasterdruck "
          "Druckschwarz #161514 auf Zeitungspapier #E4DFD1 (HyperFrames „Monochrome Screen Print“)",
          clip=(2.0, 6.4)),
     # Ersatz, falls Commons den Clip gerade nicht hergibt (429): dasselbe Stadion als Foto.
-    Foto("zeitungspapier", "camp-nou", "assets/fotos/camp-nou.jpg", (0.22, 0.19, 0.78, 0.96), "graustufen",
+    # Ausschnitt 0,27–0,69 der Breite (28.10. abends, vorher 0,22–0,78): fast quadratisch, damit das
+    # Bild höher ist als die längste Zeile der senkrechten Bildnachweis-Spalte; die Sitz-Schrift
+    # „Més que un club“ (0,30–0,65) bleibt ganz im Bild.
+    Foto("zeitungspapier", "camp-nou", "assets/fotos/camp-nou.jpg", (0.27, 0.19, 0.69, 0.96), "graustufen",
          "Ausschnitt ohne Dachbanner (Sitz-Schrift, Spielfeld), Graustufen wie mit Rotfilter; im Video "
          "Rasterdruck Druckschwarz #161514 auf Zeitungspapier #E4DFD1", max_kante=1300, gewichte=(0.85, 0.15, 0.0),
          zusatz={"nur_ohne_clip": True}),

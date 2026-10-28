@@ -2,7 +2,8 @@
 
 Das Medium ist die Zeitungsseite: graues Papier bis an alle Ränder, echte Bilder im Rasterdruck,
 ausgerissen und aufgeklebt, Schlagzeilen als Papierstreifen, Zahlen auf schwarzen Balken, ein
-Rotstift. Der Bildnachweis läuft senkrecht an der Kante des Bildes, wie in der Zeitung.
+Rotstift (seit 28.10.2026 die Signalfarbe des Looks, siehe ROT). Der Bildnachweis läuft senkrecht
+an der Kante des Bildes, wie in der Zeitung; keine Spalte ist länger als ihr Bild (Bau prüft).
 Seite 1: ein echter Clip (volles Camp Nou 2022, Live-Situation) läuft im Rasterdruck, Streifen
 „Barcelona“, Balken „45 Mio. €“, Rotstift-Kreis ganz auf Papier.
 Seite 2 (harter Schnitt auf „Bayern“): echtes Spielfoto von Lewandowski (FC Bayern, 2019),
@@ -17,14 +18,25 @@ nicht: Sie ist 988 px lang, das Bild auf Seite 1 ist deutlich kürzer, und die S
 from __future__ import annotations
 
 import json
+import math
 import subprocess
 
-from probe_basis import (DAUER, DATUM, HIER, LIZENZ_ZEILE, LOOKS, Q_ABL, Q_FREI, Q_VERTRAG, ZAHL, bildmass,
-                         clip, credits_aus, credits_ergaenzen, html_attr, kreis, kurz, messen,
-                         pruefe_breiten, riss, schreibe_probe, strich_pfad, t, unterstrich)
+from probe_basis import (DAUER, DATUM, FENSTER, HIER, LIZENZ_ZEILE, LOOKS, Q_ABL, Q_FREI, Q_VERTRAG, ZAHL,
+                         bildmass, clip, credits_aus, credits_ergaenzen, html_attr, kreis, kurz, messen,
+                         pruefe_breiten, pruefe_credit_block, pruefe_lizenzzeile, riss, schreibe_probe,
+                         strich_pfad, t, unterstrich)
 
 LOOK = "zeitungspapier"
 GRUND, PAPIER, TINTE, GRAU, ROT = "#E4DFD1", "#F4F1E8", "#161514", "#5E5A52", "#B8161D"
+# ROT ist der Rotstift des Redakteurs und seit 28.10.2026 die Signalfarbe dieses Looks: Kreis,
+# Unterstreichung und Pfeil zeigen „hier hinsehen“ (die gesuchte Größe). Linus hat in der
+# Blindbewertung genau diese Fassung als Favoriten gewählt. Das ist die einzige Ausnahme von
+# „Rot = Irrtum oder Verlust“ im Haus (studio/looks/README.md). Der Irrtum bekommt hier einen
+# schwarzen Zensurbalken mit Aufdruck „FALSCH“ (in dieser Probe kommt kein Irrtum vor).
+# Sagt Linus „rückgängig“: BLAUSTIFT statt ROT für Kreis und Unterstreichung; Rot ist dann wieder
+# Irrtum oder Verlust, mit Durchstrich.
+BLAUSTIFT = "#1F4FB5"            # dokumentierter Rückfall, in der Probe nicht benutzt
+LUFT_STIFT = 24                  # Stift-Marker: mindestens so viel Luft zu Balken und Bildern
 # Rechter Seitenrand für die Lizenzzeile (eine Zeile, 42 px breit, bis x = 972). Alles andere bleibt
 # links von RAND_X − RAND_LUFT, auch der Rotstift-Kreis; die Luft trennt sie sichtbar vom Bildnachweis.
 RAND_X, RAND_LUFT, LIZENZ_UNTEN = 930, 28, 1316
@@ -76,6 +88,9 @@ def zeitungspapier() -> None:
     else:                                         # Ersatz: dasselbe Stadion als Foto
         zeilen_a = ["Foto: Luis Miguel Bugallo Sánchez,", "2014, CC BY-SA 3.0, bearbeitet,", kurz(ersatz), Q_ABL]
     zeilen_b = ["Foto: Steffen Prößdorf, 2019,", "CC BY-SA 4.0, bearbeitet,", kurz(lew), Q_VERTRAG, Q_FREI]
+    # Die senkrechte Spalte ist der einzige Credit-Block, der bis 5 Zeilen fassen darf (DESIGN.md §2).
+    pruefe_credit_block(LOOK, "Spalte Seite 1", zeilen_a, 5)
+    pruefe_credit_block(LOOK, "Spalte Seite 2", zeilen_b, 5)
     balken_b_text = "0 € Ablöse"
     m = messen(LOOK, {"kopf": ("Barcelona", 'font: 400 124px/1 "ZP Anton"'),
                       "bis": (f"bis {DATUM}", 'font: 400 124px/1 "ZP Anton"'),
@@ -85,10 +100,12 @@ def zeitungspapier() -> None:
                       "null": (balken_b_text, 'font: 400 150px/1 "ZP Anton"'),
                       **{f"c{i}": (z, 'font: 400 34px/42px "ZP Source Serif"') for i, z in enumerate(zeilen_a + zeilen_b)}})
     pruefe_breiten(LOOK, m)
-    # Die Lizenzzeile steht senkrecht: Sie muss nur in die Höhe des Lesefensters passen (168–1330).
+    # Senkrecht gesetzt ist die Breite einer Zeile die Länge der Spalte: die längste Zeile zählt.
+    spalte_a_lang = max(m[f"c{i}"]["breite"] for i in range(len(zeilen_a)))
+    spalte_b_lang = max(m[f"c{i}"]["breite"] for i in range(len(zeilen_a), len(zeilen_a) + len(zeilen_b)))
+    # Die Lizenzzeile steht senkrecht: eine Zeile, sie muss nur in die Höhe des Lesefensters passen (168–1330).
     lizenz_lang = messen(LOOK, {"l": (LIZENZ_ZEILE, 'font: 400 34px/42px "ZP Source Serif"')})["l"]["breite"]
-    if LIZENZ_UNTEN - lizenz_lang < 168:
-        raise SystemExit(f"zeitungspapier: Lizenzzeile {lizenz_lang:.0f} px zu lang für den Seitenrand")
+    pruefe_lizenzzeile(LOOK, lizenz_lang, LIZENZ_UNTEN - FENSTER[1])
     # Rasterdruck (HyperFrames „Monochrome Screen Print“). Zelle 0,16 statt 0,3: Bei 0,3 war das
     # Spielfoto nur noch Punktmuster (Gesicht, Trikot, Ball nicht zu erkennen); 0,16 ist im
     # Handy-Blatt noch als Raster sichtbar und lässt die Person erkennen.
@@ -102,7 +119,15 @@ def zeitungspapier() -> None:
     # Bild so breit, dass Bildnachweis-Spalte und Lizenzzeile rechts daneben Platz haben (höchstens 800).
     v_b = min(800, RAND_X - RAND_LUFT - 22 - 42 * len(zeilen_a) + 20)
     v_h = round(v_b * vh / vb)
-    v_x, v_y = -20, 330
+    # Bau-Prüfung: Die Bildnachweis-Spalte ist nicht länger als das Bild (zeitungspapier.md, „Credits“).
+    # Seit 28.10. ist der Ausschnitt fast quadratisch (fotos.py), vorher war das Bild 525 px hoch
+    # und die Spalte ragte darüber hinaus.
+    if spalte_a_lang > v_h:
+        raise SystemExit(f"zeitungspapier: Bildnachweis-Spalte Seite 1 {spalte_a_lang:.0f} px, Bild nur {v_h} px hoch; "
+                         "in fotos.py einen höheren Ausschnitt wählen")
+    # Bild oben bei y = 300 (der Streifen „Barcelona“ klebt auf seiner Oberkante), damit unter ihm
+    # Platz für Balken und Rotstift-Kreis mit LUFT_STIFT bleibt.
+    v_x, v_y = -20, 300
     spalte_a = v_x + v_b + 22                  # senkrechte Credits: 4 Zeilen à 42 px
     kopf_b, kopf_h = round(m["kopf"]["breite"] + 80), 160
     bal_b, bal_h = round(m["zahl"]["breite"] + 60), 190
@@ -110,7 +135,23 @@ def zeitungspapier() -> None:
     # Der Rotstift-Kreis ragt rechts über den Balken hinaus; er endet vor der Lizenzzeile (10 px Strich).
     ring_dx = max(x for x, _ in kreis(0, 0, bal_b / 2 + 34, bal_h / 2 + 34, 4)) + 5
     bal_x = round(RAND_X - RAND_LUFT - ring_dx - bal_b / 2)
-    ring = strich_pfad("zp-ring", kreis(bal_x + bal_b / 2, bal_y + bal_h / 2 + 2, bal_b / 2 + 34, bal_h / 2 + 34, 4), ROT, 10)
+    ring_pkt = kreis(bal_x + bal_b / 2, bal_y + bal_h / 2 + 2, bal_b / 2 + 34, bal_h / 2 + 34, 4)
+    ring = strich_pfad("zp-ring", ring_pkt, ROT, 10)
+    # Bau-Prüfung: Der Kreis liegt ganz auf Papier, mit LUFT_STIFT Abstand zur Unterkante des Bildes
+    # (das Stück ist um −1,5° um seine Mitte gedreht) und ganz im Lesefenster. 7 px = halber Strich
+    # plus zweite Spur.
+    sw = math.sin(math.radians(-1.5))
+    cw = math.cos(math.radians(-1.5))
+    bx, by = v_x + v_b / 2, v_y + v_h / 2         # Drehpunkt (Mitte des Stücks)
+    for px, py in ring_pkt:
+        lokal_x = (px - bx + (v_h / 2) * sw) / cw   # Stelle auf der Unterkante, die über px liegt
+        if abs(lokal_x) <= v_b / 2:
+            unterkante = by + lokal_x * sw + (v_h / 2) * cw
+            if py - 7 - unterkante < LUFT_STIFT:
+                raise SystemExit(f"zeitungspapier: Rotstift-Kreis {py - 7 - unterkante:.0f} px unter dem Bild "
+                                 f"(mindestens {LUFT_STIFT}); Bild höher setzen oder kleiner wählen")
+    if max(py for _, py in ring_pkt) + 7 > FENSTER[3]:
+        raise SystemExit("zeitungspapier: Rotstift-Kreis ragt unter das Lesefenster")
     # --- Seite 2: Spielfoto links, Streifen oben, Balken unten rechts -------------------------------
     # Seite 2: der Spieler als ausgeschnittene Figur (Collage), 880 px hoch, links.
     lb, lh = bildmass(LOOK, "assets/fotos/lewandowski.png")
@@ -118,6 +159,11 @@ def zeitungspapier() -> None:
     l_b = round(l_h * lb / lh)
     l_x, l_y = 70, 372
     spalte_b = l_x + l_b + 30                   # Credit-Spalte rechts der Figur, endet über dem Balken
+    # Die Spalte beginnt oben an der Figur und ist so lang wie ihre längste Zeile (mindestens 680 px);
+    # nie länger als die Figur, und sie endet mindestens 24 px über dem Balken „0 € Ablöse“.
+    spalte_b_laenge = max(680, math.ceil(spalte_b_lang) + 2)
+    if spalte_b_laenge > l_h:
+        raise SystemExit(f"zeitungspapier: Bildnachweis-Spalte Seite 2 {spalte_b_laenge} px, Figur nur {l_h} px hoch")
     bis_b = round(m["bis"]["breite"] + 80)
     bis_x, bis_y = 64, 196
     gl = bis_y + 18 + 0.82 * 124               # Anton: Grundlinie ≈ 0,82 em unter der Oberkante
@@ -125,7 +171,8 @@ def zeitungspapier() -> None:
     unter = strich_pfad("zp-unter", unterstrich(dat_x0 - 6, gl + 20, dat_x0 + m["datum"]["breite"] + 10, 6), ROT, 10)
     nul_b = round(m["null"]["breite"] + 60)
     nul_x, nul_y = RAND_X - RAND_LUFT - 8 - nul_b, 1112      # 8 px für die Drehung (1,2°)
-    spalte_b_laenge = 680
+    if l_y + spalte_b_laenge + 24 > nul_y:
+        raise SystemExit("zeitungspapier: Bildnachweis-Spalte Seite 2 stößt an den Balken")
     css = f"""    #zp-grund {{ left: 0; top: 0; width: 1080px; height: 1920px; background: {GRUND}; }}
     .zp-stueck {{ position: absolute; filter: drop-shadow(0 10px 16px rgba(22,21,20,.35)); }}
     .zp-riss {{ position: absolute; inset: 0; overflow: hidden; }}
@@ -169,7 +216,7 @@ def zeitungspapier() -> None:
       // Balken: wischt von links, die Zahl steht hart am Ende (Editorial-Balken, DESIGN.md §5).
       tl.fromTo("#zp-bal-a-fl", {{ scaleX: 0, transformOrigin: "0% 50%" }}, {{ scaleX: 1, duration: 0.3, ease: "power3.inOut" }}, {t('zahl')});
       hart("#zp-bal-a-tx", {t('zahl', 0.3)});
-      // Rotstift: ein Kreis um den Balken, ganz auf Papier, 34 px Luft (Signalfarbe dieses Looks).
+      // Rotstift: ein Kreis um den Balken, ganz auf Papier, 34 px Luft (Signalfarbe dieses Looks seit 28.10.).
       zeichne("#zp-marker-a .strich", {t('millionen')}, 0.5);
       // Seite 2 nach hartem Schnitt: Streifen von rechts, Unterstreichung, Balken.
       tl.fromTo("#zp-bis-s-innen", {{ x: 900, rotation: -6 }}, {{ x: 0, rotation: -1.5, duration: 0.55, ease: "expo.out" }}, {t('juni')});

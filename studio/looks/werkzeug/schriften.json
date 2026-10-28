@@ -125,8 +125,13 @@
           "sha256": "8329d791ea5bc0ec67b2a01465a751e37f6699fc14ef45baac618c0b7c0789b3"
         }
       ]
-    },
+    }
+  },
+  "verworfen": {
+    "_hinweis": "Schriften verworfener Looks, nur als Beleg (Paket, Version, Prüfsumme). schriften.py und probe_basis.py lesen nur „looks“. Die woff2-Dateien liegen mit der Probe in studio/looks/verworfen/probe-<look>/assets/fonts/.",
     "kurstafel": {
+      "verworfen_am": "2026-10-28",
+      "grund": "Blindbewertung 28.10.2026: Klarheit 1 und 2 von 5 (studio/looks/verworfen/kurstafel.md). Barlow und Barlow Condensed nutzte nur die Kurstafel.",
       "schriften": [
         {
           "familie": "KT Barlow Condensed",

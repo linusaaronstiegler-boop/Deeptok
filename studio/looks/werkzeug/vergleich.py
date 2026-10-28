@@ -1,6 +1,7 @@
-"""Vergleichstafel der sechs Look-Proben: je Look zwei Bilder aus dem gerenderten MP4, oben Beat 1
+"""Vergleichstafel der fünf Look-Proben: je Look zwei Bilder aus dem gerenderten MP4, oben Beat 1
 (gleicher Inhalt in allen Looks: „Barcelona bietet 45 Mio. €“), unten Beat 2 (Übergang und Takt
 des Looks: „Behält Bayern ihn bis Juni 2023: 0 €“). Ziel < 300 KB.
+Die Kurstafel ist seit 28.10.2026 verworfen (studio/looks/verworfen/) und fehlt hier absichtlich.
 
     /home/user/Deeptok/.venv/bin/python studio/looks/werkzeug/vergleich.py
 """
@@ -15,7 +16,7 @@ LOOKS_DIR = Path(__file__).resolve().parent.parent
 # (Ordner, Name, Zeitpunkt Beat 1, Zeitpunkt Beat 2): Beat 1 steht fertig, Beat 2 ebenfalls.
 LOOKS = [("atlas-nacht", "Atlas Nacht", 3.2, 11.0), ("zeitungspapier", "Zeitungspapier", 3.2, 11.0),
          ("labor", "Labor", 3.2, 11.0), ("archiv-duoton", "Archiv-Duoton", 3.2, 11.0),
-         ("flach", "Flach", 4.6, 11.0), ("kurstafel", "Kurstafel", 3.2, 11.0)]
+         ("flach", "Flach", 4.6, 11.0)]
 B, H, RAND, LEISTE = 300, 533, 12, 44
 
 

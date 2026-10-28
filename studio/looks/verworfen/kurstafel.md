@@ -1,4 +1,8 @@
-# Look 6: Kurstafel
+# Look 6: Kurstafel (verworfen)
+
+**Verworfen am 28.10.2026.** Linus und sein Bruder haben die sechs Look-Proben blind bewertet. Bei der Frage „Wie schnell war klar, worum es geht?“ bekam die Kurstafel 1 und 2 von 5, die übrigen fünf Looks 4 oder 5. Linus: „bis auf den einen, der so schwarz und hellblau war“. Die Kurstafel ist darum kein wählbarer Look mehr: Sie steht nicht in `voices/rotation.json`, nicht im Katalog (`studio/looks/README.md`) und nicht in `proben.py`, `check-alle.sh` und `vergleich.py`. Die Märkte-Karte im Bereich „Heute“ nimmt seitdem Atlas Nacht. Blatt, Probe (`verworfen/probe-kurstafel/`, samt Schriften) und Bauskript (`verworfen/looks_kurstafel.py`) bleiben als Beleg liegen. Zwei Messwerte von hier gelten weiter als Befund: Abdunkeln auf 35 % fiel durch die Kontrastprüfung von `check`, 50 % hielt ≥ 3 : 1 (`studio/DESIGN.md` §6).
+
+Zum Nachbauen: `looks_kurstafel.py` zurück nach `werkzeug/` legen, `probe-kurstafel/` zurück nach `studio/looks/` und den Eintrag `kurstafel` in `werkzeug/schriften.json` aus `verworfen` nach `looks` schieben.
 
 Eine Fallblatt-Anzeige, wie sie früher im Börsensaal und am Bahnhof hing. Das Medium ist die Tafel selbst: dunkles Gehäuse, Klappmodule bis an alle Ränder, jedes Zeichen ein eigenes Modul, das mit zwei Zwischenzeichen umklappt. Werte stehen als Zeilen untereinander, Balken bestehen aus Modulen (1 Feld = ein fester Betrag). Dunkel, neutral, Daten, getaktet.
 
@@ -73,4 +77,4 @@ Foto-Einlage: Ein echtes Foto darf ein Feld der Tafel füllen (wie das Logo-Feld
 
 ## Probe gemessen (28.10.2026, Überarbeitung)
 
-Siehe README, Abschnitt „Messwerte“. Angesehen: Bild 0; 0,6; 1,7; 2,6; 6,6; 7,4; 10,0 s.
+`check` mit Untertitel-Zone: 0 Fehler, 0 Warnungen; Render 14 s (`--workers 3`), MP4 0,28 MB, 12,0 s, 1080 × 1920, 30 fps (21:30–21:45 UTC, vor dem Verwerfen). Angesehen: Bild 0; 0,6; 1,7; 2,6; 6,6; 7,4; 10,0 s.

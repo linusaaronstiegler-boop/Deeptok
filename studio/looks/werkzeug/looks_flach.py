@@ -7,7 +7,8 @@ Preisschild hängt an einer Schnur daran: „45 Mio. €“, darunter ein runder
 Beat 2: „Behalten“, ein Kalenderblatt ploppt auf (30. Juni 2023), dann verwandelt sich der Stapel
 in seinen Umriss (Morph) und das Schild in „0 €“. Takt: lebhaft, alles federt (nur Lage und Größe).
 Lizenz: Das Foto ist eine Bearbeitung (Ausschnitt) eines CC-BY-SA-3.0-Fotos, also steht die ganze
-Probe unter CC BY-SA 4.0. Die Lizenzzeile steht in zwei Zeilen unter dem Credit der Foto-Einlage und
+Probe unter CC BY-SA 4.0. Die Lizenzzeile ist ein eigener Block aus einer Zeile (DESIGN.md §2): Sie
+steht mit LUFT_LIZENZ Abstand unter dem Credit der Foto-Einlage (der hat höchstens 3 Zeilen) und
 geht mit ihm (so lange wie der Foto-Credit). Unten rechts, wo Flach sonst Quellen zeigt, ist danach
 kein Platz: Dort stehen die Quellen der Zahlen, darüber das Stadion.
 """
@@ -15,9 +16,9 @@ from __future__ import annotations
 
 import math
 
-from probe_basis import (CUE, DAUER, LIZENZ_ZEILEN, NBSP, Q_ABL, Q_FREI, Q_VERTRAG, bildmass, clip,
-                         credits_aus, credits_ergaenzen, kurz, messen, pruefe_breiten, schreibe_probe,
-                         strich_pfad, t, unterstrich)
+from probe_basis import (CUE, DAUER, LIZENZ_ZEILE_KURZ, NBSP, Q_ABL, Q_FREI, Q_VERTRAG, bildmass, clip,
+                         credits_aus, credits_ergaenzen, kurz, messen, pruefe_breiten, pruefe_credit_block,
+                         pruefe_lizenzzeile, schreibe_probe, strich_pfad, t, unterstrich)
 
 LOOK = "flach"
 MINZE, WIESE, SCHATTEN, TINTE = "#9EDBC6", "#86D0B8", "#6FC2A8", "#14243A"
@@ -25,6 +26,9 @@ GELB, BLAU, LAGUNE, WEISS, HELL = "#FFC93C", "#2949D6", "#1E8A78", "#FFFFFF", "#
 # Flach zeigt vor dem ersten Wort 1,4 s das echte Foto: Beat 1 beginnt hier später.
 CUE_F = {**CUE, **{k: CUE[k] + 1.4 for k in ("barcelona", "bietet", "zahl", "millionen", "euro")}}
 CX, CY, RX, RY, WAND = 540, 1000, 390, 140, 88          # Stadion von schräg oben
+# Abstand zwischen Foto-Credit und Lizenzzeile: so viel Luft, dass sie als eigener Block lesbar
+# ist (eine Zeile hat 42 px; 28 px mehr trennen sichtbar, auch im Handy-Blatt).
+LUFT_LIZENZ = 28
 
 
 def tf(cue: str, plus: float = 0.0) -> float:
@@ -66,13 +70,15 @@ def buendel(x: float, fuss: float, b: float = 260, geist: bool = False) -> str:
 def flach() -> None:
     fb, fh = bildmass(LOOK, "assets/fotos/camp-nou.jpg")
     foto_h = round(1080 * fh / fb)
-    # Unter dem Foto: 20 px Luft, 3 Zeilen Credit, 12 px Luft, 2 Zeilen Lizenz; alles endet im
+    # Unter dem Foto: 20 px Luft, 3 Zeilen Credit, LUFT_LIZENZ, 1 Zeile Lizenz; alles endet im
     # Lesefenster (≤ 1330). Darum steht das Foto so hoch wie nötig, höchstens bei y = 560.
-    foto_y = min(560, 1324 - foto_h - (20 + 3 * 42 + 12 + 2 * 42))
+    foto_y = min(560, 1324 - foto_h - (20 + 3 * 42 + LUFT_LIZENZ + 42))
+    lizenz_top = foto_y + foto_h + 20 + 3 * 42 + LUFT_LIZENZ
     c = credits_aus(LOOK).get("assets/fotos/camp-nou.jpg")
     if not c:
         raise SystemExit("flach: credits.json fehlt (erst werkzeug/fotos.py)")
     foto_zeilen = ["Foto: Luis Miguel Bugallo Sánchez (Lmbuga),", "2014, CC BY-SA 3.0, Ausschnitt,", kurz(c)]
+    pruefe_credit_block(LOOK, "Foto-Einlage", foto_zeilen)
     texte = {"ort": ("Barcelona", 'font: 800 124px/1 "FL Rubik"'),
              "beh": ("Behalten", 'font: 800 124px/1 "FL Rubik"'),
              # Zahl in 173 px, Einheit in 124 px auf derselben Grundlinie: „45 Mio. €“ ganz in 173 px
@@ -83,8 +89,10 @@ def flach() -> None:
              "eur": (f"{NBSP}€", 'font: 800 124px/1 "FL Rubik"'),
              "monat": ("Juni 2023", 'font: 600 52px/1 "FL Rubik"'),
              "tag": ("30", 'font: 800 150px/1 "FL Rubik"')}
-    texte.update({f"c{i}": (z, 'font: 400 34px/42px "FL Rubik"') for i, z in enumerate(foto_zeilen + [Q_ABL, Q_VERTRAG, Q_FREI] + list(LIZENZ_ZEILEN))})
+    texte.update({f"c{i}": (z, 'font: 400 34px/42px "FL Rubik"') for i, z in enumerate(foto_zeilen + [Q_ABL, Q_VERTRAG, Q_FREI])})
+    texte["lizenz"] = (LIZENZ_ZEILE_KURZ, 'font: 400 34px/42px "FL Rubik"')
     m = messen(LOOK, texte)
+    pruefe_lizenzzeile(LOOK, m["lizenz"]["breite"], 864)        # eine Zeile, linksbündig an x = 108
     m["zahl"] = {"breite": m["z45"]["breite"] + m["mio"]["breite"], "grundlinie": m["z45"]["grundlinie"]}
     m["null"] = {"breite": m["z0"]["breite"] + m["eur"]["breite"], "grundlinie": m["z0"]["grundlinie"]}
     # Preisschild: Loch links (110 px), Zahl in 173 px, 40 px Rand rechts. Muss ins Lesefenster.
@@ -132,7 +140,7 @@ def flach() -> None:
     #fl-foto {{ left: 0; top: {foto_y}px; width: 1080px; height: {foto_h}px; }}
     #fl-foto img {{ width: 100%; height: 100%; display: block; }}
     #fl-foto-credit {{ left: 108px; top: {foto_y + foto_h + 20}px; font: 400 34px/42px "FL Rubik"; color: {TINTE}; white-space: nowrap; }}
-    #fl-foto-lizenz {{ left: 108px; top: {foto_y + foto_h + 20 + 3 * 42 + 12}px; font: 400 34px/42px "FL Rubik"; color: {TINTE}; white-space: nowrap; }}
+    #fl-foto-lizenz {{ left: 108px; top: {lizenz_top}px; font: 400 34px/42px "FL Rubik"; color: {TINTE}; white-space: nowrap; }}
     .fl-titel {{ left: 108px; top: 250px; font: 800 124px/1 "FL Rubik"; color: {TINTE}; white-space: nowrap; }}
     .fl-titel span {{ display: inline-block; }}
     #fl-schild {{ left: {schild_x}px; top: {schild_y}px; width: {schild_b}px; height: {schild_h}px; }}
@@ -152,7 +160,7 @@ def flach() -> None:
     </div>
 {clip('fl-foto', 0, morph_aus + 0.2, 1, f'<img src="assets/fotos/camp-nou.jpg" alt="Camp Nou, echtes Foto: Ränge mit der Schrift Més que un club, Spielfeld" />')}
 {clip('fl-foto-credit', 0, morph_aus + 0.2, 6, '<br />'.join(foto_zeilen), attr='data-layout-ignore')}
-{clip('fl-foto-lizenz', 0, morph_aus + 0.2, 7, '<br />'.join(LIZENZ_ZEILEN), attr='data-layout-ignore')}
+{clip('fl-foto-lizenz', 0, morph_aus + 0.2, 7, LIZENZ_ZEILE_KURZ, attr='data-layout-ignore')}
     <div id="fl-welt" class="clip fl-voll" data-start="{morph_ein}" data-duration="{DAUER - morph_ein:.3f}" data-track-index="2" data-layout-allow-overflow>
       <svg width="1080" height="1920" viewBox="0 0 1080 1920"><g id="fl-stadion">{welt}</g>
         <g id="fl-geld">{stapel}</g><g id="fl-geist" opacity="0">{geist}</g>{schnur}</svg>
@@ -208,8 +216,9 @@ def flach() -> None:
                    "Flach: echtes Foto verwandelt sich in die eigene Zeichnung; Geldbündel, gelbes Preisschild = "
                    "gesucht, runder Pinselstrich als Marker; Beat 2 mit Morph.")
     credits_ergaenzen(LOOK, lizenz_im_bild={
-        "ort": (f"unter dem Credit der Foto-Einlage, linksbündig an x = 108 "
-                f"(y {foto_y + foto_h + 20 + 3 * 42 + 12}–{foto_y + foto_h + 20 + 5 * 42 + 12}), geht mit dem Foto"),
+        "ort": (f"eigene Zeile {LUFT_LIZENZ} px unter dem Credit der Foto-Einlage, linksbündig an x = 108 "
+                f"(y {lizenz_top}–{lizenz_top + 42}), geht mit dem Foto"),
         "schrift": f"Rubik 400, 34/42 px, Tinte {TINTE}",
         "von_s": 0, "bis_s": round(morph_aus + 0.2, 3),
-        "foto_credits_s": [[0, round(morph_aus + 0.2, 3)]]})
+        "foto_credits_s": [[0, round(morph_aus + 0.2, 3)]]},
+        zeile_im_bild=LIZENZ_ZEILE_KURZ)

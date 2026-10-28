@@ -2,14 +2,15 @@
 
 Die Proben selbst stehen je Look in looks_<look>.py; proben.py ruft sie auf.
 
-Die sechs Look-Proben (studio/looks/<look>.md) dauern je 12 s, stumm, 1080 × 1920.
+Die fünf Look-Proben (studio/looks/<look>.md) dauern je 12 s, stumm, 1080 × 1920. Die sechste,
+Kurstafel, ist seit 28.10.2026 verworfen (studio/looks/verworfen/).
 
 Jede Probe hat zwei Beats:
   Beat 1 (0 bis ≈ 5,7 s) zeigt in allen Looks denselben Inhalt, „Barcelona bietet 45 Millionen
           Euro“ (Ort, Zahl, ein Held, ein Marker); daraus kommt die Vergleichstafel.
   Beat 2 (≈ 5,7 bis 12 s) geht weiter, „Behält Bayern ihn bis Juni 2023, gibt es danach 0 €“,
           und zeigt, wie sich der Look anfühlt: sein typischer Übergang (Fahrt, Schnitt auf eine
-          neue Seite, Kamerafahrt auf der Schiene, Stapel, Morph, Klappen), sein Takt und wo er
+          neue Seite, Kamerafahrt auf der Schiene, Stapel, Morph), sein Takt und wo er
           den Helden hinstellt.
 Die Wortzeiten (CUE) gehören zu einer gedachten Stimme und sind für alle Looks gleich; nur Flach
 zeigt vor dem ersten Wort 1,4 s das echte Foto, das sich dann in die Zeichnung verwandelt.
@@ -319,15 +320,35 @@ Q_FREI = "Ablösefrei: EuGH, 15.12.1995"
 # Duoton, Raster, Freisteller), verlangt ShareAlike für diese Bearbeitungen dieselbe Lizenz. Wie
 # beim Gold-Video steht dann die ganze Probe unter CC BY-SA 4.0 (studio/gold-opportunitaetskosten/
 # credits.json, lizenz_video), und eine Lizenzzeile steht im Bild, dort wo der Look seine Credits
-# zeigt. In 34 px ist die Zeile ≈ 990 px lang, breiter als das Lesefenster (864 px): Waagerecht
-# steht sie darum in zwei Zeilen, senkrecht (Zeitungspapier) in einer.
+# zeigt.
+# Regel seit 28.10.2026 (DESIGN.md §2): Die Lizenzzeile ist ein eigener Block aus GENAU EINER Zeile.
+# Sie zählt nicht zur 3-Zeilen-Grenze des Foto-Credits, steht aber mit Luft oder an eigenem Ort
+# davon getrennt. Die lange Fassung ist in 34 px ≈ 990 px breit, breiter als das Lesefenster
+# (864 px): Sie passt nur senkrecht (Zeitungspapier). Waagerecht steht die kurze Fassung wie im
+# Gold-Video; der Link nennt die Lizenz („by-sa/4.0“).
 LIZENZ_VIDEO = "CC BY-SA 4.0"
 LIZENZ_URL = "https://creativecommons.org/licenses/by-sa/4.0"
 LIZENZ_ZEILE = "Video: CC BY-SA 4.0 · creativecommons.org/licenses/by-sa/4.0"
-LIZENZ_ZEILEN = ("Video: CC BY-SA 4.0 ·", "creativecommons.org/licenses/by-sa/4.0")
+LIZENZ_ZEILE_KURZ = "Video: creativecommons.org/licenses/by-sa/4.0"
+FOTO_CREDIT_MAX_ZEILEN = 3          # je Credit-Block (DESIGN.md §2, Regel 4); senkrechte Spalte: 5
+CREDIT_PX = 34                      # Mindestgröße jeder Credit-Zeile
 # Diese Fassungen erlauben für Bearbeitungen CC BY-SA 4.0: 4.0 selbst (Abschnitt 3(b)) und 3.0
 # über „eine spätere Version mit denselben Lizenzelementen“ (Abschnitt 4(b)). Andere erst prüfen.
 LIZENZ_PASST = {"CC BY-SA 4.0": "Abschnitt 3(b)", "CC BY-SA 3.0": "Abschnitt 4(b), spätere Version"}
+
+
+def pruefe_credit_block(look: str, name: str, zeilen: list[str] | tuple[str, ...],
+                        max_zeilen: int = FOTO_CREDIT_MAX_ZEILEN) -> None:
+    """Bau-Prüfung: ein Credit-Block hat höchstens max_zeilen Zeilen (DESIGN.md §2, Regel 4)."""
+    if len(zeilen) > max_zeilen:
+        raise SystemExit(f"{look}: Credit-Block {name} hat {len(zeilen)} Zeilen, erlaubt sind {max_zeilen}")
+
+
+def pruefe_lizenzzeile(look: str, breite: float, platz: float) -> None:
+    """Bau-Prüfung: Die Lizenzzeile bleibt EINE Zeile, also gemessen nicht breiter als ihr Platz."""
+    if breite > platz:
+        raise SystemExit(f"{look}: Lizenzzeile {breite:.0f} px breiter als ihr Platz ({platz:.0f} px); "
+                         "sie würde umbrechen oder abgeschnitten")
 
 
 def by_sa_bearbeitungen(quellen: list[dict]) -> list[dict]:
@@ -335,12 +356,14 @@ def by_sa_bearbeitungen(quellen: list[dict]) -> list[dict]:
     return [q for q in quellen if q.get("lizenz_art") == "cc-by-sa" and q.get("bearbeitung")]
 
 
-def credits_ergaenzen(look: str, extra: list[dict] | None = None, lizenz_im_bild: dict | None = None) -> None:
+def credits_ergaenzen(look: str, extra: list[dict] | None = None, lizenz_im_bild: dict | None = None,
+                      zeile_im_bild: str = LIZENZ_ZEILE) -> None:
     """credits.json neben dem Video: Fotos (schreibt werkzeug/fotos.py), weitere Fremdquellen
     (z. B. Kartendaten), die Fakten hinter den Zahlen im Bild und, falls nötig, lizenz_video.
 
     lizenz_im_bild: wo und wie lange die Lizenzzeile im Bild steht ({"ort", "von_s", "bis_s", …}).
     Pflicht, sobald die Probe eine CC-BY-SA-Bearbeitung zeigt: Ohne Zeile im Bild bricht der Bau ab.
+    zeile_im_bild: der Wortlaut, der wirklich im Bild steht (lang oder LIZENZ_ZEILE_KURZ).
     """
     sys.path.insert(0, str(REPO / "factory"))
     from werk import bilder
@@ -369,7 +392,7 @@ def credits_ergaenzen(look: str, extra: list[dict] | None = None, lizenz_im_bild
         lizenz = {
             "lizenz": LIZENZ_VIDEO,
             "url": LIZENZ_URL,
-            "zeile_im_bild": LIZENZ_ZEILE,
+            "zeile_im_bild": zeile_im_bild,
             "im_bild": lizenz_im_bild,
             "grund": (f"Die Probe enthält Bearbeitungen von CC-BY-SA-Werken: {liste}. ShareAlike verlangt für "
                       f"Bearbeitungen dieselbe Lizenz.{drei} Statt abzuwägen, ob die Probe nur eine Sammlung "
