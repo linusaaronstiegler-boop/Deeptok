@@ -15,6 +15,13 @@ Verwendung in FOTOS (Look, Ziel, Ausschnitt, Behandlung). Das Skript
 
 Der Cache hält auch die Metadaten (cache/<hash>.json). Ein zweiter Lauf fragt Commons dann gar
 nicht mehr; so bleibt die Last auf Wikimedia klein.
+
+Ein Versuch je Abruf: Sagt Commons nein (429, 503, maxlag), fragt dieser Lauf nicht noch einmal,
+sondern lässt das Stück aus und nennt die Wartezeit, wenn der Server eine schickt. Nachholen ist
+Sache eines späteren Laufs, nie eines anderen Endpunkts (z. B. nicht die Vorschau statt des
+Originals).
+
+Ist der Clip da, fliegt das Ersatzfoto (gleiches Stadion als Foto) samt credits.json-Eintrag raus.
 """
 from __future__ import annotations
 
@@ -36,6 +43,40 @@ from werk import bilder  # noqa: E402
 
 CACHE = HIER / "cache"
 
+# Ein Versuch je Abruf (siehe oben): bilder.py wartet sonst bei kurzem Retry-After selbst und
+# fragt bis zu fünfmal. Hier soll ein Nein sofort zum Auslassen führen.
+bilder.MAX_VERSUCHE = 1
+
+# DFL-Auflage des Fotografen Steffen Prößdorf (Benutzerseite User:Stepro/DFL, auf der Dateiseite
+# eingebunden, dazu die Vorlage „Non-copyright restriction“). Die Lizenz ist frei (CC BY-SA 4.0),
+# die Auflage kommt von außerhalb des Urheberrechts. Abgewogen wie im Gold-Video
+# (studio/gold-opportunitaetskosten/credits.json); Punkt 3 hängt davon ab, wie der Look das Foto
+# zeigt, und steht darum je Verwendung in FOTOS (Foto.dfl_nutzung).
+DFL_HINWEIS = {
+    "vorlage": ("User:Stepro/DFL (Benutzerseite des Fotografen, auf der Dateiseite eingebunden) und "
+                "'Template:Non-copyright restriction'. Die Vorlagen im Cache stammen aus einer Abfrage "
+                "nur im Vorlagen-Namensraum und nennen darum nur 'Non-copyright restriction'."),
+    "link": "https://commons.wikimedia.org/wiki/User:Stepro/DFL",
+    "wortlaut_auszug": ("„Die Fotos dürfen aufgrund von Marken- und Persönlichkeitsrechten ausschließlich "
+                        "für redaktionelle Publikationszwecke verwendet werden … Gemäß den Vorgaben der DFL "
+                        "… ist es untersagt, … Fotoaufnahmen in Form von Sequenzbildern und/oder "
+                        "videoähnlichen Fotostrecken zu verwerten.“"),
+    "wortlaut_quelle": ("übernommen aus studio/gold-opportunitaetskosten/credits.json (dort zitiert nach dem "
+                        "Abruf der Kritik am 28.10.2026). Ein eigener Abruf steht aus: Commons antwortete am "
+                        "28.10.2026 mehrfach mit 429."),
+    "abwaegung": "siehe auflagen_abwaegung",
+}
+
+
+def dfl_abwaegung(nutzung: str) -> str:
+    """Die Abwägung aus dem Gold-Video, Punkt 3 für diese Probe (wie das Foto im Look erscheint)."""
+    return ("Entscheidung 28.10.2026 (wie im Gold-Video): (1) Genutzt wird EIN Foto, keine Serie: Es gibt "
+            "keine Sequenzbilder und keine Fotostrecke, die ein Spiel nachstellt. (2) Die Nutzung ist "
+            "redaktionell-erklärend: eine nichtkommerzielle Look-Probe für ein Lernvideo über den "
+            "tatsächlichen Wechsel (Quellen unter 'fakten'), keine Werbung. (3) " + nutzung + " (4) Wird "
+            "DeepTok je kommerziell oder ändert sich die Nutzung, dieses Foto gegen eines ohne DFL-Auflage "
+            "tauschen (Nationalmannschaft, Pressetermin).")
+
 
 @dataclass
 class Quelle:
@@ -46,6 +87,7 @@ class Quelle:
     objekt: str | None = None               # Gegenstand mit eigenem Datum (nie als Fotojahr)
     personen_freigabe: str | None = None    # Pflicht bei Commons „personality“
     inhalt: str = ""                        # was das Bild im Video zeigt (Bilder nur mit Inhalt)
+    dfl: bool = False                       # DFL-Auflage des Fotografen: jede Verwendung braucht dfl_nutzung
 
 
 QUELLEN = {
@@ -66,7 +108,7 @@ QUELLEN = {
         personen_freigabe=("Robert Lewandowski, Person des öffentlichen Lebens, in seiner Rolle als "
                            "Fußballprofi während eines Bundesligaspiels; Abbildung im Lernvideo über "
                            "seinen Wechsel, keine Werbung, keine Privatperson im Mittelpunkt."),
-        inhalt="Person: Lewandowski im Trikot des FC Bayern, um den es beim Behalten geht."),
+        inhalt="Person: Lewandowski im Trikot des FC Bayern, um den es beim Behalten geht.", dfl=True),
     # Gegenstand: Münzstapel (US-Münzen, als Bundeswerk gemeinfrei), auf hellem Grund fotografiert.
     "muenzen": Quelle(
         "File:Stack of coins 0214(cropped).jpg", 1200,
@@ -92,6 +134,7 @@ class Foto:
     gewichte: tuple[float, float, float] | None = None
     clip: tuple[float, float] = (0.0, 4.0)    # Start und Dauer in Sekunden (nur Clips)
     zusatz: dict = field(default_factory=dict)
+    dfl_nutzung: str | None = None           # Punkt 3 der DFL-Abwägung: wie der Look das Foto zeigt
 
 
 
@@ -110,7 +153,11 @@ FOTOS = [
     # Spielfoto als ausgeschnittene Figur (Collage wie bei Simplicissimus): Im Rasterdruck verschwamm
     # der Spieler im roten Rang dahinter; ausgeschnitten bleibt er erkennbar.
     Foto("zeitungspapier", "lewandowski", "assets/fotos/lewandowski.png", (0.08, 0.06, 1.0, 0.92), "freistellen-grau",
-         "Ausschnitt, freigestellt (hyperframes remove-background), Graustufen; im Video Rasterdruck", max_kante=1300),
+         "Ausschnitt, freigestellt (hyperframes remove-background), Graustufen; im Video Rasterdruck", max_kante=1300,
+         dfl_nutzung="Das Foto 'spielt' nicht: Es klebt als EINE ausgeschnittene Figur auf Seite 2 (kommt beim "
+                     "Aufkleben 3 % zu groß und 2° gedreht und sitzt nach 0,2 s) und steht dann still bis zum Ende. "
+                     "Seite 1 zeigt ein anderes Bild von einem anderen Urheber (das Stadion des bietenden Vereins); "
+                     "zusammen ergeben sie keine Fotostrecke."),
     # Labor: der Münzstapel, freigestellt, in echter Farbe.
     Foto("labor", "muenzen", "assets/fotos/muenzen.webp", (0.0, 0.0, 1.0, 1.0), "freistellen",
          "freigestellt (hyperframes remove-background, Modell auf der CPU), WebP mit Alpha", max_kante=1200),
@@ -120,7 +167,10 @@ FOTOS = [
          farben=("#1E1B17", "#F3EFE6")),
     Foto("archiv-duoton", "lewandowski", "assets/fotos/lewandowski.jpg", (0.0, 0.05, 1.0, 0.55), "duoton",
          "Ausschnitt, Duoton Tinte #1E1B17 → Papier #F3EFE6", max_kante=1100,
-         farben=("#1E1B17", "#F3EFE6")),
+         farben=("#1E1B17", "#F3EFE6"),
+         dfl_nutzung="Das Foto 'spielt' nicht: Es liegt als EIN Abzug auf der Akte, gleitet einmal auf den "
+                     "Stapel (0,45 s) und liegt dann still bis zum Ende. Der Abzug darunter zeigt einen anderen "
+                     "Ort aus einer anderen Zeit (Barcelona um 1900); zusammen ergeben sie keine Fotostrecke."),
     # Flach: das echte Stadion in Farbe; es verwandelt sich im Video in die Illustration (Morph).
     Foto("flach", "camp-nou", "assets/fotos/camp-nou.jpg", (0.10, 0.19, 0.90, 0.96), "farbe",
          "Ausschnitt ohne Dachbanner, sonst unverändert (Farbe)", max_kante=1400),
@@ -190,16 +240,35 @@ def freistellen_rand(quelle: Path, max_kante: int) -> Image.Image:
     return rgba
 
 
+CLIP_MAX_BYTES = 1_000_000      # keine Datei über 1 MB ins Repo
+
+
 def clip_grau(quelle: Path, foto: Foto, ziel: Path) -> None:
     """Clip kürzen, ausschneiden, Graustufen, ohne Ton, H.264 mit Schlüsselbild alle 6 Bilder
-    (HyperFrames springt beim Rendern an beliebige Stellen; kurze Abstände machen das genau)."""
+    (HyperFrames springt beim Rendern an beliebige Stellen; kurze Abstände machen das genau).
+
+    Wird die Datei größer als CLIP_MAX_BYTES, rechnet ffmpeg sie mit gröberer Quantisierung (CRF + 3)
+    noch einmal, lokal und ohne neuen Abruf bei Commons."""
     l, o, r, u = foto.ausschnitt
     start, dauer = foto.clip
     filter_ = (f"crop=iw*{r - l:.3f}:ih*{u - o:.3f}:iw*{l:.3f}:ih*{o:.3f},"
                "format=gray,format=yuv420p,fps=30,scale=trunc(iw/2)*2:trunc(ih/2)*2")
-    subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", f"{start}", "-t", f"{dauer}", "-i", str(quelle),
-                    "-vf", filter_, "-an", "-c:v", "libx264", "-preset", "slow", "-crf", "24",
-                    "-g", "6", "-movflags", "+faststart", str(ziel)], check=True)
+    for crf in (24, 27, 30, 33):
+        subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", f"{start}", "-t", f"{dauer}", "-i", str(quelle),
+                        "-vf", filter_, "-an", "-c:v", "libx264", "-preset", "slow", "-crf", str(crf),
+                        "-g", "6", "-movflags", "+faststart", str(ziel)], check=True)
+        if ziel.stat().st_size <= CLIP_MAX_BYTES:
+            return
+    raise SystemExit(f"{ziel.name}: auch mit CRF 33 größer als {CLIP_MAX_BYTES} Bytes; Ausschnitt oder Dauer kürzen")
+
+
+def credits_entfernen(pfad: Path, datei: str) -> None:
+    """Einen Eintrag aus credits.json streichen (eine Datei, die die Probe nicht mehr zeigt)."""
+    if not pfad.exists():
+        return
+    inhalt = json.loads(pfad.read_text(encoding="utf-8"))
+    inhalt["quellen"] = [q for q in inhalt.get("quellen", []) if q.get("datei") != datei]
+    pfad.write_text(json.dumps(inhalt, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
 def main(nur: list[str]) -> int:
@@ -209,8 +278,15 @@ def main(nur: list[str]) -> int:
             continue
         q = QUELLEN[foto.quelle]
         probe = LOOKS / f"probe-{foto.look}"
+        if q.dfl and not foto.dfl_nutzung:
+            raise SystemExit(f"{foto.look}: {foto.datei} hat eine DFL-Auflage; dfl_nutzung fehlt (Abwägung)")
         if foto.zusatz.get("nur_ohne_clip") and (probe / "assets/fotos/fans-2022.mp4").exists():
-            continue                                  # der Clip ist da, das Ersatzfoto wird nicht gebraucht
+            # Der Clip ist da: Das Ersatzfoto wird nicht gebraucht. Datei und Credit gehen, damit
+            # credits.json nur nennt, was im Video zu sehen ist.
+            (probe / foto.datei).unlink(missing_ok=True)
+            credits_entfernen(probe / "credits.json", foto.datei)
+            print(f"{foto.look}: {foto.datei} entfernt (Clip ist da)")
+            continue
         ziel = probe / foto.datei
         ziel.parent.mkdir(parents=True, exist_ok=True)
         try:
@@ -262,7 +338,10 @@ def main(nur: list[str]) -> int:
                 raise SystemExit(f"Unbekannte Behandlung {foto.behandlung}")
         eintrag = bilder.credits_eintrag(
             treffer, foto.datei, bearbeitung=foto.beschreibung, jahr=q.jahr, jahr_quelle=q.jahr_quelle,
-            objekt=q.objekt, personen_freigabe=q.personen_freigabe, lizenz_vorlagen=vorlagen)
+            objekt=q.objekt, personen_freigabe=q.personen_freigabe, lizenz_vorlagen=vorlagen,
+            auflagen_abwaegung=dfl_abwaegung(foto.dfl_nutzung) if q.dfl else None)
+        if q.dfl:
+            eintrag["dfl_hinweis_fotograf"] = DFL_HINWEIS
         eintrag["inhalt"] = q.inhalt
         bilder.schreibe_credits(probe / "credits.json", eintrag, video=f"probe-{foto.look}")
         print(f"{foto.look}: {ziel.relative_to(REPO)} ({ziel.stat().st_size // 1024} KB)")

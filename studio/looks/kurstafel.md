@@ -55,7 +55,7 @@ Getaktet: **Klappen** (jede Hälfte 0,05 s, zwei Zwischenzeichen, 0,11 s je Klap
 
 ## Marker
 
-Mechanisch: Klappe kippt auf Cyan (gesucht) oder Rot mit „−“ (Verlust); **Abdunkeln** der übrigen Zeilen auf 50 % (0,3 s; 35 % wie in DESIGN.md §6 fällt durch die Kontrastprüfung von `check`). Nichts Handgezeichnetes.
+Mechanisch: Klappe kippt auf Cyan (gesucht) oder Rot mit „−“ (Verlust); **Abdunkeln** der übrigen Zeilen auf 50 % (0,3 s; 35 % fiel durch die Kontrastprüfung von `check`; Regel: Abgedunkeltes hält ≥ 3 : 1, DESIGN.md §6). Nichts Handgezeichnetes.
 
 ## Credits
 

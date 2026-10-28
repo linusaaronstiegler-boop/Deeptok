@@ -315,9 +315,33 @@ Q_VERTRAG = "Vertrag: t-online, 14.05.2022"
 Q_FREI = "Ablösefrei: EuGH, 15.12.1995"
 
 
-def credits_ergaenzen(look: str, extra: list[dict] | None = None) -> None:
+# Lizenz des ganzen Videos. Enthält eine Probe Bearbeitungen von CC-BY-SA-Werken (Ausschnitt,
+# Duoton, Raster, Freisteller), verlangt ShareAlike für diese Bearbeitungen dieselbe Lizenz. Wie
+# beim Gold-Video steht dann die ganze Probe unter CC BY-SA 4.0 (studio/gold-opportunitaetskosten/
+# credits.json, lizenz_video), und eine Lizenzzeile steht im Bild, dort wo der Look seine Credits
+# zeigt. In 34 px ist die Zeile ≈ 990 px lang, breiter als das Lesefenster (864 px): Waagerecht
+# steht sie darum in zwei Zeilen, senkrecht (Zeitungspapier) in einer.
+LIZENZ_VIDEO = "CC BY-SA 4.0"
+LIZENZ_URL = "https://creativecommons.org/licenses/by-sa/4.0"
+LIZENZ_ZEILE = "Video: CC BY-SA 4.0 · creativecommons.org/licenses/by-sa/4.0"
+LIZENZ_ZEILEN = ("Video: CC BY-SA 4.0 ·", "creativecommons.org/licenses/by-sa/4.0")
+# Diese Fassungen erlauben für Bearbeitungen CC BY-SA 4.0: 4.0 selbst (Abschnitt 3(b)) und 3.0
+# über „eine spätere Version mit denselben Lizenzelementen“ (Abschnitt 4(b)). Andere erst prüfen.
+LIZENZ_PASST = {"CC BY-SA 4.0": "Abschnitt 3(b)", "CC BY-SA 3.0": "Abschnitt 4(b), spätere Version"}
+
+
+def by_sa_bearbeitungen(quellen: list[dict]) -> list[dict]:
+    """Die Quellen, deren Bearbeitung unter ShareAlike fällt (CC BY-SA und bearbeitet)."""
+    return [q for q in quellen if q.get("lizenz_art") == "cc-by-sa" and q.get("bearbeitung")]
+
+
+def credits_ergaenzen(look: str, extra: list[dict] | None = None, lizenz_im_bild: dict | None = None) -> None:
     """credits.json neben dem Video: Fotos (schreibt werkzeug/fotos.py), weitere Fremdquellen
-    (z. B. Kartendaten) und die Fakten hinter den Zahlen im Bild."""
+    (z. B. Kartendaten), die Fakten hinter den Zahlen im Bild und, falls nötig, lizenz_video.
+
+    lizenz_im_bild: wo und wie lange die Lizenzzeile im Bild steht ({"ort", "von_s", "bis_s", …}).
+    Pflicht, sobald die Probe eine CC-BY-SA-Bearbeitung zeigt: Ohne Zeile im Bild bricht der Bau ab.
+    """
     sys.path.insert(0, str(REPO / "factory"))
     from werk import bilder
     pfad = LOOKS / f"probe-{look}" / "credits.json"
@@ -329,7 +353,32 @@ def credits_ergaenzen(look: str, extra: list[dict] | None = None) -> None:
                                     "video": f"probe-{look}", "quellen": []}, ensure_ascii=False, indent=2) + "\n",
                         encoding="utf-8")
     inhalt = json.loads(pfad.read_text(encoding="utf-8"))
+    inhalt.pop("lizenz_video", None)
     inhalt["fakten"] = list(FAKTEN.values())
+    bearbeitet = by_sa_bearbeitungen(inhalt.get("quellen", []))
+    if bearbeitet:
+        if not lizenz_im_bild:
+            raise SystemExit(f"{look}: zeigt Bearbeitungen von CC BY-SA "
+                             f"({', '.join(q['datei'] for q in bearbeitet)}), aber keine Lizenzzeile im Bild")
+        fremd = [q["lizenz"] for q in bearbeitet if q.get("lizenz") not in LIZENZ_PASST]
+        if fremd:
+            raise SystemExit(f"{look}: Lizenz {fremd} erst prüfen: erlaubt sie Bearbeitungen unter {LIZENZ_VIDEO}?")
+        liste = ", ".join(f"{q['datei']} ({q['lizenz']}, {LIZENZ_PASST[q['lizenz']]})" for q in bearbeitet)
+        drei = (" CC BY-SA 3.0 erlaubt dafür auch eine spätere Version mit denselben Lizenzelementen."
+                if any(q["lizenz"] == "CC BY-SA 3.0" for q in bearbeitet) else "")
+        lizenz = {
+            "lizenz": LIZENZ_VIDEO,
+            "url": LIZENZ_URL,
+            "zeile_im_bild": LIZENZ_ZEILE,
+            "im_bild": lizenz_im_bild,
+            "grund": (f"Die Probe enthält Bearbeitungen von CC-BY-SA-Werken: {liste}. ShareAlike verlangt für "
+                      f"Bearbeitungen dieselbe Lizenz.{drei} Statt abzuwägen, ob die Probe nur eine Sammlung "
+                      f"ist, steht die ganze Probe unter {LIZENZ_VIDEO}, wie das Gold-Video "
+                      f"(Entscheidung 28.10.2026)."),
+        }
+        # Reihenfolge wie im Gold-Video: Hinweis, Video, Lizenz, Quellen, Fakten.
+        inhalt = {"_hinweis": inhalt.get("_hinweis"), "video": inhalt.get("video"), "lizenz_video": lizenz,
+                  **{k: v for k, v in inhalt.items() if k not in ("_hinweis", "video")}}
     pfad.write_text(json.dumps(inhalt, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 

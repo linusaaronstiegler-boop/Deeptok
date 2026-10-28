@@ -269,6 +269,28 @@ def test_langes_retry_after_bricht_ab_statt_frueher_zu_fragen(uhr, netz):
     assert not [s for s in uhr["schlaf"] if s > bilder.PAUSE_S]
 
 
+@pytest.mark.parametrize("retry_after, warte", [("600", 600.0), ("60", 60.0), (None, None)])
+def test_ein_versuch_nennt_status_und_wartezeit(uhr, netz, monkeypatch, retry_after, warte):
+    # fotos.py fragt nur einmal (MAX_VERSUCHE = 1). Auch dann muss die Wartezeit aus Retry-After
+    # in der Abbruchmeldung stehen, sonst fragt der nächste Lauf zu früh.
+    monkeypatch.setattr(bilder, "MAX_VERSUCHE", 1)
+    n = netz(http_fehler(429, retry_after=retry_after), SUCHE)
+    with pytest.raises(bilder.CommonsBesetzt) as fehler:
+        bilder.suche("Camp Nou")
+    assert fehler.value.warte_s == warte
+    assert "429" in str(fehler.value)
+    assert len(n.anfragen) == 1                        # kein zweiter Versuch
+    assert not [s for s in uhr["schlaf"] if s > bilder.PAUSE_S]
+
+
+def test_letzte_absage_gibt_ihre_wartezeit_weiter(uhr, netz):
+    n = netz(*[http_fehler(503, retry_after="30")] * bilder.MAX_VERSUCHE)
+    with pytest.raises(bilder.CommonsBesetzt) as fehler:
+        bilder.suche("Camp Nou")
+    assert fehler.value.warte_s == 30.0 and "503" in str(fehler.value)
+    assert len(n.anfragen) == bilder.MAX_VERSUCHE
+
+
 def test_503_wird_wie_429_behandelt(uhr, netz):
     netz(http_fehler(503, retry_after="2"), SUCHE)
     assert bilder.suche("x")
@@ -475,7 +497,7 @@ def test_kommandozeile_lade_schreibt_credits_mit_auflagen(uhr, netz, tmp_path, c
                   meta(LicenseShortName="CC BY-SA 4.0", License="cc-by-sa-4.0", Artist="Steffen Prößdorf",
                        DateTimeOriginal="2019-03-09", Restrictions="personality"),
                   size=len(daten), sha1=hashlib.sha1(daten).hexdigest())
-    n = netz({"query": {"pages": [datei]}}, daten, VORLAGEN_DFL)     # Datei-Info, Datei, Vorlagen
+    n = netz({"query": {"pages": [datei]}}, VORLAGEN_DFL, daten)     # Datei-Info, Vorlagen, Datei
     credits = tmp_path / "credits.json"
     with pytest.warns(bilder.BildHinweis) as hinweise:
         code = bilder._main(["lade", "File:Lewandowski StP.jpg", f"{tmp_path}/fotos/", "--credits",
@@ -489,6 +511,21 @@ def test_kommandozeile_lade_schreibt_credits_mit_auflagen(uhr, netz, tmp_path, c
     assert eintrag["personen_freigabe"] == "Fußballprofi in seiner Rolle"
     ausgabe = json.loads(capsys.readouterr().out)
     assert ausgabe["datei"].endswith("fotos/lewandowski-stp.jpg")
+
+
+def test_kommandozeile_lade_ohne_vorlagen_legt_keine_datei_ab(uhr, netz, tmp_path, capsys):
+    # Sagt Commons bei den Vorlagen nein, darf kein Foto ohne Credit in assets/ liegen.
+    daten = b"\xff\xd8 jpeg"
+    datei = seite(34595480, "File:Camp Nou.jpg", 1,
+                  meta(LicenseShortName="CC BY-SA 3.0", License="cc-by-sa-3.0", Artist="Lmbuga"),
+                  size=len(daten), sha1=hashlib.sha1(daten).hexdigest())
+    n = netz({"query": {"pages": [datei]}}, http_fehler(429, retry_after="600"), daten)
+    credits = tmp_path / "credits.json"
+    code = bilder._main(["lade", "File:Camp Nou.jpg", f"{tmp_path}/fotos/", "--credits", str(credits)])
+    assert code != 0 and len(n.anfragen) == 2                        # Datei nie angefragt
+    assert not (tmp_path / "fotos").exists() or not any((tmp_path / "fotos").iterdir())
+    assert not credits.exists()
+    assert "600 s" in capsys.readouterr().err
 
 
 # --- Namensnennung ----------------------------------------------------------------------------

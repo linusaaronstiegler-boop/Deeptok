@@ -12,12 +12,12 @@
     .ad-abzug img { display: block; }
     .ad-herkunft { height: 152px; padding-top: 16px; font: 400 34px/42px "AD Franklin"; color: #1E1B17; white-space: nowrap; }
     #ad-a1 { left: 150px; top: 158px; width: 764px; transform: rotate(-2.2deg); }
-    #ad-a1 img { width: 720px; height: 529px; }
+    #ad-a1 img { width: 720px; height: 446px; object-fit: cover; object-position: 50% 50%; }
     #ad-a2 { left: 150px; top: 158px; width: 764px; }
     #ad-a2-innen { transform: rotate(-1.2deg); }
-    #ad-a2 img { width: 720px; height: 529px; object-fit: cover; }
+    #ad-a2 img { width: 720px; height: 446px; object-fit: cover; object-position: 50% 20%; }
     .ad-klammer { position: absolute; }
-    .ad-karte { left: 108px; top: 860px; width: 864px; height: 450px; }
+    .ad-karte { left: 108px; top: 790px; width: 864px; height: 534px; }
     .ad-karte-papier { position: absolute; inset: 0; background: #F3EFE6;
       background-image: repeating-linear-gradient(to bottom, transparent 0 54px, #A9BCCB 54px 56px);
       background-position: 0 92px; filter: drop-shadow(0 6px 9px rgba(30,27,23,.35)); }
@@ -30,7 +30,7 @@
       -webkit-mask-image: url(assets/stempel-maske.png); mask-image: url(assets/stempel-maske.png);
       -webkit-mask-size: 100% 100%; mask-size: 100% 100%; }
     .ad-einheit { font-size: 124px; }
-    .ad-marker { position: absolute; left: 0; top: 0; width: 864px; height: 450px; overflow: visible; }
+    .ad-marker { position: absolute; left: 0; top: 0; width: 864px; height: 534px; overflow: visible; }
   </style>
   <div id="root" data-composition-id="beat" data-width="1080" data-height="1920">
     <!-- Welt: Graupappe bis an alle Ränder; darauf liegen Abzüge und Karteikarten wie in einer Akte. -->
@@ -44,7 +44,8 @@
       <div class="ad-gross" style="top: 26px"><span class="ad-z1">B</span><span class="ad-z1">a</span><span class="ad-z1">r</span><span class="ad-z1">c</span><span class="ad-z1">e</span><span class="ad-z1">l</span><span class="ad-z1">o</span><span class="ad-z1">n</span><span class="ad-z1">a</span></div>
       <div id="ad-s1" class="ad-stempel" style="left: 34px; top: 160px; transform: rotate(-4deg)">45<span class="ad-einheit"> Mio. €</span></div>
       <div id="ad-q1" class="ad-quelle" style="top: 396px">Ablöse: FC Barcelona, 19.07.2022</div>
-      <svg class="ad-marker" viewBox="0 0 864 450"><path id="ad-rand-a" class="strich" d="M13.1 168.0 Q15.3 203.3 14.7 221.0 Q14.0 238.7 12.9 256.3 Q11.8 274.0 11.9 291.7 Q12.0 309.3 13.4 327.0 Q14.8 344.7 13.9 362.3 L13.0 380.0" fill="none" stroke="#5B2C94" stroke-opacity="1.0" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" data-laenge="214.3" /><path id="ad-rand-a-2" class="strich" d="M28.6 168.0 Q27.9 203.3 27.6 221.0 Q27.2 238.7 28.9 256.3 Q30.5 274.0 30.2 291.7 Q29.8 309.3 27.7 327.0 Q25.5 344.7 26.9 362.3 L28.4 380.0" fill="none" stroke="#5B2C94" stroke-opacity="1.0" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" data-laenge="214.6" /></svg>
+      <div id="ad-l1" class="ad-quelle" style="top: 438px">Video: CC BY-SA 4.0 ·<br />creativecommons.org/licenses/by-sa/4.0</div>
+      <svg class="ad-marker" viewBox="0 0 864 534"><path id="ad-rand-a" class="strich" d="M13.1 168.0 Q15.3 203.3 14.7 221.0 Q14.0 238.7 12.9 256.3 Q11.8 274.0 11.9 291.7 Q12.0 309.3 13.4 327.0 Q14.8 344.7 13.9 362.3 L13.0 380.0" fill="none" stroke="#5B2C94" stroke-opacity="1.0" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" data-laenge="214.3" /><path id="ad-rand-a-2" class="strich" d="M28.6 168.0 Q27.9 203.3 27.6 221.0 Q27.2 238.7 28.9 256.3 Q30.5 274.0 30.2 291.7 Q29.8 309.3 27.7 327.0 Q25.5 344.7 26.9 362.3 L28.4 380.0" fill="none" stroke="#5B2C94" stroke-opacity="1.0" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" data-laenge="214.6" /></svg>
     </div>
     <div id="ad-a2" class="clip ad-abzug" data-start="6.283" data-duration="5.717" data-track-index="3" data-layout-allow-overflow data-layout-allow-overlap data-layout-allow-occlusion>
       <div id="ad-a2-innen">
@@ -57,9 +58,10 @@
         <div class="ad-karte-papier"></div>
         <div class="ad-klein" style="top: 22px">Vertrag bis</div>
         <div class="ad-gross" style="top: 88px"><span class="ad-z2">3</span><span class="ad-z2">0</span><span class="ad-z2">.</span><span class="ad-z2">0</span><span class="ad-z2">6</span><span class="ad-z2">.</span><span class="ad-z2">2</span><span class="ad-z2">0</span><span class="ad-z2">2</span><span class="ad-z2">3</span></div>
-        <div id="ad-s2" class="ad-stempel" style="left: 500px; top: 226px; transform: rotate(5deg)">0<span class="ad-einheit"> €</span></div>
+        <div id="ad-s2" class="ad-stempel" style="left: 510px; top: 226px; transform: rotate(5deg)">0<span class="ad-einheit"> €</span></div>
         <div class="ad-quelle" style="top: 354px">Vertrag: t-online, 14.05.2022<br />Ablösefrei: EuGH, 15.12.1995</div>
-        <svg class="ad-marker" viewBox="0 0 864 450"><path id="ad-rand-b" class="strich" d="M837.5 226.0 Q836.7 260.0 836.0 277.0 Q835.4 294.0 836.9 311.0 Q838.5 328.0 838.4 345.0 Q838.4 362.0 837.7 379.0 Q837.0 396.0 835.7 413.0 L834.4 430.0" fill="none" stroke="#5B2C94" stroke-opacity="1.0" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" data-laenge="206.3" /><path id="ad-rand-b-2" class="strich" d="M850.4 226.0 Q851.6 260.0 850.1 277.0 Q848.6 294.0 849.0 311.0 Q849.4 328.0 849.3 345.0 Q849.2 362.0 849.5 379.0 Q849.9 396.0 849.3 413.0 L848.6 430.0" fill="none" stroke="#5B2C94" stroke-opacity="1.0" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" data-laenge="206.2" /></svg>
+        <div id="ad-l2" class="ad-quelle" style="top: 438px">Video: CC BY-SA 4.0 ·<br />creativecommons.org/licenses/by-sa/4.0</div>
+        <svg class="ad-marker" viewBox="0 0 864 534"><path id="ad-rand-b" class="strich" d="M837.5 226.0 Q836.7 260.0 836.0 277.0 Q835.4 294.0 836.9 311.0 Q838.5 328.0 838.4 345.0 Q838.4 362.0 837.7 379.0 Q837.0 396.0 835.7 413.0 L834.4 430.0" fill="none" stroke="#5B2C94" stroke-opacity="1.0" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" data-laenge="206.3" /><path id="ad-rand-b-2" class="strich" d="M850.4 226.0 Q851.6 260.0 850.1 277.0 Q848.6 294.0 849.0 311.0 Q849.4 328.0 849.3 345.0 Q849.2 362.0 849.5 379.0 Q849.9 396.0 849.3 413.0 L848.6 430.0" fill="none" stroke="#5B2C94" stroke-opacity="1.0" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" data-laenge="206.2" /></svg>
       </div>
     </div>
     <div id="ad-klammern" class="clip" data-start="0" data-duration="12.0" data-track-index="5" style="left:0;top:0;width:1080px;height:1920px" data-layout-ignore><svg class="ad-klammer" style="left:205px;top:142px;transform:rotate(-8deg)" width="80" height="160" viewBox="0 0 80 160"><path d="M18 150 L18 30 Q18 6 40 6 Q62 6 62 30 L62 130 Q62 146 48 146 Q34 146 34 130 L34 40" fill="none" stroke="#8E9396" stroke-width="7" stroke-linecap="round" /><path d="M18 150 L18 30 Q18 6 40 6 Q62 6 62 30 L62 130 Q62 146 48 146 Q34 146 34 130 L34 40" fill="none" stroke="#D6D9DB" stroke-width="2" stroke-linecap="round" transform="translate(-1.5 -1.5)" /></svg></div>

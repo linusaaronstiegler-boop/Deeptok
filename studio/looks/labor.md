@@ -66,7 +66,7 @@ Linksbündig an x = 108 unter der Fußlinie, IBM Plex Sans 400 34 px in Grau, h�
 
 ## Fotos
 
-Echte Gegenstände in echter Farbe (der einzige Look mit Farbfotos neben der Foto-Einlage in Flach). Bevorzugt Sammlungs- und Produktfotos auf glattem Grund (CC0, gemeinfrei). Kurze echte Clips von Experimenten (Hände ohne Gesicht) passen hierher, stumm, höchstens 4 s.
+Echte Gegenstände in echter Farbe (der einzige Look mit Farbfotos neben der Foto-Einlage in Flach und dem einen Echtfoto-Moment in Atlas Nacht). Bevorzugt Sammlungs- und Produktfotos auf glattem Grund (CC0, gemeinfrei). Kurze echte Clips von Experimenten (Hände ohne Gesicht) passen hierher, stumm, höchstens 4 s.
 
 ## Drei Verbote
 

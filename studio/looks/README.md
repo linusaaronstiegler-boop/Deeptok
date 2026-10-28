@@ -39,9 +39,9 @@ Stand 28.10.2026, Überarbeitung nach der Kritik vom selben Abend. Linus' Wünsc
 - **Kurstafel** war ein dunkles Dashboard mit einem Balken auf leerem Grund. Jetzt: Fallblatt-Anzeige bis an alle Ränder, gegebener und gesuchter Wert, alle Zeichen ≥ 48 px.
 - **Flach**: Geld ist jetzt als Geld erkennbar (Bündel mit €-Zeichen und Banderole), das Gelb ist ein Preisschild statt eines Pillen-Kastens, die Zahl hat 173 px.
 - **Gleiches Gerüst überall**: Jede Probe hat jetzt einen zweiten Beat mit eigenem Übergang (Fahrt, Schnitt, Schiene, Stapel, Morph, Klappen) und stellt den Helden anders (Karte bis zum Rand, Collage links mit Credit-Spalte, Gegenstand in der Mitte, Abzug oben und Karte unten, Illustration mit Schild an der Schnur, Tafelzeilen).
-- **Live-Situationen**: ein echtes Spielfoto (Lewandowski im Spiel für den FC Bayern, 2019) in Zeitungspapier und Archiv. Der echte Clip (volles Camp Nou 2022, CC BY-SA 4.0) ist ausgewählt und im Code eingebaut, aber noch nicht geladen und darum im Render ungeprüft: upload.wikimedia.org antwortete am 28.10. dreimal mit 429 und `Retry-After: 600`. Bis dahin zeigt Seite 1 dasselbe Stadion als Foto; `werkzeug/fotos.py` holt den Clip beim nächsten Lauf, `proben.py` baut ihn dann von selbst ein.
+- **Live-Situationen**: ein echtes Spielfoto (Lewandowski im Spiel für den FC Bayern, 2019) in Zeitungspapier und Archiv. Der echte Clip (volles Camp Nou 2022, CC BY-SA 4.0) ist ausgewählt und im Code eingebaut, aber noch nicht geladen und darum im Render ungeprüft: upload.wikimedia.org antwortete am 28.10. dreimal mit 429 und `Retry-After: 600`, ein vierter Versuch um 22:32 UTC wurde ebenfalls abgelehnt. Bis dahin zeigt Seite 1 dasselbe Stadion als Foto; `werkzeug/fotos.py` holt den Clip beim nächsten Lauf, `proben.py` baut ihn dann von selbst ein.
 
-**Identitäten und Looks.** Editorial, Diagramm und Atlas aus DESIGN.md §7 sind Szenen-Grammatiken: wie ein Diagramm sich aufbaut, wie eine Karte zoomt. Ein Look gibt ihnen Material, Farbe und Takt. Ein Diagramm im Look Zeitungspapier ist eine Druckschwarz-Linie mit Rotstift-Marker; auf der Kurstafel ist es eine Reihe von Klappmodulen.
+**Identitäten und Looks.** Editorial, Diagramm und Atlas aus DESIGN.md §7 sind Szenen-Grammatiken: wie ein Diagramm sich aufbaut, wie eine Karte zoomt. Ein Look gibt ihnen Material, Farbe und Takt. Ein Diagramm im Look Zeitungspapier ist eine Druckschwarz-Linie mit Blaustift-Marker (Rotstift nur mit Linus' Ja); auf der Kurstafel ist es eine Reihe von Klappmodulen.
 
 ## Hausregeln für alle Looks (Kurzfassung)
 
@@ -53,7 +53,7 @@ Maßgeblich ist `studio/DESIGN.md`. Diese Regeln wechseln mit dem Look **nicht**
 4. **Ein Held je Szene, der kein Text ist;** ≥ 50 % der Bilder sind Bild statt Text. Bilder nur, wenn sie Inhalt tragen.
 5. **Keine Musik,** keine Geräusche unter der Stimme, keine Whoosh-Übergänge, keine Wisch- oder Kreuzblenden.
 6. **Farbe ist Bedeutung:** je Look genau eine Farbe für die gesuchte Größe und eine für Irrtum oder Verlust (Tabelle unten). Der Irrtum hat immer ein zweites Merkmal (Durchstrich, ✗, „−“, Zensurbalken).
-7. **Kontrast nach WCAG:** Text ≥ 4,5 : 1 (fett ab 48 px ≥ 3 : 1), Marker und Formen ≥ 3 : 1. `check` meldet 0 Kontrastfehler; auch Abgedunkeltes bleibt ≥ 3 : 1 (DESIGN.md §6; Kurstafel: 50 % statt 35 %). Fotos treten über eine dunkle, deckende Fassung zurück, nie über Deckkraft (DESIGN.md §4).
+7. **Kontrast nach WCAG:** Text ≥ 4,5 : 1 (fett ab 48 px ≥ 3 : 1), Marker und Formen ≥ 3 : 1. `check` meldet 0 Kontrastfehler; auch Abgedunkeltes bleibt ≥ 3 : 1 (DESIGN.md §6; Wert je Look gemessen, Kurstafel 50 %). Fotos treten über eine dunkle, deckende Fassung zurück, nie über Deckkraft (DESIGN.md §4).
 8. **Echte Bilder nur mit freier Lizenz** und mit Credit im Bild und in `credits.json` (Abschnitt unten; die eine Credit-Regel steht in DESIGN.md §2).
 9. **Seek-sicher:** nur `fromTo`, Zufall nur mit festem Startwert, alle Zeiten aus Cues.
 10. **Schriften nur lokal** (woff2, OFL), je Look eigene `@font-face`-Namen; Liste in `werkzeug/schriften.json`.
@@ -109,9 +109,9 @@ Maßgeblich ist `studio/DESIGN.md`. Diese Regeln wechseln mit dem Look **nicht**
 1. Solange ein fremdes Foto oder ein Clip zu sehen ist, steht seine Zeile „Foto: Urheber, Jahr, Lizenz“ samt Bearbeitung („bearb.“, „freigestellt“) im Bild. Diese Zeile weicht nie; bricht sie um, zählt sie als zwei Zeilen.
 2. Der Kurzlink `commons.wikimedia.org/?curid=<id>` steht darunter, wo Platz ist. Er weicht Etiketten der Welt und Quellenzeilen und steht mindestens einmal im Video, spätestens im Abspann.
 3. Höchstens 3 Zeilen je Credit-Block; nur die senkrechte Spalte im Zeitungspapier fasst bis 5.
-4. Ort je Look: Atlas in der Credit-Ecke rechts, Zeitungspapier senkrecht an der Bildkante, Labor unter der Fußlinie, Archiv auf dem Rand des Abzugs, Flach unter der Foto-Einlage, Kurstafel als Aufdruck. Überall ≥ 34 px und im Lesefenster.
+4. Ort je Look: Atlas in der Credit-Ecke rechts, Zeitungspapier senkrecht an der Bildkante, Labor unter der Fußlinie, Archiv auf dem Rand des Abzugs, Flach unter der Foto-Einlage, Kurstafel als Aufdruck. Die Lizenzzeile in den Proben: Zeitungspapier senkrecht am rechten Seitenrand über beide Seiten, Archiv als Rechte-Feld (letzte zwei Zeilen jeder Karteikarte), Flach unter dem Credit der Foto-Einlage. Überall ≥ 34 px und im Lesefenster.
 
-Daneben `credits.json` mit Urheber, Lizenz, Lizenz-Link, Lizenz-Vorlagen, Seite, Original, Abrufdatum, Bearbeitung, Inhalt und Credit-Zeile (`bilder.credits_eintrag`). **Eine Bearbeitung von CC BY-SA (Duoton, Raster, Ausschnitt) steht wieder unter CC BY-SA**; `credits.json` vermerkt das in `lizenz_bearbeitung`. Ein Video mit einer solchen Bearbeitung bekommt `lizenz_video` in `credits.json` und eine Abspann-Zeile mit seiner Lizenz, wie das Gold-Video.
+Daneben `credits.json` mit Urheber, Lizenz, Lizenz-Link, Lizenz-Vorlagen, Seite, Original, Abrufdatum, Bearbeitung, Inhalt und Credit-Zeile (`bilder.credits_eintrag`). **Eine Bearbeitung von CC BY-SA (Duoton, Raster, Ausschnitt) steht wieder unter CC BY-SA**; `credits.json` vermerkt das in `lizenz_bearbeitung`. Ein Video mit einer solchen Bearbeitung bekommt `lizenz_video` in `credits.json` und nennt seine Lizenz samt Link: als Abspann-Zeile wie das Gold-Video oder als Lizenzzeile im Bild am Credit-Ort des Looks, mindestens so lange, wie die Bearbeitung zu sehen ist (`lizenz_video.im_bild`; so die Proben Zeitungspapier, Archiv und Flach).
 
 **Jahr im Credit.** Ein genaues Datum wird zum Jahr („2014“), ein Zeitraum bleibt Zeitraum („1940–1949“), ein nacktes Jahr oder „um 1890“ wird „ca. 1890“. Ein geprüftes Jahr schlägt die Schätzung (`jahr="ca. 1890–1906"`, Quelle in `datum_foto_quelle`: Library of Congress, LCCN 2017660387). Zeigt ein Foto einen Gegenstand mit eigenem Datum, wird es getrennt geführt (`objekt="Ball 1940er"` → „Foto: Musée national du sport (Ball 1940er), gemeinfrei“; `datum_objekt` statt `datum_foto`).
 
@@ -182,31 +182,33 @@ cd studio/looks/probe-<look> && npx hyperframes snapshot --review && npx hyperfr
 /home/user/Deeptok/.venv/bin/python -m pytest factory/tests/test_bilder.py -q   # Echtbild-Baustein, ohne Netz
 ```
 
-Die Proben entstehen aus `werkzeug/probe_basis.py` (Wortzeiten, Marker, Messen, Projektrahmen) und je Look `werkzeug/looks_<look>.py`; Änderungen dort machen, nicht in `probe-*/compositions/beat.html`.
+Die Proben entstehen aus `werkzeug/probe_basis.py` (Wortzeiten, Marker, Messen, Projektrahmen) und je Look `werkzeug/looks_*.py` (Kurznamen: Atlas Nacht `looks_atlas.py`, Zeitungspapier `looks_zeitung.py`, Archiv-Duoton `looks_archiv.py`, Labor `looks_labor.py`, Flach `looks_flach.py`, Kurstafel `looks_kurstafel.py`); Änderungen dort machen, nicht in `probe-*/compositions/beat.html`.
 
 ## Messwerte der Proben (28.10.2026, Überarbeitung)
 
-Alle sechs: 12,0 s, H.264, 1080 × 1920, 30 fps. `check` mit Untertitel-Zone als Fehler (`werkzeug/check-alle.sh`):
+Alle sechs: 12,0 s, H.264, 1080 × 1920, 30 fps. Zeitungspapier, Archiv und Flach neu gebaut und gerendert am 28.10. gegen 22:45 UTC (Lizenzzeile im Bild), die übrigen drei stammen von 21:30–21:45 UTC. `check` mit Untertitel-Zone als Fehler (`werkzeug/check-alle.sh`):
 
 | Probe | `check` (Fehler / Warnungen) | Render (`--quality looks --workers 3`) | MP4 |
 |---|---|---|---|
 | atlas-nacht | 0 / 0 | 13 s | 1,14 MB |
-| zeitungspapier (Seite 1 mit Ersatzfoto) | 0 / 5 (nur Konsolenmeldung „GPU stall“ der WebGL-Rasterbehandlung, harmlos) | 30–40 s | 0,94 MB |
+| zeitungspapier (Seite 1 mit Ersatzfoto, Lizenzzeile) | 0 / 5 (nur Konsolenmeldung „GPU stall“ der WebGL-Rasterbehandlung, harmlos) | 28 s | 0,91 MB |
 | labor | 0 / 0 | 16 s | 0,99 MB |
-| archiv-duoton | 0 / 0 | 25 s | 1,61 MB |
-| flach | 0 / 0 | 25 s | 1,38 MB |
+| archiv-duoton (Rechte-Feld) | 0 / 0 | 12 s | 1,57 MB |
+| flach (Lizenzzeile) | 0 / 0 | 9 s | 1,39 MB |
 | kurstafel | 0 / 0 | 14 s | 0,28 MB |
 
 Bewusst gesetzt und begründet: `data-hold` auf dem Grund von Labor und Archiv, auf der Zahl in Atlas und Zeitungspapier und auf einer Quelle in Flach und Kurstafel (die Proben sind stumm, die Ruhe ist der Takt des Looks); `data-layout-ignore` auf Credits, die kürzer stehen, als die Lesezeit-Prüfung für Lesetext verlangt (Foto-Einlage in Flach, senkrechte Spalten im Zeitungspapier); `data-layout-allow-overlap/-occlusion` auf den Klappen der Kurstafel (die Zustände eines Moduls liegen absichtlich übereinander) und auf Abzug und Karte, die im Archiv auf die alten gelegt werden.
 
-Angesehen: je 4–8 Bilder pro Probe (Zeiten in den Look-Blättern), Ausschnitte in voller Größe, `snapshot --review` mit Handy-Blatt (Kurstafel), Bilder aus allen sechs MP4s, Vergleichstafel. Tests: `factory/tests/test_bilder.py` 58 passed (Repo-.venv), 55 passed und 3 übersprungen ohne Pillow (`/opt/deeptok/venv`); `factory/tests -m "not langsam"` 352 passed. Nicht geprüft: Ton (die Proben sind stumm), iPhone, Bewertung durch die Brüder.
+Angesehen: je 4–8 Bilder pro Probe (Zeiten in den Look-Blättern), Ausschnitte in voller Größe, `snapshot --review` mit Handy-Blatt (Kurstafel), Bilder aus allen sechs MP4s, Vergleichstafel. Tests: `factory/tests/test_bilder.py` 77 passed (Repo-.venv und `/opt/deeptok/venv`, beide mit Pillow); `factory/tests -m "not langsam"` 371 passed. Nicht geprüft: Ton (die Proben sind stumm), iPhone, Bewertung durch die Brüder.
 
 ## Offen
 
 - **Rot im Zeitungspapier:** Rotstift als Signal braucht Linus' Ja; bis dahin gilt der Blaustift.
-- **Fabrik-Module:** Die Szenen-Bibliothek kennt bisher nur den Atlas-Stil. Jeder Look braucht seine Module (Held, Zahl, Marker, Credit, Übergang) mit Zod-Schema; die Proben (`looks_<look>.py`) sind die Vorlage, noch keine Bibliothek. Aufgabe in Phase 2 (`docs/VIDEO-PIPELINE.md` §9).
-- **Rechte vor einer Veröffentlichung:** Die Proben Zeitungspapier, Archiv und Flach zeigen Bearbeitungen von CC-BY-SA-Fotos, haben aber noch kein `lizenz_video` und keinen Abspann. Die DFL-Auflage des Prößdorf-Fotos steht in den `credits.json` von Zeitungspapier und Archiv nur unter `lizenz_vorlagen`, ohne Abwägung. Beides wie im Gold-Video nachziehen. Den DFL-Wortlaut (`User:Stepro/DFL`) selbst nachlesen, sobald Commons wieder antwortet.
-- **Clip für Zeitungspapier:** `File:FCB-RMA 2022 Women UCL football match (WR assistance 31 March).mpg` (8,2 MB, CC BY-SA 4.0) ist ausgewählt, Metadaten und Lizenz-Vorlagen liegen im Cache; die Datei selbst kam nicht (upload.wikimedia.org: 429, `Retry-After: 600`, um 21:18, 21:30, 21:54). Später: `python studio/looks/werkzeug/fotos.py zeitungspapier`, dann `proben.py zeitungspapier`, check, render, `vergleich.py`. Ob die Rasterbehandlung auf `<video>` im Render läuft, ist dann zu prüfen (laut HyperFrames-Doku: ja, `targetTags: img, video`).
+- **Fabrik-Module:** Die Szenen-Bibliothek kennt bisher nur den Atlas-Stil. Jeder Look braucht seine Module (Held, Zahl, Marker, Credit, Übergang) mit Zod-Schema; die Proben (`werkzeug/looks_*.py`) sind die Vorlage, noch keine Bibliothek. Aufgabe in Phase 2 (`docs/VIDEO-PIPELINE.md` §9).
+- **Rechte vor einer Veröffentlichung:** Erledigt: Zeitungspapier, Archiv und Flach haben `lizenz_video` und eine Lizenzzeile im Bild (Ort je Look, siehe Credits Regel 4); das Prößdorf-Foto trägt in Zeitungspapier und Archiv `auflagen` und `auflagen_abwaegung`. Offen: ein echtes Video im Look braucht die Lizenz im Abspann oder im Bild (DESIGN.md §2, Regel 6), und den DFL-Wortlaut (`User:Stepro/DFL`) selbst nachlesen, sobald Commons wieder antwortet.
+- **Clip für Zeitungspapier:** `File:FCB-RMA 2022 Women UCL football match (WR assistance 31 March).mpg` (8,2 MB, CC BY-SA 4.0) ist ausgewählt, Metadaten und Lizenz-Vorlagen liegen im Cache; die Datei selbst kam nicht (upload.wikimedia.org: 429, `Retry-After: 600`, um 21:18, 21:30, 21:54 UTC; ein weiterer Versuch um 22:32 UTC wurde wieder abgelehnt, die Wartezeit gab `bilder.py` damals beim letzten Versuch noch nicht weiter, jetzt schon). Später: `python studio/looks/werkzeug/fotos.py zeitungspapier`, dann `proben.py zeitungspapier`, check, render, `vergleich.py`. Ob die Rasterbehandlung auf `<video>` im Render läuft, ist dann zu prüfen (laut HyperFrames-Doku: ja, `targetTags: img, video`).
+- **Credit-Blöcke der Proben zu lang:** Mit der Lizenzzeile stehen in Archiv (Karte 2: Quelle 2 Zeilen + Lizenz 2 Zeilen am Stück) und Flach (Foto-Credit 3 Zeilen + Lizenz 2 Zeilen, 12 px Lücke) mehr als 3 Zeilen untereinander (DESIGN.md §2, Regel 4). Vorschlag: die Lizenz einzeilig wie im Gold-Video („Video: creativecommons.org/licenses/by-sa/4.0“, Breite messen); in Flach zusätzlich einen eigenen Ort suchen oder festlegen, dass die Lizenzzeile ein eigener Block ist. Danach `proben.py`, check, render, `vergleich.py`.
+- **Zeitungspapier, Seite 1:** Die senkrechte Bildnachweis-Spalte ist länger als das Bild (Kurzlink-Zeile ca. 675 px, Bild 525 px hoch, seit das Bild für die Lizenzzeile 732 statt 800 px breit ist). Das Blatt verlangt „Spalte nicht länger als das Bild“. Vorschlag: höherer Ausschnitt (Bildhöhe ≥ längste Zeile) und eine Bau-Prüfung Spaltenlänge ≤ Bildhöhe.
 - **Commons-Last:** Mehrere Sitzungen teilen sich eine IP; 429 kommt oft. Ein gemeinsamer Bild-Cache im Asset-Repo würde Abrufe sparen.
 - **Stimmen:** Modell entschieden: `eleven_v4`, damit lief das Casting (`voices/elevenlabs.json`, `voices/rotation.json`). Freigabe für unter 18 offen (Mail). Linus klärt, ob die Bruder-Regel auch fürs Bewerten von ElevenLabs-Stimmen gilt (im Casting hat er sie schon gehört); die stummen Look-Proben berührt sie nicht. Klangbeschreibungen von Thomas, Konrad, Hans und Victoria sind unbekannt; `rotation.json` behauptet dazu nichts.
 - **Bewertung:** Linus und der Bruder sollen die Vergleichstafel und die zwölf Sekunden je Look ansehen und je Look sagen: behalten, ändern, streichen. Ungeprüft: iPhone/Safari, die Looks mit Stimme.

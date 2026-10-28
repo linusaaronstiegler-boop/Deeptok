@@ -1,18 +1,19 @@
-"""Stimm-Adapter ElevenLabs (Eleven v4 Turbo), geprüft gegen die offizielle Doku am 27.10.2026.
+"""Stimm-Adapter ElevenLabs (Eleven v4, Modell eleven_v4), geprüft gegen die offizielle Doku am 27.10.2026.
 
 Endpoint:  POST https://api.elevenlabs.io/v1/text-to-speech/{voice_id}/with-timestamps
            ?output_format=mp3_44100_128
 Body:      {"text", "model_id", "language_code", "voice_settings", "previous_text", "next_text", "seed"}
 Antwort:   JSON {"audio_base64", "alignment": {"characters", "character_start_times_seconds",
            "character_end_times_seconds"}} -> Zeichen-Zeitstempel, hier zu Wörtern gebündelt.
-Modelle:   "eleven_v4" (höchste Qualität, 10.000 Zeichen je Anfrage) und "eleven_v4_turbo"
-           (geringe Latenz; die Doku nennt für Turbo kein Zeichenlimit). Beide können Deutsch.
+Modelle:   "eleven_v4" (höchste Qualität, 10.000 Zeichen je Anfrage), gepinnt in
+           voices/elevenlabs.json: Damit lief das Casting (28.10.2026). "eleven_v4_turbo" (geringe
+           Latenz) wird nicht genutzt.
 Markup:    v4 kennt KEIN SSML (also kein <break>). Laut Doku: Großbuchstaben verstärken die
            Betonung, Auslassungspunkte "…" machen Pausen. Lautschrift (IPA) steht zwischen zwei
            Schrägstrichen; deshalb kommt kein "/" roh beim Anbieter an: Pausen werden zu "…",
            Einheiten wie km/h ausgeschrieben (basis.ohne_schraegstrich).
 Tempo:     voice_settings.speed 0.7 bis 1.2 (Standard 1.0). Die Doku nennt dafür keine
-           Modell-Ausnahme (best-practices/prompting/controls, gelesen am 27.10.2026). Ob v4 Turbo
+           Modell-Ausnahme (best-practices/prompting/controls, gelesen am 27.10.2026). Ob eleven_v4
            den Wert wirklich umsetzt, ist ungetestet: beim ersten echten Aufruf nachhören.
 Kosten:    GET /v1/user/subscription liefert character_count und character_limit.
 

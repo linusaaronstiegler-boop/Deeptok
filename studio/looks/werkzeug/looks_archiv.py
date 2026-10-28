@@ -9,10 +9,14 @@ Stempel „45 Mio. €“, Randstrich.
 Beat 2 (Stapel): ein neuer Abzug legt sich darüber (Lewandowski 2019, echtes Spielfoto), eine neue
 Karte gleitet auf die alte, „30.06.2023“ wird getippt, Stempel „0 €“, Randstrich.
 Takt: ruhig, schwer; Tippen 22 Zeichen/s, Stempel 0,28 s, Abzüge 0,45 s.
+Lizenz: Der Lewandowski-Abzug ist eine Bearbeitung eines CC-BY-SA-Fotos, also steht die ganze Probe
+unter CC BY-SA 4.0. Die Lizenzzeile steht als Rechte-Feld in den letzten zwei Zeilen jeder
+Karteikarte (wie auf einer Archivkarte) und ist so 0–12 s zu sehen. Auf dem Rand des Abzugs stünde
+sie wie die Lizenz des einzelnen Fotos (beim gemeinfreien Arc de Triomf falsch).
 """
 from __future__ import annotations
 
-from probe_basis import (DAUER, DATUM, LOOKS, Q_ABL, Q_FREI, Q_VERTRAG, bildmass, clip,
+from probe_basis import (DAUER, DATUM, LIZENZ_ZEILEN, LOOKS, Q_ABL, Q_FREI, Q_VERTRAG, bildmass, clip,
                          credits_aus, credits_ergaenzen, kurz, messen, pruefe_breiten,
                          schreibe_probe, strich_pfad, t, zufall)
 
@@ -98,6 +102,7 @@ def archiv_duoton() -> None:
         "mio": ("\u00a0Mio.\u00a0€", 'font: 800 124px/1 "AD Franklin"'),
         "eur": ("\u00a0€", 'font: 800 124px/1 "AD Franklin"'),
         **{f"c{i}": (z, 'font: 400 34px/42px "AD Franklin"') for i, z in enumerate(arc_zeilen + lew_zeilen + [Q_ABL, Q_VERTRAG, Q_FREI])},
+        **{f"lizenz{i}": (z, 'font: 400 34px/42px "AD Franklin"') for i, z in enumerate(LIZENZ_ZEILEN)},
     })
     m["zahl"] = {"breite": m["z45"]["breite"] + m["mio"]["breite"]}
     m["null"] = {"breite": m["z0"]["breite"] + m["eur"]["breite"]}
@@ -106,28 +111,38 @@ def archiv_duoton() -> None:
     pruefe_breiten(LOOK, {k: m[k] for k in ("c0", "c1", "c2", "c3", "c4", "c5")}, 700)
     if m["zahl"]["breite"] + 2 * 34 > 864 - 40:
         raise SystemExit("archiv-duoton: Stempel zu breit für die Karte")
-    # Abzüge: Foto mit 22 px Papierrand und 110 px Rand unten für die getippte Herkunft.
+    # Karteikarte: 450 px Inhalt plus 2 Zeilen Rechte-Feld (Lizenz), unten bündig 6 px über dem
+    # Lesefenster-Ende (1330). Darüber bleibt der Platz für den Abzug.
+    karte_h = 450 + 2 * 42
+    karte_y = 1324 - karte_h
+    # Abzüge: Foto mit 22 px Papierrand und 152 px Rand unten für die getippte Herkunft. Das Bildfeld
+    # ist 720 px breit (breiter als jede Herkunftszeile, die ≤ 700 px sind) und so hoch, dass der Abzug
+    # 12 px über der Karte endet; das Foto füllt es mit object-fit: cover (oben und unten beschnitten).
     ab, ah = bildmass(LOOK, "assets/fotos/arc.jpg")
     a1_b = 720
-    a1_h = round(a1_b * ah / ab)
-    lb, lh = bildmass(LOOK, "assets/fotos/lewandowski.jpg")
+    a1_h = min(round(a1_b * ah / ab), karte_y - 12 - (158 + 22 + 152))
     # Abzug 2 bekommt dasselbe Bildfeld wie Abzug 1 (object-fit: cover) und landet genau darauf:
     # Der untere Abzug ist dann ganz verdeckt und endet beim Landen (keine halb sichtbaren Credits).
     a2_b, a2_h = a1_b, a1_h
-    karte_y, karte_h = 860, 450
     stempel_b = round(m["zahl"]["breite"] + 2 * 34)
     null_b = round(m["null"]["breite"] + 2 * 34)
+    # Stempel „0 €“ rechts auf Karte 2: endet 26 px vor dem Randstrich (x 836), damit die Quellenzeilen
+    # links daneben (bis ≈ 483 px) Luft zum Stempelrahmen haben (vorher stieß „15.12.1995“ an).
+    s2_x = 810 - null_b
+    if s2_x - 12 < 30 + max(m["c7"]["breite"], m["c8"]["breite"]):
+        raise SystemExit("archiv-duoton: Stempel „0 €“ stößt an die Quellenzeilen")
     rand_a = randstrich("ad-rand-a", 14, 168, 380, 3)
+    rechte = "<br />".join(LIZENZ_ZEILEN)       # Rechte-Feld der Karte: Lizenz der ganzen Probe
     rand_b = randstrich("ad-rand-b", 836, 226, 430, 7)
     css = f"""    #ad-grund {{ left: 0; top: 0; width: 1080px; height: 1920px; background: {PAPPE} url(assets/pappe.jpg) 0 0 / 1080px 1920px; }}
     .ad-abzug {{ background: {PAPIER}; padding: 22px 22px 0 22px; filter: drop-shadow(0 10px 14px rgba(30,27,23,.38)); }}
     .ad-abzug img {{ display: block; }}
     .ad-herkunft {{ height: 152px; padding-top: 16px; font: 400 34px/42px "AD Franklin"; color: {TINTE}; white-space: nowrap; }}
     #ad-a1 {{ left: 150px; top: 158px; width: {a1_b + 44}px; transform: rotate(-2.2deg); }}
-    #ad-a1 img {{ width: {a1_b}px; height: {a1_h}px; }}
+    #ad-a1 img {{ width: {a1_b}px; height: {a1_h}px; object-fit: cover; object-position: 50% 50%; }}
     #ad-a2 {{ left: 150px; top: 158px; width: {a2_b + 44}px; }}
     #ad-a2-innen {{ transform: rotate(-1.2deg); }}
-    #ad-a2 img {{ width: {a2_b}px; height: {a2_h}px; object-fit: cover; }}
+    #ad-a2 img {{ width: {a2_b}px; height: {a2_h}px; object-fit: cover; object-position: 50% 20%; }}
     .ad-klammer {{ position: absolute; }}
     .ad-karte {{ left: 108px; top: {karte_y}px; width: 864px; height: {karte_h}px; }}
     .ad-karte-papier {{ position: absolute; inset: 0; background: {PAPIER};
@@ -153,7 +168,8 @@ def archiv_duoton() -> None:
       <div class="ad-karte-papier"></div>
       <div class="ad-gross" style="top: 26px">{tippen("Barcelona", "ad-z1")}</div>
       <div id="ad-s1" class="ad-stempel" style="left: 34px; top: 160px; transform: rotate(-4deg)">45<span class="ad-einheit">\u00a0Mio.\u00a0€</span></div>
-      <div id="ad-q1" class="ad-quelle" style="top: {karte_h - 54}px">{Q_ABL}</div>
+      <div id="ad-q1" class="ad-quelle" style="top: {karte_h - 138}px">{Q_ABL}</div>
+      <div id="ad-l1" class="ad-quelle" style="top: {karte_h - 96}px">{rechte}</div>
       <svg class="ad-marker" viewBox="0 0 864 {karte_h}">{rand_a}</svg>
     </div>
     <div id="ad-a2" class="clip ad-abzug" data-start="{t('bayern')}" data-duration="{DAUER - t('bayern'):.3f}" data-track-index="3" data-layout-allow-overflow data-layout-allow-overlap data-layout-allow-occlusion>
@@ -167,8 +183,9 @@ def archiv_duoton() -> None:
         <div class="ad-karte-papier"></div>
         <div class="ad-klein" style="top: 22px">Vertrag bis</div>
         <div class="ad-gross" style="top: 88px">{tippen(DATUM, "ad-z2")}</div>
-        <div id="ad-s2" class="ad-stempel" style="left: {800 - null_b}px; top: 226px; transform: rotate(5deg)">0<span class="ad-einheit">\u00a0€</span></div>
-        <div class="ad-quelle" style="top: {karte_h - 96}px">{Q_VERTRAG}<br />{Q_FREI}</div>
+        <div id="ad-s2" class="ad-stempel" style="left: {s2_x}px; top: 226px; transform: rotate(5deg)">0<span class="ad-einheit">\u00a0€</span></div>
+        <div class="ad-quelle" style="top: {karte_h - 180}px">{Q_VERTRAG}<br />{Q_FREI}</div>
+        <div id="ad-l2" class="ad-quelle" style="top: {karte_h - 96}px">{rechte}</div>
         <svg class="ad-marker" viewBox="0 0 864 {karte_h}">{rand_b}</svg>
       </div>
     </div>
@@ -193,4 +210,10 @@ def archiv_duoton() -> None:
     schreibe_probe(LOOK, "Archiv-Duoton", PAPPE, css, html_, js,
                    "Archiv: Akte auf Graupappe, Abzüge Tinte → Papier, getippte Karteikarten, Stempel Violett = gesucht, "
                    "Kopierstift-Randstrich als Marker; Beat 2 als Stapel.")
-    credits_ergaenzen(LOOK)          # Pappe, Klammer und Stempelmaske sind eigene Grafik (kein Credit)
+    # Pappe, Klammer und Stempelmaske sind eigene Grafik (kein Credit).
+    credits_ergaenzen(LOOK, lizenz_im_bild={
+        "ort": (f"Rechte-Feld: die letzten zwei Zeilen jeder Karteikarte (x 138, y {karte_y + karte_h - 96}–"
+                f"{karte_y + karte_h - 12}); Karte 1 bis zum Stapel, dann Karte 2"),
+        "schrift": f"Libre Franklin 400, 34/42 px, Tinte {TINTE} auf Papier {PAPIER}",
+        "von_s": 0, "bis_s": DAUER,
+        "foto_credits_s": [[0, t("bayern", 0.45)], [t("bayern"), DAUER]]})

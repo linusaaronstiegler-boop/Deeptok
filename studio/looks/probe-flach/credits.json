@@ -1,6 +1,24 @@
 {
   "_hinweis": "Fremdquellen dieses Videos mit Urheber, Lizenz, Link und Datum. Erzeugt von factory/werk/bilder.py.",
   "video": "probe-flach",
+  "lizenz_video": {
+    "lizenz": "CC BY-SA 4.0",
+    "url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "zeile_im_bild": "Video: CC BY-SA 4.0 · creativecommons.org/licenses/by-sa/4.0",
+    "im_bild": {
+      "ort": "unter dem Credit der Foto-Einlage, linksbündig an x = 108 (y 1240–1324), geht mit dem Foto",
+      "schrift": "Rubik 400, 34/42 px, Tinte #14243A",
+      "von_s": 0,
+      "bis_s": 2.033,
+      "foto_credits_s": [
+        [
+          0,
+          2.033
+        ]
+      ]
+    },
+    "grund": "Die Probe enthält Bearbeitungen von CC-BY-SA-Werken: assets/fotos/camp-nou.jpg (CC BY-SA 3.0, Abschnitt 4(b), spätere Version). ShareAlike verlangt für Bearbeitungen dieselbe Lizenz. CC BY-SA 3.0 erlaubt dafür auch eine spätere Version mit denselben Lizenzelementen. Statt abzuwägen, ob die Probe nur eine Sammlung ist, steht die ganze Probe unter CC BY-SA 4.0, wie das Gold-Video (Entscheidung 28.10.2026)."
+  },
   "quellen": [
     {
       "datei": "assets/fotos/camp-nou.jpg",
@@ -53,6 +71,8 @@
         "Top icon",
         "Top icon hover i18n"
       ],
+      "auflagen": [],
+      "auflagen_abwaegung": null,
       "bearbeitung": "Ausschnitt ohne Dachbanner, sonst unverändert (Farbe)",
       "lizenz_bearbeitung": "CC BY-SA 3.0 (ShareAlike: die Bearbeitung steht unter derselben Lizenz)",
       "credit_zeile": "Foto: Luis Miguel Bugallo Sánchez (Lmbuga), 2014, CC BY-SA 3.0, commons.wikimedia.org/?curid=34595480, bearbeitet",

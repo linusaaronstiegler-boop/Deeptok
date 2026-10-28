@@ -271,11 +271,14 @@ def _abruf(url: str, params: dict[str, str] | None = None, *, zeitlimit: float =
     Bei 429/503 wartet die Funktion mindestens so lange, wie Retry-After sagt, und verdoppelt
     die eigene Wartezeit nach jedem weiteren Nein (5, 10, 20 … höchstens 120 s). Verlangt der
     Server mehr als BACKOFF_MAX_S, kommt sofort CommonsBesetzt mit warte_s (nie früher fragen).
-    Nach MAX_VERSUCHE Absagen kommt CommonsBesetzt. Andere HTTP-Fehler brechen sofort ab.
+    Nach MAX_VERSUCHE Absagen kommt CommonsBesetzt mit Statuscode und, falls der Server eine
+    schickt, der Wartezeit aus der letzten Absage. Andere HTTP-Fehler brechen sofort ab.
     """
     if params:
         url = f"{url}?{urllib.parse.urlencode(params)}"
     backoff = BACKOFF_START_S
+    letzter_status: int | None = None     # Statuscode der letzten Absage (429 oder 503)
+    letzte_warte: float | None = None     # Retry-After der letzten Absage in Sekunden
     for versuch in range(1, MAX_VERSUCHE + 1):
         _warte_auf_slot()
         anfrage = urllib.request.Request(url, headers={"User-Agent": USER_AGENT,
@@ -292,21 +295,30 @@ def _abruf(url: str, params: dict[str, str] | None = None, *, zeitlimit: float =
             if fehler.code not in (429, 503):
                 raise BildFehler(f"HTTP {fehler.code} von {urllib.parse.urlsplit(url).netloc}: "
                                  f"{fehler.reason}") from fehler
-            if versuch == MAX_VERSUCHE:
-                break
-            server = _retry_after(fehler.headers.get("Retry-After")) or 0.0
-            if server > BACKOFF_MAX_S:
+            # Retry-After zuerst lesen, auch beim letzten Versuch: Die Wartezeit gehört in die
+            # Abbruchmeldung. Sonst ginge sie verloren, wenn nur ein Versuch erlaubt ist
+            # (studio/looks/werkzeug/fotos.py setzt MAX_VERSUCHE = 1).
+            server = _retry_after(fehler.headers.get("Retry-After"))
+            letzter_status, letzte_warte = fehler.code, server
+            if server is not None and server > BACKOFF_MAX_S:
                 # Der Server will länger Ruhe, als wir hier warten. Nie früher fragen, als er sagt:
                 # abbrechen und die Wartezeit nennen (am 28.10. sagte upload.wikimedia.org 600 s).
-                raise CommonsBesetzt(f"Commons bittet um {server:.0f} s Pause (Retry-After). "
-                                     "Nicht umgehen, frühestens dann erneut versuchen.",
-                                     warte_s=server) from fehler
-            time.sleep(max(server, backoff))
+                raise CommonsBesetzt(f"Commons bittet um {server:.0f} s Pause (HTTP {fehler.code}, "
+                                     "Retry-After). Nicht umgehen, frühestens dann erneut "
+                                     "versuchen.", warte_s=server) from fehler
+            if versuch == MAX_VERSUCHE:
+                break
+            time.sleep(max(server or 0.0, backoff))
             backoff = min(backoff * 2, BACKOFF_MAX_S)
         except urllib.error.URLError as fehler:
             raise BildFehler(f"Netzfehler: {fehler.reason}") from fehler
-    raise CommonsBesetzt(f"Commons sagt nach {MAX_VERSUCHE} Versuchen weiter „zu viele Anfragen“. "
-                         "Nicht umgehen, später erneut versuchen.")
+    # Hierher kommt nur, wer MAX_VERSUCHE Absagen bekommen hat. Status und Wartezeit nennen,
+    # damit der nächste Lauf nicht zu früh fragt.
+    warte = (f"Retry-After {letzte_warte:.0f} s" if letzte_warte is not None
+             else "ohne Retry-After")
+    raise CommonsBesetzt(f"Commons sagt nach {MAX_VERSUCHE} Versuchen weiter HTTP "
+                         f"{letzter_status} ({warte}). Nicht umgehen, "
+                         "später erneut versuchen.", warte_s=letzte_warte)
 
 
 # API-Fehler, die „später noch einmal“ bedeuten: Server überlastet, Suche ausgelastet, gedrosselt.
@@ -907,7 +919,7 @@ def _main(argv: list[str] | None = None) -> int:
     lad.add_argument("--fassung", help="Video: Schlüssel einer Fassung, z. B. 480p.vp9.webm")
     lad.add_argument("--personen-freigabe", help="Pflicht bei Commons-Einschränkung personality")
     lad.add_argument("--credits", help="Pfad zu credits.json (wird ergänzt, samt Lizenz-Vorlagen: "
-                                       "ein Abruf mehr)")
+                                       "ein Abruf mehr, vor dem Laden der Datei)")
     lad.add_argument("--auflagen-abwaegung",
                      help="Abwägung bei Auflagen außerhalb des Urheberrechts (z. B. User:…/DFL)")
     fa = unter.add_parser("fassungen", help="verkleinerte Fassungen eines Videos")
@@ -935,14 +947,17 @@ def _main(argv: list[str] | None = None) -> int:
                 if fassung is None:
                     raise BildFehler(f"Keine Fassung {a.fassung!r}; siehe Befehl fassungen",
                                      EXIT_EINGABE)
-            pfad = lade(t, a.ziel, vorschau=a.vorschau, fassung=fassung,
-                        personen_freigabe=a.personen_freigabe)
+            vl = None
             if a.credits:
-                # Vorlagen gleich mit abfragen: Nur dort steht eine DFL-Auflage. Den Hinweis gibt
-                # credits_eintrag (nur, wenn die Abwägung fehlt), darum hier still.
+                # Vorlagen VOR dem Laden abfragen: Nur dort steht eine DFL-Auflage. Sagt Commons
+                # hier nein, liegt noch keine Datei in assets/, also nie ein Foto ohne Credit.
+                # Den Hinweis gibt credits_eintrag (nur, wenn die Abwägung fehlt), darum hier still.
                 with warnings.catch_warnings():
                     warnings.simplefilter("ignore", BildHinweis)
                     vl = vorlagen(t.titel)
+            pfad = lade(t, a.ziel, vorschau=a.vorschau, fassung=fassung,
+                        personen_freigabe=a.personen_freigabe)
+            if a.credits:
                 schreibe_credits(a.credits, credits_eintrag(
                     t, str(pfad), personen_freigabe=a.personen_freigabe,
                     lizenz_vorlagen=vl, auflagen_abwaegung=a.auflagen_abwaegung))

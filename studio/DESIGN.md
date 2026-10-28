@@ -30,7 +30,7 @@ Grundlage sind `docs/VIDEO-PIPELINE.md` §3/§5/§6, `studio/spike-buehne/REVIEW
 - Text steht linksbündig an x = 108. Zentriert ist Text nur, wenn er an einem zentrierten Gegenstand hängt (Name unter einem Punkt).
 - Die Welt (Karte, Rasterpapier, Spaltenraster, Foto; in den Looks auch Zeitungspapier, Schneidematte, Graupappe, Wiese, Fallblatt-Tafel) reicht an alle vier Bildränder. Nichts schwebt auf leerem Grund.
 - **Held:** Entweder füllt die Welt das Bild und ein Darsteller ist ≥ 288 px (15 % der Bildhöhe) groß, oder ein Gegenstand bzw. Diagramm misst ≥ 465 px hoch (40 % des Lesefensters) bzw. ≥ 691 px breit (80 %).
-- **Bild statt Text:** Ein Videobild zählt als „Bild“, wenn der Held kein Text ist und alle Textkästen zusammen ≤ 20 % der Lesefenster-Fläche bedecken (≤ 251 000 px²). Das gilt für ≥ 50 % aller Bilder (G0/G6). Abgedunkelte Texte (§6, „Abdunkeln“) zählen nicht mit. Gemessen wird im Player Bild für Bild (`build/messen-bild.mjs` im Goldstandard), auch Texte in der Welt.
+- **Bild statt Text:** Ein Videobild zählt als „Bild“, wenn der Held kein Text ist und alle Textkästen zusammen ≤ 20 % der Lesefenster-Fläche bedecken (≤ 251 000 px²). Das gilt für ≥ 50 % aller Bilder (G0/G6). Abgedunkelte Texte (§6, „Abdunkeln“) zählen nicht mit. Gemessen wird im Player Bild für Bild (`build/messen-bild.mjs` im Goldstandard), auch Texte in der Welt. Das Werkzeug erkennt Abgedunkeltes bisher nur an einer Deckkraft unter 40 % (Goldstandard: 35 %); ein Look, der weniger tief abdunkelt (Kurstafel 50 %), braucht eine Markierung am Element (Aufgabe in Phase 2, `docs/VIDEO-PIPELINE.md` §9).
 - **Schrift auf Gegenständen** (Etikett, Papier, Tüte, Stempel) misst effektiv ≥ 48 px, also Schriftgröße × Bildschirm-Maßstab (Credits ≥ 34 px). Geprüft im Player Bild für Bild (`build/messen-bild.mjs` im Goldstandard); kurzes Federn beim Stempeln zählt nicht. Ein Zeichen, das nur Prägung ist (€ auf einer Münze), wird als Form gezeichnet, nicht als Text (Goldstandard, Runde 2: 26 px).
 - **Nach einer Fahrt** steht kein Text halb am Bildrand: Was eine Nachfahrt (§5) aus dem Lesefenster schiebt, tritt vorher zurück (Goldstandard, Runde 1).
 - **Credits, eine Regel für jeden Look** (Goldstandard v2.1, Look-Katalog):
@@ -38,8 +38,8 @@ Grundlage sind `docs/VIDEO-PIPELINE.md` §3/§5/§6, `studio/spike-buehne/REVIEW
   2. Der Kurzlink `commons.wikimedia.org/?curid=<id>` steht darunter, wo Platz ist. Brauchen Etiketten der Welt oder Quellenzeilen den Platz, weicht der Kurzlink. Er steht mindestens einmal im Video, spätestens im Abspann.
   3. Wird es eng, gilt diese Reihenfolge: Foto-Zeile, dann Quelle + Datum der Zahl im Bild („Gegenstand: Quelle, TT.MM.JJJJ“), dann Kurzlink, zuletzt gemeinfreie Grundlagen („Karte: Natural Earth“).
   4. Höchstens 3 Zeilen je Credit-Block. Nur die senkrechte Spalte im Zeitungspapier fasst bis 5, weil dort jede Zeile kurz ist.
-  5. Der Ort hängt vom Look ab: Atlas Nacht in der Credit-Ecke rechts; Zeitungspapier senkrecht an der Bildkante; Labor unter der Fußlinie; Archiv-Duoton auf dem Rand des Abzugs; Flach unter der Foto-Einlage; Kurstafel als Aufdruck auf dem Gehäuse. Überall ≥ 34 px und im Lesefenster.
-  6. Daneben führt `credits.json` jede Fremddatei (`factory/werk/bilder.py`, `credits_eintrag`). Zeigt ein Video eine Bearbeitung eines CC-BY-SA-Fotos, bekommt es `lizenz_video` in `credits.json` und eine Abspann-Zeile mit seiner Lizenz (Goldstandard: „Video: creativecommons.org/licenses/by-sa/4.0“).
+  5. Der Ort hängt vom Look ab: Atlas Nacht in der Credit-Ecke rechts; Zeitungspapier senkrecht an der Bildkante; Labor unter der Fußlinie; Archiv-Duoton auf dem Rand des Abzugs; Flach unter der Foto-Einlage; Kurstafel als Aufdruck auf dem Gehäuse. Die Lizenzzeile im Bild (Regel 6) steht in den Proben so: Zeitungspapier senkrecht am rechten Seitenrand über beide Seiten, Archiv-Duoton als Rechte-Feld in den letzten zwei Zeilen jeder Karteikarte, Flach unter dem Credit der Foto-Einlage. Überall ≥ 34 px und im Lesefenster.
+  6. Daneben führt `credits.json` jede Fremddatei (`factory/werk/bilder.py`, `credits_eintrag`). Zeigt ein Video eine Bearbeitung eines CC-BY-SA-Fotos, bekommt es `lizenz_video` in `credits.json` und nennt seine Lizenz samt Link: als Abspann-Zeile (Goldstandard: „Video: creativecommons.org/licenses/by-sa/4.0“) oder als Lizenzzeile im Bild am Credit-Ort des Looks, mindestens so lange, wie die Bearbeitung zu sehen ist (`lizenz_video.im_bild`; Look-Proben ohne Abspann).
 - Tor für die Untertitel-Zone (geprüft am 27.10. an einer Kopie von A+: 0 Fehler; eine Credit-Zeile auf y = 1420 gibt `caption_zone_collision`, Exit 1):
   `npx hyperframes check --caption-zone "x0=0;y0=.693;x1=1;y1=1;severity=error"`. Untertitel tragen `data-layout-allow-caption-zone`.
 
@@ -93,8 +93,8 @@ Die Tabelle ist die Palette von Atlas Nacht. Die übrigen Paletten stehen in den
 
 - **Verboten:** Gold oder Rot auf Creme (2,0 : 1 bzw. 2,6 : 1). Creme als ganzflächiger Grund.
 - **Fotos:** Behandlung je Look (`studio/looks/README.md`, Tabelle „Behandlung je Look“), geholt und vermerkt über `factory/werk/bilder.py`. Rasterdruck und Duoton entstehen über HyperFrames-Behandlungen oder `bilder.duoton`/`bilder.graustufen`, nie mit selbstgebauten CSS-Filtern.
-  - **Atlas Nacht:** Duoton von `#0E1726` (Schatten) nach `#F5F0E8` (Lichter). Zwei Wege: gerastert über `/media-use` „Monochrome Screen Print“ mit `palette: ["#0E1726", "#F5F0E8"]`, oder kornfrei in die Datei gebacken (`bilder.duoton`; Goldstandard, `build/foto.py`). Sonst kommt Farbe nur über die Marker-Ebene ins Foto.
-  - **Echtfoto-Moment** (Goldstandard v2.1, Hook): Ein echtes Foto darf einmal je Video in eigenem Ton auftreten. Sättigung ca. 70 %, Schatten Richtung Grund des Looks (Atlas: Navy), Hintergrund weichgezeichnet und abgedunkelt, damit Zuschauer nicht erkennbar sind. Der Abzug steht ≥ 2,0 s, dann wird er per Morph zum Duoton-Darsteller.
+  - **Atlas Nacht:** Duoton von `#0E1726` (Schatten) nach `#F5F0E8` (Lichter). Zwei Wege: gerastert über `/media-use` „Monochrome Screen Print“ mit `palette: ["#0E1726", "#F5F0E8"]`, oder kornfrei in die Datei gebacken (`bilder.duoton`; Goldstandard, `build/foto.py`). Außer im Echtfoto-Moment kommt Farbe nur über die Marker-Ebene ins Foto.
+  - **Echtfoto-Moment (nur Atlas Nacht;** Goldstandard v2.1, Hook): Ein echtes Foto darf einmal je Video in eigenem Ton auftreten. Sättigung ca. 70 %, Schatten Richtung Navy, Hintergrund weichgezeichnet und abgedunkelt, damit Zuschauer nicht erkennbar sind. Der Abzug steht ≥ 2,0 s, dann wird er per Morph zum Duoton-Darsteller. Für die übrigen Looks entscheidet das Look-Blatt (Zeitungspapier verbietet Farbfotos, Archiv-Duoton Farbfotos neben Duoton; Flach und Labor zeigen echte Farbe).
   - **Zurücktreten:** Ein Foto tritt über eine dunkle, deckende Fassung zurück (Goldstandard: `lewandowski-dunkel.png`, Navy plus 35 % des Duotons). Die helle Fassung blendet über der dunklen aus. Nie über Deckkraft, sonst scheint die Welt durch das Foto.
 - **Karten:** nur Kartentöne. Genau eine Region ist hervorgehoben.
 - **Verläufe** nur radial (Vignette, Schatten). Lineare Verläufe bilden im H.264-Video Streifen.
@@ -139,7 +139,7 @@ Die Tabelle ist die Palette von Atlas Nacht. Die übrigen Paletten stehen in den
 
 Verboten sind Kreuzblenden zwischen Welten, Wischblenden und Deko-Übergänge.
 
-**Eintritte je Identität und Look** (die Look-Zeilen stammen aus den Proben, `studio/looks/werkzeug/looks_<look>.py`):
+**Eintritte je Identität und Look** (die Look-Zeilen stammen aus den Proben, `studio/looks/werkzeug/looks_*.py`, Zuordnung in `studio/looks/README.md`):
 
 | Identität / Look | Name | Was | Dauer | Ease |
 |---|---|---|---|---|

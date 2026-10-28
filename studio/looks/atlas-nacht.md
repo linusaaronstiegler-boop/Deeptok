@@ -60,7 +60,7 @@ Credit-Ecke rechtsbündig an x = 972, Unterkante y = 1304, nach oben gestapelt, 
 
 ## Fotos
 
-Archivfotos im Duoton Navy → Creme (`bilder.duoton(…, "#0E1726", "#F5F0E8")` oder HyperFrames „Monochrome Screen Print“), mit Credit-Zeile. Farbe kommt nur über die Marker-Ebene ins Foto.
+Archivfotos im Duoton Navy → Creme (`bilder.duoton(…, "#0E1726", "#F5F0E8")` oder HyperFrames „Monochrome Screen Print“), mit Credit-Zeile. **Echtfoto-Moment:** höchstens einmal je Video darf ein echtes Foto in eigenem Ton stehen (Sättigung ca. 70 %, Schatten Richtung Navy, Hintergrund weich und abgedunkelt), ≥ 2,0 s, dann wird es per Morph zum Duoton-Darsteller (DESIGN.md §4, Goldstandard v2.1). Sonst kommt Farbe nur über die Marker-Ebene ins Foto.
 
 ## Takt
 

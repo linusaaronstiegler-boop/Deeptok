@@ -8,18 +8,26 @@ Seite 1: ein echter Clip (volles Camp Nou 2022, Live-Situation) läuft im Raster
 Seite 2 (harter Schnitt auf „Bayern“): echtes Spielfoto von Lewandowski (FC Bayern, 2019),
 Streifen „bis 30.06.2023“ mit roter Unterstreichung, Balken „0 € Ablöse“.
 Takt: dicht; alle 0,5–0,7 s klebt ein neues Stück, Seitenwechsel als harter Schnitt.
+Lizenz: Beide Seiten zeigen Bearbeitungen von CC-BY-SA-Fotos, also steht die ganze Probe unter
+CC BY-SA 4.0. Die Lizenzzeile läuft wie ein Rechte-Vermerk senkrecht am rechten Seitenrand, in der
+Schrift des Bildnachweises und über beide Seiten (0–12 s). In die Bildnachweis-Spalten passt sie
+nicht: Sie ist 988 px lang, das Bild auf Seite 1 ist deutlich kürzer, und die Spalten fassen höchstens
+5 Zeilen.
 """
 from __future__ import annotations
 
 import json
 import subprocess
 
-from probe_basis import (DAUER, DATUM, HIER, LOOKS, Q_ABL, Q_FREI, Q_VERTRAG, ZAHL, bildmass, clip,
-                         credits_aus, credits_ergaenzen, html_attr, kreis, kurz, messen,
+from probe_basis import (DAUER, DATUM, HIER, LIZENZ_ZEILE, LOOKS, Q_ABL, Q_FREI, Q_VERTRAG, ZAHL, bildmass,
+                         clip, credits_aus, credits_ergaenzen, html_attr, kreis, kurz, messen,
                          pruefe_breiten, riss, schreibe_probe, strich_pfad, t, unterstrich)
 
 LOOK = "zeitungspapier"
 GRUND, PAPIER, TINTE, GRAU, ROT = "#E4DFD1", "#F4F1E8", "#161514", "#5E5A52", "#B8161D"
+# Rechter Seitenrand für die Lizenzzeile (eine Zeile, 42 px breit, bis x = 972). Alles andere bleibt
+# links von RAND_X − RAND_LUFT, auch der Rotstift-Kreis; die Luft trennt sie sichtbar vom Bildnachweis.
+RAND_X, RAND_LUFT, LIZENZ_UNTEN = 930, 28, 1316
 
 
 def videomass(look: str, datei: str) -> tuple[int, int]:
@@ -31,14 +39,16 @@ def videomass(look: str, datei: str) -> tuple[int, int]:
 
 
 def senkrecht(sid: str, zeilen: list[str], x: float, unten: float, laenge: float, start: float,
-              ende: float, spur: int) -> str:
+              ende: float, spur: int, *, pruefen: bool = False) -> str:
     """Bildnachweis senkrecht an der Bildkante (liest sich von unten nach oben, wie in der Zeitung).
-    Der Block ist waagerecht gesetzt und um −90° um seine linke obere Ecke gedreht."""
+    Der Block ist waagerecht gesetzt und um −90° um seine linke obere Ecke gedreht.
+    pruefen=True lässt die Layout-Prüfung von check an den Block (die Lizenzzeile steht 12 s)."""
     inhalt = "<br />".join(zeilen)
+    # Credits, die kürzer stehen als die Lesezeit für Lesetext: von line_unread ausgenommen.
+    ignorieren = "" if pruefen else " data-layout-ignore"
     return (f'    <div id="{sid}" class="clip zp-senkrecht" data-start="{start}" data-duration="{round(ende - start, 3)}" '
-            f'data-track-index="{spur}" style="left: {x}px; top: {unten}px; width: {laenge:.0f}px" '
-            # Credits sind kein Lesetext: von der Lesezeit-Prüfung (line_unread) ausgenommen.
-            f'data-layout-ignore>{inhalt}</div>')
+            f'data-track-index="{spur}" style="left: {x}px; top: {unten}px; width: {laenge:.0f}px"'
+            f'{ignorieren}>{inhalt}</div>')
 
 
 def stueck(sid: str, b: float, h: float, x: float, y: float, drehung: float, seed: int, inhalt: str) -> str:
@@ -75,6 +85,10 @@ def zeitungspapier() -> None:
                       "null": (balken_b_text, 'font: 400 150px/1 "ZP Anton"'),
                       **{f"c{i}": (z, 'font: 400 34px/42px "ZP Source Serif"') for i, z in enumerate(zeilen_a + zeilen_b)}})
     pruefe_breiten(LOOK, m)
+    # Die Lizenzzeile steht senkrecht: Sie muss nur in die Höhe des Lesefensters passen (168–1330).
+    lizenz_lang = messen(LOOK, {"l": (LIZENZ_ZEILE, 'font: 400 34px/42px "ZP Source Serif"')})["l"]["breite"]
+    if LIZENZ_UNTEN - lizenz_lang < 168:
+        raise SystemExit(f"zeitungspapier: Lizenzzeile {lizenz_lang:.0f} px zu lang für den Seitenrand")
     # Rasterdruck (HyperFrames „Monochrome Screen Print“). Zelle 0,16 statt 0,3: Bei 0,3 war das
     # Spielfoto nur noch Punktmuster (Gesicht, Trikot, Ball nicht zu erkennen); 0,16 ist im
     # Handy-Blatt noch als Raster sichtbar und lässt die Person erkennen.
@@ -85,13 +99,17 @@ def zeitungspapier() -> None:
     # --- Seite 1: Clip als Held, links; Bildnachweis senkrecht rechts daneben ---------------------
     vb, vh = (videomass(LOOK, "assets/fotos/fans-2022.mp4") if clip_da
               else bildmass(LOOK, "assets/fotos/camp-nou.jpg"))
-    v_b = 800
+    # Bild so breit, dass Bildnachweis-Spalte und Lizenzzeile rechts daneben Platz haben (höchstens 800).
+    v_b = min(800, RAND_X - RAND_LUFT - 22 - 42 * len(zeilen_a) + 20)
     v_h = round(v_b * vh / vb)
     v_x, v_y = -20, 330
     spalte_a = v_x + v_b + 22                  # senkrechte Credits: 4 Zeilen à 42 px
     kopf_b, kopf_h = round(m["kopf"]["breite"] + 80), 160
     bal_b, bal_h = round(m["zahl"]["breite"] + 60), 190
-    bal_x, bal_y = 972 - bal_b, min(v_y + v_h + 80, 1300 - 190 - 34)
+    bal_y = min(v_y + v_h + 80, 1300 - 190 - 34)
+    # Der Rotstift-Kreis ragt rechts über den Balken hinaus; er endet vor der Lizenzzeile (10 px Strich).
+    ring_dx = max(x for x, _ in kreis(0, 0, bal_b / 2 + 34, bal_h / 2 + 34, 4)) + 5
+    bal_x = round(RAND_X - RAND_LUFT - ring_dx - bal_b / 2)
     ring = strich_pfad("zp-ring", kreis(bal_x + bal_b / 2, bal_y + bal_h / 2 + 2, bal_b / 2 + 34, bal_h / 2 + 34, 4), ROT, 10)
     # --- Seite 2: Spielfoto links, Streifen oben, Balken unten rechts -------------------------------
     # Seite 2: der Spieler als ausgeschnittene Figur (Collage), 880 px hoch, links.
@@ -106,7 +124,7 @@ def zeitungspapier() -> None:
     dat_x0 = bis_x + 40 + m["bis_wort"]["breite"]
     unter = strich_pfad("zp-unter", unterstrich(dat_x0 - 6, gl + 20, dat_x0 + m["datum"]["breite"] + 10, 6), ROT, 10)
     nul_b = round(m["null"]["breite"] + 60)
-    nul_x, nul_y = 972 - nul_b, 1112
+    nul_x, nul_y = RAND_X - RAND_LUFT - 8 - nul_b, 1112      # 8 px für die Drehung (1,2°)
     spalte_b_laenge = 680
     css = f"""    #zp-grund {{ left: 0; top: 0; width: 1080px; height: 1920px; background: {GRUND}; }}
     .zp-stueck {{ position: absolute; filter: drop-shadow(0 10px 16px rgba(22,21,20,.35)); }}
@@ -141,6 +159,8 @@ def zeitungspapier() -> None:
 {clip('zp-marker-a', t('millionen'), schnitt, 4, f'<svg width="1080" height="1920" viewBox="0 0 1080 1920">{ring}</svg>', klasse='zp-voll', attr='data-layout-ignore')}
 {clip('zp-figur', schnitt, DAUER, 1, foto, klasse='zp-figur', stil=f'left: {l_x}px; top: {l_y}px; width: {l_b}px; height: {l_h}px')}
 {senkrecht('zp-c-b', zeilen_b, spalte_b, l_y + spalte_b_laenge, spalte_b_laenge, schnitt, DAUER, 6)}
+    <!-- Lizenz der ganzen Probe: Rechte-Vermerk am Seitenrand, über beide Seiten. -->
+{senkrecht('zp-lizenz', [LIZENZ_ZEILE], RAND_X, LIZENZ_UNTEN, lizenz_lang + 2, 0, DAUER, 7, pruefen=True)}
 {clip('zp-bis', t('juni'), DAUER, 2, streifen('zp-bis-s', f'bis {DATUM}', bis_b, kopf_h, 0, 0, 11), stil=f'left: {bis_x}px; top: {bis_y}px; width: {bis_b}px; height: {kopf_h}px', attr='data-layout-allow-overflow')}
 {clip('zp-marker-b', t('jahr'), DAUER, 4, f'<svg width="1080" height="1920" viewBox="0 0 1080 1920">{unter}</svg>', klasse='zp-voll', attr='data-layout-ignore')}
 {clip('zp-balken-b', t('null'), DAUER, 3, f'<div id="zp-bal-b-fl" class="zp-balken-flaeche"></div><div id="zp-bal-b-tx" class="zp-balken-text">{balken_b_text}</div>', klasse='zp-balken', stil=f'left: {nul_x}px; top: {nul_y}px; width: {nul_b}px; transform: rotate(1.2deg)')}"""
@@ -161,4 +181,9 @@ def zeitungspapier() -> None:
     schreibe_probe(LOOK, "Zeitungspapier", GRUND, css, html_, js,
                    "Zeitungspapier: Collage, echter Clip und echtes Foto im Rasterdruck, Streifen, Balken, Rotstift; "
                    "Seite 2 nach hartem Schnitt.")
-    credits_ergaenzen(LOOK)
+    credits_ergaenzen(LOOK, lizenz_im_bild={
+        "ort": (f"senkrecht am rechten Seitenrand (x {RAND_X}–{RAND_X + 42}, y {LIZENZ_UNTEN - lizenz_lang:.0f}–"
+                f"{LIZENZ_UNTEN}), von unten nach oben, über beide Seiten"),
+        "schrift": f"Source Serif 4 400, 34/42 px, Grau {GRAU}",
+        "von_s": 0, "bis_s": DAUER,
+        "foto_credits_s": [[0, schnitt], [schnitt, DAUER]]})

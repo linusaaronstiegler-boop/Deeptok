@@ -35,7 +35,7 @@ In der Cloud liegt `hyperframes` 0.8.206 im PATH; `npx hyperframes …` nimmt da
 
 Skills dafür liegen in `.claude/skills/`: hyperframes, hyperframes-cli, hyperframes-registry, media-use, gsap-*, remotion-*, frontend-design. Vor neuen Videos `/hyperframes` lesen.
 
-Die Cloud-Umgebung `deeptok-fabrik` richtet ihr Setup-Skript `tools/setup-umgebung.sh` ein (gecacht, alles unter `/opt/deeptok`): venv mit faster-whisper, numpy, num2words, jsonschema, pytest; Whisper `small` in `/opt/deeptok/hf`; HyperFrames-CLI 0.8.206 samt gepinntem Chrome.
+Die Cloud-Umgebung `deeptok-fabrik` richtet ihr Setup-Skript `tools/setup-umgebung.sh` ein (gecacht, alles unter `/opt/deeptok`): venv mit faster-whisper, numpy, num2words, jsonschema, pytest, Pillow; Whisper `small` in `/opt/deeptok/hf`; HyperFrames-CLI 0.8.206 samt gepinntem Chrome.
 - Der SessionStart-Hook (`.claude/hooks/session-start.sh`) prüft nur `/opt/deeptok/.setup-version` und übernimmt `/opt/deeptok/env.sh` (PATH, HF_HOME, HF_HUB_OFFLINE=1, HYPERFRAMES_BROWSER_PATH).
 - In anderen Umgebungen ruft er das Setup-Skript als Rückfall auf (ca. 1 min, nicht gecacht) und sagt, woran es lag.
 - Piper, Manim und die deutsche Stimme gibt es nur mit `DEEPTOK_WERKSTATT=1` in der Umgebung.

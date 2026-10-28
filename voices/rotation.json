@@ -3,7 +3,7 @@
   "_quelle": "Blind-Casting 27./28.10.2026 auf der Werkstatt-Seite, beide Brüder: Jonas Platz 1, Thomas Platz 2 (bei beiden gleich). Gemessen: Wortfehlerrate 0–8 %, 44,1 kHz, 128 kbit/s, etwa 1 Credit je Zeichen.",
   "anbieter": "elevenlabs",
   "modell": "eleven_v4",
-  "modell_hinweis": "Das Casting lief mit eleven_v4; voices/elevenlabs.json pinnt eleven_v4_turbo und noch keine Stimm-ID. Vor der ersten Nacht klären (offen, nicht hier entschieden).",
+  "modell_hinweis": "eleven_v4, entschieden am 28.10.2026: Damit lief das Casting. voices/elevenlabs.json pinnt Modell und Hauptstimme Jonas; eleven_v4_turbo wird nicht genutzt.",
   "pool": [
     {"id": "jonas", "name": "Jonas", "voice_id": "xlbJQnFFGB01bv7HK5CZ", "geschlecht": "m", "rolle": "hauptstimme", "casting": "Platz 1 bei beiden Brüdern", "bibliothek": "Jonas - Knowledgeable Tour Guide"},
     {"id": "thomas", "name": "Thomas", "voice_id": "vv3bG6FrcGtmeOdRSriS", "geschlecht": "m", "rolle": "zweitstimme", "casting": "Platz 2 bei beiden Brüdern"},

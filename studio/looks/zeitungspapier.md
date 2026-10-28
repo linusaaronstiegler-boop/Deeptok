@@ -1,8 +1,8 @@
 # Look 2: Zeitungspapier
 
-Helles, leicht graues Zeitungspapier, Druckschwarz und ein Rotstift. Echte Fotos und echte Clips im Rasterdruck, ausgerissen oder ausgeschnitten und aufgeklebt, Schlagzeilen als Papierstreifen, Zahlen auf schwarzen Balken, der Bildnachweis senkrecht an der Bildkante. Hell, neutral, Foto, dicht. Vorbild ist die Collage von Simplicissimus; eigenständig, weil wir keine Zeitungsköpfe nachbauen und nur echte, frei lizenzierte Bilder kleben.
+Helles, leicht graues Zeitungspapier, Druckschwarz und ein Stift des Redakteurs (Blaustift; Rotstift nur mit Linus' Ja, siehe unten). Echte Fotos und echte Clips im Rasterdruck, ausgerissen oder ausgeschnitten und aufgeklebt, Schlagzeilen als Papierstreifen, Zahlen auf schwarzen Balken, der Bildnachweis senkrecht an der Bildkante. Hell, neutral, Foto, dicht. Vorbild ist die Collage von Simplicissimus; eigenständig, weil wir keine Zeitungsköpfe nachbauen und nur echte, frei lizenzierte Bilder kleben.
 
-- **Probe:** `probe-zeitungspapier/` (Vergleichstafel Nr. 2). Seite 1: dasselbe Stadion als Foto (Camp Nou mit Sitz-Schrift und Spielfeld); vorgesehen ist ein echter Clip vom vollen Camp Nou 2022 (Live-Situation), den Commons am 28.10. noch nicht hergab (429), Streifen „Barcelona“, Balken „45 Mio. €“, Rotstift-Kreis ganz auf Papier. Seite 2 nach hartem Schnitt auf „Bayern“: Lewandowski als ausgeschnittene Figur aus einem echten Spielfoto (FC Bayern, 2019), Streifen „bis 30.06.2023“ mit roter Unterstreichung, Balken „0 € Ablöse“.
+- **Probe:** `probe-zeitungspapier/` (Vergleichstafel Nr. 2). Seite 1: dasselbe Stadion als Foto (Camp Nou mit Sitz-Schrift und Spielfeld); vorgesehen ist ein echter Clip vom vollen Camp Nou 2022 (Live-Situation), den Commons am 28.10. noch nicht hergab (429), Streifen „Barcelona“, Balken „45 Mio. €“, Rotstift-Kreis ganz auf Papier. Seite 2 nach hartem Schnitt auf „Bayern“: Lewandowski als ausgeschnittene Figur aus einem echten Spielfoto (FC Bayern, 2019), Streifen „bis 30.06.2023“ mit roter Unterstreichung, Balken „0 € Ablöse“. **Die Probe zeigt absichtlich die Rotstift-Fassung**, damit Linus entscheiden kann; gültig ist bis zu seinem Ja der Blaustift (Konstante `ROT` in `werkzeug/looks_zeitung.py`, Kreis und Unterstreichung).
 - **Geändert nach der Kritik (28.10.):** Der Kreis lief über Schwarz und Raster (2,75 : 1 und 1,55 : 1); jetzt liegt er ganz auf Papier mit 34 px Luft. Das Camp-Nou-Foto zeigt jetzt Sitz-Schrift und Spielfeld ohne Dachbanner. Das Spielfoto ging im Raster im roten Rang unter; als ausgeschnittene Figur bleibt die Person erkennbar.
 
 ## Wofür
@@ -19,9 +19,12 @@ Helles, leicht graues Zeitungspapier, Druckschwarz und ein Rotstift. Echte Fotos
 | `papier` | `#F4F1E8` | ausgeschnittene Streifen (heller als der Grund) | 1,18 zum Grund |
 | `tinte` | `#161514` | Druckschwarz: Text, Balken, Rasterpunkte | 13,7 auf Grund, 16,2 auf Papier |
 | `grau` | `#5E5A52` | Bildnachweis, Quelle | 5,2 auf Grund |
-| `rot` | `#B8161D` | **Rotstift: hier hinsehen** (gesuchte Größe, Fokus) | 5,0 auf Grund, 5,9 auf Papier |
+| `blau` | `#1F4FB5` | **Blaustift: hier hinsehen** (gesuchte Größe, Fokus) | 5,5 auf Grund, 6,5 auf Papier |
+| `rot` | `#B8161D` | Irrtum, Verlust (immer mit Durchstrich); nur mit Linus' Ja: Rotstift als Signal statt `blau` | 5,0 auf Grund, 5,9 auf Papier |
 
-**Rot-Regel (Ausnahme im Haus, braucht Linus' Ja):** Rot ist hier der Rotstift des Redakteurs und markiert, worauf es ankommt (Kreis, Pfeil, Unterstreichung), nie den Irrtum. Der **Irrtum** bekommt einen schwarzen Zensurbalken über dem falschen Wort. Höchstens ein roter Marker je Bild, nie rote Flächen, **nie Rot auf Schwarz oder auf Raster**: Rotstift nur auf Papier oder Papierstreifen, ≥ 24 px Luft zu Balken und Bildern. Rückfall ohne Linus' Ja: Blaustift `#1F4FB5` als Signal, Rot bleibt Irrtum.
+**Stift-Regel (gilt jetzt):** Der Blaustift des Redakteurs markiert, worauf es ankommt (Kreis, Pfeil, Unterstreichung). Rot bleibt Irrtum oder Verlust wie in allen Looks, immer mit Durchstrich. Höchstens ein Stift-Marker je Bild, nie Stift- oder Rot-Flächen, **nie Stift oder Rot auf Schwarz oder auf Raster** (Blau auf Druckschwarz 2,5 : 1, Rot 2,7 : 1): nur auf Papier oder Papierstreifen, ≥ 24 px Luft zu Balken und Bildern.
+
+**Nur mit Linus' Ja (Ausnahme im Haus, noch nicht entschieden):** Rot wird der Rotstift und markiert, worauf es ankommt, nie den Irrtum. Der **Irrtum** bekommt dann einen schwarzen Zensurbalken über dem falschen Wort. Alle übrigen Stift-Regeln gelten unverändert.
 
 ## Schriften
 
@@ -55,7 +58,7 @@ Dicht: alle 0,5–0,7 s klebt ein neues Stück; nach dem Schnitt folgen Streifen
 
 ## Marker
 
-Rotstift, handgezeichnet: Kreis (≤ 1 je Video), Pfeil, Unterstreichung; 10 px plus zweite Spur; auf dem Cue-Wort; immer auf Papier. Irrtum: schwarzer Zensurbalken, wischt in 0,3 s über das falsche Wort.
+Blaustift, handgezeichnet: Kreis (≤ 1 je Video), Pfeil, Unterstreichung; 10 px plus zweite Spur; auf dem Cue-Wort; immer auf Papier. Irrtum: roter Durchstrich über dem falschen Wort. Nur mit Linus' Ja: Rotstift statt Blaustift, der Irrtum als schwarzer Zensurbalken, der in 0,3 s über das falsche Wort wischt.
 
 ## Credits
 
@@ -68,7 +71,7 @@ Senkrecht an der rechten Kante des Bildes, von unten nach oben zu lesen, wie in 
 ## Drei Verbote
 
 1. Nachgebaute Zeitungsköpfe, Logos oder Layouts echter Medien. Eine fremde Schlagzeile steht nur wörtlich da, mit Medium und Datum.
-2. Rot als Fläche, Rot auf Schwarz oder Raster, mehr als ein roter Marker je Bild; Rot für den Irrtum.
+2. Stift oder Rot als Fläche, Stift oder Rot auf Schwarz oder Raster, mehr als ein Stift-Marker je Bild. Mit Linus' Ja zusätzlich: Rot für den Irrtum.
 3. Farbfotos; ein Foto, das ungerissen als rechteckige Kachel auf dem Papier schwebt.
 
 ## Probe gemessen (28.10.2026, Überarbeitung)
