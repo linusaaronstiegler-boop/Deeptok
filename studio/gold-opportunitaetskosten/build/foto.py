@@ -13,7 +13,8 @@ grauer Freisteller“, Linus: „echte Bilder von Live-Situationen“, „nicht 
 Schritte (jeder Zwischenstand liegt im gitignorten build/cache/fotos/):
   1. Abruf von Wikimedia Commons über factory/werk/bilder.py (Lizenzprüfung, beschreibender
      User-Agent, langsam, bei 429 warten). Geladen ist die Vorschau (960 x 1440), nicht das
-     3,9-MB-Original: Commons hat das Original am 28.10. fünfmal mit 429 abgelehnt.
+     3,9-MB-Original: Commons hat das Original am 28.10. fünfmal mit 429 abgelehnt. Das Foto trägt
+     die Commons-Einschränkung „personality“; geladen wird es mit PERSONEN_FREIGABE als Grund.
   2. Freistellen mit `npx hyperframes remove-background` (Modell u2net_human_seg, lokal). Das
      Modell erkennt nur Menschen; den Ball stellt ball_maske() frei (Ellipse, alles außer Rasen).
   3. Aufräumen: Das Modell hatte das halbe Gesicht des Linienrichters unter Lewandowskis Hand
@@ -72,6 +73,12 @@ ABZUG = (20, 120, 940, 1300)
 ABZUG_SKALA = 0.569
 # Linke Hand an der Hüfte in der Vorschau: Dort beginnen die Schnüre der Preisschilder
 HAND = (583.0, 755.0)
+# Commons markiert das Foto mit „personality“ (erkennbare Person). bilder.lade() lädt es dann nur mit
+# einem Grund. Derselbe Satz steht in credits.json unter „persoenlichkeitsrecht“: eine Quelle, zwei
+# Stellen. Ohne ihn bricht ein frischer Lauf (leerer Cache) beim Laden der Vorschau ab.
+PERSONEN_FREIGABE = ("Abgebildet ist eine Person des öffentlichen Lebens in ihrer Rolle als Fußballprofi; "
+                     "genutzt wird es im Lernvideo über seinen tatsächlichen Wechsel, nicht als Werbung "
+                     "oder Empfehlung.")
 
 
 def treffer_laden() -> dict:
@@ -89,7 +96,7 @@ def vorschau(treffer: dict) -> Path:
     ziel = CACHE / "lewandowski-vorschau.jpg"
     if not ziel.exists():
         from werk import bilder
-        bilder.lade(bilder.Treffer(**treffer), ziel, vorschau=True)
+        bilder.lade(bilder.Treffer(**treffer), ziel, vorschau=True, personen_freigabe=PERSONEN_FREIGABE)
     return ziel
 
 
@@ -294,9 +301,7 @@ def credits(treffer: dict, kasten: list[int]) -> dict:
             "einschraenkungen": treffer.get("einschraenkungen", []),
             "auflagen_ausserhalb_urheberrecht": {
                 "persoenlichkeitsrecht": ("Commons markiert das Foto mit 'personality rights' (Vorlage Personality rights). "
-                                          "Abgebildet ist eine Person des öffentlichen Lebens in ihrer Rolle als Fußballprofi; "
-                                          "genutzt wird es im Lernvideo über seinen tatsächlichen Wechsel, nicht als Werbung "
-                                          "oder Empfehlung."),
+                                          + PERSONEN_FREIGABE),
                 "dfl_hinweis_fotograf": {
                     "vorlage": "User:Stepro/DFL (Commons-Vorlage auf der Dateiseite, dazu 'Template:Non-copyright restriction')",
                     "link": "https://commons.wikimedia.org/wiki/User:Stepro/DFL",

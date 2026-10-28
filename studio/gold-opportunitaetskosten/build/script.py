@@ -263,7 +263,9 @@ LEAD_IN = 0.35          # Stille vor dem ersten Wort (wie voice.py)
 LUFT_SPANNE = (0.4, 1.0)    # "luft": hörbar länger als eine Satzpause, kürzer als eine Atempause+
 # Pflichtwörter (Kritik 28.10.): Der Hör-Check prüft sie auch an EINZELN ausgeschnittenen Sätzen
 # ohne Vorkontext. Auf der ganzen Spur rät Whisper ein undeutliches Wort aus dem Zusammenhang.
-PFLICHTWOERTER = ["Opportunitätskosten", "Saison", "keiner", "Ablöse"]
+# „Lohn“ (Abnahme v2, 28.10.): Schlüsselwort des Transfers; Whisper hörte im Piper-Satz „Lung“ (p 0,74).
+# Das Tor läuft in build/voice.py (pruefe_saetze: beim Vertonen und mit --nur-pruefen), nicht in bauen.mjs.
+PFLICHTWOERTER = ["Opportunitätskosten", "Saison", "keiner", "Ablöse", "Lohn"]
 MAX_WOERTER = 19        # Kit-Konstante: höchstens 19 Wörter pro Szene (VIDEO-PIPELINE §3)
 FRAGE_BIS = 8.0         # Frage muss in den ersten 8 s stehen (§5 „Immer gilt“)
 PAUSE_SPANNE = (1.5, 2.5)   # deklarierte Denkpausen (§4 Regeln, DESIGN.md §9)
@@ -305,6 +307,9 @@ def pruefe(tempo=2.3):
     Die echten Zeiten kommen später aus assets/timing.json der Stimme.
     """
     fehler, namen, zeilen, cue_zeiten = [], set(), [], {}
+    # Ein Pflichtwort, das in keinem Satz steht (Tippfehler, Beugung), würde das Tor still bestehen.
+    alle = {anzeige for s in SCENES for satz in s["sentences"] for anzeige, _ in tokens(satz)}
+    fehler += [f"Pflichtwort {p!r} steht in keinem Satz" for p in PFLICHTWOERTER if p not in alle]
     t = LEAD_IN
     for szene in SCENES:
         woerter = [w for satz in szene["sentences"] for w in tokens(satz)]
