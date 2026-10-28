@@ -9,7 +9,7 @@
 # Es braucht keine Datei aus dem Repo, alle Versionen stehen hier drin.
 #
 # Was es einrichtet (alles unter /opt/deeptok, nichts im Repo):
-#   venv/      Python mit faster-whisper, numpy, num2words, jsonschema, pytest
+#   venv/      Python mit faster-whisper, numpy, num2words, jsonschema, pytest, Pillow
 #   hf/        Whisper-Modell "small" für den Hör-Check (HF_HOME)
 #   node/      HyperFrames-CLI, fest auf eine Version gepinnt
 #   chrome/    der Chrome, den genau diese HyperFrames-Version zum Rendern will
@@ -50,7 +50,7 @@ set -uo pipefail
 # Kennung dieses Standes. Der SessionStart-Hook liest genau diese Zeile aus der
 # Repo-Kopie und vergleicht sie mit /opt/deeptok/.setup-version.
 # Bei jeder Änderung an diesem Skript hochzählen.
-SETUP_VERSION="2026-10-27.2"
+SETUP_VERSION="2026-10-28.1"
 
 HYPERFRAMES_VERSION="0.8.206"
 WHISPER_MODELL="small"                       # lädt Systran/faster-whisper-small
@@ -74,6 +74,8 @@ numpy==2.5.4                   # Audio-Messungen
 num2words==0.5.14              # Zahlen als Wörter für den Wortvergleich
 jsonschema==4.26.0             # Video-Spec prüfen (G0)
 pytest==9.1.1                  # Tests der Fabrik
+Pillow==13.0.0                 # Bild-Behandlungen in factory/werk/bilder.py (Duoton, Graustufen) und ihre Tests
+# rembg bewusst nicht: bilder.freistellen nimmt „hyperframes remove-background“ (lokales Modell der CLI)
 # Unterbau (indirekte Abhängigkeiten, Stand 27.10.2026)
 anyio==4.15.1
 attrs==26.1.0
@@ -277,7 +279,7 @@ teil_python() {
   local soll
   soll="$( (cat "$DT/requirements-kern.txt"; echo "$pyv") | sha256sum | cut -c1-16)"
   if [ "$(cat "$VENV/.kern-stempel" 2>/dev/null)" = "$soll" ] \
-     && "$VENV/bin/python" -c "import faster_whisper, numpy, num2words, jsonschema, pytest" 2>/dev/null; then
+     && "$VENV/bin/python" -c "import faster_whisper, numpy, num2words, jsonschema, pytest, PIL" 2>/dev/null; then
     echo "venv: schon aktuell"; return 0
   fi
   # Kaputtes venv oder eines mit anderer Python-Version: neu anlegen.
@@ -290,7 +292,7 @@ teil_python() {
     fi
   fi
   installiere_pakete -r "$DT/requirements-kern.txt" || return 1
-  "$VENV/bin/python" -c "import faster_whisper, numpy, num2words, jsonschema, pytest" || return 1
+  "$VENV/bin/python" -c "import faster_whisper, numpy, num2words, jsonschema, pytest, PIL" || return 1
   echo "$soll" >"$VENV/.kern-stempel"
 }
 
@@ -425,7 +427,7 @@ schreibe_env() {
 }
 
 kern_ok() {
-  "$VENV/bin/python" -c "import faster_whisper, numpy, num2words, jsonschema, pytest" 2>/dev/null \
+  "$VENV/bin/python" -c "import faster_whisper, numpy, num2words, jsonschema, pytest, PIL" 2>/dev/null \
     && [ "$("$HF_CLI" --version 2>/dev/null)" = "$HYPERFRAMES_VERSION" ] \
     && [ -x "$(cat "$DT/chrome/PFAD" 2>/dev/null)" ]
 }

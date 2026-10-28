@@ -1,6 +1,6 @@
 # DeepTok-Videofabrik: finaler Plan
 
-Stand: 27.10.2026, abends. Grundlage ist Vorschlag C (Hybrid). Dazu kommen die besten Teile aus A und B, und alle Pflichtkorrekturen der Gutachter sind eingearbeitet. **Änderung am Abend:** Die Fabrik läuft als Scheduled Tasks über Linus' Abo statt auf GitHub Actions mit API-Guthaben (§1, §2, §7–§10). Neu in §3: was die Vorschaubilder von Simplicissimus und Veritasium zeigen.
+Stand: 27.10.2026, abends. Grundlage ist Vorschlag C (Hybrid). Dazu kommen die besten Teile aus A und B, und alle Pflichtkorrekturen der Gutachter sind eingearbeitet. **Änderung am Abend:** Die Fabrik läuft als Scheduled Tasks über Linus' Abo statt auf GitHub Actions mit API-Guthaben (§1, §2, §7–§10). Neu in §3: was die Vorschaubilder von Simplicissimus und Veritasium zeigen. **Nachtrag 28.10.:** sechs Looks und echte Fotos über `factory/werk/bilder.py` (§3), Stimmen-Rotation über den Casting-Pool und Modell `eleven_v4` (§4), Feld `look` (§5), Nachbarregel in G0 (§6), neue Aufgaben in Phase 2 (§9).
 
 ## 1. Kontext & Ziel
 
@@ -15,8 +15,8 @@ Die Probe „Opportunitätskosten“ ist didaktisch richtig aufgebaut: Fall → 
 |---|---|---|
 | Bau | Code pro Video | JSON-Spec → feste Szenen-Module |
 | Steuerung | interaktive Sitzung | Scheduled Tasks in der Cloud + Python-Zustandsmaschine |
-| Stimme | Piper, satzweise | bezahlte Stimme, Skript am Stück, gemastert |
-| Bild | Text auf Navy | Karten, Archivbilder, Darsteller; ab v1.1 Welt mit Kamera |
+| Stimme | Piper, satzweise | bezahlte Stimme aus dem Casting-Pool, Skript am Stück, gemastert |
+| Bild | Text auf Navy | Karten, echte Fotos und Clips, Darsteller in sechs Looks; ab v1.1 Welt mit Kamera |
 | Abspielen | MP4 | live im Browser, Teilen per Link |
 
 **Drei Stufen:**
@@ -38,7 +38,7 @@ EINGÄNGE  Serienpläne + Faktenblätter (Repo) · Digest „Vorlernen morgen“
           · News · ab Rückkanal: Antworten, Konfidenz, Bewertungen
 STEUERUNG Scheduled Task startet → Sonnet-Lead → `fabrik.py status` sagt, was dran ist
 SLATE     Opus-Subagent „Chefredaktion“: Briefs + alle Skripte der Nacht in einem Kontext
-          (Stufe, Kanal, Identität, Niveau, Serie/Teil, Bogen, Beats nur mit Fakt-IDs)
+          (Stufe, Kanal, Identität, Look, Stimme, Niveau, Serie/Teil, Bogen, Beats nur mit Fakt-IDs)
           → Skript-Kritik (Sonnet, eigener Kontext) → 1 Überarbeitung (Opus)
 PRO VIDEO Sonnet-Subagent: Faktencheck → Spec füllen → `fabrik.py build`
           (Lint → Stimme am Stück → Mastering → Wortzeiten + Hör-Check
@@ -95,7 +95,7 @@ Fable 5.1 wird nicht eingesetzt. Batch und Cache der API entfallen; sie kommen n
 
 ## 3. Stil: Richtung Veritasium und Simplicissimus
 
-**Identitäten.** Navy-Leere und Creme-Papier mit Serifen stehen auf der BANNED-Liste von HyperFrames. Palette und Schriften bleiben; jede `DESIGN.md` legt messbare Merkmale fest, und was in Renders trotzdem nach Standard aussieht, kommt auf BANNED.
+**Identitäten.** Navy-Leere und Creme-Papier mit Serifen stehen auf der BANNED-Liste von HyperFrames. Palette und Schriften wählt der Look (unten); `studio/DESIGN.md` legt die messbaren Merkmale fest, die für jeden Look gelten, und was in Renders trotzdem nach Standard aussieht, kommt auf BANNED.
 
 | Identität | Kanäle | Messbare Regeln | ab |
 |---|---|---|---|
@@ -103,7 +103,12 @@ Fable 5.1 wird nicht eingesetzt. Batch und Cache der API entfallen; sie kommen n
 | Diagramm | Naturwiss., Mathe, Schul-Transfer, Wirtschaftsmodelle | sichtbares Rasterpapier (6×6-Anker), Striche zeichnen sich, alles an Achse oder Raster verankert; kein Schnitt in einer Herleitung | v1 |
 | Atlas | Geopolitik & Geschichte, Wirtschaftslage | Korn nur, wenn es im Handy-Blatt sichtbar ist (Spike 27.10.: festes Korn verdoppelte die MP4 und war unsichtbar), Schlagzeilen mit Quelle + Datum, Kartenrouten, Duoton-Archivfotos | minimal bis 4.11. |
 
-Farben gelten überall gleich: Gold = gesuchte Größe, Creme = gegeben, Rot = Irrtum/Verlust.
+Farben je Look (`studio/looks/README.md`): eine Farbe für die gesuchte Größe, eine für Irrtum/Verlust. Rot heißt Irrtum oder Verlust; einzige mögliche Ausnahme ist der Rotstift im Zeitungspapier, und der gilt erst mit Linus' Ja (bis dahin Blaustift `#1F4FB5`).
+
+**Looks** (`studio/looks/`, seit 28.10.; Linus' Wunsch: „nicht alles so goldmäßig“). Sechs Looks: Atlas Nacht, Zeitungspapier, Labor, Archiv-Duoton, Flach, Kurstafel.
+- Identitäten sind Szenen-Grammatiken (wie ein Diagramm sich aufbaut, wie eine Karte zoomt). Der Look gibt ihnen Material, Farbe, Schriftpaar und Takt. Raster, Mindestgrößen, Bewegung, Marker-Timing und BANNED aus `studio/DESIGN.md` gelten für jeden Look.
+- Ein Video hat einen Look. Eine Serie behält ihren Look. Im Feed folgen nie zwei Videos verschiedener Serien mit gleichem Look.
+- Welchen Look eine neue Serie bekommt, regelt `voices/rotation.json` (`look_fuer_neue_serie`, Startvorschlag je Kanal in `kanal_start`).
 
 **Bühne und Darsteller (ab v1.1).** Szenen-Timelines erreichen nichts außerhalb ihrer Datei. Ein Spike vergleicht eine durchgehende Bühnen-Sub-Komposition (Welt, Kamera, Darsteller) mit einer Wurzel-Spur, in `check`, `snapshot --review` und im Player. Danach schreibt Opus einen **Kamera-Vertrag**: eine Welt, ein Kamerapfad, ein Darsteller, der die Form nur wechselt, solange er dasselbe bedeutet; höchstens ⅓ harte Schnitte; HUD-Text bleibt fest.
 
@@ -125,14 +130,22 @@ Farben gelten überall gleich: Gold = gesuchte Größe, Creme = gegeben, Rot = I
 | Übergänge | Zoom-in = Detail, Morph = dasselbe verwandelt, Schnitt = neues Thema |
 | Timing | Schlüsselwort spät im Satz, Bild genau auf dem Wort |
 | Fläche | Inhalt y = 168–1330; Untertitel darunter, bei Ton nur Schlüsselwörter |
-| Eintritte | eigene Familie je Identität und Szenentyp |
+| Eintritte | eigene Familie je Identität, Look und Szenentyp (`studio/DESIGN.md` §5) |
 
 Auf den Bildschirm kommen Objekte, Zahlen und Schlüsselwörter, nie der gesprochene Satz.
 
 **Illustrationen.**
 - **Starter-Assets bis 2.11.:** 40–60 Stück (Recraft, ca. $0,08 je Bild, oder RTX-PC), damit die `visuals`-Slots in der Kalibrierung gefüllt sind.
 - **Hausbibliothek ab 14.11.:** 300–500 Motive mit FLUX.2 [klein] 4B (Apache 2.0) auf dem RTX-PC. Setup vorher testen, Stil über Referenzbilder fixieren, Stil-Blatt mit 20 Bildern freigeben, Ablage in eigenem Asset-Repo.
-- **Weitere Quellen:** Open Peeps (CC0), Natural Earth über d3-geo, Wikimedia (mit User-Agent) und Library of Congress als Duoton mit Credit und Datum.
+- **Weitere Quellen:** Open Peeps (CC0), Natural Earth über d3-geo.
+- **Echte Fotos und Clips** (Wikimedia Commons, dort auch Library of Congress und Bundesarchiv) nur über `factory/werk/bilder.py`. Regeln in Worten: `studio/looks/README.md`, Abschnitt „Echte Bilder“.
+  - Nur gemeinfrei, CC0, CC BY, CC BY-SA oder „ohne bekannte Rechte“. Die Lizenz-Vorlagen der Dateiseite werden geprüft (`bilder.vorlagen`) und stehen in `credits.json`. Agentur- und Pressefotos, Google-Bildersuche und YouTube sind tabu.
+  - Höflich laden: User-Agent mit Projektname und Kontakt, 2 s Pause zwischen zwei Abrufen, alles nacheinander. Verlangt der Server per Retry-After mehr als 120 s, bricht der Lauf ab und nennt die Wartezeit, statt früher zu fragen. Ein 429 ist eine Ansage: kein Ausweichen auf einen anderen Endpunkt, auch nicht auf die Vorschau.
+  - Erkennbare Personen (Commons-Einschränkung „personality“) nur mit Freigabe (`personen_freigabe="Grund"`); der Grund steht in `credits.json`. Keine Privatpersonen im Mittelpunkt.
+  - Auflagen des Fotografen außerhalb des Urheberrechts (z. B. „Non-copyright restriction“, DFL-Hinweis unter `User:*/DFL`) meldet `bilder.py` als `BildHinweis`. Sie werden gegen die Nutzung abgewogen, und die Abwägung steht in `credits.json` (`credits_eintrag(…, auflagen_abwaegung=…)`; Vorbild: Goldstandard).
+  - Videos über `bilder.video_fassungen`, nie still gegen ein Standbild getauscht; stumm, höchstens 6 s je Stück.
+  - Credit im Bild (eine Regel für alle Looks: `studio/DESIGN.md` §2) und in `credits.json`. Fotojahr und Objektdatum stehen getrennt (`datum_foto`, `datum_objekt`). Eine Bearbeitung von CC BY-SA bringt `lizenz_video` und eine Abspann-Zeile mit der Lizenz des Videos.
+  - Behandlung je Look (Duoton, Rasterdruck, Freistellen, Foto-Einlage): Tabelle in `studio/looks/README.md`.
 - **Entfern-Test** statt `zeigt:`: Jede Zahl und jedes Bild braucht einen späteren Kausalschritt oder eine Abruffrage; Bilder zeigen Beziehung, Menge, Ort, Abfolge oder Zustand. Hook-Zahlen kommen aus der Kausalkette, nie aus Trivia. KI-Bilder tragen das Label „Illustration“ und zeigen nie echte Personen oder News-Belege.
 
 **Ton.**
@@ -154,8 +167,8 @@ Auf den Bildschirm kommen Objekte, Zahlen und Schlüsselwörter, nie der gesproc
 - **Für DeepTok:**
   - Die Marker-Ebene wird ein eigenes Modul (Registry `marker-highlight`, `hw-callout-circle`). Kreis, Pfeil oder Unterstreichung zeichnen sich genau auf dem Wort.
   - Jede Szene hat einen Helden, der kein Text ist.
-  - Editorial bekommt die Playfair-Schlagzeile mit Unterstreichung; Atlas bekommt Archivfotos in Graustufen plus eine Farbe und die hervorgehobene Kartenregion.
-  - Gold bleibt die gesuchte Größe, Rot bleibt Irrtum und Verlust. Beide Vorbilder nutzen Rot als Signal, das passt.
+  - Editorial bekommt eine Schlagzeile mit Unterstreichung (Schrift je Look); Atlas bekommt Archivfotos in Graustufen plus eine Farbe und die hervorgehobene Kartenregion.
+  - Gesuchte Größe und Irrtum je Look, siehe `studio/looks/README.md`. Beide Vorbilder nutzen Rot als Signal; bei uns bleibt Rot Irrtum und Verlust, bis Linus der Rotstift-Ausnahme im Zeitungspapier zustimmt.
 
 **Inspirations-Werkzeuge.**
 - **Referenz-Destillation (einmalig):** YouTube blockiert Downloads aus der Cloud (Bot-Prüfung), Umgehungen sind tabu. Legal und aus der Cloud erreichbar ist die ZDF-Mediathek: Sie hostet die funk-Folgen von Simplicissimus (2019–2022), Kurzgesagt (deutsch) und maiLab. Gemessen werden je die ersten 180 s; maiLab steht als legaler Ersatz für Veritasium. Ergebnis: `docs/research/referenz-destillation.md`. ffmpeg misst Schnittlängen und Titel-Timing. Nur die Zahlen kommen in die `DESIGN.md`, die Clips werden gelöscht.
@@ -166,26 +179,33 @@ Auf den Bildschirm kommen Objekte, Zahlen und Schlüsselwörter, nie der gesproc
 
 **Casting.**
 - Seit 27.10. über den ElevenLabs-Connector mit Linus' vorhandenen Credits (Freigabe von Linus): Runde 1 mit sechs deutschen Stimmen auf v4 (Thomas, Hans, Konrad Fichte, Jonas, Lea Voss, Victoria), blind auf der Werkstatt-Seite; Runde 2 mit den zwei besten am ganzen Skript. Kosten Runde 1: 12 Proben à 326 Credits, zusammen etwa 1,40 $. Gemessen: Wortfehlerrate 0–8 %, 44,1 kHz, 128 kbps.
+- **Ergebnis (27./28.10.):** Jonas ist Favorit beider Brüder, Thomas Platz 2; alle sechs Stimmen waren gut. Linus will Stimmen variieren, deshalb rotieren sie (unten, „Stimmen-Rotation“). Modell ist `eleven_v4`, damit lief das Casting; `eleven_v4_turbo` wird nicht genutzt.
 - 27.10.: Modelle und Bedingungen prüfen, auch Inworlds Regeln für Minderjährige; Mail an ElevenLabs.
 - Test: Hook, Vorhersagefrage, Widerlegung („nicht X, sondern Y“) und ein ganzes 60-s-Skript mit Zahlen, Namen und Lehnwörtern. Paarweise Zwangswahl, blind, beide Brüder, Handy-Lautsprecher; Wortfehlerrate und Namens-Treffer automatisch.
 - Volumen: bei ca. 6 Videos pro Tag ca. 0,26 Mio. Zeichen pro Monat (inkl. 1,3× Puffer für Neuvertonung), Ziel ca. 0,5 Mio.
 
 | Kandidat | Kosten | Haken | Linus richtet ein |
 |---|---|---|---|
-| ElevenLabs v4 Turbo, Standard- oder eigene Stimme; AA-Platz 1 | $40/1 Mio. Zeichen; Creator $22 (275k, knapp), Pro $99 | unter 18 nur mit schriftlicher Freigabe; kein SSML, IPA zwischen /…/ | Network secret, Mail |
+| ElevenLabs v4 (`eleven_v4`, Bibliotheksstimmen; gewählt nach dem Casting); AA-Platz 1 | $40/1 Mio. Zeichen; Creator $22 (275k, knapp), Pro $99 | unter 18 nur mit schriftlicher Freigabe; kein SSML, IPA zwischen /…/ | Network secret, Mail |
 | Inworld TTS-2; Deutsch #2, Wort-Zeitstempel | $25/1 Mio. | Minderjährigen-Richtlinie ungeprüft; 2 000 Zeichen je Anfrage | Network secret |
 | Cartesia Sonic 3.6; IPA-Wörterbuch | $5 Casting, $49/Monat | Emotions-Tags nur Englisch; Wort-Zeitstempel nur per SSE | Network secret |
 | Azure Florian DragonHD; SSML | $22/1 Mio. | klanglich schwächer; DragonHD ohne Betonungs-SSML, HD nur in westeurope u. a. | Network secret (Region westeurope) |
 
-Gemini-TTS fällt weg, weil die Bedingungen Nutzer unter 18 ausschließen; Piper wird nicht mehr genutzt. Chirp 3 HD bleibt nur Gratis-Basis, wenn die Google-Cloud-Bedingungen es erlauben; das wird separat geprüft.
+Gemini-TTS fällt weg, weil die Bedingungen Nutzer unter 18 ausschließen. Piper spricht in keinem Video für den Feed oder zum Bewerten; er bleibt Rückfall der Werkstatt (nur mit `DEEPTOK_WERKSTATT=1`), etwa für Platzhalter-Blöcke und als Vorlage für die Wortzeiten (DTW) im Goldstandard. Chirp 3 HD bleibt nur Gratis-Basis, wenn die Google-Cloud-Bedingungen es erlauben; das wird separat geprüft.
 
-**Entscheidung am 1.11.:** die bestbewertete Stimme, die heute für **beide** Profile nutzbar ist; ohne Freigabe für den Bruder scheidet ein Anbieter aus. Kosten entscheiden nur, wenn Linus „gleich gut“ sagt. Keine getrennten Stimmen pro Profil.
+**Entscheidung am 1.11.:** die bestbewertete Stimme, die heute für **beide** Profile nutzbar ist; ohne Freigabe für den Bruder scheidet ein Anbieter aus. Kosten entscheiden nur, wenn Linus „gleich gut“ sagt. Keine getrennten Stimmen pro Profil, mit einer Ausnahme: Bis ElevenLabs schriftlich für Hörer unter 18 freigibt, bekommt das Profil des Bruders keine ElevenLabs-Stimme (`voices/rotation.json`, `regeln.bruder`). Er hört dann die Stimme aus dieser Entscheidung; bis zu ihr bekommt er Inhalte als Erklär-Karte ohne Stimme.
+
+**Stimmen-Rotation** (`voices/rotation.json`; Regeln in Worten: `studio/looks/README.md`, Abschnitt „Stimmen“):
+- Die Stimmen rotieren über den Casting-Pool. Jonas ist Hauptstimme (Mitte 37,5 % der Videominuten) und spricht das Morgen-Briefing, Thomas die Märkte-Karte; dazu Konrad Fichte, Lea Voss, Hans und Victoria.
+- Gezählt wird in Videominuten der letzten 14 Tage, nur im Profil Linus. Es gibt eine Schwelle: 5 Prozentpunkte Abstand von der Mitte.
+- Eine Stimme je Serie. Aktive Serien eines Profils haben paarweise verschiedene Stimmen und Looks.
+- Nie zwei Stimmen in einem Video, auch nicht blockweise (Goldstandard v2.1: Jonas und Piper gemischt, darum nicht bewertbar).
 
 **Regeln:**
 - Ganzes Skript in einem Request, sonst 2–3 Absätze mit Nachbartext; Szenen an den Wortzeiten schneiden. Pausen kommen aus der Stimme; Code setzt nur Vorhersage-Stopp und deklarierte Denkpausen (1,5–2,5 s).
 - Markup `*betont*`, `/` (Pause), `?↑` (Frage), je Anbieter übersetzt. Skripte fürs Sprechen: kurze Hauptsätze, Schlüsselwort am Satzende.
 - Wortzeiten vom Anbieter, sonst faster-whisper. Aussprache über Lexikon plus `Anzeige|Gesprochen`; Haiku schlägt Einträge vor.
-- Modell, Stimm-ID und Einstellungen gepinnt in `voices/<id>.json`, Restzeichen vor jeder Nacht prüfen. Ein Sprecher pro Serie; fällt der Anbieter aus, wechselt nur bei News die Stimme, Evergreens warten höchstens 48 h.
+- Modell (`eleven_v4`), Format, Einstellungen und Hauptstimme (`stimm_id` Jonas) gepinnt in `voices/<anbieter>.json`; welche Stimme ein Video spricht, entscheidet die Rotation in `voices/rotation.json`. Restzeichen vor jeder Nacht prüfen. Ein Sprecher pro Serie; fällt der Anbieter aus, wechselt nur bei News die Stimme, Evergreens warten höchstens 48 h.
 - Adapter (`factory/werk/stimme/`): In der Cloud schickt der Code die Anfrage OHNE Key; der Agent-Proxy setzt ihn als Network secret selbst in den Header. Am PC kommt der Key aus einer Umgebungsvariable (`ELEVENLABS_API_KEY`, `INWORLD_API_KEY`, `CARTESIA_API_KEY`, `AZURE_SPEECH_KEY`). Eine Key-Variable in der Cloud-Umgebung löst eine Warnung aus.
 - Brüche und Einheiten, die anders gesprochen werden sollen, als Token schreiben, z. B. `1/2|einhalb`; sonst wird aus 1/2 „1 durch 2“.
 
@@ -200,7 +220,7 @@ Gemini-TTS fällt weg, weil die Bedingungen Nutzer unter 18 ausschließen; Piper
 
 ## 5. Szenen-Bibliothek + Video-Spec
 
-Jeder Szenentyp ist ein Modul `(params, cues, stage) → DOM + GSAP-Timeline` mit Zod-Schema, Slots, Zeichengrenzen, zwei Demo-Specs und Referenz-Snapshot. Beim Bauen wird es in HyperFrames-HTML kopiert, weil Laufzeit-Variablen bei doppelt eingebundenen Szenen versagten; die App spielt nur dieses HTML.
+Jeder Szenentyp ist ein Modul `(params, cues, stage) → DOM + GSAP-Timeline` mit Zod-Schema, Slots, Zeichengrenzen, zwei Demo-Specs und Referenz-Snapshot. Beim Bauen wird es in HyperFrames-HTML kopiert, weil Laufzeit-Variablen bei doppelt eingebundenen Szenen versagten; die App spielt nur dieses HTML. Module gibt es je Look (Held, Zahl, Marker, Credit, Übergang); bisher hat die Bibliothek nur Atlas-Module, die übrigen kommen in Phase 2 (§9).
 
 | Version | Typen |
 |---|---|
@@ -229,7 +249,10 @@ Immer gilt:
 ```ts
 type VideoSpec = {
   id: string; channel: string; level: "bruder"|"linus"|"beide";
-  series: { id: string; part: number }; arc: Arc; voice: string;
+  series: { id: string; part: number }; arc: Arc;
+  voice: string;                        // id aus voices/rotation.json → pool (jonas, thomas …)
+  look: string;                         // Ordnername aus studio/looks/ (atlas-nacht, zeitungspapier, labor,
+                                        // archiv-duoton, flach, kurstafel); eine Serie behält ihn
   lib: string;                          // pinnt Module, Player, Laufzeit, GSAP
   facts: { id: string; claim: string; src: string; date: string; quote: string }[];
   camera?: { world: string; path: string[]; actor: string };  // ab v1.1
@@ -266,7 +289,7 @@ Das Modell schreibt nie Pixel oder Sekunden, nur Slot-Inhalte und Cue-Namen.
 
 | Tor | Prüft |
 |---|---|
-| G0 Schema | Slot-Grenzen, Cues, Beat-Reihenfolge, Frage ≤ 8 s, Ablenker ähnlich lang, ≥ 1 Transferfrage, ≥ 50 % der Zeit Bild statt Text, keine gleiche Typfolge am selben Tag |
+| G0 Schema | Slot-Grenzen, Cues, Beat-Reihenfolge, Frage ≤ 8 s, Ablenker ähnlich lang, ≥ 1 Transferfrage, ≥ 50 % der Zeit Bild statt Text, keine gleiche Typfolge am selben Tag; **Nachbarregel** (`voices/rotation.json`, `regeln`): Look, Bogen und Stimme nicht gleich wie beim Nachbarn im Feed (zwei Videos verschiedener Serien in „Für dich“); in „Heute“ haben Nachbarkarten mit Ton verschiedene Stimmen und Looks; in einer Serie bleiben Stimme und Look gleich, der Bogen kommt nie zweimal hintereinander |
 | G1 Code | Sperrwörter in Sprechtext und App-Texten (Lob, „natürlich“, „offensichtlich“, „einfach“, „Leichtsinnsfehler“, Mindset u. a.); **jede Zahl in Bild und Ton steht normalisiert in `facts[]`** (Mio. = Millionen); Fakt mit Quelle, Datum, Zitat; keine Antwort vor `pause_for_answer`; keine Eingabedatei gestaged; Vault-Namen, Mails, Noten blockiert |
 | Skript-Kritik | Irrtum echt und belegt, ein durchgehendes Beispiel, Beispiel vor Regel, jeder Satz trägt die Kernidee, gut sprechbar → eine Überarbeitung |
 | G2 Didaktik | Entfern-Test, Motivationsfloskeln |
@@ -353,7 +376,7 @@ Die Stimme kostet extra: $5–99 im Monat.
 |---|---|---|
 | 0 Go/No-Go | Mi 28.10. | Umgebung `deeptok-fabrik` steht. Probe-Task per „Run now“ (Auftrag `factory/tasks/probe.md`, Bericht auf Branch `claude/probe-<datum>`): Setup-Skript gecacht, Drive-Connector liest den Digest, je ein Sonnet- und Opus-Subagent, ein Render unter 10 min, Push auf `factory-state` und `claude/…` klappt, der Auto-Modus blockiert nichts Nötiges; Verbrauch notieren. Zugang je TTS-Anbieter kostenlos mit `casting.py --probe`, sobald die Network secrets stehen; Bedingungen. PyAV: av 18.1.0 gepinnt, `hoercheck` dekodiert selbst per ffmpeg |
 | 1 Goldstandard | 28.10.–1.11. | Probe von Hand neu: Siegerstimme, Welt mit Kamera, illustrierter Darsteller, Karte: Spieler München → Barcelona, Ablöse Barcelona → München als Objekt, Marker-Ebene; `DESIGN.md`, Referenz-Destillation, Casting, Starter-Assets. 1.11.: Stimme und Goldstandard entschieden |
-| 2 Skelett | 30.10.–2.11. | parallel: `fabrik.py` mit Zustand, Herzschlag, Deckeln; die vier Task-Prompts; G0, G1, G4, G5; Feed-Seite, Rückkanal. Nach dem Go: v1-Kern ziehen |
+| 2 Skelett | 30.10.–2.11. | parallel: `fabrik.py` mit Zustand, Herzschlag, Deckeln; die vier Task-Prompts; G0, G1, G4, G5; Feed-Seite, Rückkanal. Nach dem Go: v1-Kern ziehen. Dazu zwei Aufgaben aus Goldstandard v2.1 und Look-Katalog: (a) **Szenen-Module je Look** mit Zod-Schema (Held, Zahl, Marker, Credit, Übergang), Vorlage `studio/looks/werkzeug/looks_<look>.py`; (b) **gemeinsame Werkzeuge G4/G6 aus dem Goldstandard:** `luft` (Stille in die fertige Aufnahme), Piper-Takes mit Zwischenspeicher, Pflichtwörter im einzeln ausgeschnittenen Satz (inkl. Schlüsselwörter des Transfers wie „Lohn“), Anstieg steigender Fragen, Tor „Foto ohne Credit“ (`build/messen-bild.mjs`), Adapter `connector` für fertige Block-Dateien mit DTW-Ausrichtung |
 | 3 Kalibrierung | 2.–5.11. | Kalibriernächte 2.–4.11. mit 3, 5 und 7 Videos, Linus bewertet alle 15 und notiert den Verbrauch; v1-Rest, Atlas-Minimal, übrige Tore außer G7; News-Textkarten; Transfer-Videos; Gerätetest. Freeze 5.–14.11. |
 | 4 Testwoche | 6.–13.11. | Läuft ohne Eingriffe mit der kalibrierten Videozahl, v1-Typen und Open Peeps |
 | 5 Ausbau | ab 14.11. | Opus-Review; 16.11. Max oder Pro; G7, L+, Bühne mit Kamera, Hausbibliothek, voller Atlas, Beförderung, Hero, Dialog-Test |

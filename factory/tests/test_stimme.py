@@ -408,12 +408,13 @@ def test_elevenlabs_request_ohne_schluessel(leitung):
     e = elevenlabs.synthese("Das stimmt *nicht* / sondern teurer.", stimme("elevenlabs"))
     r = a.anfragen[0]
     assert r.methode == "POST"
-    assert r.url == ("https://api.elevenlabs.io/v1/text-to-speech/stimme-123/with-timestamps"
+    # Gepinnt nach dem Casting (28.10.2026): Hauptstimme Jonas auf eleven_v4
+    assert r.url == ("https://api.elevenlabs.io/v1/text-to-speech/xlbJQnFFGB01bv7HK5CZ/with-timestamps"
                      "?output_format=mp3_44100_128")
     assert kopf(r, "xi-api-key") is None and kopf(r, "Authorization") is None
     assert kopf(r, "Content-Type") == "application/json"
     body = r.json()
-    assert body == {"text": "Das stimmt NICHT … sondern teurer.", "model_id": "eleven_v4_turbo",
+    assert body == {"text": "Das stimmt NICHT … sondern teurer.", "model_id": "eleven_v4",
                     "language_code": "de",
                     "voice_settings": {"stability": 0.5, "similarity_boost": 0.75}}
     assert e.audio == MP3 and e.format == "mp3" and e.abtastrate == 44100
@@ -439,8 +440,8 @@ def test_elevenlabs_nachbartext_und_tempo(leitung):
 
 def test_elevenlabs_platzhalter_wird_nicht_gesendet(leitung):
     a = leitung()
-    s = stimm_paket.lade_stimme("elevenlabs")
-    assert s["stimm_id"] == basis.PLATZHALTER
+    # voices/elevenlabs.json ist seit dem Casting gepinnt; der Platzhalter wird hier gesetzt.
+    s = {**stimm_paket.lade_stimme("elevenlabs"), "stimm_id": basis.PLATZHALTER}
     with pytest.raises(basis.StimmFehler, match="Erst casten"):
         elevenlabs.synthese("Hallo", s)
     assert a.anfragen == []
@@ -645,5 +646,6 @@ def test_gepinnte_stimmen_sind_vollstaendig(anbieter):
 
 def test_platzhalter_nur_wo_noetig():
     assert stimm_paket.lade_stimme("azure")["stimm_id"] == "de-DE-Florian:DragonHDLatestNeural"
-    for anbieter in ("elevenlabs", "inworld", "cartesia"):
+    assert stimm_paket.lade_stimme("elevenlabs")["stimm_id"] == "xlbJQnFFGB01bv7HK5CZ"   # Jonas
+    for anbieter in ("inworld", "cartesia"):
         assert stimm_paket.lade_stimme(anbieter)["stimm_id"] == basis.PLATZHALTER

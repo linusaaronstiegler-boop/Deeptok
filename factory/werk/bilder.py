@@ -12,10 +12,13 @@ Was das Modul macht:
   fassung=…) holt eine davon. Ein Video wird nie still gegen ein Standbild getauscht.
 - Personen: Dateien mit der Commons-Einschränkung „personality“ lösen einen BildHinweis aus und
   lassen sich nur mit personen_freigabe="Grund" laden (keine Privatpersonen im Mittelpunkt).
-- vorlagen(titel): die Lizenz-Vorlagen der Dateiseite, um „Public domain“ nachzuprüfen.
-- credit_zeile(treffer), credit_zeilen(...), credits_eintrag(...), schreibe_credits(...):
-  Namensnennung fürs Bild (Credit-Ecke, DESIGN.md §2) und für credits.json neben dem Video.
-  Fotojahr und Objektdatum sind getrennt (jahr=…, objekt=…), ein nacktes Jahr wird „ca.“.
+- vorlagen(titel): die Lizenz-Vorlagen der Dateiseite, um „Public domain“ nachzuprüfen. Auflagen
+  außerhalb des Urheberrechts („Non-copyright restriction“, DFL-Hinweise eines Fotografen wie
+  User:Stepro/DFL) lösen einen BildHinweis aus; auflagen(vorlagen) nennt sie.
+- credit_zeile(treffer), credit_zeilen(...), credit_kurz(...), credits_eintrag(...),
+  schreibe_credits(...): Namensnennung fürs Bild (Credit-Ecke, DESIGN.md §2) und für credits.json
+  neben dem Video. Fotojahr und Objektdatum sind getrennt (jahr=…, objekt=…), ein nacktes Jahr
+  wird „ca.“. credit_kurz gibt Zeile (Urheber, Jahr, Lizenz) und Kurzlink getrennt zurück.
 - Behandlungen mit Pillow: graustufen, duoton (je mit Farbfilter-Gewichten), freistellen
   (hyperframes remove-background, sonst rembg) und freistellen_heller_grund (ohne Modell).
 
@@ -54,8 +57,9 @@ if __package__ in (None, ""):          # Aufruf als Skript: factory/ in den Such
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from werk import EXIT_EINGABE, FabrikFehler  # noqa: E402
 
-__all__ = ["BildFehler", "BildHinweis", "CommonsBesetzt", "FREI", "Treffer", "USER_AGENT",
-           "credit_zeile", "credit_zeilen", "credits_eintrag", "duoton", "freistellen",
+__all__ = ["AUFLAGEN_MUSTER", "BildFehler", "BildHinweis", "CommonsBesetzt", "FREI", "Treffer",
+           "USER_AGENT", "auflagen", "credit_kurz", "credit_zeile", "credit_zeilen",
+           "credits_eintrag", "duoton", "freistellen",
            "freistellen_heller_grund", "graustufen", "hole_datei", "lade", "lizenz_art",
            "schreibe_credits", "suche", "video_fassungen", "vorlagen"]
 
@@ -84,6 +88,16 @@ META_FELDER = ("Artist", "Credit", "LicenseShortName", "License", "LicenseUrl", 
 
 DATEIARTEN = ("bitmap", "drawing", "video")
 
+# Vorlagen der Dateiseite, die eine Auflage AUSSERHALB des Urheberrechts melden. Die Lizenz kann
+# trotzdem frei sein (CC BY-SA), aber Marken-, Persönlichkeits- oder Verbandsrechte schränken die
+# Nutzung ein: „Non-copyright restriction“ und die DFL-Hinweise einzelner Fotografen auf ihrer
+# Benutzerseite (User:Stepro/DFL: nur redaktionell, keine Sequenzbilder). extmetadata zeigt davon
+# nur „personality“; erst prop=templates verrät den Rest (Prößdorf-Foto, 28.10.2026).
+AUFLAGEN_MUSTER = (
+    re.compile(r"Non-copyright restrictions?(/.*)?", re.IGNORECASE),
+    re.compile(r"User:[^/]+/DFL(/.*)?", re.IGNORECASE),
+)
+
 
 class BildFehler(FabrikFehler):
     """Allgemeiner Fehler im Echtbild-Baustein (Netz, Lizenz, Datei)."""
@@ -99,7 +113,8 @@ class CommonsBesetzt(BildFehler):
 
 
 class BildHinweis(UserWarning):
-    """Kein Fehler, aber etwas fehlt (z. B. rembg nicht installiert)."""
+    """Kein Fehler, aber ein Mensch soll hinsehen: erkennbare Personen, eine Auflage außerhalb des
+    Urheberrechts (Non-copyright restriction, DFL) oder ein fehlendes Werkzeug (rembg)."""
 
 
 @dataclass
@@ -435,15 +450,42 @@ def vorlagen(titel: str) -> list[str]:
     extmetadata fasst die Lizenz nur zusammen („Public domain“). Ob das für das Foto selbst gilt
     oder nur für den abgebildeten Gegenstand, steht in den Vorlagen der Seite. Ein Abruf je Datei;
     das Ergebnis gehört als „lizenz_vorlagen“ in credits.json.
+
+    Gefragt wird in zwei Namensräumen: 10 (Vorlagen, ohne Präfix zurück) und 2 (Benutzerseiten,
+    mit Präfix, z. B. „User:Stepro/DFL“). Fotografen hängen ihre eigenen Bedingungen oft als
+    Benutzerseite ein; mit nur Namensraum 10 bliebe die DFL-Auflage unsichtbar. Meldet eine
+    Vorlage eine Auflage außerhalb des Urheberrechts (AUFLAGEN_MUSTER), kommt ein BildHinweis.
     """
     if not titel.startswith("File:"):
         titel = f"File:{titel}"
     antwort = _api({"action": "query", "titles": titel, "prop": "templates",
-                    "tlnamespace": "10", "tllimit": "max"})
+                    "tlnamespace": "10|2", "tllimit": "max"})
     seiten = (antwort.get("query") or {}).get("pages") or []
     if not seiten or seiten[0].get("missing"):
         raise BildFehler(f"Datei nicht gefunden: {titel}", EXIT_EINGABE)
-    return sorted(v["title"].removeprefix("Template:") for v in seiten[0].get("templates") or [])
+    liste = sorted(v["title"].removeprefix("Template:") for v in seiten[0].get("templates") or [])
+    gefunden = auflagen(liste)
+    if gefunden:
+        _warne_auflagen(titel, gefunden)
+    return liste
+
+
+def auflagen(vorlagen_liste: Iterable[str] | None) -> list[str]:
+    """Die Vorlagen aus vorlagen(), die eine Auflage außerhalb des Urheberrechts melden.
+
+    Beispiel Prößdorf-Foto (Lewandowski): ["Non-copyright restriction", "User:Stepro/DFL"].
+    Eine leere Liste heißt nicht „frei von allem“: Das Persönlichkeitsrecht steht in
+    Treffer.einschraenkungen („personality“), nicht hier.
+    """
+    return [v for v in vorlagen_liste or [] if any(m.fullmatch(v) for m in AUFLAGEN_MUSTER)]
+
+
+def _warne_auflagen(titel: str, gefunden: list[str]) -> None:
+    """Wie beim Persönlichkeitsrecht: kein Fehler, aber ein Mensch muss abwägen, bevor das Bild
+    veröffentlicht wird. Die Abwägung gehört in credits.json (credits_eintrag, auflagen_abwaegung)."""
+    warnings.warn(f"Auflage außerhalb des Urheberrechts bei {titel}: {', '.join(gefunden)}. "
+                  "Wortlaut auf der Dateiseite lesen und vor einer Veröffentlichung abwägen "
+                  "(credits_eintrag(…, auflagen_abwaegung='<Abwägung>')).", BildHinweis, stacklevel=3)
 
 
 def video_fassungen(treffer: Treffer) -> list[dict[str, Any]]:
@@ -601,10 +643,26 @@ def credit_zeile(treffer: Treffer, *, art: str | None = None, bearbeitet: bool =
                                    objekt=objekt))
 
 
+def credit_kurz(treffer: Treffer, *, art: str | None = None, bearbeitet: bool = False,
+                jahr: str | None = None, objekt: str | None = None) -> tuple[str, str]:
+    """Kurzform für die Credit-Ecke: (Zeile, Kurzlink), getrennt.
+
+    Zeile: „Foto: Urheber, Jahr, Lizenz“, bei Bearbeitung mit „, bearb.“, alles in EINER Zeile.
+    Sie steht in jeder Szene, in der das Bild (oder etwas daraus, z. B. ein Umriss) zu sehen ist.
+    Der Kurzlink kommt getrennt, weil er weichen darf, wenn Etiketten der Welt die Credit-Ecke
+    kreuzen. Darum steht der Bearbeitungsvermerk hier in der Zeile und nicht beim Link wie in
+    credit_zeilen(): Fällt der Link weg, bleibt der Vermerk (CC BY/BY-SA 4.0, Abschnitt
+    3(a)(1)(B): Änderungen kenntlich machen). Gleiche Form wie im Gold-Video (build/foto.py).
+    """
+    zeile = credit_zeilen(treffer, art=art, jahr=jahr, objekt=objekt)[0]
+    return zeile + (", bearb." if bearbeitet else ""), treffer.kurzlink
+
+
 def credits_eintrag(treffer: Treffer, datei: str, *, bearbeitung: str | None = None,
                     art: str | None = None, jahr: str | None = None, objekt: str | None = None,
                     jahr_quelle: str | None = None, personen_freigabe: str | None = None,
-                    lizenz_vorlagen: list[str] | None = None) -> dict[str, Any]:
+                    lizenz_vorlagen: list[str] | None = None,
+                    auflagen_abwaegung: str | None = None) -> dict[str, Any]:
     """Ein Eintrag für credits.json: alles, was die Lizenz verlangt, plus Abrufdatum.
 
     Bei CC BY-SA steht eine Bearbeitung (Duoton, Ausschnitt, Raster) wieder unter CC BY-SA
@@ -613,7 +671,15 @@ def credits_eintrag(treffer: Treffer, datei: str, *, bearbeitung: str | None = N
     Daten getrennt: „datum_commons“ ist der Rohtext von Commons, „datum_foto“ das Jahr im
     Credit (geprüft, wenn jahr_quelle gesetzt ist), „datum_objekt“ das Datum des abgebildeten
     Gegenstands (nur mit objekt=…).
+
+    Auflagen: Stehen in lizenz_vorlagen Vorlagen wie „Non-copyright restriction“ oder
+    „User:Stepro/DFL“, landen sie unter „auflagen“. Fehlt dann auflagen_abwaegung (ein Satz, warum
+    die Nutzung trotzdem passt), kommt ein BildHinweis. „auflagen“ ist None, wenn die Vorlagen
+    nicht abgefragt wurden, und [], wenn sie keine Auflage enthalten.
     """
+    gefundene_auflagen = auflagen(lizenz_vorlagen) if lizenz_vorlagen is not None else None
+    if gefundene_auflagen and not (auflagen_abwaegung or "").strip():
+        _warne_auflagen(treffer.titel, gefundene_auflagen)
     if bearbeitung and treffer.lizenz_art == "cc-by-sa":
         lizenz_bearbeitung = (f"{treffer.lizenz} (ShareAlike: die Bearbeitung steht unter "
                               "derselben Lizenz)")
@@ -642,6 +708,8 @@ def credits_eintrag(treffer: Treffer, datei: str, *, bearbeitung: str | None = N
         "einschraenkungen": treffer.einschraenkungen,
         "personen_freigabe": personen_freigabe,
         "lizenz_vorlagen": lizenz_vorlagen,
+        "auflagen": gefundene_auflagen,
+        "auflagen_abwaegung": auflagen_abwaegung,
         "bearbeitung": bearbeitung,
         "lizenz_bearbeitung": lizenz_bearbeitung,
         "credit_zeile": credit_zeile(treffer, art=art, bearbeitet=bool(bearbeitung), jahr=jahr,
@@ -838,7 +906,10 @@ def _main(argv: list[str] | None = None) -> int:
     lad.add_argument("--vorschau", action="store_true")
     lad.add_argument("--fassung", help="Video: Schlüssel einer Fassung, z. B. 480p.vp9.webm")
     lad.add_argument("--personen-freigabe", help="Pflicht bei Commons-Einschränkung personality")
-    lad.add_argument("--credits", help="Pfad zu credits.json (wird ergänzt)")
+    lad.add_argument("--credits", help="Pfad zu credits.json (wird ergänzt, samt Lizenz-Vorlagen: "
+                                       "ein Abruf mehr)")
+    lad.add_argument("--auflagen-abwaegung",
+                     help="Abwägung bei Auflagen außerhalb des Urheberrechts (z. B. User:…/DFL)")
     fa = unter.add_parser("fassungen", help="verkleinerte Fassungen eines Videos")
     fa.add_argument("titel")
     vo = unter.add_parser("vorlagen", help="Lizenz-Vorlagen der Dateiseite")
@@ -854,7 +925,8 @@ def _main(argv: list[str] | None = None) -> int:
         if a.befehl == "suche":
             for t in suche(a.begriff, a.lizenz or FREI, arten=a.art or ("bitmap",),
                            anzahl=a.anzahl, min_breite=a.min_breite):
-                print(json.dumps({**t.als_dict(), "credit": credit_zeile(t)}, ensure_ascii=False))
+                print(json.dumps({**t.als_dict(), "credit": credit_zeile(t),
+                                  "credit_kurz": list(credit_kurz(t))}, ensure_ascii=False))
         elif a.befehl == "lade":
             t = hole_datei(a.titel)
             fassung = None
@@ -866,8 +938,14 @@ def _main(argv: list[str] | None = None) -> int:
             pfad = lade(t, a.ziel, vorschau=a.vorschau, fassung=fassung,
                         personen_freigabe=a.personen_freigabe)
             if a.credits:
-                schreibe_credits(a.credits, credits_eintrag(t, str(pfad),
-                                                            personen_freigabe=a.personen_freigabe))
+                # Vorlagen gleich mit abfragen: Nur dort steht eine DFL-Auflage. Den Hinweis gibt
+                # credits_eintrag (nur, wenn die Abwägung fehlt), darum hier still.
+                with warnings.catch_warnings():
+                    warnings.simplefilter("ignore", BildHinweis)
+                    vl = vorlagen(t.titel)
+                schreibe_credits(a.credits, credits_eintrag(
+                    t, str(pfad), personen_freigabe=a.personen_freigabe,
+                    lizenz_vorlagen=vl, auflagen_abwaegung=a.auflagen_abwaegung))
             print(json.dumps({"datei": str(pfad), "credit": credit_zeile(t)}, ensure_ascii=False))
         elif a.befehl == "fassungen":
             for f in video_fassungen(hole_datei(a.titel)):

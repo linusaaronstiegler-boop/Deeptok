@@ -24,7 +24,7 @@ Jede Karte bringt etwas bei und wird später abgefragt. Der Plan mit allen Begr�
 Jedes Video ist ein HyperFrames-Projekt in `studio/<name>/`. Vorbild ist `studio/probe-opportunitaetskosten/`.
 
 1. `build/script.py`: Skript als Szenen und Sätze. Ein Token `Anzeige|Gesprochen` trennt Untertitel von Aussprache, z. B. `344|Dreihundertvierundvierzig` oder `Barcelona|Barsselona`.
-2. `python build/voice.py`: Piper-Stimme satzweise vertonen, schreibt `assets/voice.m4a` und `assets/timing.json` mit Wortzeiten (nur Werkstatt: Piper, siehe unten; die Fabrik nimmt die Casting-Siegerstimme).
+2. `python build/voice.py`: Piper-Stimme satzweise vertonen, schreibt `assets/voice.m4a` und `assets/timing.json` mit Wortzeiten (nur Werkstatt: Piper, siehe unten; die Fabrik nimmt eine Stimme aus dem Casting-Pool, `voices/rotation.json`).
 3. Manim-Clips (Mathe, Diagramme): `manim -q h -o x.mp4 --media_dir build/manim build/<datei>.py <Szene>`, danach nach `assets/` kopieren (nur Werkstatt: Manim).
 4. `python build/compose.py`: baut `index.html` und `compositions/*.html` aus den Wortzeiten. Jedes Element erscheint zu dem Wort, das es nennt.
 5. **Hör-Check:** Die Tonspur mit faster-whisper (Modell `small`, `language="de"`) transkribieren und gegen das Skript lesen. Falsch erkannte Wörter bekommen eine Aussprache-Schreibung im Skript.
@@ -56,8 +56,9 @@ Die Cloud-Umgebung `deeptok-fabrik` richtet ihr Setup-Skript `tools/setup-umgebu
 
 ## Stil
 
-- Palette: Navy `#0E1726` / `#1F3864`, Gold `#C9A84C`, Creme `#F5F0E8`, Rot nur für Verlust/Irrtum `#E07A5F`.
-- Schriften: Playfair Display für Überschriften (mit `lining-nums`), Inter für Text.
+- Jedes Video hat einen Look aus dem Katalog (`studio/looks/README.md`). Der Look wählt Farben, Schriftpaar, Material und Takt; Raster, Mindestgrößen, Bewegung und BANNED aus `studio/DESIGN.md` gelten für alle.
+- Look Atlas Nacht, Palette: Navy `#0E1726` / `#1F3864`, Gold `#C9A84C`, Creme `#F5F0E8`, Rot nur für Verlust/Irrtum `#E07A5F`.
+- Look Atlas Nacht, Schriften: Playfair Display für Überschriften (mit `lining-nums`), Inter für Text.
 - Hochformat 1080 × 1920, 30 fps. Lesbarer Inhalt zwischen y = 168 und 1330.
 
 ## Arbeitsweise

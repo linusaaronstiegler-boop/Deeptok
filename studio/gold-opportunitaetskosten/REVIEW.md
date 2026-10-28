@@ -6,6 +6,8 @@ Phase 1 nach `docs/VIDEO-PIPELINE.md` §9. Gebaut nach `drehbuch.md`, `fakten.js
 
 ## Abnahme v2 (28.10.2026, spät abends)
 
+**Nachtrag (Code-Spur):** „Lohn“ steht jetzt in `PFLICHTWOERTER`. Das Tor in `build/voice.py` meldet es auf der jetzigen gemischten Spur zu Recht als fehlend („diesen Lung“). `node build/bauen.mjs` liest das Tor nicht und baut unverändert (in einer Kopie geprüft, `timing.json` nicht neu geschrieben).
+
 Unabhängige Prüfung beider Spuren: Gold-Video Fassung v2.1 und Look-Katalog (`studio/looks/`). Alles in der Tabelle habe ich selbst gemessen oder angesehen, nicht aus den Berichten übernommen. Nichts committet, nichts gepusht.
 
 **Urteil:**

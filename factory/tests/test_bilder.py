@@ -7,7 +7,10 @@ Geprüft wird, was rechtlich und gegenüber Wikimedia zählt:
 - Credit-Zeile und credits.json enthalten Urheber, Lizenz, Link und Datum;
   ein nacktes Jahr wird „ca.“, das Datum eines Gegenstands nie zum Fotojahr;
 - Videos werden nie still gegen ein Standbild getauscht, Fassungen kommen aus videoinfo;
-- Fotos mit erkennbaren Personen (Commons: personality) brauchen eine Freigabe.
+- Fotos mit erkennbaren Personen (Commons: personality) brauchen eine Freigabe;
+- Auflagen außerhalb des Urheberrechts (Non-copyright restriction, User:*/DFL) lösen einen
+  Hinweis aus und landen mit der Abwägung in credits.json;
+- die Kurzform des Credits hält die Zeile (Urheber, Jahr, Lizenz, Vermerk) und den Link getrennt.
 """
 from __future__ import annotations
 
@@ -18,6 +21,7 @@ import json
 import sys
 import urllib.error
 import urllib.parse
+import warnings
 
 import pytest
 
@@ -410,6 +414,83 @@ def test_vorlagen_der_dateiseite(uhr, netz):
     assert n.params()["prop"] == "templates" and n.params()["titles"] == "File:Ball.jpg"
 
 
+# Vorlagen eines Fotos wie dem Prößdorf-Foto im Gold-Video (gekürzt): Lizenz frei, aber zwei
+# Auflagen außerhalb des Urheberrechts. Die DFL-Seite ist eine Benutzerseite (Namensraum 2).
+VORLAGEN_DFL = {"query": {"pages": [{"pageid": 117528166, "title": "File:Lewandowski StP.jpg", "templates": [
+    {"ns": 10, "title": "Template:Cc-by-sa-4.0"}, {"ns": 10, "title": "Template:Non-copyright restriction"},
+    {"ns": 10, "title": "Template:Personality rights"}, {"ns": 2, "title": "User:Stepro/DFL"}]}]}}
+
+
+def test_vorlagen_melden_auflagen_ausserhalb_des_urheberrechts(uhr, netz):
+    n = netz(VORLAGEN_DFL)
+    with pytest.warns(bilder.BildHinweis, match="User:Stepro/DFL"):
+        liste = bilder.vorlagen("Lewandowski StP.jpg")
+    assert n.params()["tlnamespace"] == "10|2"                       # Benutzerseiten mit abfragen
+    assert liste == ["Cc-by-sa-4.0", "Non-copyright restriction", "Personality rights",
+                     "User:Stepro/DFL"]                               # Benutzerseite behält Präfix
+    assert bilder.auflagen(liste) == ["Non-copyright restriction", "User:Stepro/DFL"]
+
+
+def test_vorlagen_ohne_auflage_bleiben_still(uhr, netz):
+    netz({"query": {"pages": [{"pageid": 5, "title": "File:Ball.jpg", "templates": [
+        {"ns": 10, "title": "Template:Cc-zero"}, {"ns": 2, "title": "User:Fotograf/Credit"}]}]}})
+    with warnings.catch_warnings():
+        warnings.simplefilter("error", bilder.BildHinweis)            # jeder Hinweis wäre ein Fehler
+        assert bilder.vorlagen("Ball.jpg") == ["Cc-zero", "User:Fotograf/Credit"]
+
+
+@pytest.mark.parametrize("vorlage, ist_auflage", [
+    ("Non-copyright restriction", True),
+    ("Non-copyright restriction/en", True),
+    ("non-copyright restrictions", True),
+    ("User:Stepro/DFL", True),
+    ("User:Anderer Fotograf/DFL/de", True),
+    ("User:Stepro/Credit", False),
+    ("Personality rights", False),               # steht in Treffer.einschraenkungen, nicht hier
+    ("Cc-by-sa-4.0", False),
+    ("DFL-Logo", False),
+])
+def test_auflagen_muster(vorlage, ist_auflage):
+    assert bilder.auflagen([vorlage]) == ([vorlage] if ist_auflage else [])
+
+
+def test_credits_eintrag_vermerkt_auflagen_und_abwaegung():
+    vl = ["Cc-by-sa-4.0", "Non-copyright restriction", "User:Stepro/DFL"]
+    with pytest.warns(bilder.BildHinweis, match="auflagen_abwaegung"):
+        e = bilder.credits_eintrag(_treffer(), "a.jpg", lizenz_vorlagen=vl)
+    assert e["auflagen"] == ["Non-copyright restriction", "User:Stepro/DFL"]
+    assert e["auflagen_abwaegung"] is None
+    with warnings.catch_warnings():
+        warnings.simplefilter("error", bilder.BildHinweis)
+        e = bilder.credits_eintrag(_treffer(), "a.jpg", lizenz_vorlagen=vl,
+                                   auflagen_abwaegung="Ein Foto, keine Serie; redaktionell-erklärend")
+        assert e["auflagen_abwaegung"].startswith("Ein Foto")
+        assert bilder.credits_eintrag(_treffer(), "b.jpg")["auflagen"] is None          # nicht abgefragt
+        assert bilder.credits_eintrag(_treffer(), "c.jpg", lizenz_vorlagen=["Cc-zero"])["auflagen"] == []
+
+
+def test_kommandozeile_lade_schreibt_credits_mit_auflagen(uhr, netz, tmp_path, capsys):
+    daten = b"\xff\xd8 jpeg"
+    datei = seite(117528166, "File:Lewandowski StP.jpg", 1,
+                  meta(LicenseShortName="CC BY-SA 4.0", License="cc-by-sa-4.0", Artist="Steffen Prößdorf",
+                       DateTimeOriginal="2019-03-09", Restrictions="personality"),
+                  size=len(daten), sha1=hashlib.sha1(daten).hexdigest())
+    n = netz({"query": {"pages": [datei]}}, daten, VORLAGEN_DFL)     # Datei-Info, Datei, Vorlagen
+    credits = tmp_path / "credits.json"
+    with pytest.warns(bilder.BildHinweis) as hinweise:
+        code = bilder._main(["lade", "File:Lewandowski StP.jpg", f"{tmp_path}/fotos/", "--credits",
+                             str(credits), "--personen-freigabe", "Fußballprofi in seiner Rolle"])
+    assert code == 0 and len(n.anfragen) == 3
+    texte = [str(h.message) for h in hinweise]
+    assert sum("personality" in t for t in texte) == 1                # Persönlichkeitsrecht
+    assert sum("User:Stepro/DFL" in t for t in texte) == 1            # Auflage genau einmal
+    eintrag = json.loads(credits.read_text(encoding="utf-8"))["quellen"][0]
+    assert eintrag["auflagen"] == ["Non-copyright restriction", "User:Stepro/DFL"]
+    assert eintrag["personen_freigabe"] == "Fußballprofi in seiner Rolle"
+    ausgabe = json.loads(capsys.readouterr().out)
+    assert ausgabe["datei"].endswith("fotos/lewandowski-stp.jpg")
+
+
 # --- Namensnennung ----------------------------------------------------------------------------
 
 @pytest.mark.parametrize("datum, jahr", [
@@ -451,6 +532,20 @@ def test_credit_zeilen_enthalten_urheber_jahr_lizenz_und_link():
     assert bilder.credit_zeile(_treffer(), bearbeitet=True) == (
         "Foto: Luis Miguel Bugallo Sánchez (Lmbuga), 2014, CC BY-SA 3.0, "
         "commons.wikimedia.org/?curid=34595480, bearbeitet")
+
+
+def test_credit_kurz_trennt_zeile_und_link():
+    # Form wie im Gold-Video: Zeile mit Urheber, Jahr, Lizenz und Vermerk; der Link für sich.
+    foto = _treffer(urheber="Steffen Prößdorf", lizenz="CC BY-SA 4.0", datum="2019-03-09",
+                    seiten_id=117528166)
+    zeile, link = bilder.credit_kurz(foto, bearbeitet=True)
+    assert zeile == "Foto: Steffen Prößdorf, 2019, CC BY-SA 4.0, bearb."
+    assert link == "commons.wikimedia.org/?curid=117528166"           # ohne Vermerk, darf weichen
+    assert bilder.credit_kurz(foto) == (bilder.credit_zeilen(foto)[0], link)
+    ball = _treffer(urheber="Musée national du sport", lizenz="Public domain", lizenz_art="pd",
+                    datum="zwischen 1940 und 1949")
+    assert bilder.credit_kurz(ball, objekt="Ball 1940er")[0] == (
+        "Foto: Musée national du sport (Ball 1940er), gemeinfrei")
 
 
 def test_credit_zeilen_gemeinfrei_video_ohne_jahr():

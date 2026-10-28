@@ -34,6 +34,8 @@ def verbotene_woerter() -> list[str]:
         s = stimm_paket.lade_stimme(anbieter)
         woerter |= {anbieter, s["modell"].lower()}
         woerter |= {k["id"].lower() for k in s.get("kandidaten", [])}
+        if s["stimm_id"] != basis.PLATZHALTER:      # gepinnte Stimme tritt im Trockenlauf an
+            woerter.add(s["stimm_id"].lower())
     return sorted(woerter)
 
 

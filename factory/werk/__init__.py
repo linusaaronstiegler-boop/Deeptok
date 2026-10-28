@@ -9,6 +9,8 @@ Jedes Modul macht genau eine Sache und kennt die anderen kaum:
 - hoercheck:   Tor G4 (Wortfehlerrate, Lautheit, Stillen, Sprechtempo)
 - hyperframes: dünne Hülle um "npx hyperframes check/render"
 - stimme:      Stimm-Adapter (ElevenLabs, Inworld, Cartesia, Azure), Markup und Lexikon
+- bilder:      frei lizenzierte Fotos und Clips von Wikimedia Commons: Lizenz und Lizenz-Vorlagen
+               prüfen, Credits, Duoton/Graustufen/Freistellen
 
 fabrik.py ist nur die Kommandozeile davor.
 """

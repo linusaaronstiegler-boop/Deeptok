@@ -10,6 +10,7 @@ numpy==2.5.4                   # Audio-Messungen
 num2words==0.5.14              # Zahlen als Wörter für den Wortvergleich
 jsonschema==4.26.0             # Video-Spec prüfen (G0)
 pytest==9.1.1                  # Tests der Fabrik
+Pillow==13.0.0                 # Bild-Behandlungen in factory/werk/bilder.py (Duoton, Graustufen) und ihre Tests
 # Unterbau (indirekte Abhängigkeiten, Stand 27.10.2026)
 anyio==4.15.1
 attrs==26.1.0
