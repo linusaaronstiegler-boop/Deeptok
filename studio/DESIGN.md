@@ -1,6 +1,6 @@
 # DeepTok Haus-Design
 
-Stand 27.10.2026 (Phase 1, Goldstandard; Runde 1 der Kritik eingearbeitet, abends). Gilt für jedes Video in `studio/` und jede Szene der Bibliothek.
+Stand 27.10.2026 (Phase 1, Goldstandard; Runde 1 und 2 der Kritik eingearbeitet, spät abends). Gilt für jedes Video in `studio/` und jede Szene der Bibliothek.
 Grundlage sind `docs/VIDEO-PIPELINE.md` §3/§5/§6, `studio/spike-buehne/REVIEW.md` (gemessen) und die Beat-Blätter von alter Probe und Spike A+.
 
 - Maße in Bildpixeln bei 1080 × 1920, 30 fps. **Handy-Maßstab 0,36:** Auf einem 390-pt-Handy werden 34 px zu 12 pt und 2 px zu 0,7 pt. Was dort verschwindet, gibt es nicht (Korn-Lehre).
@@ -30,6 +30,7 @@ Grundlage sind `docs/VIDEO-PIPELINE.md` §3/§5/§6, `studio/spike-buehne/REVIEW
 - Die Welt (Karte, Rasterpapier, Spaltenraster, Foto) reicht an alle vier Bildränder. Nichts schwebt auf leerem Navy.
 - **Held:** Entweder füllt die Welt das Bild und ein Darsteller ist ≥ 288 px (15 % der Bildhöhe) groß, oder ein Gegenstand bzw. Diagramm misst ≥ 465 px hoch (40 % des Lesefensters) bzw. ≥ 691 px breit (80 %).
 - **Bild statt Text:** Ein Videobild zählt als „Bild“, wenn der Held kein Text ist und alle Textkästen zusammen ≤ 20 % der Lesefenster-Fläche bedecken (≤ 251 000 px²). Das gilt für ≥ 50 % aller Bilder (G0/G6). Abgedunkelte Texte (§6, 35 %) zählen nicht mit. Gemessen wird im Player Bild für Bild (`build/messen-bild.mjs` im Goldstandard), auch Texte in der Welt.
+- **Schrift auf Gegenständen** (Etikett, Papier, Tüte, Stempel) misst effektiv ≥ 48 px, also Schriftgröße × Bildschirm-Maßstab (Credits ≥ 34 px). Geprüft im Player Bild für Bild (`build/messen-bild.mjs` im Goldstandard); kurzes Federn beim Stempeln zählt nicht. Ein Zeichen, das nur Prägung ist (€ auf einer Münze), wird als Form gezeichnet, nicht als Text (Goldstandard, Runde 2: 26 px).
 - **Nach einer Fahrt** steht kein Text halb am Bildrand: Was eine Nachfahrt (§5) aus dem Lesefenster schiebt, tritt vorher zurück (Goldstandard, Runde 1).
 - Tor für die Untertitel-Zone (geprüft am 27.10. an einer Kopie von A+: 0 Fehler; eine Credit-Zeile auf y = 1420 gibt `caption_zone_collision`, Exit 1):
   `npx hyperframes check --caption-zone "x0=0;y0=.693;x1=1;y1=1;severity=error"`. Untertitel tragen `data-layout-allow-caption-zone`.
@@ -110,6 +111,11 @@ Grundlage sind `docs/VIDEO-PIPELINE.md` §3/§5/§6, `studio/spike-buehne/REVIEW
 | Nachfahrt | Detail derselben Einstellung, wenn der Held nicht von selbst wächst | Welt, Darsteller, Etiketten und Marker zusammen (eine Hülle `data-rig`), Faktor 1,25 bis 2, 0,5 s `power2.inOut`, logarithmisch, um einen festen Bildpunkt. Das HUD bleibt fest. Erst nach der Lesezeit; der Bildpunkt liegt so, dass kein Text aus dem Lesefenster rutscht (am linken Rand: fx = 108); was am anderen Rand halb stünde, tritt vorher zurück |
 | Drehung | dieselbe Sache von der anderen Seite (Perspektivwechsel, z. B. Behalten → Verkaufen) | Gegenstand dreht sich um seine Achse, 0,6 s `power2.inOut`: flache Teile stauchen mit cos, die vordere Seite wird 10 % größer und 26 px tiefer, die hintere läuft hinter der Säule. Beschriftungen bleiben auf ihrer Bildseite und sind aus, solange der Betrag von cos unter 0,35 liegt; ein Schild hat Vorder- und Rückseite |
 
+- **Neigung eines Modells** (Waage) nur mit sichtbarer Ursache: Etwas setzt auf, etwas bekommt Gewicht, oder es wird entschieden. Ein Darsteller, der schon auf der Schale steht, ohne dass sie sich neigt, lehrt „Neigung folgt nicht dem Gewicht“ (Goldstandard, Runde 2).
+- **Drehung** nur bei stehender Kamera, am besten in einer deklarierten Atempause (`atem_s`): Die Mitte der Drehung (Schild auf der Kante) liegt auf dem Wort der neuen Sicht. Fährt die Kamera dabei, sieht man nicht, was wohin wandert.
+- **Morph Geist → echt** erst, wenn der Gegenstand auf seiner neuen Seite liegt. Echtes Geld auf der Kosten-Seite unter „Behalten“ widerspricht der Bedeutung des Geists.
+- **Höchstens eine Bedeutungsänderung je Sekunde** an einem Modell (Neigung, Morph, Drehung, Etikett). Was dichter liegt, bekommt eine Atempause im Skript statt schnellerer Bewegung.
+
 Verboten sind Kreuzblenden zwischen Welten, Wischblenden und Deko-Übergänge.
 
 **Eintritte je Identität:**
@@ -133,7 +139,7 @@ Verboten sind Kreuzblenden zwischen Welten, Wischblenden und Deko-Übergänge.
 | Kreis | 10 px plus zweite Spur (3,5 px, 45 %, versetzt um +1,5/−2 px) | 0,5 s, `power1.inOut` | 1,15 Umläufe, Radius wächst 12 %, gekippt; 24 px Luft um das Ziel | Deckkraft 0,2 s `power1.in`, wenn der Darsteller den Ort übernimmt |
 | Unterstreichung | wie Kreis | 0,35 s, `power1.inOut` | Textbreite −6/+14 px, steigt 10 px an, Bogen 7 px; Abstand unter der Grundlinie 0,08–0,12 × Schriftgröße (v) | steht mit dem Text |
 | Pfeil (v, noch nicht gebaut) | 8 px | Schaft 0,4 s, Spitze 0,12 s danach | Bogen 8–15 % der Länge, Spitze aus 2 Strichen à 28 px mit 35°; zeigt vom Wort auf den Helden | mit der Szene |
-| Durchstrich | 10 px, nur Rot | 0,3 s, `power2.out` | ein Strich, −4°, 12 px Überstand je Seite | steht bis zur Widerlegung |
+| Durchstrich | 10 px, nur Rot | 0,3 s, `power2.out` | ein Strich, −4°, 12 px Überstand je Seite; trifft nur das falsche Wort („Nur“), nie ein Wort, das richtig bleibt („Gehalt“); Wortbreite gemessen | steht bis zur Widerlegung; die Korrektur kommt als Ergänzung dazu („+ Barças Geld“ wächst an), nicht als Austausch |
 | Haken / Kreuz | 10 px; Haken Creme oder Gold, Kreuz nur Rot | 0,15–0,2 s auf dem bewertenden Wort (gemessen) | Pinselstrich, zwei Züge | mit der Szene |
 | Klammer | 6 px | 0,4–0,7 s (gemessen) | geschweift oder eckig, fasst Teile zum Ganzen; Beschriftung am Scheitel | mit der Szene |
 | Flusspfeil | 8 px | 0,4–0,6 s, kommt auf dem Wort an (gemessen) | folgt der Flussrichtung des Bedeuteten (Geld, Ware, Person) | mit der Szene |
@@ -175,6 +181,8 @@ Jedes Video hat eine Hauptidentität. Eine zweite kommt nur per Schnitt (neues T
 - **Kurven und Linien** 8 px, Punkte 24 px. Gold für die gesuchte Größe, Creme für das Gegebene. Ketten und Hilfslinien 4 px.
 - **Gegenstände im Diagramm** (Kinokarte, Rechnung) dürfen gefüllt sein (Creme-Papier, Navy-Druck), ohne Schatten. Was die gesuchte Größe trägt (Lohntüte), bleibt Gold-Strich.
 - **Herleitung:** ein Diagramm, eine Kamera, kein Schnitt. Neue Elemente kommen ins bestehende Diagramm, Details per Zoom-in.
+- **Jede Kategorie eines Modells kommt mit ihrem Beispiel** (Beispiel vor Regel): die Rechnung auf „geschenkt“, das Gold-Fach auf „Genau dann“. Nach dem Schnitt steht nur das leere Modell. Die Formel („Kosten = bezahlt + aufgegeben“) erst, wenn sie gesprochen wird, und sie tritt vor der Nachfahrt ab.
+- **Gegenstände auf einer Schale sind deckend** (Fach, Tüte, Papier), damit keine Kette hindurchscheint; ihre Fläche kommt mit dem Strich, nie vorher als dunkles Loch.
 - **Verbote:**
   1. ein Diagramm in einer Karte oder Box mit runden Ecken (wie die „Tauschkurve“ der alten Probe);
   2. Legenden, 3D, Schlagschatten oder Verläufe im Diagramm;
@@ -186,9 +194,11 @@ Jedes Video hat eine Hauptidentität. Eine zweite kommt nur per Schnitt (neues T
 - **Eine Region leuchtet:** Fläche, 14-px-Schein und 2-px-Rand (§4). Füllt sie mehr als 50 % des Bildes, hat sie 50 % Deckkraft. Das ist der einzige erlaubte Schein im ganzen Haus.
 - **Orte:** Punkt 24 px Creme mit 6-px-Navy-Ring, Name in Stufe O. Namen blenden aus, bevor sie den Rand bei 108 px erreichen. Ländernamen in Stufe L.
 - **Darsteller:** ≥ 288 px, beleuchtet (Verlauf und Lichtkante), mit Schlagschatten am Boden. Nur die Karte zoomt, Darsteller und Namen bleiben bildschirmgroß.
-- **Route:** gepunktet in Gold, 5 px, Strich 2 px, Lücke 16 px, in Flussrichtung.
+- **Gegenstände** (Waage, Papier) sind beleuchtet wie die Darsteller: Navy-Fläche, Creme-Lichtkante oben und links, Navy-Schatten rechts und unten, Schlagschatten am Boden; Balken ≥ 18 px, Ketten 4 px Creme 80 %. Ein Drahtgestell aus 2-px-Linien wird am Handy zu 0,7 pt und steht neben plastischen Figuren wie aus einer anderen Welt (Goldstandard, Runde 2).
+- **Route:** gepunktet, 5 px, Strich 2 px, Lücke 16 px, in Flussrichtung. Sie trägt die Farbe dessen, was auf ihr fließt: Gold für das Geld (die gesuchte Größe), Creme für einen Spieler (drehbuch.md des Goldstandards, Abweichung 2). Sichtbar ist sie nur, solange etwas auf ihr fließt oder die Kamera ihr folgt; sonst ist sie ganz weg, auch nicht abgedunkelt (sie stach durch die Credit-Zeilen, Runde 2).
+- **Ortspunkt:** Steht ein Gegenstand auf dem Ort (die Waage in München), geht der Punkt; der Fuß markiert den Ort.
 - **Fotos und Belege:** Archivfotos (Wikimedia, Library of Congress) im Duoton mit „Foto: Urheber, Archiv, Jahr“. Schlagzeilen-Belege mit Quelle und Datum.
-- **Geist** (Goldstandard, Runde 1): gestrichelter Gold-Umriss eines Darstellers, sichtbarer Strich 5 px, Muster 16/11, Fläche Gold 14 %. Bedeutet **Möglichkeit oder Aufgegebenes** (Geld, das man nicht bekommt; der Spieler, den man abgibt), also Opportunitätskosten. Wird er echt, verwandelt er sich per Morph in den gefüllten Darsteller. Im Diagramm reimt er auf das gestrichelte Gold-Fach.
+- **Geist** (Goldstandard, Runde 1): gestrichelter Gold-Umriss eines Darstellers, sichtbarer Strich 5 px, Muster 16/11, Fläche Gold 14 %. Bedeutet **Möglichkeit oder Aufgegebenes** (Geld, das man nicht bekommt; der Spieler, den man abgibt), also Opportunitätskosten. Wird er echt, verwandelt er sich per Morph in den gefüllten Darsteller. Im Diagramm reimt er auf das gestrichelte Gold-Fach. **Seine Zahl im Geist-Stil:** 60 % Deckkraft mit gestrichelter Gold-Unterkante; fest wird sie, wenn der Geist Gewicht bekommt. Etikett zweizeilig unter der Schale: Betrag („45 Mio. €“), darunter sein Wort („entgangen“ → „beste Alternative“, Morph). So hängt das Fachwort am Gegenstand, nicht als Unterzeile unter einer Schlagzeile.
 - **Gegenstände tragen Bedeutung, nicht Text:** Ein Vertrag ist ein Blatt mit Stempel, eine Rechnung ein Beleg, eine Laufzeit eine Zeitleiste. Darsteller dürfen auf Gegenständen der Welt stehen (Schalen als Plätze).
 - **Schild an einem Modell-Gegenstand** (Waage): nennt, welche Entscheidung gewogen wird („Behalten“, „Verkaufen“, „Kino“), Inter 600 48 px auf Navy-Fläche. Es wechselt nur per Drehung (§5).
 - **Vignette:** radial, unter Text und Darsteller (sonst meldet `check` eine Verdeckung).
@@ -220,6 +230,10 @@ Was nach Folie oder Standard-KI aussieht. G8 fragt an jedem Beat-Blatt: „Triff
 17. Symbolfiguren mit falscher Nebenbedeutung: ein Schach-Bauer für den besten Stürmer („Bauernopfer“). Eine Figur muss auf den ersten Blick sagen, wer oder was sie ist (Goldstandard, Kritik).
 18. Ein Etikett wechselt die Seite eines Modells, ohne dass das Bild den Grund zeigt („Opportunitätskosten“ plötzlich über „Nutzen“). Wechselt die Sicht, dann per Drehung mit Schild (§5).
 19. Eine Formel als Merksatz, die einer anderen Formel im selben Bild widerspricht („Aufgeben = Kosten“ unter „Kosten = bezahlt + aufgegeben“).
+20. Ein Durchstrich über ein Wort, das richtig bleibt: „Nur sein Gehalt“ ganz durchgestrichen lehrt „Gehalt zählt nicht“ (Goldstandard, Runde 2).
+21. Ein Etikett, das sich als Unterzeile eines anderen Textes liest („beste Alternative“ auf der Grundlinie unter dem D2-Begriff), statt am Gegenstand zu hängen.
+22. Ein Bild, das dem gesprochenen Satz widerspricht: volle Gold-Zahl „45 Mio. €“ unter „Behalten“, während die Stimme „Behalten keinen Cent“ sagt.
+23. Ein Darsteller, der das Bild gegen die Richtung der Karte verlässt (Spieler nach Nordwesten, während die Route nach Barcelona nach Südwesten zeigt).
 
 ## 9. Offene Werte (vorläufig)
 

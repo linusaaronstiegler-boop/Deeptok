@@ -201,9 +201,17 @@ const M = window.DeepTokMarker;
 // "verkaufen oder BEHALTEN": Route und Barcelona treten zurück. So liest man in der Denkpause
 // "Barcelona" nicht als Teil des untersten Schilds (Runde 2, Prüfung 1). Die Route bleibt
 // zurückgenommen, bis die Kamera nach Barcelona fährt (sonst sticht sie durch die Credits).
+// Runde 2b: Wenn die Waage in München steht, hat die Route keine Aufgabe. Abgedunkelt (35 %) stach
+// sie trotzdem durch die Credit-Zeilen ("Vertrag: …", "Ablöse: …", "Wechsel: …"; Prüfung 1). Darum
+// geht sie mit dem Zoom ganz weg, kommt nur für die Fahrt nach Barcelona und den Flug des Geistes
+// zurück und geht nach der Landung wieder.
 dunkel("#w-route", Z.dimBcn, 1, 0.35, true);
-dunkel("#w-route", Z.routeHell, 0.35, 1);
-dunkel("#w-route", Z.routeDunkel, 1, 0.35);
+dunkel("#w-route", Z.zoomIn, 0.35, 0);
+dunkel("#w-route", Z.routeHell, 0, 1);
+dunkel("#w-route", Z.routeDunkel, 1, 0);
+// Der Punkt "München" geht, sobald die Waage steht: Ihr Fuß markiert den Ort. Vorher saß der Punkt
+// in Beat 4 mitten in der Credit-Zeile "ablösefrei: EuGH, • Bosman-Urteil" (Prüfung 1).
+dunkel("#w-punkt-muenchen", Z.waageAuf, 1, 0);
 dunkel(["#w-name-barcelona", "#w-punkt-barcelona"], Z.dimBcn, 1, 0.35);
 dunkel(["#w-name-barcelona", "#w-punkt-barcelona"], Z.hookAus, 0.35, 1);
 // Preisschilder hängen sich auf "kostet" nacheinander ein: Schnur erscheint, Schild pendelt

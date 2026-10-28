@@ -135,7 +135,9 @@
   /* Zeilen unter der LINKEN Schale (seite:links, immer "Kosten"): linksbündig an x = 108.
      Zeile 1 der Betrag, Zeile 2 sein Wort (Runde 2, Prüfung 2: Beim Begriff fehlte sonst die Zahl). */
   #w-reihe-l { z-index: 6; }
-  #w-reihe-l .w-etikett { left: -164px; top: 80px; }
+  /* -162: Bei waagerechter Waage hängt die linke Schale bei x = 540 - 270, das Etikett beginnt dann
+     genau an x = 108. Mit -164 lag es ab "genauso" 2 px links vom Lesefenster (messen-bild.mjs). */
+  #w-reihe-l .w-etikett { left: -162px; top: 80px; }
   #w-reihe-l .w-zeile2 { top: 142px; }
   #w-ok { line-height: 62px; }
   #w-reihe-l #w-saison { top: 204px; }

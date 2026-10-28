@@ -560,12 +560,12 @@ const WAAGE = {
 //            halb am Rand. Mit 1,1 bleibt die ganze Waage im Bild, und der Kreis um den Geist
 //            bleibt rechts von x = 108 (fx = 108 genau: dort steht die Zeile unter der Schale).
 //   satz:    Diagramm, auf die Kosten-Schale (Gold-Fach, Rechnung, "aufgegeben"), ab "Gratis".
-//            Die Mitte dieser Gruppe (285, 940) wandert nach (540, 760): Die Schale steht groß in
+//            Die Mitte dieser Gruppe (290, 940) wandert nach (540, 760): Die Schale steht groß in
 //            der Bildmitte. Die Säule bliebe am rechten Rand stehen, darum tritt sie vorher zurück.
 const NAH = {
   // vertrag: 1,12, nicht mehr: Sonst rutschte die (abgedunkelte) Nutzen-Schale unter die Credits.
   atlas: { vertrag: { r: 1.12, fx: 540, fy: 400 }, begriff: { r: 1.1, fx: 108, fy: 1100 } },
-  diagramm: { r: 1.9, fx: 285, fy: 940, zx: 540, zy: 760 },
+  diagramm: { r: 1.9, fx: 290, fy: 940, zx: 540, zy: 760 },
 };
 const DATEN_ATLAS = { orte, route, kamera, breite: BREITE, hoehe: HOEHE, physik: PHYSIK, marker: MARKER,
   waage: { ...WAAGE, ort: "muenchen" }, nah: NAH.atlas };
@@ -766,7 +766,9 @@ const BLOECKE = {
   atlas: { art: "html", inhalt: atlasFragment },
   diagramm: { art: "html", inhalt: diagrammFragment },
   schriften: { art: "js", inhalt: schriftenCss }, // CSS-Kommentar /* */ wie bei JS
-  marker: { art: "js", inhalt: lies("lib/marker.js") },
+  // Der lange Kopf-Kommentar (Seek-Regeln) steht in lib/marker.js; eingesetzt wird ein Verweis.
+  // So bleiben die drei HUD-Szenen mit Marker unter 300 Zeilen (check: composition_file_too_large).
+  marker: { art: "js", inhalt: lies("lib/marker.js").replace(/^\/\*[\s\S]*?\*\/\n/, "// DeepTok Marker-Ebene. Kommentierte Quelle mit den drei Seek-Regeln: lib/marker.js\n") },
   buehne: { art: "js", inhalt: lies("lib/buehne.js") },
   daten: { art: "js", inhalt: datenBlock("hud", null) },
   datenAtlas: { art: "js", inhalt: datenBlock("atlas", DATEN_ATLAS) },

@@ -32,10 +32,12 @@
 
   .d-anker { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 4; }
   /* Gold-Fach "aufgegeben": gestrichelt (wie der Geist im Atlas), deckend (keine Kette scheint durch). */
-  #d-fach-svg { position: absolute; left: -200px; top: -226px; width: 172px; height: 232px; overflow: visible; }
+  #d-fach-svg { position: absolute; left: -190px; top: -226px; width: 172px; height: 232px; overflow: visible; }
   /* Rechnung: Papier wie der Gehalt-Beleg, 254 breit (für "Rechnung" in 48 px), Navy-Druck,
-     Stempel "bezahlt", Summe "0 €". Steht 24 px über den Schalenrand hinaus (Papier liegt auf). */
-  #d-rechnung { position: absolute; left: -30px; top: -246px; width: 254px; height: 246px; background: #F5F0E8;
+     Stempel "bezahlt", Summe "0 €". Steht 30 px über den Schalenrand hinaus (Papier liegt auf).
+     Runde 2b: Fach und Tüte sitzen 10 px weiter rechts, die Rechnung 6 px: So steht "Lohn" in der
+     Tüte ganz im Lesefenster (vorher x = 99, gemessen mit build/messen-bild.mjs). */
+  #d-rechnung { position: absolute; left: -24px; top: -246px; width: 254px; height: 246px; background: #F5F0E8;
     transform: rotate(-2deg); transform-origin: 50% 100%; }
   .d-druck { position: absolute; white-space: nowrap; font-family: "DT Inter", sans-serif; font-weight: 600;
     font-size: 48px; line-height: 62px; color: #0E1726; }
@@ -57,7 +59,9 @@
     font-size: 52px; line-height: 62px; }
   .d-gold { color: #C9A84C; }
   #d-reihe-l { z-index: 6; }
-  #d-aufgegeben { left: -164px; top: 80px; }
+  /* -162: Bei waagerechter Waage hängt die Schale bei x = 540 - 270; so beginnt das Etikett genau an
+     x = 108 (mit -164 lag es 2 px links vom Lesefenster, gemessen). */
+  #d-aufgegeben { left: -162px; top: 80px; }
   /* Nachhilfe: neben der Lohntüte (Text hängt am Gegenstand), oben links über der Waage. */
   .d-fest { position: absolute; white-space: nowrap; font-family: "DT Inter", sans-serif; font-weight: 600;
     font-size: 52px; line-height: 62px; color: #F5F0E8; z-index: 6; }

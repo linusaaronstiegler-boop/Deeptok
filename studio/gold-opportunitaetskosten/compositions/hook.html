@@ -42,34 +42,7 @@
   <script>
     (function () {
       /* @marker:anfang */
-/*
- * DeepTok Marker-Ebene (Goldstandard; aus studio/spike-buehne/lib/marker.js kopiert und erweitert)
- *
- * Handgezeichnete Markierungen, die sich genau auf ein Wort zeichnen:
- * Kreis (um einen Ort oder eine Zahl), Unterstreichung (unter einer Zahl),
- * Durchstrich (über dem Irrtum, nur Rot) und Klammer (fasst einen Teil zusammen).
- * Maße und Farben: studio/DESIGN.md §6.
- * Vorbild: Simplicissimus (rote Kreise auf Karten) und Veritasium
- * (Unterstreichung unter der Schlagzeile). Angelehnt an die Registry-Bausteine
- * `marker-highlight` und `hw-boil`, aber ohne Laufzeit-Variablen, damit das
- * Stück beim Bauen in jede Szene kopiert werden kann (siehe docs/VIDEO-PIPELINE.md §5).
- *
- * Drei Regeln machen das Modul "seek-sicher", also richtig an jedem Zeitpunkt,
- * auch wenn der Player rückwärts oder mitten hinein springt:
- *   1. Kein Math.random(): Das "Zittern" der Hand kommt aus einer festen
- *      Hash-Funktion mit Startwert (seed). Gleicher seed = gleiche Linie.
- *   2. Nur fromTo-Tweens mit beiden Endpunkten. Ein `from` liest seinen
- *      ENDwert beim Erstellen aus dem DOM. Allein ist das harmlos. Bewegen aber
- *      mehrere Tweens dieselbe Eigenschaft, liest der zweite den Startwert des
- *      ersten als "Endwert" und steht nach einem Sprung falsch. fromTo legt
- *      beide Endpunkte fest; ab dem zweiten Tween auf derselben Eigenschaft
- *      kommt immediateRender: false dazu.
- *   3. Bis zum Cue ist der Strich unsichtbar (opacity 0). Sonst malt die runde
- *      Linienkappe schon vorher einen Punkt an den Anfang.
- *
- * Wird beim Bauen (build/bauen.mjs) zwischen die Marken @marker:anfang/@marker:ende
- * eingesetzt. Doppelt eingesetzt ist harmlos: der Wächter unten bricht ab.
- */
+// DeepTok Marker-Ebene. Kommentierte Quelle mit den drei Seek-Regeln: lib/marker.js
 (function () {
   "use strict";
   if (window.DeepTokMarker) return;

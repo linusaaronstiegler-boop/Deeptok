@@ -1,5 +1,6 @@
-// Seek-Test (Runde 1, Wunsch aus Prüfung 3): Zeigt der Player an jeder Stelle dasselbe Bild,
-// egal wie man dorthin springt? Und zeigt er dasselbe wie das gerenderte MP4?
+// Seek-Test (Runde 1, Wunsch aus Prüfung 3; Runde 2: Vergleich im Änderungs-Rechteck): Zeigt der
+// Player an jeder Stelle dasselbe Bild, egal wie man dorthin springt? Und zeigt er dasselbe wie
+// das gerenderte MP4?
 //
 //   . /opt/deeptok/env.sh
 //   npx hyperframes play . --port 3115 --no-open &      (aus studio/gold-opportunitaetskosten/)
@@ -9,11 +10,18 @@
 //   1. PFAD-UNABHÄNGIG: Zustand (Kamera, Welt-Hülle, Darsteller, Deckkraft der HUD-Clips,
 //      Marker) nach frischem Laden + Sprung auf n  ==  nach einer wilden Sprungfolge (vor,
 //      zurück über den Schnitt, kurz abspielen) + Sprung auf n. Muss exakt gleich sein.
-//   2. BILDGENAU: Player-Bildschirmfoto gegen Render-Bild n (PSNR). Eine feste Schwelle
-//      (Spike: 28 dB) ließ textreiche Standbilder fälschlich durchfallen (Kantenglättung und
-//      Schein werden im Player anders gerastert). Darum zählt das NACHBAR-Kriterium: Bild n des
-//      Renders muss dem Player-Bild ähnlicher sein als n-1 und n+1. Steht das Bild still (alle
-//      drei gleich), gilt nur die Untergrenze von 22 dB.
+//   2. BILDGENAU: Player-Bildschirmfoto gegen Render-Bild n. NACHBAR-Kriterium: Bild n des
+//      Renders muss dem Player-Bild ähnlicher sein als n-1 und n+1 (eine feste dB-Schwelle ließ
+//      textreiche Standbilder fälschlich durchfallen, denn Kantenglättung wird im Player anders
+//      gerastert).
+//      Runde 2 (Prüfung 3): Verglichen wird nur im ÄNDERUNGS-RECHTECK, also dort, wo sich der
+//      Render zwischen n-1 und n+1 unterscheidet (plus 16 px Rand). Über das ganze Bild gemittelt
+//      ging ein zeichnender Durchstrich (ein paar tausend Pixel) im Rauschen unter, und Bild 856
+//      galt als "still". Ist das Rechteck leer, steht das Bild wirklich still: Dann gilt nur die
+//      Untergrenze von 22 dB über das ganze Bild.
+//
+// Die Prüfbilder kommen aus den Zeiten des Baus (const ZEIT in compositions/atlas.html): Marker,
+// Stempel, Drehung, Abflug, Schnitt, Nachfahrten. So wandern sie mit, wenn die Stimme wechselt.
 import { createRequire } from "node:module";
 import { execFileSync } from "node:child_process";
 import fs from "node:fs";
@@ -65,20 +73,60 @@ async function zustand(p) {
   });
 }
 const renderBild = (n, z) => execFileSync("ffmpeg", ["-hide_banner", "-loglevel", "error", "-y", "-i", mp4, "-vf", `select=eq(n\\,${n})`, "-vsync", "0", "-frames:v", "1", z]);
-function psnr(a, b) {
-  const st = path.join(aus, "psnr.txt");
-  execFileSync("ffmpeg", ["-hide_banner", "-loglevel", "error", "-i", a, "-i", b, "-lavfi", "psnr=stats_file=" + st, "-f", "null", "-"]);
-  const z = fs.readFileSync(st, "utf8");
-  const w = (z.match(/psnr_avg:([\d.]+|inf)/) || [])[1];
-  return w === "inf" ? 99 : Number(w);
+// Graustufen-Rohbild (1080 × 1920 Bytes) über ffmpeg: kein PNG-Decoder nötig.
+const grau = (datei) => execFileSync("ffmpeg", ["-hide_banner", "-loglevel", "error", "-i", datei, "-f", "rawvideo", "-pix_fmt", "gray", "-"], { maxBuffer: 1 << 26 });
+const B = 1080;
+const H = 1920;
+// Änderungs-Rechteck: wo sich a und b um mehr als 24 Graustufen unterscheiden (mind. 40 Pixel)
+function rechteck(a, b) {
+  let x0 = B, y0 = H, x1 = -1, y1 = -1, n = 0;
+  for (let y = 0; y < H; y++) {
+    const z = y * B;
+    for (let x = 0; x < B; x++) {
+      if (Math.abs(a[z + x] - b[z + x]) > 24) {
+        n++;
+        if (x < x0) x0 = x;
+        if (x > x1) x1 = x;
+        if (y < y0) y0 = y;
+        if (y > y1) y1 = y;
+      }
+    }
+  }
+  if (n < 40) return null;
+  return { x0: Math.max(0, x0 - 16), y0: Math.max(0, y0 - 16), x1: Math.min(B - 1, x1 + 16), y1: Math.min(H - 1, y1 + 16), n };
+}
+// PSNR (dB) im Rechteck r (ohne r: ganzes Bild)
+function psnr(a, b, r) {
+  const q = r || { x0: 0, y0: 0, x1: B - 1, y1: H - 1 };
+  let s = 0, n = 0;
+  for (let y = q.y0; y <= q.y1; y++) {
+    const z = y * B;
+    for (let x = q.x0; x <= q.x1; x++) {
+      const d = a[z + x] - b[z + x];
+      s += d * d;
+      n++;
+    }
+  }
+  const mse = s / n;
+  return mse === 0 ? 99 : 10 * Math.log10((255 * 255) / mse);
 }
 
-// Bilder: Anfang, Denkpause, Vertrag, Geld fällt, Flug, Geist, Begriff (Nachfahrt), Drehung,
-// Abflug, Schnitt (beidseits), Transfer, Lohn, Nachfahrt im Satz, Ende
 const dauer = await (async () => { const p = await oeffne(); const d = await p.evaluate(() => document.getElementById("p").duration); await p.close(); return d; })();
 const N = Math.floor(dauer * FPS) - 1;
-const schnitt = Math.round(Number(fs.readFileSync("index.html", "utf8").match(/id="diagramm"[^>]*data-start="([\d.]+)"/)[1]) * FPS);
-const BILDER = [15, 220, 600, 735, 905, 1000, 1190, 1380, 1450, schnitt - 1, schnitt, 1700, 1795, 1910, N - 5];
+const ZEIT = JSON.parse(fs.readFileSync("compositions/atlas.html", "utf8").match(/const ZEIT = (\{[^\n]*?\});/)[1]);
+const schnitt = Math.round(ZEIT.schnitt * FPS);
+// [Zeitpunkt, Versatz in s]: mitten in einer Bewegung oder einem Marker, der gerade zeichnet
+const MOMENTE = [
+  ["anfang", 0.5], ["frage", 0.15], ["pause", 1.2], ["vertragFall", 0.25], ["band", 0.35], ["nahVertrag", 0.25],
+  ["frei", 0.1], ["geldFall", 0.2], ["falsch", 0.15], ["falsch", 0.35], ["abflugGeist", 0.9], ["nullBehalten", 0.1],
+  ["korrektur", 0.1], ["begriff", 0.25], ["nahRein", 0.25], ["drehStart", 0.2], ["drehStart", 0.45],
+  ["abflugSpieler", 0.3], ["abflugSpieler", 0.8], ["fach", 0.1], ["lohnZeichnen", 0.2], ["lohnFall", 0.3],
+  ["nahSatz", 0.3], ["puls", 0.1], ["aufgeben", 0.15], ["rechnung", 0.15],
+];
+const BILDER = [...new Set([
+  ...MOMENTE.map(([k, d]) => Math.round((ZEIT[k] + d) * FPS)),
+  schnitt - 1, schnitt, N - 5,
+])].filter((n) => n > 0 && n < N).sort((a, b) => a - b);
 
 const ref = {};
 for (const n of BILDER) {
@@ -99,21 +147,27 @@ for (const n of [...BILDER].reverse()) {
   const gleich = (await zustand(p)) === ref[n];
   const shot = path.join(aus, `player-${n}.png`);
   await p.screenshot({ path: shot, clip: { x: 0, y: 0, width: 1080, height: 1920 } });
-  const werte = [-1, 0, 1].map((d) => {
+  const r = [-1, 0, 1].map((d) => {
     const z = path.join(aus, `render-${n + d}.png`);
     renderBild(n + d, z);
-    return psnr(shot, z);
+    return grau(z);
   });
+  const pl = grau(shot);
+  const feld = rechteck(r[0], r[2]);
+  const werte = r.map((x) => psnr(pl, x, feld));
+  const ganz = psnr(pl, r[1]);
   const [vor, hier, nach] = werte;
-  const still = Math.abs(vor - hier) < 0.5 && Math.abs(nach - hier) < 0.5;
-  const genau = still ? hier >= UNTERGRENZE_DB : hier >= Math.max(vor, nach) - 0.2 && hier >= UNTERGRENZE_DB;
-  erg.push({ bild: n, pfadUnabhaengig: gleich, psnr: werte.map((w) => Math.round(w * 10) / 10), still, bildgenau: genau });
+  const still = !feld;
+  const genau = ganz >= UNTERGRENZE_DB && (still || hier >= Math.max(vor, nach) - 0.2);
+  erg.push({ bild: n, t: Math.round((n / FPS) * 100) / 100, pfadUnabhaengig: gleich, feld: feld ? [feld.x0, feld.y0, feld.x1 - feld.x0, feld.y1 - feld.y0] : null,
+    psnr: werte.map((w) => Math.round(w * 10) / 10), ganz: Math.round(ganz * 10) / 10, still, bildgenau: genau });
 }
 await browser.close();
 const fehler = erg.filter((e) => !e.pfadUnabhaengig || !e.bildgenau);
 fs.writeFileSync(path.join(aus, "ergebnis.json"), JSON.stringify(erg, null, 1));
 for (const e of erg.sort((a, b) => a.bild - b.bild)) {
-  console.log(`Bild ${String(e.bild).padStart(4)}: Pfad ${e.pfadUnabhaengig ? "gleich" : "VERSCHIEDEN"}, PSNR n-1/n/n+1 ${e.psnr.join(" / ")} dB${e.still ? " (still)" : ""} -> ${e.bildgenau ? "ok" : "NICHT BILDGENAU"}`);
+  const wo = e.feld ? ` im Feld ${e.feld[2]}×${e.feld[3]} bei (${e.feld[0]}, ${e.feld[1]})` : " (still, ganzes Bild)";
+  console.log(`Bild ${String(e.bild).padStart(4)} (${e.t.toFixed(2)} s): Pfad ${e.pfadUnabhaengig ? "gleich" : "VERSCHIEDEN"}, PSNR n-1/n/n+1 ${e.psnr.join(" / ")} dB${wo}, ganz ${e.ganz} dB -> ${e.bildgenau ? "ok" : "NICHT BILDGENAU"}`);
 }
 console.log(fehler.length ? `${fehler.length} Fehler` : `alle ${erg.length} Bilder seek-sicher und bildgenau`);
 process.exit(fehler.length ? 1 : 0);

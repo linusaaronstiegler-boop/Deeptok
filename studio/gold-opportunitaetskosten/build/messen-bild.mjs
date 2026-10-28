@@ -123,7 +123,17 @@ async function messe(t) {
         if (r.left < LF.l - 1 || r.right > LF.r + 1 || r.top < LF.o - 1 || r.bottom > LF.u + 1) {
           raus.push(`${name} "${el.textContent.trim().slice(0, 14)}" ${Math.round(r.left)},${Math.round(r.top)},${Math.round(r.right)},${Math.round(r.bottom)}`);
         }
-        if (!inWelt(el)) hud.push({ name, r: { l: r.left, o: r.top, r: r.right, u: r.bottom } });
+        // Für Kollisionen zählen die ZEILEN (wo Schrift steht), nicht der Block: Ein Titel-Block
+        // ist 864 px breit, auch wenn "Behalten?" nur halb so weit reicht (Runde 2: die Figur neben
+        // dem Titel galt sonst als überdeckt). Fläche (Bildanteil) bleibt beim Block: vorsichtiger.
+        if (!inWelt(el)) {
+          const zeilen = el.tagName === "text" ? [r] : (() => {
+            const rg = document.createRange();
+            rg.selectNodeContents(el);
+            return Array.from(rg.getClientRects()).filter((z) => z.width > 2 && z.height > 2);
+          })();
+          for (const z of zeilen) hud.push({ name, r: { l: z.left, o: z.top, r: z.right, u: z.bottom } });
+        }
         // Effektive Schriftgröße: Layout-Breite (HTML: offsetWidth, SVG: getBBox) gegen Bildbreite.
         if (!dreht && deck(el) >= 0.9) {
           const layout = el.tagName === "text" ? el.getBBox().width : el.offsetWidth;
@@ -141,10 +151,14 @@ async function messe(t) {
         if (!el || deck(el) < 0.3) continue;
         const r = el.getBoundingClientRect();
         if (!imBild(r)) continue;
+        const schon = new Set();
         for (const h of hud) {
           const b = Math.min(r.right, h.r.r) - Math.max(r.left, h.r.l);
           const hh = Math.min(r.bottom, h.r.u) - Math.max(r.top, h.r.o);
-          if (b > 6 && hh > 6) kollision.push(`${h.name}×${s}`);
+          if (b > 6 && hh > 6 && !schon.has(h.name)) {
+            schon.add(h.name);
+            kollision.push(`${h.name}×${s}`);
+          }
         }
       }
       return { held, flaeche, raus, kollision, fahrt, klein };
@@ -184,7 +198,12 @@ for (let t = 0; t < dauer; t += schritt) {
   for (const k of m.kollision) merke("HUD über Gegenstand", k, tt);
   if (!m.fahrt) for (const k of m.klein) merke("Schrift zu klein", k.replace(/ [\d.]+ px < \d+$/, ""), tt);
 }
-const befunde = Object.entries(strecken).map(([k, s]) => `${k} @ ${s.map(([a, b]) => (a === b ? `${a}` : `${a}-${b}`)).join(", ")}`);
+// "Schrift zu klein" in genau EINER Probe ist das Federn eines Stempels (Maßstab 1,6 -> 1 mit
+// back.out schwingt kurz unter 1): ein Hinweis, kein Befund. Ab zwei Proben (0,2 s) zählt es.
+const kurz = (k, s) => k.startsWith("Schrift zu klein") && s.every(([a, b]) => a === b);
+const zeile = ([k, s]) => `${k} @ ${s.map(([a, b]) => (a === b ? `${a}` : `${a}-${b}`)).join(", ")}`;
+const befunde = Object.entries(strecken).filter(([k, s]) => !kurz(k, s)).map(zeile);
+const hinweise = Object.entries(strecken).filter(([k, s]) => kurz(k, s)).map(zeile);
 const ergebnis = {
   schritt_s: schritt,
   proben: n,
@@ -193,12 +212,14 @@ const ergebnis = {
   zu_viel_text_s: Math.round(zeilen.filter((z) => z.held.length && !z.bild).length * schritt * 10) / 10,
   max_textanteil_prozent: Math.max(...zeilen.map((z) => z.textanteil)),
   befunde,
+  hinweise,
   zeilen,
 };
 fs.mkdirSync(path.join(HIER, "cache"), { recursive: true });
 fs.writeFileSync(path.join(HIER, "cache/bildanteil.json"), JSON.stringify(ergebnis, null, 1));
-console.log(JSON.stringify({ ...ergebnis, zeilen: undefined, befunde: undefined }));
+console.log(JSON.stringify({ ...ergebnis, zeilen: undefined, befunde: undefined, hinweise: undefined }));
 const luecken = zeilen.filter((z) => !z.bild).map((z) => `${z.t}${z.held.length ? "T" : "-"}`);
 console.log("kein Bild bei (T = zu viel Text, - = kein Held):", luecken.join(" "));
-console.log(befunde.length ? "Befunde:\n  " + befunde.join("\n  ") : "Befunde: keine (Lesefenster, Kollisionen)");
+console.log(befunde.length ? "Befunde:\n  " + befunde.join("\n  ") : "Befunde: keine (Lesefenster, Kollisionen, Schriftgröße)");
+if (hinweise.length) console.log("Hinweise (Federn beim Stempeln, eine Probe):\n  " + hinweise.join("\n  "));
 await browser.close();

@@ -48,8 +48,8 @@ const plan = {
       // Die Tüte zeichnet sich über dem Gold-Fach (neben "Nachhilfe, heute Abend") ...
       // Groß (1,4-fach), solange sie allein steht: Sie ist der Gold-Held des Transfers.
       { ab: L("lohnZeichnen"), bis: L("lohnZeichnen"), nach: "bild:188:552", art: "sofort", skala: 1.4 },
-      // ... und fällt auf "Lohn" senkrecht hinein (Mitte des Fachs: 114 px links der Schalenmitte).
-      { ab: L("lohnFall"), bis: L("lohnLandet"), nach: "schale:links:-114:-8", art: "sturz", skala: 1 },
+      // ... und fällt auf "Lohn" senkrecht hinein (Mitte des Fachs: 104 px links der Schalenmitte).
+      { ab: L("lohnFall"), bis: L("lohnLandet"), nach: "schale:links:-104:-8", art: "sturz", skala: 1 },
     ],
   },
 };
@@ -134,7 +134,7 @@ M.marker(tl, document.getElementById("d-marker-reihe"), "linie",
   { x0: etikett.offsetLeft - 6, x1: etikett.offsetLeft + etikett.offsetWidth + 14, y: etikett.offsetTop + 58 },
   { farbe: "#C9A84C", breite: 10, seed: 6, beginn: L("aufgeben"), dauer: DATEN.marker.linie, id: "d-linie-aufgegeben" });
 M.marker(tl, document.getElementById("d-marker-kosten"), "linie",
-  { x0: -8, x1: 214, y: -170 },
+  { x0: -2, x1: 220, y: -170 },
   { farbe: "#1F3864", breite: 8, seed: 3, beginn: L("rechnung"), dauer: DATEN.marker.linie, id: "d-linie-rechnung", anstieg: -8, bogen: 4 });
 
 tl.to({}, { duration: BUEHNEN.diagramm.ende - T0 }, 0);

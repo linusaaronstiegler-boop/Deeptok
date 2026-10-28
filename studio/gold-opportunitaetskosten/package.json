@@ -3,9 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "bauen": "node build/bauen.mjs",
+    "bauen": "npm ci --prefix build && node build/bauen.mjs",
     "dev": "npx --yes hyperframes@0.8.206 preview",
     "check": "npx --yes hyperframes@0.8.206 check",
-    "render": "npx --yes hyperframes@0.8.206 render --workers 3 -o renders/gold.mp4"
+    "render": "npx --yes hyperframes@0.8.206 render --quality looks --workers 3 -o renders/gold.mp4"
   }
 }
