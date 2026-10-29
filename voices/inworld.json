@@ -4,7 +4,14 @@
   "anbieter": "inworld",
   "modell": "inworld-tts-2",
   "stimm_id": "BITTE_IM_CASTING_WAEHLEN",
-  "kandidaten": [],
+  "kandidaten": [
+    {"id": "Reinhard", "name": "Reinhard", "geschlecht": "male"},
+    {"id": "Fabian", "name": "Fabian", "geschlecht": "male"},
+    {"id": "Bastian", "name": "Bastian", "geschlecht": "male"},
+    {"id": "Sabine", "name": "Sabine", "geschlecht": "female"},
+    {"id": "Annika", "name": "Annika", "geschlecht": "female"},
+    {"id": "Birgit", "name": "Birgit", "geschlecht": "female"}
+  ],
   "_kandidaten_hinweis": "Die Doku nennt keine deutschen Stimmen. casting.py fragt die Liste selbst ab (GET https://api.inworld.ai/voices/v1/voices?languages=de, Header Authorization: Basic …) und nimmt die ersten. Alternativ im Inworld-Playground eine ruhige deutsche Erzählstimme entwerfen und ihre voiceId hier eintragen.",
   "sprache": "de",
   "format": "MP3",
