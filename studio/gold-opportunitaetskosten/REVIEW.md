@@ -1,5 +1,7 @@
 # Review: Goldstandard „Was kostet es, Lewandowski zu behalten?“ (Runde 2, 27./28.10.2026 nachts)
 
+**Nachtrag 28.10.2026 (Blindbewertung der Looks):** Das Protokoll unten bleibt, wie es war, bis auf einen Hinweis bei der Kurstafel. Seit der Blindbewertung am selben Abend gibt es fünf Looks: Die Kurstafel ist verworfen (`studio/looks/verworfen/`), die Märkte-Karte läuft im Look Atlas Nacht (`voices/rotation.json`), und im Zeitungspapier gilt der Rotstift (`studio/looks/README.md`, „Bewertung 28.10.2026“).
+
 Phase 1 nach `docs/VIDEO-PIPELINE.md` §9. Gebaut nach `drehbuch.md`, `fakten.json`, `build/script.py` und `../DESIGN.md`, Bauweise A+ aus dem Bühnen-Spike. Diese Fassung arbeitet die drei Prüfungen der Runde 2 ein (Bild, Didaktik, Technik). Ein Teil davon lag schon im Commit 739829c der Parent-Sitzung (Zwischenstand vor dem Container-Neustart); der Rest liegt uncommittet darüber. Nichts committet, nichts gepusht.
 
 **Stand Runde 2:** Die Stimme war ein Platzhalter (Piper „thorsten-high“). **Stand Fassung v2 (unten):** Jonas aus dem Casting spricht drei der sechs Blöcke, Piper die anderen drei. **Stand Fassung v2.1 (gleich unten):** echter Foto-Moment im Hook, vollständige Credits mit Jahr und Link, Camp Nou entfernt; die Stimme ist weiter gemischt und darum nicht bewertbar. **Abnahme v2 (direkt darunter):** Der Look-Katalog ist reif für die Bewertung durch beide Brüder, das Gold-Video wegen der Stimme noch nicht.
@@ -66,7 +68,7 @@ Am Handy und ohne Ton. Der Bruder urteilt zuerst und blind: Er sieht die Looks o
 
 Die übrigen:
 - **Flach** liegt knapp dahinter: hell, freundlich und gut für den Bruder. Das Foto steht aber nur 1,8 s.
-- **Kurstafel** taugt für die Märkte-Karte, nicht als allgemeiner Look, denn ihr Held ist Text.
+- **Kurstafel** taugt für die Märkte-Karte, nicht als allgemeiner Look, denn ihr Held ist Text. (Nachtrag: in der Blindbewertung verworfen, siehe oben.)
 - **Labor** trägt nur mit einem echten Gegenstand.
 
 ### Offen (Entscheidungen für Linus)

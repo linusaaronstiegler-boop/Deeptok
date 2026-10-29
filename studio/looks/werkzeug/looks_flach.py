@@ -182,15 +182,19 @@ def flach() -> None:
       // kommt 0,06 s später aus der Unschärfe und aus 72 % Größe. Derselbe Ort, jetzt als Modell.
       tl.fromTo("#fl-foto", {{ opacity: 1, scale: 1, filter: "blur(0px)" }}, {{ opacity: 0, scale: 1.3, filter: "blur(10px)", duration: 0.18, ease: "power2.in" }}, {morph_aus});
       raus("#fl-foto-credit, #fl-foto-lizenz", {morph_aus}, 0.18);
-      tl.fromTo("#fl-stadion", {{ opacity: 0, scale: 0.72, filter: "blur(10px)", transformOrigin: "{CX}px {CY}px" }}, {{ opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.32, ease: "expo.out" }}, {morph_ein});
+      // svgOrigin statt transformOrigin: Bei SVG-Elementen rechnet GSAP px-Angaben in transformOrigin
+      // ab der eigenen Bounding-Box, nicht im SVG. Mit transformOrigin "540px 1000px" wuchs das
+      // Stadion von y ≈ 1860 aus und lag beim Morph über dem Foto-Credit (Gegenlese 28.10.).
+      tl.fromTo("#fl-stadion", {{ opacity: 0, scale: 0.72, filter: "blur(10px)", svgOrigin: "{CX} {CY}" }}, {{ opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.32, ease: "expo.out" }}, {morph_ein});
       // Ploppen: Lage und Größe federn (back.out), Deckkraft nur 0,08 s linear (DESIGN.md §5).
       const ploppe = (sel, t, von, ursprung) => {{
         tl.fromTo(sel, {{ opacity: 0 }}, {{ opacity: 1, duration: 0.08, ease: "none" }}, t);
         tl.fromTo(sel, {{ scale: von, transformOrigin: ursprung }}, {{ scale: 1, duration: 0.4, ease: "back.out(2.2)" }}, t);
       }};
       ploppe("#fl-ort-text", {tf('barcelona')}, 0.7, "0% 70%");
-      // Wachsen: der Geldstapel wächst aus dem Anstoßpunkt.
-      tl.fromTo("#fl-geld", {{ scaleY: 0, transformOrigin: "{CX}px {CY + 30}px" }}, {{ scaleY: 1, duration: 0.5, ease: "back.out(1.6)" }}, {tf('bietet')});
+      // Wachsen: der Geldstapel wächst aus dem Anstoßpunkt (svgOrigin in SVG-Koordinaten, siehe oben;
+      // vorher wuchs er von y ≈ 1826 aus durch die Untertitel-Zone).
+      tl.fromTo("#fl-geld", {{ scaleY: 0, svgOrigin: "{CX} {CY + 30}" }}, {{ scaleY: 1, duration: 0.5, ease: "back.out(1.6)" }}, {tf('bietet')});
       // Das Preisschild schwingt an seiner Schnur ein (Drehung federt um das Loch).
       tl.fromTo("#fl-schild-dreh", {{ opacity: 0 }}, {{ opacity: 1, duration: 0.08, ease: "none" }}, {tf('zahl')});
       tl.fromTo("#fl-schild-dreh", {{ rotation: -24, scale: 0.7 }}, {{ rotation: -3, scale: 1, duration: 0.55, ease: "back.out(2.2)" }}, {tf('zahl')});

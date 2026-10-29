@@ -1,47 +1,61 @@
-# Look-Katalog: sechs Bildwelten, sechs Stimmen
+# Look-Katalog: fünf Bildwelten, sechs Stimmen
 
-Stand 28.10.2026, Überarbeitung nach der Kritik vom selben Abend. Linus' Wünsche: Jedes Video soll **anders aussehen und sich anders anfühlen** („nicht alles so goldmäßig“), **echte Bilder von Live-Situationen** zeigen und die **Stimmen variieren**. Dieser Ordner setzt das um:
+Stand 28.10.2026, nach der Blindbewertung vom selben Abend (unten). Linus' Wünsche: Jedes Video soll **anders aussehen und sich anders anfühlen** („nicht alles so goldmäßig“), **echte Bilder von Live-Situationen** zeigen und die **Stimmen variieren**. Dieser Ordner setzt das um:
 
-- sechs Looks, je ein Blatt (`<look>.md`) und eine stumme Probe (`probe-<look>/`, 12 s, zwei Beats);
+- fünf Looks, je ein Blatt (`<look>.md`) und eine stumme Probe (`probe-<look>/`, 12 s, zwei Beats); die sechste Probe, Kurstafel, ist verworfen und liegt nur noch als Beleg in `verworfen/`;
 - Hausregeln, die für jeden Look gelten (Kurzfassung unten, maßgeblich bleibt `studio/DESIGN.md`);
 - echte Fotos und Clips über `factory/werk/bilder.py` (nur freie Lizenzen, mit Credits);
 - Stimmen- und Look-Rotation über alle sechs Casting-Stimmen (`voices/rotation.json`).
+
+## Bewertung 28.10.2026
+
+Linus hat die sechs Proben zusammen mit dem Bruder blind bewertet; das Ergebnis war bei beiden gleich. Frage: „Wie schnell war klar, worum es geht?“ (1 bis 5).
+
+| Look | Klarheit | Folge |
+|---|---|---|
+| Atlas Nacht | 5 | für den Feed gewünscht; häufiger erste Wahl, Märkte-Karte |
+| Zeitungspapier | 5 | für den Feed gewünscht; häufiger erste Wahl, Morgen-Briefing; Rotstift gilt |
+| Labor | 4 | bleibt (Linus: „Alle anderen können gerne rein.“) |
+| Archiv-Duoton | 4 | bleibt |
+| Flach | 4 | bleibt |
+| Kurstafel | 1 bzw. 2 | verworfen (Linus: „bis auf den einen, der so schwarz und hellblau war“), Blatt und Probe in `verworfen/` |
+
+Als Favoriten hat Linus genau die Zeitungspapier-Fassung mit dem roten Stiftkreis gewählt. Das gilt als Ja zur Rotstift-Ausnahme (Abschnitt „Akzent und Rot je Look“). Sagt Linus „rückgängig“, zeichnet Zeitungspapier wieder mit dem Blaustift. Linus will trotzdem starke Abwechslung („krass variieren“): Die Favoriten kommen in `voices/rotation.json` öfter als erste Wahl vor, Anteile für Looks gibt es weiter nicht.
 
 ![Vergleichstafel](belege/vergleich.jpg)
 
 `belege/vergleich.jpg`: je Look zwei Bilder aus dem gerenderten MP4. **Oben Beat 1**, in allen Looks derselbe Inhalt: „Barcelona bietet 45 Millionen Euro“ (Ort, Zahl, ein Held, ein Marker). **Unten Beat 2**, wie der Look weitergeht: „Behält Bayern ihn bis Juni 2023, gibt es danach 0 €.“ Dort zeigt jeder Look seinen eigenen Übergang und Takt.
 
-## Die sechs Looks
+## Die fünf Looks
 
 | Nr | Look | Medium | Grund | Held | Takt, Übergang | gesucht | Irrtum, Verlust |
 |---|---|---|---|---|---|---|---|
 | 1 | [Atlas Nacht](atlas-nacht.md) | Seekarte bei Nacht | dunkel, kalt (Navy) | Karte, beleuchtete Gegenstände | ruhig; Zoom-out-Fahrt zum zweiten Ort | Gold | Rot + Durchstrich |
-| 2 | [Zeitungspapier](zeitungspapier.md) | Zeitungsseite, Collage | hell, neutral (Zeitungsgrau) | echte Fotos (und Clips) im Rasterdruck, Figur ausgeschnitten | dicht; neues Stück alle 0,5–0,7 s, harter Schnitt auf eine neue Seite | Blaustift (Rotstift nur mit Linus' Ja) | Rot + Durchstrich (mit Ja: schwarzer Zensurbalken) |
+| 2 | [Zeitungspapier](zeitungspapier.md) | Zeitungsseite, Collage | hell, neutral (Zeitungsgrau) | echte Fotos (und Clips) im Rasterdruck, Figur ausgeschnitten | dicht; neues Stück alle 0,5–0,7 s, harter Schnitt auf eine neue Seite | Rotstift (seit 28.10.) | Form statt Farbe: Zensurbalken + „FALSCH“; Verlust „−“ + „▼“ auf dem Balken |
 | 3 | [Labor](labor.md) | Werkbank mit Schneidematte | dunkel, grün | echter Gegenstand, freigestellt | ruhig; Kamerafahrt auf der Schiene | Orange (Markierband) | Rot + ✗ |
 | 4 | [Archiv-Duoton](archiv-duoton.md) | Akte auf Graupappe | hell, warm | Abzug in warmem Schwarzweiß | ruhig, schwer; Tippen, Stempeln, Stapel | Violett (Stempel) | Rot + Durchstrich |
 | 5 | [Flach](flach.md) | eigene flache Zeichnung | hell, frisch (Minze) | Illustration, Foto-Einlage am Anfang | lebhaft; Ploppen, Wachsen, Morph | Gelb (Preisschild) | Rot + ✗ |
-| 6 | [Kurstafel](kurstafel.md) | Fallblatt-Anzeige | dunkel, neutral | Tafel mit Zeilen und Modulbalken | getaktet; Klappen, Abdunkeln | Cyan (Klappe) | Rot (Klappe) + „−“ |
 
-**Unterschiede, nachgerechnet** (`werkzeug/` per Skript, CIE76): Je zwei Looks unterscheiden sich in mindestens 4 von 6 Achsen (Helligkeit, Temperatur, Bildträger, Takt, Schriftart, Marker-Art); am nächsten liegen Atlas/Labor, Labor/Archiv, Labor/Kurstafel, Zeitungspapier/Archiv, Zeitungspapier/Kurstafel und Zeitungspapier/Labor mit je 4. Gründe: drei dunkel (L* 8, 16, 28), drei hell (L* 73, 83, 89). Zwei Gründe liegen mindestens ΔE 16 auseinander (Zeitungspapier/Archiv), zwei Akzente mindestens ΔE 26 (Gold/Gelb). Gold oder Gelb tragen zwei von sechs Looks (Atlas, Flach); der zitronige Gelbton von Flach liegt ΔE 26 vom Gold entfernt.
+**Unterschiede, nachgerechnet für die fünf Looks** (28.10. abends, CIE76): Je zwei Looks unterscheiden sich in mindestens 4 von 6 Achsen (Helligkeit, Temperatur, Bildträger, Takt, Schriftart, Marker-Art; „Foto, Clip“ zählt wie „Foto“, „Hand (Stift)“ wie „Hand“); am nächsten liegen Atlas/Labor, Labor/Archiv, Zeitungspapier/Archiv und Zeitungspapier/Labor mit je 4, Labor/Flach unterscheiden sich in allen 6. Gründe: zwei dunkel (L* 8, 28), drei hell (L* 73, 83, 89). Zwei Gründe liegen mindestens ΔE 16 auseinander (Zeitungspapier/Archiv), zwei Akzente mindestens ΔE 26 (Gold/Gelb; Rotstift/Orange ΔE 36). Mit dem Blaustift-Rückfall wären es nur ΔE 23 (Blaustift/Violett). Gold oder Gelb tragen zwei von fünf Looks (Atlas, Flach); der zitronige Gelbton von Flach liegt ΔE 26 vom Gold entfernt.
 
-| Achse | Atlas | Zeitung | Labor | Archiv | Flach | Kurstafel |
-|---|---|---|---|---|---|---|
-| Helligkeit (L* Grund) | dunkel (8) | hell (89) | dunkel (28) | hell (73) | hell (83) | dunkel (16) |
-| Temperatur | kalt | neutral | grün | warm | frisch | neutral |
-| Bildträger | Zeichnung | Foto, Clip | Foto | Foto | Zeichnung (+ Foto-Einlage) | Daten |
-| Takt | ruhig | dicht | ruhig | ruhig | lebhaft | getaktet |
-| Schrift | Serife | Grotesk schmal | Grotesk schmal | Grotesk breit | gerundet | Grotesk schmal |
-| Marker | Hand | Hand (Stift) | Lineal | Stempel | Pinsel | Mechanik |
+| Achse | Atlas | Zeitung | Labor | Archiv | Flach |
+|---|---|---|---|---|---|
+| Helligkeit (L* Grund) | dunkel (8) | hell (89) | dunkel (28) | hell (73) | hell (83) |
+| Temperatur | kalt | neutral | grün | warm | frisch |
+| Bildträger | Zeichnung | Foto, Clip | Foto | Foto | Zeichnung (+ Foto-Einlage) |
+| Takt | ruhig | dicht | ruhig | ruhig | lebhaft |
+| Schrift | Serife | Grotesk schmal | Grotesk schmal | Grotesk breit | gerundet |
+| Marker | Hand | Hand (Stift) | Lineal | Stempel | Pinsel |
 
 **Was die Kritik vom 28.10. geändert hat:**
 - **Labor** war die Standard-KI-Vorlage (fast weißer Grund, Serifen-Zahl, ein Kobalt-Akzent, BANNED 12). Jetzt: Schneidematte in Perspektive, IBM Plex Sans Condensed, Orange.
 - **Archiv** war fast eine Umfärbung von Atlas (Petrol/Ocker gegen Navy/Gold, ΔE 10–14). Jetzt: helle Graupappe, Violett, Libre Franklin, Stempel und Kopierstift.
-- **Kurstafel** war ein dunkles Dashboard mit einem Balken auf leerem Grund. Jetzt: Fallblatt-Anzeige bis an alle Ränder, gegebener und gesuchter Wert, alle Zeichen ≥ 48 px.
+- **Kurstafel** war ein dunkles Dashboard mit einem Balken auf leerem Grund. Danach: Fallblatt-Anzeige bis an alle Ränder. In der Blindbewertung am selben Abend trotzdem verworfen (Klarheit 1 bzw. 2).
 - **Flach**: Geld ist jetzt als Geld erkennbar (Bündel mit €-Zeichen und Banderole), das Gelb ist ein Preisschild statt eines Pillen-Kastens, die Zahl hat 173 px.
-- **Gleiches Gerüst überall**: Jede Probe hat jetzt einen zweiten Beat mit eigenem Übergang (Fahrt, Schnitt, Schiene, Stapel, Morph, Klappen) und stellt den Helden anders (Karte bis zum Rand, Collage links mit Credit-Spalte, Gegenstand in der Mitte, Abzug oben und Karte unten, Illustration mit Schild an der Schnur, Tafelzeilen).
-- **Live-Situationen**: ein echtes Spielfoto (Lewandowski im Spiel für den FC Bayern, 2019) in Zeitungspapier und Archiv. Der echte Clip (volles Camp Nou 2022, CC BY-SA 4.0) ist ausgewählt und im Code eingebaut, aber noch nicht geladen und darum im Render ungeprüft: upload.wikimedia.org antwortete am 28.10. dreimal mit 429 und `Retry-After: 600`, ein vierter Versuch um 22:32 UTC wurde ebenfalls abgelehnt. Bis dahin zeigt Seite 1 dasselbe Stadion als Foto; `werkzeug/fotos.py` holt den Clip beim nächsten Lauf, `proben.py` baut ihn dann von selbst ein.
+- **Gleiches Gerüst überall**: Jede Probe hat jetzt einen zweiten Beat mit eigenem Übergang (Fahrt, Schnitt, Schiene, Stapel, Morph) und stellt den Helden anders (Karte bis zum Rand, Collage links mit Credit-Spalte, Gegenstand in der Mitte, Abzug oben und Karte unten, Illustration mit Schild an der Schnur).
+- **Live-Situationen**: ein echtes Spielfoto (Lewandowski im Spiel für den FC Bayern, 2019) in Zeitungspapier und Archiv. Der echte Clip (volles Camp Nou 2022, CC BY-SA 4.0) ist ausgewählt und im Code eingebaut, aber noch nicht geladen und darum im Render ungeprüft: upload.wikimedia.org antwortete am 28.10. dreimal mit 429 und `Retry-After: 600`, ein vierter Versuch um 22:32 UTC wurde ebenfalls abgelehnt. Bis dahin zeigt Seite 1 dasselbe Stadion als Foto; `werkzeug/fotos.py` holt den Clip beim nächsten Lauf, `proben.py` baut ihn dann von selbst ein. Nachgerechnet am 29.10. mit einem Platzhalter-Clip derselben Größe (480 × 466) in einer Kopie: Bild 711 px hoch ab y = 279, Spalte passt, der Rotstift-Rahmen behält dieselbe Luft (die Unterkante des Bildes steht fest).
 
-**Identitäten und Looks.** Editorial, Diagramm und Atlas aus DESIGN.md §7 sind Szenen-Grammatiken: wie ein Diagramm sich aufbaut, wie eine Karte zoomt. Ein Look gibt ihnen Material, Farbe und Takt. Ein Diagramm im Look Zeitungspapier ist eine Druckschwarz-Linie mit Blaustift-Marker (Rotstift nur mit Linus' Ja); auf der Kurstafel ist es eine Reihe von Klappmodulen.
+**Identitäten und Looks.** Editorial, Diagramm und Atlas aus DESIGN.md §7 sind Szenen-Grammatiken: wie ein Diagramm sich aufbaut, wie eine Karte zoomt. Ein Look gibt ihnen Material, Farbe und Takt. Ein Diagramm im Look Zeitungspapier ist eine Druckschwarz-Linie mit Rotstift-Marker; im Labor eine Maßlinie mit Markierband auf der Schneidematte.
 
 ## Hausregeln für alle Looks (Kurzfassung)
 
@@ -52,27 +66,26 @@ Maßgeblich ist `studio/DESIGN.md`. Diese Regeln wechseln mit dem Look **nicht**
 3. **Cue-Timing:** Eintritt am Wortanfang −2 Bilder (±150 ms), Marker zeichnen auf dem Wort. Nach jeder Landung ≥ 1,2 s Halten; Text steht ≥ 1,7 s. Die Kamera steht beim Lesen; Fahrten dauern 0,5–0,6 s.
 4. **Ein Held je Szene, der kein Text ist;** ≥ 50 % der Bilder sind Bild statt Text. Bilder nur, wenn sie Inhalt tragen.
 5. **Keine Musik,** keine Geräusche unter der Stimme, keine Whoosh-Übergänge, keine Wisch- oder Kreuzblenden.
-6. **Farbe ist Bedeutung:** je Look genau eine Farbe für die gesuchte Größe und eine für Irrtum oder Verlust (Tabelle unten). Der Irrtum hat immer ein zweites Merkmal (Durchstrich, ✗, „−“, Zensurbalken).
-7. **Kontrast nach WCAG:** Text ≥ 4,5 : 1 (fett ab 48 px ≥ 3 : 1), Marker und Formen ≥ 3 : 1. `check` meldet 0 Kontrastfehler; auch Abgedunkeltes bleibt ≥ 3 : 1 (DESIGN.md §6; Wert je Look gemessen, Kurstafel 50 %). Fotos treten über eine dunkle, deckende Fassung zurück, nie über Deckkraft (DESIGN.md §4).
+6. **Farbe ist Bedeutung:** je Look genau eine Farbe für die gesuchte Größe und eine für Irrtum oder Verlust (Tabelle unten). Rot heißt Irrtum oder Verlust; einzige Ausnahme ist der Rotstift im Look Zeitungspapier. Irrtum und Verlust haben immer ein zweites Merkmal (Durchstrich, ✗, „−“); das Zeitungspapier zeigt beide über die Form statt über eine Farbe (Zensurbalken plus „FALSCH“; „−“ plus „▼“ auf dem Balken).
+7. **Kontrast nach WCAG:** Text ≥ 4,5 : 1 (fett ab 48 px ≥ 3 : 1), Marker und Formen ≥ 3 : 1. `check` meldet 0 Kontrastfehler; auch Abgedunkeltes bleibt ≥ 3 : 1 (DESIGN.md §6; Wert je Look am Kontrast messen, nicht schätzen). Fotos treten über eine dunkle, deckende Fassung zurück, nie über Deckkraft (DESIGN.md §4).
 8. **Echte Bilder nur mit freier Lizenz** und mit Credit im Bild und in `credits.json` (Abschnitt unten; die eine Credit-Regel steht in DESIGN.md §2).
 9. **Seek-sicher:** nur `fromTo`, Zufall nur mit festem Startwert, alle Zeiten aus Cues.
 10. **Schriften nur lokal** (woff2, OFL), je Look eigene `@font-face`-Namen; Liste in `werkzeug/schriften.json`.
 11. **Ein Video, ein Look.** Eine Serie behält Look und Stimme.
-12. **Kein Standard-Look:** kein heller Creme-Grund mit Serife, kein dunkler leerer Grund mit einem einzigen Leuchtakzent, keine Pillen-Chips (DESIGN.md §8, HyperFrames BANNED). Jeder Look ist aus einem Medium abgeleitet (Karte, Zeitung, Werkbank, Akte, Zeichnung, Anzeigetafel), und das Medium bestimmt, wie sich etwas bewegt.
+12. **Kein Standard-Look:** kein heller Creme-Grund mit Serife, kein dunkler leerer Grund mit einem einzigen Leuchtakzent, keine Pillen-Chips (DESIGN.md §8, HyperFrames BANNED). Jeder Look ist aus einem Medium abgeleitet (Karte, Zeitung, Werkbank, Akte, Zeichnung), und das Medium bestimmt, wie sich etwas bewegt.
 
 ### Akzent und Rot je Look
 
 | Look | gesuchte Größe | Irrtum oder Verlust | Rot bedeutet |
 |---|---|---|---|
 | Atlas Nacht | Gold `#C9A84C` | Rot `#E07A5F` + Durchstrich | Irrtum, Verlust |
-| Zeitungspapier, bis zu Linus' Ja (gilt jetzt) | Blaustift `#1F4FB5` (Kreis, Pfeil, Unterstreichung) | Rot `#B8161D` + Durchstrich | Irrtum, Verlust |
-| Zeitungspapier, nur mit Linus' Ja | Rotstift `#B8161D` (Kreis, Pfeil, Unterstreichung) | schwarzer Zensurbalken `#161514` | **Signal: hier hinsehen** (einzige Ausnahme im Haus) |
+| Zeitungspapier (gilt seit 28.10.) | Rotstift `#B8161D` (Kreis, Pfeil, Unterstreichung) | Form statt Farbe. Irrtum: schwarzer Zensurbalken `#161514` mit Aufdruck „FALSCH“; Verlust: Zahl mit „−“ und Abwärtsdreieck „▼“ auf dem schwarzen Balken | **Signal: hier hinsehen** (einzige Ausnahme im Haus) |
+| Zeitungspapier, Rückfall nur bei Linus' „rückgängig“ | Blaustift `#1F4FB5` (Kreis, Pfeil, Unterstreichung) | Rot `#B8161D` + Durchstrich | Irrtum, Verlust |
 | Labor | Orange `#FF7A2F` (Markierband, Maßlinie) | Rot `#FF8F8F` + ✗ oder Durchstrich | Irrtum, Verlust |
 | Archiv-Duoton | Violett `#5B2C94` (Stempel, Kopierstift) | Rot `#A3221B` + Durchstrich | Irrtum, Verlust |
 | Flach | Gelb `#FFC93C` (Preisschild, Zahl in Tinte darauf) | Rot `#A51C34` + ✗ | Irrtum, Verlust |
-| Kurstafel | Cyan `#2EC4E6` (Klappe) | Rot `#D93B42` (Klappe) + „−“ | Verlust, Irrtum |
 
-**Die Ausnahme im Zeitungspapier:** Der Look lebt vom Rotstift des Redakteurs. Ein Video hat nur einen Look, und eine Serie behält ihn; innerhalb dessen, was man am Stück sieht, bliebe die Regel eindeutig. Die Ausnahme gilt aber erst mit Linus' Ja. Bis dahin nimmt der Look den **Blaustift** (`#1F4FB5`, ebenfalls Redaktionswerkzeug) als Signal, und Rot bleibt Irrtum. Die Probe zeigt die Rotstift-Fassung, damit Linus entscheiden kann. Kein Gelbmarker: Das brächte einen dritten Gelb- oder Goldton in den Katalog.
+**Die Ausnahme im Zeitungspapier (gilt seit 28.10.2026):** Der Look lebt vom Rotstift des Redakteurs, und Linus hat in der Blindbewertung genau diese Fassung als Favoriten gewählt. Im Zeitungspapier heißt Rot darum „hier hinsehen“: Kreis, Pfeil oder Unterstreichung um die gesuchte Größe, immer auf Papier. Der **Irrtum** bekommt einen schwarzen Zensurbalken, der in 0,3 s über das falsche Wort wischt, und als zweites Merkmal den Aufdruck „FALSCH“ in Papierweiß (Anton-Versalien wie beim Editorial-Balken, ≥ 48 px). Der Balken ist mindestens so breit wie der Aufdruck plus 12 px je Seite; bei einem kurzen Wort wächst er nur in freies Papier, sonst steht der Aufdruck als eigener Streifen direkt darüber (DESIGN.md §6). So ist er weder mit dem Rotstift noch mit einem Zahl-Balken zu verwechseln. Ein **Verlust** steht als Zahl mit „−“ auf dem schwarzen Balken, davor ein gezeichnetes Abwärtsdreieck „▼“ wie im Kursteil der Zeitung: zwei Formmerkmale statt einer Farbe. Ein Video hat nur einen Look, und eine Serie behält ihn; innerhalb dessen, was man am Stück sieht, bleibt die Farbregel eindeutig. In allen anderen Looks bleibt Rot nur Irrtum oder Verlust. Sagt Linus „rückgängig“, gilt wieder der **Blaustift** (`#1F4FB5`, ebenfalls Redaktionswerkzeug) als Signal, und Rot ist im Zeitungspapier wieder Irrtum mit Durchstrich (Konstante `BLAUSTIFT` in `werkzeug/looks_zeitung.py`). Kein Gelbmarker: Das brächte einen dritten Gelb- oder Goldton in den Katalog.
 
 ## Echte Bilder
 
@@ -101,17 +114,16 @@ Maßgeblich ist `studio/DESIGN.md`. Diese Regeln wechseln mit dem Look **nicht**
 | Labor | echte Farbe, freigestellt | `bilder.freistellen` (`hyperframes remove-background`, lokales Modell; sonst rembg), Rückfall Flutfüllung vom Rand |
 | Archiv-Duoton | Duoton Tinte → Papier, als Abzug | `bilder.duoton(…, "#1E1B17", "#F3EFE6")` |
 | Flach | Foto-Einlage in Farbe, verwandelt sich in die Zeichnung | Ausschnitt, sonst unverändert |
-| Kurstafel | Foto-Einlage als Feld der Tafel, Duoton Klappe → Ziffer | `bilder.duoton(…, "#141414", "#F2F0EA")` |
 
 `bilder.graustufen` und `bilder.duoton` nehmen `gewichte=(r, g, b)` wie einen Farbfilter vor dem Schwarzweißfilm (Camp Nou: mit Rotfilter bleibt die gelbe Sitz-Schrift hell).
 
 **Credits.** Es gilt eine Regel für alle Looks, maßgeblich in DESIGN.md §2:
 1. Solange ein fremdes Foto oder ein Clip zu sehen ist, steht seine Zeile „Foto: Urheber, Jahr, Lizenz“ samt Bearbeitung („bearb.“, „freigestellt“) im Bild. Diese Zeile weicht nie; bricht sie um, zählt sie als zwei Zeilen.
 2. Der Kurzlink `commons.wikimedia.org/?curid=<id>` steht darunter, wo Platz ist. Er weicht Etiketten der Welt und Quellenzeilen und steht mindestens einmal im Video, spätestens im Abspann.
-3. Höchstens 3 Zeilen je Credit-Block; nur die senkrechte Spalte im Zeitungspapier fasst bis 5.
-4. Ort je Look: Atlas in der Credit-Ecke rechts, Zeitungspapier senkrecht an der Bildkante, Labor unter der Fußlinie, Archiv auf dem Rand des Abzugs, Flach unter der Foto-Einlage, Kurstafel als Aufdruck. Die Lizenzzeile in den Proben: Zeitungspapier senkrecht am rechten Seitenrand über beide Seiten, Archiv als Rechte-Feld (letzte zwei Zeilen jeder Karteikarte), Flach unter dem Credit der Foto-Einlage. Überall ≥ 34 px und im Lesefenster.
+3. Höchstens 3 Zeilen je Credit-Block; nur die senkrechte Spalte im Zeitungspapier fasst bis 5 und ist nie länger als ihr Bild. Die **Lizenzzeile** einer CC-BY-SA-Bearbeitung ist ein eigener Block aus **genau einer Zeile** und zählt nicht zur 3-Zeilen-Grenze (Entscheidung 28.10.2026): waagerecht „Video: creativecommons.org/licenses/by-sa/4.0“ wie im Gold-Video, senkrecht die lange Fassung „Video: CC BY-SA 4.0 · creativecommons.org/licenses/by-sa/4.0“. Sie steht mit sichtbarer Luft, einer Trennlinie oder an eigenem Ort neben dem Foto-Credit. Die Proben prüfen das beim Bau (`pruefe_credit_block`, `pruefe_lizenzzeile` in `werkzeug/probe_basis.py`; Spaltenlänge ≤ Bildhöhe in `looks_zeitung.py`).
+4. Ort je Look: Atlas in der Credit-Ecke rechts, Zeitungspapier senkrecht an der Bildkante, Labor unter der Fußlinie, Archiv auf dem Rand des Abzugs, Flach unter der Foto-Einlage. Die Lizenzzeile in den Proben: Zeitungspapier senkrecht am rechten Seitenrand über beide Seiten, Archiv als Rechte-Feld unten auf jeder Karteikarte (eine Zeile unter einer Linie), Flach als eigene Zeile 28 px unter dem Credit der Foto-Einlage. Überall ≥ 34 px und im Lesefenster.
 
-Daneben `credits.json` mit Urheber, Lizenz, Lizenz-Link, Lizenz-Vorlagen, Seite, Original, Abrufdatum, Bearbeitung, Inhalt und Credit-Zeile (`bilder.credits_eintrag`). **Eine Bearbeitung von CC BY-SA (Duoton, Raster, Ausschnitt) steht wieder unter CC BY-SA**; `credits.json` vermerkt das in `lizenz_bearbeitung`. Ein Video mit einer solchen Bearbeitung bekommt `lizenz_video` in `credits.json` und nennt seine Lizenz samt Link: als Abspann-Zeile wie das Gold-Video oder als Lizenzzeile im Bild am Credit-Ort des Looks, mindestens so lange, wie die Bearbeitung zu sehen ist (`lizenz_video.im_bild`; so die Proben Zeitungspapier, Archiv und Flach).
+Daneben `credits.json` mit Urheber, Lizenz, Lizenz-Link, Lizenz-Vorlagen, Seite, Original, Abrufdatum, Bearbeitung, Inhalt und Credit-Zeile (`bilder.credits_eintrag`). **Eine Bearbeitung von CC BY-SA (Duoton, Raster, Ausschnitt) steht wieder unter CC BY-SA**; `credits.json` vermerkt das in `lizenz_bearbeitung`. Ein Video mit einer solchen Bearbeitung bekommt `lizenz_video` in `credits.json` und nennt seine Lizenz samt Link: als Abspann-Zeile wie das Gold-Video oder als einzeilige Lizenzzeile im Bild am Credit-Ort des Looks, mindestens so lange, wie die Bearbeitung zu sehen ist (`lizenz_video.im_bild`, Wortlaut in `lizenz_video.zeile_im_bild`; so die Proben Zeitungspapier, Archiv und Flach).
 
 **Jahr im Credit.** Ein genaues Datum wird zum Jahr („2014“), ein Zeitraum bleibt Zeitraum („1940–1949“), ein nacktes Jahr oder „um 1890“ wird „ca. 1890“. Ein geprüftes Jahr schlägt die Schätzung (`jahr="ca. 1890–1906"`, Quelle in `datum_foto_quelle`: Library of Congress, LCCN 2017660387). Zeigt ein Foto einen Gegenstand mit eigenem Datum, wird es getrennt geführt (`objekt="Ball 1940er"` → „Foto: Musée national du sport (Ball 1940er), gemeinfrei“; `datum_objekt` statt `datum_foto`).
 
@@ -134,7 +146,7 @@ Daneben `credits.json` mit Urheber, Lizenz, Lizenz-Link, Lizenz-Vorlagen, Seite,
 | Hans | `yamcvgNdKmgh0Ron7Bsz` | Pool | 10 % |
 | Victoria | `iiABcyfvsoqbxubwCKFM` | Pool | 10 % |
 
-**Stammformate** (Bereich „Heute“, täglich, keine Serien): Weltlage-Briefing mit Jonas im Look Zeitungspapier (Rückfall Konrad/Atlas Nacht), Märkte-Karte mit Thomas im Look Kurstafel (Rückfall Victoria). Sie zählen beim Anteil mit, aber nicht bei der Regel „aktive Serien paarweise verschieden“; in „Heute“ haben zwei aufeinanderfolgende Karten mit Ton verschiedene Stimmen und Looks. Damit bekommt Jonas das größte tägliche Volumen, und Weltlage und Märkte-Karte unterscheiden sich in Stimme und Look.
+**Stammformate** (Bereich „Heute“, täglich, keine Serien): Weltlage-Briefing mit Jonas im Look Zeitungspapier (Rückfall Konrad/Archiv-Duoton), Märkte-Karte mit Thomas im Look Atlas Nacht (Rückfall Victoria/Labor). Beide Favoriten der Blindbewertung kommen so jeden Tag vor. Sie zählen beim Anteil mit, aber nicht bei der Regel „aktive Serien paarweise verschieden“; in „Heute“ haben zwei aufeinanderfolgende Karten mit Ton verschiedene Stimmen und Looks. Die Rückfälle sind so gewählt, dass das in jeder Kombination hält: Briefing {Zeitungspapier, Archiv-Duoton} und Märkte {Atlas Nacht, Labor} teilen keinen Look (der alte Briefing-Rückfall Atlas Nacht hätte mit der Märkte-Karte kollidiert). Damit bekommt Jonas das größte tägliche Volumen, und Weltlage und Märkte-Karte unterscheiden sich in Stimme und Look.
 
 **Regeln:**
 1. **Eine Stimme je Serie.** Alle Teile behalten Stimme und Look; so erkennt man die Serie wieder. Nie zwei Stimmen in einem Video, auch nicht blockweise.
@@ -144,21 +156,23 @@ Daneben `credits.json` mit Urheber, Lizenz, Lizenz-Link, Lizenz-Vorlagen, Seite,
 5. **Looks rotieren ohne Anteile:** erste Wahl des Kanals, wenn keine andere aktive Serie des Profils sie hat; sonst die Alternative; sonst der am längsten nicht benutzte Look.
 6. **Bruder:** keine ElevenLabs-Stimme, bis ElevenLabs schriftlich für Hörer unter 18 freigibt (Mail offen). Bis dahin gilt die Stimme, die die Entscheidung am 1.11. für beide Profile freigibt (Kandidaten in VIDEO-PIPELINE §4); bis zu dieser Entscheidung bekommt er Inhalte als Erklär-Karte ohne Stimme. Seine Videos zählen nicht beim Anteil; die Look-Rotation gilt für ihn sofort.
 
-**Startvorschlag je Serien-Kanal** (nach den ersten Bewertungen anpassen):
+**Startvorschlag je Serien-Kanal** (angepasst nach der Blindbewertung vom 28.10.: Atlas Nacht und Zeitungspapier sind erste Wahl in fünf von acht Kanälen des Profils Linus, vorher zwei; Labor, Archiv-Duoton und Flach bleiben erste Wahl, wo sie inhaltlich am besten passen, und sind die häufigsten Alternativen):
 
 | Kanal | Look | Stimme | Alternativen (Look / Stimme) |
 |---|---|---|---|
-| Rhetorik & Charisma | Archiv-Duoton | Jonas | Zeitungspapier / Victoria |
+| Rhetorik & Charisma | Zeitungspapier (echte Rede, Foto des Redners) | Jonas | Archiv-Duoton / Victoria |
 | Denken & Philosophie | Flach | Hans | Archiv-Duoton / Lea Voss |
 | Wissenschaft | Labor | Lea Voss | Flach / Jonas |
 | Geopolitik & Geschichte | Atlas Nacht | Konrad Fichte | Archiv-Duoton / Jonas |
-| Wirtschaft & Märkte | Kurstafel | Thomas | Zeitungspapier / Jonas |
+| Wirtschaft & Märkte | Atlas Nacht (Handelswege; Modelle als Diagramm wie im Gold-Video) | Thomas | Zeitungspapier / Jonas |
 | Disziplin | Zeitungspapier | Hans | Labor / Konrad Fichte |
-| Stil & Auftreten | Labor | Thomas | Zeitungspapier / Victoria |
+| Stil & Auftreten | Zeitungspapier (Auftritte auf echten Fotos) | Thomas | Labor (das einzelne Kleidungsstück) / Victoria |
 | Bücher | Archiv-Duoton | Victoria | Flach / Lea Voss |
 | Schule-Transfer (Bruder) | Flach (mit Foto-Einlage) | nach Regel 6 | Labor (echte Gegenstände) |
 
 Jonas ist erste Wahl im Briefing (täglich) und in Rhetorik, Alternative in Wissenschaft, Geopolitik und Wirtschaft und Standard für Kanäle ohne Vorschlag. Ob das 37,5 % ergibt, hängt vom Volumen des Briefings ab; Regel 3 und 4 steuern nach.
+
+Starke Abwechslung trotz Favoriten: Haben zwei aktive Serien dieselbe erste Wahl (etwa Rhetorik und Disziplin, beide Zeitungspapier), nimmt die zweite ihre Alternative (Regel 5); die dritte Serie nimmt notfalls den am längsten unbenutzten Look. So bleiben die aktiven Serien eines Profils paarweise verschieden, und Labor, Archiv-Duoton und Flach kommen weiter regelmäßig vor.
 
 ## Variation im Feed
 
@@ -175,40 +189,40 @@ Jonas ist erste Wahl im Briefing (täglich) und in Rhetorik, Alternative in Wiss
 python3 studio/looks/werkzeug/schriften.py                          # Schriften (jsDelivr, gepinnt, SHA-256)
 npm ci --prefix studio/looks/werkzeug && node studio/looks/werkzeug/karte.mjs   # Karten für Atlas Nacht
 /home/user/Deeptok/.venv/bin/python studio/looks/werkzeug/fotos.py   # Fotos und Clip holen, behandeln, credits.json
-/home/user/Deeptok/.venv/bin/python studio/looks/werkzeug/proben.py  # alle sechs Proben schreiben (misst Texte in Chrome)
+/home/user/Deeptok/.venv/bin/python studio/looks/werkzeug/proben.py  # alle fünf Proben schreiben (misst Texte in Chrome)
 bash studio/looks/werkzeug/check-alle.sh                             # check mit Untertitel-Zone für alle
 cd studio/looks/probe-<look> && npx hyperframes snapshot --review && npx hyperframes render --quality looks --workers 3 -o renders/probe-<look>.mp4
 /home/user/Deeptok/.venv/bin/python studio/looks/werkzeug/vergleich.py   # Vergleichstafel aus den Renders
 /home/user/Deeptok/.venv/bin/python -m pytest factory/tests/test_bilder.py -q   # Echtbild-Baustein, ohne Netz
 ```
 
-Die Proben entstehen aus `werkzeug/probe_basis.py` (Wortzeiten, Marker, Messen, Projektrahmen) und je Look `werkzeug/looks_*.py` (Kurznamen: Atlas Nacht `looks_atlas.py`, Zeitungspapier `looks_zeitung.py`, Archiv-Duoton `looks_archiv.py`, Labor `looks_labor.py`, Flach `looks_flach.py`, Kurstafel `looks_kurstafel.py`); Änderungen dort machen, nicht in `probe-*/compositions/beat.html`.
+Die Proben entstehen aus `werkzeug/probe_basis.py` (Wortzeiten, Marker, Messen, Projektrahmen) und je Look `werkzeug/looks_*.py` (Kurznamen: Atlas Nacht `looks_atlas.py`, Zeitungspapier `looks_zeitung.py`, Archiv-Duoton `looks_archiv.py`, Labor `looks_labor.py`, Flach `looks_flach.py`); Änderungen dort machen, nicht in `probe-*/compositions/beat.html`. Die verworfene Kurstafel (`verworfen/looks_kurstafel.py`) ist in `proben.py`, `check-alle.sh` und `vergleich.py` nicht mehr angemeldet.
 
-## Messwerte der Proben (28.10.2026, Überarbeitung)
+## Messwerte der Proben (28.10.2026, nach der Bewertung)
 
-Alle sechs: 12,0 s, H.264, 1080 × 1920, 30 fps. Zeitungspapier, Archiv und Flach neu gebaut und gerendert am 28.10. gegen 22:45 UTC (Lizenzzeile im Bild), die übrigen drei stammen von 21:30–21:45 UTC. `check` mit Untertitel-Zone als Fehler (`werkzeug/check-alle.sh`):
+Alle fünf: 12,0 s, H.264, 1080 × 1920, 30 fps. Archiv neu gebaut und gerendert am 28.10. gegen 23:30 UTC (Lizenzzeile einzeilig als eigener Block), Zeitungspapier und Flach zuletzt am 29.10. gegen 00:05 UTC (Zeitungspapier: höherer Bildausschnitt, Rotstift-Rahmen ganz auf Papier; Flach: Stadion und Geldstapel wachsen von ihrem Platz aus), Atlas Nacht und Labor stammen von 21:30–21:45 UTC (unverändert; `proben.py` baut sie gleich nach). `check` mit Untertitel-Zone als Fehler (`werkzeug/check-alle.sh`, alle fünf am 28.10. gegen 23:25 UTC):
 
 | Probe | `check` (Fehler / Warnungen) | Render (`--quality looks --workers 3`) | MP4 |
 |---|---|---|---|
 | atlas-nacht | 0 / 0 | 13 s | 1,14 MB |
-| zeitungspapier (Seite 1 mit Ersatzfoto, Lizenzzeile) | 0 / 5 (nur Konsolenmeldung „GPU stall“ der WebGL-Rasterbehandlung, harmlos) | 28 s | 0,91 MB |
+| zeitungspapier (Seite 1 mit Ersatzfoto, Spalte ≤ Bild, Rotstift-Rahmen) | 0 / 5 (nur Konsolenmeldung „GPU stall“ der WebGL-Rasterbehandlung, harmlos) | 33 s | 0,97 MB |
 | labor | 0 / 0 | 16 s | 0,99 MB |
-| archiv-duoton (Rechte-Feld) | 0 / 0 | 12 s | 1,57 MB |
-| flach (Lizenzzeile) | 0 / 0 | 9 s | 1,39 MB |
-| kurstafel | 0 / 0 | 14 s | 0,28 MB |
+| archiv-duoton (Rechte-Feld, eine Zeile) | 0 / 0 | 16 s | 1,57 MB |
+| flach (Lizenzzeile eigene Zeile, svgOrigin) | 0 / 0 | 12 s | 1,37 MB |
 
-Bewusst gesetzt und begründet: `data-hold` auf dem Grund von Labor und Archiv, auf der Zahl in Atlas und Zeitungspapier und auf einer Quelle in Flach und Kurstafel (die Proben sind stumm, die Ruhe ist der Takt des Looks); `data-layout-ignore` auf Credits, die kürzer stehen, als die Lesezeit-Prüfung für Lesetext verlangt (Foto-Einlage in Flach, senkrechte Spalten im Zeitungspapier); `data-layout-allow-overlap/-occlusion` auf den Klappen der Kurstafel (die Zustände eines Moduls liegen absichtlich übereinander) und auf Abzug und Karte, die im Archiv auf die alten gelegt werden.
+Gemessen beim Bau (echte Schrift in Chrome, 34 px): längste Zeile der Bildnachweis-Spalte Seite 1 675 px bei 700 px Bildhöhe (vorher 525), Seite 2 693 px bei 820 px Figur; Lizenzzeile kurz 753 px (Archiv, Platz 804) und 766 px (Flach, Platz 864), lang senkrecht 988 px (Platz 1148). Kleinste Schrift in allen drei Proben: 34 px (Credits). Der Rotstift-Rahmen hält 30 px Luft zum Balken, 28 px zum Bild, 31 px zur Bildnachweis-Spalte und 29 px zur Lizenzzeile und endet bei y = 1325; der Bau prüft jeden Punkt des Strichs (≥ 24 px, `looks_zeitung.py`). Im Bild bei 4,0 s liegt kein rotes Pixel im Balken oder näher als 24 px daran (vorher rund 4000 von 17 000 im Balken).
 
-Angesehen: je 4–8 Bilder pro Probe (Zeiten in den Look-Blättern), Ausschnitte in voller Größe, `snapshot --review` mit Handy-Blatt (Kurstafel), Bilder aus allen sechs MP4s, Vergleichstafel. Tests: `factory/tests/test_bilder.py` 77 passed (Repo-.venv und `/opt/deeptok/venv`, beide mit Pillow); `factory/tests -m "not langsam"` 371 passed. Nicht geprüft: Ton (die Proben sind stumm), iPhone, Bewertung durch die Brüder.
+Bewusst gesetzt und begründet: `data-hold` auf dem Grund von Labor und Archiv, auf der Zahl in Atlas und Zeitungspapier und auf einer Quelle in Flach (die Proben sind stumm, die Ruhe ist der Takt des Looks); `data-layout-ignore` auf Credits, die kürzer stehen, als die Lesezeit-Prüfung für Lesetext verlangt (Foto-Einlage in Flach, senkrechte Spalten im Zeitungspapier); `data-layout-allow-overlap/-occlusion` auf Abzug und Karte, die im Archiv auf die alten gelegt werden.
+
+Angesehen: je 4–8 Bilder pro Probe (Zeiten in den Look-Blättern), Ausschnitte in voller Größe, `snapshot --review`, Bilder aus allen fünf MP4s, Vergleichstafel. Nach der Bewertung je geänderter Probe Bilder bei 0,5 / 1,8 / 3,2 / 6,5 / 11,5 s und Ausschnitte in voller Größe (Karteikarten, Sitz-Schrift im Raster). Die Lage des Fotos im Rasterdruck wurde mit einem Streifen-Testbild nachgemessen: Die HyperFrames-Behandlung zeigt das Bild ohne Zoom; „Més que un club“ steht 45 px vom linken und 47 px vom rechten Rand des sichtbaren Bildes. Am 29.10. nach Rahmen und svgOrigin: Zeitungspapier Bild 0,5 / 1,8 / 2,5 / 3,2 / 6,0 s und der Rahmen in voller Größe; Flach 1,85–2,6 s Bild für Bild (Geldstapel wächst aus dem Anstoßkreis, nichts in der Untertitel-Zone). Tests: `factory/tests/test_bilder.py` 77 passed (Repo-.venv); `factory/tests -m "not langsam"` 371 passed (`/opt/deeptok/venv`). Nicht geprüft: Ton (die Proben sind stumm), iPhone.
 
 ## Offen
 
-- **Rot im Zeitungspapier:** Rotstift als Signal braucht Linus' Ja; bis dahin gilt der Blaustift.
+- **Rot im Zeitungspapier:** Der Rotstift gilt seit 28.10. als Signal (Linus' Favorit in der Blindbewertung). Sagt Linus „rückgängig“: `BLAUSTIFT` statt `ROT` für Rahmen und Unterstreichung in `werkzeug/looks_zeitung.py` (Probe neu bauen und rendern), dann zurückstellen: hier die Tabellen „Die fünf Looks“ und „Akzent und Rot je Look“, Hausregel 6 und den Absatz zur Ausnahme; `zeitungspapier.md` (Palette, Stift-Regel, Irrtum und Verlust, Marker, Verbote); DESIGN.md §1.3, §6 (Zeile „Durchstrich“ mit dem Verweis auf den Zensurbalken und die Zeile „Zensurbalken“), BANNED 27 und §9; VIDEO-PIPELINE §3 (Farben je Look und die Vorbild-Zeile); CLAUDE.md (Atlas-Palette, Ausnahme). Den Zensurbalken mit „FALSCH“ zeigt noch keine Probe (im Probe-Inhalt gibt es keinen Irrtum); er kommt mit dem ersten Video, das einen Irrtum widerlegt.
 - **Fabrik-Module:** Die Szenen-Bibliothek kennt bisher nur den Atlas-Stil. Jeder Look braucht seine Module (Held, Zahl, Marker, Credit, Übergang) mit Zod-Schema; die Proben (`werkzeug/looks_*.py`) sind die Vorlage, noch keine Bibliothek. Aufgabe in Phase 2 (`docs/VIDEO-PIPELINE.md` §9).
 - **Rechte vor einer Veröffentlichung:** Erledigt: Zeitungspapier, Archiv und Flach haben `lizenz_video` und eine Lizenzzeile im Bild (Ort je Look, siehe Credits Regel 4); das Prößdorf-Foto trägt in Zeitungspapier und Archiv `auflagen` und `auflagen_abwaegung`. Offen: ein echtes Video im Look braucht die Lizenz im Abspann oder im Bild (DESIGN.md §2, Regel 6), und den DFL-Wortlaut (`User:Stepro/DFL`) selbst nachlesen, sobald Commons wieder antwortet.
-- **Clip für Zeitungspapier:** `File:FCB-RMA 2022 Women UCL football match (WR assistance 31 March).mpg` (8,2 MB, CC BY-SA 4.0) ist ausgewählt, Metadaten und Lizenz-Vorlagen liegen im Cache; die Datei selbst kam nicht (upload.wikimedia.org: 429, `Retry-After: 600`, um 21:18, 21:30, 21:54 UTC; ein weiterer Versuch um 22:32 UTC wurde wieder abgelehnt, die Wartezeit gab `bilder.py` damals beim letzten Versuch noch nicht weiter, jetzt schon). Später: `python studio/looks/werkzeug/fotos.py zeitungspapier`, dann `proben.py zeitungspapier`, check, render, `vergleich.py`. Ob die Rasterbehandlung auf `<video>` im Render läuft, ist dann zu prüfen (laut HyperFrames-Doku: ja, `targetTags: img, video`).
-- **Credit-Blöcke der Proben zu lang:** Mit der Lizenzzeile stehen in Archiv (Karte 2: Quelle 2 Zeilen + Lizenz 2 Zeilen am Stück) und Flach (Foto-Credit 3 Zeilen + Lizenz 2 Zeilen, 12 px Lücke) mehr als 3 Zeilen untereinander (DESIGN.md §2, Regel 4). Vorschlag: die Lizenz einzeilig wie im Gold-Video („Video: creativecommons.org/licenses/by-sa/4.0“, Breite messen); in Flach zusätzlich einen eigenen Ort suchen oder festlegen, dass die Lizenzzeile ein eigener Block ist. Danach `proben.py`, check, render, `vergleich.py`.
-- **Zeitungspapier, Seite 1:** Die senkrechte Bildnachweis-Spalte ist länger als das Bild (Kurzlink-Zeile ca. 675 px, Bild 525 px hoch, seit das Bild für die Lizenzzeile 732 statt 800 px breit ist). Das Blatt verlangt „Spalte nicht länger als das Bild“. Vorschlag: höherer Ausschnitt (Bildhöhe ≥ längste Zeile) und eine Bau-Prüfung Spaltenlänge ≤ Bildhöhe.
+- **Clip für Zeitungspapier:** `File:FCB-RMA 2022 Women UCL football match (WR assistance 31 March).mpg` (8,2 MB, CC BY-SA 4.0) ist ausgewählt, Metadaten und Lizenz-Vorlagen liegen im Cache; die Datei selbst kam nicht (upload.wikimedia.org: 429, `Retry-After: 600`, um 21:18, 21:30, 21:54 UTC; ein weiterer Versuch um 22:32 UTC wurde wieder abgelehnt, die Wartezeit gab `bilder.py` damals beim letzten Versuch noch nicht weiter, jetzt schon). Später: `python studio/looks/werkzeug/fotos.py zeitungspapier`, dann `proben.py zeitungspapier`, check, render, `vergleich.py`. Ob die Rasterbehandlung auf `<video>` im Render läuft, ist dann zu prüfen (laut HyperFrames-Doku: ja, `targetTags: img, video`). Der Ausschnitt des Clips ist seit 28.10. abends höher (0,22–0,77 der Höhe statt 0,25–0,72), damit die Bildnachweis-Spalte nicht länger als der Clip ist; er ist ungesehen gewählt und beim ersten Laden anzusehen. Der Bau prüft dann Spalte ≤ Bildhöhe, ob der Streifen „Barcelona“ die Oberkante des Bildes trifft, und die Luft des Rotstift-Rahmens; scheitert eine Prüfung, bricht `proben.py` mit einer klaren Meldung ab (Trockenlauf mit Platzhalter-Clip am 29.10.: alle drei bestanden).
+- **Erledigt am 28.10. abends:** Credit-Blöcke (Lizenzzeile einzeilig und eigener Block in Archiv und Flach, Foto-Credit ≤ 3 Zeilen, Bau prüft) und Zeitungspapier Seite 1 (Ausschnitt 0,262–0,682 statt 0,22–0,78, Bild 700 statt 525 px hoch, Bau prüft Spaltenlänge ≤ Bildhöhe und die Luft des Rotstift-Rahmens). **Erledigt am 29.10. nach der Gegenlese:** Rotstift-Rahmen statt Ellipse (lief über die Balkenecken), Unterkante des Bildes fest, Flach mit `svgOrigin` (Geldstapel wuchs durch die Untertitel-Zone), Regeln für Zensurbalken-Breite und Verlust im Zeitungspapier.
 - **Commons-Last:** Mehrere Sitzungen teilen sich eine IP; 429 kommt oft. Ein gemeinsamer Bild-Cache im Asset-Repo würde Abrufe sparen.
 - **Stimmen:** Modell entschieden: `eleven_v4`, damit lief das Casting (`voices/elevenlabs.json`, `voices/rotation.json`). Freigabe für unter 18 offen (Mail). Linus klärt, ob die Bruder-Regel auch fürs Bewerten von ElevenLabs-Stimmen gilt (im Casting hat er sie schon gehört); die stummen Look-Proben berührt sie nicht. Klangbeschreibungen von Thomas, Konrad, Hans und Victoria sind unbekannt; `rotation.json` behauptet dazu nichts.
-- **Bewertung:** Linus und der Bruder sollen die Vergleichstafel und die zwölf Sekunden je Look ansehen und je Look sagen: behalten, ändern, streichen. Ungeprüft: iPhone/Safari, die Looks mit Stimme.
+- **Bewertung:** Erledigt am 28.10. (Abschnitt „Bewertung 28.10.2026“). Ungeprüft: iPhone/Safari, die Looks mit Stimme, die geänderte Rotation im echten Feed.

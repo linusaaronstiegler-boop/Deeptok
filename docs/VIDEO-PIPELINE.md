@@ -1,6 +1,6 @@
 # DeepTok-Videofabrik: finaler Plan
 
-Stand: 27.10.2026, abends. Grundlage ist Vorschlag C (Hybrid). Dazu kommen die besten Teile aus A und B, und alle Pflichtkorrekturen der Gutachter sind eingearbeitet. **Änderung am Abend:** Die Fabrik läuft als Scheduled Tasks über Linus' Abo statt auf GitHub Actions mit API-Guthaben (§1, §2, §7–§10). Neu in §3: was die Vorschaubilder von Simplicissimus und Veritasium zeigen. **Nachtrag 28.10.:** sechs Looks und echte Fotos über `factory/werk/bilder.py` (§3), Stimmen-Rotation über den Casting-Pool und Modell `eleven_v4` (§4), Feld `look` (§5), Nachbarregel in G0 (§6), neue Aufgaben in Phase 2 (§9).
+Stand: 27.10.2026, abends. Grundlage ist Vorschlag C (Hybrid). Dazu kommen die besten Teile aus A und B, und alle Pflichtkorrekturen der Gutachter sind eingearbeitet. **Änderung am Abend:** Die Fabrik läuft als Scheduled Tasks über Linus' Abo statt auf GitHub Actions mit API-Guthaben (§1, §2, §7–§10). Neu in §3: was die Vorschaubilder von Simplicissimus und Veritasium zeigen. **Nachtrag 28.10.:** sechs Looks (nach der Blindbewertung am selben Abend fünf, Kurstafel verworfen; Rotstift im Zeitungspapier) und echte Fotos über `factory/werk/bilder.py` (§3), Stimmen-Rotation über den Casting-Pool und Modell `eleven_v4` (§4), Feld `look` (§5), Nachbarregel in G0 (§6), neue Aufgaben in Phase 2 (§9).
 
 ## 1. Kontext & Ziel
 
@@ -16,7 +16,7 @@ Die Probe „Opportunitätskosten“ ist didaktisch richtig aufgebaut: Fall → 
 | Bau | Code pro Video | JSON-Spec → feste Szenen-Module |
 | Steuerung | interaktive Sitzung | Scheduled Tasks in der Cloud + Python-Zustandsmaschine |
 | Stimme | Piper, satzweise | bezahlte Stimme aus dem Casting-Pool, Skript am Stück, gemastert |
-| Bild | Text auf Navy | Karten, echte Fotos und Clips, Darsteller in sechs Looks; ab v1.1 Welt mit Kamera |
+| Bild | Text auf Navy | Karten, echte Fotos und Clips, Darsteller in fünf Looks; ab v1.1 Welt mit Kamera |
 | Abspielen | MP4 | live im Browser, Teilen per Link |
 
 **Drei Stufen:**
@@ -103,12 +103,12 @@ Fable 5.1 wird nicht eingesetzt. Batch und Cache der API entfallen; sie kommen n
 | Diagramm | Naturwiss., Mathe, Schul-Transfer, Wirtschaftsmodelle | sichtbares Rasterpapier (6×6-Anker), Striche zeichnen sich, alles an Achse oder Raster verankert; kein Schnitt in einer Herleitung | v1 |
 | Atlas | Geopolitik & Geschichte, Wirtschaftslage | Korn nur, wenn es im Handy-Blatt sichtbar ist (Spike 27.10.: festes Korn verdoppelte die MP4 und war unsichtbar), Schlagzeilen mit Quelle + Datum, Kartenrouten, Duoton-Archivfotos | minimal bis 4.11. |
 
-Farben je Look (`studio/looks/README.md`): eine Farbe für die gesuchte Größe, eine für Irrtum/Verlust. Rot heißt Irrtum oder Verlust; einzige mögliche Ausnahme ist der Rotstift im Zeitungspapier, und der gilt erst mit Linus' Ja (bis dahin Blaustift `#1F4FB5`).
+Farben je Look (`studio/looks/README.md`): eine Farbe für die gesuchte Größe, eine für Irrtum/Verlust. Rot heißt Irrtum oder Verlust; einzige Ausnahme ist der Rotstift im Zeitungspapier (seit 28.10.2026, Linus' Wahl in der Blindbewertung): Dort markiert Rot die gesuchte Größe; Irrtum und Verlust zeigt der Look über die Form: Irrtum als schwarzer Zensurbalken mit „FALSCH“, Verlust als „−“ und „▼“ auf dem schwarzen Balken (`studio/DESIGN.md` §1, §6). Rückfall, falls Linus „rückgängig“ sagt: Blaustift `#1F4FB5`.
 
-**Looks** (`studio/looks/`, seit 28.10.; Linus' Wunsch: „nicht alles so goldmäßig“). Sechs Looks: Atlas Nacht, Zeitungspapier, Labor, Archiv-Duoton, Flach, Kurstafel.
+**Looks** (`studio/looks/`, seit 28.10.; Linus' Wunsch: „nicht alles so goldmäßig“). Fünf Looks: Atlas Nacht, Zeitungspapier, Labor, Archiv-Duoton, Flach. Blindbewertung am 28.10. (Linus und Bruder gleich): Atlas Nacht und Zeitungspapier 5 von 5, die übrigen drei 4 von 5; die Kurstafel (1 bzw. 2) ist verworfen (`studio/looks/verworfen/`).
 - Identitäten sind Szenen-Grammatiken (wie ein Diagramm sich aufbaut, wie eine Karte zoomt). Der Look gibt ihnen Material, Farbe, Schriftpaar und Takt. Raster, Mindestgrößen, Bewegung, Marker-Timing und BANNED aus `studio/DESIGN.md` gelten für jeden Look.
 - Ein Video hat einen Look. Eine Serie behält ihren Look. Im Feed folgen nie zwei Videos verschiedener Serien mit gleichem Look.
-- Welchen Look eine neue Serie bekommt, regelt `voices/rotation.json` (`look_fuer_neue_serie`, Startvorschlag je Kanal in `kanal_start`).
+- Welchen Look eine neue Serie bekommt, regelt `voices/rotation.json` (`look_fuer_neue_serie`, Startvorschlag je Kanal in `kanal_start`). Die Favoriten Atlas Nacht und Zeitungspapier sind dort häufiger erste Wahl; Anteile für Looks gibt es nicht, die Abwechslung sichern die Regel „aktive Serien paarweise verschieden“ und die Wahl des am längsten unbenutzten Looks. In „Heute“: Weltlage-Briefing Zeitungspapier (Rückfall Archiv-Duoton), Märkte-Karte Atlas Nacht (Rückfall Labor).
 
 **Bühne und Darsteller (ab v1.1).** Szenen-Timelines erreichen nichts außerhalb ihrer Datei. Ein Spike vergleicht eine durchgehende Bühnen-Sub-Komposition (Welt, Kamera, Darsteller) mit einer Wurzel-Spur, in `check`, `snapshot --review` und im Player. Danach schreibt Opus einen **Kamera-Vertrag**: eine Welt, ein Kamerapfad, ein Darsteller, der die Form nur wechselt, solange er dasselbe bedeutet; höchstens ⅓ harte Schnitte; HUD-Text bleibt fest.
 
@@ -144,7 +144,7 @@ Auf den Bildschirm kommen Objekte, Zahlen und Schlüsselwörter, nie der gesproc
   - Erkennbare Personen (Commons-Einschränkung „personality“) nur mit Freigabe (`personen_freigabe="Grund"`); der Grund steht in `credits.json`. Keine Privatpersonen im Mittelpunkt.
   - Auflagen des Fotografen außerhalb des Urheberrechts (z. B. „Non-copyright restriction“, DFL-Hinweis unter `User:*/DFL`) meldet `bilder.py` als `BildHinweis`. Sie werden gegen die Nutzung abgewogen, und die Abwägung steht in `credits.json` (`credits_eintrag(…, auflagen_abwaegung=…)`; Vorbild: Goldstandard).
   - Videos über `bilder.video_fassungen`, nie still gegen ein Standbild getauscht; stumm, höchstens 6 s je Stück.
-  - Credit im Bild (eine Regel für alle Looks: `studio/DESIGN.md` §2) und in `credits.json`. Fotojahr und Objektdatum stehen getrennt (`datum_foto`, `datum_objekt`). Eine Bearbeitung von CC BY-SA bringt `lizenz_video` und eine Abspann-Zeile mit der Lizenz des Videos.
+  - Credit im Bild (eine Regel für alle Looks: `studio/DESIGN.md` §2) und in `credits.json`. Fotojahr und Objektdatum stehen getrennt (`datum_foto`, `datum_objekt`). Eine Bearbeitung von CC BY-SA bringt `lizenz_video` und die Lizenz des Videos in einer Zeile: im Abspann oder als eigener, einzeiliger Block im Bild (zählt nicht zur 3-Zeilen-Grenze des Foto-Credits, `studio/DESIGN.md` §2).
   - Behandlung je Look (Duoton, Rasterdruck, Freistellen, Foto-Einlage): Tabelle in `studio/looks/README.md`.
 - **Entfern-Test** statt `zeigt:`: Jede Zahl und jedes Bild braucht einen späteren Kausalschritt oder eine Abruffrage; Bilder zeigen Beziehung, Menge, Ort, Abfolge oder Zustand. Hook-Zahlen kommen aus der Kausalkette, nie aus Trivia. KI-Bilder tragen das Label „Illustration“ und zeigen nie echte Personen oder News-Belege.
 
@@ -168,7 +168,7 @@ Auf den Bildschirm kommen Objekte, Zahlen und Schlüsselwörter, nie der gesproc
   - Die Marker-Ebene wird ein eigenes Modul (Registry `marker-highlight`, `hw-callout-circle`). Kreis, Pfeil oder Unterstreichung zeichnen sich genau auf dem Wort.
   - Jede Szene hat einen Helden, der kein Text ist.
   - Editorial bekommt eine Schlagzeile mit Unterstreichung (Schrift je Look); Atlas bekommt Archivfotos in Graustufen plus eine Farbe und die hervorgehobene Kartenregion.
-  - Gesuchte Größe und Irrtum je Look, siehe `studio/looks/README.md`. Beide Vorbilder nutzen Rot als Signal; bei uns bleibt Rot Irrtum und Verlust, bis Linus der Rotstift-Ausnahme im Zeitungspapier zustimmt.
+  - Gesuchte Größe und Irrtum je Look, siehe `studio/looks/README.md`. Beide Vorbilder nutzen Rot als Signal; bei uns bleibt Rot Irrtum und Verlust, außer im Look Zeitungspapier: Dort gilt seit 28.10.2026 der Rotstift als Signal (Linus' Ja über die Blindbewertung).
 
 **Inspirations-Werkzeuge.**
 - **Referenz-Destillation (einmalig):** YouTube blockiert Downloads aus der Cloud (Bot-Prüfung), Umgehungen sind tabu. Legal und aus der Cloud erreichbar ist die ZDF-Mediathek: Sie hostet die funk-Folgen von Simplicissimus (2019–2022), Kurzgesagt (deutsch) und maiLab. Gemessen werden je die ersten 180 s; maiLab steht als legaler Ersatz für Veritasium. Ergebnis: `docs/research/referenz-destillation.md`. ffmpeg misst Schnittlängen und Titel-Timing. Nur die Zahlen kommen in die `DESIGN.md`, die Clips werden gelöscht.
@@ -252,7 +252,7 @@ type VideoSpec = {
   series: { id: string; part: number }; arc: Arc;
   voice: string;                        // id aus voices/rotation.json → pool (jonas, thomas …)
   look: string;                         // Look-Name wie das Blatt studio/looks/<look>.md (atlas-nacht,
-                                        // zeitungspapier, labor, archiv-duoton, flach, kurstafel); eine Serie behält ihn
+                                        // zeitungspapier, labor, archiv-duoton, flach); eine Serie behält ihn
   lib: string;                          // pinnt Module, Player, Laufzeit, GSAP
   facts: { id: string; claim: string; src: string; date: string; quote: string }[];
   camera?: { world: string; path: string[]; actor: string };  // ab v1.1
@@ -376,7 +376,7 @@ Die Stimme kostet extra: $5–99 im Monat.
 |---|---|---|
 | 0 Go/No-Go | Mi 28.10. | Umgebung `deeptok-fabrik` steht. Probe-Task per „Run now“ (Auftrag `factory/tasks/probe.md`, Bericht auf Branch `claude/probe-<datum>`): Setup-Skript gecacht, Drive-Connector liest den Digest, je ein Sonnet- und Opus-Subagent, ein Render unter 10 min, Push auf `factory-state` und `claude/…` klappt, der Auto-Modus blockiert nichts Nötiges; Verbrauch notieren. Zugang je TTS-Anbieter kostenlos mit `casting.py --probe`, sobald die Network secrets stehen; Bedingungen. PyAV: av 18.1.0 gepinnt, `hoercheck` dekodiert selbst per ffmpeg |
 | 1 Goldstandard | 28.10.–1.11. | Probe von Hand neu: Siegerstimme, Welt mit Kamera, illustrierter Darsteller, Karte: Spieler München → Barcelona, Ablöse Barcelona → München als Objekt, Marker-Ebene; `DESIGN.md`, Referenz-Destillation, Casting, Starter-Assets. 1.11.: Stimme und Goldstandard entschieden |
-| 2 Skelett | 30.10.–2.11. | parallel: `fabrik.py` mit Zustand, Herzschlag, Deckeln; die vier Task-Prompts; G0, G1, G4, G5; Feed-Seite, Rückkanal. Nach dem Go: v1-Kern ziehen. Dazu zwei Aufgaben aus Goldstandard v2.1 und Look-Katalog: (a) **Szenen-Module je Look** mit Zod-Schema (Held, Zahl, Marker, Credit, Übergang), Vorlage `studio/looks/werkzeug/looks_*.py` (Kurznamen: atlas-nacht → `looks_atlas.py`, zeitungspapier → `looks_zeitung.py`, archiv-duoton → `looks_archiv.py`, sonst gleich); (b) **gemeinsame Werkzeuge G4/G6 aus dem Goldstandard:** `luft` (Stille in die fertige Aufnahme), Piper-Takes mit Zwischenspeicher, Pflichtwörter im einzeln ausgeschnittenen Satz (inkl. Schlüsselwörter des Transfers wie „Lohn“), Anstieg steigender Fragen, Tor „Foto ohne Credit“ (`build/messen-bild.mjs`; abgedunkelte Texte dabei an einer Markierung am Element erkennen statt an Deckkraft < 40 %, weil der Wert je Look verschieden ist, DESIGN.md §6), Adapter `connector` für fertige Block-Dateien mit DTW-Ausrichtung |
+| 2 Skelett | 30.10.–2.11. | parallel: `fabrik.py` mit Zustand, Herzschlag, Deckeln; die vier Task-Prompts; G0, G1, G4, G5; Feed-Seite, Rückkanal. Nach dem Go: v1-Kern ziehen. Dazu zwei Aufgaben aus Goldstandard v2.1 und Look-Katalog: (a) **Szenen-Module je Look** mit Zod-Schema (Held, Zahl, Marker, Credit, Übergang), Vorlage `studio/looks/werkzeug/looks_*.py` (Kurznamen: atlas-nacht → `looks_atlas.py`, zeitungspapier → `looks_zeitung.py`, archiv-duoton → `looks_archiv.py`, sonst gleich), samt den Bau-Prüfungen der Proben: Lizenzzeile genau eine Zeile, Foto-Credit ≤ 3 Zeilen (senkrechte Spalte ≤ 5 und nicht länger als ihr Bild), Stift-Marker ≥ 24 px Luft zu Balken, Bildern und Credits an jedem Punkt des Strichs, Zensurbalken mindestens so breit wie sein Aufdruck (`probe_basis.py`, `looks_zeitung.py`; `studio/DESIGN.md` §2, §6); (b) **gemeinsame Werkzeuge G4/G6 aus dem Goldstandard:** `luft` (Stille in die fertige Aufnahme), Piper-Takes mit Zwischenspeicher, Pflichtwörter im einzeln ausgeschnittenen Satz (inkl. Schlüsselwörter des Transfers wie „Lohn“), Anstieg steigender Fragen, Tor „Foto ohne Credit“ (`build/messen-bild.mjs`; abgedunkelte Texte dabei an einer Markierung am Element erkennen statt an Deckkraft < 40 %, weil der Wert je Look verschieden ist, DESIGN.md §6), Adapter `connector` für fertige Block-Dateien mit DTW-Ausrichtung |
 | 3 Kalibrierung | 2.–5.11. | Kalibriernächte 2.–4.11. mit 3, 5 und 7 Videos, Linus bewertet alle 15 und notiert den Verbrauch; v1-Rest, Atlas-Minimal, übrige Tore außer G7; News-Textkarten; Transfer-Videos; Gerätetest. Freeze 5.–14.11. |
 | 4 Testwoche | 6.–13.11. | Läuft ohne Eingriffe mit der kalibrierten Videozahl, v1-Typen und Open Peeps |
 | 5 Ausbau | ab 14.11. | Opus-Review; 16.11. Max oder Pro; G7, L+, Bühne mit Kamera, Hausbibliothek, voller Atlas, Beförderung, Hero, Dialog-Test |

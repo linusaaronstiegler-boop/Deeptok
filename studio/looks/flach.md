@@ -9,7 +9,7 @@ Satte, freundliche Flächen in Minze, Tinte und Sonnengelb; eigene flache Vektor
 
 | passt | passt nicht |
 |---|---|
-| Denken & Philosophie (Gedankenexperimente), Disziplin (Geschichten statt Floskeln), Schule-Transfer für den Bruder (Bio, Erdkunde, Wirtschaft), Psychologie des Lernens, Abläufe und Kreisläufe, Modelle („So kann man sich das vorstellen“) | echte Personen als Figur, News mit Belegen (dann Zeitungspapier), genaue Daten (dann Kurstafel) |
+| Denken & Philosophie (Gedankenexperimente), Disziplin (Geschichten statt Floskeln), Schule-Transfer für den Bruder (Bio, Erdkunde, Wirtschaft), Psychologie des Lernens, Abläufe und Kreisläufe, Modelle („So kann man sich das vorstellen“) | echte Personen als Figur, News mit Belegen (dann Zeitungspapier), genaue Datenreihen (dann Diagramm in Atlas Nacht) |
 
 ## Palette
 
@@ -67,7 +67,7 @@ Runder, dicker Pinselstrich (12 px Tinte) unter der Zahl auf dem Schild; runder 
 
 ## Credits
 
-Unten rechts, rechtsbündig an x = 972, unter dem Stadion (y ≥ 1240), Rubik 400 34 px in Tinte. Eigene Illustrationen brauchen keinen Credit; Zahlen und Foto-Einlagen ihre Quelle.
+Unten rechts, rechtsbündig an x = 972, unter dem Stadion (y ≥ 1240), Rubik 400 34 px in Tinte. Eigene Illustrationen brauchen keinen Credit; Zahlen und Foto-Einlagen ihre Quelle. Der Credit der Foto-Einlage steht linksbündig unter dem Foto (höchstens 3 Zeilen) und geht mit ihm. Ist die Foto-Einlage eine CC-BY-SA-Bearbeitung, steht 28 px darunter die Lizenzzeile des Videos als eigener Block aus einer Zeile („Video: creativecommons.org/licenses/by-sa/4.0“, 766 px), so lange wie das Foto.
 
 ## Drei Verbote
 

@@ -57,7 +57,7 @@ Die Cloud-Umgebung `deeptok-fabrik` richtet ihr Setup-Skript `tools/setup-umgebu
 ## Stil
 
 - Jedes Video hat einen Look aus dem Katalog (`studio/looks/README.md`). Der Look wählt Farben, Schriftpaar, Material und Takt; Raster, Mindestgrößen, Bewegung und BANNED aus `studio/DESIGN.md` gelten für alle.
-- Look Atlas Nacht, Palette: Navy `#0E1726` / `#1F3864`, Gold `#C9A84C`, Creme `#F5F0E8`, Rot nur für Verlust/Irrtum `#E07A5F`.
+- Look Atlas Nacht, Palette: Navy `#0E1726` / `#1F3864`, Gold `#C9A84C`, Creme `#F5F0E8`, Rot nur für Verlust/Irrtum `#E07A5F` (einzige Ausnahme: Rotstift im Look Zeitungspapier, siehe studio/looks/README.md).
 - Look Atlas Nacht, Schriften: Playfair Display für Überschriften (mit `lining-nums`), Inter für Text.
 - Hochformat 1080 × 1920, 30 fps. Lesbarer Inhalt zwischen y = 168 und 1330.
 

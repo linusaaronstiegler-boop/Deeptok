@@ -1,5 +1,5 @@
 {
-  "_hinweis": "Stimmen- und Look-Rotation der Videofabrik (Stand 28.10.2026, Überarbeitung). Wunsch von Linus: Stimmen und Looks variieren; alle sechs Casting-Stimmen waren gut. Regeln in Worten: studio/looks/README.md, Abschnitte „Stimmen“ und „Variation im Feed“. Ändern nur per Commit.",
+  "_hinweis": "Stimmen- und Look-Rotation der Videofabrik (Stand 28.10.2026, nach der Blindbewertung der Looks). Wunsch von Linus: Stimmen und Looks stark variieren („krass variieren“); alle sechs Casting-Stimmen waren gut. Fünf Looks sind wählbar: atlas-nacht, zeitungspapier, labor, archiv-duoton, flach (Kurstafel verworfen, studio/looks/verworfen/). Regeln in Worten: studio/looks/README.md, Abschnitte „Bewertung 28.10.2026“, „Stimmen“ und „Variation im Feed“. Ändern nur per Commit.",
   "_quelle": "Blind-Casting 27./28.10.2026 auf der Werkstatt-Seite, beide Brüder: Jonas Platz 1, Thomas Platz 2 (bei beiden gleich). Gemessen: Wortfehlerrate 0–8 %, 44,1 kHz, 128 kbit/s, etwa 1 Credit je Zeichen.",
   "anbieter": "elevenlabs",
   "modell": "eleven_v4",
@@ -18,11 +18,11 @@
     "mitte": {"jonas": 0.375, "thomas": 0.175, "konrad": 0.125, "lea": 0.125, "hans": 0.10, "victoria": 0.10}
   },
   "stammformate": {
-    "_hinweis": "Tägliche Formate im Bereich „Heute“ (docs/PLAN.md, Aufbau der App). Sie sind keine Serien: Stimme und Look stehen fest. Sie zählen beim Anteil mit, aber nicht bei der Regel „aktive Serien paarweise verschieden“; dafür gilt in „Heute“ eine eigene Nachbarregel (regeln.heute_nachbarn).",
-    "weltlage_briefing": {"profil": "linus", "stimme": "jonas", "look": "zeitungspapier", "rueckfall": {"stimme": "konrad", "look": "atlas-nacht"},
-                          "warum": "größtes tägliches Volumen; die Hauptstimme wird die Stimme des Morgens. Echte Fotos vom Ereignis passen zum Zeitungspapier."},
-    "maerkte_karte": {"profil": "linus", "stimme": "thomas", "look": "kurstafel", "rueckfall": {"stimme": "victoria", "look": "kurstafel"},
-                      "warum": "folgt direkt auf die Weltlage-Karten; andere Stimme und anderer Look als das Briefing."}
+    "_hinweis": "Tägliche Formate im Bereich „Heute“ (docs/PLAN.md, Aufbau der App). Sie sind keine Serien: Stimme und Look stehen fest. Sie zählen beim Anteil mit, aber nicht bei der Regel „aktive Serien paarweise verschieden“; dafür gilt in „Heute“ eine eigene Nachbarregel (regeln.heute_nachbarn). Stimme und Look des Rückfalls können einzeln oder zusammen greifen; die vier Werte sind so gewählt, dass die Nachbarregel in jeder Kombination hält: Briefing-Looks {zeitungspapier, archiv-duoton} und Märkte-Looks {atlas-nacht, labor} haben kein Element gemeinsam, ebenso die Stimmen {jonas, konrad} und {thomas, victoria}.",
+    "weltlage_briefing": {"profil": "linus", "stimme": "jonas", "look": "zeitungspapier", "rueckfall": {"stimme": "konrad", "look": "archiv-duoton"},
+                          "warum": "größtes tägliches Volumen; die Hauptstimme wird die Stimme des Morgens. Echte Fotos vom Ereignis passen zum Zeitungspapier (Favorit in der Blindbewertung, Klarheit 5 von 5). Rückfall-Look Archiv-Duoton statt bisher Atlas Nacht: Atlas Nacht ist jetzt der Look der Märkte-Karte, die direkt folgt. Archiv-Duoton trägt Weltlage auch ohne freies Ereignisfoto (Beschluss, Vertrag, Urteil, Archivbild)."},
+    "maerkte_karte": {"profil": "linus", "stimme": "thomas", "look": "atlas-nacht", "rueckfall": {"stimme": "victoria", "look": "labor"},
+                      "warum": "folgt direkt auf die Weltlage-Karten; andere Stimme und anderer Look als das Briefing. Atlas Nacht seit 28.10.2026 (Favorit in der Blindbewertung, Klarheit 5 von 5; die Kurstafel ist verworfen): Märkte mit Ort (Handelswege, Rohstoffe, Zölle) als Karte, Zahlen in Gold. Rückfall-Look Labor, wenn eine Marktzahl keinen Ort hat: der Gegenstand (Fass, Barren, Münzen) mit Maßlinie. Labor ist weder Haupt- noch Rückfall-Look des Briefings, also hält die Nachbarregel auch im Rückfall."}
   },
   "regeln": {
     "eine_stimme_je_serie": true,
@@ -31,26 +31,26 @@
     "aktive_serien_hinweis": "Ein Profil hat 2–3 aktive Serien (VIDEO-PIPELINE §2) im Bereich „Für dich“. Haben sie paarweise verschiedene Stimmen und Looks, folgen dort nie zwei Videos verschiedener Serien mit gleicher Stimme oder gleichem Look aufeinander. Stammformate zählen hier nicht mit.",
     "nie_hintereinander_im_feed": ["look", "bogen", "stimme"],
     "nie_hintereinander_hinweis": "Gilt für zwei aufeinanderfolgende Videos verschiedener Serien in „Für dich“. Innerhalb einer Serie bleiben Look und Stimme gleich; der Bogen wechselt von Teil zu Teil (nie zweimal derselbe Bogen hintereinander).",
-    "heute_nachbarn": "In „Heute“ haben zwei aufeinanderfolgende Karten mit Ton verschiedene Stimmen und verschiedene Looks (Weltlage: Jonas/Zeitungspapier → Märkte: Thomas/Kurstafel).",
+    "heute_nachbarn": "In „Heute“ haben zwei aufeinanderfolgende Karten mit Ton verschiedene Stimmen und verschiedene Looks (Weltlage: Jonas/Zeitungspapier → Märkte: Thomas/Atlas Nacht), auch wenn eine oder beide ihren Rückfall nehmen (Weltlage: Konrad/Archiv-Duoton, Märkte: Victoria/Labor).",
     "stimme_fuer_neue_serie": [
       "1) Kandidaten: alle Stimmen des Pools außer denen der übrigen aktiven Serien desselben Profils.",
       "2) Liegt ein Kandidat mehr als schwelle_pp unter seiner Mitte, nimm den Kandidaten mit dem größten Rückstand (Mitte minus Anteil).",
       "3) Sonst die erste Wahl des Kanals, wenn sie Kandidat ist und nicht mehr als schwelle_pp über ihrer Mitte liegt; sonst die Alternative unter derselben Bedingung; sonst den Kandidaten mit dem größten Rückstand.",
       "4) Kanal ohne Vorschlag: Jonas, wenn er Kandidat ist und nicht über der Schwelle liegt; sonst wie 3."
     ],
-    "look_fuer_neue_serie": "Reine Rotation, keine Anteile: erste Wahl des Kanals, wenn keine andere aktive Serie desselben Profils diesen Look hat; sonst die Alternative; sonst der Look, den das Profil am längsten nicht benutzt hat. Ein Kanal ohne Vorschlag nimmt gleich den am längsten unbenutzten Look.",
+    "look_fuer_neue_serie": "Reine Rotation, keine Anteile: erste Wahl des Kanals, wenn keine andere aktive Serie desselben Profils diesen Look hat; sonst die Alternative; sonst der Look, den das Profil am längsten nicht benutzt hat. Ein Kanal ohne Vorschlag nimmt gleich den am längsten unbenutzten Look. Wählbar sind die fünf Looks aus studio/looks/README.md; Looks unter studio/looks/verworfen/ nie. Die Favoriten der Blindbewertung (Atlas Nacht, Zeitungspapier) kommen über kanal_start häufiger als erste Wahl vor, nicht über Anteile.",
     "briefing_ueber_ziel": "Liegt Jonas über Mitte + schwelle_pp, obwohl keine neue Serie ihn mehr bekommt (das Briefing allein ist zu groß), spricht an jedem zweiten Tag die Rückfallstimme des Briefings, bis der Anteil wieder in der Schwelle liegt.",
     "bruder": "Für das Profil des Bruders (15) keine ElevenLabs-Stimme, bis ElevenLabs schriftlich für Hörer unter 18 freigibt (Mail offen, VIDEO-PIPELINE §4). Rückfall bis dahin: die Stimme, die die Entscheidung am 1.11. für beide Profile freigibt (Kandidaten in VIDEO-PIPELINE §4); bis zu dieser Entscheidung bekommt er Inhalte als Erklär-Karte ohne Stimme (docs/PLAN.md, Kartentypen). Seine Videos zählen nicht beim Anteil. Der Look-Teil der Rotation gilt für ihn sofort."
   },
   "kanal_start": {
-    "_hinweis": "Startvorschlag je Serien-Kanal (Kanäle aus docs/PLAN.md, Bereich „Für dich“). Look aus studio/looks/, Stimme aus dem Pool. Nach den ersten Bewertungen der Brüder anpassen.",
-    "rhetorik_charisma": {"stimme": "jonas", "stimme_alternative": "victoria", "look": "archiv-duoton", "look_alternative": "zeitungspapier"},
+    "_hinweis": "Startvorschlag je Serien-Kanal (Kanäle aus docs/PLAN.md, Bereich „Für dich“). Look aus studio/looks/, Stimme aus dem Pool. Angepasst nach der Blindbewertung vom 28.10.2026: Die Favoriten Atlas Nacht und Zeitungspapier sind erste Wahl in fünf von acht Kanälen des Profils Linus (vorher zwei); Labor, Archiv-Duoton und Flach bleiben erste Wahl dort, wo sie inhaltlich am besten passen (Wissenschaft, Bücher, Denken), und sind die häufigsten Alternativen. Die Abwechslung sichern weiter die Regel „aktive Serien paarweise verschieden“ und die LRU-Wahl. Geändert: Rhetorik archiv-duoton → zeitungspapier (echte Rede, Foto des Redners), Wirtschaft kurstafel → atlas-nacht, Stil & Auftreten labor → zeitungspapier (Auftritte auf echten Fotos; das einzelne Kleidungsstück zeigt die Alternative Labor).",
+    "rhetorik_charisma": {"stimme": "jonas", "stimme_alternative": "victoria", "look": "zeitungspapier", "look_alternative": "archiv-duoton"},
     "denken_philosophie": {"stimme": "hans", "stimme_alternative": "lea", "look": "flach", "look_alternative": "archiv-duoton"},
     "wissenschaft": {"stimme": "lea", "stimme_alternative": "jonas", "look": "labor", "look_alternative": "flach"},
     "geopolitik_geschichte": {"stimme": "konrad", "stimme_alternative": "jonas", "look": "atlas-nacht", "look_alternative": "archiv-duoton"},
-    "wirtschaft_maerkte": {"stimme": "thomas", "stimme_alternative": "jonas", "look": "kurstafel", "look_alternative": "zeitungspapier"},
+    "wirtschaft_maerkte": {"stimme": "thomas", "stimme_alternative": "jonas", "look": "atlas-nacht", "look_alternative": "zeitungspapier"},
     "disziplin": {"stimme": "hans", "stimme_alternative": "konrad", "look": "zeitungspapier", "look_alternative": "labor"},
-    "stil_auftreten": {"stimme": "thomas", "stimme_alternative": "victoria", "look": "labor", "look_alternative": "zeitungspapier"},
+    "stil_auftreten": {"stimme": "thomas", "stimme_alternative": "victoria", "look": "zeitungspapier", "look_alternative": "labor"},
     "buecher": {"stimme": "victoria", "stimme_alternative": "lea", "look": "archiv-duoton", "look_alternative": "flach"},
     "schule_transfer": {"profil": "bruder", "stimme": "rueckfall_bruder", "look": "flach", "look_alternative": "labor", "hinweis": "Stimme nach regeln.bruder. Beide Looks zeigen echte Fotos: Flach als Foto-Einlage, die sich in die Zeichnung verwandelt; Labor mit echten Gegenständen."}
   }

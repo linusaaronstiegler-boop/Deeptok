@@ -1,6 +1,6 @@
 # Look 1: Atlas Nacht
 
-Die bestehende Hausidentität, jetzt ein Look unter sechs. Dunkle Seekarte, eine leuchtende Region, beleuchtete Gegenstände, die auf Orte fallen. Ruhig, kalt, Illustration.
+Die bestehende Hausidentität, jetzt ein Look unter fünf (Favorit der Blindbewertung vom 28.10.2026, Klarheit 5 von 5). Dunkle Seekarte, eine leuchtende Region, beleuchtete Gegenstände, die auf Orte fallen. Ruhig, kalt, Illustration.
 
 - **Probe:** `probe-atlas-nacht/` (Vergleichstafel Nr. 1). Karte aus `werkzeug/karte.mjs`. Beat 1: Münzstapel fällt auf Barcelona, „45 Mio. €“ in Gold, Unterstreichung. Beat 2: Kamerafahrt zurück und nach Nordosten (0,6 s), Barcelona und München im selben Bild, die leuchtende Region wechselt von Spanien zu Deutschland, auf München ein gestrichelter Geist-Stapel, „bis 30.06.2023“, „0 €“ in Creme.
 - **Voller Regelsatz:** `studio/DESIGN.md` §2–§8 (Identität Atlas). Dieses Blatt fasst zusammen und ergänzt die Rot-Regel.
@@ -9,7 +9,7 @@ Die bestehende Hausidentität, jetzt ein Look unter sechs. Dunkle Seekarte, eine
 
 | passt | passt nicht |
 |---|---|
-| Geopolitik & Geschichte mit Ort (Grenzen, Routen, Bündnisse), Weltlage-Briefings, Wirtschaftslage mit Handelswegen, Transfers zwischen Städten | alles ohne Ort; Zahlenreihen (dann Kurstafel); Gegenstände ohne Geografie (dann Labor) |
+| Geopolitik & Geschichte mit Ort (Grenzen, Routen, Bündnisse), Weltlage-Briefings, Wirtschaftslage mit Handelswegen, die Märkte-Karte im Morgen-Briefing (Rohstoffe, Zölle, Handelswege; Zahlen in Gold), Wirtschaftsmodelle als Diagramm (wie im Gold-Video), Transfers zwischen Städten | alles ohne Ort und ohne Modell; lange Zahlenreihen (dann ein Diagramm, nicht zehn Zahlen); Gegenstände ohne Geografie (dann Labor) |
 
 ## Palette
 

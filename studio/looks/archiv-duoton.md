@@ -62,7 +62,7 @@ Stempel in Violett mit doppeltem Rahmen und Fehlstellen (Maske `assets/stempel-m
 
 ## Credits
 
-Die Herkunft eines Fotos steht getippt auf dem unteren Rand des Abzugs (3 Zeilen, nicht breiter als das Foto); die Quelle einer Zahl unten auf der Karteikarte (keine Unterzeile unter dem getippten Wort, BANNED 21). Zeigt das Video eine Bearbeitung eines CC-BY-SA-Fotos, sind die letzten zwei Zeilen jeder Karte das Rechte-Feld mit der Lizenz des Videos („Video: CC BY-SA 4.0 ·“ / „creativecommons.org/licenses/by-sa/4.0“); weil eine Karte die andere ablöst, steht es in der Probe 0–12 s. Auf dem Rand des Abzugs stünde es wie die Lizenz des einzelnen Fotos.
+Die Herkunft eines Fotos steht getippt auf dem unteren Rand des Abzugs (3 Zeilen, nicht breiter als das Foto); die Quelle einer Zahl unten auf der Karteikarte (keine Unterzeile unter dem getippten Wort, BANNED 21). Zeigt das Video eine Bearbeitung eines CC-BY-SA-Fotos, hat jede Karte unten ein Rechte-Feld mit der Lizenz des Videos: eine Zeile („Video: creativecommons.org/licenses/by-sa/4.0“, 753 px) unter einer 3-px-Linie in Tinte, 18 px unter der letzten Quellenzeile. Sie ist ein eigener Block und zählt nicht zur 3-Zeilen-Grenze (DESIGN.md §2); weil eine Karte die andere ablöst, steht sie in der Probe 0–12 s. Auf dem Rand des Abzugs stünde es wie die Lizenz des einzelnen Fotos.
 
 ## Fotos
 

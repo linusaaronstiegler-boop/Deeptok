@@ -98,6 +98,61 @@ def kreis(cx, cy, rx, ry, seed, umlauf=1.15, start=-2.2, kipp=-0.12):
     return pts
 
 
+def rahmen(cx, cy, ax, ay, seed, *, drehung=0.0, exponent=5.5, wachsen=6.0, umlauf=1.15, start=2.6,
+           punkte=48, zittern=2.0):
+    """Handgezeichneter Rahmen um ein breites Ziel (Balken): der Kreis aus DESIGN.md §6 für Ziele,
+    die viel breiter als hoch sind.
+
+    Eine Ellipse kann die Ecken eines Balkens nicht mit 24 px Luft umfassen, ohne breiter als das
+    Lesefenster zu werden; die alte Fassung lief darum über den Balken „45 Mio. €“. Eine
+    Superellipse (|x/ax|^n + |y/ay|^n = 1, n ≈ 5,5) hat flache Seiten und runde Ecken und hält die
+    Luft auch dort. Sie wächst um `wachsen` px statt um 12 % (bei 600 px Breite wären das über
+    40 px) und dreht sich mit dem Ziel (`drehung` in Grad), ohne eigene Kippung.
+    Start unten links, im Uhrzeigersinn; der Überhang (0,15 Umlauf) liegt an der linken Seite."""
+    kipp = math.radians(drehung)
+    pts = []
+    for i in range(punkte + 1):
+        f = i / punkte
+        a = start + f * umlauf * math.tau
+        ca, sa = math.cos(a), math.sin(a)
+        # Radius der Superellipse in Richtung a, dazu Wachsen und ein leichtes Zittern der Hand.
+        r = (abs(ca / ax) ** exponent + abs(sa / ay) ** exponent) ** (-1 / exponent)
+        r += wachsen * f + zufall(i * 7 + 11, seed) * zittern
+        x, y = r * ca, r * sa
+        pts.append((cx + x * math.cos(kipp) - y * math.sin(kipp), cy + x * math.sin(kipp) + y * math.cos(kipp)))
+    return pts
+
+
+def strich_proben(p, je_bogen: int = 10) -> list[tuple[float, float]]:
+    """Punkte entlang des Pfads, den glatt(p) wirklich zeichnet (quadratische Kurven durch die
+    Mittelpunkte). Für Bau-Prüfungen: Die Kurve schneidet Ecken ab, die Stützpunkte allein
+    sagen also nicht, wo der Strich liegt."""
+    aus, a = [p[0]], p[0]
+    for i in range(1, len(p) - 1):
+        q = p[i + 1]
+        m = ((p[i][0] + q[0]) / 2, (p[i][1] + q[1]) / 2)
+        for j in range(1, je_bogen + 1):
+            s = j / je_bogen
+            aus.append(((1 - s) ** 2 * a[0] + 2 * (1 - s) * s * p[i][0] + s * s * m[0],
+                        (1 - s) ** 2 * a[1] + 2 * (1 - s) * s * p[i][1] + s * s * m[1]))
+        a = m
+    aus.append(p[-1])
+    return aus
+
+
+def abstand_rechteck(x, y, links, oben, breite, hoehe, drehung=0.0) -> float:
+    """Abstand eines Punkts zu einem Rechteck, das um seine Mitte gedreht ist (CSS rotate in Grad,
+    transform-origin Mitte). Negativ, wenn der Punkt innen liegt."""
+    cx, cy = links + breite / 2, oben + hoehe / 2
+    w = math.radians(drehung)
+    dx, dy = x - cx, y - cy
+    lx, ly = dx * math.cos(w) + dy * math.sin(w), -dx * math.sin(w) + dy * math.cos(w)
+    ax, ay = abs(lx) - breite / 2, abs(ly) - hoehe / 2
+    if ax <= 0 and ay <= 0:
+        return max(ax, ay)
+    return math.hypot(max(ax, 0.0), max(ay, 0.0))
+
+
 def unterstrich(x0, y, x1, seed, anstieg=-10, bogen=7):
     return [(x0 + (x1 - x0) * i / 9, y + anstieg * i / 9 + math.sin(i / 9 * math.pi) * bogen
              + zufall(i * 5 + 2, seed) * 1.6) for i in range(10)]

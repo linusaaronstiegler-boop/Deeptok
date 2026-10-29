@@ -9,7 +9,7 @@ Eine Werkbank mit grüner Schneidematte, von schräg oben gesehen. Auf der Matte
 
 | passt | passt nicht |
 |---|---|
-| Wissenschaft (Physik, Chemie, Bio), Schule-Transfer in den Naturwissenschaften, Technik und Alltagsgegenstände, Stil & Auftreten (ein Kleidungsstück, freigestellt), Experimente mit echten Händen (Clip), Mengen anschaulich machen (wie hoch ist ein Stapel?) | Orte (dann Atlas), Ereignisse und Personen (dann Zeitungspapier oder Archiv), lange Zahlenreihen (dann Kurstafel) |
+| Wissenschaft (Physik, Chemie, Bio), Schule-Transfer in den Naturwissenschaften, Technik und Alltagsgegenstände, Stil & Auftreten (ein Kleidungsstück, freigestellt), Experimente mit echten Händen (Clip), Mengen anschaulich machen (wie hoch ist ein Stapel?), Rückfall der Märkte-Karte, wenn die Zahl keinen Ort hat (Fass, Barren, Münzen mit Maßlinie) | Orte (dann Atlas), Ereignisse und Personen (dann Zeitungspapier oder Archiv), lange Zahlenreihen (dann Diagramm in Atlas Nacht) |
 
 ## Palette
 
