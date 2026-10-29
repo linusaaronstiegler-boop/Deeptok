@@ -5,7 +5,14 @@
   "modell": "sonic-3.6-2026-08-27",
   "_modell_hinweis": "Datierter Stand statt 'sonic-3.6': Die Modellseite (tts-models/latest) empfiehlt datierte Modelle für die Produktion und nennt sonic-3.6-2026-08-27 als gültige model_id. Die API-Referenz des SSE-Endpoints listet aber nur sonic-3.6, sonic-3.5, sonic-3 und sonic-latest (Stand 27.10.2026). Antwortet die API mit 400, hier 'sonic-3.6' eintragen. Prüfen: python factory/casting.py --probe --probesatz --nur cartesia",
   "stimm_id": "BITTE_IM_CASTING_WAEHLEN",
-  "kandidaten": [],
+  "kandidaten": [
+    {"id": "57a3a9e0-a91c-4c94-a2bb-e6cbab3ae649", "name": "Clemens", "geschlecht": "male"},
+    {"id": "0b66a153-548f-4f2c-b734-09a13b0bd163", "name": "Lorelei", "geschlecht": "female"},
+    {"id": "d42fc8d7-efdd-44df-bb2e-a6e093601917", "name": "Oskar", "geschlecht": "male"},
+    {"id": "4ab1ff51-476d-42bb-8019-4d315f7c0c05", "name": "Lena", "geschlecht": "female"},
+    {"id": "b7187e84-fe22-4344-ba4a-bc013fcb533e", "name": "Sebastian", "geschlecht": "male"},
+    {"id": "6d4b1416-8d54-4d94-a788-8a802c086544", "name": "Sabine", "geschlecht": "female"}
+  ],
   "_kandidaten_hinweis": "Die Doku nennt keine deutschen Stimmen. casting.py fragt die Liste selbst ab (GET https://api.cartesia.ai/voices?language=de, dazu &gender=masculine oder feminine; Header Cartesia-Version: 2026-08-14). Jede Stimme kann jede Sprache; eine deutsche Stimme klingt am natürlichsten.",
   "sprache": "de",
   "abtastrate": 44100,
