@@ -1,0 +1,176 @@
+{
+ "_hinweis": "Stimme der Fassung v3 (03.11.2026): Cartesia „Sebastian“ spricht ALLE sechs Blöcke (eine Stimme je Video). Grund: Jonas (ElevenLabs) ließ sich nicht vervollständigen; am 03.11.2026 lehnte ElevenLabs Block 2 wegen Kontingent ab (Rest 26 Credits, nötig 366; abgelehnte Aufrufe kosten nichts). Linus: „nimm irgendeine Stimme, die gut passt“. Sebastian war im blinden Vorlauf (Casting Runde 2) ohne Wortfehler, alle Namen und Zahlen richtig.",
+ "anbieter": "cartesia",
+ "name": "Sebastian",
+ "voice_id": "b7187e84-fe22-4344-ba4a-bc013fcb533e",
+ "modell": "sonic-3.6-2026-08-27",
+ "tempo": 1.05,
+ "_tempo_hinweis": "generation_config.speed. Im Casting (Tempo 1,0) sprach Sebastian 2,04 Wörter/s (G4), ohne die drei langen Zahlwörter 2,31. Erwartet waren hier bei 1,0 etwa 2,1 W/s nach G4 (Atempausen und Luft zählen mit), knapp über der Untergrenze 2,0; darum 1,05. Gemessen: 2,42 W/s nach G4, also schneller als erwartet. Der Wert wirkt nur als Richtung: 0,8 statt 1,05 machte die Definition nur von 3,30 auf 3,20 W/s langsamer (Blöcke 3 und 6).",
+ "datum": "2026-11-03",
+ "text_regel": "Anzeige-Seite der Tokens „Anzeige|Gesprochen“ (Cartesia spricht Barcelona, Lewandowski und Zahlen richtig, geprüft im Casting); keine Betonungs-Sternchen, kein ?↑, Fragezeichen bleiben; Szenen eines Blocks als Absätze. Erzeugt von voice.anzeige_text(); --vertonen bricht ab, wenn der Text nicht mehr zum Skript passt.",
+ "format": "WAV 44,1 kHz, 16 bit, mono (Cartesia SSE liefert rohes PCM, der Adapter verpackt es)",
+ "wortzeiten": "Wort-Zeitstempel von Cartesia (SSE, add_timestamps), in voice.py an die Hüllkurve nachgestellt (an_energie_ausrichten).",
+ "kosten": "Cartesia rechnet etwa 1 Credit je Zeichen ab (Pause-Tags je 1). Kontostand nur im Portal (play.cartesia.ai).",
+ "bruder_regel": "Cartesia verbietet laut Nutzungsbedingungen nur schädliche Inhalte für Minderjährige (docs/research/research-voice.md); keine Sperre wie bei ElevenLabs für das Profil des Bruders.",
+ "rotation": "Sebastian steht noch nicht im Pool von voices/rotation.json; Aufnahme in den Pool ist eine eigene Entscheidung.",
+ "bau": "Vertonen (kostet Zeichen, je Block genau ein Aufruf): ( set -a; . <tts.env>; set +a; python build/voice.py --vertonen build/stimme-sebastian.json ). Tonspur bauen: python build/voice.py --anbieter datei --stimme build/stimme-sebastian.json",
+ "bloecke": [
+  {
+   "nr": 1,
+   "szenen": [
+    "hook"
+   ],
+   "text": "Barcelona will Lewandowski. Bayern kann verkaufen oder behalten. Was kostet es, ihn zu behalten?",
+   "datei": "build/cache/cartesia/b1-e93e947c7544.wav",
+   "wortzeiten": "build/cache/cartesia/b1-e93e947c7544.json",
+   "aufrufe": 1,
+   "zeichen": 96,
+   "gesendet": "Barcelona will Lewandowski. Bayern kann verkaufen oder behalten. Was kostet es, ihn zu behalten?",
+   "datum": "2026-11-03",
+   "wahl": "Eine Aufnahme. Whisper einzeln: 0 Wortfehler; Ton auf „verkaufen“ und „behalten“, die W-Frage fällt."
+  },
+  {
+   "nr": 2,
+   "szenen": [
+    "naheliegend",
+    "vertrag",
+    "angebot",
+    "widerlegung"
+   ],
+   "text": "Naheliegend wäre die Antwort: nur sein Gehalt. Denn nur das bezahlt Bayern. Er schießt dafür Tore.\n\nDoch sein Vertrag läuft nur noch eine Saison. Verlängern will er nicht. Er geht danach ablösefrei: Bayern bekommt nichts.\n\nBarcelona bietet Bayern jetzt 45 Millionen Euro.\n\nNur sein Gehalt? Das stimmt nicht. Verkaufen bringt 45 Millionen Ablöse. Behalten: keinen Cent.",
+   "aufrufe": 1,
+   "frueherer_text": [
+    {
+     "text": "Naheliegend ist die Antwort: nur sein Gehalt. Denn nur das bezahlt Bayern. Dafür schießt er Tore.\n\nDoch sein Vertrag läuft nur noch eine Saison. Verlängern will er nicht. Danach geht er ablösefrei: Bayern bekommt nichts.\n\nBarcelona bietet Bayern jetzt 45 Millionen Euro.\n\nNur sein Gehalt? Das stimmt nicht. Verkaufen bringt 45 Millionen Ablöse, Behalten keinen Cent.",
+     "datei": "build/cache/cartesia/b2-1804c0a6eb40.wav",
+     "wortzeiten": "build/cache/cartesia/b2-1804c0a6eb40.json",
+     "aufrufe": 1,
+     "zeichen": 366,
+     "gesendet": "Naheliegend ist die Antwort: nur sein Gehalt. Denn nur das bezahlt Bayern. Dafür schießt er Tore.\n\nDoch sein Vertrag läuft nur noch eine Saison. Verlängern will er nicht. Danach geht er ablösefrei: Bayern bekommt nichts.\n\nBarcelona bietet Bayern jetzt 45 Millionen Euro.\n\nNur sein Gehalt? Das stimmt nicht. Verkaufen bringt 45 Millionen Ablöse, Behalten keinen Cent.",
+     "datum": "2026-11-03",
+     "wahl": "Eine Aufnahme. „Nur sein Gehalt?“ steigt (F0 109 -> 267 Hz, Whisper schreibt „?“). Pflichtwörter Saison und Ablöse einzeln richtig. Auf der ganzen Spur hört Whisper „schießt der Tore“, einzeln „Dafür schießt er Tore.“ (Bindung „schießt_er“).",
+     "grund_neu": "Text geändert (Fassung final, Runde 1): Kontrast „Verkaufen bringt … Ablöse. Behalten: keinen Cent.“ als eigener Satz (Ton-Kritik P1: Cartesia kennt keine Betonung, „Behalten keinen Cent“ kam flach); „Er schießt dafür Tore“ und „Er geht danach“ gegen die Bindungen „schießt_er“/„geht_er“ (Whisper hörte „der“); „Naheliegend wäre“ (Didaktik: Irrtum klang wie Auflösung)."
+    }
+   ],
+   "datei": "build/cache/cartesia/b2-d2926482d7dd.wav",
+   "wortzeiten": "build/cache/cartesia/b2-d2926482d7dd.json",
+   "zeichen": 368,
+   "gesendet": "Naheliegend wäre die Antwort: nur sein Gehalt. Denn nur das bezahlt Bayern. Er schießt dafür Tore.\n\nDoch sein Vertrag läuft nur noch eine Saison. Verlängern will er nicht. Er geht danach ablösefrei: Bayern bekommt nichts.\n\nBarcelona bietet Bayern jetzt 45 Millionen Euro.\n\nNur sein Gehalt? Das stimmt nicht. Verkaufen bringt 45 Millionen Ablöse. Behalten: keinen Cent.",
+   "datum": "2026-11-03",
+   "wahl": "Eine Aufnahme (Fassung final). Whisper einzeln: 0 Wortfehler; „Er schießt dafür Tore“ und „Er geht danach“ ohne „der“. „Nur sein Gehalt?“ steigt (F0 105,5 -> 257,7 Hz, Whisper „?“). Kontrast: „Verkaufen“ +11,3 und „Behalten“ +12,2 Halbtöne über dem Satzmedian (vorher „Behalten“ -1,9)."
+  },
+  {
+   "nr": 3,
+   "szenen": [
+    "entgangen",
+    "begriff"
+   ],
+   "text": "Entgangenes Geld fehlt genauso wie bezahltes.\n\nÖkonomen nennen dieses Geld Opportunitätskosten. Das ist der Wert der besten Alternative, die man aufgibt.",
+   "datei": "build/cache/cartesia/b3-8eac9ca65f2a.wav",
+   "wortzeiten": "build/cache/cartesia/b3-8eac9ca65f2a.json",
+   "aufrufe": 2,
+   "zeichen": 153,
+   "gesendet": "Entgangenes Geld fehlt genauso wie bezahltes.\n\nÖkonomen nennen dieses Geld Opportunitätskosten. Das ist der Wert der besten Alternative, die man aufgibt.",
+   "datum": "2026-11-03",
+   "tempo": 0.8,
+   "_tempo_hinweis": "Kernsatz langsamer: Definition bzw. Satz fürs Gespräch. Bei Tempo 1,05 sprach Sebastian die Definition mit 3,29 W/s und „Es steht nur auf keiner Rechnung“ mit 4,63 W/s im Satz.",
+   "verworfen": [
+    {
+     "datei": "build/cache/cartesia/b3-cbdc8770f016.wav",
+     "wortzeiten": "build/cache/cartesia/b3-cbdc8770f016.json",
+     "zeichen": 153,
+     "tempo": 1.05,
+     "grund": "Kernsatz zu schnell: Definition 3,29 W/s (Block 3) bzw. Schlusssatz 4,63 W/s (Block 6) im Satz gemessen; die Didaktik-Kritik vom 28.10.2026 (P1) bemängelte schon 3,09 W/s bei Jonas. Zweiter Aufruf mit Tempo 0,8."
+    }
+   ],
+   "wahl": "Zweite Aufnahme (Tempo 0,8) gewählt: „Entgangenes Geld fehlt genauso wie bezahltes“ 2,12 statt 2,42 W/s, Definition 3,20 statt 3,30 W/s; Whisper-Sicherheit gleich (Opportunitätskosten p 0,89 / 0,91). Die Luft nach „bezahltes“ und „Opportunitätskosten“ setzt voice.py."
+  },
+  {
+   "nr": 4,
+   "szenen": [
+    "verkauf"
+   ],
+   "text": "Im Juli nimmt Bayern das Geld.",
+   "datei": "build/cache/cartesia/b4-31826cd3585f.wav",
+   "wortzeiten": "build/cache/cartesia/b4-31826cd3585f.json",
+   "aufrufe": 1,
+   "zeichen": 30,
+   "gesendet": "Im Juli nimmt Bayern das Geld.",
+   "datum": "2026-11-03",
+   "wahl": "Eine Aufnahme. Whisper: 0 Wortfehler."
+  },
+  {
+   "nr": 5,
+   "szenen": [
+    "aufloesung",
+    "modell",
+    "transfer",
+    "transfer_lohn"
+   ],
+   "text": "Auch Verkaufen hat Opportunitätskosten: eine Saison Lewandowski.\n\nJede Entscheidung hat so eine Waage.\n\nDu bekommst für heute Abend eine Kinokarte geschenkt. Genau dann könntest du mit Nachhilfe Geld verdienen.\n\nAlso kostet dich das Kino diesen Lohn: deine Opportunitätskosten. Das kann es wert sein. Gratis ist es nicht.",
+   "aufrufe": 1,
+   "frueherer_text": [
+    {
+     "text": "Auch Verkaufen hat Opportunitätskosten: eine Saison Lewandowski.\n\nJede Entscheidung hat so eine Waage.\n\nDu bekommst eine Kinokarte für heute Abend geschenkt. Genau dann könntest du mit Nachhilfe Geld verdienen.\n\nAlso kostet dich das Kino diesen Lohn. Das kann es wert sein. Gratis ist es nicht.",
+     "datei": "build/cache/cartesia/b5-33b8d866b6f6.wav",
+     "wortzeiten": "build/cache/cartesia/b5-33b8d866b6f6.json",
+     "aufrufe": 1,
+     "zeichen": 294,
+     "gesendet": "Auch Verkaufen hat Opportunitätskosten: eine Saison Lewandowski.\n\nJede Entscheidung hat so eine Waage.\n\nDu bekommst eine Kinokarte für heute Abend geschenkt. Genau dann könntest du mit Nachhilfe Geld verdienen.\n\nAlso kostet dich das Kino diesen Lohn. Das kann es wert sein. Gratis ist es nicht.",
+     "datum": "2026-11-03",
+     "wahl": "Eine Aufnahme. Pflichtwörter Opportunitätskosten, Saison und Lohn einzeln richtig. Whisper hört auf der ganzen Spur „Genau dann Dann“, die Rohaufnahme und der Satz einzeln haben „dann“ nur einmal (Fehler von Whisper).",
+     "grund_neu": "Text geändert (Fassung final, Runde 1): „Du bekommst für heute Abend eine Kinokarte“ gegen die Bindung „bekommst_eine“ (Whisper hörte „deine“); „Also kostet dich das Kino diesen Lohn: deine Opportunitätskosten.“ (Didaktik P1: der Begriff fehlte im Transfer)."
+    }
+   ],
+   "tempo": 0.95,
+   "_tempo_hinweis": "Kernsatz langsamer (Richtwert; Cartesia setzt ihn nur schwach um).",
+   "datei": "build/cache/cartesia/b5-d93880568fc3.wav",
+   "wortzeiten": "build/cache/cartesia/b5-d93880568fc3.json",
+   "zeichen": 321,
+   "gesendet": "Auch Verkaufen hat Opportunitätskosten: eine Saison Lewandowski.\n\nJede Entscheidung hat so eine Waage.\n\nDu bekommst für heute Abend eine Kinokarte geschenkt. Genau dann könntest du mit Nachhilfe Geld verdienen.\n\nAlso kostet dich das Kino diesen Lohn: deine Opportunitätskosten. Das kann es wert sein. Gratis ist es nicht.",
+   "datum": "2026-11-03",
+   "wahl": "Eine Aufnahme (Fassung final, Tempo 0,95). Whisper einzeln: 0 Wortfehler, „Du bekommst für heute Abend eine Kinokarte“ ohne „deine“; Pflichtwörter Opportunitätskosten (2x), Saison, Lohn richtig. „Jede Entscheidung …“ und „Also kostet dich …“ dehnt voice.py um 15 bzw. 12 % (script.py: dehnen)."
+  },
+  {
+   "nr": 6,
+   "szenen": [
+    "satz"
+   ],
+   "text": "Das Beste, was du aufgibst, kostet auch. Es steht auf keiner Rechnung.",
+   "aufrufe": 1,
+   "frueherer_text": [
+    {
+     "text": "Auch was du aufgibst, kostet. Es steht nur auf keiner Rechnung.",
+     "datei": "build/cache/cartesia/b6-494b14b7574c.wav",
+     "wortzeiten": "build/cache/cartesia/b6-494b14b7574c.json",
+     "aufrufe": 2,
+     "zeichen": 63,
+     "gesendet": "Auch was du aufgibst, kostet. Es steht nur auf keiner Rechnung.",
+     "datum": "2026-11-03",
+     "tempo": 0.8,
+     "wahl": "Zweite Aufnahme (Tempo 0,8) gewählt: „Auch was du aufgibst, kostet“ 2,70 statt 3,29 W/s, „keiner“ p 0,85 statt 0,80. Sie zieht „kostet, es steht“ zusammen (0,17 s Stille); script.py setzt darum Luft 0,5 s nach „kostet“.",
+     "verworfen": [
+      {
+       "datei": "build/cache/cartesia/b6-ed8ad56d03af.wav",
+       "wortzeiten": "build/cache/cartesia/b6-ed8ad56d03af.json",
+       "zeichen": 63,
+       "tempo": 1.05,
+       "grund": "Kernsatz zu schnell: Definition 3,29 W/s (Block 3) bzw. Schlusssatz 4,63 W/s (Block 6) im Satz gemessen; die Didaktik-Kritik vom 28.10.2026 (P1) bemängelte schon 3,09 W/s bei Jonas. Zweiter Aufruf mit Tempo 0,8."
+      }
+     ],
+     "grund_neu": "Text geändert (Fassung final, Runde 1): Merksatz „Das Beste, was du aufgibst, kostet auch. Es steht auf keiner Rechnung.“ (Didaktik P1: „beste“ fehlte, der alte Satz führte zum Ablenker „beides zusammen“; Ton-Kritik P1: der Schlusssatz kam gehetzt)."
+    }
+   ],
+   "tempo": 0.8,
+   "_tempo_hinweis": "Kernsatz langsamer (Richtwert; Cartesia setzt ihn nur schwach um).",
+   "datei": "build/cache/cartesia/b6-299338f48710.wav",
+   "wortzeiten": "build/cache/cartesia/b6-299338f48710.json",
+   "zeichen": 70,
+   "gesendet": "Das Beste, was du aufgibst, kostet auch. Es steht auf keiner Rechnung.",
+   "datum": "2026-11-03",
+   "wahl": "Eine Aufnahme (Fassung final, Tempo 0,8). Whisper: „Das Beste, was du aufgibst, kostet auch. Es steht auf keiner Rechnung.“ „Beste“ +5,9 Halbtöne. Der Schlusssatz kam mit 4,9 Silben/s; voice.py dehnt ihn um 14 % auf 4,3."
+  }
+ ],
+ "zeichen_gesamt": 1191,
+ "_hinweis_final": "Fassung final (Runde 1, 03.11.2026): Blöcke 2, 5 und 6 mit neuem Text, je GENAU ein Aufruf (die alten Aufnahmen gehören zum alten Text, siehe frueherer_text; ihre Aufrufe zählen dort). Blöcke 1, 3, 4 unverändert. Neue Zeichen: 368 + 321 + 70 = 759."
+}

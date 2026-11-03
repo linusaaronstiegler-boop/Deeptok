@@ -1,16 +1,16 @@
 {
  "anbieter": "datei",
  "stimme": [
-  "Block 1: Jonas (xlbJQnFFGB01bv7HK5CZ, eleven_v4)",
-  "Block 2: Piper thorsten-high (Platzhalter)",
-  "Block 3: Jonas (xlbJQnFFGB01bv7HK5CZ, eleven_v4)",
-  "Block 4: Jonas (xlbJQnFFGB01bv7HK5CZ, eleven_v4)",
-  "Block 5: Piper thorsten-high (Platzhalter)",
-  "Block 6: Piper thorsten-high (Platzhalter)"
+  "Block 1: Sebastian (b7187e84-fe22-4344-ba4a-bc013fcb533e, sonic-3.6-2026-08-27)",
+  "Block 2: Sebastian (b7187e84-fe22-4344-ba4a-bc013fcb533e, sonic-3.6-2026-08-27)",
+  "Block 3: Sebastian (b7187e84-fe22-4344-ba4a-bc013fcb533e, sonic-3.6-2026-08-27)",
+  "Block 4: Sebastian (b7187e84-fe22-4344-ba4a-bc013fcb533e, sonic-3.6-2026-08-27)",
+  "Block 5: Sebastian (b7187e84-fe22-4344-ba4a-bc013fcb533e, sonic-3.6-2026-08-27)",
+  "Block 6: Sebastian (b7187e84-fe22-4344-ba4a-bc013fcb533e, sonic-3.6-2026-08-27)"
  ],
- "platzhalter": true,
+ "platzhalter": false,
  "lead_in": 0.35,
- "duration": 74.413,
+ "duration": 77.025,
  "scenes": [
   {
    "id": "hook",
@@ -18,237 +18,237 @@
    "sentences": [
     {
      "text": "Barcelona will Lewandowski",
-     "start": 0.375,
-     "end": 2.081,
+     "start": 0.385,
+     "end": 1.93,
      "words": [
       {
        "text": "Barcelona",
        "spoken": "Barcelona",
-       "start": 0.375,
-       "end": 1.068
+       "start": 0.385,
+       "end": 0.97
       },
       {
        "text": "will",
        "spoken": "will",
-       "start": 1.1,
-       "end": 1.32
+       "start": 1.05,
+       "end": 1.1
       },
       {
        "text": "Lewandowski",
        "spoken": "Lewandowski",
-       "start": 1.332,
-       "end": 2.081
+       "start": 1.1,
+       "end": 1.93
       }
      ]
     },
     {
      "text": "Bayern kann verkaufen oder behalten",
-     "start": 2.41,
-     "end": 4.638,
+     "start": 2.63,
+     "end": 4.559,
      "words": [
       {
        "text": "Bayern",
        "spoken": "Bayern",
-       "start": 2.41,
-       "end": 2.86
+       "start": 2.63,
+       "end": 2.959
       },
       {
        "text": "kann",
        "spoken": "kann",
-       "start": 2.898,
-       "end": 3.07
+       "start": 2.959,
+       "end": 3.119
       },
       {
        "text": "verkaufen",
        "spoken": "verkaufen",
-       "start": 3.09,
-       "end": 3.676
+       "start": 3.119,
+       "end": 3.759
       },
       {
        "text": "oder",
        "spoken": "oder",
-       "start": 3.909,
-       "end": 4.132
+       "start": 3.759,
+       "end": 3.999
       },
       {
        "text": "behalten",
        "spoken": "behalten",
-       "start": 4.165,
-       "end": 4.638
+       "start": 3.999,
+       "end": 4.559
       }
      ]
     },
     {
      "text": "Was kostet es ihn zu behalten",
-     "start": 5.124,
-     "end": 6.9,
+     "start": 5.009,
+     "end": 6.748,
      "words": [
       {
        "text": "Was",
        "spoken": "Was",
-       "start": 5.124,
-       "end": 5.346
+       "start": 5.009,
+       "end": 5.148
       },
       {
        "text": "kostet",
        "spoken": "kostet",
-       "start": 5.446,
-       "end": 5.806
+       "start": 5.148,
+       "end": 5.548
       },
       {
        "text": "es",
        "spoken": "es",
-       "start": 5.894,
-       "end": 5.97
+       "start": 5.548,
+       "end": 5.788
       },
       {
        "text": "ihn",
        "spoken": "ihn",
-       "start": 6.127,
-       "end": 6.282
+       "start": 5.95,
+       "end": 6.028
       },
       {
        "text": "zu",
        "spoken": "zu",
-       "start": 6.332,
-       "end": 6.407
+       "start": 6.108,
+       "end": 6.188
       },
       {
        "text": "behalten",
        "spoken": "behalten",
-       "start": 6.457,
-       "end": 6.9
+       "start": 6.188,
+       "end": 6.748
       }
      ]
     }
    ],
-   "start": 0.375,
-   "end": 6.9
+   "start": 0.385,
+   "end": 6.748
   },
   {
    "id": "naheliegend",
    "beat": "naheliegend",
    "sentences": [
     {
-     "text": "Naheliegend ist die Antwort nur sein Gehalt",
-     "start": 9.39,
-     "end": 11.677,
+     "text": "Naheliegend wäre die Antwort nur sein Gehalt",
+     "start": 9.093,
+     "end": 11.886,
      "words": [
       {
        "text": "Naheliegend",
        "spoken": "Naheliegend",
-       "start": 9.39,
-       "end": 9.936
+       "start": 9.093,
+       "end": 9.668
       },
       {
-       "text": "ist",
-       "spoken": "ist",
-       "start": 9.971,
-       "end": 10.075
+       "text": "wäre",
+       "spoken": "wäre",
+       "start": 9.761,
+       "end": 9.828
       },
       {
        "text": "die",
        "spoken": "die",
-       "start": 10.098,
-       "end": 10.191
+       "start": 9.921,
+       "end": 9.988
       },
       {
        "text": "Antwort",
        "spoken": "Antwort",
-       "start": 10.273,
-       "end": 10.737
+       "start": 10.001,
+       "end": 10.628
       },
       {
        "text": "nur",
        "spoken": "nur",
-       "start": 10.992,
-       "end": 11.155
+       "start": 10.904,
+       "end": 11.108
       },
       {
        "text": "sein",
        "spoken": "sein",
-       "start": 11.178,
-       "end": 11.364
+       "start": 11.121,
+       "end": 11.348
       },
       {
        "text": "Gehalt",
        "spoken": "Gehalt",
-       "start": 11.387,
-       "end": 11.677
+       "start": 11.361,
+       "end": 11.886
       }
      ]
     },
     {
      "text": "Denn nur das bezahlt Bayern",
-     "start": 12.387,
-     "end": 13.745,
+     "start": 12.49,
+     "end": 13.908,
      "words": [
       {
        "text": "Denn",
        "spoken": "Denn",
-       "start": 12.387,
-       "end": 12.526
+       "start": 12.49,
+       "end": 12.708
       },
       {
        "text": "nur",
        "spoken": "nur",
-       "start": 12.561,
-       "end": 12.712
+       "start": 12.801,
+       "end": 12.868
       },
       {
        "text": "das",
        "spoken": "das",
-       "start": 12.747,
-       "end": 12.875
+       "start": 12.961,
+       "end": 13.108
       },
       {
        "text": "bezahlt",
        "spoken": "bezahlt",
-       "start": 12.944,
-       "end": 13.351
+       "start": 13.121,
+       "end": 13.588
       },
       {
        "text": "Bayern",
        "spoken": "Bayern",
-       "start": 13.409,
-       "end": 13.745
+       "start": 13.681,
+       "end": 13.908
       }
      ]
     },
     {
-     "text": "Dafür schießt er Tore",
-     "start": 14.455,
-     "end": 15.477,
+     "text": "Er schießt dafür Tore",
+     "start": 14.221,
+     "end": 15.234,
      "words": [
       {
-       "text": "Dafür",
-       "spoken": "Dafür",
-       "start": 14.455,
-       "end": 14.745
+       "text": "Er",
+       "spoken": "Er",
+       "start": 14.221,
+       "end": 14.308
       },
       {
        "text": "schießt",
        "spoken": "schießt",
-       "start": 14.768,
-       "end": 15.001
+       "start": 14.321,
+       "end": 14.548
       },
       {
-       "text": "er",
-       "spoken": "er",
-       "start": 15.024,
-       "end": 15.105
+       "text": "dafür",
+       "spoken": "dafür",
+       "start": 14.561,
+       "end": 14.868
       },
       {
        "text": "Tore",
        "spoken": "Tore",
-       "start": 15.163,
-       "end": 15.477
+       "start": 14.881,
+       "end": 15.234
       }
      ]
     }
    ],
-   "start": 9.39,
-   "end": 15.477
+   "start": 9.093,
+   "end": 15.234
   },
   {
    "id": "vertrag",
@@ -256,142 +256,142 @@
    "sentences": [
     {
      "text": "Doch sein Vertrag läuft nur noch eine Saison",
-     "start": 16.128,
-     "end": 18.368,
+     "start": 15.987,
+     "end": 17.823,
      "words": [
       {
        "text": "Doch",
        "spoken": "Doch",
-       "start": 16.128,
-       "end": 16.267
+       "start": 15.987,
+       "end": 16.068
       },
       {
        "text": "sein",
        "spoken": "sein",
-       "start": 16.302,
-       "end": 16.511
+       "start": 16.161,
+       "end": 16.228
       },
       {
        "text": "Vertrag",
        "spoken": "Vertrag",
-       "start": 16.569,
-       "end": 17.021
+       "start": 16.241,
+       "end": 16.708
       },
       {
        "text": "läuft",
        "spoken": "läuft",
-       "start": 17.045,
-       "end": 17.335
+       "start": 16.801,
+       "end": 16.868
       },
       {
        "text": "nur",
        "spoken": "nur",
-       "start": 17.358,
-       "end": 17.532
+       "start": 16.881,
+       "end": 16.948
       },
       {
        "text": "noch",
        "spoken": "noch",
-       "start": 17.556,
-       "end": 17.672
+       "start": 17.041,
+       "end": 17.108
       },
       {
        "text": "eine",
        "spoken": "eine",
-       "start": 17.753,
-       "end": 17.915
+       "start": 17.121,
+       "end": 17.428
       },
       {
        "text": "Saison",
        "spoken": "Saison",
-       "start": 17.939,
-       "end": 18.368
+       "start": 17.441,
+       "end": 17.823
       }
      ]
     },
     {
      "text": "Verlängern will er nicht",
-     "start": 18.799,
-     "end": 19.763,
+     "start": 18.323,
+     "end": 19.391,
      "words": [
       {
        "text": "Verlängern",
        "spoken": "Verlängern",
-       "start": 18.799,
-       "end": 19.206
+       "start": 18.323,
+       "end": 18.789
       },
       {
        "text": "will",
        "spoken": "will",
-       "start": 19.24,
-       "end": 19.415
+       "start": 18.882,
+       "end": 18.949
       },
       {
        "text": "er",
        "spoken": "er",
-       "start": 19.438,
-       "end": 19.507
+       "start": 19.042,
+       "end": 19.092
       },
       {
        "text": "nicht",
        "spoken": "nicht",
-       "start": 19.565,
-       "end": 19.763
+       "start": 19.092,
+       "end": 19.391
       }
      ]
     },
     {
-     "text": "Danach geht er ablösefrei Bayern bekommt nichts",
-     "start": 20.171,
-     "end": 23.154,
+     "text": "Er geht danach ablösefrei Bayern bekommt nichts",
+     "start": 19.765,
+     "end": 22.384,
      "words": [
       {
-       "text": "Danach",
-       "spoken": "Danach",
-       "start": 20.171,
-       "end": 20.6
+       "text": "Er",
+       "spoken": "Er",
+       "start": 19.765,
+       "end": 19.829
       },
       {
        "text": "geht",
        "spoken": "geht",
-       "start": 20.658,
-       "end": 20.832
+       "start": 19.922,
+       "end": 19.989
       },
       {
-       "text": "er",
-       "spoken": "er",
-       "start": 20.902,
-       "end": 20.995
+       "text": "danach",
+       "spoken": "danach",
+       "start": 20.002,
+       "end": 20.229
       },
       {
        "text": "ablösefrei",
        "spoken": "ablösefrei",
-       "start": 21.076,
-       "end": 21.808
+       "start": 20.242,
+       "end": 21.109
       },
       {
        "text": "Bayern",
        "spoken": "Bayern",
-       "start": 22.051,
-       "end": 22.353
+       "start": 21.331,
+       "end": 21.589
       },
       {
        "text": "bekommt",
        "spoken": "bekommt",
-       "start": 22.4,
-       "end": 22.725
+       "start": 21.682,
+       "end": 21.989
       },
       {
        "text": "nichts",
        "spoken": "nichts",
-       "start": 22.783,
-       "end": 23.154
+       "start": 22.002,
+       "end": 22.384
       }
      ]
     }
    ],
-   "start": 16.128,
-   "end": 23.154
+   "start": 15.987,
+   "end": 22.384
   },
   {
    "id": "angebot",
@@ -399,56 +399,56 @@
    "sentences": [
     {
      "text": "Barcelona bietet Bayern jetzt 45 Millionen Euro",
-     "start": 23.747,
-     "end": 26.801,
+     "start": 22.878,
+     "end": 25.756,
      "words": [
       {
        "text": "Barcelona",
-       "spoken": "Barsselona",
-       "start": 23.747,
-       "end": 24.316
+       "spoken": "Barcelona",
+       "start": 22.878,
+       "end": 23.349
       },
       {
        "text": "bietet",
        "spoken": "bietet",
-       "start": 24.362,
-       "end": 24.641
+       "start": 23.442,
+       "end": 23.669
       },
       {
        "text": "Bayern",
        "spoken": "Bayern",
-       "start": 24.688,
-       "end": 24.978
+       "start": 23.762,
+       "end": 23.909
       },
       {
        "text": "jetzt",
        "spoken": "jetzt",
-       "start": 25.013,
-       "end": 25.245
+       "start": 23.922,
+       "end": 24.229
       },
       {
        "text": "45",
-       "spoken": "fünfundvierzig",
-       "start": 25.28,
-       "end": 25.988
+       "spoken": "45",
+       "start": 24.242,
+       "end": 24.949
       },
       {
        "text": "Millionen",
        "spoken": "Millionen",
-       "start": 26.034,
-       "end": 26.429
+       "start": 24.962,
+       "end": 25.349
       },
       {
        "text": "Euro",
        "spoken": "Euro",
-       "start": 26.51,
-       "end": 26.801
+       "start": 25.362,
+       "end": 25.756
       }
      ]
     }
    ],
-   "start": 23.747,
-   "end": 26.801
+   "start": 22.878,
+   "end": 25.756
   },
   {
    "id": "widerlegung",
@@ -456,105 +456,112 @@
    "sentences": [
     {
      "text": "Nur sein Gehalt Das stimmt nicht",
-     "start": 27.44,
-     "end": 29.461,
+     "start": 26.28,
+     "end": 28.256,
      "words": [
       {
        "text": "Nur",
        "spoken": "Nur",
-       "start": 27.44,
-       "end": 27.602
+       "start": 26.28,
+       "end": 26.469
       },
       {
        "text": "sein",
        "spoken": "sein",
-       "start": 27.649,
-       "end": 27.823
+       "start": 26.562,
+       "end": 26.629
       },
       {
        "text": "Gehalt",
        "spoken": "Gehalt",
-       "start": 27.846,
-       "end": 28.195
+       "start": 26.642,
+       "end": 27.188
       },
       {
        "text": "Das",
        "spoken": "Das",
-       "start": 28.695,
-       "end": 28.834
+       "start": 27.617,
+       "end": 27.749
       },
       {
        "text": "stimmt",
        "spoken": "stimmt",
-       "start": 28.881,
-       "end": 29.194
+       "start": 27.842,
+       "end": 27.989
       },
       {
        "text": "nicht",
        "spoken": "nicht",
-       "start": 29.218,
-       "end": 29.461
+       "start": 28.002,
+       "end": 28.256
       }
      ]
     },
     {
-     "text": "Verkaufen bringt 45 Millionen Ablöse Behalten keinen Cent",
-     "start": 29.881,
-     "end": 33.608,
+     "text": "Verkaufen bringt 45 Millionen Ablöse",
+     "start": 28.765,
+     "end": 31.179,
      "words": [
       {
        "text": "Verkaufen",
        "spoken": "Verkaufen",
-       "start": 29.881,
-       "end": 30.496
+       "start": 28.765,
+       "end": 29.349
       },
       {
        "text": "bringt",
        "spoken": "bringt",
-       "start": 30.542,
-       "end": 30.763
+       "start": 29.442,
+       "end": 29.509
       },
       {
        "text": "45",
-       "spoken": "fünfundvierzig",
-       "start": 30.81,
-       "end": 31.495
+       "spoken": "45",
+       "start": 29.522,
+       "end": 30.229
       },
       {
        "text": "Millionen",
        "spoken": "Millionen",
-       "start": 31.529,
-       "end": 31.901
+       "start": 30.242,
+       "end": 30.629
       },
       {
        "text": "Ablöse",
        "spoken": "Ablöse",
-       "start": 31.971,
-       "end": 32.458
-      },
+       "start": 30.642,
+       "end": 31.179
+      }
+     ]
+    },
+    {
+     "text": "Behalten keinen Cent",
+     "start": 31.449,
+     "end": 33.266,
+     "words": [
       {
        "text": "Behalten",
        "spoken": "Behalten",
-       "start": 32.656,
-       "end": 33.039
+       "start": 31.449,
+       "end": 31.989
       },
       {
        "text": "keinen",
        "spoken": "keinen",
-       "start": 33.085,
-       "end": 33.294
+       "start": 32.439,
+       "end": 32.786
       },
       {
        "text": "Cent",
        "spoken": "Cent",
-       "start": 33.329,
-       "end": 33.608
+       "start": 32.799,
+       "end": 33.266
       }
      ]
     }
    ],
-   "start": 27.44,
-   "end": 33.608
+   "start": 26.28,
+   "end": 33.266
   },
   {
    "id": "entgangen",
@@ -562,50 +569,50 @@
    "sentences": [
     {
      "text": "Entgangenes Geld fehlt genauso wie bezahltes",
-     "start": 34.57,
-     "end": 37.372,
+     "start": 34.176,
+     "end": 36.954,
      "words": [
       {
        "text": "Entgangenes",
        "spoken": "Entgangenes",
-       "start": 34.57,
-       "end": 35.182
+       "start": 34.176,
+       "end": 34.836
       },
       {
        "text": "Geld",
        "spoken": "Geld",
-       "start": 35.247,
-       "end": 35.514
+       "start": 34.836,
+       "end": 35.156
       },
       {
        "text": "fehlt",
        "spoken": "fehlt",
-       "start": 35.565,
-       "end": 35.99
+       "start": 35.156,
+       "end": 35.476
       },
       {
        "text": "genauso",
        "spoken": "genauso",
-       "start": 36.062,
-       "end": 36.497
+       "start": 35.556,
+       "end": 35.956
       },
       {
        "text": "wie",
        "spoken": "wie",
-       "start": 36.565,
-       "end": 36.683
+       "start": 35.956,
+       "end": 36.036
       },
       {
        "text": "bezahltes",
        "spoken": "bezahltes",
-       "start": 36.696,
-       "end": 37.372
+       "start": 36.036,
+       "end": 36.954
       }
      ]
     }
    ],
-   "start": 34.57,
-   "end": 37.372
+   "start": 34.176,
+   "end": 36.954
   },
   {
    "id": "begriff",
@@ -613,111 +620,111 @@
    "sentences": [
     {
      "text": "Ökonomen nennen dieses Geld Opportunitätskosten",
-     "start": 38.072,
-     "end": 41.06,
+     "start": 37.654,
+     "end": 40.531,
      "words": [
       {
        "text": "Ökonomen",
        "spoken": "Ökonomen",
-       "start": 38.072,
-       "end": 38.631
+       "start": 37.654,
+       "end": 38.211
       },
       {
        "text": "nennen",
        "spoken": "nennen",
-       "start": 38.688,
-       "end": 38.923
+       "start": 38.291,
+       "end": 38.371
       },
       {
        "text": "dieses",
        "spoken": "dieses",
-       "start": 38.967,
-       "end": 39.231
+       "start": 38.371,
+       "end": 38.691
       },
       {
        "text": "Geld",
        "spoken": "Geld",
-       "start": 39.277,
-       "end": 39.549
+       "start": 38.691,
+       "end": 39.171
       },
       {
        "text": "Opportunitätskosten",
        "spoken": "Opportunitätskosten",
-       "start": 39.738,
-       "end": 41.06
+       "start": 39.171,
+       "end": 40.531
       }
      ]
     },
     {
      "text": "Das ist der Wert der besten Alternative die man aufgibt",
-     "start": 41.66,
-     "end": 44.9,
+     "start": 41.093,
+     "end": 44.714,
      "words": [
       {
        "text": "Das",
        "spoken": "Das",
-       "start": 41.66,
-       "end": 41.835
+       "start": 41.093,
+       "end": 41.187
       },
       {
        "text": "ist",
        "spoken": "ist",
-       "start": 41.894,
-       "end": 41.974
+       "start": 41.187,
+       "end": 41.373
       },
       {
        "text": "der",
        "spoken": "der",
-       "start": 42.027,
-       "end": 42.126
+       "start": 41.373,
+       "end": 41.558
       },
       {
        "text": "Wert",
        "spoken": "Wert",
-       "start": 42.248,
-       "end": 42.548
+       "start": 41.558,
+       "end": 41.837
       },
       {
        "text": "der",
        "spoken": "der",
-       "start": 42.57,
-       "end": 42.692
+       "start": 41.93,
+       "end": 41.988
       },
       {
        "text": "besten",
        "spoken": "besten",
-       "start": 42.785,
-       "end": 43.117
+       "start": 41.988,
+       "end": 42.486
       },
       {
        "text": "Alternative",
        "spoken": "Alternative",
-       "start": 43.253,
-       "end": 43.944
+       "start": 42.486,
+       "end": 43.6
       },
       {
        "text": "die",
        "spoken": "die",
-       "start": 44.062,
-       "end": 44.176
+       "start": 43.693,
+       "end": 43.786
       },
       {
        "text": "man",
        "spoken": "man",
-       "start": 44.191,
-       "end": 44.332
+       "start": 43.786,
+       "end": 43.971
       },
       {
        "text": "aufgibt",
        "spoken": "aufgibt",
-       "start": 44.448,
-       "end": 44.9
+       "start": 43.971,
+       "end": 44.714
       }
      ]
     }
    ],
-   "start": 38.072,
-   "end": 44.9
+   "start": 37.654,
+   "end": 44.714
   },
   {
    "id": "verkauf",
@@ -725,50 +732,50 @@
    "sentences": [
     {
      "text": "Im Juli nimmt Bayern das Geld",
-     "start": 45.595,
-     "end": 47.52,
+     "start": 45.349,
+     "end": 46.944,
      "words": [
       {
        "text": "Im",
        "spoken": "Im",
-       "start": 45.595,
-       "end": 45.728
+       "start": 45.349,
+       "end": 45.424
       },
       {
        "text": "Juli",
        "spoken": "Juli",
-       "start": 45.828,
-       "end": 46.19
+       "start": 45.424,
+       "end": 45.824
       },
       {
        "text": "nimmt",
        "spoken": "nimmt",
-       "start": 46.276,
-       "end": 46.556
+       "start": 45.824,
+       "end": 46.064
       },
       {
        "text": "Bayern",
        "spoken": "Bayern",
-       "start": 46.609,
-       "end": 46.91
+       "start": 46.144,
+       "end": 46.384
       },
       {
        "text": "das",
        "spoken": "das",
-       "start": 46.948,
-       "end": 47.134
+       "start": 46.384,
+       "end": 46.544
       },
       {
        "text": "Geld",
        "spoken": "Geld",
-       "start": 47.166,
-       "end": 47.52
+       "start": 46.544,
+       "end": 46.944
       }
      ]
     }
    ],
-   "start": 45.595,
-   "end": 47.52
+   "start": 45.349,
+   "end": 46.944
   },
   {
    "id": "aufloesung",
@@ -776,56 +783,56 @@
    "sentences": [
     {
      "text": "Auch Verkaufen hat Opportunitätskosten eine Saison Lewandowski",
-     "start": 48.643,
-     "end": 52.346,
+     "start": 47.974,
+     "end": 51.754,
      "words": [
       {
        "text": "Auch",
        "spoken": "Auch",
-       "start": 48.643,
-       "end": 48.794
+       "start": 47.974,
+       "end": 48.074
       },
       {
        "text": "Verkaufen",
        "spoken": "Verkaufen",
-       "start": 48.817,
-       "end": 49.409
+       "start": 48.091,
+       "end": 48.714
       },
       {
        "text": "hat",
        "spoken": "hat",
-       "start": 49.432,
-       "end": 49.56
+       "start": 48.731,
+       "end": 48.794
       },
       {
        "text": "Opportunitätskosten",
-       "spoken": "Oppor-tunitätskosten",
-       "start": 49.653,
-       "end": 50.86
+       "spoken": "Opportunitätskosten",
+       "start": 48.811,
+       "end": 50.154
       },
       {
        "text": "eine",
        "spoken": "eine",
-       "start": 51.093,
-       "end": 51.244
+       "start": 50.281,
+       "end": 50.474
       },
       {
        "text": "Saison",
        "spoken": "Saison",
-       "start": 51.29,
-       "end": 51.638
+       "start": 50.491,
+       "end": 50.954
       },
       {
        "text": "Lewandowski",
        "spoken": "Lewandowski",
-       "start": 51.661,
-       "end": 52.346
+       "start": 50.971,
+       "end": 51.754
       }
      ]
     }
    ],
-   "start": 48.643,
-   "end": 52.346
+   "start": 47.974,
+   "end": 51.754
   },
   {
    "id": "modell",
@@ -833,790 +840,1071 @@
    "sentences": [
     {
      "text": "Jede Entscheidung hat so eine Waage",
-     "start": 53.23,
-     "end": 54.867,
+     "start": 52.387,
+     "end": 54.238,
      "words": [
       {
        "text": "Jede",
        "spoken": "Jede",
-       "start": 53.23,
-       "end": 53.543
+       "start": 52.387,
+       "end": 52.582
       },
       {
        "text": "Entscheidung",
        "spoken": "Entscheidung",
-       "start": 53.578,
-       "end": 54.077
+       "start": 52.602,
+       "end": 53.226
       },
       {
        "text": "hat",
        "spoken": "hat",
-       "start": 54.1,
-       "end": 54.228
+       "start": 53.246,
+       "end": 53.318
       },
       {
        "text": "so",
        "spoken": "so",
-       "start": 54.263,
-       "end": 54.344
+       "start": 53.43,
+       "end": 53.502
       },
       {
        "text": "eine",
        "spoken": "eine",
-       "start": 54.402,
-       "end": 54.518
+       "start": 53.522,
+       "end": 53.778
       },
       {
        "text": "Waage",
        "spoken": "Waage",
-       "start": 54.553,
-       "end": 54.867
+       "start": 53.798,
+       "end": 54.238
       }
      ]
     }
    ],
-   "start": 53.23,
-   "end": 54.867
+   "start": 52.387,
+   "end": 54.238
   },
   {
    "id": "transfer",
    "beat": "transfer",
    "sentences": [
     {
-     "text": "Du bekommst eine Kinokarte für heute Abend geschenkt",
-     "start": 55.738,
-     "end": 58.443,
+     "text": "Du bekommst für heute Abend eine Kinokarte geschenkt",
+     "start": 54.938,
+     "end": 57.428,
      "words": [
       {
        "text": "Du",
        "spoken": "Du",
-       "start": 55.738,
-       "end": 55.831
+       "start": 54.938,
+       "end": 54.988
       },
       {
        "text": "bekommst",
        "spoken": "bekommst",
-       "start": 55.866,
-       "end": 56.295
-      },
-      {
-       "text": "eine",
-       "spoken": "eine",
-       "start": 56.377,
-       "end": 56.516
-      },
-      {
-       "text": "Kinokarte",
-       "spoken": "Kinokarte",
-       "start": 56.574,
-       "end": 57.166
+       "start": 55.045,
+       "end": 55.348
       },
       {
        "text": "für",
        "spoken": "für",
-       "start": 57.189,
-       "end": 57.317
+       "start": 55.365,
+       "end": 55.508
       },
       {
        "text": "heute",
        "spoken": "heute",
-       "start": 57.352,
-       "end": 57.596
+       "start": 55.525,
+       "end": 55.748
       },
       {
        "text": "Abend",
        "spoken": "Abend",
-       "start": 57.7,
-       "end": 57.932
+       "start": 55.845,
+       "end": 56.068
+      },
+      {
+       "text": "eine",
+       "spoken": "eine",
+       "start": 56.085,
+       "end": 56.228
+      },
+      {
+       "text": "Kinokarte",
+       "spoken": "Kinokarte",
+       "start": 56.245,
+       "end": 56.868
       },
       {
        "text": "geschenkt",
        "spoken": "geschenkt",
-       "start": 57.967,
-       "end": 58.443
+       "start": 56.885,
+       "end": 57.428
       }
      ]
     },
     {
      "text": "Genau dann könntest du mit Nachhilfe Geld verdienen",
-     "start": 59.143,
-     "end": 61.569,
+     "start": 58.128,
+     "end": 60.499,
      "words": [
       {
        "text": "Genau",
        "spoken": "Genau",
-       "start": 59.143,
-       "end": 59.444
+       "start": 58.128,
+       "end": 58.339
       },
       {
        "text": "dann",
        "spoken": "dann",
-       "start": 59.491,
-       "end": 59.688
+       "start": 58.356,
+       "end": 58.739
       },
       {
        "text": "könntest",
        "spoken": "könntest",
-       "start": 59.758,
-       "end": 59.99
+       "start": 58.836,
+       "end": 59.059
       },
       {
        "text": "du",
        "spoken": "du",
-       "start": 60.013,
-       "end": 60.095
+       "start": 59.156,
+       "end": 59.206
       },
       {
        "text": "mit",
        "spoken": "mit",
-       "start": 60.118,
-       "end": 60.211
+       "start": 59.206,
+       "end": 59.256
       },
       {
        "text": "Nachhilfe",
        "spoken": "Nachhilfe",
-       "start": 60.269,
-       "end": 60.756
+       "start": 59.256,
+       "end": 59.779
       },
       {
        "text": "Geld",
        "spoken": "Geld",
-       "start": 60.803,
-       "end": 61.058
+       "start": 59.876,
+       "end": 60.019
       },
       {
        "text": "verdienen",
        "spoken": "verdienen",
-       "start": 61.116,
-       "end": 61.569
+       "start": 60.036,
+       "end": 60.499
       }
      ]
     }
    ],
-   "start": 55.738,
-   "end": 61.569
+   "start": 54.938,
+   "end": 60.499
   },
   {
    "id": "transfer_lohn",
    "beat": "transfer",
    "sentences": [
     {
-     "text": "Also kostet dich das Kino diesen Lohn",
-     "start": 62.266,
-     "end": 64.043,
+     "text": "Also kostet dich das Kino diesen Lohn deine Opportunitätskosten",
+     "start": 60.988,
+     "end": 64.833,
      "words": [
       {
        "text": "Also",
        "spoken": "Also",
-       "start": 62.266,
-       "end": 62.441
+       "start": 60.988,
+       "end": 61.249
       },
       {
        "text": "kostet",
        "spoken": "kostet",
-       "start": 62.499,
-       "end": 62.754
+       "start": 61.358,
+       "end": 61.697
       },
       {
        "text": "dich",
        "spoken": "dich",
-       "start": 62.777,
-       "end": 62.917
+       "start": 61.716,
+       "end": 61.877
       },
       {
        "text": "das",
        "spoken": "das",
-       "start": 62.951,
-       "end": 63.114
+       "start": 61.985,
+       "end": 62.056
       },
       {
        "text": "Kino",
        "spoken": "Kino",
-       "start": 63.172,
-       "end": 63.532
+       "start": 62.164,
+       "end": 62.325
       },
       {
        "text": "diesen",
        "spoken": "diesen",
-       "start": 63.578,
-       "end": 63.811
+       "start": 62.344,
+       "end": 62.683
       },
       {
        "text": "Lohn",
        "spoken": "Lohn",
-       "start": 63.845,
-       "end": 64.043
+       "start": 62.702,
+       "end": 63.041
+      },
+      {
+       "text": "deine",
+       "spoken": "deine",
+       "start": 63.258,
+       "end": 63.489
+      },
+      {
+       "text": "Opportunitätskosten",
+       "spoken": "Opportunitätskosten",
+       "start": 63.508,
+       "end": 64.833
       }
      ]
     },
     {
      "text": "Das kann es wert sein",
-     "start": 64.743,
-     "end": 65.684,
+     "start": 65.533,
+     "end": 66.564,
      "words": [
       {
        "text": "Das",
        "spoken": "Das",
-       "start": 64.743,
-       "end": 64.918
+       "start": 65.533,
+       "end": 65.764
       },
       {
        "text": "kann",
        "spoken": "kann",
-       "start": 64.952,
-       "end": 65.057
+       "start": 65.781,
+       "end": 65.844
       },
       {
        "text": "es",
        "spoken": "es",
-       "start": 65.092,
-       "end": 65.15
+       "start": 65.941,
+       "end": 66.004
       },
       {
        "text": "wert",
        "spoken": "wert",
-       "start": 65.185,
-       "end": 65.37
+       "start": 66.021,
+       "end": 66.244
       },
       {
        "text": "sein",
        "spoken": "sein",
-       "start": 65.417,
-       "end": 65.684
+       "start": 66.261,
+       "end": 66.564
       }
      ]
     },
     {
      "text": "Gratis ist es nicht",
-     "start": 66.103,
-     "end": 67.067,
+     "start": 67.064,
+     "end": 68.198,
      "words": [
       {
        "text": "Gratis",
        "spoken": "Gratis",
-       "start": 66.103,
-       "end": 66.544
+       "start": 67.064,
+       "end": 67.478
       },
       {
        "text": "ist",
        "spoken": "ist",
-       "start": 66.602,
-       "end": 66.742
+       "start": 67.575,
+       "end": 67.638
       },
       {
        "text": "es",
        "spoken": "es",
-       "start": 66.777,
-       "end": 66.846
+       "start": 67.735,
+       "end": 67.798
       },
       {
        "text": "nicht",
        "spoken": "nicht",
-       "start": 66.869,
-       "end": 67.067
+       "start": 67.815,
+       "end": 68.198
       }
      ]
     }
    ],
-   "start": 62.266,
-   "end": 67.067
+   "start": 60.988,
+   "end": 68.198
   },
   {
    "id": "satz",
    "beat": "satz",
    "sentences": [
     {
-     "text": "Auch was du aufgibst kostet",
-     "start": 68.075,
-     "end": 69.619,
+     "text": "Das Beste was du aufgibst kostet auch",
+     "start": 69.108,
+     "end": 72.106,
      "words": [
       {
-       "text": "Auch",
-       "spoken": "Auch",
-       "start": 68.075,
-       "end": 68.237
+       "text": "Das",
+       "spoken": "Das",
+       "start": 69.108,
+       "end": 69.258
+      },
+      {
+       "text": "Beste",
+       "spoken": "Beste",
+       "start": 69.258,
+       "end": 69.978
       },
       {
        "text": "was",
        "spoken": "was",
-       "start": 68.272,
-       "end": 68.423
+       "start": 70.138,
+       "end": 70.218
       },
       {
        "text": "du",
        "spoken": "du",
-       "start": 68.47,
-       "end": 68.574
+       "start": 70.218,
+       "end": 70.378
       },
       {
        "text": "aufgibst",
        "spoken": "aufgibst",
-       "start": 68.679,
-       "end": 69.097
+       "start": 70.378,
+       "end": 71.178
       },
       {
        "text": "kostet",
        "spoken": "kostet",
-       "start": 69.236,
-       "end": 69.619
+       "start": 71.258,
+       "end": 71.738
+      },
+      {
+       "text": "auch",
+       "spoken": "auch",
+       "start": 71.738,
+       "end": 72.106
       }
      ]
     },
     {
-     "text": "Es steht nur auf keiner Rechnung",
-     "start": 70.131,
-     "end": 71.571,
+     "text": "Es steht auf keiner Rechnung",
+     "start": 72.706,
+     "end": 74.325,
      "words": [
       {
        "text": "Es",
        "spoken": "Es",
-       "start": 70.131,
-       "end": 70.224
+       "start": 72.706,
+       "end": 72.88
       },
       {
        "text": "steht",
        "spoken": "steht",
-       "start": 70.282,
-       "end": 70.468
-      },
-      {
-       "text": "nur",
-       "spoken": "nur",
-       "start": 70.491,
-       "end": 70.665
+       "start": 72.971,
+       "end": 73.063
       },
       {
        "text": "auf",
        "spoken": "auf",
-       "start": 70.7,
-       "end": 70.839
+       "start": 73.154,
+       "end": 73.245
       },
       {
        "text": "keiner",
        "spoken": "keiner",
-       "start": 70.874,
-       "end": 71.118
+       "start": 73.245,
+       "end": 73.701
       },
       {
        "text": "Rechnung",
        "spoken": "Rechnung",
-       "start": 71.164,
-       "end": 71.571
+       "start": 73.701,
+       "end": 74.325
       }
      ]
     }
    ],
-   "start": 68.075,
-   "end": 71.571
+   "start": 69.108,
+   "end": 74.325
   }
  ],
  "pausen": [
   {
    "art": "denkpause",
    "nach": "hook",
-   "start": 6.9,
-   "end": 9.3
+   "start": 6.748,
+   "end": 9.148
   },
   {
    "art": "atem",
    "nach": "widerlegung",
-   "start": 33.608,
-   "end": 34.508
+   "start": 33.266,
+   "end": 34.166
   },
   {
    "art": "atem",
    "nach": "begriff",
-   "start": 44.9,
-   "end": 45.5
+   "start": 44.714,
+   "end": 45.314
   },
   {
    "art": "atem",
    "nach": "verkauf",
-   "start": 47.52,
-   "end": 48.52
+   "start": 46.944,
+   "end": 47.944
   },
   {
    "art": "atem",
    "nach": "transfer_lohn",
-   "start": 67.067,
-   "end": 67.967
+   "start": 68.198,
+   "end": 69.098
   },
   {
    "art": "halten",
    "nach": "satz",
-   "start": 71.571,
-   "end": 74.371
+   "start": 74.325,
+   "end": 77.125
   }
  ],
  "cues": {
   "bcn": {
    "szene": "hook",
    "wort": "Barcelona",
-   "start": 0.375,
-   "end": 1.068
+   "start": 0.385,
+   "end": 0.97
   },
   "lewa": {
    "szene": "hook",
    "wort": "Lewandowski",
-   "start": 1.332,
-   "end": 2.081
+   "start": 1.1,
+   "end": 1.93
   },
   "bayern": {
    "szene": "hook",
    "wort": "Bayern",
-   "start": 2.41,
-   "end": 2.86
+   "start": 2.63,
+   "end": 2.959
   },
   "verkaufen": {
    "szene": "hook",
    "wort": "verkaufen",
-   "start": 3.09,
-   "end": 3.676
+   "start": 3.119,
+   "end": 3.759
   },
   "behalten": {
    "szene": "hook",
    "wort": "behalten#1",
-   "start": 4.165,
-   "end": 4.638
+   "start": 3.999,
+   "end": 4.559
   },
   "frage": {
    "szene": "hook",
    "wort": "kostet",
-   "start": 5.446,
-   "end": 5.806
+   "start": 5.148,
+   "end": 5.548
   },
   "optionen": {
    "szene": "hook",
    "wort": "behalten#2",
-   "start": 6.457,
-   "end": 6.9
+   "start": 6.188,
+   "end": 6.748
   },
   "waage": {
    "szene": "naheliegend",
    "wort": "Naheliegend",
-   "start": 9.39,
-   "end": 9.936
+   "start": 9.093,
+   "end": 9.668
   },
   "nur": {
    "szene": "naheliegend",
    "wort": "nur#1",
-   "start": 10.992,
-   "end": 11.155
+   "start": 10.904,
+   "end": 11.108
   },
   "gehalt": {
    "szene": "naheliegend",
    "wort": "Gehalt",
-   "start": 11.387,
-   "end": 11.677
+   "start": 11.361,
+   "end": 11.886
   },
   "bezahlt": {
    "szene": "naheliegend",
    "wort": "bezahlt",
-   "start": 12.944,
-   "end": 13.351
+   "start": 13.121,
+   "end": 13.588
   },
   "schiesst": {
    "szene": "naheliegend",
    "wort": "schießt",
-   "start": 14.768,
-   "end": 15.001
+   "start": 14.321,
+   "end": 14.548
   },
   "tore": {
    "szene": "naheliegend",
    "wort": "Tore",
-   "start": 15.163,
-   "end": 15.477
+   "start": 14.881,
+   "end": 15.234
   },
   "vertrag": {
    "szene": "vertrag",
    "wort": "Vertrag",
-   "start": 16.569,
-   "end": 17.021
+   "start": 16.241,
+   "end": 16.708
   },
   "saison": {
    "szene": "vertrag",
    "wort": "Saison",
-   "start": 17.939,
-   "end": 18.368
+   "start": 17.441,
+   "end": 17.823
   },
   "verlaengern_an": {
    "szene": "vertrag",
    "wort": "Verlängern",
-   "start": 18.799,
-   "end": 19.206
+   "start": 18.323,
+   "end": 18.789
   },
   "verlaengern": {
    "szene": "vertrag",
    "wort": "nicht",
-   "start": 19.565,
-   "end": 19.763
+   "start": 19.092,
+   "end": 19.391
   },
   "danach": {
    "szene": "vertrag",
-   "wort": "Danach",
-   "start": 20.171,
-   "end": 20.6
+   "wort": "danach",
+   "start": 20.002,
+   "end": 20.229
   },
   "frei": {
    "szene": "vertrag",
    "wort": "ablösefrei",
-   "start": 21.076,
-   "end": 21.808
+   "start": 20.242,
+   "end": 21.109
   },
   "nichts": {
    "szene": "vertrag",
    "wort": "nichts",
-   "start": 22.783,
-   "end": 23.154
+   "start": 22.002,
+   "end": 22.384
   },
   "angebot": {
    "szene": "angebot",
    "wort": "Barcelona",
-   "start": 23.747,
-   "end": 24.316
+   "start": 22.878,
+   "end": 23.349
   },
   "bietet": {
    "szene": "angebot",
    "wort": "bietet",
-   "start": 24.362,
-   "end": 24.641
+   "start": 23.442,
+   "end": 23.669
   },
   "zahl": {
    "szene": "angebot",
    "wort": "45",
-   "start": 25.28,
-   "end": 25.988
+   "start": 24.242,
+   "end": 24.949
   },
   "falsch": {
    "szene": "widerlegung",
    "wort": "nicht",
-   "start": 29.218,
-   "end": 29.461
+   "start": 28.002,
+   "end": 28.256
   },
   "landung": {
    "szene": "widerlegung",
-   "wort": "Ablöse",
-   "start": 31.971,
-   "end": 32.458
+   "wort": "Behalten",
+   "start": 31.449,
+   "end": 31.989
   },
   "cent": {
    "szene": "widerlegung",
    "wort": "Cent",
-   "start": 33.329,
-   "end": 33.608
+   "start": 32.799,
+   "end": 33.266
   },
   "entgangen": {
    "szene": "entgangen",
    "wort": "Entgangenes",
-   "start": 34.57,
-   "end": 35.182
+   "start": 34.176,
+   "end": 34.836
   },
   "gewicht": {
    "szene": "entgangen",
-   "wort": "genauso",
-   "start": 36.062,
-   "end": 36.497
+   "wort": "fehlt",
+   "start": 35.156,
+   "end": 35.476
   },
   "korrektur": {
    "szene": "entgangen",
    "wort": "bezahltes",
-   "start": 36.696,
-   "end": 37.372
+   "start": 36.036,
+   "end": 36.954
   },
   "begriff": {
    "szene": "begriff",
    "wort": "Opportunitätskosten",
-   "start": 39.738,
-   "end": 41.06
+   "start": 39.171,
+   "end": 40.531
   },
   "alternative": {
    "szene": "begriff",
    "wort": "Alternative",
-   "start": 43.253,
-   "end": 43.944
+   "start": 42.486,
+   "end": 43.6
   },
   "aufgibt": {
    "szene": "begriff",
    "wort": "aufgibt",
-   "start": 44.448,
-   "end": 44.9
+   "start": 43.971,
+   "end": 44.714
   },
   "juli": {
    "szene": "verkauf",
    "wort": "Juli",
-   "start": 45.828,
-   "end": 46.19
+   "start": 45.424,
+   "end": 45.824
   },
   "nimmt": {
    "szene": "verkauf",
    "wort": "nimmt",
-   "start": 46.276,
-   "end": 46.556
+   "start": 45.824,
+   "end": 46.064
   },
   "genommen": {
    "szene": "verkauf",
    "wort": "Geld",
-   "start": 47.166,
-   "end": 47.52
+   "start": 46.544,
+   "end": 46.944
   },
   "dreh": {
    "szene": "aufloesung",
    "wort": "Verkaufen",
-   "start": 48.817,
-   "end": 49.409
+   "start": 48.091,
+   "end": 48.714
   },
   "ok_verkauf": {
    "szene": "aufloesung",
    "wort": "Opportunitätskosten",
-   "start": 49.653,
-   "end": 50.86
+   "start": 48.811,
+   "end": 50.154
   },
   "abflug_spieler": {
    "szene": "aufloesung",
    "wort": "eine",
-   "start": 51.093,
-   "end": 51.244
+   "start": 50.281,
+   "end": 50.474
   },
   "ok_saison": {
    "szene": "aufloesung",
    "wort": "Saison",
-   "start": 51.29,
-   "end": 51.638
+   "start": 50.491,
+   "end": 50.954
   },
   "modell": {
    "szene": "modell",
    "wort": "Waage",
-   "start": 54.553,
-   "end": 54.867
+   "start": 53.798,
+   "end": 54.238
   },
   "karte": {
    "szene": "transfer",
    "wort": "Kinokarte",
-   "start": 56.574,
-   "end": 57.166
+   "start": 56.245,
+   "end": 56.868
   },
   "geschenkt": {
    "szene": "transfer",
    "wort": "geschenkt",
-   "start": 57.967,
-   "end": 58.443
+   "start": 56.885,
+   "end": 57.428
   },
   "genau": {
    "szene": "transfer",
    "wort": "Genau",
-   "start": 59.143,
-   "end": 59.444
+   "start": 58.128,
+   "end": 58.339
   },
   "nachhilfe": {
    "szene": "transfer",
    "wort": "Nachhilfe",
-   "start": 60.269,
-   "end": 60.756
+   "start": 59.256,
+   "end": 59.779
   },
   "lohn_da": {
    "szene": "transfer",
    "wort": "Geld",
-   "start": 60.803,
-   "end": 61.058
+   "start": 59.876,
+   "end": 60.019
   },
   "gleichung": {
    "szene": "transfer_lohn",
    "wort": "kostet",
-   "start": 62.499,
-   "end": 62.754
+   "start": 61.358,
+   "end": 61.697
   },
   "lohn": {
    "szene": "transfer_lohn",
    "wort": "Lohn",
-   "start": 63.845,
-   "end": 64.043
+   "start": 62.702,
+   "end": 63.041
+  },
+  "ok_lohn": {
+   "szene": "transfer_lohn",
+   "wort": "Opportunitätskosten",
+   "start": 63.508,
+   "end": 64.833
   },
   "gratis": {
    "szene": "transfer_lohn",
    "wort": "Gratis",
-   "start": 66.103,
-   "end": 66.544
+   "start": 67.064,
+   "end": 67.478
   },
   "gratis_nicht": {
    "szene": "transfer_lohn",
    "wort": "nicht",
-   "start": 66.869,
-   "end": 67.067
+   "start": 67.815,
+   "end": 68.198
+  },
+  "beste": {
+   "szene": "satz",
+   "wort": "Beste",
+   "start": 69.258,
+   "end": 69.978
   },
   "aufgeben": {
    "szene": "satz",
    "wort": "aufgibst",
-   "start": 68.679,
-   "end": 69.097
+   "start": 70.378,
+   "end": 71.178
   },
   "kosten2": {
    "szene": "satz",
    "wort": "kostet",
-   "start": 69.236,
-   "end": 69.619
+   "start": 71.258,
+   "end": 71.738
   },
   "rechnung": {
    "szene": "satz",
    "wort": "Rechnung",
-   "start": 71.164,
-   "end": 71.571
+   "start": 73.701,
+   "end": 74.325
   }
  },
  "luft": [
   {
+   "szene": "hook",
+   "nach": "Lewandowski",
+   "vorher_s": 0.231,
+   "soll_s": 0.7,
+   "eingesetzt_s": 0.469,
+   "start": 1.93,
+   "end": 2.63
+  },
+  {
+   "szene": "hook",
+   "nach": "behalten#1",
+   "vorher_s": 0.181,
+   "soll_s": 0.45,
+   "eingesetzt_s": 0.269,
+   "start": 4.559,
+   "end": 5.009
+  },
+  {
+   "szene": "vertrag",
+   "nach": "Saison",
+   "vorher_s": 0.259,
+   "soll_s": 0.5,
+   "eingesetzt_s": 0.241,
+   "start": 17.823,
+   "end": 18.323
+  },
+  {
+   "szene": "widerlegung",
+   "nach": "nicht",
+   "vorher_s": 0.509,
+   "soll_s": 0.5,
+   "start": 28.256,
+   "end": 28.765
+  },
+  {
+   "szene": "widerlegung",
+   "nach": "Behalten",
+   "vorher_s": 0.293,
+   "soll_s": 0.45,
+   "eingesetzt_s": 0.157,
+   "start": 31.989,
+   "end": 32.439
+  },
+  {
    "szene": "entgangen",
    "nach": "bezahltes",
-   "vorher_s": 0.331,
+   "vorher_s": 0.285,
    "soll_s": 0.7,
-   "eingesetzt_s": 0.369,
-   "start": 37.372,
-   "end": 38.072
+   "eingesetzt_s": 0.415,
+   "start": 36.954,
+   "end": 37.654
   },
   {
    "szene": "begriff",
    "nach": "Opportunitätskosten",
-   "vorher_s": 0.359,
+   "vorher_s": 0.562,
    "soll_s": 0.6,
-   "eingesetzt_s": 0.241,
-   "start": 40.691,
-   "end": 41.291
+   "eingesetzt_s": 0.0,
+   "grund": "fehlen nur 0.038 s (< 0.1 s)",
+   "start": 40.531,
+   "end": 41.131
+  },
+  {
+   "szene": "aufloesung",
+   "nach": "Lewandowski",
+   "vorher_s": 0.633,
+   "soll_s": 0.7,
+   "eingesetzt_s": 0.0,
+   "grund": "fehlen nur 0.067 s (< 0.1 s)",
+   "start": 51.754,
+   "end": 52.454
+  },
+  {
+   "szene": "modell",
+   "nach": "Waage",
+   "vorher_s": 0.313,
+   "soll_s": 0.7,
+   "eingesetzt_s": 0.387,
+   "start": 54.238,
+   "end": 54.938
   },
   {
    "szene": "transfer",
    "nach": "geschenkt",
-   "vorher_s": 0.42,
+   "vorher_s": 0.349,
    "soll_s": 0.7,
-   "eingesetzt_s": 0.28,
-   "start": 58.443,
-   "end": 59.143
+   "eingesetzt_s": 0.351,
+   "start": 57.428,
+   "end": 58.128
   },
   {
    "szene": "transfer_lohn",
-   "nach": "Lohn",
-   "vorher_s": 0.407,
+   "nach": "Opportunitätskosten",
+   "vorher_s": 0.412,
    "soll_s": 0.7,
-   "eingesetzt_s": 0.293,
-   "start": 63.763,
-   "end": 64.463
+   "eingesetzt_s": 0.288,
+   "start": 64.833,
+   "end": 65.533
+  },
+  {
+   "szene": "transfer_lohn",
+   "nach": "sein",
+   "vorher_s": 0.226,
+   "soll_s": 0.5,
+   "eingesetzt_s": 0.274,
+   "start": 66.564,
+   "end": 67.064
+  },
+  {
+   "szene": "satz",
+   "nach": "auch",
+   "vorher_s": 0.362,
+   "soll_s": 0.6,
+   "eingesetzt_s": 0.238,
+   "start": 72.106,
+   "end": 72.706
   }
  ],
+ "gedehnt": [
+  {
+   "satz": "Das ist der Wert der besten Alternative, die man aufgibt.",
+   "faktor": 1.16,
+   "gemessen": 1.16,
+   "plus_s": 0.503
+  },
+  {
+   "satz": "Jede Entscheidung hat so eine Waage.",
+   "faktor": 1.15,
+   "gemessen": 1.15,
+   "plus_s": 0.247
+  },
+  {
+   "satz": "Also kostet dich das Kino diesen Lohn: deine Opportunitätskosten.",
+   "faktor": 1.12,
+   "gemessen": 1.12,
+   "plus_s": 0.417
+  },
+  {
+   "satz": "Es steht auf keiner Rechnung.",
+   "faktor": 1.14,
+   "gemessen": 1.14,
+   "plus_s": 0.189
+  }
+ ],
+ "satz_lautheit_vorher": [
+  {
+   "satz": "Barcelona|Barsselona will Lewandowski.",
+   "lufs_vorher": -17.4,
+   "korrektur_db": -2.4
+  },
+  {
+   "satz": "Bayern kann verkaufen oder behalten.",
+   "lufs_vorher": -19.6,
+   "korrektur_db": -0.1
+  },
+  {
+   "satz": "Was kostet es, ihn zu behalten?",
+   "lufs_vorher": -24.3,
+   "korrektur_db": 4.1
+  },
+  {
+   "satz": "Naheliegend wäre die Antwort: nur sein Gehalt.",
+   "lufs_vorher": -18.5,
+   "korrektur_db": -1.2
+  },
+  {
+   "satz": "Denn nur das bezahlt Bayern.",
+   "lufs_vorher": -20.6,
+   "korrektur_db": 0.4
+  },
+  {
+   "satz": "Er schießt dafür Tore.",
+   "lufs_vorher": -20.4,
+   "korrektur_db": 0.1
+  },
+  {
+   "satz": "Doch sein Vertrag läuft nur noch eine Saison.",
+   "lufs_vorher": -20.0,
+   "korrektur_db": 0.0
+  },
+  {
+   "satz": "Verlängern will er nicht.",
+   "lufs_vorher": -17.7,
+   "korrektur_db": -2.1
+  },
+  {
+   "satz": "Er geht danach ablösefrei: Bayern bekommt nichts.",
+   "lufs_vorher": -18.8,
+   "korrektur_db": -0.9
+  },
+  {
+   "satz": "Barcelona|Barsselona bietet Bayern jetzt 45|fünfundvierzig Millionen Euro.",
+   "lufs_vorher": -18.7,
+   "korrektur_db": -1.1
+  },
+  {
+   "satz": "Nur sein Gehalt? Das stimmt nicht.",
+   "lufs_vorher": -22.0,
+   "korrektur_db": 1.8
+  },
+  {
+   "satz": "Verkaufen bringt 45|fünfundvierzig Millionen Ablöse.",
+   "lufs_vorher": -19.7,
+   "korrektur_db": -0.1
+  },
+  {
+   "satz": "Behalten: keinen Cent.",
+   "lufs_vorher": -22.1,
+   "korrektur_db": 1.9
+  },
+  {
+   "satz": "Entgangenes Geld fehlt genauso wie bezahltes.",
+   "lufs_vorher": -19.6,
+   "korrektur_db": -0.1
+  },
+  {
+   "satz": "Ökonomen nennen dieses Geld Opportunitätskosten.",
+   "lufs_vorher": -20.3,
+   "korrektur_db": 0.1
+  },
+  {
+   "satz": "Das ist der Wert der besten Alternative, die man aufgibt.",
+   "lufs_vorher": -22.1,
+   "korrektur_db": 1.9
+  },
+  {
+   "satz": "Im Juli nimmt Bayern das Geld.",
+   "lufs_vorher": -20.1,
+   "korrektur_db": 0.0
+  },
+  {
+   "satz": "Auch Verkaufen hat Opportunitätskosten|Oppor-tunitätskosten: eine Saison Lewandowski.",
+   "lufs_vorher": -19.6,
+   "korrektur_db": -0.1
+  },
+  {
+   "satz": "Jede Entscheidung hat so eine Waage.",
+   "lufs_vorher": -20.0,
+   "korrektur_db": 0.0
+  },
+  {
+   "satz": "Du bekommst für heute Abend eine Kinokarte geschenkt.",
+   "lufs_vorher": -19.5,
+   "korrektur_db": -0.2
+  },
+  {
+   "satz": "Genau dann könntest du mit Nachhilfe Geld verdienen.",
+   "lufs_vorher": -19.2,
+   "korrektur_db": -0.6
+  },
+  {
+   "satz": "Also kostet dich das Kino diesen Lohn: deine Opportunitätskosten.",
+   "lufs_vorher": -22.3,
+   "korrektur_db": 2.1
+  },
+  {
+   "satz": "Das kann es wert sein.",
+   "lufs_vorher": -19.4,
+   "korrektur_db": -0.4
+  },
+  {
+   "satz": "Gratis ist es nicht.",
+   "lufs_vorher": -21.7,
+   "korrektur_db": 1.4
+  },
+  {
+   "satz": "Das Beste, was du aufgibst, kostet auch.",
+   "lufs_vorher": -19.8,
+   "korrektur_db": 0.0
+  },
+  {
+   "satz": "Es steht auf keiner Rechnung.",
+   "lufs_vorher": -20.4,
+   "korrektur_db": 0.1
+  }
+ ],
+ "raumton_db": -69.1,
+ "entklickt_je_block": [
+  0,
+  4,
+  3,
+  0,
+  8,
+  0
+ ],
+ "entklickt_nach_mastering": 1,
  "mastering": {
   "datei": "voice.m4a",
-  "lufs": -16.1,
-  "true_peak_db": -3.8
+  "lufs": -16.0,
+  "true_peak_db": -3.6
  },
  "audio": {
   "datei": "assets/voice.m4a",
-  "sha256": "7b75beb26b3e22d095451e53e3d84cae4c148c09840bf07d9ecadd42b4e4b8f3",
+  "sha256": "176cb7da79ce140a1607a19255227d65ef11783c10c07b254349aee3e8090a68",
   "kanaele": 2,
-  "ziel": "128k",
-  "kbit_s": 103.5,
-  "bytes": 976448,
+  "ziel": "100k",
+  "kbit_s": 99.8,
+  "bytes": 975099,
   "versuche": [
-   "112k: 90.0 kbit/s, 851309 B",
-   "120k: 96.8 kbit/s, 914115 B",
-   "128k: 103.5 kbit/s, 976448 B",
-   "136k: 110.0 kbit/s, 1037442 B"
+   "98k: 97.8 kbit/s, 956396 B",
+   "100k: 99.8 kbit/s, 975099 B",
+   "104k: 103.8 kbit/s, 1013995 B",
+   "112k: 111.8 kbit/s, 1090985 B",
+   "120k: 119.8 kbit/s, 1167585 B"
   ]
  },
  "quellen_je_block": [
@@ -1625,8 +1913,8 @@
    "szenen": [
     "hook"
    ],
-   "quelle": "elevenlabs-connector",
-   "stimme": "Jonas (xlbJQnFFGB01bv7HK5CZ, eleven_v4)"
+   "quelle": "cartesia",
+   "stimme": "Sebastian (b7187e84-fe22-4344-ba4a-bc013fcb533e, sonic-3.6-2026-08-27)"
   },
   {
    "block": 2,
@@ -1636,8 +1924,8 @@
     "angebot",
     "widerlegung"
    ],
-   "quelle": "piper",
-   "stimme": "Piper thorsten-high (Platzhalter)"
+   "quelle": "cartesia",
+   "stimme": "Sebastian (b7187e84-fe22-4344-ba4a-bc013fcb533e, sonic-3.6-2026-08-27)"
   },
   {
    "block": 3,
@@ -1645,16 +1933,16 @@
     "entgangen",
     "begriff"
    ],
-   "quelle": "elevenlabs-connector",
-   "stimme": "Jonas (xlbJQnFFGB01bv7HK5CZ, eleven_v4)"
+   "quelle": "cartesia",
+   "stimme": "Sebastian (b7187e84-fe22-4344-ba4a-bc013fcb533e, sonic-3.6-2026-08-27)"
   },
   {
    "block": 4,
    "szenen": [
     "verkauf"
    ],
-   "quelle": "elevenlabs-connector",
-   "stimme": "Jonas (xlbJQnFFGB01bv7HK5CZ, eleven_v4)"
+   "quelle": "cartesia",
+   "stimme": "Sebastian (b7187e84-fe22-4344-ba4a-bc013fcb533e, sonic-3.6-2026-08-27)"
   },
   {
    "block": 5,
@@ -1664,90 +1952,90 @@
     "transfer",
     "transfer_lohn"
    ],
-   "quelle": "piper",
-   "stimme": "Piper thorsten-high (Platzhalter)"
+   "quelle": "cartesia",
+   "stimme": "Sebastian (b7187e84-fe22-4344-ba4a-bc013fcb533e, sonic-3.6-2026-08-27)"
   },
   {
    "block": 6,
    "szenen": [
     "satz"
    ],
-   "quelle": "piper",
-   "stimme": "Piper thorsten-high (Platzhalter)"
+   "quelle": "cartesia",
+   "stimme": "Sebastian (b7187e84-fe22-4344-ba4a-bc013fcb533e, sonic-3.6-2026-08-27)"
   }
  ],
  "bewertbar": {
-  "ok": false,
+  "ok": true,
   "stimmen": [
-   "Jonas (xlbJQnFFGB01bv7HK5CZ, eleven_v4)",
-   "Piper thorsten-high (Platzhalter)"
+   "Sebastian (b7187e84-fe22-4344-ba4a-bc013fcb533e, sonic-3.6-2026-08-27)"
   ],
-  "grund": "Stimmen gemischt: Video nicht zur Bewertung freigeben"
+  "grund": "eine Stimme"
  },
- "wortzeiten_quelle": "DTW gegen Piper-Vorlage + Energie-Anfänge nach Pausen (Jonas-Blöcke); piper-alignment (Rückfall-Blöcke)",
- "woerter": 153,
- "woerter_pro_s": 2.34,
+ "wortzeiten_quelle": "Wort-Zeitstempel des Anbieters (cartesia) + Energie-Anfänge nach Pausen",
+ "woerter": 156,
+ "woerter_pro_s": 2.29,
  "pruefung_einsaetze": {
   "verfahren": "Energie-Anfang nach Pausen (>= 0,25 s), Schwelle -45 dBFS",
-  "n": 26,
-  "max_ms": 53,
-  "median_ms": 4,
+  "n": 28,
+  "max_ms": 117,
+  "median_ms": 2,
   "woerter": {
-   "Bayern@2.41": 1,
-   "Was@5.124": -1,
-   "Naheliegend@9.39": -5,
-   "nur@10.992": 20,
-   "Denn@12.387": 1,
-   "Dafür@14.455": 0,
-   "Doch@16.128": 0,
-   "Verlängern@18.799": -23,
-   "Danach@20.171": -2,
-   "Barcelona@23.747": 7,
-   "Nur@27.44": -2,
-   "Das@28.695": -7,
-   "Verkaufen@29.881": -26,
-   "Entgangenes@34.57": -3,
-   "Ökonomen@38.072": 0,
-   "Das@41.66": -4,
-   "Im@45.595": 2,
-   "Auch@48.643": -31,
-   "Jede@53.23": 17,
-   "Du@55.738": -1,
-   "Genau@59.143": -6,
-   "Also@62.266": -33,
-   "Das@64.743": 0,
-   "Gratis@66.103": -6,
-   "Auch@68.075": -53,
-   "Es@70.131": -10
+   "Bayern@2.63": 2,
+   "Was@5.009": -1,
+   "Naheliegend@9.093": 0,
+   "nur@10.904": 11,
+   "Denn@12.49": 2,
+   "Er@14.221": -6,
+   "Doch@15.987": -62,
+   "Verlängern@18.323": 0,
+   "Er@19.765": -2,
+   "Barcelona@22.878": -69,
+   "Nur@26.28": 0,
+   "Das@27.617": -15,
+   "Verkaufen@28.765": -78,
+   "Behalten@31.449": 1,
+   "keinen@32.439": -1,
+   "Entgangenes@34.176": 3,
+   "Ökonomen@37.654": 1,
+   "Das@41.093": -117,
+   "Im@45.349": 2,
+   "Auch@47.974": 1,
+   "Jede@52.387": -9,
+   "Du@54.938": -10,
+   "Genau@58.128": -17,
+   "Also@60.988": -53,
+   "Das@65.533": 3,
+   "Gratis@67.064": 2,
+   "Das@69.108": 1,
+   "Es@72.706": -2
   }
  },
  "pruefung": {
   "modell": "faster-whisper small (de), word_timestamps",
-  "quelle": "DTW gegen Piper-Vorlage + Energie-Anfänge nach Pausen (Jonas-Blöcke); piper-alignment (Rückfall-Blöcke)",
-  "cues_gefunden": 49,
-  "cues_gesamt": 52,
-  "max_ms": 492,
-  "median_abs_ms": 108,
-  "whisper_versatz_ms": -108,
-  "max_bereinigt_ms": 384,
+  "quelle": "Wort-Zeitstempel des Anbieters (cartesia) + Energie-Anfänge nach Pausen",
+  "cues_gefunden": 54,
+  "cues_gesamt": 54,
+  "max_ms": 868,
+  "median_abs_ms": 62,
+  "whisper_versatz_ms": -62,
+  "max_bereinigt_ms": 806,
   "ueber_150ms": [
-   "alternative",
    "angebot",
-   "aufgibt",
    "bcn",
    "begriff",
    "bietet",
-   "falsch",
-   "gewicht",
-   "landung",
+   "genau",
+   "gleichung",
+   "modell",
    "nichts",
    "nur",
-   "waage"
+   "rechnung",
+   "tore"
   ],
   "ueber_150ms_bereinigt": [
    "bcn",
    "begriff",
-   "gewicht",
+   "genau",
    "nur"
   ],
   "whisper_in_stille": [
@@ -1755,377 +2043,395 @@
    "waage"
   ],
   "whisper_daneben_huellkurve_ok": [
+   "genau",
    "nur"
   ],
   "cues": {
    "bcn": {
     "wort": "Barcelona",
-    "timing_s": 0.375,
+    "timing_s": 0.385,
     "whisper_s": 0.0,
-    "ms": -375,
+    "ms": -385,
     "whisper_in_stille": true
    },
    "lewa": {
     "wort": "Lewandowski",
-    "timing_s": 1.332,
-    "whisper_s": 1.26,
-    "ms": -72,
+    "timing_s": 1.1,
+    "whisper_s": 1.06,
+    "ms": -40,
     "whisper_in_stille": false
    },
    "bayern": {
     "wort": "Bayern",
-    "timing_s": 2.41,
-    "whisper_s": 2.34,
-    "ms": -70,
+    "timing_s": 2.63,
+    "whisper_s": 2.52,
+    "ms": -110,
     "whisper_in_stille": false,
-    "huellkurve_ms": 1
+    "huellkurve_ms": 2
    },
    "verkaufen": {
     "wort": "verkaufen",
-    "timing_s": 3.09,
-    "whisper_s": 3.02,
-    "ms": -70,
+    "timing_s": 3.119,
+    "whisper_s": 3.06,
+    "ms": -59,
     "whisper_in_stille": false
    },
    "behalten": {
     "wort": "behalten#1",
-    "timing_s": 4.165,
-    "whisper_s": 4.06,
-    "ms": -105,
+    "timing_s": 3.999,
+    "whisper_s": 3.92,
+    "ms": -79,
     "whisper_in_stille": false
    },
    "frage": {
     "wort": "kostet",
-    "timing_s": 5.446,
-    "whisper_s": 5.3,
-    "ms": -146,
+    "timing_s": 5.148,
+    "whisper_s": 5.1,
+    "ms": -48,
     "whisper_in_stille": false
    },
    "optionen": {
     "wort": "behalten#2",
-    "timing_s": 6.457,
-    "whisper_s": 6.42,
-    "ms": -37,
+    "timing_s": 6.188,
+    "whisper_s": 6.16,
+    "ms": -28,
     "whisper_in_stille": false
    },
    "waage": {
     "wort": "Naheliegend",
-    "timing_s": 9.39,
-    "whisper_s": 9.2,
-    "ms": -190,
+    "timing_s": 9.093,
+    "whisper_s": 8.98,
+    "ms": -113,
     "whisper_in_stille": true,
-    "huellkurve_ms": -5
+    "huellkurve_ms": 0
    },
    "nur": {
     "wort": "nur#1",
-    "timing_s": 10.992,
-    "whisper_s": 10.5,
-    "ms": -492,
+    "timing_s": 10.904,
+    "whisper_s": 10.36,
+    "ms": -544,
     "whisper_in_stille": false,
-    "huellkurve_ms": 20
+    "huellkurve_ms": 11
    },
    "gehalt": {
     "wort": "Gehalt",
-    "timing_s": 11.387,
+    "timing_s": 11.361,
     "whisper_s": 11.32,
-    "ms": -67,
+    "ms": -41,
     "whisper_in_stille": false
    },
    "bezahlt": {
     "wort": "bezahlt",
-    "timing_s": 12.944,
-    "whisper_s": 12.88,
-    "ms": -64,
+    "timing_s": 13.121,
+    "whisper_s": 13.08,
+    "ms": -41,
     "whisper_in_stille": false
    },
    "schiesst": {
     "wort": "schießt",
-    "timing_s": 14.768,
-    "whisper_s": 14.66,
-    "ms": -108,
+    "timing_s": 14.321,
+    "whisper_s": 14.3,
+    "ms": -21,
     "whisper_in_stille": false
    },
    "tore": {
     "wort": "Tore",
-    "timing_s": 15.163,
-    "whisper_s": 15.1,
-    "ms": -63,
+    "timing_s": 14.881,
+    "whisper_s": 14.72,
+    "ms": -161,
     "whisper_in_stille": false
    },
    "vertrag": {
     "wort": "Vertrag",
-    "timing_s": 16.569,
-    "whisper_s": 16.5,
-    "ms": -69,
+    "timing_s": 16.241,
+    "whisper_s": 16.2,
+    "ms": -41,
     "whisper_in_stille": false
    },
    "saison": {
     "wort": "Saison",
-    "timing_s": 17.939,
-    "whisper_s": 17.88,
-    "ms": -59,
+    "timing_s": 17.441,
+    "whisper_s": 17.38,
+    "ms": -61,
     "whisper_in_stille": false
    },
    "verlaengern_an": {
     "wort": "Verlängern",
-    "timing_s": 18.799,
-    "whisper_s": null,
-    "ms": null,
-    "huellkurve_ms": -23
+    "timing_s": 18.323,
+    "whisper_s": 18.26,
+    "ms": -63,
+    "whisper_in_stille": false,
+    "huellkurve_ms": 0
    },
    "verlaengern": {
     "wort": "nicht",
-    "timing_s": 19.565,
-    "whisper_s": 19.5,
-    "ms": -65,
+    "timing_s": 19.092,
+    "whisper_s": 19.0,
+    "ms": -92,
     "whisper_in_stille": false
    },
    "danach": {
-    "wort": "Danach",
-    "timing_s": 20.171,
-    "whisper_s": 20.16,
-    "ms": -11,
-    "whisper_in_stille": false,
-    "huellkurve_ms": -2
+    "wort": "danach",
+    "timing_s": 20.002,
+    "whisper_s": 19.96,
+    "ms": -42,
+    "whisper_in_stille": false
    },
    "frei": {
     "wort": "ablösefrei",
-    "timing_s": 21.076,
-    "whisper_s": 20.96,
-    "ms": -116,
+    "timing_s": 20.242,
+    "whisper_s": 20.16,
+    "ms": -82,
     "whisper_in_stille": false
    },
    "nichts": {
     "wort": "nichts",
-    "timing_s": 22.783,
-    "whisper_s": 22.6,
-    "ms": -183,
+    "timing_s": 22.002,
+    "whisper_s": 21.8,
+    "ms": -202,
     "whisper_in_stille": false
    },
    "angebot": {
     "wort": "Barcelona",
-    "timing_s": 23.747,
-    "whisper_s": 23.58,
-    "ms": -167,
+    "timing_s": 22.878,
+    "whisper_s": 22.72,
+    "ms": -158,
     "whisper_in_stille": false,
-    "huellkurve_ms": 7
+    "huellkurve_ms": -69
    },
    "bietet": {
     "wort": "bietet",
-    "timing_s": 24.362,
-    "whisper_s": 24.16,
-    "ms": -202,
+    "timing_s": 23.442,
+    "whisper_s": 23.26,
+    "ms": -182,
     "whisper_in_stille": false
    },
    "zahl": {
     "wort": "45",
-    "timing_s": 25.28,
-    "whisper_s": 25.16,
-    "ms": -120,
+    "timing_s": 24.242,
+    "whisper_s": 24.1,
+    "ms": -142,
     "whisper_in_stille": false
    },
    "falsch": {
     "wort": "nicht",
-    "timing_s": 29.218,
-    "whisper_s": 29.04,
-    "ms": -178,
+    "timing_s": 28.002,
+    "whisper_s": 27.9,
+    "ms": -102,
     "whisper_in_stille": false
    },
    "landung": {
-    "wort": "Ablöse",
-    "timing_s": 31.971,
-    "whisper_s": 31.72,
-    "ms": -251,
-    "whisper_in_stille": false
+    "wort": "Behalten",
+    "timing_s": 31.449,
+    "whisper_s": 31.44,
+    "ms": -9,
+    "whisper_in_stille": false,
+    "huellkurve_ms": 1
    },
    "cent": {
     "wort": "Cent",
-    "timing_s": 33.329,
-    "whisper_s": 33.18,
-    "ms": -149,
+    "timing_s": 32.799,
+    "whisper_s": 32.74,
+    "ms": -59,
     "whisper_in_stille": false
    },
    "entgangen": {
     "wort": "Entgangenes",
-    "timing_s": 34.57,
-    "whisper_s": 34.54,
-    "ms": -30,
+    "timing_s": 34.176,
+    "whisper_s": 34.18,
+    "ms": 4,
     "whisper_in_stille": false,
-    "huellkurve_ms": -3
+    "huellkurve_ms": 3
    },
    "gewicht": {
-    "wort": "genauso",
-    "timing_s": 36.062,
-    "whisper_s": 35.78,
-    "ms": -282,
+    "wort": "fehlt",
+    "timing_s": 35.156,
+    "whisper_s": 35.08,
+    "ms": -76,
     "whisper_in_stille": false
    },
    "korrektur": {
     "wort": "bezahltes",
-    "timing_s": 36.696,
-    "whisper_s": null,
-    "ms": null
+    "timing_s": 36.036,
+    "whisper_s": 36.04,
+    "ms": 4,
+    "whisper_in_stille": false
    },
    "begriff": {
     "wort": "Opportunitätskosten",
-    "timing_s": 39.738,
-    "whisper_s": 39.46,
-    "ms": -278,
+    "timing_s": 39.171,
+    "whisper_s": 38.94,
+    "ms": -231,
     "whisper_in_stille": false
    },
    "alternative": {
     "wort": "Alternative",
-    "timing_s": 43.253,
-    "whisper_s": 43.04,
-    "ms": -213,
+    "timing_s": 42.486,
+    "whisper_s": 42.34,
+    "ms": -146,
     "whisper_in_stille": false
    },
    "aufgibt": {
     "wort": "aufgibt",
-    "timing_s": 44.448,
-    "whisper_s": 44.28,
-    "ms": -168,
+    "timing_s": 43.971,
+    "whisper_s": 43.9,
+    "ms": -71,
     "whisper_in_stille": false
    },
    "juli": {
     "wort": "Juli",
-    "timing_s": 45.828,
-    "whisper_s": 45.72,
-    "ms": -108,
+    "timing_s": 45.424,
+    "whisper_s": 45.46,
+    "ms": 36,
     "whisper_in_stille": false
    },
    "nimmt": {
     "wort": "nimmt",
-    "timing_s": 46.276,
-    "whisper_s": 46.16,
-    "ms": -116,
+    "timing_s": 45.824,
+    "whisper_s": 45.8,
+    "ms": -24,
     "whisper_in_stille": false
    },
    "genommen": {
     "wort": "Geld",
-    "timing_s": 47.166,
-    "whisper_s": 47.1,
-    "ms": -66,
+    "timing_s": 46.544,
+    "whisper_s": 46.5,
+    "ms": -44,
     "whisper_in_stille": false
    },
    "dreh": {
     "wort": "Verkaufen",
-    "timing_s": 48.817,
-    "whisper_s": 48.76,
-    "ms": -57,
+    "timing_s": 48.091,
+    "whisper_s": 48.08,
+    "ms": -11,
     "whisper_in_stille": false
    },
    "ok_verkauf": {
     "wort": "Opportunitätskosten",
-    "timing_s": 49.653,
-    "whisper_s": 49.54,
-    "ms": -113,
+    "timing_s": 48.811,
+    "whisper_s": 48.78,
+    "ms": -31,
     "whisper_in_stille": false
    },
    "abflug_spieler": {
     "wort": "eine",
-    "timing_s": 51.093,
-    "whisper_s": 51.02,
-    "ms": -73,
+    "timing_s": 50.281,
+    "whisper_s": 50.28,
+    "ms": -1,
     "whisper_in_stille": false
    },
    "ok_saison": {
     "wort": "Saison",
-    "timing_s": 51.29,
-    "whisper_s": null,
-    "ms": null
+    "timing_s": 50.491,
+    "whisper_s": 50.48,
+    "ms": -11,
+    "whisper_in_stille": false
    },
    "modell": {
     "wort": "Waage",
-    "timing_s": 54.553,
-    "whisper_s": 54.5,
-    "ms": -53,
+    "timing_s": 53.798,
+    "whisper_s": 53.64,
+    "ms": -158,
     "whisper_in_stille": false
    },
    "karte": {
     "wort": "Kinokarte",
-    "timing_s": 56.574,
-    "whisper_s": 56.5,
-    "ms": -74,
+    "timing_s": 56.245,
+    "whisper_s": 56.2,
+    "ms": -45,
     "whisper_in_stille": false
    },
    "geschenkt": {
     "wort": "geschenkt",
-    "timing_s": 57.967,
-    "whisper_s": 57.84,
-    "ms": -127,
+    "timing_s": 56.885,
+    "whisper_s": 56.8,
+    "ms": -85,
     "whisper_in_stille": false
    },
    "genau": {
     "wort": "Genau",
-    "timing_s": 59.143,
-    "whisper_s": 59.0,
-    "ms": -143,
+    "timing_s": 58.128,
+    "whisper_s": 57.26,
+    "ms": -868,
     "whisper_in_stille": false,
-    "huellkurve_ms": -6
+    "huellkurve_ms": -17
    },
    "nachhilfe": {
     "wort": "Nachhilfe",
-    "timing_s": 60.269,
-    "whisper_s": 60.22,
-    "ms": -49,
+    "timing_s": 59.256,
+    "whisper_s": 59.22,
+    "ms": -36,
     "whisper_in_stille": false
    },
    "lohn_da": {
     "wort": "Geld",
-    "timing_s": 60.803,
-    "whisper_s": 60.72,
-    "ms": -83,
+    "timing_s": 59.876,
+    "whisper_s": 59.74,
+    "ms": -136,
     "whisper_in_stille": false
    },
    "gleichung": {
     "wort": "kostet",
-    "timing_s": 62.499,
-    "whisper_s": 62.38,
-    "ms": -119,
+    "timing_s": 61.358,
+    "whisper_s": 61.18,
+    "ms": -178,
     "whisper_in_stille": false
    },
    "lohn": {
     "wort": "Lohn",
-    "timing_s": 63.845,
-    "whisper_s": 63.72,
-    "ms": -125,
+    "timing_s": 62.702,
+    "whisper_s": 62.56,
+    "ms": -142,
+    "whisper_in_stille": false
+   },
+   "ok_lohn": {
+    "wort": "Opportunitätskosten",
+    "timing_s": 63.508,
+    "whisper_s": 63.4,
+    "ms": -108,
     "whisper_in_stille": false
    },
    "gratis": {
     "wort": "Gratis",
-    "timing_s": 66.103,
-    "whisper_s": 66.1,
-    "ms": -3,
+    "timing_s": 67.064,
+    "whisper_s": 67.0,
+    "ms": -64,
     "whisper_in_stille": false,
-    "huellkurve_ms": -6
+    "huellkurve_ms": 2
    },
    "gratis_nicht": {
     "wort": "nicht",
-    "timing_s": 66.869,
-    "whisper_s": 66.84,
-    "ms": -29,
+    "timing_s": 67.815,
+    "whisper_s": 67.78,
+    "ms": -35,
+    "whisper_in_stille": false
+   },
+   "beste": {
+    "wort": "Beste",
+    "timing_s": 69.258,
+    "whisper_s": 69.26,
+    "ms": 2,
     "whisper_in_stille": false
    },
    "aufgeben": {
     "wort": "aufgibst",
-    "timing_s": 68.679,
-    "whisper_s": 68.56,
-    "ms": -119,
+    "timing_s": 70.378,
+    "whisper_s": 70.34,
+    "ms": -38,
     "whisper_in_stille": false
    },
    "kosten2": {
     "wort": "kostet",
-    "timing_s": 69.236,
-    "whisper_s": 69.24,
-    "ms": 4,
+    "timing_s": 71.258,
+    "whisper_s": 71.32,
+    "ms": 62,
     "whisper_in_stille": false
    },
    "rechnung": {
     "wort": "Rechnung",
-    "timing_s": 71.164,
-    "whisper_s": 71.02,
-    "ms": -144,
+    "timing_s": 73.701,
+    "whisper_s": 73.52,
+    "ms": -181,
     "whisper_in_stille": false
    }
   }
@@ -2137,8 +2443,8 @@
     "szene": "vertrag",
     "wort": "Saison",
     "satz_s": [
-     15.98,
-     18.52
+     15.84,
+     17.97
     ],
     "gehoert": "Doch sein Vertrag läuft nur noch eine Saison.",
     "ok": true
@@ -2147,18 +2453,18 @@
     "szene": "widerlegung",
     "wort": "Ablöse",
     "satz_s": [
-     29.73,
-     33.76
+     28.62,
+     31.33
     ],
-    "gehoert": "Verkaufen bringt 45 Millionen Ablöse, behalten keinen Cent.",
+    "gehoert": "Verkaufen bringt 45 Millionen Ablöse.",
     "ok": true
    },
    {
     "szene": "begriff",
     "wort": "Opportunitätskosten",
     "satz_s": [
-     37.92,
-     41.21
+     37.5,
+     40.68
     ],
     "gehoert": "Ökonomen nennen dieses Geld Opportunitätskosten.",
     "ok": true
@@ -2167,30 +2473,50 @@
     "szene": "aufloesung",
     "wort": "Opportunitätskosten",
     "satz_s": [
-     48.49,
-     52.5
+     47.82,
+     51.9
     ],
-    "gehoert": "Auch verkaufen hat Opportunitätskosten, eine Saison Lewandowski.",
+    "gehoert": "Auch Verkaufen hat Opportunitätskosten, eine Saison Lewandowski.",
     "ok": true
    },
    {
     "szene": "aufloesung",
     "wort": "Saison",
     "satz_s": [
-     48.49,
-     52.5
+     47.82,
+     51.9
     ],
-    "gehoert": "Auch verkaufen hat Opportunitätskosten, eine Saison Lewandowski.",
+    "gehoert": "Auch Verkaufen hat Opportunitätskosten, eine Saison Lewandowski.",
+    "ok": true
+   },
+   {
+    "szene": "transfer_lohn",
+    "wort": "Lohn",
+    "satz_s": [
+     60.84,
+     64.98
+    ],
+    "gehoert": "Also kostet Dich das Kino diesen Lohn. Deine Opportunitätskosten.",
+    "ok": true
+   },
+   {
+    "szene": "transfer_lohn",
+    "wort": "Opportunitätskosten",
+    "satz_s": [
+     60.84,
+     64.98
+    ],
+    "gehoert": "Also kostet Dich das Kino diesen Lohn. Deine Opportunitätskosten.",
     "ok": true
    },
    {
     "szene": "satz",
     "wort": "keiner",
     "satz_s": [
-     69.98,
-     71.72
+     72.56,
+     74.48
     ],
-    "gehoert": "Es steht nur auf keiner Rechnung.",
+    "gehoert": "Es steht auf keiner Rechnung.",
     "ok": true
    }
   ],
@@ -2198,14 +2524,393 @@
    {
     "szene": "widerlegung",
     "frage": "Nur sein Gehalt?",
-    "gehoert": "Nur sein Gehalt.",
-    "fragezeichen": false,
-    "f0_erstes_wort_hz": 151.0,
-    "f0_ende_hz": 116.7,
-    "steigt": false,
-    "ok": false
+    "gehoert": "Nur sein Gehalt?",
+    "fragezeichen": true,
+    "f0_erstes_wort_hz": 105.5,
+    "f0_ende_hz": 257.65,
+    "steigt": true,
+    "ok": true
    }
   ],
-  "ok": false
+  "ok": true
+ },
+ "pruefung_ton": {
+  "lautheit": {
+   "spanne_lu": 2.9,
+   "grenze_lu": 3.0,
+   "ok": true,
+   "leisester": "Was kostet es ihn zu behalten",
+   "lautester": "Barcelona will Lewandowski"
+  },
+  "klicks": [],
+  "tempo": {
+   "median_silben_s": 4.86,
+   "grenze_kern": 4.5,
+   "kernsaetze": [
+    {
+     "szene": "begriff",
+     "satz": "Das ist der Wert der besten Alternative die man aufgibt",
+     "start": 41.093,
+     "ende": 44.714,
+     "lufs": -15.8,
+     "silben_s": 4.42,
+     "ok": true
+    },
+    {
+     "szene": "satz",
+     "satz": "Das Beste was du aufgibst kostet auch",
+     "start": 69.108,
+     "ende": 72.106,
+     "lufs": -15.8,
+     "silben_s": 3.34,
+     "ok": true
+    },
+    {
+     "szene": "satz",
+     "satz": "Es steht auf keiner Rechnung",
+     "start": 72.706,
+     "ende": 74.325,
+     "lufs": -16.4,
+     "silben_s": 4.32,
+     "ok": true
+    }
+   ],
+   "warnsaetze": [
+    {
+     "szene": "modell",
+     "satz": "Jede Entscheidung hat so eine Waage",
+     "start": 52.387,
+     "ende": 54.238,
+     "lufs": -14.8,
+     "silben_s": 5.94,
+     "ok": false
+    },
+    {
+     "szene": "transfer_lohn",
+     "satz": "Also kostet dich das Kino diesen Lohn deine Opportunitätskosten",
+     "start": 60.988,
+     "ende": 64.833,
+     "lufs": -15.6,
+     "silben_s": 5.2,
+     "ok": false
+    }
+   ],
+   "ok": true
+  },
+  "betonung": {
+   "woerter": [
+    {
+     "szene": "hook",
+     "wort": "verkaufen",
+     "halbtoene": 6.3,
+     "db": -0.0,
+     "ok": true
+    },
+    {
+     "szene": "hook",
+     "wort": "behalten",
+     "halbtoene": 1.9,
+     "db": -1.4,
+     "ok": false
+    },
+    {
+     "szene": "hook",
+     "wort": "kostet",
+     "halbtoene": 16.0,
+     "db": 1.1,
+     "ok": true
+    },
+    {
+     "szene": "naheliegend",
+     "wort": "Gehalt",
+     "halbtoene": 2.5,
+     "db": -1.5,
+     "ok": false
+    },
+    {
+     "szene": "naheliegend",
+     "wort": "bezahlt",
+     "halbtoene": -0.2,
+     "db": -3.2,
+     "ok": false
+    },
+    {
+     "szene": "vertrag",
+     "wort": "eine",
+     "halbtoene": -3.0,
+     "db": 0.7,
+     "ok": false
+    },
+    {
+     "szene": "vertrag",
+     "wort": "nichts",
+     "halbtoene": null,
+     "db": -9.0,
+     "ok": false
+    },
+    {
+     "szene": "angebot",
+     "wort": "jetzt",
+     "halbtoene": -0.7,
+     "db": -2.4,
+     "ok": false
+    },
+    {
+     "szene": "angebot",
+     "wort": "45",
+     "halbtoene": 7.0,
+     "db": 0.0,
+     "ok": true
+    },
+    {
+     "szene": "widerlegung",
+     "wort": "nicht",
+     "halbtoene": null,
+     "db": -8.0,
+     "ok": false
+    },
+    {
+     "szene": "widerlegung",
+     "wort": "Verkaufen",
+     "halbtoene": 11.3,
+     "db": 0.8,
+     "ok": true
+    },
+    {
+     "szene": "widerlegung",
+     "wort": "Behalten",
+     "halbtoene": 12.2,
+     "db": 3.2,
+     "ok": true
+    },
+    {
+     "szene": "entgangen",
+     "wort": "genauso",
+     "halbtoene": -1.8,
+     "db": 1.8,
+     "ok": false
+    },
+    {
+     "szene": "begriff",
+     "wort": "Opportunitätskosten",
+     "halbtoene": 1.4,
+     "db": -2.4,
+     "ok": false
+    },
+    {
+     "szene": "begriff",
+     "wort": "aufgibt",
+     "halbtoene": null,
+     "db": -7.2,
+     "ok": false
+    },
+    {
+     "szene": "verkauf",
+     "wort": "nimmt",
+     "halbtoene": 4.0,
+     "db": -0.2,
+     "ok": true
+    },
+    {
+     "szene": "aufloesung",
+     "wort": "Verkaufen",
+     "halbtoene": 12.2,
+     "db": 1.1,
+     "ok": true
+    },
+    {
+     "szene": "aufloesung",
+     "wort": "Saison",
+     "halbtoene": 0.8,
+     "db": 2.2,
+     "ok": true
+    },
+    {
+     "szene": "modell",
+     "wort": "Jede",
+     "halbtoene": 10.5,
+     "db": 3.2,
+     "ok": true
+    },
+    {
+     "szene": "transfer",
+     "wort": "geschenkt",
+     "halbtoene": null,
+     "db": -7.6,
+     "ok": false
+    },
+    {
+     "szene": "transfer",
+     "wort": "dann",
+     "halbtoene": 8.4,
+     "db": 1.2,
+     "ok": true
+    },
+    {
+     "szene": "transfer_lohn",
+     "wort": "Lohn",
+     "halbtoene": 1.0,
+     "db": -0.7,
+     "ok": false
+    },
+    {
+     "szene": "transfer_lohn",
+     "wort": "nicht",
+     "halbtoene": -9.7,
+     "db": -4.0,
+     "ok": false
+    },
+    {
+     "szene": "satz",
+     "wort": "Beste",
+     "halbtoene": 5.9,
+     "db": 1.4,
+     "ok": true
+    },
+    {
+     "szene": "satz",
+     "wort": "keiner",
+     "halbtoene": 2.1,
+     "db": 1.9,
+     "ok": false
+    }
+   ],
+   "getragen": 11,
+   "von": 25,
+   "hinweis": "nur Warnung: Cartesia kennt keine Betonung, der Satzbau muss sie tragen"
+  },
+  "saetze": [
+   {
+    "satz": "Barcelona will Lewandowski",
+    "lufs": -13.6,
+    "silben_s": 5.83
+   },
+   {
+    "satz": "Bayern kann verkaufen oder behalten",
+    "lufs": -15.7,
+    "silben_s": 5.18
+   },
+   {
+    "satz": "Was kostet es ihn zu behalten",
+    "lufs": -16.5,
+    "silben_s": 5.18
+   },
+   {
+    "satz": "Naheliegend wäre die Antwort nur sein Gehalt",
+    "lufs": -15.2,
+    "silben_s": 4.65
+   },
+   {
+    "satz": "Denn nur das bezahlt Bayern",
+    "lufs": -16.2,
+    "silben_s": 4.23
+   },
+   {
+    "satz": "Er schießt dafür Tore",
+    "lufs": -15.6,
+    "silben_s": 5.92
+   },
+   {
+    "satz": "Doch sein Vertrag läuft nur noch eine Saison",
+    "lufs": -15.6,
+    "silben_s": 5.99
+   },
+   {
+    "satz": "Verlängern will er nicht",
+    "lufs": -14.6,
+    "silben_s": 5.62
+   },
+   {
+    "satz": "Er geht danach ablösefrei Bayern bekommt nichts",
+    "lufs": -15.8,
+    "silben_s": 4.58
+   },
+   {
+    "satz": "Barcelona bietet Bayern jetzt 45 Millionen Euro",
+    "lufs": -15.2,
+    "silben_s": 4.86
+   },
+   {
+    "satz": "Nur sein Gehalt Das stimmt nicht",
+    "lufs": -16.1,
+    "silben_s": 3.54
+   },
+   {
+    "satz": "Verkaufen bringt 45 Millionen Ablöse",
+    "lufs": -15.4,
+    "silben_s": 4.56
+   },
+   {
+    "satz": "Behalten keinen Cent",
+    "lufs": -16.1,
+    "silben_s": 3.3
+   },
+   {
+    "satz": "Entgangenes Geld fehlt genauso wie bezahltes",
+    "lufs": -15.3,
+    "silben_s": 4.68
+   },
+   {
+    "satz": "Ökonomen nennen dieses Geld Opportunitätskosten",
+    "lufs": -15.5,
+    "silben_s": 5.56
+   },
+   {
+    "satz": "Das ist der Wert der besten Alternative die man aufgibt",
+    "lufs": -15.8,
+    "silben_s": 4.42
+   },
+   {
+    "satz": "Im Juli nimmt Bayern das Geld",
+    "lufs": -14.7,
+    "silben_s": 4.39
+   },
+   {
+    "satz": "Auch Verkaufen hat Opportunitätskosten eine Saison Lewandowski",
+    "lufs": -15.6,
+    "silben_s": 5.29
+   },
+   {
+    "satz": "Jede Entscheidung hat so eine Waage",
+    "lufs": -14.8,
+    "silben_s": 5.94
+   },
+   {
+    "satz": "Du bekommst für heute Abend eine Kinokarte geschenkt",
+    "lufs": -15.8,
+    "silben_s": 6.43
+   },
+   {
+    "satz": "Genau dann könntest du mit Nachhilfe Geld verdienen",
+    "lufs": -15.5,
+    "silben_s": 5.9
+   },
+   {
+    "satz": "Also kostet dich das Kino diesen Lohn deine Opportunitätskosten",
+    "lufs": -15.6,
+    "silben_s": 5.2
+   },
+   {
+    "satz": "Das kann es wert sein",
+    "lufs": -15.5,
+    "silben_s": 4.85
+   },
+   {
+    "satz": "Gratis ist es nicht",
+    "lufs": -16.4,
+    "silben_s": 4.41
+   },
+   {
+    "satz": "Das Beste was du aufgibst kostet auch",
+    "lufs": -15.8,
+    "silben_s": 3.34
+   },
+   {
+    "satz": "Es steht auf keiner Rechnung",
+    "lufs": -16.4,
+    "silben_s": 4.32
+   }
+  ],
+  "ok": true
  }
 }

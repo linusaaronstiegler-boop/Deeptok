@@ -8,6 +8,33 @@
                                                   # Tonspur, gleiche Wortzeiten; neuer Cue ohne Neuvertonung)
     python build/voice.py --anbieter datei        # fertige Block-Aufnahmen aus build/stimme-jonas.json
                                                   # (ElevenLabs über den claude.ai-Connector, 28.10.)
+    python build/voice.py --anbieter datei --stimme build/stimme-sebastian.json
+                                                  # dasselbe mit einer anderen Stimm-Datei (Fassung v3:
+                                                  # Cartesia „Sebastian“ spricht alle sechs Blöcke)
+    python build/voice.py --vertonen build/stimme-sebastian.json
+                                                  # fehlende Blöcke einer Stimm-Datei über den Fabrik-
+                                                  # Adapter vertonen, je Block GENAU ein Aufruf
+
+Fassung final (Runde 1, 03.11.2026): Die Ton-Kritik fand Knackser und digitale Löcher an den
+Schnittstellen, uneinheitlichen Atem, eine leise Leitfrage und Kernsätze, die schneller kamen als der
+Rest. Darum setzt der Bau jetzt (alles ohne neue Aufnahme, alles in dieser Datei):
+  - Raumton statt digitaler Null: Vorlauf, Pausen und Luft bekommen den leisen Grundton der
+    Aufnahme (raumton), jede Kante eine 10-ms-Blende (blende). Keine Luft unter 100 ms.
+  - Atem: Ein Einatmen vor einem Wort zählt nicht mehr als Wortanfang (an_energie_ausrichten sucht
+    den ersten Rahmen mit Stimmpegel). Luft wird VOR dem Einatmen eingesetzt, nicht danach, und
+    jedes Einatmen wird um ATEM_DB leiser (nicht entfernt).
+  - Lautheit je Satz: Jeder Satz kommt auf ±SATZ_TOLERANZ_LU an die Blocklautheit heran
+    (saetze_angleichen, 20-ms-Rampen in der Stille zwischen den Sätzen).
+  - Dehnen: "dehnen" in script.py verlangsamt einen Satz um einen festen Faktor (rubberband,
+    Tonhöhe bleibt). Für Kernsätze, die der Anbieter trotz Tempo-Wert zu schnell spricht.
+  - Tore (pruefe_ton): Satz-Lautheit (Spanne <= 3 LU), Knackser (0), Tempo der Kernsätze
+    (<= 4,5 Silben/s und nicht schneller als der Median), Betonung als Warnung (Gipfel des
+    betonten Worts >= +3 Halbtöne oder +2 dB über dem Satz).
+
+Fassung v3 (03.11.2026): Eine Stimm-Datei kann statt ElevenLabs auch einen Fabrik-Anbieter nennen
+("anbieter": "cartesia"). --vertonen ruft ihn je Block ohne Datei einmal auf (vertone_bloecke) und
+speichert Aufnahme und Wort-Zeitstempel des Anbieters in build/cache/<anbieter>/. Diese
+Zeitstempel ersetzen dann die DTW gegen Piper; Piper wird dafür nicht mehr gebraucht.
 
 Anbieter "datei" (Fassung v2): Der Connector liefert pro Aufruf eine mp3 ohne Zeitstempel. Die
 gewählte Variante je Block steht in build/stimme-jonas.json (Flow, generation_id, Datei im
@@ -73,7 +100,7 @@ CACHE = HIER / "cache"
 
 sys.path.insert(0, str(HIER))
 sys.path.insert(0, str(REPO / "factory"))
-from script import PFLICHTWOERTER, SCENES, finde_wort, tokens  # noqa: E402
+from script import KERNSAETZE, PFLICHTWOERTER, SCENES, WARNSAETZE, finde_wort, tokens  # noqa: E402
 
 RATE = 44100          # Arbeits- und Ausgabe-Abtastrate (G4: >= 44,1 kHz)
 LEAD_IN = 0.35        # Stille vor dem ersten Wort (Bild 0 ist schon das Hook-Bild)
@@ -84,10 +111,22 @@ RAND_S = 0.03         # so viel Stille bleibt beim Kappen an jedem Blockrand ste
 # dem Ziel: "96k" ergab gemessen 79,6 kbit/s, "112k" 92,5, "120k" 99,4 kbit/s und 921 KB bei 73 s.
 # Fassung v2.1 (Kritik: knapper Spielraum): Ein Ziel allein reicht nicht. waehle_bitrate() probiert
 # mehrere Ziele und nimmt das mit dem größten Abstand zu BEIDEN Grenzen; hält keines, Abbruch.
-BITRATEN = ("112k", "120k", "128k", "136k")
+# Fassung final: Mit Raumton statt digitaler Null in den Pausen hält der Encoder sein Ziel genau
+# (112k ergab 111,8 kbit/s und 1,07 MB bei 77 s). Darum auch niedrigere Ziele.
+BITRATEN = ("98k", "100k", "104k", "112k", "120k")
 MIN_KBPS = 96.0
 MAX_BYTES = 1_000_000
 BLOCK_LUFS = -20.0    # jeder Block vor dem Zusammensetzen auf diese Lautheit (Quellen angleichen)
+# Fassung final (Runde 1, Ton-Kritik):
+BLENDE_S = 0.010      # jede Schnittkante (Block, Luft, Pause) blendet über 10 ms: kein Knacks
+LUFT_MIN_S = 0.10     # kürzer wird keine Luft eingesetzt (41 ms mitten im Atem klangen wie ein Loch)
+ATEM_DB = -9.0        # so viel leiser wird ein Einatmen vor einem Wort (einheitlich, nicht entfernt)
+ATEM_MIN_S = 0.15     # ein leiser Abschnitt vor dem Stimmeinsatz gilt ab dieser Länge als Atem
+STIMME_UNTER_DB = 20.0  # Stimmeinsatz = erster Rahmen höchstens so weit unter dem Sprachmedian
+SATZ_TOLERANZ_LU = 0.25  # Sätze näher als das an der Blocklautheit bleiben, wie sie sind
+SATZ_MAX_DB = 5.0     # größte Korrektur je Satz
+SATZ_SPANNE_LU = 3.0  # Tor: lautester minus leisester Satz (ebur128) auf der fertigen Spur
+KERN_SILBEN_S = 4.5   # Tor: Kernsätze (script.KERNSAETZE) höchstens so schnell
 
 
 # ------------------------------------------------------------------------------------------
@@ -134,6 +173,24 @@ def bloecke() -> list[dict]:
     if aktuell:
         liste.append(aktuell)
     return [{"szenen": b, "text": "\n\n".join(szenen_text(s) for s in b)} for b in liste]
+
+
+def anzeige_text(block: dict) -> str:
+    """Sprechtext für Stimmen, die Zahlen und Namen selbst richtig lesen (ElevenLabs, Cartesia).
+
+    Regel wie "text_regel" in build/stimme-jonas.json: Anzeige-Seite der Tokens ("45", "Barcelona",
+    "Opportunitätskosten"), keine Betonungs-Sternchen, kein "?↑" (das Fragezeichen bleibt), Szenen
+    eines Blocks als Absätze. Die Satzzeichen hängen in script.py an der gesprochenen Seite
+    ("Opportunitätskosten|Oppor-tunitätskosten:") und wandern an die Anzeige.
+    """
+    def wort(token: str) -> str:
+        if "|" not in token:
+            return token
+        anzeige, gesprochen = token.split("|", 1)
+        zeichen = re.search(r"[.,:;?!…]*$", gesprochen).group()
+        return anzeige.rstrip(".,:;?!…") + zeichen
+    return "\n\n".join(" ".join(wort(t) for satz in s["sentences"] for t in satz.split())
+                       for s in block["szenen"])
 
 
 # ------------------------------------------------------------------------------------------
@@ -315,17 +372,24 @@ class DateiAdapter:
     Varianten, die bessere ist in build/stimme-jonas.json eingetragen. Für ElevenLabs gilt die
     ANZEIGE-Seite der Tokens ("Barcelona", "45"): Die Aussprache-Schreibungen waren nur für Piper.
     Fehlt die Datei eines Blocks (Aufruf fehlgeschlagen), spricht Piper diesen Block.
+
+    Fassung v3: Steht beim Block "wortzeiten" (JSON des Fabrik-Adapters, z. B. Cartesia), gelten die
+    Wort-Zeitstempel des Anbieters; dann braucht es weder Piper noch DTW.
     """
 
     def __init__(self, konfig: dict):
         self.konfig = konfig
         self.piper = None
-        self.quellen = []          # je Block: "elevenlabs-connector" oder "piper", für timing.json
+        # je Block die Quelle ("elevenlabs-connector", "cartesia" ... oder "piper"), für timing.json
+        self.quellen = []
+        self.anbieter = konfig.get("anbieter", "elevenlabs-connector")
 
     def synthese(self, text: str, stimme: dict, vorher=None, nachher=None, nr: int = 0):
         from werk.stimme.basis import Ergebnis
 
         eintrag = self.konfig["bloecke"][nr]
+        if eintrag.get("datei") and eintrag.get("wortzeiten"):
+            return self._mit_anbieter_zeiten(eintrag, nr)
         if not eintrag.get("datei"):
             # Rückfall: Piper mit seiner eigenen Stimm-Datei (Aussprache-Schreibungen gelten dort).
             if self.piper is None:
@@ -347,10 +411,36 @@ class DateiAdapter:
             self.piper_stimme = json.loads((PROJEKT / self.konfig["rueckfall"]).read_text())
         vorlage = self.piper.synthese(text, self.piper_stimme)
         zeiten = dtw_wortzeiten(dekodiere(roh), dekodiere(vorlage.audio), vorlage.wortzeiten, paare)
-        self.quellen.append("elevenlabs-connector")
+        self.quellen.append(self.anbieter)
         return Ergebnis(audio=roh, format="mp3", abtastrate=RATE, wortzeiten=zeiten,
-                        zeichen=sum(len(a) + 1 for a, _ in paare), anbieter="elevenlabs-connector",
+                        zeichen=sum(len(a) + 1 for a, _ in paare), anbieter=self.anbieter,
                         gesendet=eintrag.get("text", ""))
+
+    def _mit_anbieter_zeiten(self, eintrag: dict, nr: int):
+        """Block mit Aufnahme UND Wort-Zeitstempeln des Anbieters (Fassung v3, Cartesia).
+
+        Der Anbieter hat die Anzeige-Seite gesprochen ("45", "Barcelona"), also werden seine Wörter
+        gegen die Anzeige-Seite der Tokens zugeordnet (gleiche Zahl: nach Position, sonst difflib).
+        Danach setzt an_energie_ausrichten() die Anfänge nach echten Pausen an die Hüllkurve, so wie
+        bei den Jonas-Blöcken: Ein Bild soll auf dem Wort landen, nicht auf einem Rechenwert.
+        """
+        from werk.stimme.basis import Ergebnis
+
+        datei, meta = PROJEKT / eintrag["datei"], PROJEKT / eintrag["wortzeiten"]
+        for pfad in (datei, meta):
+            if not pfad.is_file():
+                raise SystemExit(f"{pfad} fehlt (gitignored). Neu vertonen kostet Zeichen: "
+                                 f"python build/voice.py --vertonen <stimm-datei> (nur dieser Block)")
+        roh = datei.read_bytes()
+        anbieter_zeiten = json.loads(meta.read_text())["wortzeiten"]
+        paare = [p for s in bloecke()[nr]["szenen"] for satz in s["sentences"] for p in tokens(satz)]
+        zeiten = fuelle_luecken(ordne_zu([(a, a) for a, _ in paare], anbieter_zeiten))
+        zeiten = [{**z, "wort": a} for z, (a, _) in zip(zeiten, paare)]
+        zeiten = an_energie_ausrichten(dekodiere(roh), RATE, zeiten, versatz_standard=0.0)
+        self.quellen.append(self.anbieter)
+        return Ergebnis(audio=roh, format=datei.suffix.lstrip("."), abtastrate=RATE, wortzeiten=zeiten,
+                        zeichen=eintrag.get("zeichen", 0), anbieter=self.anbieter,
+                        gesendet=eintrag.get("gesendet", eintrag.get("text", "")))
 
 
 def logmel(audio: np.ndarray, rate: int = RATE) -> np.ndarray:
@@ -515,8 +605,42 @@ def an_energie_ausrichten(audio: np.ndarray, rate: int, zeiten: list[dict],
     neu = [dict(z) for z in zeiten]
     gesetzt, korrekturen = set(), []
     laut = np.nonzero(~still)[0]
+    pegel = 20 * np.log10(rms)
+    # Fassung final (Ton-Kritik): Ein lautes Einatmen nach einer Pause ist kein Wortanfang. Das zweite
+    # „Barcelona“ stand 260 ms zu früh, weil der Atem (-40 dBFS) über STILLE_DB lag. Pegel allein
+    # trennt Atem und Wort nicht (Atem bis -30 dBFS, ein s oder f am Wortanfang ebenso leise). Darum:
+    # Wortanfang = erster STIMMHAFTER Rahmen (Grundton vorhanden) oder ein lauter Rahmen (Plosiv,
+    # höchstens 6 dB unter dem Sprachmedian). Als Atem gilt der Abschnitt davor nur, wenn er
+    # mindestens ATEM_MIN_S dauert UND im Mittel mindestens 12 dB unter dem Sprachmedian bleibt.
+    # Ein kurzes f oder s am Wortanfang (60-120 ms) bleibt so Teil des Worts.
+    median_sprache = float(np.median(pegel[~still])) if np.any(~still) else -20.0
+    rahmen, lag_min, lag_max = int(0.03 * rate), int(rate / 350), int(rate / 70)
+
+    def stimmhaft(k: int) -> bool:
+        x = audio[k * fenster: k * fenster + rahmen].astype(np.float64)
+        if len(x) < rahmen or 20 * np.log10(np.sqrt(np.mean(x ** 2)) + 1e-12) < median_sprache - 30:
+            return False
+        x = x - x.mean()
+        ak = np.fft.irfft(np.abs(np.fft.rfft(x, 2 * rahmen)) ** 2)[:rahmen]
+        return ak[0] > 0 and float(np.max(ak[lag_min:lag_max]) / ak[0]) >= 0.6
+
+    def stimmeinsatz(ab: int) -> tuple[float, float | None]:
+        # Stimmhaft UND mit Stimmpegel (ein stimmhaftes Schmatzen bei -40 dBFS ist kein Wort) oder laut
+        k = ab
+        bis = min(n, ab + int(0.6 * rate / fenster))
+        while k < bis and not (stimmhaft(k) and pegel[k] >= median_sprache - 25) and pegel[k] < median_sprache - 6:
+            k += 1
+        dauer = (k - ab) * fenster / rate
+        if k < bis and dauer >= 0.04 and float(np.mean(pegel[ab:k])) <= median_sprache - STIMME_UNTER_DB:
+            # leiser, stimmloser Vorlauf (Atem, Schmatzen): Wortanfang dahinter; ab ATEM_MIN_S ist es Atem
+            return k * fenster / rate, (ab * fenster / rate if dauer >= ATEM_MIN_S else None)
+        return ab * fenster / rate, None
+
     if len(laut) and neu:
-        neu[0]["start"] = round(laut[0] * fenster / rate, 3)
+        t, atem = stimmeinsatz(int(laut[0]))
+        neu[0]["start"] = round(t, 3)
+        if atem is not None:
+            neu[0]["atem_start"] = round(atem, 3)
         neu[0]["energie"] = True
         gesetzt.add(0)
     for anfang, ende in luecken:
@@ -524,8 +648,12 @@ def an_energie_ausrichten(audio: np.ndarray, rate: int, zeiten: list[dict],
         i = min(range(len(neu)), key=lambda q: abs(neu[q]["start"] - ende))
         if abs(neu[i]["start"] - ende) > 0.25 or i in gesetzt:
             continue
+        einsatz, atem = stimmeinsatz(int(round(ende * rate / fenster)))
+        # die Korrektur misst weiter den Pausen-Rand (Versatz der übrigen Wörter), der Atem ist Sonderfall
         korrekturen.append(ende - neu[i]["start"])
-        neu[i]["start"] = round(ende, 3)
+        neu[i]["start"] = round(einsatz, 3)
+        if atem is not None:
+            neu[i]["atem_start"] = round(atem, 3)
         neu[i]["energie"] = True
         gesetzt.add(i)
         if i > 0 and neu[i - 1]["ende"] > anfang:
@@ -542,6 +670,8 @@ def an_energie_ausrichten(audio: np.ndarray, rate: int, zeiten: list[dict],
         neu[i]["start"] = max(neu[i]["start"], round(neu[i - 1]["start"] + 0.05, 3))
     for z in neu:
         z["ende"] = max(z["ende"], round(z["start"] + 0.05, 3))
+    atemzuege = sum(1 for z in neu if "atem_start" in z)
+    print(f"  Atem vor dem Stimmeinsatz: {atemzuege} Wörter (Anfang hinter den Atem gesetzt)")
     print(f"  Wortzeiten: {len(gesetzt)} Anfänge an Pausen gemessen (Korrekturen "
           f"{', '.join(f'{k * 1000:+.0f}' for k in korrekturen) or '-'} ms), Versatz der übrigen "
           f"{versatz * 1000:+.0f} ms")
@@ -607,9 +737,11 @@ def kappe(audio: np.ndarray, wortzeiten: list[dict]) -> tuple[np.ndarray, list[d
     anfang, ende = sprechgrenzen(audio, RATE)
     a = max(0.0, anfang - RAND_S)
     e = min(len(audio) / RATE, ende + RAND_S)
-    verschoben = [{**w, "start": round(w["start"] - a, 3), "ende": round(w["ende"] - a, 3)}
+    verschoben = [{**w, "start": round(w["start"] - a, 3), "ende": round(w["ende"] - a, 3),
+                   **({"atem_start": round(w["atem_start"] - a, 3)} if "atem_start" in w else {})}
                   for w in wortzeiten]
-    return audio[int(a * RATE): int(e * RATE)], verschoben
+    # Fassung final: 10-ms-Blende an beiden Rändern (Knacks am Blockanfang, Ton-Kritik 33,1 s)
+    return blende(audio[int(a * RATE): int(e * RATE)]), verschoben
 
 
 def luft_einfuegen(audio: np.ndarray, zeiten: list[dict], block: dict) -> tuple[np.ndarray, list[dict], list[dict]]:
@@ -617,7 +749,8 @@ def luft_einfuegen(audio: np.ndarray, zeiten: list[dict], block: dict) -> tuple[
     mindestens so viel Stille. Zeiten sind blockrelativ (nach kappe).
 
     Geschnitten wird an der leisesten 10-ms-Stelle zwischen den beiden Wörtern (nie in einem Laut),
-    eingesetzt wird digitale Stille. Alle späteren Wortzeiten rücken um genau diese Länge nach.
+    eingesetzt wird Raumton (Fassung final; vorher digitale Stille, die mit Kopfhörern wie ein Loch
+    klang). Alle späteren Wortzeiten rücken um genau diese Länge nach.
     Warum hier und nicht in der Stimme: Jonas' Blöcke sind fertige Aufnahmen; eine neue Aufnahme
     kostete Credits. Für Piper gilt derselbe Weg, damit beide Stimmen gleich gebaut sind.
     """
@@ -635,22 +768,411 @@ def luft_einfuegen(audio: np.ndarray, zeiten: list[dict], block: dict) -> tuple[
         a, b = zeiten[i]["ende"], zeiten[i + 1]["start"]
         luecke = b - a
         eintrag = {"szene": sid, "nach": wort, "vorher_s": round(luecke, 3), "soll_s": sek}
-        if luecke < sek:
+        if luecke < sek and sek - luecke < LUFT_MIN_S:
+            # Fassung final: unter 100 ms bleibt die Lücke, wie sie ist (vorher 41 ms Null im Atem)
+            eintrag["eingesetzt_s"] = 0.0
+            eintrag["grund"] = f"fehlen nur {sek - luecke:.3f} s (< {LUFT_MIN_S} s)"
+        elif luecke < sek:
+            # Fassung final: Geschnitten wird VOR dem Einatmen des nächsten Worts (atem_start), sonst
+            # atmete der Sprecher ein und schwieg danach noch (Ton-Kritik „geschenkt | Genau“).
+            atem = atem_im_spalt(audio, a, b, sprach_median(audio))
+            obergrenze = min(zeiten[i + 1].get("atem_start", b + 0.01), atem[0] if atem else b + 0.01)
             lo = int(max(0.0, a - 0.03) * RATE)
-            hi = max(lo + fenster, int(min(len(audio) / RATE, b + 0.01) * RATE))
+            hi = max(lo + fenster, int(min(len(audio) / RATE, obergrenze) * RATE))
             starts = range(lo, hi - fenster + 1, fenster // 2)
             pegel = [float(np.sqrt(np.mean(audio[k:k + fenster] ** 2))) for k in starts]
             schnitt = list(starts)[int(np.argmin(pegel))] + fenster // 2
             zusatz = sek - luecke
-            audio = np.concatenate([audio[:schnitt], np.zeros(int(round(zusatz * RATE)), np.float32),
-                                    audio[schnitt:]])
+            audio = setze_ein(audio, schnitt, int(round(zusatz * RATE)))
             for z in zeiten[i + 1:]:
                 z["start"] = round(z["start"] + zusatz, 3)
                 z["ende"] = round(z["ende"] + zusatz, 3)
+                if "atem_start" in z:
+                    z["atem_start"] = round(z["atem_start"] + zusatz, 3)
             eintrag["eingesetzt_s"] = round(zusatz, 3)
+        protokoll.append((i, eintrag))
+    # Fassung v3: rel_start erst NACH allen Einfügungen ablesen. Die Schleife läuft von hinten; eine
+    # frühere Luft im selben Block (später eingesetzt) schiebt das Wort noch nach hinten. Vorher stand
+    # darum z. B. "nach Lohn" 0,93 s zu früh in timing.json (Luft nach "Waage" und "geschenkt").
+    for i, eintrag in protokoll:
         eintrag["rel_start"] = zeiten[i]["ende"]
-        protokoll.append(eintrag)
+    return audio, zeiten, [e for _, e in protokoll[::-1]]
+
+
+# ------------------------------------------------------------------------------------------
+# Fassung final (Runde 1, Ton-Kritik): Raumton, Blenden, Atem, Lautheit je Satz, Dehnen, Tore
+# ------------------------------------------------------------------------------------------
+RAUM: dict = {}     # Quelle des Raumtons (leisester Abschnitt der ersten Aufnahme), siehe raumton()
+
+
+def merke_raumton(audio: np.ndarray) -> None:
+    """Sucht in einer Aufnahme die leiseste Viertelsekunde, die NICHT digitale Null ist (Grundrauschen
+    des Anbieters, bei Cartesia etwa -70 dBFS). Daraus wird jede eingesetzte Stille gebaut. main()
+    ruft das vorab für ALLE Aufnahmen auf: Der leiseste Abschnitt aller Blöcke gewinnt (Block 1 allein
+    hat keine ruhige Viertelsekunde; sein leisester Abschnitt war ein Atemzug bei -53 dBFS)."""
+    n = int(0.25 * RATE)
+    schritt = RATE // 100
+    beste, wert = None, RAUM.get("db", -55.0)     # nur leiser als das Bisherige (und als -55 dBFS)
+    for k in range(0, max(1, len(audio) - n), schritt):
+        stueck = audio[k:k + n]
+        r = 20 * np.log10(np.sqrt(np.mean(stueck ** 2)) + 1e-12)
+        if -85 < r < wert and np.mean(stueck == 0) < 0.05:
+            beste, wert = stueck.copy(), r
+    if beste is None:
+        return                        # raumton() nimmt sonst leises Rauschen (-72 dBFS, fester Startwert)
+    RAUM["quelle"], RAUM["db"] = beste.astype(np.float32), round(float(wert), 1)
+
+
+def raumton(laenge: int) -> np.ndarray:
+    """Raumton beliebiger Länge: Stücke der Quelle, je um 20 ms überblendet (kein hörbares Muster)."""
+    if laenge <= 0:
+        return np.zeros(0, np.float32)
+    q = RAUM.get("quelle")
+    if q is None:
+        RAUM["quelle"] = (np.random.default_rng(7).standard_normal(int(0.25 * RATE)) * 10 ** (-72 / 20)).astype(np.float32)
+        RAUM["db"] = -72.0
+        q = RAUM["quelle"]
+    ueber = int(0.02 * RATE)
+    rampe = np.linspace(0, 1, ueber, dtype=np.float32)
+    aus = q[: min(len(q), laenge)].copy()
+    rng = np.random.default_rng(laenge)       # fester Startwert: gleiche Länge, gleicher Raumton
+    while len(aus) < laenge:
+        start = int(rng.integers(0, max(1, len(q) - ueber - 1)))
+        stueck = q[start:]
+        aus[-ueber:] = aus[-ueber:] * (1 - rampe) + stueck[:ueber] * rampe
+        aus = np.concatenate([aus, stueck[ueber:]])
+    # Auch das leiseste Stück einer Aufnahme kann einen Knacks tragen; gekachelt käme er wieder.
+    return entklicke(aus[:laenge].astype(np.float32))[0]
+
+
+def blende(audio: np.ndarray, sek: float = BLENDE_S) -> np.ndarray:
+    """10-ms-Blende am Anfang und am Ende (ein Stück Audio beginnt und endet bei null)."""
+    n = min(int(sek * RATE), len(audio) // 2)
+    if n <= 0:
+        return audio
+    aus = audio.copy()
+    rampe = np.linspace(0, 1, n, dtype=np.float32)
+    aus[:n] *= rampe
+    aus[-n:] *= rampe[::-1]
+    return aus
+
+
+def setze_ein(audio: np.ndarray, schnitt: int, laenge: int) -> np.ndarray:
+    """Setzt bei Sample `schnitt` Raumton der Länge `laenge` ein. Beide Kanten werden über BLENDE_S
+    überblendet (Aufnahme aus, Raumton ein und umgekehrt); der Raumton ist dafür um 2 x BLENDE_S
+    länger, so wächst die Aufnahme um genau `laenge` Samples."""
+    n = int(BLENDE_S * RATE)
+    links, rechts = audio[:schnitt].astype(np.float32), audio[schnitt:].astype(np.float32)
+    if len(links) < n or len(rechts) < n:
+        return np.concatenate([links, raumton(laenge), rechts]).astype(np.float32)
+    mitte = raumton(laenge + 2 * n)
+    r = np.linspace(0, 1, n, dtype=np.float32)
+    mitte[:n] = mitte[:n] * r + links[-n:] * r[::-1]
+    mitte[-n:] = mitte[-n:] * r[::-1] + rechts[:n] * r
+    return np.concatenate([links[:-n], mitte, rechts[n:]]).astype(np.float32)
+
+
+def stille(sek: float) -> np.ndarray:
+    """Deklarierte Pause (Vorlauf, Denkpause, Atempause, Halten) als Raumton mit weichen Kanten."""
+    return blende(raumton(int(round(sek * RATE))))
+
+
+def atem_im_spalt(audio: np.ndarray, t0: float, t1: float, median_db: float) -> tuple[float, float] | None:
+    """Ein Einatmen zwischen dem Ende eines Worts (t0) und dem Anfang des nächsten (t1): leise
+    (15 bis 40 dB unter dem Sprachmedian), stimmlos, zusammen >= 80 ms, VOR dem ersten Rahmen mit
+    Sprachpegel. Gibt (Anfang, Ende) zurück oder None."""
+    f = RATE // 200
+    k0, k1 = int((t0 + 0.03) * 200), int((t1 + 0.05) * 200)
+    rahmen, lag_min, lag_max = int(0.03 * RATE), int(RATE / 350), int(RATE / 70)
+    treffer = []
+    for k in range(k0, min(k1, len(audio) // f - 1)):
+        x = audio[k * f:(k + 1) * f].astype(np.float64)
+        pegel = 20 * np.log10(np.sqrt(np.mean(x ** 2)) + 1e-12)
+        if pegel >= median_db - 12:
+            break                                    # hier beginnt das Wort
+        if median_db - 40 <= pegel <= median_db - 15:
+            y = audio[k * f:k * f + rahmen].astype(np.float64)
+            y = y - y.mean()
+            ak = np.fft.irfft(np.abs(np.fft.rfft(y, 2 * rahmen)) ** 2)[:rahmen]
+            if ak[0] > 0 and np.max(ak[lag_min:lag_max]) / ak[0] < 0.5:
+                treffer.append(k)
+    if len(treffer) * 0.005 < 0.08:
+        return None
+    return treffer[0] / 200, (treffer[-1] + 1) / 200
+
+
+def sprach_median(audio: np.ndarray) -> float:
+    """Median des 5-ms-Pegels über allen Rahmen mit Sprache (über STILLE_DB)."""
+    f = RATE // 200
+    n = len(audio) // f
+    pegel = 20 * np.log10(np.sqrt(np.mean(audio[: n * f].reshape(n, f) ** 2, axis=1)) + 1e-12)
+    laut = pegel[pegel > STILLE_DB]
+    return float(np.median(laut)) if len(laut) else -20.0
+
+
+def atem_daempfen(audio: np.ndarray, zeiten: list[dict]) -> tuple[np.ndarray, int]:
+    """Jedes Einatmen zwischen zwei Wörtern wird um ATEM_DB leiser, mit 10-ms-Rampen (nicht entfernt).
+    Vorher standen laute Atemzüge neben toter Stille (Ton-Kritik); jetzt klingt jeder gleich."""
+    aus = audio.copy()
+    n_r = int(BLENDE_S * RATE)
+    faktor = np.float32(10 ** (ATEM_DB / 20))
+    med = sprach_median(audio)
+    zahl = 0
+    for z0, z1 in zip(zeiten, zeiten[1:]):
+        if z1["start"] - z0["ende"] < 0.2:
+            continue
+        atem = atem_im_spalt(audio, z0["ende"], z1["start"], med)
+        if not atem:
+            continue
+        a, b = int((atem[0] - 0.01) * RATE), int((atem[1] + 0.01) * RATE)
+        if b - a < 2 * n_r:
+            continue
+        huelle = np.full(b - a, faktor, np.float32)
+        huelle[:n_r] = np.linspace(1, faktor, n_r)
+        huelle[-n_r:] = np.linspace(faktor, 1, n_r)
+        aus[a:b] *= huelle
+        zahl += 1
+    return aus, zahl
+
+
+def lufs(audio: np.ndarray) -> float | None:
+    """Integrierte Lautheit (ebur128) eines Stücks; None, wenn es zu kurz oder zu leise ist."""
+    puffer = io.BytesIO()
+    with wave.open(puffer, "wb") as w:
+        w.setnchannels(1)
+        w.setsampwidth(2)
+        w.setframerate(RATE)
+        w.writeframes((np.clip(audio, -1, 1) * 32767).astype("<i2").tobytes())
+    r = ffmpeg("-i", "pipe:0", "-af", "ebur128", "-f", "null", "-", eingabe=puffer.getvalue())
+    werte = re.findall(r"I:\s+(-?[\d.]+) LUFS", r.stderr.decode())
+    wert = float(werte[-1]) if werte else None
+    return wert if wert is not None and wert > -70 else None
+
+
+def nur_sprache(audio: np.ndarray, woerter: list[dict], rate: int = RATE) -> np.ndarray:
+    """Die Wörter eines Satzes aneinander, ohne die Pausen dazwischen (Luft, Komma): Gemessen wird
+    die Lautheit der Stimme, nicht die der Stille. Mit Pause las sich „Behalten: keinen Cent“ leise."""
+    teile = [audio[int(max(0, w["start"] - 0.01) * rate):int((w["ende"] if "ende" in w else w["end"]) * rate + 0.01 * rate)]
+             for w in woerter]
+    return np.concatenate(teile) if teile else np.zeros(0, np.float32)
+
+
+def entklicke(audio: np.ndarray) -> tuple[np.ndarray, int]:
+    """Knackser in der Aufnahme selbst (Cartesia: einzelne 1-ms-Spitzen in leiser Umgebung, z. B. vor
+    „Du“ und „Also“): Die Spitze wird über 6 ms mit einer Hann-förmigen Senke auf den Pegel ihrer
+    Umgebung gedrückt. Plosive zählt klicks() nicht mit, sie bleiben unberührt."""
+    aus = audio.copy()
+    # vor dem Mastering liegt alles rund 4-8 dB tiefer: hier auch leisere Spitzen suchen
+    gefunden = klicks(aus, RATE, min_spitze_db=-68.0)
+    breite = int(0.006 * RATE)
+    for k in gefunden:
+        mitte = int(k["t"] * RATE) + (RATE // 1000) // 2
+        a, b = max(0, mitte - breite // 2), min(len(aus), mitte + breite // 2)
+        ziel = 10 ** ((k["umgebung_db"] + 3 - k["spitze_db"]) / 20)
+        senke = 1 - (1 - ziel) * np.hanning(b - a)
+        aus[a:b] *= senke.astype(np.float32)
+    return aus, len(gefunden)
+
+
+def satz_grenzen(block: dict, zeiten: list[dict]) -> list[tuple[int, int, str]]:
+    """(erstes Wort, letztes Wort, Text) je Satz eines Blocks, Indizes in zeiten."""
+    aus, i = [], 0
+    for s in block["szenen"]:
+        for satz in s["sentences"]:
+            n = len(tokens(satz))
+            aus.append((i, i + n - 1, satz))
+            i += n
+    return aus
+
+
+def saetze_angleichen(audio: np.ndarray, zeiten: list[dict], block: dict) -> tuple[np.ndarray, list[dict]]:
+    """Lautheit je Satz (Ton-Kritik P1: die Leitfrage war 5 LU leiser als der erste Satz, „Das stimmt
+    nicht“ ebenso leise). Jeder Satz kommt bis auf SATZ_TOLERANZ_LU an BLOCK_LUFS heran; die Grenze
+    zwischen zwei Sätzen liegt in der Mitte der Pause, dort wechselt die Verstärkung über 20 ms."""
+    grenzen = satz_grenzen(block, zeiten)
+    huelle = np.ones(len(audio), np.float32)
+    protokoll = []
+    rampe = int(0.02 * RATE)
+    for k, (i0, i1, text) in enumerate(grenzen):
+        a, b = zeiten[i0]["start"], zeiten[i1]["ende"]
+        wert = lufs(nur_sprache(audio, zeiten[i0:i1 + 1]))
+        if wert is None:
+            continue
+        d = BLOCK_LUFS - wert
+        korrektur = 0.0 if abs(d) <= SATZ_TOLERANZ_LU else float(np.clip(np.sign(d) * (abs(d) - SATZ_TOLERANZ_LU),
+                                                                         -SATZ_MAX_DB, SATZ_MAX_DB))
+        protokoll.append({"satz": text, "lufs_vorher": round(wert, 1), "korrektur_db": round(korrektur, 1)})
+        if not korrektur:
+            continue
+        links = 0.0 if k == 0 else (zeiten[grenzen[k - 1][1]]["ende"] + a) / 2
+        rechts = len(audio) / RATE if k == len(grenzen) - 1 else (b + zeiten[grenzen[k + 1][0]].get("atem_start", zeiten[grenzen[k + 1][0]]["start"])) / 2
+        x0, x1 = int(links * RATE), int(rechts * RATE)
+        g = np.float32(10 ** (korrektur / 20))
+        stueck = np.full(x1 - x0, g, np.float32)
+        if k > 0 and len(stueck) > 2 * rampe:
+            stueck[:rampe] = np.linspace(1, g, rampe)
+        if k < len(grenzen) - 1 and len(stueck) > 2 * rampe:
+            stueck[-rampe:] = np.linspace(g, 1, rampe)
+        huelle[x0:x1] = stueck
+    return (audio * huelle).astype(np.float32), protokoll
+
+
+def dehne_saetze(audio: np.ndarray, zeiten: list[dict], block: dict) -> tuple[np.ndarray, list[dict], list[dict]]:
+    """"dehnen" aus script.py: {Satzanfang: Faktor}. Der Satz wird um den Faktor länger (rubberband,
+    Tonhöhe und Formanten bleiben). Wortzeiten im Satz werden mitgestreckt, alle späteren rücken nach.
+    Für Kernsätze, die der Anbieter trotz Tempo-Wert zu schnell spricht (Cartesia: 0,8 statt 1,05
+    machte die Definition nur 3 % langsamer)."""
+    ziele = []
+    grenzen = satz_grenzen(block, zeiten)
+    for s in block["szenen"]:
+        for anfang, faktor in s.get("dehnen", {}).items():
+            treffer = [g for g in grenzen if satzkern(g[2]).startswith(satzkern(anfang))]
+            if len(treffer) != 1:
+                raise SystemExit(f"dehnen: Satz „{anfang}“ in Szene {s['id']} nicht eindeutig gefunden")
+            ziele.append((treffer[0], float(faktor)))
+    zeiten = [dict(z) for z in zeiten]
+    protokoll = []
+    for (i0, i1, text), faktor in sorted(ziele, key=lambda x: -x[0][0]):     # von hinten
+        a = max(0.0, zeiten[i0]["start"] - 0.02)
+        b = min(len(audio) / RATE, zeiten[i1]["ende"] + 0.02)
+        x0, x1 = int(a * RATE), int(b * RATE)
+        puffer = io.BytesIO()
+        with wave.open(puffer, "wb") as w:
+            w.setnchannels(1)
+            w.setsampwidth(2)
+            w.setframerate(RATE)
+            w.writeframes((np.clip(audio[x0:x1], -1, 1) * 32767).astype("<i2").tobytes())
+        r = ffmpeg("-i", "pipe:0", "-af", f"rubberband=tempo={1 / faktor:.5f}:formant=preserved:pitchq=quality",
+                   "-f", "f32le", "-acodec", "pcm_f32le", "-ac", "1", "-ar", str(RATE), "pipe:1",
+                   eingabe=puffer.getvalue())
+        neu = np.frombuffer(r.stdout, dtype=np.float32).copy()
+        echt = len(neu) / (x1 - x0)
+        audio = np.concatenate([audio[:x0], blende(neu, 0.005), audio[x1:]]).astype(np.float32)
+        delta = len(neu) / RATE - (b - a)
+        for j, z in enumerate(zeiten):
+            for feld in ("start", "ende", "atem_start"):
+                if feld not in z:
+                    continue
+                t = z[feld]
+                if j < i0 and feld != "atem_start":
+                    continue
+                if a <= t <= b:
+                    z[feld] = round(a + (t - a) * echt, 3)
+                elif t > b:
+                    z[feld] = round(t + delta, 3)
+        protokoll.append({"satz": text, "faktor": faktor, "gemessen": round(echt, 3), "plus_s": round(delta, 3)})
+        print(f"  gedehnt ×{echt:.3f}: {text}")
     return audio, zeiten, protokoll[::-1]
+
+
+def satzkern(text: str) -> str:
+    """Satz ohne Aussprache-Seite und Satzzeichen, zum Vergleichen ("Das Beste, was …" = "Das Beste was …")."""
+    return " ".join(re.sub(r"[^\w\s]", "", re.sub(r"\|\S+", "", text)).split())
+
+
+def silben(wort: str) -> int:
+    """Silben eines deutschen Worts, grob: Gruppen von Vokalen (Diphthonge zählen einmal)."""
+    return max(1, len(re.findall(r"[aeiouäöüy]+", wort.casefold())))
+
+
+def klicks(a: np.ndarray, rate: int, umgebung_db: float = -45.0, abstand_db: float = 15.0,
+           min_spitze_db: float = -55.0) -> list[dict]:
+    """Knackser: eine 1-ms-Spitze, mehr als abstand_db über ihrer leisen Umgebung (je 25 ms davor und
+    danach unter umgebung_db), und schon 2 ms daneben wieder leise. Ein Plosiv (t, k) ist länger und
+    hat Sprache neben sich; ihn zählt das Tor nicht."""
+    f = rate // 1000
+    n = len(a) // f
+    blk = a[: n * f].reshape(n, f).astype(np.float64)
+    spitze = 20 * np.log10(np.abs(blk).max(1) + 1e-9)
+    rms1 = 10 * np.log10((blk ** 2).mean(1) + 1e-12)
+    c = np.concatenate([[0], np.cumsum((blk ** 2).sum(1))])
+    k, aus = 25, []
+    for i in range(k, n - k):
+        if spitze[i] < min_spitze_db:
+            continue
+        vor = 10 * np.log10((c[i - 2] - c[i - k]) / ((k - 2) * f) + 1e-12)
+        nach = 10 * np.log10((c[i + k + 1] - c[i + 3]) / ((k - 2) * f) + 1e-12)
+        u = max(vor, nach)
+        if u >= umgebung_db or spitze[i] < u + abstand_db + 3:
+            continue
+        if np.r_[rms1[i - 5:i - 1], rms1[i + 2:i + 6]].max() > u + 10:
+            continue
+        t = i * f / rate          # Blöcke sind f = rate // 1000 Samples lang (44 bei 44,1 kHz, nicht genau 1 ms)
+        if aus and t - aus[-1]["t"] < 0.02:
+            continue
+        aus.append({"t": round(t, 4), "spitze_db": round(float(spitze[i]), 1), "umgebung_db": round(float(u), 1)})
+    return aus
+
+
+def pruefe_ton(timing: dict, wav: Path) -> dict:
+    """Tore der Ton-Kritik (Fassung final) auf der FERTIGEN Spur (voice.wav, gemastert):
+      1. Satz-Lautheit: lautester minus leisester Satz <= SATZ_SPANNE_LU (ebur128 je Satz).
+      2. Knackser: 0 (klicks()).
+      3. Tempo: Kernsätze (script.KERNSAETZE) <= KERN_SILBEN_S und nicht schneller als der Median
+         aller Sätze; WARNSAETZE nur als Warnung.
+      4. Betonung (nur Warnung): Das betonte Wort ("betont" in script.py) hat seinen Gipfel >= +3
+         Halbtöne oder >= +2 dB über dem Median seines Satzes. Cartesia kennt kein Betonungs-Markup;
+         das Tor zeigt, wo der Satzbau die Betonung nicht trägt.
+    """
+    with wave.open(str(wav)) as w:
+        rate = w.getframerate()
+        a = np.frombuffer(w.readframes(w.getnframes()), dtype="<i2").astype(np.float32) / 32768
+    saetze = []
+    for sc in timing["scenes"]:
+        for satz in sc["sentences"]:
+            w0, w1 = satz["words"][0], satz["words"][-1]
+            dauer = w1["end"] - w0["start"]
+            sil = sum(silben(w.get("spoken") or w["text"]) for w in satz["words"])
+            saetze.append({"szene": sc["id"], "satz": satz["text"], "start": w0["start"], "ende": w1["end"],
+                           "lufs": lufs(nur_sprache(a, satz["words"], rate)),
+                           "silben_s": round(sil / dauer, 2)})
+    werte = [s["lufs"] for s in saetze if s["lufs"] is not None]
+    spanne = round(max(werte) - min(werte), 1)
+    median_tempo = float(np.median([s["silben_s"] for s in saetze]))
+    kern, warn = [], []
+    for s in saetze:
+        if any(satzkern(s["satz"]).startswith(satzkern(k)) for k in KERNSAETZE):
+            kern.append({**s, "ok": bool(s["silben_s"] <= KERN_SILBEN_S and s["silben_s"] <= median_tempo)})
+        if any(satzkern(s["satz"]).startswith(satzkern(k)) for k in WARNSAETZE):
+            warn.append({**s, "ok": bool(s["silben_s"] <= median_tempo)})
+    # Betonung
+    betonung = []
+    betont = {sc["id"]: sc.get("betont", []) for sc in SCENES}
+    for sc in timing["scenes"]:
+        alle = [w for satz in sc["sentences"] for w in satz["words"]]
+        szene = next(x for x in SCENES if x["id"] == sc["id"])
+        for wort in betont.get(sc["id"], []):
+            idx = finde_wort(szene, wort)
+            w = alle[idx]
+            satz = next(st for st in sc["sentences"] if w in st["words"])
+            f_satz = [f for _, f in f0_kontur(a, rate, satz["start"], satz["end"])]
+            f_wort = [f for _, f in f0_kontur(a, rate, w["start"], w["end"])]
+            r = lambda t0, t1: 20 * np.log10(np.sqrt(np.mean(a[int(t0 * rate):int(t1 * rate)] ** 2)) + 1e-9)
+            ht = float(round(12 * np.log2(max(f_wort) / np.median(f_satz)), 1)) if f_wort and f_satz else None
+            db = round(float(r(w["start"], w["end"]) - r(satz["start"], satz["end"])), 1)
+            betonung.append({"szene": sc["id"], "wort": w["text"], "halbtoene": ht, "db": db,
+                             "ok": bool((ht is not None and ht >= 3) or db >= 2)})
+    ergebnis = {
+        "lautheit": {"spanne_lu": float(spanne), "grenze_lu": SATZ_SPANNE_LU, "ok": bool(spanne <= SATZ_SPANNE_LU),
+                     "leisester": min(saetze, key=lambda s: s["lufs"] or 0)["satz"],
+                     "lautester": max(saetze, key=lambda s: s["lufs"] or -99)["satz"]},
+        "klicks": klicks(a, rate),
+        "tempo": {"median_silben_s": round(median_tempo, 2), "grenze_kern": KERN_SILBEN_S,
+                  "kernsaetze": kern, "warnsaetze": warn, "ok": all(k["ok"] for k in kern)},
+        "betonung": {"woerter": betonung, "getragen": sum(b["ok"] for b in betonung), "von": len(betonung),
+                     "hinweis": "nur Warnung: Cartesia kennt keine Betonung, der Satzbau muss sie tragen"},
+        "saetze": [{k: v for k, v in s.items() if k in ("satz", "lufs", "silben_s")} for s in saetze],
+    }
+    ergebnis["ok"] = bool(ergebnis["lautheit"]["ok"] and not ergebnis["klicks"] and ergebnis["tempo"]["ok"])
+    print(f"Tor Satz-Lautheit: Spanne {spanne} LU ({'ok' if spanne <= SATZ_SPANNE_LU else 'ZU GROSS'}; "
+          f"leisester: {ergebnis['lautheit']['leisester']})")
+    print(f"Tor Knackser: {len(ergebnis['klicks'])} " + " ".join(f"{k['t']} s" for k in ergebnis["klicks"]))
+    for k in kern + warn:
+        art = "Kernsatz" if k in kern else "Warnsatz"
+        print(f"Tor Tempo {art}: {k['silben_s']} Silben/s (Median {median_tempo:.2f}) {'ok' if k['ok'] else 'ZU SCHNELL'}: {k['satz']}")
+    print(f"Betonung (Warnung): {ergebnis['betonung']['getragen']} von {len(betonung)} betonten Wörtern tragen den Gipfel; "
+          "nicht: " + ", ".join(b["wort"] for b in betonung if not b["ok"]))
+    return ergebnis
 
 
 def sha256(pfad: Path) -> str:
@@ -679,6 +1201,19 @@ def mastere(roh: Path, ziel_wav: Path, ziel_m4a: Path) -> dict:
             f":offset={mess['target_offset']}:linear=true")
     ffmpeg("-y", "-i", str(roh), "-af", f"{kette},{norm}", "-ar", str(RATE), "-ac", "1",
            "-c:a", "pcm_s16le", str(ziel_wav))
+    # Fassung final: Der 80-Hz-Hochpass nimmt dem leisen Atem seinen tiefen Anteil; ein kleiner Knacks
+    # darin steht danach frei (vorher 14 dB, danach 23 dB über der Umgebung). Darum ein letzter
+    # Durchgang auf der gemasterten Spur. Er ändert die Länge nicht und die Lautheit nicht messbar.
+    with wave.open(str(ziel_wav)) as w:
+        roh_pcm = np.frombuffer(w.readframes(w.getnframes()), dtype="<i2").astype(np.float32) / 32768
+    sauber, zahl = entklicke(roh_pcm)
+    if zahl:
+        with wave.open(str(ziel_wav), "wb") as w:
+            w.setnchannels(1)
+            w.setsampwidth(2)
+            w.setframerate(RATE)
+            w.writeframes((np.clip(sauber, -1, 1) * 32767).astype("<i2").tobytes())
+    mastere.entklickt = zahl
     mess = miss(ziel_m4a) if waehle_bitrate(ziel_wav, ziel_m4a) else None
     return mess
 
@@ -840,16 +1375,20 @@ def pruefe_einsaetze(timing: dict, audio_pfad: Path) -> dict:
         a = np.frombuffer(w.readframes(w.getnframes()), dtype="<i2").astype(np.float32) / 32768
     schritt = max(1, rate // 1000)
     woerter = [w for s in timing["scenes"] for satz in s["sentences"] for w in satz["words"]]
+    # Fassung final (Ton-Kritik): Schwelle relativ zum Sprachpegel (Median minus STIMME_UNTER_DB), nicht
+    # fest bei -45 dBFS. Ein Einatmen (bis -30 dBFS) zählte sonst als Wortanfang.
+    schwelle = sprach_median(a) - STIMME_UNTER_DB
     abw = {}
     for i, wd in enumerate(woerter):
         if i == 0 or wd["start"] - woerter[i - 1]["end"] < 0.25:
             continue
         k = int((wd["start"] - 0.12) * rate)
-        while k < len(a) - schritt and 20 * np.log10(np.sqrt(np.mean(a[k:k + schritt] ** 2)) + 1e-9) < STILLE_DB:
+        while k < len(a) - schritt and 20 * np.log10(np.sqrt(np.mean(a[k:k + schritt] ** 2)) + 1e-9) < schwelle:
             k += schritt
         abw[f"{wd['text']}@{wd['start']}"] = round((k / rate - wd["start"]) * 1000)
     werte = [abs(v) for v in abw.values()]
-    return {"verfahren": "Energie-Anfang nach Pausen (>= 0,25 s), Schwelle -45 dBFS",
+    return {"verfahren": f"Stimmeinsatz nach Pausen (>= 0,25 s), Schwelle Sprachmedian - {STIMME_UNTER_DB:.0f} dB "
+                         f"({schwelle:.1f} dBFS)",
             "n": len(werte), "max_ms": max(werte) if werte else None,
             "median_ms": int(np.median(werte)) if werte else None, "woerter": abw}
 
@@ -997,6 +1536,99 @@ def pruefe_saetze(timing: dict, wav: Path) -> dict:
 
 
 # ------------------------------------------------------------------------------------------
+# Fassung v3: Blöcke einer Stimm-Datei über einen Fabrik-Adapter vertonen (Cartesia)
+# ------------------------------------------------------------------------------------------
+
+def vertone_bloecke(stimm_pfad: Path, nummern: list[int] | None = None, neu_grund: str | None = None) -> None:
+    """Vertont jeden Block der Stimm-Datei, der noch keine Aufnahme hat, mit GENAU einem Aufruf.
+
+    Kostenregel (jeder Aufruf kostet Zeichen):
+      - Liegt die Aufnahme schon da, wird nichts gesendet.
+      - Eine Wache um basis.TRANSPORT lässt je Block nur EINEN POST durch. sende() würde bei 429/5xx
+        oder einem abgerissenen Download sonst selbst wiederholen.
+      - Eine zweite Aufnahme desselben Blocks gibt es nur mit --neu-grund (die erste ist nachweislich
+        fehlerhaft, z. B. ein Tor in pruefe_saetze ist rot); die alte Datei bleibt unter "verworfen"
+        vermerkt. Mehr als zwei Aufrufe je Block verweigert die Funktion.
+    Der Schlüssel kommt aus der Umgebung (CARTESIA_API_KEY) oder in der Cloud vom Agent-Proxy. Er
+    steht nie in einer Datei; gespeichert werden nur Aufnahme, Wortzeiten und gesendeter Text.
+    """
+    import datetime
+    import hashlib
+    from zoneinfo import ZoneInfo
+
+    from werk import stimme as fabrik_stimme
+    from werk.stimme import basis
+
+    heute = str(datetime.datetime.now(ZoneInfo("Europe/Berlin")).date())   # Datum wie in factory/config.json
+    konfig = json.loads(stimm_pfad.read_text())
+    s = {**fabrik_stimme.lade_stimme(konfig["anbieter"]), "stimm_id": konfig["voice_id"],
+         "modell": konfig["modell"], "tempo": konfig.get("tempo")}
+    ordner = CACHE / konfig["anbieter"]
+    ordner.mkdir(parents=True, exist_ok=True)
+    echt, posts = basis.TRANSPORT, {"n": 0}
+
+    def wache(anfrage):
+        if anfrage.methode == "POST":
+            posts["n"] += 1
+            if posts["n"] > 1:
+                raise RuntimeError("Wache: zweiter POST für denselben Block verweigert (kostet Zeichen)")
+        return echt(anfrage)
+
+    basis.TRANSPORT = wache
+    try:
+        for eintrag in konfig["bloecke"]:
+            nr = eintrag["nr"]
+            if nummern and nr not in nummern:
+                continue
+            # Der Text in der Stimm-Datei muss zum Skript passen, sonst stimmen Wortzeiten und Cues nicht.
+            soll = anzeige_text(bloecke()[nr - 1])
+            if eintrag["text"] != soll:
+                raise SystemExit(f"Block {nr}: Text in {stimm_pfad.name} passt nicht zum Skript:\n{soll}")
+            vorhanden = eintrag.get("datei") and (PROJEKT / eintrag["datei"]).is_file()
+            if vorhanden and not neu_grund:
+                print(f"Block {nr}: Aufnahme liegt schon da ({eintrag['datei']}), nichts gesendet")
+                continue
+            if eintrag.get("aufrufe", 0) >= 2:
+                raise SystemExit(f"Block {nr}: schon {eintrag['aufrufe']} Aufrufe, kein weiterer")
+            if vorhanden:
+                alt = json.loads((PROJEKT / eintrag["wortzeiten"]).read_text()) if eintrag.get("wortzeiten") else {}
+                eintrag.setdefault("verworfen", []).append(
+                    {"datei": eintrag["datei"], "wortzeiten": eintrag.get("wortzeiten"),
+                     "zeichen": eintrag.get("zeichen", 0), "tempo": alt.get("tempo"), "grund": neu_grund})
+            posts["n"] = 0
+            eintrag["aufrufe"] = eintrag.get("aufrufe", 0) + 1
+            # Tempo je Block (z. B. langsamer für eine Definition), sonst das der Stimm-Datei
+            s_block = {**s, "tempo": eintrag.get("tempo", s["tempo"])}
+            try:
+                erg = fabrik_stimme.synthese(eintrag["text"], s_block)
+            # Bewusst JEDER Fehler: Der Aufruf ist schon gezählt ("aufrufe") und muss in der Datei landen,
+            # sonst könnte ein späterer Lauf denselben Block noch einmal bezahlen. Kein zweiter Versuch.
+            except Exception as fehler:  # noqa: BLE001
+                grund = basis.schwaerze(str(fehler))[:300]
+                eintrag.setdefault("fehlgeschlagen", []).append({"datum": heute, "grund": grund})
+                print(f"Block {nr}: FEHLER {grund} (POSTs {posts['n']})")
+                stimm_pfad.write_text(json.dumps(konfig, ensure_ascii=False, indent=1) + "\n")
+                continue
+            kennung = hashlib.sha256(erg.audio).hexdigest()[:12]
+            datei = ordner / f"b{nr}-{kennung}.{erg.format}"
+            meta = ordner / f"b{nr}-{kennung}.json"
+            datei.write_bytes(erg.audio)
+            meta.write_text(json.dumps({"anbieter": konfig["anbieter"], "stimm_id": s["stimm_id"],
+                                        "modell": s["modell"], "tempo": s_block["tempo"], "abtastrate": erg.abtastrate,
+                                        "zeichen": erg.zeichen, "gesendet": erg.gesendet,
+                                        "wortzeiten": erg.wortzeiten}, ensure_ascii=False, indent=1))
+            eintrag.update({"datei": str(datei.relative_to(PROJEKT)), "wortzeiten": str(meta.relative_to(PROJEKT)),
+                            "zeichen": erg.zeichen, "gesendet": erg.gesendet, "datum": heute})
+            konfig["zeichen_gesamt"] = sum(e.get("zeichen", 0) for e in konfig["bloecke"]) + sum(
+                v.get("zeichen", 0) for e in konfig["bloecke"] for v in e.get("verworfen", []))
+            stimm_pfad.write_text(json.dumps(konfig, ensure_ascii=False, indent=1) + "\n")
+            print(f"Block {nr}: ok, {len(erg.wortzeiten or [])} Wortzeiten, {erg.zeichen} Zeichen, "
+                  f"POSTs {posts['n']} -> {datei.relative_to(PROJEKT)}")
+    finally:
+        basis.TRANSPORT = echt
+
+
+# ------------------------------------------------------------------------------------------
 # Piper-Takes: mehrere Aufnahmen eines Rückfall-Blocks, die beste kommt in den Zwischenspeicher
 # ------------------------------------------------------------------------------------------
 
@@ -1071,7 +1703,18 @@ def main() -> None:
     ap.add_argument("--nur-cues", action="store_true", help="nur die Cues aus script.py neu zuordnen")
     ap.add_argument("--piper-takes", help="Blöcke (z. B. 2,5,6): Piper mehrfach sprechen lassen, beste Aufnahme merken")
     ap.add_argument("--anzahl", type=int, default=4, help="Zahl der Takes je Block (mit --piper-takes)")
+    ap.add_argument("--vertonen", help="Stimm-Datei (z. B. build/stimme-sebastian.json): fehlende Blöcke "
+                                       "über den Fabrik-Adapter vertonen, je Block genau ein Aufruf")
+    ap.add_argument("--bloecke", help="mit --vertonen: nur diese Blöcke (z. B. 2,5)")
+    ap.add_argument("--neu-grund", help="mit --vertonen und --bloecke: vorhandene Aufnahme ersetzen, "
+                                        "nur wenn sie nachweislich fehlerhaft ist (Grund wird vermerkt)")
     args = ap.parse_args()
+    if args.vertonen:
+        nummern = [int(x) for x in args.bloecke.split(",")] if args.bloecke else None
+        if args.neu_grund and not nummern:
+            raise SystemExit("--neu-grund nur zusammen mit --bloecke (welcher Block ist fehlerhaft?)")
+        vertone_bloecke(Path(args.vertonen), nummern, args.neu_grund)
+        return
     if args.piper_takes:
         CACHE.mkdir(exist_ok=True)
         piper_takes([int(x) for x in args.piper_takes.split(",")], args.anzahl)
@@ -1089,6 +1732,7 @@ def main() -> None:
         timing["pruefung_einsaetze"] = pruefe_einsaetze(timing, wav)
         timing["pruefung"] = pruefe_cues(timing, wav, timing["pruefung_einsaetze"])
         timing["pruefung_saetze"] = pruefe_saetze(timing, wav)
+        timing["pruefung_ton"] = pruefe_ton(timing, wav)
         timing_pfad.write_text(json.dumps(timing, ensure_ascii=False, indent=1))
         zeige_pruefung(timing["pruefung"], timing["pruefung_einsaetze"])
         return
@@ -1104,10 +1748,17 @@ def main() -> None:
         return
 
     adapter, stimme = lade_anbieter(args.anbieter, args.stimme)
-    teile_audio = [np.zeros(int(LEAD_IN * RATE), np.float32)]
+    teile_audio = []      # Vorlauf kommt nach der ersten Aufnahme (Raumton braucht ihre Quelle)
+    if args.anbieter == "datei":
+        # Raumton vorab aus ALLEN Aufnahmen (der leiseste Abschnitt gewinnt), nicht erst aus Block 1
+        for e in stimme["bloecke"]:
+            if e.get("datei") and (PROJEKT / e["datei"]).is_file():
+                merke_raumton(dekodiere((PROJEKT / e["datei"]).read_bytes()))
+        print(f"Raumton: {RAUM.get('db')} dBFS (leisester Abschnitt aller Aufnahmen)")
     t = LEAD_IN
     szenen_zeiten = []
     luft_liste = []
+    dehn_liste, satz_liste, klick_liste = [], [], []
     bl = bloecke()
     for k, block in enumerate(bl):
         vorher = bl[k - 1]["text"] if k > 0 else None
@@ -1115,14 +1766,29 @@ def main() -> None:
         extra = {"nr": k} if args.anbieter == "datei" else {}
         ergebnis = adapter.synthese(block["text"], stimme, vorher=vorher, nachher=nachher, **extra)
         audio = dekodiere(ergebnis.audio)
+        audio, klickzahl = entklicke(audio)
+        klick_liste.append(klickzahl)
         wortzeiten = ergebnis.wortzeiten
         if wortzeiten is None:
             raise SystemExit("Anbieter liefert keine Wortzeiten: hier Whisper-Alignment ergänzen")
+        merke_raumton(audio)
+        if not teile_audio:
+            teile_audio.append(stille(LEAD_IN))
         audio, wortzeiten = kappe(audio, wortzeiten)
         audio = angleichen(audio)
         skript = [p for s in block["szenen"] for satz in s["sentences"] for p in tokens(satz)]
         zeiten = fuelle_luecken(ordne_zu(skript, wortzeiten))
+        audio, zeiten, gedehnt = dehne_saetze(audio, zeiten, block)
+        dehn_liste += gedehnt
         audio, zeiten, luft = luft_einfuegen(audio, zeiten, block)
+        audio, atemzahl = atem_daempfen(audio, zeiten)
+        audio, satz_lautheit = saetze_angleichen(audio, zeiten, block)
+        satz_liste += satz_lautheit
+        # zweiter Durchgang: Knackser, die erst durch Schnitt oder Verstärkung frei stehen
+        audio, nachher = entklicke(audio)
+        klick_liste[-1] += nachher
+        print(f"  Atem gedämpft ({ATEM_DB:.0f} dB): {atemzahl}; Sätze angeglichen: "
+              + ", ".join(f"{e['korrektur_db']:+.1f}" for e in satz_lautheit if e["korrektur_db"]))
         for e in luft:
             start = round(e.pop("rel_start") + t, 3)
             luft_liste.append({**e, "start": start, "end": round(start + max(e["soll_s"], e["vorher_s"]), 3)})
@@ -1139,7 +1805,7 @@ def main() -> None:
         # Pointe, hold_s am Ende).
         pause = pause_nach(block["szenen"][-1])
         if pause:
-            teile_audio.append(np.zeros(int(round(pause * RATE)), np.float32))
+            teile_audio.append(stille(pause))
             t += pause
         print(f"Block {k + 1}: {len(skript)} Wörter, {len(audio) / RATE:.2f} s Sprache, {ergebnis.zeichen} Zeichen")
     # hold_s steht an der letzten Szene; liegt sie nicht am Blockende, fehlt hier nichts,
@@ -1160,6 +1826,11 @@ def main() -> None:
 
     timing = baue_timing(szenen_zeiten, dauer, args.anbieter, stimme)
     timing["luft"] = luft_liste
+    timing["gedehnt"] = dehn_liste
+    timing["satz_lautheit_vorher"] = satz_liste
+    timing["raumton_db"] = RAUM.get("db")
+    timing["entklickt_je_block"] = klick_liste
+    timing["entklickt_nach_mastering"] = getattr(mastere, "entklickt", 0)
     timing["mastering"] = mess
     # Fingerabdruck der Tonspur: bauen.mjs bricht ab, wenn timing.json zu einer anderen m4a gehört.
     timing["audio"] = {"datei": "assets/voice.m4a", "sha256": sha256(ASSETS / "voice.m4a"), "kanaele": 2,
@@ -1167,12 +1838,12 @@ def main() -> None:
     if args.anbieter == "piper":
         timing["wortzeiten_quelle"] = "piper-alignment" if adapter.exakt else "geschaetzt-nach-lauten"
     elif args.anbieter == "datei":
-        # Je Block steht fest, wer spricht. Bei Jonas-Blöcken ist "spoken" die Anzeige-Seite
-        # (ElevenLabs liest "Barcelona" und "45" richtig, die Piper-Schreibung gilt dort nicht).
-        jonas_name = f"{stimme['name'].split(' - ')[0]} ({stimme['voice_id']}, {stimme['modell']})"
+        # Je Block steht fest, wer spricht. Bei Blöcken der Stimm-Datei ist "spoken" die Anzeige-Seite
+        # (ElevenLabs und Cartesia lesen "Barcelona" und "45" richtig, die Piper-Schreibung gilt dort nicht).
+        stimm_name = f"{stimme['name'].split(' - ')[0]} ({stimme['voice_id']}, {stimme['modell']})"
         piper_name = "Piper thorsten-high (Platzhalter)"
         timing["quellen_je_block"] = [{"block": k + 1, "szenen": [s["id"] for s in b["szenen"]],
-                                       "quelle": q, "stimme": piper_name if q == "piper" else jonas_name}
+                                       "quelle": q, "stimme": piper_name if q == "piper" else stimm_name}
                                       for k, (b, q) in enumerate(zip(bl, adapter.quellen))]
         # "stimme" je Block statt eines Namens für alles (Kritik 28.10.: drei von sechs Blöcken
         # sprach Piper, timing.json nannte nur Jonas).
@@ -1184,14 +1855,19 @@ def main() -> None:
         timing["bewertbar"] = {"ok": len(stimmen) == 1, "stimmen": stimmen,
                                "grund": "eine Stimme" if len(stimmen) == 1 else
                                "Stimmen gemischt: Video nicht zur Bewertung freigeben"}
-        jonas = {sid for e in timing["quellen_je_block"] if e["quelle"] != "piper" for sid in e["szenen"]}
+        eigen = {sid for e in timing["quellen_je_block"] if e["quelle"] != "piper" for sid in e["szenen"]}
         for sc in timing["scenes"]:
-            if sc["id"] in jonas:
+            if sc["id"] in eigen:
                 for satz in sc["sentences"]:
                     for w in satz["words"]:
                         w["spoken"] = w["text"]
-        timing["wortzeiten_quelle"] = ("DTW gegen Piper-Vorlage + Energie-Anfänge nach Pausen (Jonas-Blöcke); "
-                                       "piper-alignment (Rückfall-Blöcke)")
+        mit_zeiten = [b for b in stimme["bloecke"] if b.get("datei") and b.get("wortzeiten")]
+        if len(mit_zeiten) == len(bl):
+            timing["wortzeiten_quelle"] = (f"Wort-Zeitstempel des Anbieters ({adapter.anbieter}) + "
+                                           "Energie-Anfänge nach Pausen")
+        else:
+            timing["wortzeiten_quelle"] = ("DTW gegen Piper-Vorlage + Energie-Anfänge nach Pausen (Blöcke der "
+                                           "Stimm-Datei); piper-alignment (Rückfall-Blöcke)")
     else:
         timing["wortzeiten_quelle"] = args.anbieter
     woerter = sum(len(s["words"]) for sc in timing["scenes"] for s in sc["sentences"])
@@ -1201,7 +1877,10 @@ def main() -> None:
     timing["pruefung_einsaetze"] = pruefe_einsaetze(timing, ASSETS / "voice.wav")
     timing["pruefung"] = pruefe_cues(timing, ASSETS / "voice.wav", timing["pruefung_einsaetze"])
     timing["pruefung_saetze"] = pruefe_saetze(timing, ASSETS / "voice.wav")
+    timing["pruefung_ton"] = pruefe_ton(timing, ASSETS / "voice.wav")
     timing_pfad.write_text(json.dumps(timing, ensure_ascii=False, indent=1))
+    if not timing["pruefung_ton"]["ok"]:
+        print("ACHTUNG: Ton-Tor rot (Satz-Lautheit, Knackser oder Tempo der Kernsätze), siehe oben")
     if timing.get("bewertbar") and not timing["bewertbar"]["ok"]:
         print("ACHTUNG: " + timing["bewertbar"]["grund"] + " (" + "; ".join(timing["stimme"]) + ")")
 

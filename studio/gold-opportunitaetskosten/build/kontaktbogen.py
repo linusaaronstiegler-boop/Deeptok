@@ -36,15 +36,30 @@ NORMAL = str(INTER / "Inter-Regular.otf") if INTER.exists() else "DejaVu-Sans"
 
 
 
+ANBIETER = {"cartesia": "Cartesia", "elevenlabs": "ElevenLabs", "inworld": "Inworld", "piper": "Piper"}
+
+
 def stimme_text() -> str:
-    """Wer spricht: v2 mischt Jonas (ElevenLabs) und Piper je Block (Kontingent erschöpft)."""
+    """Wer spricht, gelesen aus timing.json ("quellen_je_block"): Name der Stimme und ihre Blöcke.
+
+    v2 mischte Jonas (ElevenLabs) und Piper je Block (Kontingent erschöpft). Seit Fassung v3
+    (03.11.2026) spricht Cartesia „Sebastian“ alle sechs Blöcke. Darum wird nach dem Namen der
+    Stimme gruppiert und nicht mehr fest „Jonas“ hineingeschrieben: Sonst stünde im Kopf des
+    Kontaktbogens eine Stimme, die gar nicht spricht.
+    """
     quellen = TIMING.get("quellen_je_block")
     if not quellen:
         return TIMING.get("anbieter", "?") + (" (Platzhalter)" if TIMING.get("platzhalter") else "")
-    jonas = [str(q["block"]) for q in quellen if q["quelle"] != "piper"]
-    piper = [str(q["block"]) for q in quellen if q["quelle"] == "piper"]
-    text = f"Jonas (ElevenLabs) in Block {', '.join(jonas)}"
-    text += f", Piper in Block {', '.join(piper)}" if piper else ""
+    gruppen: dict[str, list[str]] = {}
+    for q in quellen:
+        name = (q.get("stimme") or q["quelle"]).split(" (")[0]   # "Sebastian (id, modell)" -> "Sebastian"
+        anbieter = ANBIETER.get(q["quelle"], q["quelle"])
+        schluessel = anbieter if name == q["quelle"] else f"{name} ({anbieter})"
+        gruppen.setdefault(schluessel, []).append(str(q["block"]))
+    if len(gruppen) == 1:
+        text = f"{next(iter(gruppen))}, alle {len(quellen)} Blöcke"
+    else:
+        text = ", ".join(f"{k} in Block {', '.join(v)}" for k, v in gruppen.items())
     # Fassung v2.1: Tor aus voice.py. Eine Mischung zweier Stimmen ist nicht zur Bewertung freigegeben.
     if not TIMING.get("bewertbar", {}).get("ok", True):
         text += " · NICHT BEWERTBAR (Stimmen gemischt)"

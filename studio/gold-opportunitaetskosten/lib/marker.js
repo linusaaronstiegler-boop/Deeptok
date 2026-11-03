@@ -88,6 +88,57 @@
   }
 
   /*
+   * Rahmen um ein hohes oder breites Ziel (DESIGN.md §6, wie rahmen() in studio/looks/werkzeug/probe_basis.py):
+   * Superellipse |x/a|^4 + |y/b|^4 = 1 mit flachen Seiten und runden Ecken. Eine Ellipse hält die Luft an
+   * den Ecken des Ziels nicht (Goldstandard, Bild-Kritik: sie lief über die Kante des Geists).
+   *   hw, hh : halbe Breite und Höhe des Ziels (mit dessen Strich)
+   *   luft   : Abstand vom Ziel bis zum INNEREN Rand des Markerstrichs (Standard 24 px)
+   * Die Halbachsen a, b werden so gewählt, dass jeder Punkt der Kurve (minus halbe Strichbreite und
+   * minus das Wachsen) mindestens `luft` von der Zielecke entfernt ist; geprüft wird an 400 Punkten.
+   * Der Stift fährt 1,1-mal herum, der Rahmen wächst dabei um 6 px (nicht 12 %), leicht gekippt.
+   */
+  function rahmenPunkte(cx, cy, hw, hh, luft, breite, seed) {
+    var n = 4;
+    var halbStrich = (breite || 10) / 2;
+    var a = hw + luft + halbStrich;
+    var b = hh + luft + halbStrich;
+    // Abstand der Ecke (hw, hh) zur Kurve: so lange vergrößern, bis die Luft überall hält
+    var abstand = function (a, b) {
+      var best = 1e9;
+      for (var i = 0; i <= 400; i++) {
+        var w = (i / 400) * (Math.PI / 2);
+        var x = a * Math.pow(Math.cos(w), 2 / n);
+        var y = b * Math.pow(Math.sin(w), 2 / n);
+        var dx = Math.max(0, x - hw), dy = Math.max(0, y - hh);
+        // Punkte innerhalb des Zielrechtecks gäbe es nicht; außen zählt der Abstand zum Rechteck
+        var d = x <= hw ? y - hh : y <= hh ? x - hw : Math.sqrt(dx * dx + dy * dy);
+        if (d < best) best = d;
+      }
+      return best;
+    };
+    var schritte = 0;
+    while (abstand(a - 3, b - 3) - halbStrich < luft && schritte++ < 200) {
+      a += 1;
+      b += 1;
+    }
+    var kipp = -0.03 + hash(3, seed) * 0.02;
+    var start = -2.2;
+    var umlauf = 1.1;
+    var k = 34;
+    var pts = [];
+    for (var j = 0; j <= k; j++) {
+      var f = j / k;
+      var w = start + f * umlauf * Math.PI * 2;
+      var wachs = -3 + f * 6 + hash(j * 7 + 11, seed) * 1.2; // 6 px über den Umlauf, kleines Zittern
+      var c = Math.cos(w), s = Math.sin(w);
+      var x = (a + wachs) * Math.sign(c) * Math.pow(Math.abs(c), 2 / n);
+      var y = (b + wachs) * Math.sign(s) * Math.pow(Math.abs(s), 2 / n);
+      pts.push([cx + x * Math.cos(kipp) - y * Math.sin(kipp), cy + x * Math.sin(kipp) + y * Math.cos(kipp)]);
+    }
+    return pts;
+  }
+
+  /*
    * Unterstreichung von x0 bis x1 auf Höhe y.
    * Leicht ansteigend, mit kleinem Bogen und einem Auslauf am Ende,
    * so wie ein schneller Strich mit dem Marker.
@@ -111,13 +162,16 @@
    * Durchstrich von x0 bis x1 auf Höhe y (DESIGN.md §6: ein Strich, -4°, 12 px Überstand).
    * Leicht durchgebogen, damit er nicht wie eine CSS-Linie aussieht.
    */
-  function strichPunkte(x0, y, x1, seed) {
+  function strichPunkte(x0, y, x1, seed, rechts) {
+    // Fassung final (Bild-Kritik): Rechts höchstens die Hälfte des Wortzwischenraums (rechts), sonst
+    // berührte das Strichende das nächste Wort („s“ von „sein“), das richtig bleibt.
+    var ueberRechts = rechts === undefined ? 12 : Math.min(12, rechts);
     var n = 7;
     var pts = [];
     var neigung = Math.tan((-4 * Math.PI) / 180);
     for (var i = 0; i <= n; i++) {
       var f = i / n;
-      var x = x0 - 12 + (x1 - x0 + 24) * f;
+      var x = x0 - 12 + (x1 - x0 + 12 + ueberRechts) * f;
       var yy = y + neigung * (x - x0) - Math.sin(f * Math.PI) * 3 + hash(i * 3 + 5, seed) * 1.2;
       pts.push([x, yy]);
     }
@@ -186,8 +240,10 @@
     var pts =
       art === "kreis"
         ? kreisPunkte(p.cx, p.cy, p.rx, p.ry, seed, stil)
+        : art === "rahmen"
+          ? rahmenPunkte(p.cx, p.cy, p.hw, p.hh, p.luft === undefined ? 24 : p.luft, stil.breite, seed)
         : art === "strich"
-          ? strichPunkte(p.x0, p.y, p.x1, seed)
+          ? strichPunkte(p.x0, p.y, p.x1, seed, p.rechts)
           : art === "klammer"
             ? klammerPunkte(p.x, p.y0, p.y1, p.yEtikett, seed)
             : linienPunkte(p.x0, p.y, p.x1, seed, stil);
@@ -213,7 +269,7 @@
       path.style.stroke = stil.farbe || "#F5F0E8";
       path.style.strokeOpacity = String(s.deckkraft);
       g.appendChild(path);
-      var standard = { kreis: 0.5, strich: 0.3, klammer: 0.5 }[art] || 0.35;
+      var standard = { kreis: 0.5, rahmen: 0.5, strich: 0.3, klammer: 0.5 }[art] || 0.35;
       zeichne(tl, path, stil.beginn, stil.dauer || standard, laenge, stil);
     });
     return g;
@@ -222,6 +278,7 @@
   window.DeepTokMarker = {
     hash: hash,
     kreisPunkte: kreisPunkte,
+    rahmenPunkte: rahmenPunkte,
     linienPunkte: linienPunkte,
     strichPunkte: strichPunkte,
     klammerPunkte: klammerPunkte,

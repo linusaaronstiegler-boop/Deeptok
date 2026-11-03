@@ -14,6 +14,10 @@
 //      nicht). Mindestens 48 px, Credits 34 px (DESIGN.md §3). Ausgenommen sind Bilder während
 //      einer Drehung der Waage (dort stauchen Schild und Schalen absichtlich mit cos).
 //
+//   6. ZAHL OHNE QUELLZEILE (Fassung final, Bild-Kritik P1: „45 Mio. €“ stand 7 s ohne Quelle): Jedes
+//      Element mit einer Zahl oder Behauptung aus fakten.json trägt data-fakt="<id> …". Solange es zu sehen
+//      ist (Deckkraft > 5 %, im Bild), muss eine Credit-Zeile mit derselben id sichtbar sein (>= 50 %).
+//      Die Credit-Zeilen tragen ihre ids ebenfalls in data-fakt. 0 Proben erlaubt.
 //   5. FOTO OHNE CREDIT (Fassung v2.1, Kritik 28.10.: das Foto stand zweimal kurz ohne seine Zeile):
 //      In jedem Bild, in dem das Foto, der Abzug oder der aus ihm gezeichnete Umriss zu sehen ist,
 //      muss die Credit-Zeile des Fotografen sichtbar sein. Dazu schreibt das Skript in credits.json,
@@ -179,7 +183,13 @@ async function messe(t) {
       });
       const credit = Array.from(document.querySelectorAll(".credit")).some(
         (el) => el.textContent.replace(/\u00a0/g, " ").trim() === FOTO_ZEILE && deck(el) >= 0.5);
-      return { held, flaeche, raus, kollision, fahrt, klein, foto, credit };
+      // Zahl ohne Quellzeile: sichtbare Fakt-Elemente gegen sichtbare Credit-Zeilen mit derselben id
+      const quellen = new Set(Array.from(document.querySelectorAll(".credit[data-fakt]"))
+        .filter((el) => deck(el) >= 0.5).flatMap((el) => el.getAttribute("data-fakt").split(/\s+/)));
+      const ohneQuelle = Array.from(document.querySelectorAll("[data-fakt]:not(.credit)"))
+        .filter((el) => deck(el) > 0.05 && imBild(el.getBoundingClientRect()))
+        .flatMap((el) => el.getAttribute("data-fakt").split(/\s+/).filter((f) => !quellen.has(f)).map((f) => `#${el.id} (${f})`));
+      return { held, flaeche, raus, kollision, fahrt, klein, foto, credit, ohneQuelle };
     },
     HELDEN,
     DINGE,
@@ -219,6 +229,7 @@ for (let t = 0; t < dauer; t += schritt) {
   for (const k of m.kollision) merke("HUD über Gegenstand", k, tt);
   if (m.foto.length) fotoZeiten.push(tt);
   if (m.foto.length && !m.credit) merke("Foto ohne Credit-Zeile", m.foto.join("+"), tt);
+  for (const z of m.ohneQuelle) merke("Zahl ohne Quellzeile", z, tt);
   if (!m.fahrt) for (const k of m.klein) merke("Schrift zu klein", k.replace(/ [\d.]+ px < \d+$/, ""), tt);
 }
 // "Schrift zu klein" in genau EINER Probe ist das Federn eines Stempels (Maßstab 1,6 -> 1 mit
@@ -263,3 +274,9 @@ console.log("kein Bild bei (T = zu viel Text, - = kein Held):", luecken.join(" "
 console.log(befunde.length ? "Befunde:\n  " + befunde.join("\n  ") : "Befunde: keine (Lesefenster, Kollisionen, Schriftgröße)");
 if (hinweise.length) console.log("Hinweise (Federn beim Stempeln, eine Probe):\n  " + hinweise.join("\n  "));
 await browser.close();
+// Fassung final: Die beiden Quellen-Tore (Foto ohne Credit, Zahl ohne Quellzeile) brechen ab (Exit 1).
+const quellenFehler = befunde.filter((b) => /^(Foto ohne Credit-Zeile|Zahl ohne Quellzeile)/.test(b));
+if (quellenFehler.length) {
+  console.log("TOR ROT (Quellen):\n  " + quellenFehler.join("\n  "));
+  process.exitCode = 1;
+}

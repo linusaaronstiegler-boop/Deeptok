@@ -1,10 +1,300 @@
 # Review: Goldstandard „Was kostet es, Lewandowski zu behalten?“ (Runde 2, 27./28.10.2026 nachts)
 
+## Abnahme final (03.11.2026, unabhängig)
+
+**Urteil: freigabereif.** Kein P0 und kein P1 offen. Alle sieben P1 der drei Kritiken sind behoben, einer davon mit einem Rest, der jetzt P2 ist („beste“ nur im Ton, siehe unten). Ich würde das Video Linus als Vorbild zeigen. Die P2 unten sind eine Polierliste für den nächsten Durchgang und für die Tore der Fabrik, kein Grund, die Freigabe zurückzuhalten.
+
+Ich habe dem Bericht nichts geglaubt, sondern selbst gemessen. Für `check` diente eine Kopie des Projekts, damit nichts im Projekt geschrieben wird. Geändert habe ich nur diesen Abschnitt.
+
+### Gemessen
+
+| Prüfung | Ergebnis | Wie gemessen |
+|---|---|---|
+| Render aktuell | **ja.** `renders/gold.mp4` (18:44) ist neuer als `compositions/`, `lib/`, `build/*.mjs/js`, `voice.m4a` und `timing.json`. Danach geändert sind nur Dinge ohne Wirkung auf das Bild: in `index.html` der Stimm-Kommentar (alle Zeiten gleich), in `credits.json` das Feld `sichtbar`, dazu Doku-Dateien. Der Schnitt auf „Waage“ liegt im MP4 genau bei Bild 1612 = 53,733 s, wie in `index.html` | Datei-Zeiten, `git diff`, Einzelbilder 1611/1612 |
+| MP4 | 77,03 s, 2311 Bilder, 1080 × 1920, 30 fps, H.264 + AAC 48 kHz Stereo, 13,6 MB | ffprobe |
+| Eine Stimme | **ja.** `timing.json`: 6 von 6 Blöcken Sebastian (gleiche voice_id, gleiches Modell), `bewertbar.ok: true`. Die sechs gewählten Aufnahmen aus `build/cache/cartesia/` liegen an der erwarteten Stelle im MP4 (Kreuzkorrelation r = 0,86–0,90). Die verworfenen alten Aufnahmen liegen nicht darin (r ≤ 0,23). Klang an 8 Stellen aus allen Blöcken: F0-Median 123–151 Hz. Dasselbe Wort an verschiedenen Stellen (Lewandowski, Barcelona, Bayern, kostet, Opportunitätskosten, Geld; auch gedehnte Sätze): MFCC-Abstand im Median 14,8. Gegen eine andere Stimme mit demselben Text (Jonas, Block 1 und 3) liegt er bei 39,0, kleinster Wert 26,7 | eigene Skripte (numpy) |
+| `hyperframes check` | **0 Fehler**, 0 Kontrastwarnungen. 12 Warnungen: 6× `composition_file_too_large`, 1× `timeline_track_too_dense`, 5× `line_unread` für Credit-Zeilen über eine Szenengrenze. Diese Zeilen laufen über die Naht ohne Lücke (Bilder 679–681, 781–783, 1018–1020, 1123–1125 geprüft) | Kopie des Projekts |
+| `check --caption-zone` | bestanden | wie oben |
+| Hör-Check G4 auf dem MP4 | **`ok: true`**, WER **0,0 %**, **−16,1 LUFS**, **−3,9 dBTP**, 2,18 Wörter/s. Stillen: Denkpause 2,46 s ab 6,64 s, Halten 2,86 s ab 74,18 s | `fabrik.py hoercheck`. ffmpeg ebur128 bestätigt LUFS und True Peak |
+| Jeder Satz einzeln | **26 von 26 Sätzen fehlerfrei**, 0 Abweichungen in 156 Wörtern. Kein Wort unter p 0,6 | Ausschnitt aus dem MP4, Whisper small, ohne Vorkontext |
+| Pflichtwörter einzeln | alle richtig: Saison 2×, Ablöse, Opportunitätskosten 3×, Lohn, keiner. Ebenso Barcelona 2×, Lewandowski 2×, ablösefrei, Ökonomen, Nachhilfe, Kinokarte, Gratis | wie oben |
+| Luft vor der Leitfrage | 0,45 s (vorher 0,18 s) | `timing.json`, Hüllkurve |
+| Kernsätze | Definition 4,42, Merksatz 3,34, Schlusssatz 4,32 Silben/s | `timing.json`, eigene Silbenzählung |
+| Digitale Null ≥ 10 ms | 0. Pausen −64 bis −65 dBFS | Hüllkurve des MP4 |
+| Fakten | Alle Zahlen und Fakten im Bild stimmen mit `fakten.json` überein, jeweils mit Quellzeile und Datum im Bild. Geprüft: 30.06.2023, 1 Saison, verlängern, ablösefrei / 0 € (Bosman 15.12.1995), 45 Mio. € + 5 Mio. € variabel (FC Barcelona 19.07.2022), Wechsel 19.07.2022, Definition (Gabler 19.02.2018), Barças Interesse (14.05.2022). „45 Mio. €“ und seine Quellzeile gehen zusammen ab (44,8–45,0 s) | Einzelbilder, `credits.json`, `data-fakt` |
+| Bilder angesehen | **etwa 120 Einzelbilder** aus dem MP4: 66 über das ganze Video, dazu Reihen an Hook-Morph, Naht 9 s, Vertrag-Abtritt, Geisterflug, Route, Cue-Wörter, Begriff, Transfer und Schluss | ffmpeg, Kontaktblätter |
+| 45-Mio.-Bild | Stapel 502 px hoch (≥ 465), Zahl 98 px hoch und 515 px breit. Der Stapel ist der Held | Goldpixel in Bild 26,0 s |
+| Repo | keine Datei über 1 MB außerhalb von `.gitignore`, keine Modellnamen, keine persönlichen Daten | `git status`, grep |
+
+### Befunde (alle P2)
+
+1. **Gold-Rahmen schneidet „Kosten“ (38,2–45,0 s).** Der Rahmen um den Geist läuft durch das Etikett „Kosten“ auf der Schalenfront, sichtbar im Begriff und in der ganzen Definition. Das Wort bleibt lesbar. DESIGN §6 verlangt aber „Ruhe im Umfeld“, und es ist der einzige Kreis des Videos. Vorschlag: Etikett „Kosten“ für diese Zeit abdunkeln, oder den Rahmen nur um den Teil des Geists über der Schale legen, oder statt des Kreises eine Klammer setzen. Dazu ein Tor in `messen-bild.mjs`: Marker-Strich über fremdem Text.
+2. **„beste“ steht nur im Ton.** Der Merksatz sagt „Das Beste, was du aufgibst“. Im Bild steht 61,4–67,6 s „Kosten = bezahlt + aufgegeben“, und auf „aufgibst“ wird „aufgegeben“ unterstrichen. Vorschlag ohne neue Aufnahme: Auf „Beste“ (69,26 s) wird das Etikett „aufgegeben“ zu „beste Alternative“, als Morph wie bei 42,49 s. Das Wort wird dann gesprochen, die Leitregel hält.
+3. **Mundgeräusche, die das Klick-Tor nicht sieht.** Bei 15,93 s, vor „Doch“, liegt ein Schmatzer: Spitze −19,7 dBFS, etwa 35 dB über der Umgebung, rund 20 ms lang. Bei 60,60 s, am Anfang des Einatmens vor „Also“, liegt ein Knack: −35 dBFS nach Raumton −70 dBFS. Beide stecken schon in den Cartesia-Aufnahmen (b2 6,935 s, b5 11,735 s). `klicks()` zählt nur 1-ms-Spitzen, die 2 ms daneben wieder leise sind. Vorschlag: Mundgeräusche bis 30 ms in Pausen dämpfen (wie den Atem) und das Tor um diese Fälle erweitern.
+4. **Satz-Lautheit nach der Methode der Kritik: 3,5 LU.** Gemessen mit ebur128 je Satz auf dem MP4: Eröffnung −13,5, Leitfrage −16,8, „Behalten: keinen Cent“ −17,0 LUFS. Das Tor misst nur über die Wörter und kommt auf 2,9 LU. Die Leitfrage hat mit −15,1 LUFS das leiseste Momentan-Maximum aller Sätze. Vorher lag der Abstand bei 5,1 LU, das ist besser, aber nicht ganz am Ziel. Vorschlag: Die Eröffnung um etwa 1,5 dB senken, beide Messarten im Tor führen.
+5. **Tempo-Ausreißer außerhalb der Kernsätze** (im Bericht offen): „Du bekommst für heute Abend eine Kinokarte geschenkt“ kommt mit 6,4 Silben/s. Das ist der schnellste Satz des Videos, und er eröffnet den Transfer. „Jede Entscheidung …“ kommt mit 5,9 Silben/s.
+6. **Jahr 2022 nicht im Ton** (im Bericht offen, Entscheidung Linus).
+7. **Geisterflug (30,3–30,5 s):** Waage und Gehalt-Blatt gleiten durch die abgedunkelte Kopfzeile „Nur sein Gehalt“. `check` meldet dort `canvas_overflow` als Info (29,96 s). Das passiert nur während der Fahrt und dauert 0,2 s.
+
+Geprüft und in Ordnung: Die Route quert die Credit-Zeilen noch bis 31,25 s. Die Kamera fährt aber bis etwa 31,15 s, und die Zeilen tragen den Zusatzschatten, das ist nach DESIGN §3/§7 zulässig. Die gedehnten Sätze sind etwas weniger periodisch (Median 0,69 gegen 0,72), liegen aber im Bereich der ungedehnten Sätze (ab 0,66). Ohne Anhören sehe ich darin keinen Befund.
+
+### Hinweise (keine Befunde am Video)
+
+- **Aufrufe je Block:** Block 6 hat jetzt drei Cartesia-Aufrufe (zwei für den alten Text, einen für den neuen). Die Ton-Kritik hatte für einen weiteren Aufruf „Linus' Ja“ verlangt. Die Überarbeitung zählt neuen Text als neuen Block. Das soll die Hauptsitzung bestätigen oder Linus melden. Es geht um 70 Zeichen.
+- Weiter offen aus dem Bericht: Sebastian in `voices/rotation.json` aufnehmen, zwei rote Fabrik-Tests, iPhone/Safari ungeprüft. Kopfhörer sind nur indirekt geprüft (Hüllkurve).
+
+## Fassung final (Runde 1, 03.11.2026): drei Kritiken eingearbeitet
+
+Linus wollte das fertige Demo-Video als Vorbild für alle weiteren. Drei Kritiken (Bild, Didaktik, Ton) fanden kein P0, aber 7 P1 und 32 P2 (einige doppelt, z. B. Schlussbild und Quellzeilen am Vertrag). Ich habe jeden Befund am Render von v3 nachgeprüft (Bilder aus `renders/gold.mp4`, Ton aus `assets/voice.wav` ausgeschnitten und gemessen). Danach habe ich alle P1 behoben, dazu die P2, die klein und eindeutig waren. Gebaut, geprüft und gerendert ist alles. Nichts ist committet oder gepusht.
+
+**Kurzurteil:**
+- **Ton:** Eine Stimme (Cartesia „Sebastian“) spricht alle sechs Blöcke. Drei Blöcke (2, 5, 6) haben neuen Text und dafür je genau eine neue Aufnahme. Der Hör-Check auf dem MP4 ergibt WER 0,0 %. Alle neuen Ton-Tore sind grün.
+- **Bild:** Im 45-Mio.-Bild ist der Stapel jetzt der Held (504 px). Jede Zahl steht mit ihrer Quelle im Bild; ein neues Tor bricht sonst ab. Abdunkeln ist deckend, und die Marker halten ihren Abstand.
+- **Didaktik:** Der Irrtum steht im Konjunktiv. Die Waage kippt, wenn der Geist Gewicht bekommt. Der Begriff fällt auch im Transfer, und der Merksatz bindet „beste“.
+- **Prüfungen:**
+  - `check` 0 Fehler und 0 Kontrastwarnungen.
+  - G4 `ok: true`.
+  - Seek-Test 34 von 34.
+  - `flackern.py` 0 Ausreißer an Nähten.
+  - Tor „Zahl ohne Quellzeile“ 0 Proben, „Foto ohne Credit“ 0 Proben.
+
+### 1. Stimme
+
+- **Wer spricht:** Cartesia „Sebastian“ (`sonic-3.6-2026-08-27`), eine Stimme für alle sechs Blöcke. Linus' Vorgabe war „nimm irgendeine Stimme, die gut passt“, und Sebastian war im blinden Casting-Vorlauf ohne Wortfehler.
+- **Neue Aufnahmen**, je Block genau ein Aufruf, 759 Zeichen. Jede war nötig, weil ein Ton-Befund eine Textänderung verlangte:
+  - **Block 2** (368 Zeichen):
+    - Den Kontrast trägt jetzt der Satzbau: „Verkaufen bringt 45 Millionen Ablöse. Behalten: keinen Cent.“ Cartesia kennt kein Markup für Betonung.
+    - „Er schießt dafür Tore.“ und „Er geht danach ablösefrei …“ ersetzen die Bindungen „schießt_er“ und „geht_er“, die wie „der“ klangen.
+    - „Naheliegend wäre die Antwort …“ steht im Konjunktiv (Didaktik).
+  - **Block 5** (321 Zeichen):
+    - „Du bekommst für heute Abend eine Kinokarte geschenkt.“ ersetzt die Bindung „bekommst_eine“, die wie „deine“ klang.
+    - Neu ist „Also kostet dich das Kino diesen Lohn: deine Opportunitätskosten.“ (Didaktik P1).
+  - **Block 6** (70 Zeichen): Der neue Merksatz lautet „Das Beste, was du aufgibst, kostet auch. Es steht auf keiner Rechnung.“ (Didaktik P1 und Ton P1).
+- **Unverändert:** Blöcke 1, 3 und 4. Alte Aufnahmen und ihre Aufrufe stehen unter `frueherer_text` in `build/stimme-sebastian.json`.
+- **Hörprobe der neuen Aufnahmen** mit Whisper, je Block einzeln: 0 Wortfehler, kein „der“ und kein „deine“ mehr. „Nur sein Gehalt?“ steigt (F0 105,5 → 257,7 Hz). „Behalten“ liegt jetzt +12,2 Halbtöne über dem Satzmedian (vorher −1,9), „Verkaufen“ +11,3.
+
+### 2. Messwerte Fassung final
+
+| Wert | final | v3 | Ziel |
+|---|---|---|---|
+| Dauer | **77,0 s** (2311 Bilder) | 72,0 s | ≤ 90 s |
+| `hyperframes check` | **0 Fehler**, 0 Kontrastwarnungen. 12 Warnungen: 6× `composition_file_too_large`, `timeline_track_too_dense`, 5× `line_unread` für Credit-Zeilen, die über eine Szenengrenze weiterlaufen (Ablöse, ablösefrei, Vertrag, Foto) | 0 / 5 (darunter Kontrast „bezahlt“ 2,6 : 1) | 0 Fehler |
+| `check --caption-zone` | **bestanden** | bestanden | – |
+| Hör-Check auf dem MP4 (G4) | **`ok: true`**, WER **0,0 %**, −16,1 LUFS, −3,9 dBTP, 2,18 Wörter/s, 2 deklarierte Stillen (ab 6,64 s 2,46 s; ab 74,18 s 2,86 s), 48 kHz | WER 0,65 % („schießt der“) | G4 |
+| Pflichtwörter, Satz einzeln | **8 von 8** | 7 von 7 | alle |
+| Satz-Lautheit (neues Tor) | Spanne **2,9 LU**, leisester Satz ist die Leitfrage mit −16,5 LUFS | 5,1 LU, die Leitfrage −18,9 | ≤ 3 LU |
+| Luft vor der Leitfrage | **0,45 s** | 0,18 s | hörbar abgesetzt |
+| Knackser (neues Tor) | **0**. Dafür 15 Spitzen in den Cartesia-Aufnahmen und eine nach dem Mastering entfernt | 3 an Schnittstellen (Kritik), 7 nach eigenem Tor | 0 |
+| Pausen | Raumton −69,1 dBFS statt digitaler Null, 10-ms-Blenden, 17 Atemzüge um 9 dB gedämpft | 15 von 29 Pausen digital null | – |
+| Tempo der Kernsätze (neues Tor) | Definition **4,42**, „Das Beste, was du aufgibst, kostet auch“ **3,34**, „Es steht auf keiner Rechnung“ **4,32** Silben/s; Median 4,86 | 5,1 / 3,7 / 5,3 | ≤ 4,5 und ≤ Median |
+| Betonung (Warnung) | 11 von 25 betonten Wörtern tragen den Gipfel, darunter Verkaufen, Behalten, 45, kostet, Beste | „Behalten“ und „keinen Cent“ flach | – |
+| Wortanfang nach Pausen | Median 2 ms, max 117 ms (ein Schmatzer vor „Das“) | Schwelle fest bei −45 dBFS, Atem zählte als Wort | – |
+| `voice.m4a` | 100k → 99,8 kbit/s, 975 KB, −16,0 LUFS | 101,9 kbit/s, 930 KB | ≥ 96 kbit/s, < 1 MB |
+| Cue-Tor im Bau | 35 Texte, max **117 ms** | 32 Texte, max 80 ms | ≤ 150 ms |
+| Bildanteil (`messen-bild.mjs`, 771 Proben) | **52,7 %**, 0 s ohne Held | 57,5 % | ≥ 50 % |
+| Foto ohne Credit / Zahl ohne Quellzeile (neues Tor) | **0 / 0 Proben** | 0 / nicht gemessen (die Kritik zählte 7 s) | 0 |
+| `flackern.py` (2311 Bilder) | **0 Ausreißer an 13 Nähten**, 31 Hinweise (Stempel, Fall des Spielers, Tüte, Fach) | 0 an 13, 19 | 0 |
+| Seek-Test | **34 von 34** | 34 / 34 | alle |
+| Render (`--quality looks --workers 3`) | 2 min 39 s, 13,6 MB, 1080 × 1920, 30 fps, H.264, AAC | 2 min 56 s, 13,6 MB | – |
+
+`messen-bild.mjs` meldet noch fünf kurze Befunde während einer Bewegung, je ein oder zwei Proben. Keiner davon ist ein stehendes Bild:
+- Der verschwimmende Abzugsrahmen und die fliegende Figur streifen den Titel (2,7 und 2,9 s).
+- Das fallende Vertragsblatt liegt kurz über dem Lesefenster (16,4–16,5 s).
+- Der Kasten des Geist-SVG berührt die abgedunkelte Behauptung (29,7 s). Gezeichnet ist der Geist 22 px rechts davon; der SVG-Kasten ist breiter als der Stapel.
+
+### 3. Behoben
+
+**Bild**
+1. **P1, 45-Mio.-Bild (23,8–28,9 s):** Der Stapel ist 1,75-fach groß (504 px hoch statt 287, DESIGN §2). Er steht 200 px rechts vom Punkt. „45 Mio. €“ ist jetzt ein D2-Etikett mittig unter dem Stapel, kleiner als der Gegenstand. Im Flug schrumpft der Geist auf Schalengröße.
+2. **P1, Zahl ohne Quelle (36,5–43,4 s):** Die Zeile „Ablöse: FC Barcelona, 19.07.2022“ steht im Begriff, bis „45 Mio. €“ weg ist.
+   - „0 € Ablöse“ bekommt „ablösefrei: EuGH, Bosman-Urteil, 15.12.1995“, „1 Saison“ bekommt „1 Saison: t-online/dpa, 14.05.2022“.
+   - **Neues Tor in `messen-bild.mjs`:** Jedes Fakt-Element und jede Credit-Zeile trägt `data-fakt`. Ist ein Fakt zu sehen, ohne dass eine Quellzeile mit derselben ID zu mindestens 50 % sichtbar ist, endet der Lauf mit Exit 1. Quellzeilen kommen 0,12 s vor ihrem Fakt.
+3. **P2, Vertragsblatt ohne Quelle (21,9–23,2 s) und 2-Bilder-Sprung:** Die Quellzeilen des Blatts laufen in der Szene „angebot“ weiter, bis das Blatt weg ist. Die Fahrt beginnt auf „bietet“, nicht 0,2 s danach. Das Blatt tritt über 0,25 s ab (7 Bilder statt 2).
+4. **P2, Geisterflug (29,0–30,6 s):** Die Route geht in 0,2 s, wenn die Kamera ankommt. Das echte Geld tritt ab, wenn die Kamera Barcelona verlässt, statt durch die Credits zu fahren. Die Behauptung ist abgedunkelt, bevor die Fahrt beginnt.
+5. **P2, Hook-Morph (1,1–2,8 s):**
+   - „Lewandowski“ wandert unverkleinert vom Abzug an den Darsteller, ohne Aus und Ein.
+   - Der Rahmen des Abzugs geht wie der alte Teil eines Morphs (Unschärfe 10 px, Maßstab 1,15, 0,18 s).
+   - Der Morph beginnt auf „Bayern“, nicht 0,4 s davor. Die Luft nach „Lewandowski“ ist 0,7 s lang. „München“ kommt, wenn der Rahmen weg ist (110 ms nach „Bayern“).
+6. **P2, Vorschaubild:** Deutschland leuchtet erst auf „Bayern“, Bild 0 zeigt keinen blauen Fleck mehr.
+7. **P2, Ball und Etiketten:** „München“ steht 40 px tiefer und weiter links, der Ball liest sich nicht mehr als Ortspunkt. „Lewandowski“ steht 30 px neben Arm und Brust statt 150 px neben dem Knie.
+8. **P2, Naht Hook → naheliegend:** Barcelona tritt mit den Schildern ab, statt aufzuhellen. Es kommt mit der Kamera in Barcelona wieder und geht, bevor sie weiterfährt.
+9. **P2, Kollisionen mit dem Gestänge:**
+   - Der Spieler tritt mit den Schildern ab und fällt auf „schießt“ auf die Nutzen-Schale (Eintritt „Fallen“). Er steht nicht mehr 4 s vor der Säule und springt nicht mehr über das Schild.
+   - Auf der Schale ist er 0,85-fach groß, der Kopf bleibt unter dem Ring. Sein Umriss nach der Drehung ebenso.
+   - „Tore“ steht über dem Ring statt im Kettendreieck.
+   - Das Gehalt-Blatt fällt aus 30 statt 420 px Höhe und deckt das Schild nicht mehr.
+   - Geist und Blatt stehen 26 bzw. 12 px weiter auseinander.
+10. **P2, Abdunkeln durchsichtig:** Papier und Geld treten über `brightness()` zurück, nicht über Deckkraft, und es scheint keine Kette mehr durch. Die Kinokarte tritt am Schluss ganz ab. Text tritt auf 50 % zurück (≥ 3 : 1).
+11. **P2, Kontrast:** „verlängern“ bleibt Navy und wird auf „nicht“ in Stempel-Navy durchgestrichen. Den Stempel „bezahlt“ dunkelt `brightness(0.6)` ab. `check` meldet 0 Kontrastwarnungen.
+12. **P2, Marker ohne Abstand:**
+    - Um den Geist liegt ein Rahmen (Superellipse, neu in `lib/marker.js`). `rahmenPunkte` vergrößert ihn, bis 24 px Luft ab dem Strichrand halten.
+    - Der rote Durchstrich steht rechts nur 6 px über (halber Wortabstand) und berührt „sein“ nicht mehr.
+13. **P2, Rechnung über dem Schild „Kino“:** Das Schild sitzt 10 px höher, die Rechnung ist 12 px niedriger.
+14. **P2, „Nutzen“ angeschnitten (57,8–61,2 s), und P2, zu viele Bewegungen (57,4 und 60,9 s):** Die Nachfahrt an die Alternative mit Rückfahrt ist entfernt. Mit der neuen Wortfolge lag sie auf Eintritten und dem Ausschwingen. Vor der Schluss-Nachfahrt tritt die Nutzen-Seite ganz ab.
+15. **P2, Schlussbild:** Der Navy-Strich liegt unter „0 €“ der Rechnung, nicht unter dem Wort „Rechnung“. Unter dem Gold-Fach steht „aufgegeben / Opportunitätskosten“.
+16. **P2, Credit „Lage“:** heißt jetzt „Barças Interesse: t-online/dpa, 14.05.2022“. Die Hook-Aussage „verkaufen oder behalten“ belegt derselbe Artikel (`dilemma`).
+17. **Höhe der Waage:** Sie steht 60 px höher (Fuß y = 1070). Seit sie zur Kosten-Seite kippt, lagen „entgangen“ und „beste Alternative“ sonst auf der obersten Credit-Zeile.
+
+**Didaktik**
+1. **P1, Begriff fehlt im Transfer:** Er steht jetzt im Ton („diesen Lohn: deine Opportunitätskosten“) und im Bild („Opportunitäts-kosten“ unter „aufgegeben“, auf dem Wort). Er bleibt bis ins Schlussbild.
+2. **P1, „beste“ wird nie geübt:** Der Merksatz bindet „beste“: „Das Beste, was du aufgibst, kostet auch.“ Wer ihn auf Geburtstag, Spiel oder Freibad anwendet, nimmt die beste Alternative und zählt nicht beide zusammen (Transferfrage 3). Was noch fehlt, steht unter 5.
+3. **P2, Irrtum klingt wie Auflösung:** Die Schlagzeile heißt „Nur sein Gehalt?“, der Ton „Naheliegend wäre …“.
+4. **P2, Geist-Landung:** Der Geist landet jetzt auf „Behalten“. Der Flug Barcelona → München läuft unter „Verkaufen bringt 45 Millionen Ablöse“.
+5. **P2, „0 €“ am Schild:** Statt „0 €“ am Schild steht „0 € Ablöse“ unter der Nutzen-Schale. Vorher las es sich wie Ablenker 3 „Nichts, er ist ja da“.
+6. **P2, Waage:** Auf „fehlt“ bekommt der Geist Gewicht, und die Waage kippt zur Kosten-Seite. Sie steht nicht mehr 9 s waagerecht („Kosten = Nutzen“). Auf „nimmt“ kippt nichts mehr ohne Ursache.
+7. **P2, „Lohn“ zu früh:** Die Tüte kommt auf „Geld“ ohne Aufschrift, „Lohn“ rastet auf „Lohn“ ein.
+8. **P2, Bild läuft im Hook dem Wort voraus:** siehe Bild 5. Morph und „München“ kommen nicht mehr vor „Bayern“.
+9. **P2, kein Atem an den Wenden:** 0,45 s Luft vor der Leitfrage. Vor „Jede Entscheidung …“ stehen gemessen 0,63 s; die neue Aufnahme hat die Pause selbst, die deklarierte Luft (0,7 s) fehlte nur um 67 ms und wird unter 100 ms nicht eingesetzt.
+
+**Ton** (alle Änderungen in `build/voice.py`, im Kopf-Docstring beschrieben)
+1. **P1, Leitfrage leise und gehetzt, „Das stimmt nicht“ leise:** Jeder Satz wird bis auf 0,25 LU an die Blocklautheit gebracht (`saetze_angleichen`, 20-ms-Rampen in der Stille), gemessen nur über die Wörter. Die Leitfrage bekommt +4,1 dB und 0,45 s Luft davor. Die Spanne liegt bei 2,9 LU.
+2. **P1, Kernsätze schneller als der Rest:** Neues Feld `dehnen` in `script.py`: rubberband dehnt einen Satz, Tonhöhe und Formanten bleiben. Das betrifft die Definition (×1,16), den Schlusssatz (×1,14), „Jede Entscheidung …“ (×1,15) und „Also kostet dich …“ (×1,12). Dazu der neue Merksatz und das Tempo-Tor für `KERNSAETZE`.
+3. **P1, Kontrast unbetont:** Den Kontrast trägt jetzt der Satzbau (neue Aufnahme Block 2). Dazu prüft ein Betonungs-Tor als Warnung den Grundton (≥ +3 Halbtöne) oder den Pegel (≥ +2 dB) jedes Worts aus `betont`.
+4. **P2, Knackser und Löcher:**
+   - Raumton statt Null, aus dem leisesten Abschnitt aller Aufnahmen. Der erste Versuch nahm Block 1 allein, dessen leisester Abschnitt ein Atemzug war.
+   - 10-ms-Blenden an jeder Kante. Keine Luft unter 100 ms.
+   - `entklicke()` vor und nach dem Mastering; der 80-Hz-Hochpass legte einen Knacks erst frei.
+   - Tor: 0 Knackser.
+   - Dabei gefunden: Die Fenster der Knacks-Suche sind 44 Samples lang, nicht genau 1 ms; die Zeit wird jetzt aus den Samples gerechnet.
+5. **P2, Atem uneinheitlich:** Luft wird vor dem Einatmen eingesetzt, nicht dahinter (`atem_im_spalt`). 17 Atemzüge sind um 9 dB gedämpft, nicht entfernt.
+6. **P2, Bindungen „-t er“ und „-st eine“:** neue Wortfolge (Block 2 und 5). WER 0,0 %.
+7. **P2, Atem als Wortanfang:** Ein Wortanfang nach einer Pause ist der erste stimmhafte Rahmen mit Stimmpegel oder ein lauter Rahmen. Ein leiser, stimmloser Vorlauf ab 40 ms zählt nicht mehr. Die Gegenprobe `pruefe_einsaetze` misst relativ zum Sprachpegel (Median minus 20 dB) statt fest bei −45 dBFS.
+8. **P2, Kopfzeilen überlagern sich (38,1 s):** Die alte Kopfzeile ist weg (0,18 s), bevor der Begriff gesetzt wird.
+
+### 4. Verworfen (mit Grund)
+
+- **Zweite, schwächere Alternative nur im Bild (Didaktik, Vorschlag zu „beste“, z. B. Etikett „zocken“):** Ein Etikett ohne gesprochenes Wort bricht die Leitregel „Jedes Element erscheint zu dem Wort, das es nennt“. Gelöst über den Merksatz (siehe 3 und 5).
+- **Credits gegen Weltinhalte maskieren (Bild, Geisterflug):** Nicht nötig. Die Credit-Zeilen tragen den engen Zusatzschatten aus §3 schon (`.schatten`); die Ursache war die Route, die zu lange stand.
+- **Zahl „45 Mio. €“ rechts neben dem Stapel:** In D2 ist sie 516 px breit und passt dort nicht ins Lesefenster. Sie steht darunter, mittig, kleiner als der Stapel.
+- **Schluss mit Klammer um die Rechnung (Drehbuch Beat 12):** Über der Rechnung läuft die Kette, rechts davon stünde die Klammer neben einem Blatt, das schon „Rechnung“ heißt. Die Unterstreichung unter „0 €“ war der zweite Vorschlag beider Kritiken und sagt dasselbe: Die Rechnung sagt 0 €, der Lohn steht daneben.
+- **„Nur“ im Schlusssatz mit Pausen-Tag behalten (Ton):** Der Satz ist ohne „nur“ kürzer und liegt der Betonung nach auf „keiner“ besser. Ein Pausen-Tag im Text bräche die Regel „Text der Stimm-Datei = Skript“.
+
+### 5. Offen
+
+1. **„beste“ an einem Fall mit zwei Alternativen:** Das Video zeigt weiter je Fall nur eine Alternative. Der Merksatz führt jetzt zur richtigen Antwort auf Frage 3. Geübt wird „beste“ aber erst in der Frage selbst. Vorschlag: eine Folgekarte der Serie mit zwei Alternativen.
+2. **Jahr 2022 im Ton (Didaktik P2):** braucht eine neue Aufnahme von Block 4 („Im Juli 2022 nimmt Bayern das Geld.“, 35 Zeichen). Neue Aufnahmen gab es in dieser Runde nur für Ton-Befunde; das entscheidet Linus.
+3. **Warnsätze:** „Jede Entscheidung hat so eine Waage“ (5,9 Silben/s) und „Also kostet dich …“ (5,2) liegen auch gedehnt über dem Median (4,9). Mehr Dehnung klänge gezogen; besser wären kürzere Sätze bei der nächsten Vertonung.
+4. **Betonung:** 14 von 25 Wörtern aus `betont` tragen nicht den Gipfel (z. B. „keiner“ +2,1 Halbtöne). Das Tor warnt nur. Cartesia kennt kein Betonungs-Markup, helfen kann nur der Satzbau.
+5. **Gold-Rahmen um den Geist:** Er hält jetzt 24 px Luft, kreuzt dafür unten das Wort „Kosten“ auf der Schalenfront. Lesbar bleibt es; schöner wäre ein Platz für den Geist, der unten frei ist.
+6. **Weiter offen aus v3:** Sebastian in `voices/rotation.json` aufnehmen (Entscheidung Linus). Zwei Fabrik-Tests rot (`factory/tests/test_stimme_casting.py`, unverändert). iPhone/Safari und Kopfhörer ungeprüft.
+7. **Für DESIGN.md (nicht geändert):** Abdunkeln von Gegenständen über `brightness()` (≥ 0,6 bei Papier mit Text) und das Tor „Zahl ohne Quellzeile“ (`data-fakt`) gehören als Regel in §6 bzw. §2.
+
+### Wiederholen (Fassung final)
+
+```bash
+. /opt/deeptok/env.sh
+cd studio/gold-opportunitaetskosten
+# Vertonen nur bei neuem Text (kostet Zeichen, je Block genau ein Aufruf; Schlüssel nur im Befehl laden):
+#   ( set -a; . <tts.env>; set +a; python build/voice.py --vertonen build/stimme-sebastian.json --bloecke 2,5,6 )
+python build/script.py
+python build/voice.py --anbieter datei --stimme build/stimme-sebastian.json   # Ton-Tore: pruefung_ton in timing.json
+node build/bauen.mjs
+npx hyperframes check && npx hyperframes check --caption-zone "x0=0;y0=.693;x1=1;y1=1;severity=error"
+npx hyperframes render --quality looks --workers 3 -o renders/gold.mp4
+python build/flackern.py renders/gold.mp4
+npx hyperframes play . --port 3115 --no-open &
+node build/messen-bild.mjs 3115 0.1 && node build/seek-test.mjs 3115 renders/gold.mp4   # messen-bild: Exit 1 bei Quellen-Fehlern
+python ../../factory/fabrik.py hoercheck --audio renders/gold.mp4 --text build/cache/sprechtext.txt --erlaubte-stillen 2 --json
+python build/kontaktbogen.py
+```
+
+
 **Nachtrag 28.10.2026 (Blindbewertung der Looks):** Das Protokoll unten bleibt, wie es war, bis auf einen Hinweis bei der Kurstafel. Seit der Blindbewertung am selben Abend gibt es fünf Looks: Die Kurstafel ist verworfen (`studio/looks/verworfen/`), die Märkte-Karte läuft im Look Atlas Nacht (`voices/rotation.json`), und im Zeitungspapier gilt der Rotstift (`studio/looks/README.md`, „Bewertung 28.10.2026“).
 
 Phase 1 nach `docs/VIDEO-PIPELINE.md` §9. Gebaut nach `drehbuch.md`, `fakten.json`, `build/script.py` und `../DESIGN.md`, Bauweise A+ aus dem Bühnen-Spike. Diese Fassung arbeitet die drei Prüfungen der Runde 2 ein (Bild, Didaktik, Technik). Ein Teil davon lag schon im Commit 739829c der Parent-Sitzung (Zwischenstand vor dem Container-Neustart); der Rest liegt uncommittet darüber. Nichts committet, nichts gepusht.
 
-**Stand Runde 2:** Die Stimme war ein Platzhalter (Piper „thorsten-high“). **Stand Fassung v2 (unten):** Jonas aus dem Casting spricht drei der sechs Blöcke, Piper die anderen drei. **Stand Fassung v2.1 (gleich unten):** echter Foto-Moment im Hook, vollständige Credits mit Jahr und Link, Camp Nou entfernt; die Stimme ist weiter gemischt und darum nicht bewertbar. **Abnahme v2 (direkt darunter):** Der Look-Katalog ist reif für die Bewertung durch beide Brüder, das Gold-Video wegen der Stimme noch nicht.
+**Stand Runde 2:** Die Stimme war ein Platzhalter (Piper „thorsten-high“). **Stand Fassung v2 (unten):** Jonas aus dem Casting spricht drei der sechs Blöcke, Piper die anderen drei. **Stand Fassung v2.1 (gleich unten):** echter Foto-Moment im Hook, vollständige Credits mit Jahr und Link, Camp Nou entfernt; die Stimme ist weiter gemischt und darum nicht bewertbar. **Abnahme v2 (direkt darunter):** Der Look-Katalog ist reif für die Bewertung durch beide Brüder, das Gold-Video wegen der Stimme noch nicht. **Stand Fassung final (ganz oben, 03.11.2026):** drei Kritiken eingearbeitet, Blöcke 2, 5, 6 neu vertont (eine Stimme), alle Tore grün. **Stand Fassung v3 (darunter, 03.11.2026):** Eine Stimme (Cartesia „Sebastian“) spricht alle sechs Blöcke; die Tonspur ist bewertbar, Bau und alle Tore sind grün.
+
+## Fassung v3 (03.11.2026): eine Stimme, neu gebaut (überholt durch „Fassung final“)
+
+Linus' Entscheidung: „nimm irgendeine Stimme, die gut passt“, je Video nur eine Stimme. Jonas ließ sich nicht vervollständigen (ElevenLabs lehnte Block 2 wegen Kontingent ab, 26 Credits Rest). Darum spricht Cartesia „Sebastian“ (`sonic-3.6-2026-08-27`) **alle sechs Blöcke**. Er war im blinden Vorlauf der Casting-Runde 2 ohne Wortfehler. Vertonung, Aufrufe und Wahl je Block stehen in `build/stimme-sebastian.json`. Danach habe ich Bild und Ton neu gebaut, gerendert und geprüft. Nichts committet, nichts gepusht.
+
+**Kurzurteil:**
+- **Ton: bewertbar.** `timing.json` → `bewertbar.ok: true`, eine Stimme. „Nur sein Gehalt?“ steigt (F0 109 → 267 Hz), „Lohn“ und „Opportunitätskosten“ sind auch einzeln richtig.
+- **Bild: wie v2.1, auf die neuen Wortzeiten gesetzt.** Jedes Element erscheint auf seinem Wort (Cue-Tor max 80 ms). Pausen, Denkpause und Halten liegen wie im Skript. Die Nähte der HUD-Szenen liegen in Pausen, außer den zwei gewollten (siehe 3).
+- **Alle Tore grün:** `check` 0 Fehler, G4 auf dem MP4 `ok: true` (WER 0,65 %), Seek-Test 34 von 34, `flackern.py` 0 Ausreißer an Nähten, Foto ohne Credit 0 Proben.
+- **Für Linus und den Bruder:** Das Video ist jetzt als Ganzes zu bewerten, mit Ton. Cartesia hat keine Sperre für das Profil des Bruders (`build/stimme-sebastian.json`, `bruder_regel`).
+
+### 1. Was der Bau mit der neuen Spur brauchte
+
+| Datei | Befund | Änderung |
+|---|---|---|
+| `build/bauen.mjs` | Ein Zeit-Tor rot: „Darsteller steht in Farbe und Duoton fertig, bevor die Route läuft: −0,05 s“. Sebastian spricht „Bayern kann verkaufen“ in einem Zug (0,49 s von „Bayern“ bis „verkaufen“); Morph (0,55 s) und Entfärben (0,25 s) brauchen 0,8 s | Der Morph beginnt jetzt **spätestens 0,8 s plus ein Bild vor „verkaufen“**, sonst wie bisher 0,25 s vor „Bayern“ (`Math.min`). Statt eines festen Versatzes passt sich die Regel an jede Stimme an. Er beginnt bei 2,03 s, also im Atem nach „Lewandowski“ (Ende 1,93 s); das Tor „Abzug steht ≥ 2,0 s“ hält (2,03 s), der Darsteller ist 1 Bild vor der Route fertig |
+| `build/kontaktbogen.py` | `stimme_text()` schrieb fest „Jonas (ElevenLabs) in Block …“. Mit der neuen Spur hätte der Kopf des Kontaktbogens „Jonas“ für alle sechs Cartesia-Blöcke genannt | gruppiert jetzt nach dem Namen der Stimme aus `timing.json`: „Stimme: Sebastian (Cartesia), alle 6 Blöcke“. Gemischte Spuren zeigen weiter „NICHT BEWERTBAR“ |
+| `build/voice.py` | `timing.json` → `luft`: Start und Ende standen zu früh, sobald ein Block zwei Luft-Stellen hat (z. B. „nach Lohn“ 60,17 s statt 61,10 s: Waage 0,55 s + geschenkt 0,376 s fehlten). `luft_einfuegen()` arbeitet von hinten und las `rel_start` ab, bevor die früheren Einfügungen das Wort verschoben. Kein Werkzeug liest das Feld, das Video war nicht betroffen | `rel_start` wird erst nach allen Einfügungen gelesen. Mit einem synthetischen Block geprüft und die Spur aus dem Cache neu gebaut (`--anbieter datei`, **kein** neuer Aufruf): `voice.m4a` ist **bytegleich** (SHA-256 `2ff2ce16…`), in `timing.json` hat sich nur `luft` geändert, die HTML-Dateien sind gleich (md5) |
+| `credits.json` | `sichtbar` gehört zu den alten Zeiten | von `messen-bild.mjs` neu geschrieben: Foto zu sehen 0–23,5 s und 29,3–51,9 s |
+
+### 2. Messwerte Fassung v3
+
+| Wert | v3 | v2.1 | Ziel |
+|---|---|---|---|
+| Dauer | **72,0 s** (2160 Bilder) | 74,4 s | ≤ 90 s |
+| Stimme | **Sebastian (Cartesia), alle 6 Blöcke, bewertbar** | Jonas 1, 3, 4 + Piper 2, 5, 6, nicht bewertbar | eine Stimme |
+| `hyperframes check` | **0 Fehler**, 5 Warnungen: 2× `composition_file_too_large`, `timeline_track_too_dense`, `contrast_aa_failure` (Stempel „bezahlt“ 2,6 : 1), `line_unread` (Foto-Zeile in „angebot“, 1,77 s). Weg sind `rotation_pivot_drift` und `line_unread` für „Nur sein Gehalt + Barças Geld“ | 0 / 7 | 0 Fehler |
+| `check --caption-zone` (DESIGN.md §2) | **bestanden** (Exit 0); dazu die bekannten `container_overflow`/`escaped_container` an `#d-welt` (Nachfahrt, gewollt, siehe „Warnungen, die bleiben“) | bestanden | 0 Fehler |
+| Hör-Check auf dem MP4 (G4) | **`ok: true`**, WER **0,65 %**, −16,1 LUFS, −3,5 dBTP, 2,30 Wörter/s, 2 deklarierte Stillen (ab 6,16 s 2,47 s; ab 69,16 s 2,84 s), 48 kHz, 168 kbit/s | WER 3,92 % | G4 |
+| Abweichungen im Hör-Check | eine: „schießt **der** Tore“ (Bindung „schießt_er“; einzeln richtig) | 5, alle Piper | – |
+| Pflichtwörter, Satz einzeln | **7 von 7** (Saison 2×, Ablöse, Opportunitätskosten 2×, Lohn, keiner) | 6 von 6 | alle |
+| „Nur sein Gehalt?“ steigt | **ja**: F0 108,9 → 267,3 Hz, Whisper schreibt „?“ | nein | ja |
+| `voice.m4a` | 120k → 101,9 kbit/s, 930 475 B, −16,0 LUFS, Spitze −3,4 dBTP | 103,5 kbit/s, 976 KB | ≥ 96 kbit/s, < 1 MB |
+| Cue-Tor im Bau (32 Texte) | max **80 ms** | 83 ms | ≤ 150 ms |
+| Lesefenster (Bau, HUD) | alle Texte in x 108–972, y 168–1330 | ebenso | – |
+| Bildanteil (`messen-bild.mjs`, 720 Proben) | **57,5 %**, 0 s ohne Held | 58,2 % | ≥ 50 % |
+| Foto sichtbar ohne Credit-Zeile | **0 Proben** | 0 | 0 |
+| Einzelbild-Scan (`flackern.py`, 2160 Bilder) | **0 Ausreißer an 13 Nähten**, 19 Hinweise (Morph 2,43 s, Stempel, Tüte, Fach) | 0 an 13, 20 | 0 |
+| Seek-Test | **34 von 34** pfadunabhängig und bildgenau | 34 / 34 | alle |
+| Render (`--quality looks --workers 3`) | 2 min 56 s, 13,6 MB, 1080 × 1920, 30 fps, H.264, AAC 48 kHz Stereo | 146 s, 13,5 MB | – |
+
+### 3. Zeiten: Wort, Pause, Naht (selbst nachgeprüft)
+
+- **Element auf seinem Wort:** Alle 32 Texte des Cue-Tors liegen höchstens 80 ms neben ihrem Wort. 30 kommen 51–80 ms davor (Vorlauf 2 Bilder), „Tore“ und die Credit-Zeile „Wechsel … 19.07.2022“ 51 bzw. 59 ms danach (abgeleitet: Wort + 0,12 s). In 26 Bildern aus dem MP4 gegengeprüft: Name auf „Lewandowski“ (1,10 s), Morph auf „Bayern“ (2,45 s), Darsteller fertig vor „verkaufen“ (2,87 s), „1 Saison“, „ablösefrei“, Stapel auf „45“, Durchstrich auf „nicht“, Geist auf „Ablöse“, „0 €“ auf „Cent“, „Opportunitätskosten“, „beste Alternative“, Schild auf Kante bei „Verkaufen“ (46,62 s), Kinokarte, Nachhilfe, Lohntüte, Zucken auf „nicht“, Unterstreichung auf „Rechnung“.
+- **Wortanfänge selbst geprüft:** Whisper legt 8 Cues mehr als 150 ms neben `timing.json`. Mit einem Schnitt-Test (Whisper hört ab der Zeit in `timing.json`) habe ich jeden nachgeprüft:
+  - 6 sind Whisper-Fehler: „Barcelona“, „Opportunitätskosten“, „genauso“, „Ablöse“, „nichts“, „nur“. Ab der Zeit hört Whisper jeweils genau das Wort.
+  - Zwei Zeiten sind zu spät:
+    - „bietet“: Verschlusslücke des b bei 22,90 s, `timing.json` 22,957 s, also rund 50 ms zu spät. Daran hängt kein Text, nur der Beginn der Fahrt nach Barcelona, und den bestimmt „45“.
+    - „Rechnung“: ab 68,70 s gehört, ab 68,75 s nicht mehr; der Anfang liegt also zwischen 68,63 und 68,72 s. Die Unterstreichung beginnt bei 68,70 s, höchstens etwa 70 ms nach dem Wortanfang. Das liegt in der Toleranz.
+- **Pausen wie im Skript:** Denkpause 2,40 s (G4 misst 2,47 s Stille), Atempausen 0,9 / 0,6 / 1,0 / 0,9 s, Halten 2,8 s. Die Luft (10 Stellen, `script.py`) liegt jetzt auch in `timing.json` an der richtigen Stelle. An den Satzgrenzen stehen 0,31 s Stille oder mehr, mit einer Ausnahme im Hook: „… verkaufen oder behalten. | Was kostet es …“ mit 0,18 s. Whisper hört die Grenze (Punkt), und der Hook soll Tempo haben. Darum ist dort keine Luft gesetzt (siehe 5).
+- **Nähte:** Von den 13 Anfängen der HUD-Szenen liegen 11 in einer Sprechpause. Die zwei übrigen sind gewollt: „naheliegend“ beginnt, wenn Schlagzeile und Schilder auf „Naheliegend“ abgetreten sind; „modell“ ist der harte Schnitt auf das Nomen „Waage“. Die Kamerafahrten hängen wie in v2.1 an ihren Wörtern („Danach“, „Gratis“ …); die Fahrt zurück aus der Nachfahrt liegt ganz in der Atempause nach „aufgibt“ (43,30–43,80 s), die Drehung beginnt im letzten Teil der Atempause nach „Geld.“ (46,30 s) und hat ihre Mitte auf „Verkaufen“.
+
+### 4. Selbst angesehen
+
+- `snapshot --review`: 3 Beat-Blätter, 12 Naht-Streifen, 3 Handy-Blätter. Die Beats entsprechen dem Drehbuch von v2.1, die Nähte sind sauber. Am Handy sind Credits und Etiketten lesbar.
+- 26 Einzelbilder aus `renders/gold.mp4` (0,0 bis 71,9 s, siehe 3) und der neue Kontaktbogen (`belege/kontaktbogen.jpg`, Kopf: „Stimme: Sebastian (Cartesia), alle 6 Blöcke“). `belege/alt-neu.jpg` und `belege/poster.jpg` sind neu gebaut.
+
+**Befunde aus `messen-bild.mjs`, die bleiben** (wie v2.1, alle während einer Bewegung, je 1–2 Proben):
+- Die Figur fliegt beim Morph an „Behalten?“ vorbei (2,2 und 2,3 s).
+- Das fallende Vertragsblatt liegt kurz außerhalb des Lesefensters (15,6–15,7 s), ebenso die Lohntüte (60,7–60,8 s).
+- Die Foto-Zeile steht über den Münzen bei 29,6 s, während der Rückfahrt.
+- Hinweise: Federn beim Stempeln („bezahlt“ 12,3 s, „0 €“ 31,9 s, „bezahlt“ 55,9 s).
+
+### 5. Offen
+
+1. **Tempo der Kernsätze:** Die Definition kommt mit 3,2 Wörtern/s im Satz (Jonas: 3,09), „Es steht nur auf keiner Rechnung“ mit etwa 4,0. Cartesias Tempo-Wert wirkt kaum (0,8 statt 1,05 brachte 3,30 → 3,20). Die Luft davor und danach fängt es auf. Mehr ginge nur mit kürzeren Sätzen im Skript oder Pausen-Tags in einer neuen Aufnahme (kostet Zeichen).
+2. **Hook ohne Atem vor der Frage:** Zwischen „behalten.“ und „Was kostet es“ liegen 0,18 s. Wirkt das beim Anhören gehetzt, reicht ein Eintrag `luft` in `build/script.py` (Stille, keine neue Aufnahme), dann neu bauen und rendern.
+3. **Sebastian im Pool:** Er steht noch nicht in `voices/rotation.json`. Ob er dort aufgenommen wird, entscheidet Linus.
+4. **Zwei Fabrik-Tests rot** (`factory/tests/test_stimme_casting.py`, laut Stimm-Spur seit den Commits zur Casting-Runde 2, nicht durch diese Fassung). `factory/` und `voices/` sind nicht angefasst.
+5. Weiter offen aus v2.1: DFL-Wortlaut selbst nachlesen, iPhone/Safari und Kopfhörer ungeprüft, `snapshot --against` nicht gelaufen. Die Einzelbelege aus Runde 2 (`vertrag-blatt.jpg`, `vergleich-null-euro.jpg`, `abflug-suedwest.jpg`) zeigen alte Zeiten.
+
+### Wiederholen (Fassung v3)
+
+```bash
+. /opt/deeptok/env.sh
+cd studio/gold-opportunitaetskosten
+# Vertonen nur, wenn sich ein Block ändert (kostet Zeichen, je Block genau ein Aufruf; Schlüssel nur im Befehl laden):
+#   ( set -a; . <tts.env>; set +a; python build/voice.py --vertonen build/stimme-sebastian.json )
+/home/user/Deeptok/.venv/bin/python build/voice.py --anbieter datei --stimme build/stimme-sebastian.json
+node build/bauen.mjs
+npx hyperframes check && npx hyperframes check --caption-zone "x0=0;y0=.693;x1=1;y1=1;severity=error"
+npx hyperframes snapshot --review
+npx hyperframes render --quality looks --workers 3 -o renders/gold.mp4
+/home/user/Deeptok/.venv/bin/python build/flackern.py renders/gold.mp4
+npx hyperframes play . --port 3115 --no-open &
+node build/messen-bild.mjs 3115 0.1 && node build/seek-test.mjs 3115 renders/gold.mp4
+python ../../factory/fabrik.py hoercheck --audio renders/gold.mp4 --text <sprechtext.txt> --erlaubte-stillen 2 --json
+/home/user/Deeptok/.venv/bin/python build/kontaktbogen.py
+```
+
+Der Sprechtext für den Hör-Check sind die sechs `text`-Felder aus `build/stimme-sebastian.json`, hintereinander.
 
 ## Abnahme v2 (28.10.2026, spät abends)
 

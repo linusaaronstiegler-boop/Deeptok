@@ -3,6 +3,8 @@
 Goldstandard, Phase 1 (`docs/VIDEO-PIPELINE.md` §9). Stand 27.10.2026 abends, Chefredaktion, überarbeitet nach zwei Prüfungen (Didaktik, Fakten).
 Sprechtext und Cues stehen maschinenlesbar in `build/script.py`, Belege in `fakten.json`. Gestaltungsregeln: `studio/DESIGN.md`.
 
+> **Stand Fassung final (03.11.2026):** Der Sprechtext hat sich nach den Kritiken geändert; gültig ist `build/script.py`. Die Spalten unten zeigen den Planungsstand vom 27.10. Die wichtigsten Änderungen: „Naheliegend wäre die Antwort: …“, „Er schießt dafür Tore.“, „Er geht danach ablösefrei …“, „Verkaufen bringt 45 Millionen Ablöse. Behalten: keinen Cent.“, „Du bekommst für heute Abend eine Kinokarte geschenkt.“, „Also kostet dich das Kino diesen Lohn: deine Opportunitätskosten.“ und der Merksatz „Das Beste, was du aufgibst, kostet auch. Es steht auf keiner Rechnung.“ Gründe und Bildänderungen: `REVIEW.md`, Abschnitt „Fassung final (Runde 1)“.
+
 ## Steckbrief
 
 | Feld | Wert |
@@ -17,7 +19,7 @@ Sprechtext und Cues stehen maschinenlesbar in `build/script.py`, Belege in `fakt
 | Irrtum der Serie | „Kosten ist nur, was man bezahlt.“ Im Video die Antwort „Nur sein Gehalt“, mit Grund: „Denn nur das bezahlt Bayern.“ |
 | Länge | 153 Wörter in 12 Szenen (höchstens 19 je Szene); 71,4 s bei 2,3 Wörtern/s (63,7 s bei 2,6; 81,3 s bei 2,0; Obergrenze 90 s) |
 | Pausen aus Code | Denkpause 2,5 s nach der Frage (`pause_for_answer`), Halten 2,0 s am Ende; alle anderen Pausen macht die Stimme |
-| Satz fürs Gespräch = Satz für die Stunde | „Auch was du aufgibst, kostet. Es steht nur auf keiner Rechnung.“ |
+| Satz fürs Gespräch = Satz für die Stunde | „Das Beste, was du aufgibst, kostet auch. Es steht auf keiner Rechnung.“ (Fassung final; vorher „Auch was du aufgibst, kostet. Es steht nur auf keiner Rechnung.“) |
 
 ## Warum dieser Bogen
 

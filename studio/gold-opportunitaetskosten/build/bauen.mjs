@@ -108,12 +108,28 @@ function ableiten(w) {
   // dann verliert sie die Farbe (Überblendung Farbe -> Duoton am Ziel, 0,25 s).
   z.nameSpieler = w.lewa;
   // Die Bewegung beginnt im Atem vor "Bayern" und ist da, wenn "Bayern" fällt (Bayern = München).
-  z.morph = w.bayern - 0.25;
-  z.morphEnde = z.morph + 0.55;
+  // Fassung v3 (Stimme Sebastian): Er spricht "Bayern kann verkaufen" in einem Zug (0,49 s von
+  // "Bayern" bis "verkaufen"). Morph (0,55 s) und Entfärben (0,25 s) brauchen zusammen 0,8 s, und
+  // die Route darf erst laufen, wenn der Darsteller fertig ist. Darum beginnt der Morph SPÄTESTENS
+  // 0,8 s plus ein Bild vor "verkaufen", sonst wie bisher 0,25 s vor "Bayern". Er liegt damit
+  // weiter im Atem nach "Lewandowski"; das Tor "Abzug steht >= 2,0 s" unten wacht über die Grenze.
+  // Fassung final (Runde 1, Bild- und Didaktik-Kritik): Der Morph beginnt AUF „Bayern“ (Cue, 2 Bilder
+  // davor), nicht mehr bis zu 0,4 s davor: Bild und Ortsname liefen dem Wort voraus. Damit der
+  // Darsteller trotzdem fertig ist, bevor die Route läuft, beginnt die Route erst nach dem Entfärben
+  // (höchstens 0,3 s nach „verkaufen“; sie ist eine Linie, kein Text). Die Luft nach „Lewandowski“
+  // (0,7 s, script.py) hält das Tor „Abzug steht >= 2,0 s“.
+  const MORPH = 0.55;
+  const ENTFAERBEN = 0.25;
+  z.morph = w.bayern;
+  z.morphEnde = z.morph + MORPH;
   z.entfaerben = z.morphEnde;
-  z.entfaerbtEnde = z.entfaerben + 0.25;
-  z.nameAtlas = z.morphEnde; // der Name wandert an den Darsteller (Morph des Etiketts)
-  z.routeAus = w.verkaufen + 0.8; // Route ist gezeichnet
+  z.entfaerbtEnde = z.entfaerben + ENTFAERBEN;
+  z.nameAtlas = z.morphEnde; // der Name ist mitgewandert und steht jetzt am Darsteller (kein Aus und Ein)
+  // „München“ erst auf „Bayern“, und erst wenn der Rahmen des Abzugs weg ist (0,18 s): Sonst stand der Name
+  // hinter dem verschwimmenden Abzug (Kritik: „München“ schien durch das Foto). 110 ms nach dem Wortanfang.
+  z.muenchenName = w.bayern + 0.18;
+  z.routeAn = Math.max(w.verkaufen, z.entfaerbtEnde);
+  z.routeAus = z.routeAn + 0.8; // Route ist gezeichnet
   // "verkaufen oder BEHALTEN": Route und Barcelona treten zurück (Abdunkeln). So liest man
   // "Barcelona" in der Denkpause nicht mehr als Teil des untersten Schilds (Prüfung 1).
   z.dimBcn = w.behalten;
@@ -132,8 +148,8 @@ function ableiten(w) {
   z.neigungKosten = w.gehalt + PHYSIK.fallzeit;
   z.stempel = w.bezahlt;
   z.spielerHopp = w.schiesst;
-  z.neigungRechts = w.schiesst + PHYSIK.schrittzeit; // er landet, die Waage kippt
-  z.toreText = w.tore + 0.12;
+  z.neigungRechts = w.schiesst + PHYSIK.fallzeit; // er landet (Fassung final: fällt statt springt), die Waage kippt
+  z.toreText = w.tore; // Fassung final: auf dem Wort (vorher +0,12 s), damit es bis zum Vertragsblatt 1,7 s steht
   // Beat 4: Vertrag als Blatt, die Zeitleiste ist darauf gedruckt (Runde 2, Prüfung 1). Die
   // Behauptung tritt auf "Doch" ab (Prüfung 2) und kommt mit "Nur sein Gehalt?" zurück. Die Waage
   // tritt zurück (Abdunkeln 35 %): Held ist jetzt das Blatt.
@@ -144,17 +160,25 @@ function ableiten(w) {
   // mitten in der Einstellung. Auf "Vertrag" tritt es mit der Waage auf 35 % zurück.
   z.band = w.saison;
   z.bandEnde = z.band + 0.7;
-  // "Danach": Die Welt fährt näher an das Blatt (Detail: was nach dem Vertrag kommt).
-  z.nahVertrag = w.danach;
-  z.nahVertragEnde = w.danach + NAH_FAHRT;
+  // Die Welt fährt näher an das Blatt (Detail: was nach dem Vertrag kommt). Fassung final: Der Satz heißt
+  // jetzt „Er geht danach ablösefrei“; „danach“ und „ablösefrei“ liegen nur 0,24 s auseinander. Die
+  // Fahrt liegt darum in der Pause nach „Verlängern will er nicht.“ und endet kurz vor dem Stempel.
+  z.nahVertrag = Math.max(w.verlaengern + 0.35, w.frei - NAH_FAHRT - 0.05);
+  z.nahVertragEnde = z.nahVertrag + NAH_FAHRT;
   z.nullEuro = w.nichts; // Stempel "0 €" auf "Bayern bekommt NICHTS"
   // Beat 5: Angebot. Die Kamera fährt nach Barcelona (und zugleich aus der Nachfahrt zurück). Sie
   // steht, bevor der Stapel auf "45" fällt. Fassung v2: Das Blatt geht MIT der Naht (Beginn der
   // Fahrt), nicht davor; die Fahrt endet spätestens 50 ms vor "45".
-  z.fahrtBarcelonaEnde = Math.min(w.bietet + 0.2 + SCHWENK, w.zahl - 0.05);
-  z.fahrtBarcelona = z.fahrtBarcelonaEnde - SCHWENK;
+  // Fassung final (Bild-Kritik): Die Fahrt beginnt auf „bietet“ (vorher 0,2 s danach: das Bild hing dem
+  // Ton nach). Der Stempel „0 €“ ist ein Marker (DESIGN.md §6): Er steht nach dem Stempeln (0,28 s)
+  // mindestens HALTEN. Das Blatt geht mit dem Beginn der Fahrt über 0,25 s (vorher in 2 Bildern weg).
+  z.fahrtBarcelona = Math.max(w.bietet, w.nichts + 0.28 + HALTEN);
+  z.fahrtBarcelonaEnde = z.fahrtBarcelona + SCHWENK;
   z.vertragAus = z.fahrtBarcelona;
-  z.toreAus = z.fahrtBarcelona;
+  z.vertragWeg = z.vertragAus + 0.25; // Blatt ganz weg: bis dahin stehen seine Quellzeilen
+  // Fassung final: „Tore“ geht, wenn das Vertragsblatt über ihm landet (vorher lag es abgedunkelt unter dem
+  // Blatt bis zur Fahrt; check meldete Text unter Text und 1 : 1 Kontrast).
+  z.toreAus = z.vertragFall + PHYSIK.fallzeit - 0.08;
   // Fassung v2.1: Camp Nou ist entfernt (Schriftzug am Handy unlesbar, Kritik 28.10.).
   z.routeHell = z.fahrtBarcelona; // auf dem Weg nach Barcelona zeigt die Route wieder den Weg
   z.hellWaage = z.fahrtBarcelonaEnde; // die Waage ist jetzt außer Sicht: wieder volle Deckkraft
@@ -166,20 +190,29 @@ function ableiten(w) {
   z.abflugGeist = w.landung - PHYSIK.flugzeit;
   z.fahrtMuenchen = Math.max(z.abflugGeist + 0.25, w.falsch + MARKER.strich + HALTEN);
   z.fahrtMuenchenEnde = w.landung - 0.15;
-  z.behauptungDunkel = z.fahrtMuenchen - 0.2; // widerlegt: tritt zurück, bevor der Geist durchfliegt
+  // widerlegt: tritt zurück, bevor die Kamera fährt (final: ganz abgedunkelt, bevor die Waage unter den
+  // Text gleitet; vorher lief die Kette 0,1 s lang über „Gehalt“)
+  z.behauptungDunkel = z.fahrtMuenchen - 0.35;
   // Fassung v2: "45 Mio. €" geht MIT der Naht (Fahrt nach München), nicht schon beim Abflug des
   // Geistes 0,25 s davor. Der Geist steigt nach oben, die Zahl steht darunter: Sie kreuzen sich nicht.
   z.zahlTextAus = z.fahrtMuenchen;
   z.geldEtikett = w.landung + 0.12; // "45 Mio. €" unter der Kosten-Schale, im Geist-Stil
-  z.routeDunkel = w.landung + 0.3;
-  z.nullBehalten = w.cent; // "Behalten keinen CENT": Stempel "0 €" am Schild "Behalten"
-  // Beat 6b: Auf "genauso" bekommt der Geist Gewicht: Waage waagerecht, "45 Mio. €" wird fest.
+  // Fassung final (Bild-Kritik, Rückfall auf Runde 2): Die Route geht, wenn die Kamera ankommt (0,2 s),
+  // nicht erst 0,3 s nach der Landung; sonst stach sie bei stehender Kamera durch die Credit-Zeilen.
+  z.routeDunkel = z.fahrtMuenchenEnde - 0.2;
+  z.geldBcnAus = z.fahrtMuenchen + 0.1; // das echte Geld bleibt in Barcelona: es tritt ab, bevor es durch die Credits fährt
+  z.nullBehalten = w.cent; // "Behalten: keinen CENT": „0 € Ablöse“ unter der Nutzen-Schale (final)
+  // Beat 6b: Fassung final (Didaktik-Kritik): Auf „fehlt“ bekommt der Geist Gewicht, die Waage kippt zur
+  // KOSTEN-Seite, "45 Mio. €" wird fest. Vorher schwang sie auf „genauso“ auf waagerecht („Kosten =
+  // Nutzen“) und kippte später auf „nimmt“ ohne neues Gewicht.
   z.etikettEntgangen = w.entgangen;
-  z.waagerecht = w.gewicht;
+  z.gewichtGeist = w.gewicht;
   // Beat 7: Begriff. Kreis um den Geist, Beleg und Figur treten zurück; danach eine leichte
   // Nachfahrt. Auf "Alternative" wird aus "entgangen" "beste Alternative" (Morph am Geist).
-  z.nullBehaltenAus = w.begriff;
+  // „0 € Ablöse“ geht kurz VOR dem Begriff (seine Quellzeile macht dann Platz für die Definition)
+  z.nullBehaltenAus = w.begriff - 0.25;
   z.nahRein = w.begriff + 0.85;
+  z.ablBis = SZENEN_ENDE.begriff + 0.05 + 0.2; // „45 Mio. €“ steht bis julAus (+ Austritt): so lange auch seine Quelle
   z.nahReinEnde = z.nahRein + NAH_FAHRT;
   z.etikettAlternative = w.alternative;
   // In der Atempause nach der Definition: Begriff, Kreis, Etiketten und Beleg treten ab, die Welt
@@ -191,7 +224,6 @@ function ableiten(w) {
   // die Drehung; das Schild kippt GENAU auf "Verkaufen" (Mitte der Drehung = Cue). Der Geist wird
   // erst echt, wenn er auf der Nutzen-Seite angekommen ist (Prüfung 1 und 2).
   z.datumJuli = w.juli + 0.12;
-  z.neigungLinks = w.nimmt;
   z.drehStart = w.dreh - DREH_FAHRT / 2;
   z.drehEnde = w.dreh + DREH_FAHRT / 2;
   // Fassung v2: Das Geld wird auf "Verkaufen" echt, sobald die Drehung die Mitte überschritten hat
@@ -216,22 +248,21 @@ function ableiten(w) {
   z.karteFall = w.karte;
   z.schildKino = w.karte + 0.12;
   z.neigungKarte = w.karte + PHYSIK.fallzeit;
-  z.rechnungFall = w.geschenkt;
+  // Fassung final: „für heute Abend eine Kinokarte geschenkt“ (neue Wortfolge) legt Kinokarte und
+  // geschenkt 0,6 s zusammen. Die Rechnung fällt 0,1 s nach dem Wortanfang (Toleranz 150 ms).
+  z.rechnungFall = w.geschenkt + 0.1;
   z.fach = w.genau;
   z.lohnZeichnen = w.lohn_da;
   z.lohnFall = w.lohn;
+  z.lohnText = w.lohn; // Fassung final: Aufschrift „Lohn“ erst auf „Lohn“ (vorher 2 s vor dem Wort)
   z.lohnLandet = w.lohn + PHYSIK.fallzeit;
+  z.okLohn = w.ok_lohn; // „deine OPPORTUNITÄTSKOSTEN“: das Gold-Fach bekommt sein Fachwort
   z.nachhilfeAus = w.lohn; // "Nachhilfe, heute Abend" gehen mit der Tüte (Prüfung 1: schwebte sonst)
-  // Fassung v2 (Abnahme: Diagramm 11,5 s ohne Fahrt): Auf "Genau dann ..." fährt die Welt 1,2-fach an
-  // die linke Seite, an die ALTERNATIVE (Nachhilfe, Lohn, Gold-Fach, Kosten-Schale); die Nutzen-Seite
-  // tritt dafür zurück. Erst wenn Rechnung und "aufgegeben" gelesen sind. Nachhilfe rastet in den
-  // letzten Bildern der Fahrt ein und landet, wenn die Kamera steht.
-  z.nahAlt = Math.max(w.genau + 0.12 + 0.8, w.geschenkt + PHYSIK.fallzeit + 1.4);
-  z.nahAltEnde = z.nahAlt + NAH_FAHRT_KURZ;
-  // Auf "Das kann es wert sein" zurück in die Totale: Ob es das wert ist, wiegt BEIDE Seiten. Erst
-  // wenn die Gleichung (HUD) gelesen ist (0,5 + 0,3 x 5 = 2,0 s).
-  z.nahZurueck = w.gleichung + 2.0;
-  z.nahZurueckEnde = z.nahZurueck + NAH_FAHRT_KURZ;
+  // Fassung final (Bild-Kritik): Die Nachfahrt an die Alternative (Fassung v2) ist entfernt. Sie schob die
+  // Nutzen-Seite angeschnitten an den rechten Rand (lesbar, außerhalb des Lesefensters), und Hin- und
+  // Rückfahrt lagen auf Eintritten und dem Ausschwingen der Waage (bis 4 Bewegungen zugleich). Mit der
+  // neuen Wortfolge bleibt zwischen Rechnung, Fach und „Nachhilfe“ keine Lücke, in der die Kamera
+  // stehen könnte. Die Totale trägt dafür alle 1-2 s einen neuen Gegenstand (Takt, DESIGN.md §9).
   // "Gratis ist es nicht": Gleichung tritt ab, die Nutzen-Seite tritt zurück, die Welt fährt an die
   // Kosten-Schale. Auf "nicht" zuckt die Lohntüte neben der Rechnung "0 €".
   z.gleichungAus = w.gratis;
@@ -239,6 +270,7 @@ function ableiten(w) {
   z.nahSatz = w.gratis + 0.2;
   z.nahSatzEnde = z.nahSatz + 0.6;
   z.puls = Math.max(w.gratis_nicht, z.nahSatzEnde); // erst zucken, wenn die Welt steht
+  z.nullUnterstreichen = w.rechnung; // „auf keiner RECHNUNG“: Navy-Strich unter „0 €“ der Rechnung
   // Abspann (v2.1): Im stehenden Schlussbild (hold_s) stehen Bildnachweis und Lizenz des Videos.
   z.abspann = bild(SZENEN_ENDE.satz);
   return z;
@@ -256,7 +288,8 @@ function pruefeZeiten(z) {
   // Fassung v2.1: der Foto-Moment im Hook
   mindestens("Abzug (echtes Foto) steht, bevor er zum Darsteller wird", z.morph, 2.0);
   mindestens("Name am Abzug gelesen (0,5 + 0,3 × 1 Wort)", z.morph - z.nameSpieler, 0.8);
-  mindestens("Darsteller steht in Farbe und Duoton fertig, bevor die Route läuft", z.verkaufen - z.entfaerbtEnde, 0);
+  mindestens("Darsteller steht in Farbe und Duoton fertig, bevor die Route läuft", z.routeAn - z.entfaerbtEnde, 0);
+  mindestens("Route beginnt höchstens 0,3 s nach „verkaufen“", 0.3 - (z.routeAn - z.verkaufen), 0);
   mindestens("Denkpause", z.pauseEnde - z.pause, 1.5);
   mindestens("Schilder stehen vor dem Austritt (Lesezeit 0,5 + 0,3 × 11 Wörter)", z.hookAus - z.schilder, 3.8);
   mindestens("Zoom endet, bevor der Beleg fällt", z.belegFall - z.zoomInEnde, 0);
@@ -266,39 +299,42 @@ function pruefeZeiten(z) {
   mindestens("Zeitleiste steht, bevor die Verlängerung kommt", z.verlaengern_an - z.bandEnde, 0);
   mindestens("Blatt ist gelesen, bevor die Welt näher fährt (0,5 + 0,3 × 4)", z.nahVertrag - (z.vertragFall + PHYSIK.fallzeit), 1.7);
   mindestens("Nachfahrt auf das Blatt endet vor dem Stempel", z.frei - z.nahVertragEnde, 0);
-  mindestens("Stempel '0 €' steht vor der Kamerafahrt", z.vertragAus - z.nullEuro, STAND);
+  // Fassung final: Der Stempel ist ein Marker (DESIGN.md §6): 0,28 s Stempeln, dann >= HALTEN fertig.
+  mindestens("Stempel '0 €' steht vor der Kamerafahrt (Marker: 0,28 + 1,2 s)", z.vertragAus - (z.nullEuro + 0.28), HALTEN);
+  mindestens("Kamera fährt erst auf „bietet“", z.fahrtBarcelona - z.bietet, 0);
+  mindestens("Fahrt nach Barcelona endet vor dem Geld (50 ms)", z.zahl - 0.05 - z.fahrtBarcelonaEnde, 0);
   mindestens("Stempel 'ablösefrei' steht vor der Kamerafahrt", z.vertragAus - z.frei, STAND);
   mindestens("Kamera steht in Barcelona, bevor das Geld fällt", z.geldFall - z.fahrtBarcelonaEnde, 0);
   mindestens("Geld ruht in Barcelona (Halten)", z.abflugGeist - z.geldLandetBcn, HALTEN);
   mindestens("Durchstrich steht, bevor die Kamera fährt", z.fahrtMuenchen - (z.falsch + MARKER.strich), HALTEN);
   mindestens("Kamerafahrt nach München dauert", z.fahrtMuenchenEnde - z.fahrtMuenchen, 0.9);
-  mindestens("Geist ruht auf der Schale, bevor er Gewicht bekommt", z.waagerecht - z.landung, HALTEN);
+  mindestens("Geist ruht auf der Schale, bevor er Gewicht bekommt", z.gewichtGeist - z.landung, HALTEN);
+  mindestens("„0 € Ablöse“ kommt nicht in derselben halben Sekunde wie die Landung", z.nullBehalten - z.landung, 0.5);
   mindestens("'entgangen' steht vor der Korrektur", z.korrektur - z.entgangen, HALTEN);
   mindestens("Korrigierte Behauptung steht vor dem Begriff", z.begriff - z.korrektur, HALTEN);
   mindestens("Stempel '0 €' am Schild steht", z.nullBehaltenAus - z.nullBehalten, STAND);
   mindestens("Nachfahrt erst nach der Lesezeit des Begriffs", z.nahRein - (z.begriff + 0.8), 0);
   mindestens("Nachfahrt endet vor 'beste Alternative'", z.alternative - z.nahReinEnde, 0);
   mindestens("Kreis um den Geist steht fertig", z.julAus - (z.begriff + MARKER.kreis), HALTEN);
-  mindestens("Welt ist zurückgefahren, bevor die Waage kippt", z.neigungLinks - z.nahRausEnde, 0);
-  mindestens("Waage steht gekippt, bevor sie sich dreht", z.drehStart - (z.neigungLinks + 0.8), 0.5);
+  mindestens("Waage steht gekippt, bevor sie sich dreht", z.drehStart - (z.gewichtGeist + 0.9), 0.5);
+  mindestens("Welt ist zurückgefahren, bevor die Waage sich dreht", z.drehStart - z.nahRausEnde, 0.5);
   mindestens("Etikett 'Opportunitätskosten' erst nach der Drehung", z.okEtikett - z.drehEnde, 0);
   // Fassung v2, Beat 8 entzerrt: Die Atempause ist Luft (die Neigung auf "nimmt" ist ausgeschwungen,
   // bevor sie beginnt), und das Etikett kommt erst, wenn das Geld schon echt ist.
-  mindestens("Neigung auf 'nimmt' ausgeschwungen vor der Atempause", z.atemVerkauf - (z.neigungLinks + 0.8), 0);
-  mindestens("Drehung beginnt nicht vor dem Ende der Atempause (- 0,2 s)", z.drehStart - (z.atemVerkaufEnde - 0.2), 0);
+  // Fassung final: -0,3 s statt -0,2 s. „Auch Verkaufen“: „Verkaufen“ folgt 0,12 s auf „Auch“; die Mitte
+  // der Drehung liegt auf „Verkaufen“, ihr Anfang damit knapp in der Atempause.
+  mindestens("Drehung beginnt nicht vor dem Ende der Atempause (- 0,3 s)", z.drehStart - (z.atemVerkaufEnde - 0.3), 0);
   mindestens("Etikett erst 0,3 s nach dem Echtwerden des Geldes", z.okEtikett - (z.massiv + 0.38), 0.3);
   mindestens("Waage steht nach der Drehung, bevor der Spieler abfliegt", z.abflugSpieler - z.drehEnde, HALTEN);
   mindestens("Ganze Waage steht vor dem Passschnitt", z.schnitt - (z.spielerWeg), HALTEN);
-  mindestens("Kinokarte ruht vor der Rechnung", z.rechnungFall - (z.karteFall + PHYSIK.fallzeit), 0.6);
+  mindestens("Kinokarte ruht vor der Rechnung", z.rechnungFall - (z.karteFall + PHYSIK.fallzeit), 0.3);
   mindestens("Rechnung ruht vor dem Gold-Fach", z.fach - (z.rechnungFall + PHYSIK.fallzeit), 0.5);
   mindestens("Lohntüte steht gezeichnet, bevor sie fällt", z.lohnFall - (z.lohnZeichnen + 0.6), HALTEN);
   mindestens("Gleichung steht (0,5 + 0,3 × 5)", z.gleichungAus - z.gleichung, 2.0);
   // 1,0 s statt HALTEN: Das Ausschwingen (0,9 s) ist schon Teil der Ruhe, sichtbar steht sie ab +0,6 s.
   mindestens("Waage steht waagerecht, bevor die Welt näher fährt", z.nahSatz - (z.lohnLandet + 0.9), 1.0);
-  mindestens("Fahrt zur Alternative endet, bevor 'Nachhilfe' gelandet ist", (z.nachhilfe + 0.35) - z.nahAltEnde, 0);
-  mindestens("Fahrt zur Alternative erst nach der Lesezeit von 'aufgegeben'", z.nahAlt - (z.fach + 0.12 + 0.8), 0);
-  mindestens("Kamera steht, solange die Gleichung gelesen wird", z.nahZurueck - (z.gleichung + 2.0), 0);
-  mindestens("Totale steht vor der Nachfahrt auf 'Gratis'", z.nahSatz - z.nahZurueckEnde, HALTEN);
+  mindestens("Etikett 'Opportunitätskosten' am Fach steht vor der Nachfahrt", z.nahSatz - z.okLohn, STAND);
+  mindestens("Tüte gelandet, bevor das Fach sein Fachwort bekommt", z.okLohn - (z.lohnLandet), 0.2);
   mindestens("Nachfahrt endet vor dem Zucken der Tüte", z.puls - z.nahSatzEnde, 0);
   mindestens("Zucken auf 'nicht' (Toleranz 150 ms)", 0.15 - (z.puls - z.gratis_nicht), 0);
   mindestens("Nachfahrt endet vor der Unterstreichung", z.aufgeben - z.nahSatzEnde, 0);
@@ -306,6 +342,7 @@ function pruefeZeiten(z) {
   // Standdauer eines Textes >= 1,7 s (DESIGN.md §5, gemessen an den Vorbildern)
   mindestens("Text 'Tore' steht", z.toreAus - z.toreText, STAND);
   mindestens("Etikett '45 Mio. €' steht", z.julAus - z.geldEtikett, STAND);
+  mindestens("Quelle der Ablöse steht bis das Etikett weg ist", z.ablBis - (z.julAus + 0.18), 0);
   mindestens("Etikett 'entgangen' steht", z.etikettAlternative - z.etikettEntgangen, STAND);
   mindestens("Etikett 'beste Alternative' steht", z.julAus - z.etikettAlternative, STAND);
   mindestens("'verlängern' steht (danach abgedunkelt bis zum Austritt)", z.vertragAus - z.verlaengern_an, STAND);
@@ -336,7 +373,7 @@ const TEXT_CUES = [
   ["Stempel '0 €' (nichts)", "nullEuro", "nichts"],
   ["'45 Mio. €' (D1)", "zahlText", "zahl"],
   ["Durchstrich auf 'Nur'", "falsch", "falsch"],
-  ["Stempel '0 €' am Schild", "nullBehalten", "cent"],
+  ["'0 € Ablöse' unter Nutzen", "nullBehalten", "cent"],
   ["'entgangen'", "etikettEntgangen", "entgangen"],
   ["'+ Barças Geld'", "korrektur", "korrektur"],
   ["'Opportunitätskosten' (D2)", "begriff", "begriff"],
@@ -353,8 +390,11 @@ const TEXT_CUES = [
   ["Lohntüte", "lohnZeichnen", "lohn_da"],
   ["Gleichung", "gleichung", "gleichung"],
   ["Lohntüte fällt", "lohnFall", "lohn"],
+  ["Aufschrift 'Lohn'", "lohnText", "lohn"],
+  ["'Opportunitätskosten' am Gold-Fach", "okLohn", "ok_lohn"],
+  ["'München' (Ort)", "muenchenName", "bayern"],
   ["Unterstreichung 'aufgegeben'", "aufgeben", "aufgeben"],
-  ["Unterstreichung 'Rechnung'", "rechnung", "rechnung"],
+  ["Unterstreichung '0 €' (auf keiner Rechnung)", "nullUnterstreichen", "rechnung"],
 ];
 // Bewusste Ausnahme (mit Grund): "45 Mio. €" unter der Kosten-Schale kommt mit dem Aufprall des
 // Geistes auf "Ablöse" (+0,12 s); die Zahl selbst wurde schon auf "45" gezeigt.
@@ -579,7 +619,9 @@ function einstellung(p, bx, by, zoom) {
 // die Credits (y >= 1178).
 // Runde 2: noch einmal 30 px höher (Fuß y = 1130). So sitzen die Credits (ab y 1178) nicht mehr
 // auf dem Schatten des Waagenfußes (Prüfung 1).
-const FUSS = [540, 1130];
+// Fassung final: noch einmal 60 px höher (1070). Seit die Waage auf „fehlt“ zur Kosten-Seite kippt, hängen
+// die Zeilen unter der Kosten-Schale 33 px tiefer; bei 1130 lag „entgangen“ auf der obersten Credit-Zeile.
+const FUSS = [540, 1070];
 const TOTALE_MUENCHEN = [820, 748]; // Bildpunkt von München in der Totale (Hook): dort landet der Morph
 const kamera = {
   // totale:europa: München oben rechts (Figur neben der Schlagzeile), Barcelona links unten
@@ -594,6 +636,13 @@ const kamera = {
   // München liegt dann oberhalb des Bildes: Die Waage ragt nicht ins Bild (Befund 1. Runde).
   barcelona: einstellung(orte.barcelona, 420, 820, 2.4),
 };
+// Fassung final (Bild-Kritik P1): Im Bild der Wende ist der Stapel der Held. Vorher 287 px hoch unter einer
+// 720 px breiten D1-Zahl. Jetzt 1,75-fach (504 px, DESIGN.md §2: Gegenstand >= 465 px), 200 px rechts
+// vom Punkt (Name links), die Zahl als D2-Etikett darunter (kleiner als ihr Gegenstand). 200 statt 90 px:
+// Der hohe Stapel lässt seinen Geist beim Abflug bis y 186 steigen; weiter links lief er durch die
+// Behauptung oben links (HUD bis x 483). Die Kamera tiefer zu setzen ging nicht: Dann ragte die Waage
+// in München oben ins Bild.
+const STAPEL_BCN = { skala: 1.75, dx: 200 };
 
 // Waage: Maße in Bildpixeln relativ zum Fuß. Gleiche Maße in Atlas und Diagramm, damit der
 // harte Schnitt (Beat 9) ein Passschnitt ist: dieselbe Waage, andere Zeichnung.
@@ -621,19 +670,19 @@ const WAAGE = {
 //            der Bildmitte. Die Säule bliebe am rechten Rand stehen, darum tritt sie vorher zurück.
 const NAH = {
   // vertrag: 1,12, nicht mehr: Sonst rutschte die (abgedunkelte) Nutzen-Schale unter die Credits.
-  atlas: { vertrag: { r: 1.12, fx: 540, fy: 400 }, begriff: { r: 1.1, fx: 108, fy: 1100 } },
-  diagramm: { r: 1.9, fx: 290, fy: 940, zx: 540, zy: 760 },
-  // Fassung v2: Nachfahrt an die Alternative. Der Brennpunkt (108, 300) bleibt stehen: links hält
-  // "aufgegeben" die Kante x = 108, oben bleibt die Lohntüte unter der Gleichung (HUD, y 195-255),
-  // unten endet "aufgegeben" bei y 1260 (Lesefenster bis 1330). 1,2 statt 1,25: Beim Nachschwingen
-  // der Waage (Lohn landet) lag "aufgegeben" mit 1,25 eine Probe lang unter y 1330 (messen-bild.mjs).
-  // Die Nutzen-Seite ragt rechts hinaus und ist dafür abgedunkelt (DESIGN.md §5 Nachfahrt).
-  diagrammAlt: { r: 1.2, fx: 108, fy: 300 },
+  // begriff (final): Die Waage ist jetzt zur Kosten-Seite gekippt; die Zeilen unter der Kosten-Schale
+  // hängen 33 px tiefer und lägen auf den Credit-Zeilen. Darum wandert der Brennpunkt 30 px nach oben.
+  atlas: { vertrag: { r: 1.12, fx: 540, fy: 400 }, begriff: { r: 1.1, fx: 108, fy: 1100, zx: 108, zy: 1070 } },
+  // diagramm (final): 1,5 statt 1,9 und 80 px höher. Unter dem Gold-Fach steht jetzt auch
+  // „Opportunitätskosten“ (zwei Zeilen); bei 1,9 lag es auf den Credit-Zeilen des Abspanns.
+  diagramm: { r: 1.5, fx: 290, fy: 880, zx: 540, zy: 680 },
 };
 const DATEN_ATLAS = { orte, route, kamera, breite: BREITE, hoehe: HOEHE, physik: PHYSIK, marker: MARKER,
-  waage: { ...WAAGE, ort: "muenchen" }, nah: NAH.atlas }; // .abzug kommt unten (nach foto-lewandowski.json)
+  waage: { ...WAAGE, ort: "muenchen" }, nah: NAH.atlas, stapelBcn: STAPEL_BCN }; // .abzug kommt unten (nach foto-lewandowski.json)
+// Fassung final: Schild „Kino“ 10 px höher (-448), die Rechnung 12 px niedriger (lib/diagramm.html). Kippt die
+// Waage nach rechts (Kinokarte), hob sich die Rechnung über die Ecke des Schilds (Bild-Kritik).
 const DATEN_DIAGRAMM = { orte: {}, breite: BREITE, hoehe: HOEHE, physik: PHYSIK, marker: MARKER,
-  waage: { ...WAAGE, fuss: FUSS }, nah: NAH.diagramm, nahAlt: NAH.diagrammAlt };
+  waage: { ...WAAGE, fuss: FUSS, schildY: -448 }, nah: NAH.diagramm };
 
 // ---------------------------------------------------------------------------
 // Darsteller-Grafiken (SVG). Licht nur über Deckkraft von Palettenfarben: Grundton,
@@ -753,16 +802,27 @@ const AB = (() => {
     ziel: TOTALE_MUENCHEN, k: FOTO.hoehe / (k3 - k1) };
 })();
 DATEN_ATLAS.abzug = AB;
+// Fassung final (Bild- und Didaktik-Kritik): Der Name „Lewandowski“ wandert im Morph vom Abzug an den
+// Darsteller, ohne Aus und Ein. Start: rechte Kante 30 px links vom Abzug, Brusthöhe. Ziel: wie
+// #a-spieler-name in lib/atlas.html (right: 80px, top: -268px am Fuß des Darstellers in der Totale).
+const NAME_START = { rechts: AB.x - 30, oben: AB.y + 0.24 * AB.h - 31 };
+const NAME_ZIEL_CSS = { rechts: 80, oben: -268 };
+DATEN_ATLAS.nameZiel = {
+  dx: Math.round((TOTALE_MUENCHEN[0] - NAME_ZIEL_CSS.rechts - NAME_START.rechts) * 10) / 10,
+  dy: Math.round((TOTALE_MUENCHEN[1] + NAME_ZIEL_CSS.oben - NAME_START.oben) * 10) / 10,
+};
 function fotoHook() {
   const r = (v) => Math.round(v * 10) / 10;
   return `<div id="fh-ebene" data-layout-ignore>` +
     `<div id="fh-abzug" style="left: ${AB.x}px; top: ${AB.y}px; width: ${r(AB.w)}px; height: ${r(AB.h)}px;">` +
     `<div id="fh-rahmen"><img id="fh-foto" src="${FOTO.abzug.bild}" alt="" style="width: ${r(AB.w)}px; height: ${r(AB.h)}px;" /></div>` +
     `<img id="fh-figur" src="${FOTO.abzug.figur}" alt="" style="left: ${r(AB.figur.x)}px; top: ${r(AB.figur.y)}px; width: ${r(AB.figur.w)}px; height: ${r(AB.figur.h)}px;" />` +
+    `</div>` +
     // Name links neben dem Abzug auf Brusthöhe (24 % der Abzughöhe): auf Kopfhöhe stünde er direkt
-    // unter der Schlagzeile und läse sich als ihre dritte Zeile.
-    `<div id="fh-name" class="a-etikett" style="right: ${r(AB.w + 30)}px; top: ${r(0.24 * AB.h - 31)}px; font-size: 48px;">Lewandowski</div>` +
-    `</div></div>`;
+    // unter der Schlagzeile und läse sich als ihre dritte Zeile. Fassung final: NEBEN dem Abzug (nicht in
+    // ihm), denn er wandert im Morph unverkleinert an den Darsteller (DATEN.nameZiel).
+    `<div id="fh-name" class="a-etikett" style="right: ${r(BREITE - NAME_START.rechts)}px; top: ${r(NAME_START.oben)}px; font-size: 48px;">Lewandowski</div>` +
+    `</div>`;
 }
 // Der GEIST des Spielers ist der Rand des Fotos (Randverfolgung in build/foto.py): Was nach dem
 // Abflug auf der Kosten-Schale bleibt, ist wirklich sein Umriss.

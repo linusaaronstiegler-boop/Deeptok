@@ -16,13 +16,22 @@
 //     Kosten-Schale (Prüfung 1: vorher 13 s dieselbe Totale). Auf "nicht" zuckt die Lohntüte
 //     neben der Rechnung "0 €": Das Bild sagt "nicht gratis" (statt "geschenkt ≠ gratis").
 //   - Im Satz liegen die Marker am Helden: Gold unter "aufgegeben", Navy unter "Rechnung".
+//
+// Fassung final (Runde 1, drei Kritiken):
+//   - Die Nachfahrt an die Alternative ist entfernt (Nutzen-Seite angeschnitten am Rand, bis zu vier
+//     Bewegungen zugleich). Auf "Gratis" tritt die Nutzen-Seite ganz ab statt nur zurück; sie stünde
+//     nach der Nachfahrt halb am Bildrand (DESIGN.md §2).
+//   - Die Aufschrift "Lohn" kommt auf "Lohn", nicht 2 s vorher mit der Tüte.
+//   - "deine OPPORTUNITÄTSKOSTEN": Unter "aufgegeben" kommt das Fachwort an das Gold-Fach.
+//   - Abdunkeln deckend: Die Kinokarte tritt über ihre Helligkeit zurück (die Kette schien durch).
+//   - Schluss: "auf keiner RECHNUNG": Der Navy-Strich liegt unter "0 €" der Rechnung (die Rechnung sagt
+//     0 €, die Kosten sind es nicht), nicht unter dem Wort "Rechnung".
 const Z = ZEIT;
 const T0 = BUEHNEN.diagramm.beginn;
 const L = (name) => Z[name] - T0;
 const PH = DATEN.physik;
 const N = DATEN.waage.neigung;
 const NAH = DATEN.nah;
-const ALT = DATEN.nahAlt;
 
 const plan = {
   // Fassung v2: zwei Nachfahrten statt einer 11-s-Totale (Abnahme, Vorbild-Median 5 s).
@@ -33,11 +42,7 @@ const plan = {
   // Zwischen zwei Schlüsseln mit r = 1 darf der Brennpunkt wechseln: Ziel = Brennpunkt heißt "keine
   // Verschiebung", auch während beide gleitend vom einen zum anderen Punkt wandern.
   nah: [
-    Object.assign({}, ALT, { t: 0, r: 1 }),
-    Object.assign({}, ALT, { t: L("nahAlt"), r: 1 }),
-    Object.assign({}, ALT, { t: L("nahAltEnde"), ease: "power2.inOut" }),
-    Object.assign({}, ALT, { t: L("nahZurueck") }),
-    Object.assign({}, ALT, { t: L("nahZurueckEnde"), r: 1, ease: "power2.inOut" }),
+    Object.assign({}, NAH, { t: 0, r: 1, zx: NAH.fx, zy: NAH.fy }),
     Object.assign({}, NAH, { t: L("nahSatz"), r: 1, zx: NAH.fx, zy: NAH.fy }),
     Object.assign({}, NAH, { t: L("nahSatzEnde"), ease: "power2.inOut" }),
   ],
@@ -57,7 +62,9 @@ const plan = {
     lohn: [
       // Die Tüte zeichnet sich über dem Gold-Fach (neben "Nachhilfe, heute Abend") ...
       // Groß (1,4-fach), solange sie allein steht: Sie ist der Gold-Held des Transfers.
-      { ab: L("lohnZeichnen"), bis: L("lohnZeichnen"), nach: "bild:188:552", art: "sofort", skala: 1.4 },
+      // Fassung final: 1,15-fach und 47 px höher. Die Waage steht 60 px höher, und kippt sie zur Kinokarte, hebt
+      // sich der linke Ring bis unter die Tüte; oben darf die Tüte die Gleichung (HUD, bis y 276) nicht berühren.
+      { ab: L("lohnZeichnen"), bis: L("lohnZeichnen"), nach: "bild:188:505", art: "sofort", skala: 1.15 },
       // ... und fällt auf "Lohn" senkrecht hinein (Mitte des Fachs: 104 px links der Schalenmitte).
       { ab: L("lohnFall"), bis: L("lohnLandet"), nach: "schale:links:-104:-8", art: "sturz", skala: 1 },
     ],
@@ -103,10 +110,6 @@ function aufprall(sel, t, staerke, erst) {
 // (seek-sicher): Die Nutzen-Seite tritt in Fassung v2 zweimal zurück.
 const dunkel = (sel, t, erst) => tl.fromTo(sel, { opacity: 1 }, { opacity: 0.35, duration: 0.3, ease: "power2.inOut", immediateRender: !!erst }, t);
 const hell = (sel, t) => tl.fromTo(sel, { opacity: 0.35 }, { opacity: 1, duration: 0.3, ease: "power2.inOut", immediateRender: false }, t);
-// Fassung v2: Für die Fahrt an die Alternative tritt die Nutzen-Seite zurück (sie ragt rechts aus dem
-// Bild, halb abgeschnittener Text wäre sonst lesbar). Auf "Das kann es wert sein" kommt sie zurück.
-dunkel(["#d-rechts", "#a-karte-bild"], L("nahAlt"), true);
-hell(["#d-rechts", "#a-karte-bild"], L("nahZurueck"));
 
 // Beat 9: Schnitt auf "Waage": nur die leere Waage ("Kosten" / "Nutzen"). Rechnung und Gold-Fach
 // sind noch nicht da (Kategorie erst mit Beispiel).
@@ -129,14 +132,19 @@ einrasten("#d-abend", L("nachhilfe") + 0.12);
 // "Geld": Die Lohntüte zeichnet sich neben "Nachhilfe"
 zeichnen("#d-lohn-umriss", L("lohnZeichnen"));
 zeichnen("#d-lohn-klappe", L("lohnZeichnen") + 0.3);
-rein("#d-lohn-text", L("lohnZeichnen") + 0.45);
+// Fassung final: Die Aufschrift rastet auf "Lohn" ein, zusammen mit dem Fall ins Fach (vorher 2 s vor dem Wort).
+rein("#d-lohn-text", L("lohnText"));
 // Beat 11: Auf "Lohn" fällt die Tüte ins Gold-Fach (render). "Nachhilfe, heute Abend" gehen mit
 // ihr (sonst schwebten sie ohne Gegenstand, Prüfung 1). Beim Aufprall staucht die Tüte.
 raus(["#d-nachhilfe", "#d-abend"], L("nachhilfeAus"), { stagger: 0.05 });
 aufprall("#a-lohn-bild", L("lohnLandet"), 0.9);
+// "deine OPPORTUNITÄTSKOSTEN": das Fachwort unter "aufgegeben" (Didaktik-Kritik P1: Fall und Alltag verbinden)
+einrasten("#d-ok", L("okLohn"));
 // "Gratis": Gestell, Nutzen-Seite und Kinokarte treten zurück; die Welt fährt an die Kosten-Schale.
 dunkel("#d-gestell", L("dimRest"), true);
-dunkel(["#d-rechts", "#a-karte-bild"], L("dimRest"));
+// Fassung final: Nutzen-Seite und Kinokarte treten ganz ab (vorher abgedunkelt; nach der Nachfahrt standen
+// „Nutzen“, Karte und Schale angeschnitten am rechten Rand, und die Kette schien durch die Karte).
+raus(["#d-rechts", "#a-karte-bild"], L("dimRest"), { duration: 0.3 });
 raus("#d-gestell-unten", L("dimRest"), { duration: 0.3 });
 // "nicht" (gratis): Die Tüte zuckt neben der Rechnung "0 €" (Maßstab 1 -> 1,12 -> 1).
 tl.fromTo("#a-lohn-bild", { scale: 1, transformOrigin: "50% 100%" },
@@ -150,9 +158,15 @@ const etikett = document.getElementById("d-aufgegeben");
 M.marker(tl, document.getElementById("d-marker-reihe"), "linie",
   { x0: etikett.offsetLeft - 6, x1: etikett.offsetLeft + etikett.offsetWidth + 14, y: etikett.offsetTop + 58 },
   { farbe: "#C9A84C", breite: 10, seed: 6, beginn: L("aufgeben"), dauer: DATEN.marker.linie, id: "d-linie-aufgegeben" });
+// Fassung final (Bild- und Didaktik-Kritik): unter "0 €" der Rechnung, nicht unter dem Wort "Rechnung". Lage aus
+// dem DOM (Rechnung und Summe), 0,09 × Schriftgröße unter der Grundlinie (DESIGN.md §6).
+const rechnung = document.getElementById("d-rechnung");
+const summe = document.getElementById("d-rechnung-summe");
+const sx0 = rechnung.offsetLeft + summe.offsetLeft;
+const sGrund = rechnung.offsetTop + summe.offsetTop + 48 + 4;
 M.marker(tl, document.getElementById("d-marker-kosten"), "linie",
-  { x0: -2, x1: 220, y: -170 },
-  { farbe: "#1F3864", breite: 8, seed: 3, beginn: L("rechnung"), dauer: DATEN.marker.linie, id: "d-linie-rechnung", anstieg: -8, bogen: 4 });
+  { x0: sx0 - 6, x1: sx0 + summe.offsetWidth + 10, y: sGrund + 0.09 * 48 },
+  { farbe: "#1F3864", breite: 8, seed: 3, beginn: L("nullUnterstreichen"), dauer: DATEN.marker.linie, id: "d-linie-rechnung", anstieg: -6, bogen: 3 });
 
 tl.to({}, { duration: BUEHNEN.diagramm.ende - T0 }, 0);
 tl.eventCallback("onUpdate", function () {

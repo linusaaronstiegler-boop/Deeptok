@@ -37,15 +37,17 @@
      Stempel "bezahlt", Summe "0 €". Steht 30 px über den Schalenrand hinaus (Papier liegt auf).
      Runde 2b: Fach und Tüte sitzen 10 px weiter rechts, die Rechnung 6 px: So steht "Lohn" in der
      Tüte ganz im Lesefenster (vorher x = 99, gemessen mit build/messen-bild.mjs). */
-  #d-rechnung { position: absolute; left: -24px; top: -246px; width: 254px; height: 246px; background: #F5F0E8;
+  /* Fassung final: 12 px niedriger (234 statt 246). Kippte die Waage nach rechts (Kinokarte), hob sich die
+     Rechnung über die Ecke des Schilds „Kino“ (Bild-Kritik); dazu sitzt das Schild 10 px höher (bauen.mjs). */
+  #d-rechnung { position: absolute; left: -24px; top: -234px; width: 254px; height: 234px; background: #F5F0E8;
     transform: rotate(-2deg); transform-origin: 50% 100%; }
   .d-druck { position: absolute; white-space: nowrap; font-family: "DT Inter", sans-serif; font-weight: 600;
     font-size: 48px; line-height: 62px; color: #0E1726; }
   #d-rechnung-titel { left: 0; right: 0; top: 8px; text-align: center; }
   .d-zeile { position: absolute; height: 6px; background: #0E1726; opacity: 0.18; }
-  #d-rechnung-stempel { position: absolute; left: 12px; top: 96px; padding: 0 6px; border: 4px solid #1F3864; border-radius: 8px;
+  #d-rechnung-stempel { position: absolute; left: 12px; top: 90px; padding: 0 6px; border: 4px solid #1F3864; border-radius: 8px;
     font-family: "DT Inter", sans-serif; font-weight: 600; font-size: 48px; line-height: 58px; color: #1F3864; white-space: nowrap; transform: rotate(-8deg); }
-  #d-rechnung-summe { right: 20px; top: 174px; }
+  #d-rechnung-summe { right: 20px; top: 164px; }
 
   .a-huelle { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 5; }
   .a-figur { position: absolute; left: 0; top: 0; width: 0; height: 0; }
@@ -62,6 +64,7 @@
   /* -162: Bei waagerechter Waage hängt die Schale bei x = 540 - 270; so beginnt das Etikett genau an
      x = 108 (mit -164 lag es 2 px links vom Lesefenster, gemessen). */
   #d-aufgegeben { left: -162px; top: 80px; }
+  #d-ok { left: -162px; top: 146px; line-height: 62px; }
   /* Nachhilfe: neben der Lohntüte (Text hängt am Gegenstand), oben links über der Waage. */
   .d-fest { position: absolute; white-space: nowrap; font-family: "DT Inter", sans-serif; font-weight: 600;
     font-size: 52px; line-height: 62px; color: #F5F0E8; z-index: 6; }
@@ -137,10 +140,10 @@
     </svg>
     <div id="d-rechnung">
       <div id="d-rechnung-titel" class="d-druck">Rechnung</div>
-      <div class="d-zeile" style="left: 22px; right: 22px; top: 76px"></div>
-      <div class="d-zeile" style="left: 22px; right: 90px; top: 90px"></div>
+      <div class="d-zeile" style="left: 22px; right: 22px; top: 72px"></div>
+      <div class="d-zeile" style="left: 22px; right: 90px; top: 86px"></div>
       <div id="d-rechnung-stempel">bezahlt</div>
-      <div class="d-zeile" style="left: 22px; right: 22px; top: 170px; height: 3px; opacity: 0.35"></div>
+      <div class="d-zeile" style="left: 22px; right: 22px; top: 162px; height: 3px; opacity: 0.35"></div>
       <div id="d-rechnung-summe" class="d-druck">0&nbsp;€</div>
     </div>
   </div>
@@ -148,6 +151,9 @@
     <!-- data-hold (Fassung v2.1): Im Satz fürs Gespräch steht das Bild absichtlich still; nur die
          Unterstreichungen zeichnen sich (Marker-Ebene), und die sieht check nicht als Bewegung. -->
     <div id="d-aufgegeben" class="d-etikett d-gold" data-hold>aufgegeben</div>
+    <!-- Fassung final (Didaktik-Kritik P1): Das Gold-Fach bekommt sein Fachwort, wenn es gesprochen wird
+         („diesen Lohn: deine Opportunitätskosten“). So steht der Begriff auch im Schlussbild. -->
+    <div id="d-ok" class="d-etikett d-gold" data-hold>Opportunitäts-<br />kosten</div>
   </div>
 
   <!-- Kinokarte (Creme = gegeben): Karte mit Abriss und Kerben, Aufdruck "heute Abend". -->

@@ -60,7 +60,9 @@
      Ball liegt bis 137 px links vom Fuß). Den Punkt gibt es nicht: Auf München steht immer jemand
      (erst der Spieler, dann die Waage), und DESIGN.md §7 sagt, dann geht der Punkt. Vorher lag der
      graue Punkt genau vor dem Fuß und sah aus wie ein Ball (Kritik 28.10.). */
-  #w-name-muenchen { right: 168px; }
+  /* Fassung final (Bild-Kritik): 40 px tiefer als der Ball und 18 px weiter weg. Vorher lag der Ball genau
+     dort, wo sonst der Ortspunkt sitzt (rechts neben dem Namen, gleiche Höhe), und las sich als Punkt. */
+  #w-name-muenchen { right: 180px; top: 12px; }
   #w-punkt-muenchen { display: none; }
   .w-rand.w-mitte { display: flex; justify-content: center; }
 
@@ -107,7 +109,10 @@
   #fh-name { position: absolute; }
   .a-etikett { position: absolute; white-space: nowrap; font-family: "DT Inter", sans-serif; font-weight: 600;
     font-size: 52px; line-height: 62px; color: #F5F0E8; text-shadow: 0 2px 18px rgba(14, 23, 38, 0.9), 0 0 4px rgba(14, 23, 38, 0.9); }
-  #a-spieler-name { right: 104px; top: -118px; font-size: 48px; }
+  /* Fassung final (Bild-Kritik): am Körper, 30 px links neben Arm und Brust (DESIGN.md §7: 30 px neben dem
+     Bezug). Vorher schwebte der Name 150 px links neben dem Knie. bauen.mjs rechnet daraus das Ziel des
+     Abzug-Namens im Hook (er wandert hierher). */
+  #a-spieler-name { right: 80px; top: -268px; font-size: 48px; }
 
   /* Preisschilder: Creme-Papier mit Loch, Navy-Schrift (Navy auf Creme 15,8 : 1). Sie hängen
      an Schnüren an der Hand der Figur, leicht versetzt und schräg (keine bündige Liste).
@@ -150,6 +155,10 @@
   #zl-verl { left: 414px; top: 257px; width: 270px; height: 0; border-top: 6px dashed rgba(14, 23, 38, 0.6); }
   #zl-saison { left: 126px; top: 180px; }
   #zl-verl-text { left: 430px; top: 284px; }
+  /* Fassung final: Durchstrich über „verlängern“ (Stempel-Navy, auf "nicht"). Form statt Farbe: grau auf
+     Creme hatte 2,2 : 1, und „verlängern“ ist Inhalt („will er nicht verlängern“). */
+  #zl-verl-strich { left: 420px; top: 312px; width: 262px; height: 7px; background: #1F3864; border-radius: 4px;
+    transform: rotate(-4deg) scaleX(0); transform-origin: 0% 50%; }
 
   /* Etiketten an der Waage (an Schalen verankert). Gold nur für die gesuchte Größe. */
   .w-etikett { position: absolute; white-space: nowrap; font-family: "DT Inter", sans-serif; font-weight: 600;
@@ -168,8 +177,13 @@
   /* "45 Mio. €" im Geist-Stil: gestrichelte Gold-Unterkante wie der Umriss des Geistes (nur eine
      Möglichkeit). Auf "genauso" wird die Zahl fest (volle Deckkraft) und der Strich geht. */
   #w-zahl-strich { position: absolute; left: 0; right: 0; top: 60px; height: 0; border-top: 5px dashed #C9A84C; }
-  #w-tore-anker { z-index: 6; }
-  #w-tore { left: -222px; top: -170px; }
+  /* Fassung final (Bild-Kritik): „Tore“ über dem Aufhängering der Nutzen-Schale, nicht im Kettendreieck
+     (eine Kette schnitt das „T“). z 4: unter den Darstellern, das Vertragsblatt deckt es. */
+  #w-tore-anker { z-index: 4; }
+  #w-tore { left: -58px; top: -446px; }
+  /* „0 € Ablöse“ unter der Nutzen-Schale (seite:rechts), rechtsbündig an x = 972 bei waagerechter Waage. */
+  #w-reihe-r { z-index: 6; }
+  #w-null-ablose { right: -162px; top: 80px; }
 
   /* Licht: Vignette (radial, kein linearer Verlauf: der bildet im H.264-Video Streifen). */
   #w-vignette { position: absolute; inset: 0; pointer-events: none; z-index: 1;
@@ -241,13 +255,6 @@
           <text id="w-schild-vorn" class="wg-schild-text" x="0" y="17" text-anchor="middle">Behalten</text>
           <text id="w-schild-hinten" class="wg-schild-text" x="0" y="17" text-anchor="middle">Verkaufen</text>
         </g>
-        <!-- Stempel "0 €" unter dem Schild ("Behalten keinen Cent"). Tritt vor der Drehung ab. -->
-        <g transform="translate(0 -362)">
-          <g id="w-null-behalten">
-            <rect class="wg-stempel-rand" x="-56" y="-33" width="112" height="66" rx="8" />
-            <text class="wg-stempel-text" x="0" y="17" text-anchor="middle">0&#160;€</text>
-          </g>
-        </g>
         <!-- Schalen: Ursprung = Mitte des Schalenrands, 400 breit. Jede trägt beide Wörter; render()
              zeigt links immer "Kosten", rechts immer "Nutzen" (auch nach der Drehung). -->
         <g id="w-schale-l">
@@ -317,7 +324,7 @@
   <!-- Darsteller 3: der Vertrag (Beat 4), ein Blatt wie der Beleg. Stempel "ablösefrei". -->
   <div id="a-vertrag" class="a-huelle">
     <div id="a-vertrag-figur" class="a-figur">
-      <div id="a-vertrag-papier" class="a-papier">
+      <div id="a-vertrag-papier" class="a-papier" data-fakt="vertrag">
         <div id="a-vertrag-titel" class="a-druck">Vertrag</div>
         <div id="a-vertrag-datum" class="a-druck">bis 30.06.2023</div>
         <!-- Zeitleiste auf dem Blatt: eine Saison = das Band bis zum Vertragsende -->
@@ -327,8 +334,9 @@
         <div id="zl-ende" class="zl zl-strich"></div>
         <div id="zl-verl" class="zl"></div>
         <div id="zl-verl-text" class="zl a-druck">verlängern</div>
-        <div id="a-vertrag-stempel" class="a-stempel" style="transform: rotate(-7deg)">ablösefrei</div>
-        <div id="a-vertrag-null" class="a-stempel" style="transform: rotate(4deg)">0&nbsp;€</div>
+        <div id="zl-verl-strich" class="zl" data-layout-allow-occlusion></div>
+        <div id="a-vertrag-stempel" class="a-stempel" style="transform: rotate(-7deg)" data-fakt="frei">ablösefrei</div>
+        <div id="a-vertrag-null" class="a-stempel" style="transform: rotate(4deg)" data-fakt="frei">0&nbsp;€</div>
       </div>
     </div>
   </div>
@@ -362,11 +370,14 @@
        Zeile 2 "entgangen" -> "beste Alternative" (Morph); nach der Drehung "Opportunitätskosten"
        und "1 Saison". Kein Name mehr unter der Nutzen-Schale (40 px, unter der Schriftstufe). -->
   <div id="w-reihe-l" class="w-anker" data-anker="seite:links">
-    <div id="w-reihe-zahl" class="w-etikett w-gold"><span id="w-zahl-text">45&nbsp;Mio.&nbsp;€</span><div id="w-zahl-strich"></div></div>
+    <div id="w-reihe-zahl" class="w-etikett w-gold" data-fakt="abl"><span id="w-zahl-text">45&nbsp;Mio.&nbsp;€</span><div id="w-zahl-strich"></div></div>
     <div id="w-reihe-entgangen" class="w-etikett w-gold w-zeile2">entgangen</div>
     <div id="w-reihe-alternative" class="w-etikett w-gold w-zeile2">beste Alternative</div>
     <div id="w-ok" class="w-etikett w-gold">Opportunitäts-<br />kosten</div>
-    <div id="w-saison" class="w-etikett w-gold">1&nbsp;Saison</div>
+    <div id="w-saison" class="w-etikett w-gold" data-fakt="saison">1&nbsp;Saison</div>
+  </div>
+  <div id="w-reihe-r" class="w-anker" data-anker="seite:rechts">
+    <div id="w-null-ablose" class="w-etikett w-creme" data-fakt="frei">0&nbsp;€ Ablöse</div>
   </div>
   <div id="w-tore-anker" class="w-anker" data-anker="schale:rechts"><div id="w-tore" class="w-etikett w-creme">Tore</div></div>
 

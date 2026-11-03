@@ -29,18 +29,20 @@
     .c2 { bottom: 658px; }
     .c3 { bottom: 700px; }
     #root .hud-marker { left: 0; top: 0; width: 1080px; height: 1920px; overflow: visible; }
-    #wl-zahl { top: 880px; }
+    #root #wl-zahl { top: 880px; left: 620px; transform: translateX(-50%); }
     #wl-behauptung { top: 214px; }
   </style>
   <div id="root" data-composition-id="widerlegung" data-width="1080" data-height="1920">
     <!-- Fortsetzung aus "angebot": Die Zahl tritt ab, wenn der Stapel abhebt. -->
-    <div id="wl-zahl" class="clip d1 gold schatten" data-cue="anfang" data-cue-bis="zahlTextAus" data-cue-bis-versatz="0.2" data-start="0" data-duration="3.634" data-track-index="1">45&nbsp;Mio.&nbsp;€</div>
-    <div id="wl-behauptung" class="clip t schatten" data-cue="widerlegung" data-start="0.134" data-duration="7" data-track-index="1" data-beat="widerlegung"><span id="wl-nur">Nur</span> sein Gehalt</div>
-    <svg id="wl-marker" class="clip hud-marker" viewBox="0 0 1080 1920" aria-hidden="true" data-cue="falsch" data-start="1.934" data-duration="5.2" data-track-index="3" data-layout-ignore></svg>
-    <div id="wl-credit-abl" class="clip credit schatten c3" data-cue="anfang" data-start="0" data-duration="7.134" data-track-index="2">Ablöse: FC Barcelona, 19.07.2022</div>
-    <div id="wl-credit-var" class="clip credit schatten c2" data-cue="anfang" data-start="0" data-duration="7.134" data-track-index="2">+ 5&nbsp;Mio.&nbsp;€ variabel</div>
-    <div id="wl-credit-karte" class="clip credit schatten c1" data-cue="anfang" data-cue-bis="fahrtMuenchen" data-start="0" data-duration="3.434" data-track-index="2">Karte: Natural Earth</div>
-    <div id="wl-credit-foto-lewa" class="clip credit schatten c1" data-cue="fahrtMuenchen" data-start="3.434" data-duration="3.7" data-track-index="4">Foto: Steffen Prößdorf, 2019, CC BY-SA 4.0, bearb.</div>
+    <div id="wl-zahl" class="clip d2 gold schatten" data-fakt="abl" data-cue="anfang" data-cue-bis="zahlTextAus" data-cue-bis-versatz="0.2" data-start="0" data-duration="4.05" data-track-index="1">45&nbsp;Mio.&nbsp;€</div>
+    <div id="wl-behauptung" class="clip t schatten" data-hold data-cue="widerlegung" data-start="0.133" data-duration="7.767" data-track-index="1" data-beat="widerlegung"><span id="wl-nur">Nur</span> sein Gehalt</div>
+    <svg id="wl-marker" class="clip hud-marker" viewBox="0 0 1080 1920" aria-hidden="true" data-cue="falsch" data-start="1.866" data-duration="6.034" data-track-index="3" data-layout-ignore></svg>
+    <div id="wl-credit-abl" class="clip credit schatten c3" data-fakt="abl" data-cue="anfang" data-start="0" data-duration="7.9" data-track-index="2">Ablöse: FC Barcelona, 19.07.2022</div>
+    <div id="wl-credit-var" class="clip credit schatten c2" data-cue="anfang" data-cue-bis="nullBehalten" data-start="0" data-duration="6.666" data-track-index="2">+ 5&nbsp;Mio.&nbsp;€ variabel</div>
+    <!-- Fassung final: Ab „Cent“ steht „0 € Ablöse“ im Bild; seine Quelle ersetzt die Zeile „+ 5 Mio. € variabel“. -->
+    <div id="wl-credit-frei" class="clip credit schatten c2" data-fakt="frei" data-cue="nullBehalten" data-start="6.666" data-duration="1.234" data-track-index="5">ablösefrei: EuGH, Bosman-Urteil, 15.12.1995</div>
+    <div id="wl-credit-karte" class="clip credit schatten c1" data-cue="anfang" data-cue-bis="fahrtMuenchen" data-start="0" data-duration="3.85" data-track-index="2">Karte: Natural Earth</div>
+    <div id="wl-credit-foto-lewa" class="clip credit schatten c1" data-cue="fahrtMuenchen" data-start="3.85" data-duration="4.05" data-track-index="4">Foto: Steffen Prößdorf, 2019, CC BY-SA 4.0, bearb.</div>
   </div>
   <script>
     (function () {
@@ -108,6 +110,57 @@
   }
 
   /*
+   * Rahmen um ein hohes oder breites Ziel (DESIGN.md §6, wie rahmen() in studio/looks/werkzeug/probe_basis.py):
+   * Superellipse |x/a|^4 + |y/b|^4 = 1 mit flachen Seiten und runden Ecken. Eine Ellipse hält die Luft an
+   * den Ecken des Ziels nicht (Goldstandard, Bild-Kritik: sie lief über die Kante des Geists).
+   *   hw, hh : halbe Breite und Höhe des Ziels (mit dessen Strich)
+   *   luft   : Abstand vom Ziel bis zum INNEREN Rand des Markerstrichs (Standard 24 px)
+   * Die Halbachsen a, b werden so gewählt, dass jeder Punkt der Kurve (minus halbe Strichbreite und
+   * minus das Wachsen) mindestens `luft` von der Zielecke entfernt ist; geprüft wird an 400 Punkten.
+   * Der Stift fährt 1,1-mal herum, der Rahmen wächst dabei um 6 px (nicht 12 %), leicht gekippt.
+   */
+  function rahmenPunkte(cx, cy, hw, hh, luft, breite, seed) {
+    var n = 4;
+    var halbStrich = (breite || 10) / 2;
+    var a = hw + luft + halbStrich;
+    var b = hh + luft + halbStrich;
+    // Abstand der Ecke (hw, hh) zur Kurve: so lange vergrößern, bis die Luft überall hält
+    var abstand = function (a, b) {
+      var best = 1e9;
+      for (var i = 0; i <= 400; i++) {
+        var w = (i / 400) * (Math.PI / 2);
+        var x = a * Math.pow(Math.cos(w), 2 / n);
+        var y = b * Math.pow(Math.sin(w), 2 / n);
+        var dx = Math.max(0, x - hw), dy = Math.max(0, y - hh);
+        // Punkte innerhalb des Zielrechtecks gäbe es nicht; außen zählt der Abstand zum Rechteck
+        var d = x <= hw ? y - hh : y <= hh ? x - hw : Math.sqrt(dx * dx + dy * dy);
+        if (d < best) best = d;
+      }
+      return best;
+    };
+    var schritte = 0;
+    while (abstand(a - 3, b - 3) - halbStrich < luft && schritte++ < 200) {
+      a += 1;
+      b += 1;
+    }
+    var kipp = -0.03 + hash(3, seed) * 0.02;
+    var start = -2.2;
+    var umlauf = 1.1;
+    var k = 34;
+    var pts = [];
+    for (var j = 0; j <= k; j++) {
+      var f = j / k;
+      var w = start + f * umlauf * Math.PI * 2;
+      var wachs = -3 + f * 6 + hash(j * 7 + 11, seed) * 1.2; // 6 px über den Umlauf, kleines Zittern
+      var c = Math.cos(w), s = Math.sin(w);
+      var x = (a + wachs) * Math.sign(c) * Math.pow(Math.abs(c), 2 / n);
+      var y = (b + wachs) * Math.sign(s) * Math.pow(Math.abs(s), 2 / n);
+      pts.push([cx + x * Math.cos(kipp) - y * Math.sin(kipp), cy + x * Math.sin(kipp) + y * Math.cos(kipp)]);
+    }
+    return pts;
+  }
+
+  /*
    * Unterstreichung von x0 bis x1 auf Höhe y.
    * Leicht ansteigend, mit kleinem Bogen und einem Auslauf am Ende,
    * so wie ein schneller Strich mit dem Marker.
@@ -131,13 +184,16 @@
    * Durchstrich von x0 bis x1 auf Höhe y (DESIGN.md §6: ein Strich, -4°, 12 px Überstand).
    * Leicht durchgebogen, damit er nicht wie eine CSS-Linie aussieht.
    */
-  function strichPunkte(x0, y, x1, seed) {
+  function strichPunkte(x0, y, x1, seed, rechts) {
+    // Fassung final (Bild-Kritik): Rechts höchstens die Hälfte des Wortzwischenraums (rechts), sonst
+    // berührte das Strichende das nächste Wort („s“ von „sein“), das richtig bleibt.
+    var ueberRechts = rechts === undefined ? 12 : Math.min(12, rechts);
     var n = 7;
     var pts = [];
     var neigung = Math.tan((-4 * Math.PI) / 180);
     for (var i = 0; i <= n; i++) {
       var f = i / n;
-      var x = x0 - 12 + (x1 - x0 + 24) * f;
+      var x = x0 - 12 + (x1 - x0 + 12 + ueberRechts) * f;
       var yy = y + neigung * (x - x0) - Math.sin(f * Math.PI) * 3 + hash(i * 3 + 5, seed) * 1.2;
       pts.push([x, yy]);
     }
@@ -206,8 +262,10 @@
     var pts =
       art === "kreis"
         ? kreisPunkte(p.cx, p.cy, p.rx, p.ry, seed, stil)
+        : art === "rahmen"
+          ? rahmenPunkte(p.cx, p.cy, p.hw, p.hh, p.luft === undefined ? 24 : p.luft, stil.breite, seed)
         : art === "strich"
-          ? strichPunkte(p.x0, p.y, p.x1, seed)
+          ? strichPunkte(p.x0, p.y, p.x1, seed, p.rechts)
           : art === "klammer"
             ? klammerPunkte(p.x, p.y0, p.y1, p.yEtikett, seed)
             : linienPunkte(p.x0, p.y, p.x1, seed, stil);
@@ -233,7 +291,7 @@
       path.style.stroke = stil.farbe || "#F5F0E8";
       path.style.strokeOpacity = String(s.deckkraft);
       g.appendChild(path);
-      var standard = { kreis: 0.5, strich: 0.3, klammer: 0.5 }[art] || 0.35;
+      var standard = { kreis: 0.5, rahmen: 0.5, strich: 0.3, klammer: 0.5 }[art] || 0.35;
       zeichne(tl, path, stil.beginn, stil.dauer || standard, laenge, stil);
     });
     return g;
@@ -242,6 +300,7 @@
   window.DeepTokMarker = {
     hash: hash,
     kreisPunkte: kreisPunkte,
+    rahmenPunkte: rahmenPunkte,
     linienPunkte: linienPunkte,
     strichPunkte: strichPunkte,
     klammerPunkte: klammerPunkte,
@@ -255,10 +314,10 @@
       /* @daten:anfang */
 // eingesetzt von build/bauen.mjs (nicht von Hand ändern)
 // WORTE: Wort-Cues aus assets/timing.json (Bild 2 Bilder vor dem Wort). ZEIT: Cues plus abgeleitete Zeiten.
-const WORTE = {"bcn":0.3,"lewa":1.2666666666666666,"bayern":2.3333333333333335,"verkaufen":3.033333333333333,"behalten":4.1,"frage":5.366666666666666,"optionen":6.4,"waage":9.333333333333334,"nur":10.933333333333334,"gehalt":11.333333333333334,"bezahlt":12.866666666666667,"schiesst":14.7,"tore":15.1,"vertrag":16.5,"saison":17.866666666666667,"verlaengern_an":18.733333333333334,"verlaengern":19.5,"danach":20.1,"frei":21,"nichts":22.7,"angebot":23.666666666666668,"bietet":24.3,"zahl":25.2,"falsch":29.166666666666668,"landung":31.9,"cent":33.266666666666666,"entgangen":34.5,"gewicht":36,"korrektur":36.63333333333333,"begriff":39.666666666666664,"alternative":43.2,"aufgibt":44.36666666666667,"juli":45.766666666666666,"nimmt":46.2,"genommen":47.1,"dreh":48.766666666666666,"ok_verkauf":49.6,"abflug_spieler":51.03333333333333,"ok_saison":51.233333333333334,"modell":54.5,"karte":56.5,"geschenkt":57.9,"genau":59.06666666666667,"nachhilfe":60.2,"lohn_da":60.733333333333334,"gleichung":62.43333333333333,"lohn":63.766666666666666,"gratis":66.03333333333333,"gratis_nicht":66.8,"aufgeben":68.6,"kosten2":69.16666666666667,"rechnung":71.1};
-const ZEIT = {"anfang":0,"bcn":0.3,"lewa":1.2666666666666666,"bayern":2.3333333333333335,"verkaufen":3.033333333333333,"behalten":4.1,"frage":5.366666666666666,"optionen":6.4,"waage":9.333333333333334,"nur":10.933333333333334,"gehalt":11.333333333333334,"bezahlt":12.866666666666667,"schiesst":14.7,"tore":15.1,"vertrag":16.5,"saison":17.866666666666667,"verlaengern_an":18.733333333333334,"verlaengern":19.5,"danach":20.1,"frei":21,"nichts":22.7,"angebot":23.666666666666668,"bietet":24.3,"zahl":25.2,"falsch":29.166666666666668,"landung":31.9,"cent":33.266666666666666,"entgangen":34.5,"gewicht":36,"korrektur":36.63333333333333,"begriff":39.666666666666664,"alternative":43.2,"aufgibt":44.36666666666667,"juli":45.766666666666666,"nimmt":46.2,"genommen":47.1,"dreh":48.766666666666666,"ok_verkauf":49.6,"abflug_spieler":51.03333333333333,"ok_saison":51.233333333333334,"modell":54.5,"karte":56.5,"geschenkt":57.9,"genau":59.06666666666667,"nachhilfe":60.2,"lohn_da":60.733333333333334,"gleichung":62.43333333333333,"lohn":63.766666666666666,"gratis":66.03333333333333,"gratis_nicht":66.8,"aufgeben":68.6,"kosten2":69.16666666666667,"rechnung":71.1,"s_hook":0.3,"s_naheliegend":9.333333333333334,"s_vertrag":16.066666666666666,"s_angebot":23.666666666666668,"s_widerlegung":27.366666666666667,"s_entgangen":34.5,"s_begriff":38,"s_verkauf":45.53333333333333,"s_aufloesung":48.56666666666667,"s_modell":53.166666666666664,"s_transfer":55.666666666666664,"s_transfer_lohn":62.2,"s_satz":68,"ende":74.4,"pause":6.9,"pauseEnde":9.3,"nameSpieler":1.2666666666666666,"morph":2.0833333333333335,"morphEnde":2.6333333333333337,"entfaerben":2.6333333333333337,"entfaerbtEnde":2.8833333333333337,"nameAtlas":2.6333333333333337,"routeAus":3.833333333333333,"dimBcn":4.1,"schilder":5.466666666666666,"hookAus":9.433333333333334,"zoomIn":9.633333333333335,"zoomInEnde":10.233333333333334,"waageAuf":10.083333333333334,"behauptung":10.933333333333334,"belegFall":11.333333333333334,"neigungKosten":11.753333333333334,"stempel":12.866666666666667,"spielerHopp":14.7,"neigungRechts":15.2,"toreText":15.219999999999999,"behauptungAus":15.716666666666667,"vertragFall":16.5,"dimWaage":16.5,"band":17.866666666666667,"bandEnde":18.566666666666666,"nahVertrag":20.1,"nahVertragEnde":20.6,"nullEuro":22.7,"fahrtBarcelonaEnde":25.1,"fahrtBarcelona":24.5,"vertragAus":24.5,"toreAus":24.5,"routeHell":24.5,"hellWaage":25.1,"geldFall":25.2,"geldLandetBcn":25.62,"zahlText":25.2,"widerlegung":27.366666666666667,"abflugGeist":30.2,"fahrtMuenchen":30.666666666666668,"fahrtMuenchenEnde":31.75,"behauptungDunkel":30.46666666666667,"zahlTextAus":30.666666666666668,"geldEtikett":32.019999999999996,"routeDunkel":32.199999999999996,"nullBehalten":33.266666666666666,"etikettEntgangen":34.5,"waagerecht":36,"nullBehaltenAus":39.666666666666664,"nahRein":40.516666666666666,"nahReinEnde":41.016666666666666,"etikettAlternative":43.2,"julAus":44.949999999999996,"nahRaus":44.949999999999996,"nahRausEnde":45.449999999999996,"datumJuli":45.88666666666666,"neigungLinks":46.2,"drehStart":48.46666666666667,"drehEnde":49.06666666666666,"massiv":48.766666666666666,"atemVerkauf":47.52,"atemVerkaufEnde":48.52,"okEtikett":49.6,"geldDunkel":49.6,"abflugSpieler":51.03333333333333,"spielerWeg":51.28333333333333,"umriss":51.21333333333333,"saisonText":51.233333333333334,"schnitt":54.5,"karteFall":56.5,"schildKino":56.62,"neigungKarte":56.92,"rechnungFall":57.9,"fach":59.06666666666667,"lohnZeichnen":60.733333333333334,"lohnFall":63.766666666666666,"lohnLandet":64.18666666666667,"nachhilfeAus":63.766666666666666,"nahAlt":59.986666666666665,"nahAltEnde":60.43666666666667,"nahZurueck":64.43333333333334,"nahZurueckEnde":64.88333333333334,"gleichungAus":66.03333333333333,"dimRest":66.03333333333333,"nahSatz":66.23333333333333,"nahSatzEnde":66.83333333333333,"puls":66.83333333333333,"abspann":71.56666666666666};
-const SZENEN = [{"id":"hook","beginn":0,"ende":9.733333333333333},{"id":"naheliegend","beginn":9.733333333333333,"ende":15.933333333333334},{"id":"vertrag","beginn":15.933333333333334,"ende":23.533333333333335},{"id":"angebot","beginn":23.533333333333335,"ende":27.233333333333334},{"id":"widerlegung","beginn":27.233333333333334,"ende":34.36666666666667},{"id":"entgangen","beginn":34.36666666666667,"ende":37.86666666666667},{"id":"begriff","beginn":37.86666666666667,"ende":45.4},{"id":"verkauf","beginn":45.4,"ende":48.43333333333333},{"id":"aufloesung","beginn":48.43333333333333,"ende":54.5},{"id":"modell","beginn":54.5,"ende":55.53333333333333},{"id":"transfer","beginn":55.53333333333333,"ende":62.06666666666667},{"id":"transfer_lohn","beginn":62.06666666666667,"ende":67.83333333333333},{"id":"satz","beginn":67.83333333333333,"ende":74.4}];
-const BUEHNEN = {"atlas":{"beginn":0,"ende":54.5},"diagramm":{"beginn":54.5,"ende":74.4}};
+const WORTE = {"bcn":0.3333333333333333,"lewa":1.0333333333333334,"bayern":2.566666666666667,"verkaufen":3.066666666666667,"behalten":3.933333333333333,"frage":5.066666666666666,"optionen":6.133333333333334,"waage":9.033333333333333,"nur":10.833333333333334,"gehalt":11.3,"bezahlt":13.066666666666666,"schiesst":14.266666666666667,"tore":14.8,"vertrag":16.166666666666668,"saison":17.366666666666667,"verlaengern_an":18.266666666666666,"verlaengern":19.033333333333335,"danach":19.933333333333334,"frei":20.166666666666668,"nichts":21.933333333333334,"angebot":22.8,"bietet":23.366666666666667,"zahl":24.166666666666668,"falsch":27.933333333333334,"landung":31.366666666666667,"cent":32.733333333333334,"entgangen":34.1,"gewicht":35.1,"korrektur":35.96666666666667,"begriff":39.1,"alternative":42.43333333333333,"aufgibt":43.9,"juli":45.36666666666667,"nimmt":45.766666666666666,"genommen":46.46666666666667,"dreh":48.03333333333333,"ok_verkauf":48.733333333333334,"abflug_spieler":50.2,"ok_saison":50.43333333333333,"modell":53.733333333333334,"karte":56.166666666666664,"geschenkt":56.833333333333336,"genau":58.06666666666667,"nachhilfe":59.2,"lohn_da":59.8,"gleichung":61.3,"lohn":62.63333333333333,"ok_lohn":63.43333333333333,"gratis":67,"gratis_nicht":67.73333333333333,"beste":69.2,"aufgeben":70.3,"kosten2":71.2,"rechnung":73.63333333333334};
+const ZEIT = {"anfang":0,"bcn":0.3333333333333333,"lewa":1.0333333333333334,"bayern":2.566666666666667,"verkaufen":3.066666666666667,"behalten":3.933333333333333,"frage":5.066666666666666,"optionen":6.133333333333334,"waage":9.033333333333333,"nur":10.833333333333334,"gehalt":11.3,"bezahlt":13.066666666666666,"schiesst":14.266666666666667,"tore":14.8,"vertrag":16.166666666666668,"saison":17.366666666666667,"verlaengern_an":18.266666666666666,"verlaengern":19.033333333333335,"danach":19.933333333333334,"frei":20.166666666666668,"nichts":21.933333333333334,"angebot":22.8,"bietet":23.366666666666667,"zahl":24.166666666666668,"falsch":27.933333333333334,"landung":31.366666666666667,"cent":32.733333333333334,"entgangen":34.1,"gewicht":35.1,"korrektur":35.96666666666667,"begriff":39.1,"alternative":42.43333333333333,"aufgibt":43.9,"juli":45.36666666666667,"nimmt":45.766666666666666,"genommen":46.46666666666667,"dreh":48.03333333333333,"ok_verkauf":48.733333333333334,"abflug_spieler":50.2,"ok_saison":50.43333333333333,"modell":53.733333333333334,"karte":56.166666666666664,"geschenkt":56.833333333333336,"genau":58.06666666666667,"nachhilfe":59.2,"lohn_da":59.8,"gleichung":61.3,"lohn":62.63333333333333,"ok_lohn":63.43333333333333,"gratis":67,"gratis_nicht":67.73333333333333,"beste":69.2,"aufgeben":70.3,"kosten2":71.2,"rechnung":73.63333333333334,"s_hook":0.3333333333333333,"s_naheliegend":9.033333333333333,"s_vertrag":15.933333333333334,"s_angebot":22.8,"s_widerlegung":26.2,"s_entgangen":34.1,"s_begriff":37.6,"s_verkauf":45.266666666666666,"s_aufloesung":47.9,"s_modell":52.333333333333336,"s_transfer":54.86666666666667,"s_transfer_lohn":60.93333333333333,"s_satz":69.03333333333333,"ende":77.03333333333333,"pause":6.748,"pauseEnde":9.148,"nameSpieler":1.0333333333333334,"morph":2.566666666666667,"morphEnde":3.116666666666667,"entfaerben":3.116666666666667,"entfaerbtEnde":3.366666666666667,"nameAtlas":3.116666666666667,"muenchenName":2.746666666666667,"routeAn":3.366666666666667,"routeAus":4.166666666666667,"dimBcn":3.933333333333333,"schilder":5.166666666666666,"hookAus":9.133333333333333,"zoomIn":9.333333333333334,"zoomInEnde":9.933333333333334,"waageAuf":9.783333333333333,"behauptung":10.833333333333334,"belegFall":11.3,"neigungKosten":11.72,"stempel":13.066666666666666,"spielerHopp":14.266666666666667,"neigungRechts":14.686666666666667,"toreText":14.8,"behauptungAus":15.583333333333334,"vertragFall":16.166666666666668,"dimWaage":16.166666666666668,"band":17.366666666666667,"bandEnde":18.066666666666666,"nahVertrag":19.616666666666667,"nahVertragEnde":20.116666666666667,"nullEuro":21.933333333333334,"fahrtBarcelona":23.413333333333334,"fahrtBarcelonaEnde":24.013333333333335,"vertragAus":23.413333333333334,"vertragWeg":23.663333333333334,"toreAus":16.50666666666667,"routeHell":23.413333333333334,"hellWaage":24.013333333333335,"geldFall":24.166666666666668,"geldLandetBcn":24.58666666666667,"zahlText":24.166666666666668,"widerlegung":26.2,"abflugGeist":29.666666666666668,"fahrtMuenchen":29.916666666666668,"fahrtMuenchenEnde":31.21666666666667,"behauptungDunkel":29.566666666666666,"zahlTextAus":29.916666666666668,"geldEtikett":31.486666666666668,"routeDunkel":31.01666666666667,"geldBcnAus":30.01666666666667,"nullBehalten":32.733333333333334,"etikettEntgangen":34.1,"gewichtGeist":35.1,"nullBehaltenAus":38.85,"nahRein":39.95,"ablBis":44.964,"nahReinEnde":40.45,"etikettAlternative":42.43333333333333,"julAus":44.763999999999996,"nahRaus":44.763999999999996,"nahRausEnde":45.263999999999996,"datumJuli":45.486666666666665,"drehStart":47.733333333333334,"drehEnde":48.33333333333333,"massiv":48.03333333333333,"atemVerkauf":46.944,"atemVerkaufEnde":47.944,"okEtikett":48.733333333333334,"geldDunkel":48.733333333333334,"abflugSpieler":50.2,"spielerWeg":50.45,"umriss":50.38,"saisonText":50.43333333333333,"schnitt":53.733333333333334,"karteFall":56.166666666666664,"schildKino":56.28666666666666,"neigungKarte":56.586666666666666,"rechnungFall":56.93333333333334,"fach":58.06666666666667,"lohnZeichnen":59.8,"lohnFall":62.63333333333333,"lohnText":62.63333333333333,"lohnLandet":63.053333333333335,"okLohn":63.43333333333333,"nachhilfeAus":62.63333333333333,"gleichungAus":67,"dimRest":67,"nahSatz":67.2,"nahSatzEnde":67.8,"puls":67.8,"nullUnterstreichen":73.63333333333334,"abspann":74.33333333333333};
+const SZENEN = [{"id":"hook","beginn":0,"ende":9.433333333333334},{"id":"naheliegend","beginn":9.433333333333334,"ende":15.8},{"id":"vertrag","beginn":15.8,"ende":22.666666666666668},{"id":"angebot","beginn":22.666666666666668,"ende":26.066666666666666},{"id":"widerlegung","beginn":26.066666666666666,"ende":33.96666666666667},{"id":"entgangen","beginn":33.96666666666667,"ende":37.46666666666667},{"id":"begriff","beginn":37.46666666666667,"ende":45.13333333333333},{"id":"verkauf","beginn":45.13333333333333,"ende":47.766666666666666},{"id":"aufloesung","beginn":47.766666666666666,"ende":53.733333333333334},{"id":"modell","beginn":53.733333333333334,"ende":54.733333333333334},{"id":"transfer","beginn":54.733333333333334,"ende":60.8},{"id":"transfer_lohn","beginn":60.8,"ende":68.9},{"id":"satz","beginn":68.9,"ende":77.03333333333333}];
+const BUEHNEN = {"atlas":{"beginn":0,"ende":53.733333333333334},"diagramm":{"beginn":53.733333333333334,"ende":77.03333333333333}};
 
 /* @daten:ende */
       const S = SZENEN.find((s) => s.id === "widerlegung");
@@ -286,12 +345,13 @@ const BUEHNEN = {"atlas":{"beginn":0,"ende":54.5},"diagramm":{"beginn":54.5,"end
       document.fonts.load('600 52px "DT Inter"').catch(function () {}).then(function () {
         rein("#wl-behauptung", T("widerlegung"));
         raus("#wl-zahl", T("zahlTextAus"));
+        rein("#wl-credit-frei", T("nullBehalten"));
         // Durchstrich ROT: das einzige Rot im Video (Irrtum), mit zweitem Merkmal (Strich). Er trifft
         // nur "Nur": Breite des Worts gemessen (Schrift geladen), der Marker setzt den Überstand.
         const b = document.getElementById("wl-behauptung");
         const nur = document.getElementById("wl-nur");
         window.DeepTokMarker.marker(tl, document.getElementById("wl-marker"), "strich",
-          { x0: b.offsetLeft + nur.offsetLeft, x1: b.offsetLeft + nur.offsetLeft + nur.offsetWidth, y: b.offsetTop + 36 },
+          { x0: b.offsetLeft + nur.offsetLeft, x1: b.offsetLeft + nur.offsetLeft + nur.offsetWidth, y: b.offsetTop + 36, rechts: 6 },
           { farbe: "#E07A5F", breite: 10, seed: 9, beginn: T("falsch"), dauer: 0.3, ease: "power2.out", id: "wl-strich" });
         // Widerlegt: Die Zeile tritt zurück (35 %), bevor der Geist beim Rückschwenk durch ihr Ende
         // fliegt (Prüfung 3). Auf "bezahltes" kommt sie korrigiert zurück (Szene "entgangen").
