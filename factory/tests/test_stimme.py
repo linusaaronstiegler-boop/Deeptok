@@ -475,7 +475,7 @@ def test_inworld_request_ohne_schluessel(leitung):
     assert kopf(r, "Authorization") is None
     assert r.json() == {
         "text": 'Das stimmt NICHT <break time="400ms" /> klar?',
-        "voiceId": "stimme-123", "modelId": "inworld-tts-2",
+        "voiceId": "Bastian", "modelId": "inworld-tts-2",      # gepinnt in voices/inworld.json
         "audioConfig": {"audioEncoding": "MP3", "sampleRateHertz": 44100, "bitRate": 128000},
         "timestampType": "WORD", "deliveryMode": "BALANCED", "language": "de"}
     assert e.format == "mp3" and e.abtastrate == 44100 and e.zeichen == 42
@@ -531,7 +531,7 @@ def test_cartesia_request_ohne_schluessel(leitung):
     assert kopf(r, "Authorization") is None
     assert r.json() == {
         "model_id": "sonic-3.6-2026-08-27", "transcript": 'Das stimmt nicht <break time="400ms"/> sondern',
-        "voice": {"id": "stimme-123"},
+        "voice": {"id": "b7187e84-fe22-4344-ba4a-bc013fcb533e"},   # Sebastian, voices/cartesia.json
         "output_format": {"container": "raw", "encoding": "pcm_s16le", "sample_rate": 44100},
         "add_timestamps": True, "language": "de"}
     assert e.format == "wav" and e.abtastrate == 44100 and e.audio[:4] == b"RIFF"
@@ -644,8 +644,15 @@ def test_gepinnte_stimmen_sind_vollstaendig(anbieter):
         assert verboten not in roh
 
 
-def test_platzhalter_nur_wo_noetig():
+def test_gepinnte_stimmen_nach_casting():
+    """Seit der Casting-Runde 2 (Stand 03.11.2026) braucht kein Anbieter mehr den Platzhalter."""
     assert stimm_paket.lade_stimme("azure")["stimm_id"] == "de-DE-Florian:DragonHDLatestNeural"
     assert stimm_paket.lade_stimme("elevenlabs")["stimm_id"] == "xlbJQnFFGB01bv7HK5CZ"   # Jonas
+    sebastian = "b7187e84-fe22-4344-ba4a-bc013fcb533e"     # Werkstatt-Standard, Goldstandard
+    assert stimm_paket.lade_stimme("cartesia")["stimm_id"] == sebastian
+    assert stimm_paket.lade_stimme("inworld")["stimm_id"] == "Bastian"                   # Rückfall
     for anbieter in ("inworld", "cartesia"):
-        assert stimm_paket.lade_stimme(anbieter)["stimm_id"] == basis.PLATZHALTER
+        s = stimm_paket.lade_stimme(anbieter)
+        assert s["stimm_id"] != basis.PLATZHALTER
+        # Die gepinnte Stimme ist einer der Kandidaten; die Liste bleibt für weitere Castings.
+        assert s["stimm_id"] in {k["id"] for k in s["kandidaten"]}

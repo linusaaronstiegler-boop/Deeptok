@@ -74,7 +74,7 @@ const plan = {
     kam(Z.fahrtBarcelona, K.muenchen),
     kam(Z.fahrtBarcelonaEnde, K.barcelona, { ease: "power2.inOut", bogen: 0.75 }), // zum Angebot
     kam(Z.fahrtMuenchen, K.barcelona),
-    kam(Z.fahrtMuenchenEnde, K.muenchen, { ease: "power2.inOut", bogen: 0.75 }), // folgt dem Geist
+    kam(Z.fahrtMuenchenEnde, K.muenchen, { ease: "power2.inOut", bogen: 0.75, kurve: DATEN.kurveMuenchen }), // folgt dem Geist
   ],
   // Nachfahrten (Detail): 1. auf das Vertragsblatt ab "Danach", zurück mit der Fahrt nach
   // Barcelona (eine Bewegung: heraus und hinüber). 2. leicht auf Geist und Kreis beim Begriff,
@@ -160,7 +160,7 @@ const plan = {
     // schrumpft er auf Schalengröße (die Kamera fährt dabei heraus und wieder hinein).
     geist: [
       { ab: Z.abflugGeist, bis: Z.abflugGeist, nach: "ort:barcelona:" + DATEN.stapelBcn.dx + ":0", art: "sofort", skala: DATEN.stapelBcn.skala },
-      { ab: Z.abflugGeist, bis: Z.landung, nach: "schale:links:-100", art: "flug", bogen: 0.1, skala: 1 },
+      { ab: Z.abflugGeist, bis: Z.landung, nach: "schale:links:-100", art: "flug", bogen: DATEN.geistBogen, skala: 1 },
     ],
     // Umriss des Spielers: entsteht dort, wo er stand (physische Schale B, nach der Drehung links), so
     // groß wie er dort stand (0,85).
@@ -377,8 +377,12 @@ tl.fromTo("#w-zahl-strich", { opacity: 1 }, { opacity: 0, duration: 0.3, ease: "
 // Beat 7: Rahmen in Gold um den Geist, wenn der Begriff fällt (Gold = gesuchte Größe). Fassung final: ein
 // Rahmen (Superellipse) statt Ellipse. Die Ellipse lief über die Kante des Geists; der Rahmen hält 24 px
 // Luft ab dem Strichrand (DESIGN.md §6, rahmen()). Halbe Maße des Geists: 66 x 144 px plus Strich.
-const kreisGeld = M.marker(tl, document.getElementById("m-anker-geld"), "rahmen",
-  { cx: 0, cy: 0, hw: 66 + 2.5, hh: 144 + 2.5, luft: 24 },
+// Fassung final, Politur (Abnahme P2): Der geschlossene Rahmen lief unten durch „Kosten“ auf der Schalenfront
+// (der Geist steht IN der Schale, für 24 px Luft ist darunter kein Platz). Jetzt eine Glocke: derselbe Rahmen
+// nur über dem Schalenrand, unten offen; die Enden stehen auf dem Rand (unter der Mitte des Geists,
+// gemessen im Player: Rand 143 px, minus 5 px runde Strichkappe). Luft an Seiten und Oberkante bleibt 24 px.
+const kreisGeld = M.marker(tl, document.getElementById("m-anker-geld"), "glocke",
+  { cx: 0, cy: 0, hw: 66 + 2.5, hh: 144 + 2.5, luft: 24, boden: 138 },
   { farbe: "#C9A84C", breite: 10, seed: 7, beginn: Z.begriff, dauer: DATEN.marker.kreis, id: "m-kreis-geld" });
 // Abdunkeln: Solange der Begriff steht, treten Beleg und Figur zurück, „0 € Ablöse“ geht. So ist der
 // Gold-Rahmen im Umfeld das einzige helle Zeichen.

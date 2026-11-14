@@ -63,7 +63,7 @@
   #d-reihe-l { z-index: 6; }
   /* -162: Bei waagerechter Waage hängt die Schale bei x = 540 - 270; so beginnt das Etikett genau an
      x = 108 (mit -164 lag es 2 px links vom Lesefenster, gemessen). */
-  #d-aufgegeben { left: -162px; top: 80px; }
+  #d-aufgegeben, #d-beste { left: -162px; top: 80px; }
   #d-ok { left: -162px; top: 146px; line-height: 62px; }
   /* Nachhilfe: neben der Lohntüte (Text hängt am Gegenstand), oben links über der Waage. */
   .d-fest { position: absolute; white-space: nowrap; font-family: "DT Inter", sans-serif; font-weight: 600;
@@ -151,6 +151,9 @@
     <!-- data-hold (Fassung v2.1): Im Satz fürs Gespräch steht das Bild absichtlich still; nur die
          Unterstreichungen zeichnen sich (Marker-Ebene), und die sieht check nicht als Bewegung. -->
     <div id="d-aufgegeben" class="d-etikett d-gold" data-hold>aufgegeben</div>
+    <!-- Fassung final, Politur: Auf „Das BESTE, was du aufgibst“ wird „aufgegeben“ zu „beste Alternative“
+         (Morph). Eine Zeile: Bei der Nachfahrt (1,5-fach) endet sie bei x = 914, im Lesefenster. -->
+    <div id="d-beste" class="d-etikett d-gold" data-hold>beste Alternative</div>
     <!-- Fassung final (Didaktik-Kritik P1): Das Gold-Fach bekommt sein Fachwort, wenn es gesprochen wird
          („diesen Lohn: deine Opportunitätskosten“). So steht der Begriff auch im Schlussbild. -->
     <div id="d-ok" class="d-etikett d-gold" data-hold>Opportunitäts-<br />kosten</div>

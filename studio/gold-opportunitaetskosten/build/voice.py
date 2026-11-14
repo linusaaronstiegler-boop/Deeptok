@@ -15,6 +15,18 @@
                                                   # fehlende Blöcke einer Stimm-Datei über den Fabrik-
                                                   # Adapter vertonen, je Block GENAU ein Aufruf
 
+Fassung final, Politur (03.11.2026, Abnahme-Befunde P2, ohne neue Aufnahme):
+  - Mundgeräusche: Schmatzer und Knackse bis 30 ms in den Pausen zwischen zwei Wörtern werden auf den
+    Pegel ihrer Umgebung gedämpft (mund_daempfen), und zwar VOR dem Ausrichten der Wortanfänge (ein
+    Schmatzer vor „Das“ galt sonst als Wortanfang). Ein Laut im Wort (etwa das t am Ende von
+    „aufgibt“) bleibt. Tor: mundgeraeusche() auf der fertigen Spur, 0 in Pausen.
+  - Mastering wirklich linear: loudnorm schaltete trotz linear=true in den dynamischen Modus, weil die
+    Verstärkung (+8,4 dB) die Spitze über -1,5 dBTP gehoben hätte. Der dynamische Modus regelt über
+    3-s-Fenster nach; darum lag der erste Satz 2 dB über dem Rest. Jetzt: feste Verstärkung (zweimal
+    gemessen) und ein Spitzenbegrenzer mit Laufzeitausgleich (die Zeit verschiebt sich nicht).
+  - Satz-Lautheit im Tor auf zwei Arten: nur über die Wörter (wie bisher) und über den ganzen Satz
+    vom ersten bis zum letzten Wort (so maß die Kritik). Beide Spannen <= 3 LU.
+
 Fassung final (Runde 1, 03.11.2026): Die Ton-Kritik fand Knackser und digitale Löcher an den
 Schnittstellen, uneinheitlichen Atem, eine leise Leitfrage und Kernsätze, die schneller kamen als der
 Rest. Darum setzt der Bau jetzt (alles ohne neue Aufnahme, alles in dieser Datei):
@@ -127,6 +139,20 @@ SATZ_TOLERANZ_LU = 0.25  # Sätze näher als das an der Blocklautheit bleiben, w
 SATZ_MAX_DB = 5.0     # größte Korrektur je Satz
 SATZ_SPANNE_LU = 3.0  # Tor: lautester minus leisester Satz (ebur128) auf der fertigen Spur
 KERN_SILBEN_S = 4.5   # Tor: Kernsätze (script.KERNSAETZE) höchstens so schnell
+# Politur (Abnahme final, P2): Mundgeräusche. Ein Schmatzer oder Knacks ist ein kurzer lauter Abschnitt
+# (bis MUND_MAX_S), vor und hinter dem je MUND_RAND_S lang Ruhe ist (unter MUND_UMGEBUNG_DB), und dessen
+# Spitze mindestens MUND_ABSTAND_DB über BEIDEN Umgebungen liegt. Ein Wortanfang hat hinter seinem
+# Knall sofort den Vokal und fällt so heraus. Gemessen am Befund: Schmatzer vor „Doch“ 36 dB über der
+# Umgebung, Knacks vor „Also“ nur 23 dB (dahinter beginnt das Einatmen). Darum 20 dB statt der
+# vorgeschlagenen 25 dB im Tor; das Dämpfen sucht empfindlicher (15 dB), aber nur in Pausen.
+MUND_MAX_S = 0.030
+MUND_RAND_S = 0.020
+MUND_UMGEBUNG_DB = -50.0
+MUND_ABSTAND_DB = 20.0         # Tor auf der fertigen Spur
+MUND_DAEMPFEN_DB = (-48.0, 15.0)   # (Umgebung, Abstand) beim Dämpfen der Rohaufnahme
+# Spitzenbegrenzer nach der linearen Verstärkung (Abtastwert, dBFS). Die m4a hat zwei Kanäle zu je
+# -3 dB, ihre echte Spitze liegt damit klar unter der Grenze von G4 (-1 dBTP).
+GRENZE_DBFS = -2.0
 
 
 # ------------------------------------------------------------------------------------------
@@ -436,11 +462,20 @@ class DateiAdapter:
         paare = [p for s in bloecke()[nr]["szenen"] for satz in s["sentences"] for p in tokens(satz)]
         zeiten = fuelle_luecken(ordne_zu([(a, a) for a, _ in paare], anbieter_zeiten))
         zeiten = [{**z, "wort": a} for z, (a, _) in zip(zeiten, paare)]
-        zeiten = an_energie_ausrichten(dekodiere(roh), RATE, zeiten, versatz_standard=0.0)
+        # Politur: Mundgeräusche in den Pausen dämpfen, BEVOR die Wortanfänge an die Hüllkurve gehen.
+        # Sonst gilt ein Schmatzer 70 ms vor „Das“ als Anfang von „Das“ (so in der Abnahme-Fassung).
+        audio, gedaempft = mund_daempfen(dekodiere(roh), anbieter_zeiten)
+        for g in gedaempft:
+            print(f"  Mundgeräusch gedämpft: {g['t']:.3f} s, {g['dauer_ms']} ms, Spitze {g['spitze_db']} dBFS "
+                  f"-> {g['gedaempft_db']:+.1f} dB")
+        zeiten = an_energie_ausrichten(audio, RATE, zeiten, versatz_standard=0.0)
         self.quellen.append(self.anbieter)
-        return Ergebnis(audio=roh, format=datei.suffix.lstrip("."), abtastrate=RATE, wortzeiten=zeiten,
-                        zeichen=eintrag.get("zeichen", 0), anbieter=self.anbieter,
-                        gesendet=eintrag.get("gesendet", eintrag.get("text", "")))
+        erg = Ergebnis(audio=roh, format=datei.suffix.lstrip("."), abtastrate=RATE, wortzeiten=zeiten,
+                       zeichen=eintrag.get("zeichen", 0), anbieter=self.anbieter,
+                       gesendet=eintrag.get("gesendet", eintrag.get("text", "")))
+        erg.bereinigt = audio          # main() baut mit der gedämpften Aufnahme weiter, nicht mit roh
+        erg.mund = gedaempft
+        return erg
 
 
 def logmel(audio: np.ndarray, rate: int = RATE) -> np.ndarray:
@@ -1104,10 +1139,111 @@ def klicks(a: np.ndarray, rate: int, umgebung_db: float = -45.0, abstand_db: flo
     return aus
 
 
+def mundgeraeusche(a: np.ndarray, rate: int, umgebung_db: float = MUND_UMGEBUNG_DB,
+                   abstand_db: float = MUND_ABSTAND_DB) -> list[dict]:
+    """Mundgeräusche (Politur, Abnahme final): Schmatzer und Knackse bis MUND_MAX_S.
+
+    klicks() sieht nur 1-ms-Spitzen, die 2 ms daneben wieder leise sind. Ein Schmatzer dauert aber
+    10-30 ms (Befund: 15,93 s vor „Doch“, 20 ms; 60,60 s vor „Also“, 11 ms). Hier:
+      1. Läufe lauter 1-ms-Blöcke (über umgebung_db); Lücken bis 4 ms gehören zum Lauf.
+      2. Ein Lauf bis MUND_MAX_S zählt, wenn je MUND_RAND_S davor und dahinter leise sind (unter
+         umgebung_db) und seine Spitze mehr als abstand_db über BEIDEN Umgebungen liegt.
+    Ein Wortanfang fällt heraus (hinter dem Knall kommt sofort der Vokal), ebenso jedes längere
+    Geräusch (Atem). Ein Plosiv am Wortende (das t von „aufgibt“) kann die Bedingung erfüllen; darum
+    trennen Dämpfen und Tor danach, ob der Lauf in einer Pause oder in einem Wort liegt.
+    """
+    f = rate // 1000
+    n = len(a) // f
+    blk = a[: n * f].reshape(n, f).astype(np.float64)
+    rms1 = 10 * np.log10((blk ** 2).mean(1) + 1e-12)
+    laut = rms1 > umgebung_db
+    laeufe, k = [], 0
+    while k < n:
+        if laut[k]:
+            j = k
+            while j < n and laut[j]:
+                j += 1
+            if laeufe and k - laeufe[-1][1] <= 4:
+                laeufe[-1][1] = j                 # kurze Lücke: derselbe Lauf
+            else:
+                laeufe.append([k, j])
+            k = j
+        else:
+            k += 1
+    rand = int(round(MUND_RAND_S * rate / f))
+    aus = []
+    for k0, k1 in laeufe:
+        if (k1 - k0) * f / rate > MUND_MAX_S or k0 < rand or k1 + rand > n:
+            continue
+        vor = 10 * np.log10((blk[k0 - rand:k0] ** 2).mean() + 1e-12)
+        nach = 10 * np.log10((blk[k1:k1 + rand] ** 2).mean() + 1e-12)
+        spitze = 20 * np.log10(np.abs(blk[k0:k1]).max() + 1e-12)
+        if vor < umgebung_db and nach < umgebung_db and spitze > max(vor, nach) + abstand_db:
+            aus.append({"t": round(k0 * f / rate, 3), "ende": round(k1 * f / rate, 3),
+                        "spitze_db": round(float(spitze), 1), "vor_db": round(float(vor), 1),
+                        "nach_db": round(float(nach), 1), "lauf_db": round(float(rms1[k0:k1].max()), 1),
+                        "bloecke": [int(k0), int(k1)]})          # Blöcke zu f Samples (für mund_daempfen)
+    return aus
+
+
+def im_wort(geraeusch: dict, woerter: list[dict]) -> str | None:
+    """Das Wort, in dem ein Geräusch liegt, sonst None (= Pause). Die ersten 30 ms eines Worts zählen
+    nicht: Ein Knall mit 20 ms Ruhe dahinter ist kein Laut des Worts, auch wenn der Zeitstempel des
+    Anbieters (oder die Hüllkurve) das Wort schon dort beginnen lässt."""
+    for w in woerter:
+        ende = w["ende"] if "ende" in w else w["end"]
+        if geraeusch["ende"] > w["start"] + 0.03 and geraeusch["t"] < ende:
+            return w.get("wort") or w.get("text")
+    return None
+
+
+def mund_daempfen(audio: np.ndarray, woerter: list[dict]) -> tuple[np.ndarray, list[dict]]:
+    """Mundgeräusche in Pausen auf den Pegel ihrer Umgebung (+3 dB) dämpfen, weich über 5 ms.
+    Wie der Atem nicht entfernt, sondern leiser. Gedämpft wird je 1-ms-Block nur so weit, wie er über
+    der Umgebung liegt: Ein fester Faktor für den ganzen Lauf drückte die leisen Stellen darin (den
+    Raumton) auf -90 dBFS, ein kleines Loch. Läuft auf der Rohaufnahme mit den Wortzeiten des
+    Anbieters, vor an_energie_ausrichten()."""
+    aus = audio.copy()
+    umgebung, abstand = MUND_DAEMPFEN_DB
+    f = RATE // 1000
+    rand = 10                              # 10 ms Platz für die weichen Kanten
+    kern = np.hanning(int(0.005 * RATE))
+    kern /= kern.sum()
+    protokoll = []
+    for g in mundgeraeusche(audio, RATE, umgebung, abstand):
+        wort = im_wort(g, woerter)
+        if wort:
+            continue                       # Laut im Wort (Plosiv am Wortende): bleibt
+        ziel = max(g["vor_db"], g["nach_db"]) + 3
+        k0, k1 = g["bloecke"]                  # 1-ms-Blöcke (f Samples) wie in mundgeraeusche()
+        kx = max(0, k0 - rand)
+        x0, x1 = kx * f, min(len(aus), (k1 + rand) * f)
+        stueck = aus[x0:x1].astype(np.float64)
+        n = len(stueck) // f
+        pegel = 10 * np.log10((stueck[: n * f].reshape(n, f) ** 2).mean(1) + 1e-12)
+        dbs = np.zeros(n)
+        innen = slice(k0 - kx, k1 - kx)
+        dbs[innen] = np.minimum(0.0, ziel - pegel[innen])
+        # Minimum über ±2 ms (kein Rest einer Spitze an der Blockkante), dann weich glätten
+        dbs = np.array([dbs[max(0, i - 2):i + 3].min() for i in range(n)])
+        verlauf = np.convolve(np.repeat(dbs, f), kern, mode="same")
+        verlauf = np.concatenate([verlauf, np.zeros(len(stueck) - len(verlauf))])
+        if verlauf.min() > -1:
+            continue
+        aus[x0:x1] = (stueck * 10 ** (verlauf / 20)).astype(np.float32)
+        protokoll.append({"t": g["t"], "dauer_ms": round((g["ende"] - g["t"]) * 1000),
+                          "spitze_db": g["spitze_db"], "umgebung_db": max(g["vor_db"], g["nach_db"]),
+                          "gedaempft_db": round(float(verlauf.min()), 1)})
+    return aus, protokoll
+
+
 def pruefe_ton(timing: dict, wav: Path) -> dict:
     """Tore der Ton-Kritik (Fassung final) auf der FERTIGEN Spur (voice.wav, gemastert):
-      1. Satz-Lautheit: lautester minus leisester Satz <= SATZ_SPANNE_LU (ebur128 je Satz).
-      2. Knackser: 0 (klicks()).
+      1. Satz-Lautheit: lautester minus leisester Satz <= SATZ_SPANNE_LU (ebur128 je Satz), auf zwei
+         Arten (Politur): nur über die Wörter ("lufs") und über den ganzen Satz vom ersten bis zum
+         letzten Wort, Pausen im Satz inklusive ("lufs_satz", so maß die Abnahme). Beide müssen halten.
+      2. Knackser: 0 (klicks()), und 0 Mundgeräusche in Pausen (mundgeraeusche(), Politur). Ein
+         Geräusch im Wort (Plosiv am Wortende) steht als Hinweis da, ohne das Tor zu sperren.
       3. Tempo: Kernsätze (script.KERNSAETZE) <= KERN_SILBEN_S und nicht schneller als der Median
          aller Sätze; WARNSAETZE nur als Warnung.
       4. Betonung (nur Warnung): Das betonte Wort ("betont" in script.py) hat seinen Gipfel >= +3
@@ -1125,9 +1261,17 @@ def pruefe_ton(timing: dict, wav: Path) -> dict:
             sil = sum(silben(w.get("spoken") or w["text"]) for w in satz["words"])
             saetze.append({"szene": sc["id"], "satz": satz["text"], "start": w0["start"], "ende": w1["end"],
                            "lufs": lufs(nur_sprache(a, satz["words"], rate)),
+                           "lufs_satz": lufs(a[int(w0["start"] * rate):int(w1["end"] * rate)]),
                            "silben_s": round(sil / dauer, 2)})
     werte = [s["lufs"] for s in saetze if s["lufs"] is not None]
     spanne = round(max(werte) - min(werte), 1)
+    werte_satz = [s["lufs_satz"] for s in saetze if s["lufs_satz"] is not None]
+    spanne_satz = round(max(werte_satz) - min(werte_satz), 1)
+    # Mundgeräusche: in einer Pause sperrt das Tor, in einem Wort ist es ein Hinweis (Plosiv am Ende)
+    alle_woerter = [w for sc in timing["scenes"] for st in sc["sentences"] for w in st["words"]]
+    mund = [{**{k: v for k, v in g.items() if k != "bloecke"}, "wort": im_wort(g, alle_woerter)}
+            for g in mundgeraeusche(a, rate)]
+    mund_pause = [g for g in mund if not g["wort"]]
     median_tempo = float(np.median([s["silben_s"] for s in saetze]))
     kern, warn = [], []
     for s in saetze:
@@ -1152,21 +1296,34 @@ def pruefe_ton(timing: dict, wav: Path) -> dict:
             db = round(float(r(w["start"], w["end"]) - r(satz["start"], satz["end"])), 1)
             betonung.append({"szene": sc["id"], "wort": w["text"], "halbtoene": ht, "db": db,
                              "ok": bool((ht is not None and ht >= 3) or db >= 2)})
+    schnellster = max(saetze, key=lambda s: s["silben_s"])
     ergebnis = {
-        "lautheit": {"spanne_lu": float(spanne), "grenze_lu": SATZ_SPANNE_LU, "ok": bool(spanne <= SATZ_SPANNE_LU),
+        "lautheit": {"spanne_lu": float(spanne), "spanne_satz_lu": float(spanne_satz), "grenze_lu": SATZ_SPANNE_LU,
+                     "ok": bool(spanne <= SATZ_SPANNE_LU and spanne_satz <= SATZ_SPANNE_LU),
                      "leisester": min(saetze, key=lambda s: s["lufs"] or 0)["satz"],
-                     "lautester": max(saetze, key=lambda s: s["lufs"] or -99)["satz"]},
+                     "lautester": max(saetze, key=lambda s: s["lufs"] or -99)["satz"],
+                     "leisester_satz": min(saetze, key=lambda s: s["lufs_satz"] or 0)["satz"],
+                     "lautester_satz": max(saetze, key=lambda s: s["lufs_satz"] or -99)["satz"]},
         "klicks": klicks(a, rate),
+        "mundgeraeusche": {"in_pausen": mund_pause, "in_woertern": [g for g in mund if g["wort"]],
+                           "abstand_db": MUND_ABSTAND_DB, "umgebung_db": MUND_UMGEBUNG_DB, "ok": not mund_pause},
         "tempo": {"median_silben_s": round(median_tempo, 2), "grenze_kern": KERN_SILBEN_S,
-                  "kernsaetze": kern, "warnsaetze": warn, "ok": all(k["ok"] for k in kern)},
+                  "kernsaetze": kern, "warnsaetze": warn, "ok": all(k["ok"] for k in kern),
+                  "schnellster": {"satz": schnellster["satz"], "silben_s": schnellster["silben_s"]}},
         "betonung": {"woerter": betonung, "getragen": sum(b["ok"] for b in betonung), "von": len(betonung),
                      "hinweis": "nur Warnung: Cartesia kennt keine Betonung, der Satzbau muss sie tragen"},
-        "saetze": [{k: v for k, v in s.items() if k in ("satz", "lufs", "silben_s")} for s in saetze],
+        "saetze": [{k: v for k, v in s.items() if k in ("satz", "lufs", "lufs_satz", "silben_s")} for s in saetze],
     }
-    ergebnis["ok"] = bool(ergebnis["lautheit"]["ok"] and not ergebnis["klicks"] and ergebnis["tempo"]["ok"])
-    print(f"Tor Satz-Lautheit: Spanne {spanne} LU ({'ok' if spanne <= SATZ_SPANNE_LU else 'ZU GROSS'}; "
-          f"leisester: {ergebnis['lautheit']['leisester']})")
+    ergebnis["ok"] = bool(ergebnis["lautheit"]["ok"] and not ergebnis["klicks"] and ergebnis["tempo"]["ok"]
+                          and ergebnis["mundgeraeusche"]["ok"])
+    print(f"Tor Satz-Lautheit: Spanne {spanne} LU über die Wörter, {spanne_satz} LU über den ganzen Satz "
+          f"({'ok' if ergebnis['lautheit']['ok'] else 'ZU GROSS'}; leisester: {ergebnis['lautheit']['leisester']} / "
+          f"{ergebnis['lautheit']['leisester_satz']})")
     print(f"Tor Knackser: {len(ergebnis['klicks'])} " + " ".join(f"{k['t']} s" for k in ergebnis["klicks"]))
+    print(f"Tor Mundgeräusche in Pausen: {len(mund_pause)} " + " ".join(f"{g['t']} s" for g in mund_pause)
+          + (f"; im Wort (Hinweis): " + ", ".join(f"{g['t']} s {g['wort']}" for g in mund if g["wort"])
+             if any(g["wort"] for g in mund) else ""))
+    print(f"Tempo: schnellster Satz {schnellster['silben_s']} Silben/s: {schnellster['satz']}")
     for k in kern + warn:
         art = "Kernsatz" if k in kern else "Warnsatz"
         print(f"Tor Tempo {art}: {k['silben_s']} Silben/s (Median {median_tempo:.2f}) {'ok' if k['ok'] else 'ZU SCHNELL'}: {k['satz']}")
@@ -1193,14 +1350,28 @@ def mastere(roh: Path, ziel_wav: Path, ziel_m4a: Path) -> dict:
     Render (mischt immer auf Stereo) ändert die Lautheit nicht mehr.
     """
     kette = "highpass=f=80,deesser=i=0.4,acompressor=ratio=2:threshold=-20dB:attack=8:release=120"
-    r = ffmpeg("-i", str(roh), "-af", kette + ",loudnorm=I=-16:TP=-1.5:LRA=11:print_format=json",
-               "-f", "null", "-")
-    mess = json.loads(re.findall(r"\{[^{}]*\}", r.stderr.decode())[-1])
-    norm = (f"loudnorm=I=-16:TP=-1.5:LRA=11:measured_I={mess['input_i']}:measured_TP={mess['input_tp']}"
-            f":measured_LRA={mess['input_lra']}:measured_thresh={mess['input_thresh']}"
-            f":offset={mess['target_offset']}:linear=true")
-    ffmpeg("-y", "-i", str(roh), "-af", f"{kette},{norm}", "-ar", str(RATE), "-ac", "1",
-           "-c:a", "pcm_s16le", str(ziel_wav))
+    # Politur (Abnahme final, Satz-Lautheit): Bis hier stand loudnorm mit linear=true. Das gilt nur, wenn
+    # die Verstärkung die Spitze unter TP lässt; sonst schaltet loudnorm STILL in den dynamischen Modus
+    # ("normalization_type": "dynamic"). So war es: +8,4 dB hätten -7,9 dBTP auf +0,5 gehoben. Der
+    # dynamische Modus regelt über 3-s-Fenster nach, und der erste Satz kam 2 dB lauter als der Rest.
+    # Jetzt: feste Verstärkung, danach ein Spitzenbegrenzer. latency=true gleicht seine Vorschau aus,
+    # die Zeit verschiebt sich nicht (geprüft per Kreuzkorrelation: gleicher Versatz wie vorher).
+    begrenzer = (f"alimiter=limit={10 ** (GRENZE_DBFS / 20):.4f}:attack=5:release=50"
+                 ":level=false:latency=true")
+
+    def integriert(filter_: str) -> float:
+        r = ffmpeg("-i", str(roh), "-af", filter_ + ",ebur128", "-f", "null", "-")
+        return float(re.findall(r"I:\s+(-?[\d.]+) LUFS", r.stderr.decode())[-1])
+
+    roh_lufs = integriert(kette)
+    verstaerkung = -16.0 - roh_lufs
+    # Der Begrenzer nimmt ein wenig Lautheit weg: einmal nachmessen und die Verstärkung nachstellen.
+    verstaerkung += -16.0 - integriert(f"{kette},volume={verstaerkung:.3f}dB,{begrenzer}")
+    ffmpeg("-y", "-i", str(roh), "-af", f"{kette},volume={verstaerkung:.3f}dB,{begrenzer}",
+           "-ar", str(RATE), "-ac", "1", "-c:a", "pcm_s16le", str(ziel_wav))
+    mastere.protokoll = {"normalisierung": "linear (feste Verstärkung + Begrenzer)",
+                         "lufs_vor_verstaerkung": roh_lufs, "verstaerkung_db": round(verstaerkung, 2),
+                         "begrenzer_dbfs": GRENZE_DBFS}
     # Fassung final: Der 80-Hz-Hochpass nimmt dem leisen Atem seinen tiefen Anteil; ein kleiner Knacks
     # darin steht danach frei (vorher 14 dB, danach 23 dB über der Umgebung). Darum ein letzter
     # Durchgang auf der gemasterten Spur. Er ändert die Länge nicht und die Lautheit nicht messbar.
@@ -1758,14 +1929,18 @@ def main() -> None:
     t = LEAD_IN
     szenen_zeiten = []
     luft_liste = []
-    dehn_liste, satz_liste, klick_liste = [], [], []
+    dehn_liste, satz_liste, klick_liste, mund_liste = [], [], [], []
     bl = bloecke()
     for k, block in enumerate(bl):
         vorher = bl[k - 1]["text"] if k > 0 else None
         nachher = bl[k + 1]["text"] if k + 1 < len(bl) else None
         extra = {"nr": k} if args.anbieter == "datei" else {}
         ergebnis = adapter.synthese(block["text"], stimme, vorher=vorher, nachher=nachher, **extra)
-        audio = dekodiere(ergebnis.audio)
+        # Politur: Der Datei-Adapter liefert die Aufnahme mit gedämpften Mundgeräuschen mit (bereinigt).
+        audio = getattr(ergebnis, "bereinigt", None)
+        if audio is None:
+            audio = dekodiere(ergebnis.audio)
+        mund_liste.append(getattr(ergebnis, "mund", []))
         audio, klickzahl = entklicke(audio)
         klick_liste.append(klickzahl)
         wortzeiten = ergebnis.wortzeiten
@@ -1831,7 +2006,9 @@ def main() -> None:
     timing["raumton_db"] = RAUM.get("db")
     timing["entklickt_je_block"] = klick_liste
     timing["entklickt_nach_mastering"] = getattr(mastere, "entklickt", 0)
-    timing["mastering"] = mess
+    # Politur: je Block die gedämpften Mundgeräusche (Zeit in der Rohaufnahme des Blocks)
+    timing["mund_gedaempft_je_block"] = mund_liste
+    timing["mastering"] = {**mess, **getattr(mastere, "protokoll", {})}
     # Fingerabdruck der Tonspur: bauen.mjs bricht ab, wenn timing.json zu einer anderen m4a gehört.
     timing["audio"] = {"datei": "assets/voice.m4a", "sha256": sha256(ASSETS / "voice.m4a"), "kanaele": 2,
                        **waehle_bitrate.ergebnis}
@@ -1880,7 +2057,7 @@ def main() -> None:
     timing["pruefung_ton"] = pruefe_ton(timing, ASSETS / "voice.wav")
     timing_pfad.write_text(json.dumps(timing, ensure_ascii=False, indent=1))
     if not timing["pruefung_ton"]["ok"]:
-        print("ACHTUNG: Ton-Tor rot (Satz-Lautheit, Knackser oder Tempo der Kernsätze), siehe oben")
+        print("ACHTUNG: Ton-Tor rot (Satz-Lautheit, Knackser, Mundgeräusche oder Tempo der Kernsätze), siehe oben")
     if timing.get("bewertbar") and not timing["bewertbar"]["ok"]:
         print("ACHTUNG: " + timing["bewertbar"]["grund"] + " (" + "; ".join(timing["stimme"]) + ")")
 

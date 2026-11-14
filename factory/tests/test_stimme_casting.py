@@ -39,6 +39,27 @@ def verbotene_woerter() -> list[str]:
     return sorted(woerter)
 
 
+@pytest.fixture
+def voices_attrappe(tmp_path) -> Path:
+    """Eigenes voices/-Verzeichnis für die Attrappen-Abläufe, getrennt vom echten Stand.
+
+    Die Attrappe spielt den Stand VOR einem Casting: Inworld und Cartesia haben keine
+    gepinnte Stimme und keine Kandidaten, also entscheidet die (gefälschte) Stimmenliste der
+    API (iw-m, ca-w). Die echten voices/*.json haben seit der Casting-Runde 2 gefüllte
+    Kandidatenlisten und gepinnte Stimmen; das prüft test_gepinnte_stimmen_treten_an.
+    Alles andere (Modell, Format, Region) kommt unverändert aus den echten Dateien.
+    """
+    ziel = tmp_path / "voices-attrappe"
+    ziel.mkdir()
+    for anbieter in stimm_paket.ANBIETER:
+        daten = json.loads((stimm_paket.VOICES_DIR / f"{anbieter}.json").read_text(encoding="utf-8"))
+        if anbieter in ("inworld", "cartesia"):
+            daten["stimm_id"] = basis.PLATZHALTER
+            daten["kandidaten"] = []
+        (ziel / f"{anbieter}.json").write_text(json.dumps(daten, ensure_ascii=False), encoding="utf-8")
+    return ziel
+
+
 @pytest.fixture(autouse=True)
 def kein_netz(monkeypatch):
     for v in ("ELEVENLABS_API_KEY", "INWORLD_API_KEY", "CARTESIA_API_KEY", "AZURE_SPEECH_KEY"):
@@ -321,9 +342,10 @@ def test_eine_kaputte_probe_faellt_allein_aus(tmp_path, monkeypatch, capsys):
     assert bericht["casting_id"] != alte_id
 
 
-def test_echter_ablauf_mit_attrappe(tmp_path, monkeypatch, capsys):
+def test_echter_ablauf_mit_attrappe(tmp_path, monkeypatch, capsys, voices_attrappe):
     """Ohne --trocken, aber gegen eine Attrappe: ElevenLabs antwortet 401 (kein Schlüssel)
-    und fällt aus; die anderen drei listen Stimmen, vertonen und landen auf der Seite."""
+    und fällt aus; die anderen drei listen Stimmen, vertonen und landen auf der Seite.
+    Inworld und Cartesia ohne gepinnte Stimme (voices_attrappe): Sie nehmen die Liste der API."""
     import wave
     with wave.open(str(casting.FIXTURES / "probe_b.wav")) as w:
         pcm = w.readframes(w.getnframes())
@@ -355,12 +377,15 @@ def test_echter_ablauf_mit_attrappe(tmp_path, monkeypatch, capsys):
     monkeypatch.setattr(basis, "TRANSPORT", router)
 
     code = casting.main(["--ausgabe", str(tmp_path), "--datum", "echt", "--seed", "3",
-                         "--no-messen", "--json"])
+                         "--no-messen", "--json", "--voices", str(voices_attrappe)])
     bericht = json.loads(capsys.readouterr().out)
     assert code == 0, bericht
     assert bericht["clips"] == 12 and bericht["paare"] == 12          # 3 Stimmen x 4 Texte
     assert {z["anbieter"] for z in bericht["teilnehmer"]} == {"inworld", "cartesia", "azure"}
+    assert {z["anbieter"]: z["stimm_id"] for z in bericht["teilnehmer"]} == {
+        "inworld": "iw-m", "cartesia": "ca-w", "azure": "de-DE-Florian:DragonHDLatestNeural"}
     assert any(m.startswith("elevenlabs: übersprungen, kein Schlüssel") for m in bericht["meldungen"])
+    assert any(m.startswith("inworld: keine Stimme gepinnt") for m in bericht["meldungen"])
     assert bericht["restguthaben"] == {"inworld": None, "cartesia": None, "azure": None}
     assert sum(1 for g in gesehen if g.startswith("POST")) == 12      # genau eine Synthese je Probe
     aufl = aufloesung(tmp_path / "echt")
@@ -399,38 +424,61 @@ def _router_ohne_elevenlabs(gesehen: list[str], cartesia_reisst_ab: bool = False
     return router
 
 
-def test_abgerissene_uebertragung_kostet_nur_einen_anbieter(tmp_path, monkeypatch, capsys):
+def test_abgerissene_uebertragung_kostet_nur_einen_anbieter(tmp_path, monkeypatch, capsys,
+                                                         voices_attrappe):
     """Cartesias SSE-Strom reißt jedes Mal ab: Cartesia fällt aus (je Probe höchstens zwei
     Versuche), die anderen laufen durch, und es gibt genau ein JSON-Objekt."""
     gesehen: list[str] = []
     monkeypatch.setattr(basis, "TRANSPORT", _router_ohne_elevenlabs(gesehen, cartesia_reisst_ab=True))
     monkeypatch.setattr(basis, "SCHLAFEN", lambda _s: None)
     code = casting.main(["--ausgabe", str(tmp_path), "--datum", "abriss", "--seed", "3",
-                         "--no-messen", "--json"])
+                         "--no-messen", "--json", "--voices", str(voices_attrappe)])
     bericht = json.loads(capsys.readouterr().out)
     assert code == 0 and bericht["clips"] == 8 and bericht["fehlen"] == 4
     assert sum(1 for g in gesehen if g.endswith("/tts/sse")) == 4 * 2
     assert sum(1 for m in bericht["meldungen"] if m.startswith("cartesia /") and "IncompleteRead" in m) == 4
 
 
-def test_probe_kostet_nichts(tmp_path, monkeypatch, capsys):
+def test_probe_kostet_nichts(tmp_path, monkeypatch, capsys, voices_attrappe):
     gesehen: list[str] = []
     monkeypatch.setattr(basis, "TRANSPORT", _router_ohne_elevenlabs(gesehen))
-    assert casting.main(["--probe", "--json"]) == 1                 # ElevenLabs fehlt
+    attrappe = ["--voices", str(voices_attrappe)]
+    assert casting.main(["--probe", "--json", *attrappe]) == 1      # ElevenLabs fehlt
     bericht = json.loads(capsys.readouterr().out)
     assert bericht["probe"]["elevenlabs"]["fehler"].startswith("kein Schlüssel")
     assert bericht["probe"]["azure"] == {"zugang": True, "deutsche_stimmen": 1, "restguthaben": None}
     assert not any(g.startswith("POST") for g in gesehen)             # nichts vertont
 
     gesehen.clear()
-    assert casting.main(["--probe", "--probesatz", "--nur", "inworld,azure", "--json"]) == 0
+    assert casting.main(["--probe", "--probesatz", "--nur", "inworld,azure", "--json", *attrappe]) == 0
     bericht = json.loads(capsys.readouterr().out)
     assert [g for g in gesehen if g.startswith("POST")] == [
         "POST https://api.inworld.ai/tts/v1/voice",
         "POST https://westeurope.tts.speech.microsoft.com/cognitiveservices/v1"]
     satz = bericht["probe"]["azure"]["probesatz"]
     assert satz["stimm_id"] == "de-DE-Florian:DragonHDLatestNeural" and satz["format"] == "mp3"
-    assert bericht["probe"]["inworld"]["probesatz"]["stimm_id"] == "iw-m"
+    assert bericht["probe"]["inworld"]["probesatz"]["stimm_id"] == "iw-m"   # aus der API-Liste
+
+
+def test_gepinnte_stimmen_treten_an(tmp_path, monkeypatch, capsys):
+    """Der ECHTE Stand (voices/*.json mit gefüllten Kandidatenlisten): Die gepinnte Stimme
+    tritt zuerst an, im Probesatz wie im Lauf, und die Stimmenliste der API entscheidet nichts.
+    Gegenstück zur Attrappe oben; so fällt auf, wenn eine Datei falsch gepinnt ist."""
+    gepinnt = {a: stimm_paket.lade_stimme(a)["stimm_id"] for a in ("inworld", "cartesia")}
+    assert basis.PLATZHALTER not in gepinnt.values()
+    gesehen: list[str] = []
+    monkeypatch.setattr(basis, "TRANSPORT", _router_ohne_elevenlabs(gesehen))
+    assert casting.main(["--probe", "--probesatz", "--nur", "inworld,cartesia", "--json"]) == 0
+    bericht = json.loads(capsys.readouterr().out)
+    assert {a: z["probesatz"]["stimm_id"] for a, z in bericht["probe"].items()} == gepinnt
+    assert sum(1 for g in gesehen if g.startswith("POST")) == 2     # je Anbieter genau ein Satz
+
+    code = casting.main(["--ausgabe", str(tmp_path), "--datum", "gepinnt", "--seed", "3",
+                         "--nur", "inworld,cartesia", "--no-messen", "--json"])
+    bericht = json.loads(capsys.readouterr().out)
+    assert code == 0 and bericht["clips"] == 8, bericht              # 2 Stimmen x 4 Texte
+    assert {z["anbieter"]: z["stimm_id"] for z in bericht["teilnehmer"]} == gepinnt
+    assert not any("keine Stimme gepinnt" in m for m in bericht["meldungen"])
 
 
 def test_seite_verlangt_fast_ganze_probe():

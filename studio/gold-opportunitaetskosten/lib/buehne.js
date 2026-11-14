@@ -91,11 +91,27 @@
    * Ziel-Schlüsselbild senkt den Zoom in der Mitte der Fahrt (Faktor e^-bogen): Die Kamera
    * fährt heraus, über die Karte und wieder hinein, statt flach über eine nahe Karte zu wischen.
    */
+  /*
+   * Fassung final, Politur: "kurve" am Ziel-Schlüsselbild biegt den WEG des Mittelpunkts (quadratische
+   * Bezier-Kurve, Kontrollpunkt um kurve × Streckenlänge seitlich der Mitte versetzt; negativ = links der
+   * Fahrtrichtung). So kann die Welt am Ende der Fahrt von der Seite einlaufen statt schräg von oben:
+   * Auf dem Flug nach München glitten Waage und Geist sonst 0,2 s durch die Kopfzeile oben links.
+   */
   function kameraBei(spur, t) {
     var s = abschnitt(spur, t);
     var lz = Math.log(s.a.zoom) + (Math.log(s.b.zoom) - Math.log(s.a.zoom)) * s.f;
     if (s.b.bogen) lz -= s.b.bogen * Math.sin(Math.PI * s.f);
-    return { kx: s.a.kx + (s.b.kx - s.a.kx) * s.f, ky: s.a.ky + (s.b.ky - s.a.ky) * s.f, zoom: Math.exp(lz) };
+    var kx = s.a.kx + (s.b.kx - s.a.kx) * s.f;
+    var ky = s.a.ky + (s.b.ky - s.a.ky) * s.f;
+    if (s.b.kurve) {
+      var lx = s.b.kx - s.a.kx, ly = s.b.ky - s.a.ky;
+      var cx = (s.a.kx + s.b.kx) / 2 - ly * s.b.kurve;
+      var cy = (s.a.ky + s.b.ky) / 2 + lx * s.b.kurve;
+      var g = 1 - s.f;
+      kx = g * g * s.a.kx + 2 * g * s.f * cx + s.f * s.f * s.b.kx;
+      ky = g * g * s.a.ky + 2 * g * s.f * cy + s.f * s.f * s.b.ky;
+    }
+    return { kx: kx, ky: ky, zoom: Math.exp(lz) };
   }
 
   /*

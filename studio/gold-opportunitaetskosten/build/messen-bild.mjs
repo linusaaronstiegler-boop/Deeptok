@@ -18,6 +18,12 @@
 //      Element mit einer Zahl oder Behauptung aus fakten.json trägt data-fakt="<id> …". Solange es zu sehen
 //      ist (Deckkraft > 5 %, im Bild), muss eine Credit-Zeile mit derselben id sichtbar sein (>= 50 %).
 //      Die Credit-Zeilen tragen ihre ids ebenfalls in data-fakt. 0 Proben erlaubt.
+//   7. MARKER ÜBER FREMDEM TEXT (Fassung final, Politur; Abnahme P2: der Gold-Rahmen um den Geist lief durch
+//      „Kosten“ auf der Schalenfront): Jeder Marker (lib/marker.js setzt data-marker, dazu data-ziel = ids der
+//      Texte, die er markieren soll) wird entlang seines GEZEICHNETEN Strichs abgetastet (alle 3 px, mit
+//      halber Strichbreite). Trifft der Strich ein Wort, das nicht zu seinem Ziel gehört (Wortkasten aus
+//      Range, oben 20 % und unten 10 % abgezogen: dort ist keine Tinte), ist das ein Befund. Mitgezählt wird
+//      jeder sichtbare Text ab 20 % Deckkraft, auch abgedunkelter. Exit 1.
 //   5. FOTO OHNE CREDIT (Fassung v2.1, Kritik 28.10.: das Foto stand zweimal kurz ohne seine Zeile):
 //      In jedem Bild, in dem das Foto, der Abzug oder der aus ihm gezeichnete Umriss zu sehen ist,
 //      muss die Credit-Zeile des Fotografen sichtbar sein. Dazu schreibt das Skript in credits.json,
@@ -189,7 +195,53 @@ async function messe(t) {
       const ohneQuelle = Array.from(document.querySelectorAll("[data-fakt]:not(.credit)"))
         .filter((el) => deck(el) > 0.05 && imBild(el.getBoundingClientRect()))
         .flatMap((el) => el.getAttribute("data-fakt").split(/\s+/).filter((f) => !quellen.has(f)).map((f) => `#${el.id} (${f})`));
-      return { held, flaeche, raus, kollision, fahrt, klein, foto, credit, ohneQuelle };
+      // Marker über fremdem Text: Wortkästen aller sichtbaren Texte (Deckkraft >= 0,2), je Wort eigener Kasten
+      const woerter = [];
+      for (const el of texte) {
+        if (deck(el) < 0.2) continue;
+        const name = el.id || (el.closest("[id]") || {}).id || "?";
+        if (el.tagName === "text") {
+          const r = el.getBoundingClientRect();
+          if (imBild(r)) woerter.push({ el, name, wort: el.textContent.trim(), r });
+          continue;
+        }
+        for (const knoten of el.childNodes) {
+          if (knoten.nodeType !== 3) continue;
+          for (const m of knoten.textContent.matchAll(/\S+/g)) {
+            const rg = document.createRange();
+            rg.setStart(knoten, m.index);
+            rg.setEnd(knoten, m.index + m[0].length);
+            for (const r of rg.getClientRects()) if (r.width > 1 && imBild(r)) woerter.push({ el, name, wort: m[0], r });
+          }
+        }
+      }
+      const markerText = [];
+      for (const g of document.querySelectorAll("[data-marker]")) {
+        if (deck(g) < 0.3) continue;
+        const ziele = (g.getAttribute("data-ziel") || "").split(/\s+/).filter(Boolean);
+        const pfad = g.querySelector("path");
+        if (!pfad) continue;
+        const L = pfad.getTotalLength();
+        const versatz = parseFloat(getComputedStyle(pfad).strokeDashoffset) || 0;
+        const gezeichnet = Math.max(0, Math.min(L, L - versatz));
+        if (gezeichnet < 1 || Number(getComputedStyle(pfad).opacity) < 0.3) continue;
+        const ctm = pfad.getScreenCTM();
+        const halb = ((parseFloat(pfad.getAttribute("stroke-width")) || 8) / 2) * Math.hypot(ctm.a, ctm.b);
+        const getroffen = new Set();
+        for (let s = 0; s <= gezeichnet; s += 3) {
+          const p = pfad.getPointAtLength(s).matrixTransform(ctm);
+          for (const w of woerter) {
+            if (ziele.some((z) => w.el.closest("#" + z))) continue;
+            const h = w.r.bottom - w.r.top;
+            const o = w.r.top + 0.2 * h, u = w.r.bottom - 0.1 * h;
+            if (p.x + halb > w.r.left && p.x - halb < w.r.right && p.y + halb > o && p.y - halb < u) {
+              getroffen.add(`${g.id || g.getAttribute("data-marker")}×${w.name} "${w.wort}"`);
+            }
+          }
+        }
+        markerText.push(...getroffen);
+      }
+      return { held, flaeche, raus, kollision, fahrt, klein, foto, credit, ohneQuelle, markerText };
     },
     HELDEN,
     DINGE,
@@ -230,6 +282,7 @@ for (let t = 0; t < dauer; t += schritt) {
   if (m.foto.length) fotoZeiten.push(tt);
   if (m.foto.length && !m.credit) merke("Foto ohne Credit-Zeile", m.foto.join("+"), tt);
   for (const z of m.ohneQuelle) merke("Zahl ohne Quellzeile", z, tt);
+  for (const k of m.markerText) merke("Marker über fremdem Text", k, tt);
   if (!m.fahrt) for (const k of m.klein) merke("Schrift zu klein", k.replace(/ [\d.]+ px < \d+$/, ""), tt);
 }
 // "Schrift zu klein" in genau EINER Probe ist das Federn eines Stempels (Maßstab 1,6 -> 1 mit
@@ -275,8 +328,9 @@ console.log(befunde.length ? "Befunde:\n  " + befunde.join("\n  ") : "Befunde: k
 if (hinweise.length) console.log("Hinweise (Federn beim Stempeln, eine Probe):\n  " + hinweise.join("\n  "));
 await browser.close();
 // Fassung final: Die beiden Quellen-Tore (Foto ohne Credit, Zahl ohne Quellzeile) brechen ab (Exit 1).
-const quellenFehler = befunde.filter((b) => /^(Foto ohne Credit-Zeile|Zahl ohne Quellzeile)/.test(b));
+// Politur: ebenso ein Marker-Strich über fremdem Text (DESIGN.md §6 „Ruhe im Umfeld“).
+const quellenFehler = befunde.filter((b) => /^(Foto ohne Credit-Zeile|Zahl ohne Quellzeile|Marker über fremdem Text)/.test(b));
 if (quellenFehler.length) {
-  console.log("TOR ROT (Quellen):\n  " + quellenFehler.join("\n  "));
+  console.log("TOR ROT (Quellen, Marker):\n  " + quellenFehler.join("\n  "));
   process.exitCode = 1;
 }

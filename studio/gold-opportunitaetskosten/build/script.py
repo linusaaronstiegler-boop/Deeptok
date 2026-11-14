@@ -261,6 +261,11 @@ SCENES = [
      # Fassung final (Runde 1): „für heute Abend“ vor „eine Kinokarte“: „bekommst_eine“ klang wie
      # „bekommst deine“ (Ton-Kritik, Whisper).
      "luft": {"geschenkt": 0.7},
+     # Fassung final, Politur (Abnahme P2): Der erste Satz des Transfers kam mit 6,4 Silben/s, als
+     # schnellster des Videos, genau dort, wo ein neues Beispiel beginnt. ×1,16 (wie die Definition)
+     # bringt ihn in die Spanne der übrigen Sätze; mehr klänge gezogen (Abnahme: gedehnte Sätze sind
+     # schon etwas weniger periodisch).
+     "dehnen": {"Du bekommst": 1.16},
      "betont": ["geschenkt", "dann"]},
 
     # "gleichung" („kostet“): Erst hier erscheint „Kosten = bezahlt + aufgegeben“, wenn es
@@ -334,7 +339,8 @@ PFLICHTWOERTER = ["Opportunitätskosten", "Saison", "keiner", "Ablöse", "Lohn"]
 # build/voice.py (pruefe_ton) verlangt <= 4,5 Silben/s und nicht schneller als der Median aller Sätze.
 # WARNSAETZE: dieselbe Prüfung, nur als Warnung (Brücke und Schluss des Transfers).
 KERNSAETZE = ["Das ist der Wert der besten Alternative", "Das Beste, was du aufgibst", "Es steht auf keiner Rechnung"]
-WARNSAETZE = ["Jede Entscheidung hat so eine Waage", "Also kostet dich das Kino"]
+WARNSAETZE = ["Jede Entscheidung hat so eine Waage", "Also kostet dich das Kino",
+              "Du bekommst für heute Abend"]     # Politur: Eröffnung des Transfers (war 6,4 Silben/s)
 MAX_WOERTER = 19        # Kit-Konstante: höchstens 19 Wörter pro Szene (VIDEO-PIPELINE §3)
 FRAGE_BIS = 8.0         # Frage muss in den ersten 8 s stehen (§5 „Immer gilt“)
 PAUSE_SPANNE = (1.5, 2.5)   # deklarierte Denkpausen (§4 Regeln, DESIGN.md §9)

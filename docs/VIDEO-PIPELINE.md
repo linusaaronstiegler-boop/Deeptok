@@ -178,26 +178,32 @@ Auf den Bildschirm kommen Objekte, Zahlen und Schlüsselwörter, nie der gesproc
 ## 4. Stimme
 
 **Casting.**
-- Seit 27.10. über den ElevenLabs-Connector mit Linus' vorhandenen Credits (Freigabe von Linus): Runde 1 mit sechs deutschen Stimmen auf v4 (Thomas, Hans, Konrad Fichte, Jonas, Lea Voss, Victoria), blind auf der Werkstatt-Seite; Runde 2 mit den zwei besten am ganzen Skript. Kosten Runde 1: 12 Proben à 326 Credits, zusammen etwa 1,40 $. Gemessen: Wortfehlerrate 0–8 %, 44,1 kHz, 128 kbps.
+- Seit 27.10. über den ElevenLabs-Connector mit Linus' vorhandenen Credits (Freigabe von Linus): Runde 1 mit sechs deutschen Stimmen auf v4 (Thomas, Hans, Konrad Fichte, Jonas, Lea Voss, Victoria), blind auf der Werkstatt-Seite. Kosten Runde 1: 12 Proben à 326 Credits, zusammen etwa 1,40 $. Gemessen: Wortfehlerrate 0–8 %, 44,1 kHz, 128 kbps.
 - **Ergebnis (27./28.10.):** Jonas ist Favorit beider Brüder, Thomas Platz 2; alle sechs Stimmen waren gut. Linus will Stimmen variieren, deshalb rotieren sie (unten, „Stimmen-Rotation“). Modell ist `eleven_v4`, damit lief das Casting; `eleven_v4_turbo` wird nicht genutzt.
-- 27.10.: Modelle und Bedingungen prüfen, auch Inworlds Regeln für Minderjährige; Mail an ElevenLabs.
+- **Runde 2 (29.10.):** je sechs deutsche Stimmen von Cartesia (Sonic 3.6) und Inworld (TTS-2) am Casting-Skript (326 Zeichen), gemessen mit dem Hör-Check. Finalisten: Cartesia **Sebastian** (2,04 Wörter/s) und **Lena** (2,14), dort waren alle sechs ohne Wortfehler, nur diese zwei erreichten das Sprechtempo von G4; Inworld **Bastian** (1,84) und **Sabine** (1,85), die einzigen ohne Wortfehler (die anderen 2–6 %). Die Blindseite mit Jonas und Thomas als Referenz stand, die Brüder haben nicht abgestimmt.
+- **Ergebnis Runde 2 (03.11.):** Linus: „passt, nimm irgendeine Stimme, die gut passt, variiere Stimmen“. Alle vier Finalisten kommen in den Pool. Sebastian spricht seit 03.11. den Goldstandard (eine Stimme für alle Blöcke; ElevenLabs lehnte am 03.11. einen Block wegen Kontingent ab, Rest 26 Credits) und bekommt einen festen Platz. Gepinnt: `voices/cartesia.json` Sebastian (Werkstatt-Standard), `voices/inworld.json` Bastian (Rückfall); die Kandidatenlisten bleiben.
+- 27.10.: Modelle und Bedingungen prüfen, auch Inworlds Regeln für Minderjährige; Mail an ElevenLabs. Stand 03.11.: Inworld schränkt Hörer unter 18 nicht ein; Mail an ElevenLabs weiter offen.
 - Test: Hook, Vorhersagefrage, Widerlegung („nicht X, sondern Y“) und ein ganzes 60-s-Skript mit Zahlen, Namen und Lehnwörtern. Paarweise Zwangswahl, blind, beide Brüder, Handy-Lautsprecher; Wortfehlerrate und Namens-Treffer automatisch.
 - Volumen: bei ca. 6 Videos pro Tag ca. 0,26 Mio. Zeichen pro Monat (inkl. 1,3× Puffer für Neuvertonung), Ziel ca. 0,5 Mio.
 
 | Kandidat | Kosten | Haken | Linus richtet ein |
 |---|---|---|---|
 | ElevenLabs v4 (`eleven_v4`, Bibliotheksstimmen; gewählt nach dem Casting); AA-Platz 1 | $40/1 Mio. Zeichen; Creator $22 (275k, knapp), Pro $99 | unter 18 nur mit schriftlicher Freigabe; kein SSML, IPA zwischen /…/ | Network secret, Mail |
-| Inworld TTS-2; Deutsch #2, Wort-Zeitstempel | $25/1 Mio. | Minderjährigen-Richtlinie ungeprüft; 2 000 Zeichen je Anfrage | Network secret |
-| Cartesia Sonic 3.6; IPA-Wörterbuch | $5 Casting, $49/Monat | Emotions-Tags nur Englisch; Wort-Zeitstempel nur per SSE | Network secret |
+| Inworld TTS-2 (Bastian, Sabine); Deutsch #2, Wort-Zeitstempel | ca. $25/1 Mio. Zeichen | für den Bruder nutzbar (keine Einschränkung für Hörer unter 18, nur der Kontoinhaber muss 18 sein); 2 000 Zeichen je Anfrage; Bastian und Sabine bei Tempo 1,0 unter 2,0 Wörter/s | Network secret |
+| Cartesia Sonic 3.6 (Sebastian, Lena); IPA-Wörterbuch | ca. 1 Credit/Zeichen; gratis 20 000 Credits/Monat, darüber Bezahlplan ($49/Monat) | für den Bruder nutzbar (verbietet nur Missbrauch oder Schädigung Minderjähriger); Emotions-Tags nur Englisch; Wort-Zeitstempel nur per SSE | Network secret |
 | Azure Florian DragonHD; SSML | $22/1 Mio. | klanglich schwächer; DragonHD ohne Betonungs-SSML, HD nur in westeurope u. a. | Network secret (Region westeurope) |
 
 Gemini-TTS fällt weg, weil die Bedingungen Nutzer unter 18 ausschließen. Piper spricht in keinem Video für den Feed oder zum Bewerten; er bleibt Rückfall der Werkstatt (nur mit `DEEPTOK_WERKSTATT=1`), etwa für Platzhalter-Blöcke und als Vorlage für die Wortzeiten (DTW) im Goldstandard. Chirp 3 HD bleibt nur Gratis-Basis, wenn die Google-Cloud-Bedingungen es erlauben; das wird separat geprüft.
 
-**Entscheidung am 1.11.:** die bestbewertete Stimme, die heute für **beide** Profile nutzbar ist; ohne Freigabe für den Bruder scheidet ein Anbieter aus. Kosten entscheiden nur, wenn Linus „gleich gut“ sagt. Keine getrennten Stimmen pro Profil, mit einer Ausnahme: Bis ElevenLabs schriftlich für Hörer unter 18 freigibt, bekommt das Profil des Bruders keine ElevenLabs-Stimme (`voices/rotation.json`, `regeln.bruder`). Er hört dann die Stimme aus dieser Entscheidung; bis zu ihr bekommt er Inhalte als Erklär-Karte ohne Stimme.
+**Kosten je Video** (60 s ≈ 1 100 Zeichen; der Goldstandard schickte 1 038 Zeichen, mit Neuaufnahmen 1 191): Cartesia ≈ 1 100 Credits, das Gratis-Kontingent reicht für etwa 18 Videos im Monat; Inworld ≈ 0,03 $; ElevenLabs ≈ 1 100 Credits (≈ 0,04 $ bei $40/1 Mio.). Mit Sebastians festem Platz in beiden Briefings braucht Cartesia bald den Bezahlplan.
+
+**Bruder-Regel** (`voices/rotation.json`, `regeln.bruder`, Stand 03.11.): Das Profil des Bruders hört alle Pool-Stimmen ohne ElevenLabs, also Sebastian, Lena (Cartesia), Bastian und Sabine (Inworld). Abwägung: Inworlds Bedingungen schränken Hörer unter 18 nicht ein. Cartesia verbietet nur Inhalte, die Minderjährige missbrauchen oder schädigen, ohne Altersgrenze für Hörer und ohne Freigabepflicht; Lerninhalte fallen nicht darunter, darum nutzbar (bei jeder Bedingungsprüfung nachlesen). ElevenLabs bleibt für ihn gesperrt, bis ElevenLabs schriftlich für Hörer unter 18 freigibt. Rückfall ohne ElevenLabs: Sebastian, fällt Cartesia aus, Bastian; erst wenn beide ausfallen, bekommt er die Erklär-Karte ohne Stimme. Sein Weltlage-Briefing spricht Sebastian (Rückfall Bastian), Schule-Transfer Lena (Alternative Sabine). Seine Videos zählen in eigenen Mitten.
 
 **Stimmen-Rotation** (`voices/rotation.json`; Regeln in Worten: `studio/looks/README.md`, Abschnitt „Stimmen“):
-- Die Stimmen rotieren über den Casting-Pool. Jonas ist Hauptstimme (Mitte 37,5 % der Videominuten) und spricht das Morgen-Briefing, Thomas die Märkte-Karte; dazu Konrad Fichte, Lea Voss, Hans und Victoria.
-- Gezählt wird in Videominuten der letzten 14 Tage, nur im Profil Linus. Es gibt eine Schwelle: 5 Prozentpunkte Abstand von der Mitte.
+- Die Stimmen rotieren über den Pool aus beiden Casting-Runden, zehn Stimmen bei drei Anbietern: ElevenLabs Jonas, Thomas, Konrad Fichte, Lea Voss, Hans, Victoria; Cartesia Sebastian, Lena; Inworld Bastian, Sabine.
+- Mitten bei Linus (seit 03.11.): Jonas 17 % (vorher 37,5 %, dominiert nicht mehr) und Sebastian 17 % (fester Platz), Thomas 10 %, alle übrigen je 8 %. Beim Bruder: Sebastian 30 %, Bastian 25 %, Lena 25 %, Sabine 20 %. Kanäle ohne Vorschlag nehmen den größten Rückstand statt Jonas.
+- Stammformate: Linus' Weltlage-Briefing spricht Jonas (Rückfall Sebastian, spricht jeden zweiten Tag, solange Jonas über seiner Mitte liegt), die Märkte-Karte Thomas (Rückfall Bastian). Der Rückfall liegt immer bei einem anderen Anbieter, damit ein leeres Kontingent nicht Haupt- und Rückfallstimme trifft.
+- Gezählt wird in Videominuten der letzten 14 Tage, je Profil getrennt. Es gibt eine Schwelle: 5 Prozentpunkte Abstand von der Mitte.
 - Eine Stimme je Serie. Aktive Serien eines Profils haben paarweise verschiedene Stimmen und Looks.
 - Nie zwei Stimmen in einem Video, auch nicht blockweise (Goldstandard v2.1: Jonas und Piper gemischt, darum nicht bewertbar).
 
@@ -205,7 +211,7 @@ Gemini-TTS fällt weg, weil die Bedingungen Nutzer unter 18 ausschließen. Piper
 - Ganzes Skript in einem Request, sonst 2–3 Absätze mit Nachbartext; Szenen an den Wortzeiten schneiden. Pausen kommen aus der Stimme; Code setzt nur Vorhersage-Stopp und deklarierte Denkpausen (1,5–2,5 s).
 - Markup `*betont*`, `/` (Pause), `?↑` (Frage), je Anbieter übersetzt. Skripte fürs Sprechen: kurze Hauptsätze, Schlüsselwort am Satzende.
 - Wortzeiten vom Anbieter, sonst faster-whisper. Aussprache über Lexikon plus `Anzeige|Gesprochen`; Haiku schlägt Einträge vor.
-- Modell (`eleven_v4`), Format, Einstellungen und Hauptstimme (`stimm_id` Jonas) gepinnt in `voices/<anbieter>.json`; welche Stimme ein Video spricht, entscheidet die Rotation in `voices/rotation.json`. Restzeichen vor jeder Nacht prüfen. Ein Sprecher pro Serie; fällt der Anbieter aus, wechselt nur bei News die Stimme, Evergreens warten höchstens 48 h.
+- Je Anbieter Modell, Format, Einstellungen und eine Stimme gepinnt in `voices/<anbieter>.json` (`stimm_id`: ElevenLabs Jonas mit `eleven_v4`, Cartesia Sebastian, Inworld Bastian, Azure Florian); welche Stimme ein Video spricht, entscheidet die Rotation in `voices/rotation.json`. Restzeichen vor jeder Nacht prüfen. Ein Sprecher pro Serie; fällt der Anbieter aus, wechselt nur bei News die Stimme, Evergreens warten höchstens 48 h.
 - Adapter (`factory/werk/stimme/`): In der Cloud schickt der Code die Anfrage OHNE Key; der Agent-Proxy setzt ihn als Network secret selbst in den Header. Am PC kommt der Key aus einer Umgebungsvariable (`ELEVENLABS_API_KEY`, `INWORLD_API_KEY`, `CARTESIA_API_KEY`, `AZURE_SPEECH_KEY`). Eine Key-Variable in der Cloud-Umgebung löst eine Warnung aus.
 - Brüche und Einheiten, die anders gesprochen werden sollen, als Token schreiben, z. B. `1/2|einhalb`; sonst wird aus 1/2 „1 durch 2“.
 

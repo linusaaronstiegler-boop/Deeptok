@@ -1,5 +1,96 @@
 # Review: Goldstandard „Was kostet es, Lewandowski zu behalten?“ (Runde 2, 27./28.10.2026 nachts)
 
+## Fassung final, Politur (03.11.2026)
+
+Die Abnahme nannte sieben P2. Sechs sind behoben, Befund 5 nur für den Kinokarten-Satz. Befund 6 (Jahr 2022) ist verworfen, weil er eine neue Aufnahme bräuchte. Die neuen Tore sind am alten Stand gegengeprüft: Sie schlagen dort an und auf dem neuen Stand nicht. Es gab **keine neue Sprachsynthese**. Alle Änderungen am Ton sind Bearbeitungen der vorhandenen Cartesia-Aufnahmen. Nichts ist committet oder gepusht.
+
+Dabei fiel ein echter Fehler im Mastering auf: `loudnorm` lief trotz `linear=true` im dynamischen Modus. Er war die Ursache für den zu lauten ersten Satz (siehe Ton 2).
+
+### Messwerte
+
+| Prüfung | Politur | Abnahme final (vorher) | Wie gemessen |
+|---|---|---|---|
+| MP4 | 77,33 s, 2320 Bilder, 1080 × 1920, 30 fps, H.264 + AAC 48 kHz Stereo, 13,6 MB; Render 2 min 50 s | 77,03 s, 2311 Bilder | ffprobe |
+| `hyperframes check` | **0 Fehler**, 0 Kontrastwarnungen (42/42 AA). 12 Warnungen wie bisher: 6× `composition_file_too_large`, 1× `timeline_track_too_dense`, 5× `line_unread` (Credit-Zeilen über eine Naht) | gleich | im Projekt |
+| `check --caption-zone` | bestanden | bestanden | – |
+| Hör-Check G4 auf dem MP4 | **`ok: true`**, WER **0,0 %**, −16,1 LUFS, −4,6 dBTP, 2,17 Wörter/s. Stillen: 2,46 s ab 6,64 s, 2,85 s ab 74,48 s | WER 0,0 %, −16,1 LUFS, −3,9 dBTP | `fabrik.py hoercheck` |
+| Jeder Satz einzeln (MP4) | **26 von 26** fehlerfrei, 0 Abweichungen in 156 Wörtern, kein Wort unter p 0,6 | 26 von 26 | Whisper small, Satz ausgeschnitten, ohne Vorkontext |
+| Satz-Lautheit, Methode der Abnahme (MP4) | **2,4 LU** (Eröffnung −14,8; leisester Satz „Behalten: keinen Cent“ −16,9 LUFS) | 3,5 LU (Eröffnung −13,4) | ebur128 je Satz vom ersten bis zum letzten Wort |
+| Satz-Lautheit, Tor in `voice.py` | über die Wörter **1,9 LU**, über den ganzen Satz **2,5 LU** (beide ≤ 3) | 2,9 LU (nur über die Wörter) | `pruefung_ton.lautheit` |
+| Mundgeräusche (neues Tor) | **0** in Pausen, auf `voice.wav` und auf dem MP4 | alte Spur: 2 auf dem MP4 (15,93 s und 60,60 s, genau die beiden Befunde), 4 auf `voice.wav` | `mundgeraeusche()`: bis 30 ms, Spitze > 20 dB über beiden 20-ms-Umgebungen, Umgebung < −50 dBFS |
+| Knackser (1 ms) | 0 | 0 | `klicks()` |
+| Tempo | „Du bekommst … Kinokarte geschenkt“ **5,52** Silben/s (vorher 6,43, der schnellste Satz). Schnellster Satz jetzt „Doch sein Vertrag …“ mit 5,98. Kernsätze unverändert 4,42 / 3,34 / 4,32; Median 5,02 | Median 4,86 | `pruefung_ton.tempo` |
+| Betonung (Warnung) | 13 von 25 betonten Wörtern tragen den Gipfel | 11 von 25 | wie bisher |
+| `voice.m4a` | 100k → 99,7 kbit/s, 978 KB, −16,1 LUFS | 99,8 kbit/s, 975 KB | ffprobe |
+| Cue-Tor im Bau | 36 Texte, max **117 ms** | 35 Texte, max 117 ms | `bauen.mjs` |
+| `messen-bild.mjs` (774 Proben, 0,1 s) | Bildanteil **53,1 %**, 0 s ohne Held, **0** Befunde der Tore (Quellen, Foto, **Marker über fremdem Text**). Die vier kurzen Befunde während einer Bewegung bleiben wie bisher (2,7 / 2,9 / 16,5 / 29,7 s) | 52,7 %; Marker-Tor gab es nicht | Player |
+| Marker-Tor gegen den alten Rahmen | schlägt an: `m-kreis-geld × w-schale-l "Kosten" @ 39,5–45`, Exit 1 | – | Gegenprobe mit `"rahmen"` statt `"glocke"`, danach zurück |
+| Geisterflug gegen die Kopfzeile | **0 Bilder** mit Überdeckung, ≥ 24 px Luft (Kasten der Waage, des Blatts und der gezeichneten Geist-Fläche) | 6 Bilder (30,37–30,53 s) | Player, jedes Bild von 29,6 bis 31,4 s |
+| `flackern.py` | 2320 Bilder, 13 Nähte, **0 Ausreißer**, 34 Hinweise (neu: der Morph bei 69,6 s) | 0 Ausreißer, 31 Hinweise | – |
+| Seek-Test | **34 von 34** seek-sicher und bildgenau | 34 von 34 | `seek-test.mjs` |
+| Fabrik-Tests | 379 bestanden (`-m "not langsam"`) | – | pytest |
+| Bilder angesehen | **30 Einzelbilder** aus dem neuen MP4: 12 aus 36–46 s (Glocke zeichnet sich, Nachfahrt, Abtritt), 13 aus 60–77 s (Transfer, Morph, Unterstreichung, Schlussbild), 3 aus dem Geisterflug, dazu 55,0 s und Bild 0. Dazu rund 30 Player-Bilder beim Abstimmen | – | ffmpeg, Kontaktblätter |
+| Repo | keine Datei über 1 MB außerhalb von `.gitignore` (größte: `voice.m4a`, 978 KB), keine Modellnamen, keine persönlichen Daten | – | `git status`, grep |
+
+### Behoben
+
+**Bild**
+1. **Gold-Rahmen schneidet „Kosten“ (Befund 1).** Um den Geist steht jetzt eine **Glocke**: derselbe Rahmen mit 24 px Luft an Seiten und Oberkante, aber unten offen. Die Enden stehen auf dem Schalenrand (neue Form `glocke` in `lib/marker.js`). Unter dem Geist ist für 24 px Luft kein Platz, denn er steht in der Schale, darum führte jeder geschlossene Rahmen durch die Schalenfront.
+   - **Neues Tor** in `build/messen-bild.mjs`: Jeder Marker wird entlang seines gezeichneten Strichs abgetastet (alle 3 px, mit halber Strichbreite). Trifft er ein Wort, das nicht zu seinem Ziel gehört, endet der Lauf mit Exit 1. Ziele stehen in `data-ziel`; Durchstriche und Unterstreichungen tragen ihr Wort.
+2. **„beste“ nur im Ton (Befund 2).** Auf „Beste“ (69,57 s) wird „aufgegeben“ am Gold-Fach zu **„beste Alternative“**, als Morph wie beim Begriff. Der Text passt in eine Zeile (x 267–914). Die Gold-Unterstreichung auf „aufgibst“ liegt darunter. Das Schlussbild heißt jetzt „beste Alternative / Opportunitätskosten“ und wiederholt so die Definition.
+   - Neue Bau-Tore: Der Morph liegt höchstens 150 ms neben seinem Wort, die Nachfahrt endet vorher, und zwischen Morph und Unterstreichung liegen mindestens 0,5 s.
+3. **Geisterflug durch die Kopfzeile (Befund 7).** Der Weg der Kamera nach München ist jetzt gebogen (neues Feld `kurve` in `lib/buehne.js`, −0,45). Sie fährt erst nach Norden, dann nach Osten, so kommt die Waage von oben herein statt schräg über die Kopfzeile. Der Geist fliegt dazu einen weiteren Bogen nach rechts (0,3 statt 0,1).
+
+**Ton** (alles in `build/voice.py`, im Kopf-Docstring beschrieben)
+1. **Mundgeräusche (Befund 3).** Schmatzer und Knackse bis 30 ms in den Pausen zwischen zwei Wörtern werden auf den Pegel ihrer Umgebung gedämpft (`mund_daempfen`), je 1-ms-Block nur so weit, wie er darüber liegt. So entsteht kein Loch im Raumton.
+   - Das geschieht **vor** dem Ausrichten der Wortanfänge. In der Abnahme-Fassung galt ein Schmatzer 70 ms vor „Das (kann es wert sein)“ als Wortanfang.
+   - Ein Laut im Wort bleibt, etwa das t am Ende von „aufgibt“. Die ersten 30 ms eines Worts zählen dabei als Pause.
+   - Gedämpft wurden 12 Geräusche in den Blöcken 2, 3 und 5 (Liste: `timing.json`, `mund_gedaempft_je_block`), darunter die beiden aus dem Befund (b2 6,935 s: −29 dB, b5 11,738 s: −13 dB).
+   - Das **Tor** `mundgeraeusche()` läuft auf der fertigen Spur und sperrt bei einem Geräusch in einer Pause.
+2. **Satz-Lautheit (Befund 4).** Ursache war das Mastering. `loudnorm` schaltet trotz `linear=true` still in den dynamischen Modus, wenn die Verstärkung die Spitze über das Ziel heben würde. So war es: +8,4 dB hätten −7,9 dBTP auf +0,5 gehoben. Der dynamische Modus regelt über 3-s-Fenster nach, darum kam der erste Satz 2 dB lauter.
+   - Jetzt: feste Verstärkung (zweimal gemessen, +8,5 dB) und danach ein Spitzenbegrenzer bei −2 dBFS mit Laufzeitausgleich. Länge und Versatz sind unverändert (Kreuzkorrelation: −5 Samples wie vorher).
+   - Das Tor misst jetzt beide Arten, über die Wörter und über den ganzen Satz. Beide müssen ≤ 3 LU halten.
+3. **Tempo-Ausreißer (Befund 5, erster Teil).** „Du bekommst für heute Abend eine Kinokarte geschenkt.“ ist mit dem vorhandenen Feld `dehnen` um ×1,16 gedehnt (rubberband, Tonhöhe bleibt). Der Satz steht unter `WARNSAETZE`, und das Tor nennt jetzt den schnellsten Satz.
+   - Alle Bilder ab 54,9 s rücken mit den Wortzeiten nach (+0,31 s). Die Bau-Tore sind grün.
+
+### Verworfen (mit Grund)
+
+- **Klick-Tor mit 25 dB Abstand (Vorschlag):** Der Knacks vor „Also“ liegt nur 23,2 dB über seiner hinteren Umgebung, dahinter beginnt das Einatmen. Mit 25 dB hätte das Tor ihn nicht gesehen. Darum gilt 20 dB. Das Dämpfen sucht empfindlicher (15 dB, Umgebung −48 dBFS), aber nur in Pausen.
+- **Eröffnung um 1,5 dB senken (Vorschlag):** Nicht nötig. Mit linearem Mastering liegt sie ohne Eingriff bei −14,8 statt −13,4 LUFS. Eine Korrektur von Hand hätte nur das Symptom behandelt.
+- **Klammer neben dem Geist:** Links stünde sie außerhalb des Lesefensters, rechts zwischen Geist und Gehalt-Blatt (dort sind 24 px Platz, keine 30). Die Glocke ist der Vorschlag „Rahmen nur über der Schale“.
+- **Etikett „Kosten“ abdunkeln:** Es ist das Wort, auf dem die Pointe liegt (Opportunitätskosten liegen auf der Kosten-Seite). Der Strich liefe trotzdem darüber.
+- **„das Beste, was du aufgibst“ als Etikett:** Bei der Nachfahrt (1,5-fach) wären das drei Zeilen über „Opportunitätskosten“. „beste Alternative“ passt in eine Zeile und ist das Wort der Definition.
+- **Kopfzeile während des Flugs ausblenden:** Der Durchstrich auf „Nur“ steht nach DESIGN §6 bis zur Korrektur („+ Barças Geld“). Aus und wieder ein wäre ein Flackern ohne Inhalt.
+- **Jahr 2022 im Ton (Befund 6):** braucht eine neue Aufnahme von Block 4. Neue Synthese war in diesem Lauf ausgeschlossen. Im Bild steht das Jahr in der Quellzeile („Wechsel: FC Barcelona, 19.07.2022“). Entscheidung Linus.
+- **„Jede Entscheidung hat so eine Waage“ weiter dehnen (Befund 5, zweiter Teil):** Der Satz ist schon ×1,15 gedehnt und kommt mit 5,94 Silben/s, im Bereich der Nachbarn (5,52 / 5,90). Mehr klänge gezogen.
+
+### Offen
+
+1. **Jahr 2022 im Ton:** neue Aufnahme von Block 4 („Im Juli 2022 nimmt Bayern das Geld.“, 35 Zeichen), Entscheidung Linus.
+2. **Tempo:** „Doch sein Vertrag läuft nur noch eine Saison“ (5,98) und „Jede Entscheidung …“ (5,94) sind jetzt die schnellsten Sätze. Bei der nächsten Vertonung besser kürzere Sätze statt mehr Dehnung.
+3. **Betonung:** 12 von 25 betonten Wörtern tragen den Gipfel nicht (Warnung). Helfen kann nur der Satzbau.
+4. **Leise Ticks unter dem Tor:** Um −37 dBFS, 17–21 dB über der Umgebung, bei 18,32 / 22,80 / 39,11 / 40,61 / 40,96 / 44,49 s. Ohne Anhören sehe ich darin keinen Befund.
+5. **Rechte Seite der Glocke:** Sie steht etwa 8 px vor dem abgedunkelten Gehalt-Blatt, wie vorher der Rahmen. Die linke Seite liegt wie vorher links vom Lesefenster; ein Marker ist kein Text.
+6. **Kollisions-Tor in `messen-bild.mjs`:** Es zählt nur HUD-Text ab 40 % Deckkraft. Darum sah es den Geisterflug durch die abgedunkelte Kopfzeile (35 %) nie; gemessen habe ich ihn mit einem eigenen Lauf im Player. Vorschlag: abgedunkelten Text ab 20 % mitzählen, wie im neuen Marker-Tor.
+7. **Für DESIGN.md §6 (nicht geändert):** die Form „Glocke“ (Rahmen, der auf einer Standfläche steht) und das Tor „Marker über fremdem Text“.
+8. **Weiter offen aus der Abnahme:** Sebastian in `voices/rotation.json`, die Aufrufe von Block 6 bestätigen, iPhone/Safari und Kopfhörer.
+
+### Wiederholen (Politur)
+
+```bash
+. /opt/deeptok/env.sh
+cd studio/gold-opportunitaetskosten
+python build/voice.py --anbieter datei --stimme build/stimme-sebastian.json   # keine Synthese; Tore: pruefung_ton
+node build/bauen.mjs
+npx hyperframes check && npx hyperframes check --caption-zone "x0=0;y0=.693;x1=1;y1=1;severity=error"
+npx hyperframes render --quality looks --workers 3 -o renders/gold.mp4
+python build/flackern.py renders/gold.mp4
+npx hyperframes play . --port 3115 --no-open &
+node build/messen-bild.mjs 3115 0.1 && node build/seek-test.mjs 3115 renders/gold.mp4   # Exit 1 auch bei Marker über fremdem Text
+python ../../factory/fabrik.py hoercheck --audio renders/gold.mp4 --text build/cache/sprechtext.txt --erlaubte-stillen 2 --json
+python build/kontaktbogen.py
+```
+
 ## Abnahme final (03.11.2026, unabhängig)
 
 **Urteil: freigabereif.** Kein P0 und kein P1 offen. Alle sieben P1 der drei Kritiken sind behoben, einer davon mit einem Rest, der jetzt P2 ist („beste“ nur im Ton, siehe unten). Ich würde das Video Linus als Vorbild zeigen. Die P2 unten sind eine Polierliste für den nächsten Durchgang und für die Tore der Fabrik, kein Grund, die Freigabe zurückzuhalten.

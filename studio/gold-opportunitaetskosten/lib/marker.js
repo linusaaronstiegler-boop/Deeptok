@@ -99,6 +99,60 @@
    */
   function rahmenPunkte(cx, cy, hw, hh, luft, breite, seed) {
     var n = 4;
+    var achsen = rahmenAchsen(hw, hh, luft, breite);
+    var a = achsen[0], b = achsen[1];
+    var kipp = -0.03 + hash(3, seed) * 0.02;
+    var start = -2.2;
+    var umlauf = 1.1;
+    var k = 34;
+    var pts = [];
+    for (var j = 0; j <= k; j++) {
+      var f = j / k;
+      var w = start + f * umlauf * Math.PI * 2;
+      var wachs = -3 + f * 6 + hash(j * 7 + 11, seed) * 1.2; // 6 px über den Umlauf, kleines Zittern
+      var c = Math.cos(w), s = Math.sin(w);
+      var x = (a + wachs) * Math.sign(c) * Math.pow(Math.abs(c), 2 / n);
+      var y = (b + wachs) * Math.sign(s) * Math.pow(Math.abs(s), 2 / n);
+      pts.push([cx + x * Math.cos(kipp) - y * Math.sin(kipp), cy + x * Math.sin(kipp) + y * Math.cos(kipp)]);
+    }
+    return pts;
+  }
+
+  /*
+   * Fassung final, Politur (Abnahme P2: der Gold-Rahmen um den Geist lief durch das Etikett „Kosten“ auf
+   * der Schalenfront). Eine GLOCKE ist der Rahmen nur über dem Boden: dieselbe Superellipse mit derselben
+   * Luft an Seiten und Oberkante, aber unten offen. Beide Enden stehen auf `boden` (Abstand der
+   * Standfläche von der Mitte des Ziels, nach unten positiv), hier dem Rand der Schale. Darunter liegt
+   * fremder Text (die Schalenfront), den kein Strich kreuzen darf (DESIGN.md §6 „Ruhe im Umfeld“).
+   * Der Stift fährt von rechts unten über die Oberkante nach links unten, ohne Überlappung (die Enden
+   * stehen ja auf dem Boden); er wächst dabei um 4 px, leicht gekippt.
+   */
+  function glockePunkte(cx, cy, hw, hh, luft, breite, boden, seed) {
+    var n = 4;
+    var achsen = rahmenAchsen(hw, hh, luft, breite);
+    var a = achsen[0], b = achsen[1];
+    var kipp = -0.02 + hash(3, seed) * 0.015;
+    // Winkel, an dem die Kurve die Höhe `boden` erreicht: |sin w|^(2/n) = boden / b
+    var w0 = Math.asin(Math.min(1, Math.pow(Math.max(0, boden) / b, n / 2)));
+    var k = 30;
+    var pts = [];
+    for (var j = 0; j <= k; j++) {
+      var f = j / k;
+      var w = w0 - f * (Math.PI + 2 * w0); // rechts unten -> oben -> links unten
+      var wachs = -2 + f * 4 + hash(j * 7 + 11, seed) * 1.0;
+      var c = Math.cos(w), s = Math.sin(w);
+      var x = (a + wachs) * Math.sign(c) * Math.pow(Math.abs(c), 2 / n);
+      var y = (b + wachs) * Math.sign(s) * Math.pow(Math.abs(s), 2 / n);
+      // Die Enden stehen genau auf dem Boden (das Wachsen darf sie nicht unter ihn schieben)
+      if (y > boden) y = boden;
+      pts.push([cx + x * Math.cos(kipp) - y * Math.sin(kipp), cy + x * Math.sin(kipp) + y * Math.cos(kipp)]);
+    }
+    return pts;
+  }
+
+  // Halbachsen der Superellipse, so dass jeder Punkt `luft` (ab Strichrand) vom Zielrechteck hält.
+  function rahmenAchsen(hw, hh, luft, breite) {
+    var n = 4;
     var halbStrich = (breite || 10) / 2;
     var a = hw + luft + halbStrich;
     var b = hh + luft + halbStrich;
@@ -121,21 +175,7 @@
       a += 1;
       b += 1;
     }
-    var kipp = -0.03 + hash(3, seed) * 0.02;
-    var start = -2.2;
-    var umlauf = 1.1;
-    var k = 34;
-    var pts = [];
-    for (var j = 0; j <= k; j++) {
-      var f = j / k;
-      var w = start + f * umlauf * Math.PI * 2;
-      var wachs = -3 + f * 6 + hash(j * 7 + 11, seed) * 1.2; // 6 px über den Umlauf, kleines Zittern
-      var c = Math.cos(w), s = Math.sin(w);
-      var x = (a + wachs) * Math.sign(c) * Math.pow(Math.abs(c), 2 / n);
-      var y = (b + wachs) * Math.sign(s) * Math.pow(Math.abs(s), 2 / n);
-      pts.push([cx + x * Math.cos(kipp) - y * Math.sin(kipp), cy + x * Math.sin(kipp) + y * Math.cos(kipp)]);
-    }
-    return pts;
+    return [a, b];
   }
 
   /*
@@ -242,6 +282,8 @@
         ? kreisPunkte(p.cx, p.cy, p.rx, p.ry, seed, stil)
         : art === "rahmen"
           ? rahmenPunkte(p.cx, p.cy, p.hw, p.hh, p.luft === undefined ? 24 : p.luft, stil.breite, seed)
+        : art === "glocke"
+          ? glockePunkte(p.cx, p.cy, p.hw, p.hh, p.luft === undefined ? 24 : p.luft, stil.breite, p.boden, seed)
         : art === "strich"
           ? strichPunkte(p.x0, p.y, p.x1, seed, p.rechts)
           : art === "klammer"
@@ -249,6 +291,11 @@
             : linienPunkte(p.x0, p.y, p.x1, seed, stil);
     var g = document.createElementNS(ns, "g");
     if (stil.id) g.setAttribute("id", stil.id);
+    // Politur: Jeder Marker sagt, was er ist und was er markieren darf. build/messen-bild.mjs prüft daran,
+    // dass kein Strich über FREMDEN Text läuft (data-ziel: ids der Texte, die er markiert; Durchstrich und
+    // Unterstreichung liegen absichtlich auf oder an ihrem Wort).
+    g.setAttribute("data-marker", art);
+    if (stil.ziel) g.setAttribute("data-ziel", stil.ziel);
     // Erst einhängen, dann zeichnen: zeichne() misst die Pfadlänge im DOM.
     svg.appendChild(g);
     // Hauptstrich und eine dünne zweite Spur (trockener Filzstift):
@@ -269,7 +316,7 @@
       path.style.stroke = stil.farbe || "#F5F0E8";
       path.style.strokeOpacity = String(s.deckkraft);
       g.appendChild(path);
-      var standard = { kreis: 0.5, rahmen: 0.5, strich: 0.3, klammer: 0.5 }[art] || 0.35;
+      var standard = { kreis: 0.5, rahmen: 0.5, glocke: 0.5, strich: 0.3, klammer: 0.5 }[art] || 0.35;
       zeichne(tl, path, stil.beginn, stil.dauer || standard, laenge, stil);
     });
     return g;
@@ -279,6 +326,7 @@
     hash: hash,
     kreisPunkte: kreisPunkte,
     rahmenPunkte: rahmenPunkte,
+    glockePunkte: glockePunkte,
     linienPunkte: linienPunkte,
     strichPunkte: strichPunkte,
     klammerPunkte: klammerPunkte,

@@ -150,14 +150,22 @@ raus("#d-gestell-unten", L("dimRest"), { duration: 0.3 });
 tl.fromTo("#a-lohn-bild", { scale: 1, transformOrigin: "50% 100%" },
   { scale: 1.12, duration: 0.16, ease: "power2.out", immediateRender: false }, L("puls"));
 tl.fromTo("#a-lohn-bild", { scale: 1.12 }, { scale: 1, duration: 0.32, ease: "back.out(2.5)", immediateRender: false }, L("puls") + 0.16);
-// Beat 12: "Auch was du AUFGIBST": Gold-Unterstreichung unter "aufgegeben" (am Gold-Fach).
+// Beat 12, Fassung final, Politur (Abnahme P2: „beste“ stand nur im Ton): Auf „Das BESTE …“ wird „aufgegeben“
+// zu „beste Alternative“, als Morph wie beim Begriff im Atlas (alt wächst und verschwimmt, neu kommt aus der
+// Unschärfe). Das Bild nennt damit die Definition wieder: Opportunitätskosten = Wert der besten Alternative.
+tl.fromTo("#d-aufgegeben", { opacity: 1, filter: "blur(0px)", scale: 1 },
+  { opacity: 0, filter: "blur(10px)", scale: 1.3, duration: 0.18, ease: "power2.in", immediateRender: false, transformOrigin: "0% 50%" },
+  L("etikettBeste"));
+tl.fromTo("#d-beste", { opacity: 0, filter: "blur(10px)", scale: 0.72, transformOrigin: "0% 50%" },
+  { opacity: 1, filter: "blur(0px)", scale: 1, duration: 0.32, ease: "expo.out" }, L("etikettBeste") + 0.06);
+// "was du AUFGIBST": Gold-Unterstreichung unter "beste Alternative" (am Gold-Fach).
 // "Es steht nur auf keiner RECHNUNG": Navy-Unterstreichung unter dem Kopf der Rechnung, in der
 // Tinte des Stempels (Creme auf Creme-Papier wäre unsichtbar). Der Lohn daneben steht auf keiner.
 const M = window.DeepTokMarker;
-const etikett = document.getElementById("d-aufgegeben");
+const etikett = document.getElementById("d-beste");
 M.marker(tl, document.getElementById("d-marker-reihe"), "linie",
   { x0: etikett.offsetLeft - 6, x1: etikett.offsetLeft + etikett.offsetWidth + 14, y: etikett.offsetTop + 58 },
-  { farbe: "#C9A84C", breite: 10, seed: 6, beginn: L("aufgeben"), dauer: DATEN.marker.linie, id: "d-linie-aufgegeben" });
+  { farbe: "#C9A84C", breite: 10, seed: 6, beginn: L("aufgeben"), dauer: DATEN.marker.linie, id: "d-linie-aufgegeben", ziel: "d-beste" });
 // Fassung final (Bild- und Didaktik-Kritik): unter "0 €" der Rechnung, nicht unter dem Wort "Rechnung". Lage aus
 // dem DOM (Rechnung und Summe), 0,09 × Schriftgröße unter der Grundlinie (DESIGN.md §6).
 const rechnung = document.getElementById("d-rechnung");
@@ -166,7 +174,8 @@ const sx0 = rechnung.offsetLeft + summe.offsetLeft;
 const sGrund = rechnung.offsetTop + summe.offsetTop + 48 + 4;
 M.marker(tl, document.getElementById("d-marker-kosten"), "linie",
   { x0: sx0 - 6, x1: sx0 + summe.offsetWidth + 10, y: sGrund + 0.09 * 48 },
-  { farbe: "#1F3864", breite: 8, seed: 3, beginn: L("nullUnterstreichen"), dauer: DATEN.marker.linie, id: "d-linie-rechnung", anstieg: -6, bogen: 3 });
+  { farbe: "#1F3864", breite: 8, seed: 3, beginn: L("nullUnterstreichen"), dauer: DATEN.marker.linie, id: "d-linie-rechnung", anstieg: -6, bogen: 3,
+    ziel: "d-rechnung-summe" });
 
 tl.to({}, { duration: BUEHNEN.diagramm.ende - T0 }, 0);
 tl.eventCallback("onUpdate", function () {

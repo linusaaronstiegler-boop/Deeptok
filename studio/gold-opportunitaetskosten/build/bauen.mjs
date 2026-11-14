@@ -271,6 +271,10 @@ function ableiten(w) {
   z.nahSatzEnde = z.nahSatz + 0.6;
   z.puls = Math.max(w.gratis_nicht, z.nahSatzEnde); // erst zucken, wenn die Welt steht
   z.nullUnterstreichen = w.rechnung; // „auf keiner RECHNUNG“: Navy-Strich unter „0 €“ der Rechnung
+  // Fassung final, Politur (Abnahme P2: „beste“ stand nur im Ton): Auf „Das BESTE, was du aufgibst“ wird
+  // das Etikett „aufgegeben“ am Gold-Fach zu „beste Alternative“ (Morph wie beim Begriff im Atlas). Die
+  // Gold-Unterstreichung auf „aufgibst“ liegt dann unter „beste Alternative“.
+  z.etikettBeste = w.beste;
   // Abspann (v2.1): Im stehenden Schlussbild (hold_s) stehen Bildnachweis und Lizenz des Videos.
   z.abspann = bild(SZENEN_ENDE.satz);
   return z;
@@ -338,6 +342,9 @@ function pruefeZeiten(z) {
   mindestens("Nachfahrt endet vor dem Zucken der Tüte", z.puls - z.nahSatzEnde, 0);
   mindestens("Zucken auf 'nicht' (Toleranz 150 ms)", 0.15 - (z.puls - z.gratis_nicht), 0);
   mindestens("Nachfahrt endet vor der Unterstreichung", z.aufgeben - z.nahSatzEnde, 0);
+  mindestens("Nachfahrt endet vor 'beste Alternative' am Gold-Fach", z.etikettBeste - z.nahSatzEnde, 0);
+  // höchstens eine Bedeutungsänderung je Sekunde (DESIGN.md §5): Morph (0,38 s) vor der Unterstreichung
+  mindestens("Morph 'beste Alternative' fertig, bevor unterstrichen wird", z.aufgeben - (z.etikettBeste + 0.38), 0.5);
   mindestens("Letzte Zeile hält", z.ende - z.rechnung, 2.0);
   // Standdauer eines Textes >= 1,7 s (DESIGN.md §5, gemessen an den Vorbildern)
   mindestens("Text 'Tore' steht", z.toreAus - z.toreText, STAND);
@@ -349,7 +356,8 @@ function pruefeZeiten(z) {
   mindestens("Text '1 Saison' steht", z.schnitt - z.saisonText, STAND);
   mindestens("Etikett 'Opportunitätskosten' steht", z.schnitt - z.okEtikett, 2.0);
   mindestens("'Nachhilfe' steht", z.nachhilfeAus - z.nachhilfe, STAND);
-  mindestens("'aufgegeben' am Gold-Fach steht", z.ende - z.fach, STAND);
+  mindestens("'aufgegeben' am Gold-Fach steht", z.etikettBeste - z.fach, STAND);
+  mindestens("'beste Alternative' am Gold-Fach steht", z.ende - z.etikettBeste, STAND);
   if (fehler.length) throw new Error("Zeiten verletzen das Kit:\n  " + fehler.join("\n  "));
 }
 pruefeZeiten(ZEIT);
@@ -393,7 +401,8 @@ const TEXT_CUES = [
   ["Aufschrift 'Lohn'", "lohnText", "lohn"],
   ["'Opportunitätskosten' am Gold-Fach", "okLohn", "ok_lohn"],
   ["'München' (Ort)", "muenchenName", "bayern"],
-  ["Unterstreichung 'aufgegeben'", "aufgeben", "aufgeben"],
+  ["'beste Alternative' am Gold-Fach (Morph)", "etikettBeste", "beste"],
+  ["Unterstreichung 'beste Alternative'", "aufgeben", "aufgeben"],
   ["Unterstreichung '0 €' (auf keiner Rechnung)", "nullUnterstreichen", "rechnung"],
 ];
 // Bewusste Ausnahme (mit Grund): "45 Mio. €" unter der Kosten-Schale kommt mit dem Aufprall des
@@ -678,7 +687,13 @@ const NAH = {
   diagramm: { r: 1.5, fx: 290, fy: 880, zx: 540, zy: 680 },
 };
 const DATEN_ATLAS = { orte, route, kamera, breite: BREITE, hoehe: HOEHE, physik: PHYSIK, marker: MARKER,
-  waage: { ...WAAGE, ort: "muenchen" }, nah: NAH.atlas, stapelBcn: STAPEL_BCN }; // .abzug kommt unten (nach foto-lewandowski.json)
+  waage: { ...WAAGE, ort: "muenchen" }, nah: NAH.atlas, stapelBcn: STAPEL_BCN, // .abzug kommt unten (nach foto-lewandowski.json)
+  // Fassung final, Politur (Abnahme P2): Auf dem Flug Barcelona -> München glitten Waage und Geist 0,2 s
+  // durch die (abgedunkelte) Kopfzeile oben links. Der Weg der Kamera biegt sich jetzt (erst nach Norden,
+  // dann nach Osten: Die Waage kommt von oben herein, nicht schräg über die Kopfzeile), und der Geist
+  // fliegt einen weiteren Bogen nach rechts. Gemessen im Player, Bild für Bild: 0 Bilder mit Überdeckung,
+  // >= 24 px Luft zur Kopfzeile (vorher 6 Bilder, 30,37-30,53 s). Werte: kurve -0,45, Bogen 0,3 (vorher 0,1).
+  kurveMuenchen: -0.45, geistBogen: 0.3 };
 // Fassung final: Schild „Kino“ 10 px höher (-448), die Rechnung 12 px niedriger (lib/diagramm.html). Kippt die
 // Waage nach rechts (Kinokarte), hob sich die Rechnung über die Ecke des Schilds (Bild-Kritik).
 const DATEN_DIAGRAMM = { orte: {}, breite: BREITE, hoehe: HOEHE, physik: PHYSIK, marker: MARKER,

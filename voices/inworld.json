@@ -3,7 +3,8 @@
   "_quelle": "https://docs.inworld.ai/api-reference/ttsAPI/texttospeech/synthesize-speech · https://docs.inworld.ai/tts/capabilities/pause-controls.md · https://docs.inworld.ai/tts/capabilities/steering.md",
   "anbieter": "inworld",
   "modell": "inworld-tts-2",
-  "stimm_id": "BITTE_IM_CASTING_WAEHLEN",
+  "stimm_id": "Bastian",
+  "_stimm_id_hinweis": "Bastian, gesetzt am 03.11.2026 als Rückfall: Finalist der Casting-Runde 2 ohne Wortfehler, Rückfallstimme der Märkte-Karte und des Briefings des Bruders (voices/rotation.json). Inworld liegt bei einem anderen Anbieter als ElevenLabs und Cartesia und darf auch für das Profil des Bruders sprechen (regeln.bruder). Bei Tempo 1,0 sprach er 1,84 Wörter/s, unter G4 (2,0 bis 2,6): tempo beim ersten Video nachmessen. Die Kandidaten bleiben für weitere Castings stehen.",
   "kandidaten": [
     {"id": "Reinhard", "name": "Reinhard", "geschlecht": "male"},
     {"id": "Fabian", "name": "Fabian", "geschlecht": "male"},
