@@ -1,0 +1,316 @@
+{
+ "folge": "folge-01",
+ "serie": "Hiding Night",
+ "teil": 1,
+ "erstellt": "2026-11-15",
+ "anbieter": "ElevenLabs-Connector (Creative Flows)",
+ "flow": {
+  "flow_id": "wApnsbSi8Q0BUypkHKPN",
+  "name": "Hiding Night – Teil 1 – Stimme Adam",
+  "node_id": "cnXnBkSS0nkHF0ZuUNYh",
+  "hinweis": "Die vorherige Kostenschätzung (estimate_only) hat im Flow den leeren Knoten lKniICS0QrV0aeg6DoKF angelegt; dort wurde nichts erzeugt und nichts berechnet."
+ },
+ "stimme": {
+  "name": "Adam - Dominant, Firm",
+  "voice_id": "pNInz6obpgDQGcFmaJgB",
+  "kategorie": "premade",
+  "modell": "eleven_v4",
+  "generations_count": 2
+ },
+ "eingabe": {
+  "text": "In this town, when you turn eighteen, you hide until sunrise, or it finds you. We call it Mister Hundred. It's tall enough to look in upstairs windows, and it keeps both hands over its face. It never peeks. At midnight, it counts to one hundred, slow and deep, and the whole town hears it. Your breath turns white when it's close. When it finds you, it bends down and takes its hands away from its face. In the morning, all that's left are your shoes, side by side.\n\nThe town calls it Hiding Night. There's only one rule. Nobody can help you hide. If they try, it takes them too. You can't run, either.\n\nOn his eighteenth birthday, Owen Pike drove all night. At sunrise, his truck was back in front of his house, engine running. His shoes were on the seat, side by side.\n\nNobody here plays hide and seek, not even for fun. Nobody leaves their shoes side by side. And nobody ever says the word \"ready.\" That's what it asks when it's done counting.\n\nOn Friday, I turned eighteen. My sister June is the only one who ever made it to sunrise. Six years ago, Dad hid her in the crawl space under her room. In the morning, she climbed out. Dad's shoes were on the porch. Every night since, June counts to one hundred before she falls asleep. She says it helps. At breakfast, she took my hand.\n\n[softly] \"It never looks in my room, Rabbit.\" \"I'll hide you there.\" \"I promise.\"\n\n[nervous] At sunset, I went upstairs to grab a flashlight. My breath turned white. Mister Hundred was standing in our yard, six hours early. It wasn't counting. It was looking at me, through its fingers.",
+  "zeichen": 1573,
+  "sha256": "c0e91b4730ef0d952b24950c86dfd7cf005a143eac2a31c7e9793f3207a2c368",
+  "generierungen": 1,
+  "abweichungen_vom_skript": [
+   "Absätze an den Blockgrenzen (Sätze 1–8, 9–13, 14–16, 17–20, 21–28, 29–31, 32–36), Sätze innerhalb eines Absatzes durch Leerzeichen getrennt",
+   "Ton-Tag [softly] vor Junes Zeilen 29–31",
+   "Ton-Tag [nervous] vor Satz 32 (Cliffhanger, gilt bis zum Ende)",
+   "Satz 19: das Wort ready in Anführungszeichen (\"ready.\")"
+  ]
+ },
+ "credits": {
+  "schaetzung": 3146,
+  "verbraucht": 3146,
+  "je_take": 1573,
+  "budget": 4000,
+  "kontostand": "nicht abrufbar: account_get_usage verlangt bei beiden Connectoren zusätzliche Rechte"
+ },
+ "takes": [
+  {
+   "take": 1,
+   "generation_id": "QCZHbg8WTac6dJzexjEV",
+   "session_id": "RxEchvcLjSikCZ6EvYkw",
+   "credits": 1573,
+   "gewaehlt": true,
+   "roh_datei": "build/folge-01/roh/take1-QCZHbg8WTac6dJzexjEV.mp3",
+   "roh_sha256": "12b9e960f2319c1300461299ad0dbfded2e618cddc6611d06a5c9882f6aca161",
+   "format_roh": "mp3 44,1 kHz mono 128 kbit/s",
+   "dauer_roh_s": 108.8,
+   "dauer_x1_2_s": 90.67,
+   "dauer_nach_pausen_s": 86.9,
+   "whisper_wer": 0.0,
+   "whisper_fehler": [],
+   "whisper_eingefuegt": [],
+   "uebersteuert": 0,
+   "knackser": 0,
+   "lautheit_roh": {
+    "lufs": -18.89,
+    "true_peak_dbtp": -0.72,
+    "lra_lu": 3.8
+   },
+   "hook_satz1": {
+    "dauer_s": 4.48,
+    "pegel_db": -19.9,
+    "f0_median_hz": 146.0,
+    "f0_spanne_ht": 13.0
+   },
+   "cliffhanger_satz36": {
+    "dauer_s": 1.7,
+    "pegel_db": -18.5,
+    "f0_median_hz": 177.8,
+    "f0_spanne_ht": 10.6
+   },
+   "june_satz29_pegel_db": -27.1
+  },
+  {
+   "take": 2,
+   "generation_id": "UAlNuP2iRR4aOyScuStH",
+   "session_id": "iH0BE4Dv90YeI4IEgz0C",
+   "credits": 1573,
+   "gewaehlt": false,
+   "roh_datei": "build/folge-01/roh/take2-UAlNuP2iRR4aOyScuStH.mp3",
+   "roh_sha256": "05f81c44adcaf475eb24a80f2c35e90c8f21939d24bd26c36f906f23708681a9",
+   "format_roh": "mp3 44,1 kHz mono 128 kbit/s",
+   "dauer_roh_s": 108.24,
+   "dauer_x1_2_s": 90.2,
+   "dauer_nach_pausen_s": 86.34,
+   "whisper_wer": 0.0103,
+   "whisper_fehler": [
+    {
+     "skript": "too",
+     "gehoert": "to",
+     "zeit_s": 34.06
+    },
+    {
+     "skript": "hundred",
+     "gehoert": "hunderd",
+     "zeit_s": 84.18
+    }
+   ],
+   "whisper_eingefuegt": [
+    {
+     "gehoert": "but",
+     "zeit_s": 54.08
+    }
+   ],
+   "uebersteuert": 0,
+   "knackser": 0,
+   "lautheit_roh": {
+    "lufs": -18.88,
+    "true_peak_dbtp": -0.39,
+    "lra_lu": 3.3
+   },
+   "hook_satz1": {
+    "dauer_s": 4.58,
+    "pegel_db": -19.5,
+    "f0_median_hz": 149.2,
+    "f0_spanne_ht": 12.1
+   },
+   "cliffhanger_satz36": {
+    "dauer_s": 1.66,
+    "pegel_db": -19.3,
+    "f0_median_hz": 167.7,
+    "f0_spanne_ht": 12.1
+   },
+   "june_satz29_pegel_db": -26.4
+  }
+ ],
+ "gewaehlt": {
+  "take": 1,
+  "generation_id": "QCZHbg8WTac6dJzexjEV",
+  "gruende": [
+   "Whisper (ganze Datei, ×1,2): 0 Wortfehler gegen 3 bei Take 2 (to/too, „Hunderd“, ein eingeschobenes „But“ ohne Dauer; alles eher Whisper als Sprecher)",
+   "Hook kürzer (4,48 s gegen 4,58 s vor dem Pausenkürzen) und mit mehr Tonhöhenbewegung (13,0 gegen 12,1 Halbtöne)",
+   "Letzter Satz bleibt laut und hoch (−18,5 dB, 178 Hz gegen −19,3 dB, 168 Hz): kein Abfallen am Cliffhanger",
+   "Take 1 „counting.“ (Satz 20) hatte im Ganzdatei-Lauf nur p = 0,003; im Einzelausschnitt erkennt Whisper es mit 0,997, Pegelkurve wie bei Take 2: kein Artefakt",
+   "Beide ohne Übersteuerung, Knackser oder gesprochene Tags; Linus' Ohr ist die letzte Instanz, Take 2 liegt unter build/folge-01/roh/"
+  ]
+ },
+ "kette": [
+  {
+   "schritt": "Resample ×1,2",
+   "ffmpeg": "aresample=44100,asetrate=52920,aresample=44100",
+   "dauer_s": 90.667
+  },
+  {
+   "schritt": "Pausen kürzen",
+   "regel": "Stille < −50 dBFS (Rahmen 10 ms), länger als 0,35 s → aus der Mitte geschnitten; es bleiben 0,14 s nach dem Wortende und 0,19 s vor dem nächsten Wort, Überblendung 10 ms; vorn 0,03 s, hinten 0,15 s",
+   "gekuerzt": 32,
+   "dauer_s": 86.26
+  },
+  {
+   "schritt": "Satzpegel angleichen",
+   "regel": "Sätze > 5 dB unter dem Satz-Median auf Median − 4 dB, Rampen 30 ms in den Pausen",
+   "angehoben": [
+    {
+     "satz": 29,
+     "pegel_db": -26.9,
+     "median_db": -18.2,
+     "anhebung_db": 4.6
+    },
+    {
+     "satz": 31,
+     "pegel_db": -25.0,
+     "median_db": -18.2,
+     "anhebung_db": 2.8
+    }
+   ]
+  },
+  {
+   "schritt": "Kompressor",
+   "ffmpeg": "acompressor=threshold=0.19953:ratio=4:attack=0.5:release=50:knee=4:detection=peak",
+   "lautheit_danach": {
+    "lufs": -22.91,
+    "true_peak_dbtp": -7.51,
+    "lra_lu": 2.6
+   }
+  },
+  {
+   "schritt": "Lautheit und True Peak",
+   "ffmpeg": "volume=9.4dB,aresample=176400,alimiter=limit=0.83176:attack=2:release=60:level=false:latency=true,aresample=44100",
+   "begrenzer_rahmen_ueber_1db_prozent": 13.89,
+   "begrenzer_rahmen_ueber_3db_prozent": 0.09,
+   "begrenzer_max_abregelung_db": 3.49,
+   "ergebnis": {
+    "lufs": -14.06,
+    "true_peak_dbtp": -1.56,
+    "lra_lu": 2.5
+   }
+  },
+  {
+   "schritt": "Wortzeiten",
+   "werkzeug": "faster-whisper small int8, language=en, word_timestamps, beam 5; Ausrichtung auf skript-teil1.txt; Kanten an Pausen auf Pegelkanten"
+  }
+ ],
+ "ergebnis": {
+  "wav": {
+   "datei": "build/folge-01/stimme.wav",
+   "format": "WAV PCM 16 bit, 44,1 kHz, mono",
+   "sha256": "21f6c5778c82fa0d1832119d0e8ed937554cf0371bc42084e48c47d0ec6ab28b",
+   "dauer_s": 86.26,
+   "lufs": -14.06,
+   "true_peak_dbtp": -1.56,
+   "lra_lu": 2.5
+  },
+  "m4a": {
+   "datei": "episoden/folge-01/stimme.m4a",
+   "format": "AAC-LC mono 44,1 kHz, +faststart",
+   "sha256": "20332244a1a4c8c2518ecd1e5a06cc241e1a61c4972f18c2d8f05167379e63f7",
+   "bytes": 988833,
+   "kbit_nenn": 86,
+   "stream_bit_rate": 90229,
+   "dekodiert": {
+    "lufs": -14.12,
+    "true_peak_dbtp": 0.36,
+    "versatz_zur_wav_abtastwerte": 0
+   },
+   "hinweis": "≥ 96 kbit/s und < 1 MB gehen bei 86,26 s nicht zusammen (96 kbit/s × 86,26 s = 1.035.120 Bytes reine Audiodaten). Gewählt: Repo-Regel < 1 MB, höchste passende Rate. True Peak nach AAC-Dekodierung +0,36 dBTP an 3 Stellen (0,09 s, 26,47 s, 66,47 s): für Renders die WAV nehmen."
+  },
+  "m4a_96k": {
+   "datei": "build/folge-01/stimme-96k.m4a",
+   "bytes": 1107900,
+   "stream_bit_rate": 101267,
+   "dekodiert": {
+    "lufs": -14.14,
+    "true_peak_dbtp": -0.5
+   },
+   "hinweis": "nicht im Repo (über 1 MB)"
+  }
+ },
+ "timing": {
+  "datei": "episoden/folge-01/timing.json",
+  "woerter": 290,
+  "saetze": 36,
+  "dauer_s": 86.26,
+  "hook_ende_s": 4.56,
+  "letztes_wort_ende_s": 86.12,
+  "wer": 0.0,
+  "laengste_stille_s": 0.32,
+  "laengste_wortluecke_s": 0.32,
+  "laengste_leise_strecke_unter_35db_s": 0.35,
+  "dauer_im_ziel_70_90": true
+ },
+ "hoer_check": {
+  "wortfehler": 0.0,
+  "woerter": [
+   {
+    "wort": "Mister",
+    "start": 5.53,
+    "p": 0.431
+   },
+   {
+    "wort": "Hundred.",
+    "start": 5.9,
+    "p": 0.849
+   },
+   {
+    "wort": "peeks.",
+    "start": 11.22,
+    "p": 0.765
+   },
+   {
+    "wort": "hundred,",
+    "start": 13.56,
+    "p": 0.715
+   },
+   {
+    "wort": "Owen",
+    "start": 35.91,
+    "p": 0.954
+   },
+   {
+    "wort": "Pike",
+    "start": 36.12,
+    "p": 0.933
+   },
+   {
+    "wort": "ready.",
+    "start": 50.71,
+    "p": 0.129
+   },
+   {
+    "wort": "crawl",
+    "start": 60.28,
+    "p": 0.988
+   },
+   {
+    "wort": "space",
+    "start": 60.5,
+    "p": 0.832
+   },
+   {
+    "wort": "hundred",
+    "start": 67.32,
+    "p": 0.859
+   },
+   {
+    "wort": "Rabbit.\"",
+    "start": 73.12,
+    "p": 0.639
+   },
+   {
+    "wort": "Mister",
+    "start": 79.83,
+    "p": 0.955
+   },
+   {
+    "wort": "Hundred",
+    "start": 80.18,
+    "p": 0.521
+   }
+  ],
+  "hinweis": "Alle Wörter erkannt. Niedrige Whisper-Sicherheit (< 0,5) nur bei „ready.“ (Satz 19, 0,13) und „Mister“ (Satz 2, 0,43): beim Anhören prüfen."
+ },
+ "werkzeug": "python engine/ton/stimme.py fertig --skript episoden/folge-01/skript-teil1.txt --roh build/folge-01/roh/take1-QCZHbg8WTac6dJzexjEV.mp3 --wav build/folge-01/stimme.wav --m4a episoden/folge-01/stimme.m4a --timing episoden/folge-01/timing.json --bloecke episoden/folge-01/bildideen.json --bericht build/folge-01/arbeit/bericht.json --arbeit build/folge-01/arbeit (aus horror/)"
+}
