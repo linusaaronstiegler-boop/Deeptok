@@ -1,6 +1,6 @@
 # Serie „Hiding Night“: Teile 2–4, Figuren, Orte
 
-Stand 15.11.2026. Teil 1 steht in `skript-teil1.txt`, die Bildideen dazu in `bildideen.json`, die Wahl der Prämisse in `praemissen.md`.
+Stand 15.11.2026. Teil 1 steht in `skript-teil1.txt`, die Bildideen dazu in `bildideen.json`, die Wahl der Prämisse in `praemissen.md`. Teil 2 liegt in `../folge-02/` (Skript, Bildideen, Stimme).
 Bauplan nach `docs/anhang-a-serienformat.md` A3, vier Teile: Teil 2 endet nach der Entscheidung, Teil 3 trägt die Nacht, Teil 4 bringt Wendung, Ritual-Wiederkehr und Schlusszeile.
 
 **Logline:** In einer Kleinstadt muss sich jeder in der Nacht seines 18. Geburtstags bis Sonnenaufgang vor einem Riesen verstecken, der zählt. Elis Schwester June ist die Einzige, die es je geschafft hat, und sie verspricht, ihn dort zu verstecken, wo es nie hinsieht.
@@ -11,23 +11,34 @@ Bauplan nach `docs/anhang-a-serienformat.md` A3, vier Teile: Teil 2 endet nach d
 
 Regel-Hook, Mister Hundred und sein Ritual, Hiding Night mit einer Regel, Owens gescheiterte Flucht, drei Alltagsregeln, June mit Kosename „Rabbit“, Gewohnheit (zählt jede Nacht bis hundert) und Versprechen. Cliffhanger bei Sonnenuntergang: Mister Hundred steht sechs Stunden zu früh im Vorgarten und späht durch die Finger.
 
-## Teil 2: falsche Sicherheit
+## Teil 2 (Endfassung, vertont): falsche Sicherheit
 
-1. **Rückblick-Hook (≤ 5 s):** *On my eighteenth birthday, Mister Hundred showed up six hours early, and it peeked.* Erstes Bild: das Auge zwischen den Fingern, die Kamera fährt weiter.
-2. Eli reißt den Vorhang zu; als er wieder hinsieht, ist der Garten leer, nur lange nackte Fußabdrücke im Rasen. June kommt barfuß und verschlafen aus ihrem Zimmer (sie schläft vor jeder Hiding Night), ihre Hände sind eiskalt: *"It does that. It can't touch you before midnight."*
-3. Elf Uhr auf dem Platz: Die Stadt verabschiedet die Achtzehnjährigen, dieses Jahr zwei, Eli und Tess Lowry. Mr. Odell erklärt, dass er um Mitternacht läutet und bei Sonnenaufgang wieder; erst die Sonnenglocke beendet das Spiel.
-4. Nachbarn treten ihre Schuhe durcheinander, niemand sagt „ready“. Tess grinst: *"Last game of hide and seek, huh?"* Der Platz wird still. Sie versteckt sich in der Glockenstube.
-5. Odell sieht June an, nicht Eli: *"Whoever helps him hide goes with him."* June hält seinem Blick stand.
-6. Entscheidung: Eli will June nicht verlieren wie Dad und lieber allein in den Wald. June hält ihn fest und wiederholt ihr Versprechen ohne Worte, eine Hand auf der Luke. Er steigt mit Taschenlampe in den Kriechkeller unter ihrem Zimmer, sie klappt die Luke zu.
-7. Über ihm legt June sich ins Bett und zählt wie jede Nacht leise bis hundert. Bei hundert schlägt die Glocke Mitternacht. Stille.
-8. **Cliffhanger:** Das Zählen beginnt, aber nicht vom Platz. *"One."* Es kommt durch die Dielen, direkt über ihm.
+Stand 15.11.2026: `folge-02/skript-teil2.txt`, 278 Wörter, 46 Sätze, Stimme 85,92 s (`folge-02/stimme.json`). Die Endfassung setzt die Kritik am Entwurf um (Pflichtpunkte aus `docs/trends/geschichten-regeln.md`: Name und Preis im Hook, Setup des Zählens im selben Video).
+
+1. **Hook (4,31 s):** *Mister Hundred takes you at eighteen, and it came early, like it knew where I'd hide.* Erstes Bild: das Auge zwischen den Fingern, die Kamera fährt weiter. Der Name fällt auf dem ersten Bild, „takes“ liefert den Preis.
+2. Eli reißt den Vorhang zu. Als er wieder hinsieht, ist der Garten leer, nur lange nackte Fußabdrücke im Reif. *They stopped at June's window. The one room it never looks in.* Die Erzählung deutet die Spur als „bis zum Fenster“; das Bild zeigt die Zehen vom Fenster weg (Hinweis fürs Wiederansehen).
+3. Eli rennt hinunter. June öffnet ihre Tür, barfuß, ihre Hände sind eiskalt. June: *"It can't touch you before midnight."*
+4. Elf Uhr: Die Stadt bringt Eli und Tess Lowry zum Platz. Auf jeder Veranda liegen die Schuhe auseinander, *side by side is all it leaves.* Mr. Odell läutet die Mitternachtsglocke, dann beginnt das Zählen; nur die Sonnenglocke beendet Hiding Night (Setup für den Cliffhanger im selben Video).
+5. Odell wendet sich an June: *"It takes the helper too." "So why are you still here?"* June antwortet nicht.
+6. Tess grinst: *"Last game of hide and seek, huh?"* Niemand lacht. Sie versteckt sich im Glockenturm, höher als jedes Fenster.
+7. **Omen:** Zu Hause tritt Eli seine Turnschuhe auseinander und packt für den Wald. Als er wieder herunterkommt, stehen sie nebeneinander. Nur June war unten.
+8. **Entscheidung:** Weglaufen endet wie bei Owen, sich verstecken lassen kostet June wie Dad. June nimmt ihm den Rucksack ab: *"It never looks in my room, Rabbit." "That's why I'm still here."* Sie öffnet die Luke. *I climbed in anyway.* Luke zu, Teppich drüber.
+9. Über ihm legt June sich hin und zählt wie jede Nacht, hörbar: *"Ninety-seven." "Ninety-eight." "Ninety-nine."* Dann hört sie auf. Die Glocke schlägt Mitternacht, vom Platz kommt kein Zählen.
+10. **Cliffhanger:** Die Dielen über seinem Gesicht biegen sich, sein Atem wird weiß. *Something finished her count, slow and deep.* *"One hundred." "Ready?"* (Mister Hundred). Auf „Ready?“ fallen die Schatten von vier langen Fingern durch die Spalten. Harter Schnitt, PART 3. Offen bleibt auch, ob June mitten im Zählen genommen wurde.
+
+**Musik in drei Stufen** (Regel 8, Anker in `folge-02/bildideen.json`): leise bis Junes Mitternachtssatz (bis 20,3 s), voll ab dem Laternenzug (20,6 s, 24 %) bis „The hatch closed over me“, dünn ab Junes Zählen (67,3 s, 78 %), Abriss am Ende von „Ninety-nine“ (72,9 s). Danach nur die Glocke (Handlung) und das Leitgeräusch. Bildunterschrift: *Would you hide under June's room?*
 
 ## Teil 3: die Nacht
 
-1. **Rückblick-Hook:** *On Hiding Night, I hid under my sister's floor, and the counting started right above me.*
-2. Eli hält den Atem an, der Atem wird weiß im Lampenkegel. Durch einen Spalt in den Dielen: Junes Bett ist leer, davor stehen ihre roten Turnschuhe, nebeneinander. Er glaubt, es hat sie genommen, weil sie ihm geholfen hat.
-3. Neben ihm im Staub liegt Dads alte Taschenlampe aus jener Nacht vor sechs Jahren. Das Zählen wandert: aufs Dach, in den Garten, auf die Straße. *"Ninety-nine. One hundred."* Dann, über der ganzen Stadt: *"Ready?"* Niemand antwortet.
-4. **Spiegelszene:** Durchs Lüftungsgitter sieht Eli den Kirchturm. Mister Hundred beugt sich zur Schallluke herab und nimmt die Hände vom Gesicht; wir sehen nur seinen Rücken. Tess' Taschenlampe geht aus, das Glockenseil schwingt einmal, ohne Ton.
+**Folgen aus Teil 2 (vor dem Schreiben von Teil 3 klären):**
+- „Ready?“ ist in Teil 2 schon gefallen, direkt über Eli. Beat 3 unten (wanderndes Zählen und „Ready?“ über der Stadt) entfällt; Teil 3 beginnt im Schweigen danach.
+- Die Regel „nie antworten“ steht bisher in keinem Text. Sie gehört in die ersten 15 s von Teil 3, etwa *Nobody answers when it asks.*
+- Tess versteckt sich „higher than any window“. Für die Spiegelszene muss Mister Hundred sich also aufrichten, größer, als die Stadt dachte, statt sich zur Schallluke herabzubeugen. Das ist ein Payoff, kein Fehler, wenn es so gezeigt wird.
+
+1. **Rückblick-Hook, Vorschlag im Bau von Teil 2:** *Mister Hundred takes you at eighteen, and it finished counting right above my face.* (Länge nach dem Vertonen prüfen, ≤ 5 s.)
+2. Eli antwortet nicht und hält den Atem an, der Atem wird weiß im Lampenkegel. Das Gewicht hebt sich von den Dielen. Durch einen Spalt: Junes Bett ist leer, davor stehen ihre roten Turnschuhe, nebeneinander. Er glaubt, es hat sie genommen, weil sie ihm geholfen hat.
+3. Neben ihm im Staub liegt Dads alte Taschenlampe aus jener Nacht vor sechs Jahren. Er hört, wie es durch Junes Fenster hinausgeht (Spiegel zur Spur in Teil 2).
+4. **Spiegelszene:** Durchs Lüftungsgitter sieht Eli den Kirchturm. Mister Hundred richtet sich auf, bis sein Kopf die Schallluke erreicht, und nimmt die Hände vom Gesicht; wir sehen nur seinen Rücken. Tess' Taschenlampe geht aus, das Glockenseil schwingt einmal, ohne Ton.
 5. Es kommt die Hauptstraße herunter und sieht in jedes obere Fenster. An Elis Fenster bleibt es stehen, dann an Junes.
 6. Eli denkt an Owens Pick-up mit laufendem Motor und bleibt liegen. Die Dielen ächzen unter großem Gewicht; ein langer weißer Finger schiebt sich durch den Spalt und tastet über den Erdboden, eine Handbreit neben seinem Gesicht.
 7. Der Finger zieht sich zurück. Lange nichts. Seine Uhr zeigt drei.
@@ -51,7 +62,7 @@ Regel-Hook, Mister Hundred und sein Ritual, Hiding Night mit einer Regel, Owens 
 
 ## Setup und Payoff
 
-Mindestens 6 Paare sind Pflicht (A3), hier sind es 13. Alle Setups stehen in Teil 1 oder in der ersten Hälfte von Teil 2.
+Mindestens 6 Paare sind Pflicht (A3), hier sind es 20. Alle Setups stehen in Teil 1 oder Teil 2; die Paare 14–20 kamen mit der Endfassung von Teil 2 dazu.
 
 | # | Setup | Payoff |
 |---|---|---|
@@ -68,13 +79,22 @@ Mindestens 6 Paare sind Pflicht (A3), hier sind es 13. Alle Setups stehen in Tei
 | 11 | „Nobody here plays hide and seek“ (T1, Satz 17) | Tess' Witz auf dem Platz (T2), sie wird als Erste gefunden (T3) |
 | 12 | Sonnenglocke beendet das Spiel (T2, erste Hälfte) | läutet in T4 |
 | 13 | Kosename „Rabbit“ (T1, Satz 29); Dad versteckte June in der Luke (T1, Satz 23) | „Rabbit? You can come out now“ (T3); Dads Taschenlampe im Kriechkeller (T3) |
+| 14 | Spur endet an Junes Fenster, Zehen zeigen vom Fenster weg (T2, Satz 5) | es geht durch ihr Fenster hinaus (T3); es fängt in ihrem Zimmer an (T4) |
+| 15 | „It takes the helper too.“ „So why are you still here?“ (T2, Sätze 17–18) | „Dad had hidden me, so it took both“ (T4) |
+| 16 | „That's why I'm still here.“ (T2, Satz 31) | der doppelte Sinn wird klar (T4) |
+| 17 | Elis Turnschuhe stehen plötzlich nebeneinander, nur June war unten (T2, Satz 26) | Schlussbild: sie stehen im Morgenlicht noch so (T4, Vorschlag) |
+| 18 | Tess im Turm, „higher than any window“ (T2, Satz 23) | es richtet sich auf, größer, als die Stadt dachte (T3) |
+| 19 | Mitternachtsglocke, dann zählt es (T2, Satz 14) | „No counting came from the square“ (T2, Satz 41) |
+| 20 | June zählt leise (T2, Sätze 35–38), es zählt „slow and deep“ (T1, Satz 5; T2, Satz 44) | beide zählen zusammen (T4) |
 
 **Versteckte Hinweise fürs Wiederansehen:**
 - Das Auge zwischen den Fingern ist bernsteinfarben wie Junes Augen.
-- June ist in Teil 2 barfuß.
+- June ist in Teil 2 barfuß, ihre Hände sind kalt.
+- Die Zehen der Spur in Teil 2 zeigen vom Fenster weg; der Erzähler sagt nur „stopped at“.
+- Als Elis Turnschuhe nebeneinander stehen, ist Junes Tür im Hintergrund einen Spalt offen.
 - Ihre Turnschuhe stehen in Teil 3 schon nebeneinander, bevor das Ding die Straße hinunterkommt.
 
-**Dialog:** etwa 9 Zeilen über vier Teile (A3 nennt 4–7 bei drei Teilen), Ziel 5–8 % der Wörter; Teil 1 liegt bei 4,5 %. Eli spricht nie laut; das ist Teil der Figur und bindet die Regel „nie antworten“.
+**Dialog:** Ziel 5–8 % der Wörter über die Serie (A3 nennt 4–7 Zeilen bei drei Teilen). Teil 1 liegt bei 4,5 %. Teil 2 hat mehr, nämlich 15 % samt Junes Zählen (June 6 Zeilen, Odell 2, Tess 1, Mister Hundred 2), weil indirekte Rede an den Schlüsselstellen tot wirkte. Über die Serie sind es mit den geplanten Zeilen von Teil 3 und 4 etwa 7–8 %. Eli spricht nie laut; das ist Teil der Figur und bindet die Regel „nie antworten“.
 
 ## Figuren
 

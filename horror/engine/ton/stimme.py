@@ -15,6 +15,8 @@ Kette (Linus' Vorgabe für Folge 1, ElevenLabs „Adam“):
      damit er auch Spitzen zwischen den Abtastwerten sieht.
   4. Wortzeiten mit faster-whisper small (word_timestamps) auf der fertigen Spur,
      gegen den Sprechtext ausgerichtet. Die Schreibweise des Skripts bleibt erhalten.
+     Ein kurzes Schlusswort, das Whisper in den Block davor zieht (Folge 2: „Ready?“),
+     kommt in seinen eigenen Sprechblock (schlusswoerter_verschieben).
 
 Befehle:
   python stimme.py bewerten --skript S.txt ROH1.mp3 [ROH2.mp3 …] [--aus bewertung.json]
@@ -495,6 +497,60 @@ def sprechbloecke(x: np.ndarray) -> list[tuple[float, float]]:
     return bloecke
 
 
+SCHLUSS_MIN_S = 0.12        # so lang muss ein Block nach dem letzten Wort sein, um als Sprache zu zählen
+SCHLUSS_MIN_DB = -35.0      # und so laut (Sprachrahmen), damit Atem oder Rauschen nicht zählen
+
+
+def schlussbloecke(x: np.ndarray, bloecke: list[tuple[float, float]], ab: float) -> list[int]:
+    """Indizes der Sprechblöcke, die erst nach der Zeit `ab` beginnen und nach Sprache klingen."""
+    return [k for k, (ba, bb) in enumerate(bloecke)
+            if ba > ab + 0.02 and bb - ba >= SCHLUSS_MIN_S and sprachpegel(x, ba, bb) >= SCHLUSS_MIN_DB]
+
+
+def schlusswoerter_verschieben(woerter: list[dict], zuordnung: list[int],
+                               bloecke: list[tuple[float, float]], x: np.ndarray) -> int:
+    """Letzten Satz in Sprechblöcke legen, die Whisper ohne Wort gelassen hat.
+
+    Whisper zieht ein kurzes Schlusswort nach einer Pause oft in den Block davor:
+    In Folge 2 lag „Ready?“ (eigener Block 0,34 s hinter „One hundred.“) im Block von
+    „hundred“, der echte Block blieb leer. Folgen: Das letzte Wort endet in timing.json
+    zu früh (der Schnitt ≤ 0,2 s danach würde es abschneiden), und die Satzpegel-
+    Anhebung landet mitten in einem Wort. Regel: Bleiben am Ende Sprechblöcke ohne
+    Wort, und teilt sich der letzte Satz seinen Block mit dem Satz davor, dann bekommt
+    der letzte Satz die leeren Blöcke. Seine Wörter werden der Reihe nach verteilt und
+    in ihrem Block nach Buchstabenzahl aufgeteilt. Rückgabe: Zahl der verschobenen Wörter.
+    """
+    if not woerter:
+        return 0
+    k0 = zuordnung[-1]
+    rest = [k for k in schlussbloecke(x, bloecke, bloecke[k0][1]) if k > k0]
+    if not rest:
+        return 0
+    satz = woerter[-1]["satz"]
+    idx = [i for i, w in enumerate(woerter) if w["satz"] == satz]
+    teilt_block = idx[0] > 0 and zuordnung[idx[0] - 1] == k0
+    if not teilt_block or any(zuordnung[i] != k0 for i in idx):
+        print(f"Warnung: {len(rest)} Sprechblock/-blöcke nach dem letzten Wort ohne Wort, "
+              f"nicht zugeordnet (ab {bloecke[rest[0]][0]:.2f} s)", file=sys.stderr)
+        return 0
+    for j, i in enumerate(idx):
+        zuordnung[i] = rest[min(j * len(rest) // len(idx), len(rest) - 1)]
+    # In jedem Zielblock die Zeit nach Buchstaben aufteilen (Whisper-Zeiten liegen daneben)
+    for k in sorted(set(zuordnung[i] for i in idx)):
+        ba, bb = bloecke[k]
+        drin = [i for i in idx if zuordnung[i] == k]
+        gew = [max(1, len(re.sub(r"[^\w]", "", woerter[i]["text"]))) for i in drin]
+        pos = ba
+        for i, g in zip(drin, gew):
+            woerter[i]["start"] = pos
+            pos += (bb - ba) * g / sum(gew)
+            woerter[i]["ende"] = pos
+            woerter[i]["schluss_verschoben"] = True
+    print(f"Schlusswörter: Satz {satz} ({len(idx)} Wort/Wörter) in Block "
+          f"{bloecke[rest[0]][0]:.2f}–{bloecke[rest[-1]][1]:.2f} s gelegt", file=sys.stderr)
+    return len(idx)
+
+
 def an_kanten_einrasten(woerter: list[dict], x: np.ndarray) -> int:
     """Wortkanten an Pausen auf die Energiekanten setzen.
 
@@ -518,7 +574,7 @@ def an_kanten_einrasten(woerter: list[dict], x: np.ndarray) -> int:
     # Reihenfolge erzwingen: Blocknummern dürfen nicht rückwärts laufen
     for i in range(1, len(zuordnung)):
         zuordnung[i] = max(zuordnung[i], zuordnung[i - 1])
-    n = 0
+    n = schlusswoerter_verschieben(woerter, zuordnung, bloecke, x)
     for k, (ba, bb) in enumerate(bloecke):
         idx = [i for i, z in enumerate(zuordnung) if z == k]
         if not idx:
@@ -678,13 +734,18 @@ def cmd_fertig(args) -> None:
                      "wort": re.sub(r"^[^\w']+|[^\w']+$", "", w["text"]),
                      "start": round(w["start"], 3), "ende": round(w["ende"], 3),
                      "p": round(w["p"], 3), "quelle": w["quelle"],
-                     **({"erkannt": w["erkannt"]} if w["quelle"] != "whisper" else {})}
+                     **({"erkannt": w["erkannt"]} if w["quelle"] != "whisper" else {}),
+                     **({"schluss_verschoben": True} if w.get("schluss_verschoben") else {})}
                     for i, w in enumerate(woerter)],
         "saetze": st,
         "pruefung": {
             "wer": round(al["wer"], 4), "fehler": al["fehler"], "eingefuegt": al["eingefuegt"],
             "erstes_wort_s": round(woerter[0]["start"], 3),
             "nach_letztem_wort_s": round(dauer - woerter[-1]["ende"], 3),
+            # Tor: Sprache nach dem letzten Wort heißt, ein Schlusswort sitzt zu früh (soll 0 sein)
+            "sprache_nach_letztem_wort_s": round(sum(
+                bb - ba for ba, bb in (sprechbloecke(z)[k] for k in
+                                       schlussbloecke(z, sprechbloecke(z), woerter[-1]["ende"]))), 3),
             "laengste_stille_s": round(max(stille) if stille else 0.0, 3),
             "laengste_leise_strecke_unter_35db_s": round(max(leise) if leise else 0.0, 3),
             "laengste_wortluecke_s": round(max(pausen), 3),

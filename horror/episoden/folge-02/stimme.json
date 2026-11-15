@@ -1,0 +1,448 @@
+{
+ "folge": "folge-02",
+ "serie": "Hiding Night",
+ "teil": 2,
+ "erstellt": "2026-11-15",
+ "anbieter": "ElevenLabs-Connector (Creative Flows)",
+ "flow": {
+  "flow_id": "Cov272qXRUzjkifq9Zof",
+  "name": "Hiding Night – Teil 2 – Stimme Adam",
+  "node_id": "Rqw94y2BYyRRNmp1EXKF",
+  "hinweis": "Ein Aufruf für den ganzen Text, ohne Kostenschätzung vorab (Kosten = Zeichenzahl je Take, wie in Teil 1)."
+ },
+ "stimme": {
+  "name": "Adam - Dominant, Firm",
+  "voice_id": "pNInz6obpgDQGcFmaJgB",
+  "kategorie": "premade",
+  "modell": "eleven_v4",
+  "generations_count": 2,
+  "bestaetigt_mit": "creative_list_voices (Suche „Adam“)"
+ },
+ "eingabe": {
+  "text": "Mister Hundred takes you at eighteen, and it came early, like it knew where I'd hide. I yanked the curtain shut. When I looked again, the yard was empty. Just footprints in the frost, long and bare. They stopped at June's window. The one room it never looks in.\n\nI ran downstairs. June opened her door, barefoot. Her hands were ice cold. [softly] \"It can't touch you before midnight.\"\n\nAt eleven, the town walked me and Tess Lowry to the square. On every porch, the shoes were kicked apart. Side by side is all it leaves. Mr. Odell rings the midnight bell, and it starts counting. Only the sunrise bell ends Hiding Night.\n\nMr. Odell turned to June. \"It takes the helper too.\" \"So why are you still here?\" June didn't answer.\n\nTess grinned. \"Last game of hide and seek, huh?\" Nobody laughed. She'd hide in the bell tower, higher than any window.\n\nAt home, I kicked my sneakers apart in the hall. I packed for the woods. When I came back down, they were side by side. If I ran, I'd end up like Owen. If June hid me, she'd end up like Dad. June took my bag.\n\n[softly] \"It never looks in my room, Rabbit.\" \"That's why I'm still here.\"\n\nShe rolled back the rug and opened the hatch. I climbed in anyway. The hatch closed over me, then the rug. Above me, June lay down and counted, like every night.\n\n[softly] \"Ninety-seven.\" \"Ninety-eight.\" \"Ninety-nine.\"\n\n[nervous] Then she stopped. The bell struck midnight. No counting came from the square. The boards above my face bent down. My breath turned white. Something finished her count, slow and deep.\n\n[slowly] \"One hundred.\" \"Ready?\"",
+  "zeichen": 1578,
+  "sha256": "46f0ae025d382cb255300edb0d53b16d62d6529bf83e67534addff6b20b1ff78",
+  "generierungen": 1,
+  "abweichungen_vom_skript": [
+   "Absätze an den Blockgrenzen (Sätze 1–6, 7–10, 11–15, 16–19, 20–23, 24–29, 30–31, 32–35, 36–38, 39–44, 45–46), Sätze innerhalb eines Absatzes durch Leerzeichen getrennt",
+   "Ton-Tag [softly] vor Junes Zeile 10, vor Junes Zeilen 30–31 und vor ihrem Zählen 36–38 (Junes Stimme wie in Teil 1)",
+   "Ton-Tag [nervous] vor Satz 39 (Cliffhanger, gilt bis Satz 44)",
+   "Ton-Tag [slowly] vor Satz 45 (Mister Hundred: „One hundred.“ „Ready?“; die Tiefe kommt im Mix, −5 Halbtöne)",
+   "Text ohne Tags und Absätze ist zeichengleich mit skript-teil2.txt (geprüft)"
+  ]
+ },
+ "credits": {
+  "schaetzung": 3156,
+  "verbraucht": 3156,
+  "je_take": 1578,
+  "budget": 4000,
+  "kontostand": "nicht abrufbar: account_get_usage verlangt beim Connector zusätzliche Rechte"
+ },
+ "takes": [
+  {
+   "take": 1,
+   "generation_id": "XnpSA8O7IINwFeM5HoWE",
+   "session_id": "2g9BxL76imFHgAOT4aN6",
+   "credits": 1578,
+   "gewaehlt": true,
+   "roh_datei": "build/folge-02/roh/take1-XnpSA8O7IINwFeM5HoWE.mp3",
+   "roh_sha256": "1a942dc1795a6cf7baeaa0bd4db14261cc5a009c63df48aae7e04f17d593dc7d",
+   "format_roh": "mp3 44,1 kHz mono 128 kbit/s",
+   "dauer_roh_s": 108.16,
+   "dauer_x1_2_s": 90.13,
+   "dauer_nach_pausen_s": 85.92,
+   "whisper_wer": 0.0107,
+   "whisper_fehler": [
+    {
+     "skript": "odell",
+     "gehoert": "o'dell",
+     "zeit_s": 29.84
+    },
+    {
+     "skript": "odell",
+     "gehoert": "o'dell",
+     "zeit_s": 35.76
+    }
+   ],
+   "whisper_eingefuegt": [
+    {
+     "gehoert": "when",
+     "zeit_s": 56.82
+    }
+   ],
+   "uebersteuert": 0,
+   "knackser": 0,
+   "lautheit_roh": {
+    "lufs": -19.23,
+    "true_peak_dbtp": -0.98,
+    "lra_lu": 6.2
+   },
+   "hook_satz1": {
+    "dauer_s": 4.14,
+    "pegel_db": -19.4,
+    "f0_median_hz": 147.0,
+    "f0_spanne_ht": 8.9
+   },
+   "june_satz30_pegel_db": -27.3,
+   "schluss_sprechbloecke_x1_2": {
+    "one_hundred": {
+     "von_s": 87.72,
+     "bis_s": 89.0,
+     "pegel_db": -22.1
+    },
+    "ready": {
+     "von_s": 89.6,
+     "bis_s": 89.92,
+     "pegel_db": -19.9
+    }
+   },
+   "einzelausschnitte": {
+    "saetze_27_28": "I'd end up like Owen. If June hid me, she'd end up like Dad. (kein „When“: das Ganzdatei-„When,“ mit 0,02 s Dauer und p = 0,02 ist ein Whisper-Artefakt)",
+    "satz_30_rabbit_p": 0.58,
+    "zaehlen_p": [
+     0.8,
+     0.99,
+     0.99
+    ]
+   }
+  },
+  {
+   "take": 2,
+   "generation_id": "wkoRni8vSqHDUCws8lAi",
+   "session_id": "GxpaGqKCrASGNRnPzG9j",
+   "credits": 1578,
+   "gewaehlt": false,
+   "roh_datei": "build/folge-02/roh/take2-wkoRni8vSqHDUCws8lAi.mp3",
+   "roh_sha256": "39923e1840a7682499006f2b2052ba8e2c7c648ad3fdf011783a6fa92a8cd57a",
+   "format_roh": "mp3 44,1 kHz mono 128 kbit/s",
+   "dauer_roh_s": 109.76,
+   "dauer_x1_2_s": 91.47,
+   "dauer_nach_pausen_s": 87.61,
+   "whisper_wer": 0.0071,
+   "whisper_fehler": [
+    {
+     "skript": "rabbit",
+     "gehoert": "rat it",
+     "zeit_s": 62.98
+    }
+   ],
+   "whisper_eingefuegt": [],
+   "uebersteuert": 0,
+   "knackser": 0,
+   "lautheit_roh": {
+    "lufs": -18.71,
+    "true_peak_dbtp": -0.85,
+    "lra_lu": 6.9
+   },
+   "hook_satz1": {
+    "dauer_s": 4.04,
+    "pegel_db": -18.6,
+    "f0_median_hz": 148.5,
+    "f0_spanne_ht": 9.2
+   },
+   "june_satz30_pegel_db": -29.3,
+   "schluss_sprechbloecke_x1_2": {
+    "one": {
+     "von_s": 88.95,
+     "bis_s": 89.54,
+     "pegel_db": -19.9
+    },
+    "hundred": {
+     "von_s": 89.74,
+     "bis_s": 90.46,
+     "pegel_db": -27.9
+    },
+    "ready": {
+     "von_s": 91.0,
+     "bis_s": 91.31,
+     "pegel_db": -21.3
+    }
+   },
+   "einzelausschnitte": {
+    "satz_30_rabbit": "auch im Ausschnitt als „Ratit“ erkannt (p = 0,28)",
+    "zaehlen_p": [
+     0.81,
+     0.61,
+     0.96
+    ]
+   }
+  }
+ ],
+ "gewaehlt": {
+  "take": 1,
+  "generation_id": "XnpSA8O7IINwFeM5HoWE",
+  "gruende": [
+   "Whisper: Take 1 hat nur Schreibweisen-Abweichungen („O'Dell“ zweimal) und ein Ganzdatei-Artefakt („When,“ ohne Dauer, im Ausschnitt nicht vorhanden). Bei Take 2 wird „Rabbit“ in Satz 30 auch im Einzelausschnitt als „Ratit“ erkannt; das ist das wichtigste Echo der Serie („It never looks in my room, Rabbit.“)",
+   "kürzer: 85,92 s gegen 87,61 s nach dem Pausenkürzen, mehr Luft unter 88 s",
+   "Zählen im Ausschnitt sicherer erkannt (0,80/0,99/0,99 gegen 0,81/0,61/0,96)",
+   "Hook bei beiden unter 5 s (Take 1 fertig 4,31 s; Take 2 roh 0,1 s kürzer), Tonhöhenbewegung fast gleich (8,9 gegen 9,2 Halbtöne)",
+   "Beide ohne Übersteuerung, Knackser oder gesprochene Tags; Linus' Ohr ist die letzte Instanz, Take 2 liegt unter build/folge-02/roh/"
+  ]
+ },
+ "kette": [
+  {
+   "schritt": "Resample ×1,2",
+   "ffmpeg": "aresample=44100,asetrate=52920,aresample=44100",
+   "dauer_s": 90.133
+  },
+  {
+   "schritt": "Pausen kürzen",
+   "regel": "Stille < −50 dBFS (Rahmen 10 ms), länger als 0,35 s → aus der Mitte geschnitten; es bleiben 0,14 s nach dem Wortende und 0,19 s vor dem nächsten Wort, Überblendung 10 ms; vorn 0,03 s, hinten 0,15 s",
+   "gekuerzt": 37,
+   "dauer_s": 85.92
+  },
+  {
+   "schritt": "Satzpegel angleichen",
+   "regel": "Sätze > 5 dB unter dem Satz-Median auf Median − 4 dB, Rampen 30 ms in den Pausen",
+   "angehoben": [
+    {
+     "satz": 10,
+     "pegel_db": -30.2,
+     "median_db": -18.7,
+     "anhebung_db": 7.5
+    },
+    {
+     "satz": 30,
+     "pegel_db": -27.4,
+     "median_db": -18.7,
+     "anhebung_db": 4.7
+    },
+    {
+     "satz": 36,
+     "pegel_db": -29.1,
+     "median_db": -18.7,
+     "anhebung_db": 6.4
+    },
+    {
+     "satz": 37,
+     "pegel_db": -27.5,
+     "median_db": -18.7,
+     "anhebung_db": 4.9
+    },
+    {
+     "satz": 38,
+     "pegel_db": -27.5,
+     "median_db": -18.7,
+     "anhebung_db": 4.8
+    }
+   ]
+  },
+  {
+   "schritt": "Kompressor",
+   "ffmpeg": "acompressor=threshold=0.19953:ratio=4:attack=0.5:release=50:knee=4:detection=peak",
+   "lautheit_danach": {
+    "lufs": -23.21,
+    "true_peak_dbtp": -6.73,
+    "lra_lu": 2.7
+   }
+  },
+  {
+   "schritt": "Lautheit und True Peak",
+   "ffmpeg": "volume=10.03dB,aresample=176400,alimiter=limit=0.83176:attack=2:release=60:level=false:latency=true,aresample=44100",
+   "runden": 4,
+   "begrenzer_rahmen_ueber_1db_prozent": 20.88,
+   "begrenzer_rahmen_ueber_3db_prozent": 0.72,
+   "begrenzer_max_abregelung_db": 4.89,
+   "ergebnis": {
+    "lufs": -14.07,
+    "true_peak_dbtp": -1.51,
+    "lra_lu": 2.2
+   },
+   "hinweis": "Der Begrenzer greift öfter als in Teil 1 (dort 13,9 % der Rahmen über 1 dB), weil Junes leise Zeilen um 4,7–7,5 dB angehoben werden"
+  },
+  {
+   "schritt": "Wortzeiten",
+   "werkzeug": "faster-whisper small int8, language=en, word_timestamps, beam 5; Ausrichtung auf skript-teil2.txt; Kanten an Pausen auf Pegelkanten; Schlusswörter ohne eigenen Block in ihren Block gelegt"
+  }
+ ],
+ "korrektur_werkzeug": {
+  "datei": "engine/ton/stimme.py",
+  "befund": "Im ersten Lauf zog Whisper „Ready?“ in den Block von „One hundred.“, der echte Block bei 85,45–85,79 s blieb ohne Wort. Folgen: Das letzte Wort endete in timing.json bei 85,18 s (ein Schnitt ≤ 0,2 s danach hätte „Ready?“ abgeschnitten), und die Satzpegel-Anhebung legte +4,9 dB mitten auf „hundred“.",
+  "aenderung": "neue Funktion schlusswoerter_verschieben (aufgerufen in an_kanten_einrasten): Sprechblöcke nach dem letzten Wort (≥ 0,12 s, ≥ −35 dBFS) bekommen den letzten Satz, wenn der sich seinen Block mit dem Satz davor teilt; neues Tor pruefung.sprache_nach_letztem_wort_s (soll 0 sein). Teil 1 bleibt unverändert (dort kein Block nach dem letzten Wort, geprüft).",
+  "zweiter_lauf": "derselbe Take, keine neuen Credits; „Ready?“ 85,45–85,79 s, Nachlauf 0,13 s, keine Anhebung mehr auf den Sätzen 45 und 46"
+ },
+ "ergebnis": {
+  "wav": {
+   "datei": "build/folge-02/stimme.wav",
+   "format": "WAV PCM 16 bit, 44,1 kHz, mono",
+   "sha256": "2919a9ed52166c51c210144347d890146763021a7399113063a7c0c4c09b2700",
+   "dauer_s": 85.92,
+   "lufs": -14.07,
+   "true_peak_dbtp": -1.51,
+   "lra_lu": 2.2
+  },
+  "m4a": {
+   "datei": "episoden/folge-02/stimme.m4a",
+   "format": "AAC-LC mono 44,1 kHz, +faststart",
+   "sha256": "46fc97e99f6a44bd061c5a30efadeceda41515ff991d4034e55f9a5b68209771",
+   "bytes": 983303,
+   "kbit_nenn": 86,
+   "stream_bit_rate": 90076,
+   "dekodiert": {
+    "lufs": -14.1,
+    "true_peak_dbtp": -0.1,
+    "lra_lu": 2.2,
+    "versatz_zur_wav_abtastwerte": 0
+   },
+   "hinweis": "96 kbit/s und < 1 MB gehen bei 85,92 s nicht zusammen; gewählt ist die höchste Rate unter 1 MB. AAC hebt die Spitzen an (True Peak dekodiert −0,1 dBTP, wie in Teil 1): für Renders und Mischung die WAV nehmen."
+  }
+ },
+ "timing": {
+  "datei": "episoden/folge-02/timing.json",
+  "woerter": 278,
+  "saetze": 46,
+  "dauer_s": 85.92,
+  "hook_ende_s": 4.31,
+  "letztes_wort_ende_s": 85.79,
+  "wer": 0.0142,
+  "wer_hinweis": "nur Schreibweisen: „O'Dell“ (2×), „any way“",
+  "laengste_stille_s": 0.32,
+  "laengste_wortluecke_s": 0.32,
+  "laengste_leise_strecke_unter_35db_s": 0.37,
+  "sprache_nach_letztem_wort_s": 0,
+  "dauer_im_ziel_70_90": true,
+  "musik_anker_s": {
+   "leise_bis_ende_satz_10": 20.3,
+   "voll_ab_satz_11": 20.59,
+   "voll_bis_ende_satz_34": 67.05,
+   "duenn_ab_satz_35": 67.33,
+   "abriss_ende_ninety_nine": 72.9,
+   "glocke_satz_40": 74.1,
+   "anteil_wechsel_1": 0.24,
+   "anteil_wechsel_2": 0.784
+  }
+ },
+ "hoer_check": {
+  "wortfehler": 0.0142,
+  "woerter": [
+   {
+    "wort": "Mister",
+    "satz": 1,
+    "start": 0.0,
+    "p": 0.458
+   },
+   {
+    "wort": "Hundred",
+    "satz": 1,
+    "start": 0.3,
+    "p": 0.343
+   },
+   {
+    "wort": "yanked",
+    "satz": 2,
+    "start": 4.72,
+    "p": 0.928
+   },
+   {
+    "wort": "Lowry",
+    "satz": 11,
+    "start": 22.44,
+    "p": 0.838
+   },
+   {
+    "wort": "Mr.",
+    "satz": 14,
+    "start": 27.94,
+    "p": 0.09
+   },
+   {
+    "wort": "Odell",
+    "satz": 14,
+    "start": 28.41,
+    "p": 0.727
+   },
+   {
+    "wort": "Odell",
+    "satz": 16,
+    "start": 34.38,
+    "p": 0.991
+   },
+   {
+    "wort": "Hiding",
+    "satz": 15,
+    "start": 33.12,
+    "p": 0.941
+   },
+   {
+    "wort": "helper",
+    "satz": 17,
+    "start": 36.3,
+    "p": 0.492
+   },
+   {
+    "wort": "\"So",
+    "satz": 18,
+    "start": 37.29,
+    "p": 0.21
+   },
+   {
+    "wort": "June",
+    "satz": 29,
+    "start": 56.86,
+    "p": 0.243
+   },
+   {
+    "wort": "\"It",
+    "satz": 30,
+    "start": 58.16,
+    "p": 0.074
+   },
+   {
+    "wort": "Rabbit.\"",
+    "satz": 30,
+    "start": 59.6,
+    "p": 0.738
+   },
+   {
+    "wort": "anyway.",
+    "satz": 33,
+    "start": 64.36,
+    "p": 0.227
+   },
+   {
+    "wort": "\"Ninety-seven.\"",
+    "satz": 36,
+    "start": 70.54,
+    "p": 0.825
+   },
+   {
+    "wort": "\"Ninety-eight.\"",
+    "satz": 37,
+    "start": 71.57,
+    "p": 0.931
+   },
+   {
+    "wort": "\"Ninety-nine.\"",
+    "satz": 38,
+    "start": 72.51,
+    "p": 0.911
+   },
+   {
+    "wort": "Something",
+    "satz": 44,
+    "start": 81.15,
+    "p": 0.984
+   },
+   {
+    "wort": "\"One",
+    "satz": 45,
+    "start": 83.84,
+    "p": 0.686
+   },
+   {
+    "wort": "hundred.\"",
+    "satz": 45,
+    "start": 84.15,
+    "p": 0.686
+   },
+   {
+    "wort": "\"Ready?\"",
+    "satz": 46,
+    "start": 85.45,
+    "p": 0.952
+   }
+  ],
+  "hinweis": "Alle Wörter erkannt. Niedrige Sicherheit im Ganzdatei-Lauf bei „Mr.“ (Satz 14), „\"So“ (18), „June“ (29), „\"It“ (30), „helper“ (17), „anyway“ (33); in Einzelausschnitten mit Kontext alle richtig erkannt (Hook „Mr. Hundred takes you at 18 …“, „it takes the helper too“ mit p = 0,55, „Rabbit“ p = 0,43, „climbed in anyway“ p = 0,91). Beim Anhören prüfen: „helper“, „Rabbit“, ob Junes Zählen nach June klingt, und ob „Ready?“ (0,34 s) kurz, aber nicht verschluckt ist."
+ },
+ "werkzeug": "python engine/ton/stimme.py fertig --skript episoden/folge-02/skript-teil2.txt --roh build/folge-02/roh/take1-XnpSA8O7IINwFeM5HoWE.mp3 --wav build/folge-02/stimme.wav --m4a episoden/folge-02/stimme.m4a --timing episoden/folge-02/timing.json --bloecke episoden/folge-02/bildideen.json --bericht build/folge-02/arbeit/bericht.json --arbeit build/folge-02/arbeit (aus horror/)"
+}
