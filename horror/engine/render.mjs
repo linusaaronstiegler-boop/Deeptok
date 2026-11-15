@@ -16,6 +16,10 @@
 //   --crf <n>                H.264-Qualität (Std 18)
 //   --nur-bilder             kein MP4 bauen
 //   --kein-bogen             keinen Kontaktbogen (ein Bild je Einstellung) bauen
+//   --schnellbogen           NUR ein Bild je Einstellung rendern (plan.bogen_zeit, sonst Mitte), beschriftete
+//                            Kontaktbögen bauen und die Komposition prüfen (mit --skala 0.25 = 270×480)
+//   --bogenbild plan|anfang|ende  welches Bild der Schnellbogen zeigt (Std plan; anfang = erstes Bild nach
+//                            dem Schnitt, prüft Stellungen und Übergänge)
 //   --backend gl|swiftshader gl = Mesa llvmpipe unter Xvfb (schnell, Std); swiftshader = Chromium-intern
 //   --debug                  alle Konsolenmeldungen der Seite und fehlgeschlagene Anfragen zeigen
 //
@@ -53,6 +57,8 @@ function argumente(argv) {
     else if (a === '--crf') o.crf = parseInt(wert(), 10);
     else if (a === '--nur-bilder') o.nurBilder = true;
     else if (a === '--kein-bogen') o.bogen = false;
+    else if (a === '--schnellbogen') o.schnellbogen = true;
+    else if (a === '--bogenbild') o.bogenbild = wert();
     else if (a === '--backend') o.backend = wert();
     else if (a === '--debug') o.debug = true;
     else if (a === '-h' || a === '--hilfe') o.hilfe = true;
@@ -163,7 +169,8 @@ function baueMp4(o, ordner, fps, von, ziel) {
   args.push('-vf', 'scale=out_color_matrix=bt709:out_range=tv,format=yuv420p',
     '-c:v', 'libx264', '-preset', 'medium', '-crf', String(o.crf), '-profile:v', 'high',
     '-colorspace', 'bt709', '-color_primaries', 'bt709', '-color_trc', 'bt709', '-movflags', '+faststart');
-  if (o.ton) args.push('-c:a', 'aac', '-b:a', '192k', '-shortest');
+  // Ton kürzer als das Bild (Endkarte ohne Ton): mit Stille auffüllen, dann auf die Bildlänge kürzen.
+  if (o.ton) args.push('-af', 'apad', '-c:a', 'aac', '-b:a', '192k', '-shortest');
   args.push(ziel);
   ffmpeg(args);
 }
@@ -187,6 +194,70 @@ async function baueBogen(o, ordner, einstellungen, von, bis, ziel) {
   return ziel;
 }
 
+// ---------- Schnell-Kontaktbogen mit Kompositionsprüfung ----------
+// Regel (Aufgabe Shotliste, anhang-a A5): Die Hauptsache liegt im mittleren Drittel des Bildes,
+// der Streifen der Untertitel (y ≈ 1150–1300) bleibt frei. Geprüft wird der Punkt plan.hauptsache
+// (Anker, auch mehrere) im Bild des Kontaktbogens.
+const KOMPOSITION = { x: [360, 720], y: [640, 1150], untertitel: [1150, 1300] };
+
+async function schnellBogen(o, meta, browser, seitenUrl, ordner, name, fps) { // eslint-disable-line max-params
+  const page = await oeffneSeite(browser, seitenUrl, 'b1');
+  const bogenOrdner = path.join(ordner, o.bogenbild && o.bogenbild !== 'plan' ? `schnellbogen-${o.bogenbild}` : 'schnellbogen');
+  if (o.bogenbild && o.bogenbild !== 'plan') name = `${name}-${o.bogenbild}`;
+  await fsp.rm(bogenOrdner, { recursive: true, force: true });
+  await fsp.mkdir(bogenOrdner, { recursive: true });
+  const schrift = '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf';
+  const ergebnis = [];
+  const t0 = Date.now();
+  for (const [n, e] of meta.einstellungen.entries()) {
+    let bild = Math.floor((e.startBild + e.endeBild - 1) / 2);
+    if (e.bogenZeit !== null) bild = Math.min(e.endeBild - 1, Math.max(e.startBild, Math.round(e.bogenZeit * fps)));
+    if (o.bogenbild === 'anfang') bild = e.startBild;
+    if (o.bogenbild === 'ende') bild = e.endeBild - 1;
+    const r = await page.evaluate(([i]) => window.engine.bildDaten(i, 'image/jpeg', 0.9), [bild]);
+    const roh = path.join(bogenOrdner, `r${String(n).padStart(3, '0')}.jpg`);
+    await fsp.writeFile(roh, Buffer.from(r.url.slice(r.url.indexOf(',') + 1), 'base64'));
+    let pruefung = null;
+    if (e.hauptsache) {
+      const punkte = await page.evaluate(([i, a]) => window.engine.projiziere(i, a), [bild, e.hauptsache]);
+      const fehler = punkte.filter((p) => !p.vorn || p.x < KOMPOSITION.x[0] || p.x > KOMPOSITION.x[1] || p.y < KOMPOSITION.y[0] || p.y > KOMPOSITION.y[1]);
+      // Ist die Hauptsache ein Kopf, darf der Mund nicht im Untertitel-Streifen liegen (Mundformen bei Rede)
+      const muender = [].concat(e.hauptsache).filter((a) => typeof a === 'string' && a.endsWith('.kopf')).map((a) => a.replace(/\.kopf$/, '.mund'));
+      if (muender.length) {
+        const mp = await page.evaluate(([i, a]) => window.engine.projiziere(i, a), [bild, muender]);
+        for (const p of mp) if (p.vorn && p.y >= KOMPOSITION.untertitel[0] && p.y <= KOMPOSITION.untertitel[1] && p.x > 0 && p.x < 1080) { fehler.push(p); punkte.push({ ...p, untertitel: true }); }
+      }
+      pruefung = { punkte, ok: fehler.length === 0 };
+    }
+    ergebnis.push({ id: e.id, bild, zeit: +(bild / fps).toFixed(3), text: e.text, komposition: pruefung });
+    // Beschriftung unter dem Bild: Nummer, Zeit, Text (aus Datei, damit Sonderzeichen nicht stören)
+    const label = path.join(bogenOrdner, `l${String(n).padStart(3, '0')}.txt`);
+    const marke = pruefung ? (pruefung.ok ? '' : ' !KOMP') : '';
+    await fsp.writeFile(label, `${e.id} ${(e.startBild / fps).toFixed(2)}s${marke}\n${(e.text || '').slice(0, 34)}`);
+    ffmpeg(['-i', roh, '-vf', `scale=270:480,pad=270:530:0:0:color=white,drawtext=fontfile=${schrift}:textfile=${label}:x=4:y=484:fontsize=15:line_spacing=2:fontcolor=${marke ? 'red' : 'black'}`,
+      '-q:v', '3', path.join(bogenOrdner, `b${String(n).padStart(3, '0')}.jpg`)]);
+  }
+  await page.close();
+  const anzahl = meta.einstellungen.length;
+  // Prüfbögen zu je 18 Einstellungen (6 × 3) zum Ansehen, dazu ein kleiner Gesamtbogen fürs Repo
+  const je = 18;
+  const boegen = [];
+  for (let s = 0; s * je < anzahl; s++) {
+    const n = Math.min(je, anzahl - s * je);
+    const ziel = path.join(ordner, `${name}-bogen-${s + 1}.jpg`);
+    ffmpeg(['-start_number', String(s * je), '-i', path.join(bogenOrdner, 'b%03d.jpg'), '-frames:v', '1',
+      '-vf', `tile=6x${Math.ceil(n / 6)}:padding=4:color=white`, '-q:v', '3', ziel]);
+    boegen.push(ziel);
+  }
+  const gesamt = path.join(ordner, `${name}-bogen.jpg`);
+  ffmpeg(['-i', path.join(bogenOrdner, 'b%03d.jpg'), '-vf', `scale=200:-2,tile=8x${Math.ceil(anzahl / 8)}:padding=3:color=white`, '-frames:v', '1', '-q:v', '5', gesamt]);
+  const verstoesse = ergebnis.filter((x) => x.komposition && !x.komposition.ok);
+  await fsp.writeFile(path.join(ordner, 'komposition.json'), JSON.stringify({ regel: KOMPOSITION, einstellungen: ergebnis }, null, 1));
+  console.log(`Schnellbogen: ${anzahl} Bilder in ${((Date.now() - t0) / 1000).toFixed(1)} s -> ${boegen.join(', ')}; gesamt ${gesamt}`);
+  console.log(`Komposition (Hauptsache x ${KOMPOSITION.x.join('–')}, y ${KOMPOSITION.y.join('–')}): ${ergebnis.filter((x) => x.komposition).length - verstoesse.length} ok, ${verstoesse.length} Verstöße`);
+  for (const v of verstoesse) console.log(`  ${v.id} (${v.zeit} s): ${v.komposition.punkte.map((p) => `${p.anker} x=${p.x} y=${p.y}${p.vorn ? '' : ' hinter der Kamera'}${p.untertitel ? ' (im Untertitel-Streifen)' : ''}`).join('; ')}`);
+}
+
 // ---------- Ablauf ----------
 async function main() {
   const o = argumente(process.argv.slice(2));
@@ -198,7 +269,8 @@ async function main() {
   }
   const episodePfad = path.resolve(o.episode);
   const episode = JSON.parse(await fsp.readFile(episodePfad, 'utf8'));
-  const name = path.basename(episodePfad, '.json');
+  // episoden/<folge>/episode.json -> Name der Folge (sonst hießen alle Ausgaben "episode")
+  const name = path.basename(episodePfad, '.json') === 'episode' ? path.basename(path.dirname(episodePfad)) : path.basename(episodePfad, '.json');
   const fps = episode.fps ?? 30;
   const ordner = path.resolve(o.aus ?? path.join(ENGINE, '..', 'build', name));
   const bilderOrdner = path.join(ordner, 'bilder');
@@ -229,6 +301,12 @@ async function main() {
   await probe.close();
   for (const w of meta.warnungen) console.warn(`Warnung: ${w}`);
   console.log(`Episode ${name}: ${meta.bilder - meta.startBild} Bilder (${((meta.bilder - meta.startBild) / fps).toFixed(2)} s), ${meta.einstellungen.length} Einstellungen, ${meta.W}×${meta.H}, ${meta.renderer}`);
+
+  // Schnell-Kontaktbogen: ein Bild je Einstellung, dazu Kompositionsprüfung.
+  if (o.schnellbogen) {
+    await schnellBogen(o, meta, browser0, seitenUrl, ordner, name, fps);
+    await browser0.close(); server.close(); aufraeumen(); return;
+  }
 
   // Einzelbild-Probe
   if (o.einzelbild !== undefined) {

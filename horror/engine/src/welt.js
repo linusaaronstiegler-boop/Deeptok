@@ -149,14 +149,34 @@ export class Welt {
         zielPunkt: (z) => this._zielPunkt(z),
       });
     };
+    // Ausgangszustand der Figur (Episode-Vorgabe). Wird auch von einer Stellung mit "neu" benutzt.
+    const ausgangszustand = () => {
+      inst.grundpose();
+      g.position.set(...(spec.position ?? [0, 0, 0]));
+      g.rotation.set(0, (spec.blick ?? 0) * GRAD, 0);
+      g.visible = spec.sichtbar ?? true;
+      gesicht = spec.gesicht ?? inst.gesichter?.[0] ?? null;
+      if (spec.pose) anwenden(spec.pose, 1, spec.pose_params ?? {}, null);
+    };
     if (spec.pose) anwenden(spec.pose, 1, spec.pose_params ?? {}, null);
 
-    for (const a of fig.aktionen) {
+    // Eine Stellung mit "neu": true ist ein Neuanfang am Schnitt (Film-Mogelei): Alles, was frühere
+    // Aktionen an der Pose geändert haben, gilt nicht mehr. Deshalb erst ab der letzten solchen
+    // Stellung vor t rechnen – das spart auch Rechenzeit bei vielen Einstellungen.
+    let ab = 0;
+    for (let k = fig.aktionen.length - 1; k >= 0; k--) {
+      const a = fig.aktionen[k];
+      if (a.start <= t && a.was === 'stellung' && a.params?.neu) { ab = k; break; }
+    }
+
+    for (let k = ab; k < fig.aktionen.length; k++) {
+      const a = fig.aktionen[k];
       if (a.start > t) break;
       if (a.was === 'gesicht') { gesicht = a.params.name ?? a.gesicht; continue; }
       if (a.was === 'sichtbar') { g.visible = a.params.wert !== false; continue; }
       if (a.was === 'stellung') {
         const st = a.params;
+        if (st.neu) ausgangszustand();
         if (st.position) g.position.set(...st.position);
         if (st.blick !== undefined) g.rotation.y = st.blick * GRAD;
         if (st.gesicht) gesicht = st.gesicht;

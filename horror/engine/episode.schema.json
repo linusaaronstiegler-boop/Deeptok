@@ -102,7 +102,8 @@
         "gesicht": { "type": "string" },
         "pose": { "type": "string" },
         "pose_params": { "type": "object" },
-        "sichtbar": { "type": "boolean" }
+        "sichtbar": { "type": "boolean" },
+        "neu": { "type": "boolean", "description": "Neuanfang am Schnitt: Pose, Position, Blick, Gesicht und Sichtbarkeit erst auf die Vorgabe der Figur zurücksetzen, dann diese Stellung anwenden" }
       },
       "additionalProperties": false
     },
@@ -197,7 +198,8 @@
         "bewegungsunschaerfe": { "$ref": "#/$defs/bewegungsunschaerfe" },
         "schatten_bereich": { "type": "number" },
         "schatten_mitte": { "$ref": "#/$defs/punkt" },
-        "text": { "type": "string", "description": "frei: Teilsatz/Wörter dieser Einstellung (wird nicht gerendert)" }
+        "text": { "type": "string", "description": "frei: Teilsatz/Wörter dieser Einstellung (wird nicht gerendert)" },
+        "plan": { "type": "object", "description": "frei: Planungsdaten des Shotlisten-Compilers (Satz, Wörter, Hauptaktion, Hauptsache, Bild für den Kontaktbogen); die Engine liest davon nur bogen_zeit und hauptsache" }
       },
       "additionalProperties": false
     },

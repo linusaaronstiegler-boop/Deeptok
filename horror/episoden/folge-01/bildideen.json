@@ -1,0 +1,1072 @@
+{
+ "folge": "folge-01",
+ "teil": 1,
+ "serie": "Hiding Night",
+ "quelle": "skript-teil1.txt (Satz-Index = Zeilennummer, 1-basiert)",
+ "stand": "2026-11-15 (Shotliste: Schnitte für Takt und Längen ergänzt, siehe engine/shotliste.mjs)",
+ "hinweis": "Grobe Bildideen je Satz als Vorlage für die Shotliste. Hauptbild = erste Einstellung des Satzes; teilbilder = weitere Schnitte im Satz, ab_wort = Wort, auf dessen Beginn geschnitten wird. neuer_schnitt=false: kein Schnitt, die vorige Einstellung läuft weiter. t_schaetz_s ist eine Schätzung bei 219 Wörtern/min ohne Pausen; die echten Zeiten kommen aus timing.json.",
+ "vokabular": {
+  "orte": {
+   "hauptstrasse": [
+    "platz",
+    "haeuserzeile",
+    "marsh-aussen",
+    "pike-haus",
+    "strassenende"
+   ],
+   "marsh-innen": [
+    "kueche",
+    "flur",
+    "eli-zimmer",
+    "june-zimmer"
+   ]
+  },
+  "figuren": [
+   "eli",
+   "june",
+   "dad",
+   "owen",
+   "odell",
+   "nachbarn",
+   "mister-hundred"
+  ],
+  "licht": [
+   "tag",
+   "morgen",
+   "sonnenaufgang",
+   "daemmerung",
+   "nacht",
+   "innen-nacht",
+   "rueckblende-nacht"
+  ],
+  "kamera": [
+   "folgefahrt",
+   "kran-enthuellung",
+   "kranabstieg",
+   "orbit",
+   "pull-out",
+   "push-in",
+   "seitenfahrt",
+   "snap-zoom",
+   "statisch",
+   "sturzfahrt",
+   "whip"
+  ],
+  "groesse": [
+   "detail",
+   "gross",
+   "halbnah",
+   "halbtotale",
+   "nah",
+   "pov",
+   "totale",
+   "ueber-schulter"
+  ]
+ },
+ "summen": {
+  "saetze": 36,
+  "einstellungen": 51,
+  "einstellungen_pro_minute_geschaetzt": 38.5,
+  "monster_anteil": 0.235,
+  "laenge_geschaetzt_s": 79.5
+ },
+ "ende": {
+  "schnitt": "hart, höchstens 0,2 s nach dem letzten Wort ('fingers')",
+  "endkarte": "PART 2, 1,0 s, ohne Ton, im Kanal-Look"
+ },
+ "saetze": {
+  "1": {
+   "text": "In this town, when you turn eighteen, you hide until sunrise, or it finds you.",
+   "t_schaetz_s": 0.0,
+   "block": "hook",
+   "ort": "hauptstrasse",
+   "modul": "platz",
+   "licht": "nacht",
+   "figuren": [
+    "mister-hundred",
+    "eli"
+   ],
+   "aktion": "Mister Hundred steht reglos am Platzende im Nebel, Hände vor dem Gesicht; Eli klein im Vordergrund, Rücken zur Kamera",
+   "schluesselwort": "town",
+   "kamera": "push-in",
+   "groesse": "totale",
+   "monster": true,
+   "hinweis": "Einstieg mit Unschärfe-Zoom ≤ 3 Bilder, Bedrohung ab Bild 3 sichtbar",
+   "teilbilder": [
+    {
+     "ab_wort": "when",
+     "ort": "marsh-innen",
+     "modul": "kueche",
+     "licht": "innen-nacht",
+     "figuren": [],
+     "aktion": "Zahlenkerzen 1 und 8 brennen auf dem Kuchen, die Flammen zucken einmal",
+     "schluesselwort": "eighteen",
+     "kamera": "push-in",
+     "groesse": "detail",
+     "monster": false
+    },
+    {
+     "ab_wort": "you hide",
+     "ort": "hauptstrasse",
+     "modul": "marsh-aussen",
+     "licht": "nacht",
+     "figuren": [
+      "eli"
+     ],
+     "aktion": "Eli duckt sich hinter das Verandageländer",
+     "schluesselwort": "hide",
+     "kamera": "seitenfahrt",
+     "groesse": "halbtotale",
+     "monster": false,
+     "hinweis": "Geländerpfosten als Vordergrund-Wischer"
+    },
+    {
+     "ab_wort": "or",
+     "ort": "hauptstrasse",
+     "modul": "platz",
+     "licht": "nacht",
+     "figuren": [
+      "mister-hundred"
+     ],
+     "aktion": "dreht den Kopf hinter den Händen zur Kamera (0,3 s)",
+     "schluesselwort": "it",
+     "kamera": "kran-enthuellung",
+     "groesse": "nah",
+     "monster": true,
+     "hinweis": "Fahrt von den nackten Füßen hoch zu den Händen, Ankunft auf 'it'",
+     "sfx": "Sub-Boom auf 'it'",
+     "effekt": "Wackeln 0,4 s"
+    }
+   ]
+  },
+  "2": {
+   "text": "We call it Mister Hundred.",
+   "t_schaetz_s": 4.1,
+   "block": "monster",
+   "ort": "hauptstrasse",
+   "modul": "platz",
+   "licht": "nacht",
+   "figuren": [
+    "mister-hundred"
+   ],
+   "aktion": "Kamera fährt von den nackten Füßen am Mantel hoch bis zu den Händen vor dem Gesicht; Ankunft genau auf \"Hundred\"",
+   "schluesselwort": "Hundred",
+   "kamera": "kran-enthuellung",
+   "groesse": "totale",
+   "monster": true,
+   "hinweis": "Untersicht; der Name fällt in dem Moment, in dem die Hände ins Bild kommen"
+  },
+  "3": {
+   "text": "It's tall enough to look in upstairs windows, and it keeps both hands over its face.",
+   "t_schaetz_s": 5.5,
+   "block": "monster",
+   "ort": "hauptstrasse",
+   "modul": "haeuserzeile",
+   "licht": "nacht",
+   "figuren": [
+    "mister-hundred"
+   ],
+   "aktion": "steht neben einem zweistöckigen Haus, der Kopf auf Höhe des oberen Fensters (Größenvergleich)",
+   "schluesselwort": "upstairs",
+   "kamera": "pull-out",
+   "groesse": "totale",
+   "monster": true,
+   "teilbilder": [
+    {
+     "ab_wort": "and",
+     "ort": "hauptstrasse",
+     "modul": "haeuserzeile",
+     "licht": "nacht",
+     "figuren": [
+      "mister-hundred"
+     ],
+     "aktion": "die Finger über dem Gesicht schließen sich ein wenig fester",
+     "schluesselwort": "hands",
+     "kamera": "push-in",
+     "groesse": "nah",
+     "monster": true,
+     "hinweis": "Untersicht, Tiefenunschärfe"
+    }
+   ]
+  },
+  "4": {
+   "text": "It never peeks.",
+   "t_schaetz_s": 9.9,
+   "block": "monster",
+   "ort": "hauptstrasse",
+   "modul": "haeuserzeile",
+   "licht": "nacht",
+   "figuren": [
+    "mister-hundred"
+   ],
+   "aktion": "Großaufnahme der Hände vor dem Gesicht: die Finger liegen lückenlos aneinander, kein Spalt",
+   "schluesselwort": "peeks",
+   "kamera": "snap-zoom",
+   "groesse": "gross",
+   "monster": true,
+   "hinweis": "eigener Schnitt (die Einstellung aus Satz 3 wäre sonst 3,3 s lang); Snap-Zoom +18 % in 2 Bildern auf \"peeks\""
+  },
+  "5": {
+   "text": "At midnight, it counts to one hundred, slow and deep, and the whole town hears it.",
+   "t_schaetz_s": 10.7,
+   "block": "monster",
+   "ort": "hauptstrasse",
+   "modul": "platz",
+   "licht": "nacht",
+   "figuren": [],
+   "aktion": "Großaufnahme der Turmuhr: die Zeiger springen auf zwölf",
+   "schluesselwort": "midnight",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "hinweis": "Push-in 10 %/s auf das Zifferblatt",
+   "sfx": "ein Glockenschlag, darunter beginnt das Zählen",
+   "teilbilder": [
+    {
+     "ab_wort": "it counts",
+     "ort": "hauptstrasse",
+     "modul": "platz",
+     "licht": "nacht",
+     "figuren": [
+      "mister-hundred"
+     ],
+     "aktion": "Mister Hundred steht am Platzende und zählt: bei jeder Zahl nickt der Kopf und kaltes Licht dringt durch die Fingerspalten",
+     "schluesselwort": "counts",
+     "kamera": "push-in",
+     "groesse": "halbtotale",
+     "monster": true,
+     "sfx": "je Zahl ein dumpfer Schlag"
+    },
+    {
+     "ab_wort": "slow",
+     "ort": "hauptstrasse",
+     "modul": "haeuserzeile",
+     "licht": "nacht",
+     "figuren": [
+      "nachbarn"
+     ],
+     "aktion": "ein Mann (etwa 50) auf seiner Veranda presst sich die Hände auf die Ohren",
+     "schluesselwort": "deep",
+     "kamera": "push-in",
+     "groesse": "halbnah",
+     "monster": false,
+     "hinweis": "Reaktionsbild: das Zählen ist zu hören, nicht zu sehen"
+    },
+    {
+     "ab_wort": "and the whole",
+     "ort": "hauptstrasse",
+     "modul": "haeuserzeile",
+     "licht": "nacht",
+     "figuren": [
+      "nachbarn"
+     ],
+     "aktion": "in den oberen Fenstern gehen die Lichter nacheinander aus",
+     "schluesselwort": "hears",
+     "kamera": "seitenfahrt",
+     "groesse": "totale",
+     "monster": false,
+     "effekt": "Lichtereignis gestaffelt, Start 0,4 s vor 'hears', etwa 1 s von vorn nach hinten"
+    }
+   ]
+  },
+  "6": {
+   "text": "Your breath turns white when it's close.",
+   "t_schaetz_s": 15.1,
+   "block": "monster",
+   "ort": "hauptstrasse",
+   "modul": "marsh-aussen",
+   "licht": "nacht",
+   "figuren": [
+    "eli"
+   ],
+   "aktion": "Elis Atem wird zu weißem Dampf, er hält die Hand vor den Mund",
+   "schluesselwort": "white",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "eli": "erschrocken"
+   },
+   "effekt": "Atemdampf-Partikel"
+  },
+  "7": {
+   "text": "When it finds you, it bends down and takes its hands away from its face.",
+   "t_schaetz_s": 17.0,
+   "block": "monster",
+   "ort": "hauptstrasse",
+   "modul": "haeuserzeile",
+   "licht": "nacht",
+   "figuren": [
+    "mister-hundred"
+   ],
+   "aktion": "aus dem Versteck an der Veranda, auf Bodenhöhe: zwei riesige nackte Füße bleiben mitten im Schritt stehen",
+   "schluesselwort": "finds",
+   "kamera": "push-in",
+   "groesse": "pov",
+   "monster": true,
+   "teilbilder": [
+    {
+     "ab_wort": "it bends",
+     "ort": "hauptstrasse",
+     "modul": "haeuserzeile",
+     "licht": "nacht",
+     "figuren": [
+      "mister-hundred"
+     ],
+     "aktion": "beugt sich in einer gleichmäßigen Bewegung 60–70° herab",
+     "schluesselwort": "bends",
+     "kamera": "push-in",
+     "groesse": "halbtotale",
+     "monster": true,
+     "hinweis": "seitlich, Push nur 4 %/s, Bewegung über die ganze Einstellung"
+    },
+    {
+     "ab_wort": "takes",
+     "ort": "hauptstrasse",
+     "modul": "haeuserzeile",
+     "licht": "nacht",
+     "figuren": [
+      "mister-hundred"
+     ],
+     "aktion": "von hinten über seine Schulter: die Hände lösen sich vom Gesicht; harter Schnitt, bevor etwas zu sehen ist",
+     "schluesselwort": "away",
+     "kamera": "push-in",
+     "groesse": "ueber-schulter",
+     "monster": true,
+     "hinweis": "Ritual-Bild, kehrt in Teil 3 (Tess) und Teil 4 (Eli) fast gleich wieder"
+    }
+   ]
+  },
+  "8": {
+   "text": "In the morning, all that's left are your shoes, side by side.",
+   "t_schaetz_s": 21.1,
+   "block": "monster",
+   "ort": "hauptstrasse",
+   "modul": "haeuserzeile",
+   "licht": "morgen",
+   "figuren": [],
+   "aktion": "Kranabstieg über der leeren Straße im Morgennebel; in der Mitte steht klein ein Paar graue Turnschuhe",
+   "schluesselwort": "left",
+   "kamera": "kranabstieg",
+   "groesse": "totale",
+   "monster": false,
+   "teilbilder": [
+    {
+     "ab_wort": "shoes",
+     "ort": "hauptstrasse",
+     "modul": "haeuserzeile",
+     "licht": "morgen",
+     "figuren": [],
+     "aktion": "die grauen Turnschuhe mitten auf der Straße, exakt nebeneinander, Spitzen zur Kamera",
+     "schluesselwort": "shoes",
+     "kamera": "push-in",
+     "groesse": "detail",
+     "monster": false,
+     "sfx": "leiser Sub-Boom auf 'side'"
+    }
+   ],
+   "hinweis": "Ankunft des Kranabstiegs auf \"left\""
+  },
+  "9": {
+   "text": "The town calls it Hiding Night.",
+   "t_schaetz_s": 24.4,
+   "block": "system",
+   "ort": "hauptstrasse",
+   "modul": "platz",
+   "licht": "tag",
+   "figuren": [
+    "nachbarn",
+    "odell"
+   ],
+   "aktion": "Platz bei Tag, Erwachsene gehen vorbei, Mr. Odell fegt die Kirchenstufen, darüber der Glockenturm",
+   "schluesselwort": "Hiding",
+   "kamera": "kranabstieg",
+   "groesse": "totale",
+   "monster": false,
+   "hinweis": "Luftbild zur Orientierung"
+  },
+  "10": {
+   "text": "There's only one rule.",
+   "t_schaetz_s": 26.0,
+   "block": "system",
+   "ort": "hauptstrasse",
+   "modul": "platz",
+   "licht": "tag",
+   "figuren": [
+    "odell"
+   ],
+   "aktion": "Mr. Odell hebt einen Finger",
+   "schluesselwort": "one",
+   "kamera": "push-in",
+   "groesse": "halbnah",
+   "monster": false,
+   "gesicht": {
+    "odell": "streng"
+   }
+  },
+  "11": {
+   "text": "Nobody can help you hide.",
+   "t_schaetz_s": 27.1,
+   "block": "system",
+   "ort": "hauptstrasse",
+   "modul": "platz",
+   "licht": "tag",
+   "figuren": [
+    "odell",
+    "nachbarn"
+   ],
+   "aktion": "ein Nachbar will einer jungen Frau (etwa 20) seinen Mantel umlegen, Odells Hand packt seinen Arm",
+   "schluesselwort": "help",
+   "kamera": "seitenfahrt",
+   "groesse": "halbnah",
+   "monster": false,
+   "hinweis": "Hauptaktion: Odells Griff; die anderen halten ihre Pose"
+  },
+  "12": {
+   "text": "If they try, it takes them too.",
+   "t_schaetz_s": 28.5,
+   "block": "system",
+   "ort": "hauptstrasse",
+   "modul": "haeuserzeile",
+   "licht": "nacht",
+   "figuren": [],
+   "aktion": "eine Frau (etwa 50) zieht einen jungen Mann (18) an der Hand durch ihre Haustür, um ihn zu verstecken",
+   "schluesselwort": "try",
+   "kamera": "push-in",
+   "groesse": "halbtotale",
+   "monster": false,
+   "teilbilder": [
+    {
+     "ab_wort": "it takes",
+     "ort": "hauptstrasse",
+     "modul": "haeuserzeile",
+     "licht": "morgen",
+     "figuren": [],
+     "aktion": "auf derselben Veranda stehen am Morgen zwei Paar Schuhe nebeneinander",
+     "schluesselwort": "too",
+     "kamera": "snap-zoom",
+     "groesse": "detail",
+     "monster": false,
+     "sfx": "Sub-Boom auf 'too'"
+    }
+   ]
+  },
+  "13": {
+   "text": "You can't run, either.",
+   "t_schaetz_s": 30.4,
+   "block": "system",
+   "ort": "hauptstrasse",
+   "modul": "strassenende",
+   "licht": "nacht",
+   "figuren": [],
+   "aktion": "die Hauptstraße endet in einer Nebelwand vor den Kiefern",
+   "schluesselwort": "run",
+   "kamera": "push-in",
+   "groesse": "totale",
+   "monster": false,
+   "hinweis": "Push schneller als üblich, etwa 10 %/s"
+  },
+  "14": {
+   "text": "On his eighteenth birthday, Owen Pike drove all night.",
+   "t_schaetz_s": 31.5,
+   "block": "system",
+   "rueckblende": true,
+   "ort": "hauptstrasse",
+   "modul": "pike-haus",
+   "licht": "nacht",
+   "figuren": [
+    "owen"
+   ],
+   "aktion": "Owen Pike springt in seinen hellblauen Pick-up",
+   "schluesselwort": "Owen",
+   "kamera": "push-in",
+   "groesse": "halbnah",
+   "monster": false,
+   "gesicht": {
+    "owen": "trotzig"
+   },
+   "teilbilder": [
+    {
+     "ab_wort": "drove",
+     "ort": "hauptstrasse",
+     "modul": "haeuserzeile",
+     "licht": "nacht",
+     "figuren": [
+      "owen"
+     ],
+     "aktion": "der Pick-up rast die Hauptstraße hinunter auf den Nebel zu",
+     "schluesselwort": "drove",
+     "kamera": "folgefahrt",
+     "groesse": "totale",
+     "monster": false,
+     "hinweis": "hinter dem Wagen, Rücklichter rot im Nebel"
+    }
+   ]
+  },
+  "15": {
+   "text": "At sunrise, his truck was back in front of his house, engine running.",
+   "t_schaetz_s": 34.0,
+   "block": "system",
+   "rueckblende": true,
+   "ort": "hauptstrasse",
+   "modul": "strassenende",
+   "licht": "sonnenaufgang",
+   "figuren": [],
+   "aktion": "die Sonne steigt über den Kiefern auf",
+   "schluesselwort": "sunrise",
+   "kamera": "kranabstieg",
+   "groesse": "totale",
+   "monster": false,
+   "teilbilder": [
+    {
+     "ab_wort": "his truck",
+     "ort": "hauptstrasse",
+     "modul": "pike-haus",
+     "licht": "sonnenaufgang",
+     "figuren": [],
+     "aktion": "der Pick-up steht wieder vor dem Pike-Haus, Fahrertür offen, der Auspuff dampft",
+     "schluesselwort": "back",
+     "kamera": "seitenfahrt",
+     "groesse": "halbtotale",
+     "monster": false,
+     "hinweis": "Zaunpfosten als Vordergrund-Wischer",
+     "sfx": "Motor im Leerlauf"
+    },
+    {
+     "ab_wort": "engine",
+     "ort": "hauptstrasse",
+     "modul": "pike-haus",
+     "licht": "sonnenaufgang",
+     "figuren": [],
+     "aktion": "der Auspuff des Pick-ups stößt weißen Dampf aus",
+     "schluesselwort": "engine",
+     "kamera": "push-in",
+     "groesse": "detail",
+     "monster": false,
+     "sfx": "Motor im Leerlauf"
+    }
+   ]
+  },
+  "16": {
+   "text": "His shoes were on the seat, side by side.",
+   "t_schaetz_s": 37.5,
+   "block": "system",
+   "rueckblende": true,
+   "ort": "hauptstrasse",
+   "modul": "pike-haus",
+   "licht": "sonnenaufgang",
+   "figuren": [],
+   "aktion": "durch die offene Fahrertür: auf dem Fahrersitz stehen Owens schwarze Stiefel mit orangen Senkeln, exakt nebeneinander",
+   "schluesselwort": "shoes",
+   "kamera": "push-in",
+   "groesse": "detail",
+   "monster": false
+  },
+  "17": {
+   "text": "Nobody here plays hide and seek, not even for fun.",
+   "t_schaetz_s": 40.0,
+   "block": "system",
+   "ort": "hauptstrasse",
+   "modul": "platz",
+   "licht": "tag",
+   "figuren": [
+    "nachbarn"
+   ],
+   "aktion": "ein junger Mann (etwa 20) hält sich zum Spaß die Hände vors Gesicht, als würde er zählen",
+   "schluesselwort": "hide",
+   "kamera": "push-in",
+   "groesse": "halbnah",
+   "monster": false,
+   "teilbilder": [
+    {
+     "ab_wort": "not",
+     "ort": "hauptstrasse",
+     "modul": "platz",
+     "licht": "tag",
+     "figuren": [
+      "nachbarn"
+     ],
+     "aktion": "eine ältere Frau reißt ihm die Hände herunter",
+     "schluesselwort": "fun",
+     "kamera": "push-in",
+     "groesse": "nah",
+     "monster": false,
+     "gesicht": {
+      "nachbarn": "besorgt"
+     }
+    }
+   ]
+  },
+  "18": {
+   "text": "Nobody leaves their shoes side by side.",
+   "t_schaetz_s": 42.7,
+   "block": "system",
+   "ort": "marsh-innen",
+   "modul": "flur",
+   "licht": "morgen",
+   "figuren": [
+    "eli"
+   ],
+   "aktion": "Eli kickt seine Turnschuhe absichtlich schief in den Schuhhaufen an der Haustür",
+   "schluesselwort": "leaves",
+   "kamera": "push-in",
+   "groesse": "halbnah",
+   "monster": false,
+   "hinweis": "Kamera auf Bodenhöhe",
+   "teilbilder": [
+    {
+     "ab_wort": "side",
+     "ort": "marsh-innen",
+     "modul": "flur",
+     "licht": "morgen",
+     "figuren": [],
+     "aktion": "der Schuhhaufen von oben: alle Schuhe liegen kreuz und quer, kein Paar steht nebeneinander",
+     "schluesselwort": "side",
+     "kamera": "push-in",
+     "groesse": "detail",
+     "monster": false,
+     "hinweis": "Kamera auf Bodenhöhe"
+    }
+   ]
+  },
+  "19": {
+   "text": "And nobody ever says the word ready.",
+   "t_schaetz_s": 44.7,
+   "block": "system",
+   "ort": "hauptstrasse",
+   "modul": "platz",
+   "licht": "tag",
+   "figuren": [
+    "odell"
+   ],
+   "aktion": "Mr. Odell legt den Finger auf die Lippen",
+   "schluesselwort": "ready",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "odell": "warnend"
+   }
+  },
+  "20": {
+   "text": "That's what it asks when it's done counting.",
+   "t_schaetz_s": 46.6,
+   "block": "system",
+   "ort": "hauptstrasse",
+   "modul": "platz",
+   "licht": "nacht",
+   "figuren": [
+    "mister-hundred"
+   ],
+   "aktion": "neigt den Kopf hinter den Händen zur Seite, wie fragend (0,4 s)",
+   "schluesselwort": "asks",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": true,
+   "hinweis": "Untersicht"
+  },
+  "21": {
+   "text": "On Friday, I turned eighteen.",
+   "t_schaetz_s": 48.8,
+   "block": "persoenlich",
+   "ort": "marsh-innen",
+   "modul": "kueche",
+   "licht": "morgen",
+   "figuren": [
+    "eli"
+   ],
+   "aktion": "Eli bläst die Zahlenkerzen 1 und 8 aus, die Flammen erlöschen auf \"turned\", Rauchfäden steigen auf",
+   "schluesselwort": "turned",
+   "kamera": "push-in",
+   "groesse": "halbnah",
+   "monster": false,
+   "gesicht": {
+    "eli": "neutral"
+   },
+   "hinweis": "Echo des Kerzenbilds aus dem Hook"
+  },
+  "22": {
+   "text": "My sister June is the only one who ever made it to sunrise.",
+   "t_schaetz_s": 50.1,
+   "block": "persoenlich",
+   "ort": "marsh-innen",
+   "modul": "kueche",
+   "licht": "morgen",
+   "figuren": [
+    "june"
+   ],
+   "aktion": "June dreht sich am Herd um und lächelt",
+   "schluesselwort": "June",
+   "kamera": "push-in",
+   "groesse": "halbnah",
+   "monster": false,
+   "gesicht": {
+    "june": "laecheln"
+   },
+   "teilbilder": [
+    {
+     "ab_wort": "the only",
+     "rueckblende": true,
+     "ort": "hauptstrasse",
+     "modul": "marsh-aussen",
+     "licht": "sonnenaufgang",
+     "figuren": [
+      "june"
+     ],
+     "aktion": "June mit achtzehn (Haare offen) steht im ersten Sonnenlicht auf der Veranda",
+     "schluesselwort": "sunrise",
+     "kamera": "pull-out",
+     "groesse": "halbtotale",
+     "monster": false
+    }
+   ]
+  },
+  "23": {
+   "text": "Six years ago, Dad hid her in the crawl space under her room.",
+   "t_schaetz_s": 53.7,
+   "block": "persoenlich",
+   "rueckblende": true,
+   "ort": "marsh-innen",
+   "modul": "june-zimmer",
+   "licht": "rueckblende-nacht",
+   "figuren": [
+    "dad",
+    "june"
+   ],
+   "aktion": "Dad reißt die Bodenluke neben Junes Bett auf, Taschenlampe in der Hand",
+   "schluesselwort": "Dad",
+   "kamera": "push-in",
+   "groesse": "halbtotale",
+   "monster": false,
+   "gesicht": {
+    "dad": "entschlossen"
+   },
+   "teilbilder": [
+    {
+     "ab_wort": "hid",
+     "rueckblende": true,
+     "ort": "marsh-innen",
+     "modul": "june-zimmer",
+     "licht": "rueckblende-nacht",
+     "figuren": [
+      "dad",
+      "june"
+     ],
+     "aktion": "June ist in der Luke, Dad klappt sie über ihr zu",
+     "schluesselwort": "hid",
+     "kamera": "sturzfahrt",
+     "groesse": "nah",
+     "monster": false,
+     "hinweis": "Draufsicht, Kamera sinkt auf die sich schließende Luke"
+    }
+   ]
+  },
+  "24": {
+   "text": "In the morning, she climbed out.",
+   "t_schaetz_s": 57.3,
+   "block": "persoenlich",
+   "rueckblende": true,
+   "ort": "marsh-innen",
+   "modul": "june-zimmer",
+   "licht": "morgen",
+   "figuren": [
+    "june"
+   ],
+   "aktion": "die Luke hebt sich, June klettert heraus und blinzelt ins Morgenlicht",
+   "schluesselwort": "climbed",
+   "kamera": "push-in",
+   "groesse": "halbnah",
+   "monster": false,
+   "gesicht": {
+    "june": "verschlafen"
+   },
+   "hinweis": "versteckter Hinweis: bernsteinfarbene Augen gut sichtbar"
+  },
+  "25": {
+   "text": "Dad's shoes were on the porch.",
+   "t_schaetz_s": 58.9,
+   "block": "persoenlich",
+   "rueckblende": true,
+   "ort": "hauptstrasse",
+   "modul": "marsh-aussen",
+   "licht": "morgen",
+   "figuren": [],
+   "aktion": "Dads braune Arbeitsstiefel stehen auf der Veranda, nebeneinander",
+   "schluesselwort": "shoes",
+   "kamera": "push-in",
+   "groesse": "detail",
+   "monster": false,
+   "sfx": "Sub-Boom auf 'shoes'"
+  },
+  "26": {
+   "text": "Every night since, June counts to one hundred before she falls asleep.",
+   "t_schaetz_s": 60.5,
+   "block": "persoenlich",
+   "ort": "marsh-innen",
+   "modul": "june-zimmer",
+   "licht": "innen-nacht",
+   "figuren": [
+    "june"
+   ],
+   "aktion": "Draufsicht: June liegt im Bett, die Augen zu, ihre Lippen zählen lautlos; neben dem Bett der Teppich über der Luke",
+   "schluesselwort": "counts",
+   "kamera": "kranabstieg",
+   "groesse": "halbtotale",
+   "monster": false,
+   "gesicht": {
+    "june": "zaehlt"
+   },
+   "hinweis": "Draufsicht, Kamera sinkt langsam; Mundformen \"zählt\" im Takt",
+   "teilbilder": [
+    {
+     "ab_wort": "before",
+     "ort": "marsh-innen",
+     "modul": "june-zimmer",
+     "licht": "innen-nacht",
+     "figuren": [
+      "june"
+     ],
+     "aktion": "June schläft ein: ihr Gesicht entspannt sich, die Augen bleiben zu",
+     "schluesselwort": "asleep",
+     "kamera": "push-in",
+     "groesse": "nah",
+     "monster": false,
+     "gesicht": {
+      "june": "augen-zu"
+     }
+    }
+   ]
+  },
+  "27": {
+   "text": "She says it helps.",
+   "t_schaetz_s": 63.8,
+   "block": "persoenlich",
+   "ort": "marsh-innen",
+   "modul": "kueche",
+   "licht": "morgen",
+   "figuren": [
+    "june"
+   ],
+   "aktion": "June zuckt mit den Schultern und lächelt schief",
+   "schluesselwort": "helps",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "june": "laecheln"
+   }
+  },
+  "28": {
+   "text": "At breakfast, she took my hand.",
+   "t_schaetz_s": 64.9,
+   "block": "persoenlich",
+   "ort": "marsh-innen",
+   "modul": "kueche",
+   "licht": "morgen",
+   "figuren": [
+    "june",
+    "eli"
+   ],
+   "aktion": "Junes Hand greift über den Tisch nach Elis Hand",
+   "schluesselwort": "took",
+   "kamera": "push-in",
+   "groesse": "detail",
+   "monster": false
+  },
+  "29": {
+   "text": "\"It never looks in my room, Rabbit.\"",
+   "t_schaetz_s": 66.6,
+   "block": "persoenlich",
+   "dialog": "june",
+   "ort": "marsh-innen",
+   "modul": "kueche",
+   "licht": "morgen",
+   "figuren": [
+    "june"
+   ],
+   "aktion": "June beugt sich vor und spricht leise",
+   "schluesselwort": "Rabbit",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "june": "besorgt"
+   },
+   "hinweis": "Mundformen, Tiefenunschärfe, Untertitel in Junes Farbe"
+  },
+  "30": {
+   "text": "\"I'll hide you there.\"",
+   "t_schaetz_s": 68.5,
+   "block": "persoenlich",
+   "dialog": "june",
+   "ort": "marsh-innen",
+   "modul": "june-zimmer",
+   "licht": "tag",
+   "figuren": [],
+   "aktion": "der Teppich neben Junes Bett, darunter zeichnet sich der Ring der Luke ab",
+   "schluesselwort": "hide",
+   "kamera": "orbit",
+   "groesse": "detail",
+   "monster": false,
+   "hinweis": "Bogenfahrt aus der Aufsicht um den Ring (Akzentfahrt); \"I promise\" liegt ohne Schnitt über demselben Bild"
+  },
+  "31": {
+   "text": "\"I promise.\"",
+   "t_schaetz_s": 69.6,
+   "block": "persoenlich",
+   "dialog": "june",
+   "neuer_schnitt": false,
+   "ort": "marsh-innen",
+   "modul": "june-zimmer",
+   "licht": "tag",
+   "figuren": [],
+   "aktion": "Bild der Luke läuft weiter",
+   "schluesselwort": "promise",
+   "kamera": "push-in",
+   "groesse": "detail",
+   "monster": false,
+   "hinweis": "kein Schnitt: 'I promise' liegt über dem Bild der Luke"
+  },
+  "32": {
+   "text": "At sunset, I went upstairs to grab a flashlight.",
+   "t_schaetz_s": 70.1,
+   "block": "cliffhanger",
+   "ort": "marsh-innen",
+   "modul": "flur",
+   "licht": "daemmerung",
+   "figuren": [
+    "eli"
+   ],
+   "aktion": "Untersicht die Treppe hinauf: Eli steigt nach oben, oranges Abendlicht",
+   "schluesselwort": "upstairs",
+   "kamera": "push-in",
+   "groesse": "halbtotale",
+   "monster": false,
+   "teilbilder": [
+    {
+     "ab_wort": "to grab",
+     "ort": "marsh-innen",
+     "modul": "eli-zimmer",
+     "licht": "daemmerung",
+     "figuren": [
+      "eli"
+     ],
+     "aktion": "Eli nimmt die Taschenlampe vom Bett",
+     "schluesselwort": "grab",
+     "kamera": "push-in",
+     "groesse": "nah",
+     "monster": false
+    }
+   ],
+   "hinweis": "hinter Eli wäre die Hauswand: deshalb vom Fuß der Treppe aus gesehen"
+  },
+  "33": {
+   "text": "My breath turned white.",
+   "t_schaetz_s": 72.6,
+   "block": "cliffhanger",
+   "ort": "marsh-innen",
+   "modul": "eli-zimmer",
+   "licht": "daemmerung",
+   "figuren": [
+    "eli"
+   ],
+   "aktion": "Das Zimmer wird auf \"turned\" in 0,4 s dunkler, Elis Atem wird zu weißem Dampf, sein Gesicht erschrickt auf \"white\"",
+   "schluesselwort": "turned",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "eli": "erschrocken"
+   },
+   "effekt": "Lichtereignis: Zimmer kippt in 0,4 s auf kaltes Blau, etwa 35 % dunkler; Atemdampf"
+  },
+  "34": {
+   "text": "Mister Hundred was standing in our yard, six hours early.",
+   "t_schaetz_s": 73.7,
+   "block": "cliffhanger",
+   "ort": "marsh-innen",
+   "modul": "eli-zimmer",
+   "licht": "daemmerung",
+   "figuren": [
+    "eli",
+    "mister-hundred"
+   ],
+   "aktion": "über Elis Schulter durchs Fenster: im Vorgarten steht Mister Hundred, sein Kopf auf Fensterhöhe, Hände vor dem Gesicht",
+   "schluesselwort": "Hundred",
+   "kamera": "push-in",
+   "groesse": "ueber-schulter",
+   "monster": true,
+   "sfx": "Sub-Boom auf 'Hundred'",
+   "effekt": "Wackeln 0,4 s",
+   "teilbilder": [
+    {
+     "ab_wort": "six",
+     "ort": "hauptstrasse",
+     "modul": "platz",
+     "licht": "daemmerung",
+     "figuren": [],
+     "aktion": "die Turmuhr in der Dämmerung zeigt sechs Uhr – sechs Stunden vor Mitternacht",
+     "schluesselwort": "early",
+     "kamera": "pull-out",
+     "groesse": "detail",
+     "monster": false,
+     "hinweis": "wörtlich: \"six hours early\" als Zifferblatt; Monster-Anteil bleibt unter 25 %"
+    }
+   ]
+  },
+  "35": {
+   "text": "It wasn't counting.",
+   "t_schaetz_s": 76.4,
+   "block": "cliffhanger",
+   "ort": "marsh-innen",
+   "modul": "eli-zimmer",
+   "licht": "daemmerung",
+   "figuren": [
+    "eli"
+   ],
+   "aktion": "Eli erstarrt am Fenster und hält den Atem an",
+   "schluesselwort": "counting",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "eli": "augen-zu"
+   },
+   "hinweis": "Reaktionsbild; Ton nur Stimme, kein Effekt"
+  },
+  "36": {
+   "text": "It was looking at me, through its fingers.",
+   "t_schaetz_s": 77.3,
+   "block": "cliffhanger",
+   "ort": "hauptstrasse",
+   "modul": "marsh-aussen",
+   "licht": "daemmerung",
+   "figuren": [
+    "mister-hundred"
+   ],
+   "aktion": "Mittel- und Ringfinger spreizen sich, dahinter öffnet sich ein bernsteinfarbenes Auge, das zu Elis Fenster sieht",
+   "schluesselwort": "looking",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": true,
+   "hinweis": "aus Elis Fenster gesehen",
+   "teilbilder": [
+    {
+     "ab_wort": "through",
+     "ort": "hauptstrasse",
+     "modul": "marsh-aussen",
+     "licht": "daemmerung",
+     "figuren": [
+      "mister-hundred"
+     ],
+     "aktion": "Großaufnahme: das bernsteinfarbene Auge im Spalt zwischen den Fingern",
+     "schluesselwort": "fingers",
+     "kamera": "snap-zoom",
+     "groesse": "gross",
+     "monster": true,
+     "hinweis": "Snap-Zoom +18 % in 2 Bildern auf 'fingers'; harter Schnitt höchstens 0,2 s nach dem letzten Wort, dann 1,0 s Endkarte PART 2 ohne Ton"
+    }
+   ]
+  }
+ }
+}

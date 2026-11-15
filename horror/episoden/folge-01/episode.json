@@ -1,0 +1,9145 @@
+{
+ "titel": "Hiding Night – Teil 1",
+ "fps": 30,
+ "aufloesung": [
+  1080,
+  1920
+ ],
+ "seed": 2611,
+ "look": {
+  "licht": "nacht",
+  "bloom": {
+   "staerke": 0.55,
+   "radius": 0.55,
+   "schwelle": 1
+  },
+  "vignette": 0.32,
+  "korn": 0.025,
+  "toene": "aces"
+ },
+ "sets": [
+  {
+   "id": "strasse",
+   "modul": "hauptstrasse",
+   "params": {
+    "uhr": {
+     "zeit": "11:59",
+     "spruenge": [
+      {
+       "start": 12.18,
+       "zeit": "12:00"
+      },
+      {
+       "start": 26.3333,
+       "zeit": "10:20"
+      },
+      {
+       "start": 28.2667,
+       "zeit": "10:20"
+      },
+      {
+       "start": 29.5333,
+       "zeit": "10:20"
+      },
+      {
+       "start": 43.7,
+       "zeit": "10:20"
+      },
+      {
+       "start": 45.4,
+       "zeit": "10:20"
+      },
+      {
+       "start": 48.9333,
+       "zeit": "10:20"
+      },
+      {
+       "start": 81.7667,
+       "zeit": "6:00"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "marsh",
+   "modul": "marsh_haus"
+  },
+  {
+   "id": "haus",
+   "modul": "marsh_innen",
+   "params": {
+    "kuchen": true,
+    "luke": "figur",
+    "taschenlampe": true
+   }
+  },
+  {
+   "id": "karte",
+   "modul": "endkarte",
+   "position": [
+    0,
+    0,
+    -400
+   ]
+  }
+ ],
+ "figuren": [
+  {
+   "position": [
+    0,
+    -40,
+    0
+   ],
+   "blick": 0,
+   "sichtbar": false,
+   "id": "eli",
+   "modul": "eli",
+   "gesicht": "neutral"
+  },
+  {
+   "position": [
+    0,
+    -40,
+    0
+   ],
+   "blick": 0,
+   "sichtbar": false,
+   "id": "june",
+   "modul": "june",
+   "gesicht": "neutral"
+  },
+  {
+   "position": [
+    0,
+    -40,
+    0
+   ],
+   "blick": 0,
+   "sichtbar": false,
+   "id": "june18",
+   "modul": "june",
+   "params": {
+    "rueckblende": true
+   },
+   "gesicht": "neutral"
+  },
+  {
+   "position": [
+    0,
+    -40,
+    0
+   ],
+   "blick": 0,
+   "sichtbar": false,
+   "id": "dad",
+   "modul": "dad",
+   "gesicht": "entschlossen"
+  },
+  {
+   "position": [
+    0,
+    -40,
+    0
+   ],
+   "blick": 0,
+   "sichtbar": false,
+   "id": "owen",
+   "modul": "owen",
+   "gesicht": "entschlossen"
+  },
+  {
+   "position": [
+    0,
+    -40,
+    0
+   ],
+   "blick": 0,
+   "sichtbar": false,
+   "id": "odell",
+   "modul": "odell",
+   "gesicht": "streng"
+  },
+  {
+   "position": [
+    0,
+    -40,
+    0
+   ],
+   "blick": 0,
+   "sichtbar": false,
+   "id": "mh",
+   "modul": "mister_hundred",
+   "gesicht": "glatt",
+   "blinzeln": false
+  },
+  {
+   "position": [
+    0,
+    -40,
+    0
+   ],
+   "blick": 0,
+   "sichtbar": false,
+   "id": "nb_ohren",
+   "modul": "nachbar",
+   "params": {
+    "variante": "muetze",
+    "alter": "mittel"
+   },
+   "gesicht": "angst"
+  },
+  {
+   "position": [
+    0,
+    -40,
+    0
+   ],
+   "blick": 0,
+   "sichtbar": false,
+   "id": "nb_mantel",
+   "modul": "nachbar",
+   "params": {
+    "variante": "brille",
+    "alter": "mittel",
+    "kleidung": "mantel"
+   },
+   "gesicht": "besorgt"
+  },
+  {
+   "position": [
+    0,
+    -40,
+    0
+   ],
+   "blick": 0,
+   "sichtbar": false,
+   "id": "nb_frau",
+   "modul": "nachbar",
+   "params": {
+    "variante": "kopftuch",
+    "alter": "mittel"
+   },
+   "gesicht": "angst"
+  },
+  {
+   "position": [
+    0,
+    -40,
+    0
+   ],
+   "blick": 0,
+   "sichtbar": false,
+   "id": "nb_jung",
+   "modul": "nachbar",
+   "params": {
+    "variante": "muetze",
+    "alter": "jung",
+    "farbe": "#5E6B3A"
+   },
+   "gesicht": "grinsen"
+  },
+  {
+   "position": [
+    0,
+    -40,
+    0
+   ],
+   "blick": 0,
+   "sichtbar": false,
+   "id": "nb_jungfrau",
+   "modul": "nachbar",
+   "params": {
+    "variante": "brille",
+    "alter": "jung",
+    "farbe": "#7A3B36"
+   },
+   "gesicht": "nervoes"
+  },
+  {
+   "position": [
+    0,
+    -40,
+    0
+   ],
+   "blick": 0,
+   "sichtbar": false,
+   "id": "nb_alt",
+   "modul": "nachbar",
+   "params": {
+    "variante": "kopftuch",
+    "alter": "alt"
+   },
+   "gesicht": "besorgt"
+  },
+  {
+   "position": [
+    0,
+    -40,
+    0
+   ],
+   "blick": 0,
+   "sichtbar": false,
+   "id": "nb_passant",
+   "modul": "nachbar",
+   "params": {
+    "variante": "glatze",
+    "alter": "mittel"
+   },
+   "gesicht": "neutral"
+  },
+  {
+   "position": [
+    0,
+    -40,
+    0
+   ],
+   "blick": 0,
+   "sichtbar": false,
+   "id": "pk",
+   "modul": "pickup",
+   "params": {
+    "scheinwerfer": true
+   }
+  },
+  {
+   "position": [
+    0,
+    -40,
+    0
+   ],
+   "blick": 0,
+   "sichtbar": false,
+   "id": "pk2",
+   "modul": "pickup",
+   "params": {
+    "stiefel": true,
+    "scheinwerfer": true
+   }
+  },
+  {
+   "position": [
+    0,
+    -40,
+    0
+   ],
+   "blick": 0,
+   "sichtbar": false,
+   "id": "sp_strasse",
+   "modul": "schuhpaar",
+   "params": {
+    "art": "grau"
+   }
+  },
+  {
+   "position": [
+    0,
+    -40,
+    0
+   ],
+   "blick": 0,
+   "sichtbar": false,
+   "id": "sp_v1",
+   "modul": "schuhpaar",
+   "params": {
+    "art": "nachbar"
+   }
+  },
+  {
+   "position": [
+    0,
+    -40,
+    0
+   ],
+   "blick": 0,
+   "sichtbar": false,
+   "id": "sp_v2",
+   "modul": "schuhpaar",
+   "params": {
+    "art": "grau"
+   }
+  },
+  {
+   "position": [
+    0,
+    -40,
+    0
+   ],
+   "blick": 0,
+   "sichtbar": false,
+   "id": "sp_dad",
+   "modul": "schuhpaar",
+   "params": {
+    "art": "dad"
+   }
+  },
+  {
+   "position": [
+    0,
+    -40,
+    0
+   ],
+   "blick": 0,
+   "sichtbar": false,
+   "id": "sp_eli_a",
+   "modul": "schuhpaar",
+   "params": {
+    "art": "eli"
+   }
+  },
+  {
+   "position": [
+    0,
+    -40,
+    0
+   ],
+   "blick": 0,
+   "sichtbar": false,
+   "id": "sp_eli_b",
+   "modul": "schuhpaar",
+   "params": {
+    "art": "eli",
+    "ordnung": "schief"
+   }
+  },
+  {
+   "position": [
+    0,
+    -40,
+    0
+   ],
+   "blick": 0,
+   "sichtbar": false,
+   "id": "luke_rb",
+   "modul": "luke",
+   "params": {
+    "teppich": false
+   }
+  },
+  {
+   "position": [
+    0,
+    -40,
+    0
+   ],
+   "blick": 0,
+   "sichtbar": false,
+   "id": "luke_tp",
+   "modul": "luke",
+   "params": {
+    "teppich": true
+   }
+  }
+ ],
+ "einstellungen": [
+  {
+   "id": "E01",
+   "start": 0,
+   "ende": 0.8667,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "nacht",
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": {
+     "anker": "mh.brust",
+     "versatz": [
+      0,
+      1,
+      0
+     ]
+    },
+    "pos": [
+     1.1,
+     1.6,
+     -38.4
+    ],
+    "fov": 40,
+    "rate": 0.12
+   },
+   "stellung": {
+    "mh": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      2.5,
+      0,
+      -54
+     ],
+     "blick": 0,
+     "gesicht": "glatt"
+    },
+    "eli": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      1.55,
+      0,
+      -42
+     ],
+     "blick": 178,
+     "gesicht": "angst"
+    }
+   },
+   "aktionen": [],
+   "schatten_bereich": 24,
+   "text": "In this town,",
+   "plan": {
+    "key": "1",
+    "satz": 1,
+    "woerter": [
+     0,
+     2
+    ],
+    "block": "hook",
+    "groesse": "totale",
+    "ort": "hauptstrasse",
+    "modul": "platz",
+    "haupt": {
+     "art": "kamera",
+     "wort": "town",
+     "wort_i": 2,
+     "wort_start": 0.28,
+     "start": 0.28,
+     "ende": 0.28,
+     "anker": "start",
+     "schluesselwort_idee": "town"
+    },
+    "gesichter": [],
+    "hauptsache": "mh.haende",
+    "bogen_zeit": 0.43,
+    "akzent": false,
+    "monster": true,
+    "sichtbar": [
+     "mh",
+     "eli"
+    ]
+   }
+  },
+  {
+   "id": "E02",
+   "start": 0.8667,
+   "ende": 2.0667,
+   "set": [
+    "strasse",
+    "haus"
+   ],
+   "licht": "innen_warm",
+   "licht_anpassung": {
+    "belichtung": 0.85
+   },
+   "kamera": {
+    "baustein": "push_in",
+    "punkt": "haus.kueche_detail",
+    "rate": 0.09
+   },
+   "stellung": {
+    "mh": {
+     "sichtbar": false
+    },
+    "eli": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [],
+   "tiefenunschaerfe": {
+    "fokus": "haus.kuchen",
+    "staerke": 0.8
+   },
+   "schatten_bereich": 16,
+   "text": "when you turn eighteen,",
+   "plan": {
+    "key": "1:when",
+    "satz": 1,
+    "woerter": [
+     3,
+     6
+    ],
+    "block": "hook",
+    "groesse": "detail",
+    "ort": "marsh-innen",
+    "modul": "kueche",
+    "haupt": {
+     "art": "kamera",
+     "wort": "eighteen",
+     "wort_i": 6,
+     "wort_start": 1.3,
+     "start": 1.3,
+     "ende": 1.3,
+     "anker": "start",
+     "schluesselwort_idee": "eighteen"
+    },
+    "gesichter": [],
+    "hauptsache": "haus.kuchen",
+    "bogen_zeit": 1.45,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": []
+   }
+  },
+  {
+   "id": "E03",
+   "start": 2.0667,
+   "ende": 3.7,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "nacht",
+   "kamera": {
+    "baustein": "truck_side",
+    "ziel": {
+     "anker": "eli.kopf",
+     "versatz": [
+      0,
+      -0.35,
+      0
+     ]
+    },
+    "pos": [
+     -7.5,
+     1.15,
+     -2.9
+    ],
+    "fov": 44,
+    "richtung": "links",
+    "mitschwenken": true,
+    "strecke": 1.8,
+    "vordergrund": {
+     "abstand": 1.3,
+     "breite": 0.16,
+     "zeit": 2.1
+    }
+   },
+   "stellung": {
+    "eli": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -10.25,
+      0.6,
+      -3.4
+     ],
+     "blick": 90,
+     "gesicht": "angst"
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "eli",
+     "was": "ducken",
+     "start": 2.2,
+     "dauer": 0.4,
+     "params": {
+      "tiefe": 0.75,
+      "arme": "kopf"
+     }
+    }
+   ],
+   "schatten_bereich": 24,
+   "text": "you hide until sunrise,",
+   "plan": {
+    "key": "1:you hide",
+    "satz": 1,
+    "woerter": [
+     7,
+     10
+    ],
+    "block": "hook",
+    "groesse": "halbtotale",
+    "ort": "hauptstrasse",
+    "modul": "marsh-aussen",
+    "haupt": {
+     "art": "aktion",
+     "wer": "eli",
+     "was": "ducken",
+     "wort": "hide",
+     "wort_i": 8,
+     "wort_start": 2.2,
+     "start": 2.2,
+     "ende": 2.6,
+     "anker": "start",
+     "schluesselwort_idee": "hide"
+    },
+    "gesichter": [],
+    "hauptsache": "eli.kopf",
+    "bogen_zeit": 2.7,
+    "akzent": true,
+    "monster": false,
+    "sichtbar": [
+     "eli"
+    ]
+   }
+  },
+  {
+   "id": "E04",
+   "start": 3.7,
+   "ende": 4.8333,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "nacht",
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": "mh.haende",
+    "blick": {
+     "azimut": 16,
+     "hoehe": -32,
+     "abstand": 4.4
+    },
+    "fov": 52,
+    "zusaetze": [
+     {
+      "baustein": "shake",
+      "staerke": 1,
+      "start": 3.89
+     }
+    ],
+    "rate": 0.07
+   },
+   "stellung": {
+    "mh": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      2.5,
+      0,
+      -54
+     ],
+     "blick": 0,
+     "gesicht": "glatt"
+    },
+    "eli": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "mh",
+     "was": "kopf_drehen",
+     "dauer": 0.03,
+     "params": {
+      "winkel": 50
+     },
+     "start": 3.7,
+     "nebenbei": true
+    },
+    {
+     "wer": "mh",
+     "was": "kopf_drehen",
+     "start": 3.84,
+     "dauer": 0.3,
+     "ease": "ease_in",
+     "params": {
+      "zu": "kamera"
+     }
+    }
+   ],
+   "tiefenunschaerfe": {
+    "fokus": "mh.haende",
+    "staerke": 0.8
+   },
+   "schatten_bereich": 24,
+   "text": "or it finds you.",
+   "plan": {
+    "key": "1:or",
+    "satz": 1,
+    "woerter": [
+     11,
+     14
+    ],
+    "block": "hook",
+    "groesse": "nah",
+    "ort": "hauptstrasse",
+    "modul": "platz",
+    "haupt": {
+     "art": "aktion",
+     "wer": "mh",
+     "was": "kopf_drehen",
+     "wort": "it",
+     "wort_i": 12,
+     "wort_start": 3.84,
+     "start": 3.84,
+     "ende": 4.14,
+     "anker": "start",
+     "schluesselwort_idee": "it"
+    },
+    "gesichter": [],
+    "hauptsache": "mh.haende",
+    "bogen_zeit": 4.24,
+    "akzent": false,
+    "monster": true,
+    "sichtbar": [
+     "mh"
+    ]
+   }
+  },
+  {
+   "id": "E05",
+   "start": 4.8333,
+   "ende": 6.5667,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "nacht",
+   "kamera": {
+    "baustein": "tilt_up",
+    "von_ziel": "mh.fuss",
+    "ziel": "mh.haende",
+    "pos": [
+     0.6,
+     0.6,
+     -46.6
+    ],
+    "kran": 1.2,
+    "fov": 58,
+    "ankunft": 5.9,
+    "start": 4.5833
+   },
+   "stellung": {
+    "mh": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      2.5,
+      0,
+      -54
+     ],
+     "blick": 0,
+     "gesicht": "glatt"
+    }
+   },
+   "aktionen": [],
+   "schatten_bereich": 24,
+   "text": "We call it Mister Hundred.",
+   "plan": {
+    "key": "2",
+    "satz": 2,
+    "woerter": [
+     15,
+     19
+    ],
+    "block": "monster",
+    "groesse": "totale",
+    "ort": "hauptstrasse",
+    "modul": "platz",
+    "haupt": {
+     "art": "kamera",
+     "wort": "Hundred",
+     "wort_i": 19,
+     "wort_start": 5.9,
+     "start": 5.9,
+     "ende": 5.9,
+     "anker": "start",
+     "schluesselwort_idee": "Hundred"
+    },
+    "gesichter": [],
+    "hauptsache": "mh.haende",
+    "bogen_zeit": 6.05,
+    "akzent": true,
+    "monster": true,
+    "sichtbar": [
+     "mh"
+    ]
+   }
+  },
+  {
+   "id": "E06",
+   "start": 6.5667,
+   "ende": 8.6667,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "nacht",
+   "licht_anpassung": {
+    "hemi": {
+     "staerke": 2.2
+    },
+    "kante": {
+     "staerke": 1.4
+    },
+    "belichtung": 1.3
+   },
+   "kamera": {
+    "baustein": "dolly_out",
+    "ziel": {
+     "anker": "mh.brust",
+     "versatz": [
+      0.5,
+      0.6,
+      0
+     ]
+    },
+    "pos": [
+     2.4,
+     1.6,
+     10.2
+    ],
+    "fov": 52,
+    "rate": -0.07
+   },
+   "stellung": {
+    "mh": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      9.3,
+      0,
+      3
+     ],
+     "blick": 0,
+     "gesicht": "glatt"
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "mh",
+     "was": "kopf_drehen",
+     "start": 7.58,
+     "dauer": 0.5,
+     "ease": "ease_in",
+     "params": {
+      "zu": [
+       12,
+       5.1,
+       4.15
+      ]
+     }
+    }
+   ],
+   "schatten_bereich": 24,
+   "text": "It's tall enough to look in upstairs windows,",
+   "plan": {
+    "key": "3",
+    "satz": 3,
+    "woerter": [
+     20,
+     27
+    ],
+    "block": "monster",
+    "groesse": "totale",
+    "ort": "hauptstrasse",
+    "modul": "haeuserzeile",
+    "haupt": {
+     "art": "aktion",
+     "wer": "mh",
+     "was": "kopf_drehen",
+     "wort": "upstairs",
+     "wort_i": 26,
+     "wort_start": 7.58,
+     "start": 7.58,
+     "ende": 8.08,
+     "anker": "start",
+     "schluesselwort_idee": "upstairs"
+    },
+    "gesichter": [],
+    "hauptsache": "mh.kopf",
+    "bogen_zeit": 8.18,
+    "akzent": true,
+    "monster": true,
+    "sichtbar": [
+     "mh"
+    ]
+   }
+  },
+  {
+   "id": "E07",
+   "start": 8.6667,
+   "ende": 10.8,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "nacht",
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": "mh.haende",
+    "blick": {
+     "azimut": 18,
+     "hoehe": -24,
+     "abstand": 4.4
+    },
+    "fov": 46,
+    "rate": 0.07
+   },
+   "stellung": {
+    "mh": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      9.3,
+      0,
+      3
+     ],
+     "blick": 0,
+     "gesicht": "glatt"
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "mh",
+     "was": "finger_schliessen",
+     "start": 9.32,
+     "dauer": 0.4
+    }
+   ],
+   "tiefenunschaerfe": {
+    "fokus": "mh.haende",
+    "staerke": 0.8
+   },
+   "schatten_bereich": 24,
+   "text": "and it keeps both hands over its face.",
+   "plan": {
+    "key": "3:and",
+    "satz": 3,
+    "woerter": [
+     28,
+     35
+    ],
+    "block": "monster",
+    "groesse": "nah",
+    "ort": "hauptstrasse",
+    "modul": "haeuserzeile",
+    "haupt": {
+     "art": "aktion",
+     "wer": "mh",
+     "was": "finger_schliessen",
+     "wort": "hands",
+     "wort_i": 32,
+     "wort_start": 9.32,
+     "start": 9.32,
+     "ende": 9.72,
+     "anker": "start",
+     "schluesselwort_idee": "hands"
+    },
+    "gesichter": [],
+    "hauptsache": "mh.haende",
+    "bogen_zeit": 9.82,
+    "akzent": false,
+    "monster": true,
+    "sichtbar": [
+     "mh"
+    ]
+   }
+  },
+  {
+   "id": "E08",
+   "start": 10.8,
+   "ende": 12,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "nacht",
+   "kamera": {
+    "baustein": "snap_zoom",
+    "ziel": "mh.haende",
+    "blick": {
+     "azimut": 4,
+     "hoehe": -6,
+     "abstand": 2
+    },
+    "fov": 40,
+    "faktor": 1.18,
+    "bilder": 2,
+    "zeit": 11.22
+   },
+   "stellung": {
+    "mh": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      9.3,
+      0,
+      3
+     ],
+     "blick": 0,
+     "gesicht": "glatt",
+     "pose": "finger_schliessen"
+    }
+   },
+   "aktionen": [],
+   "tiefenunschaerfe": {
+    "fokus": "mh.haende",
+    "staerke": 0.8
+   },
+   "schatten_bereich": 24,
+   "text": "It never peeks.",
+   "plan": {
+    "key": "4",
+    "satz": 4,
+    "woerter": [
+     36,
+     38
+    ],
+    "block": "monster",
+    "groesse": "gross",
+    "ort": "hauptstrasse",
+    "modul": "haeuserzeile",
+    "haupt": {
+     "art": "kamera",
+     "wort": "peeks",
+     "wort_i": 38,
+     "wort_start": 11.22,
+     "start": 11.22,
+     "ende": 11.22,
+     "anker": "start",
+     "schluesselwort_idee": "peeks"
+    },
+    "gesichter": [],
+    "hauptsache": "mh.haende",
+    "bogen_zeit": 11.37,
+    "akzent": false,
+    "monster": true,
+    "sichtbar": [
+     "mh"
+    ]
+   }
+  },
+  {
+   "id": "E09",
+   "start": 12,
+   "ende": 12.7667,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "nacht",
+   "kamera": {
+    "baustein": "push_in",
+    "punkt": "strasse.platz_detail",
+    "rate": 0.1
+   },
+   "stellung": {
+    "mh": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [],
+   "tiefenunschaerfe": {
+    "fokus": "strasse.kirche_uhr",
+    "staerke": 0.8
+   },
+   "schatten_bereich": 24,
+   "text": "At midnight,",
+   "plan": {
+    "key": "5",
+    "satz": 5,
+    "woerter": [
+     39,
+     40
+    ],
+    "block": "monster",
+    "groesse": "nah",
+    "ort": "hauptstrasse",
+    "modul": "platz",
+    "haupt": {
+     "art": "set",
+     "was": "uhr",
+     "wort": "midnight",
+     "wort_i": 40,
+     "wort_start": 12.18,
+     "start": 12.18,
+     "ende": 12.18,
+     "anker": "start",
+     "schluesselwort_idee": "midnight"
+    },
+    "gesichter": [],
+    "hauptsache": "strasse.kirche_uhr",
+    "bogen_zeit": 12.38,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": []
+   }
+  },
+  {
+   "id": "E10",
+   "start": 12.7667,
+   "ende": 14.1333,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "nacht",
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": {
+     "anker": "mh.brust",
+     "versatz": [
+      0,
+      0.6,
+      0
+     ]
+    },
+    "pos": [
+     -6,
+     1.3,
+     -44
+    ],
+    "fov": 48,
+    "rate": 0.07
+   },
+   "stellung": {
+    "mh": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      2.5,
+      0,
+      -54
+     ],
+     "blick": 0,
+     "gesicht": "glatt"
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "mh",
+     "was": "zaehlen",
+     "start": 12.88,
+     "dauer": 1.3,
+     "params": {
+      "takt": 0.5
+     }
+    }
+   ],
+   "schatten_bereich": 24,
+   "text": "it counts to one hundred,",
+   "plan": {
+    "key": "5:it counts",
+    "satz": 5,
+    "woerter": [
+     41,
+     45
+    ],
+    "block": "monster",
+    "groesse": "halbtotale",
+    "ort": "hauptstrasse",
+    "modul": "platz",
+    "haupt": {
+     "art": "aktion",
+     "wer": "mh",
+     "was": "zaehlen",
+     "wort": "counts",
+     "wort_i": 42,
+     "wort_start": 12.88,
+     "start": 12.88,
+     "ende": 14.18,
+     "anker": "start",
+     "schluesselwort_idee": "counts"
+    },
+    "gesichter": [],
+    "hauptsache": "mh.haende",
+    "bogen_zeit": 14.0666,
+    "akzent": false,
+    "monster": true,
+    "sichtbar": [
+     "mh"
+    ]
+   }
+  },
+  {
+   "id": "E11",
+   "start": 14.1333,
+   "ende": 15.4333,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "nacht",
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": {
+     "anker": "nb_ohren.kopf",
+     "versatz": [
+      0,
+      -0.22,
+      0
+     ]
+    },
+    "blick": {
+     "azimut": 118,
+     "hoehe": 4,
+     "abstand": 2.6
+    },
+    "fov": 40,
+    "rate": 0.07
+   },
+   "stellung": {
+    "nb_ohren": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -10.7,
+      0.6,
+      15.2
+     ],
+     "blick": 90,
+     "gesicht": "angst"
+    },
+    "mh": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "nb_ohren",
+     "was": "ohren_zuhalten",
+     "start": 14.86,
+     "dauer": 0.4
+    }
+   ],
+   "schatten_bereich": 24,
+   "text": "slow and deep,",
+   "plan": {
+    "key": "5:slow",
+    "satz": 5,
+    "woerter": [
+     46,
+     48
+    ],
+    "block": "monster",
+    "groesse": "halbnah",
+    "ort": "hauptstrasse",
+    "modul": "haeuserzeile",
+    "haupt": {
+     "art": "aktion",
+     "wer": "nb_ohren",
+     "was": "ohren_zuhalten",
+     "wort": "deep",
+     "wort_i": 48,
+     "wort_start": 14.86,
+     "start": 14.86,
+     "ende": 15.26,
+     "anker": "start",
+     "schluesselwort_idee": "deep"
+    },
+    "gesichter": [],
+    "hauptsache": "nb_ohren.kopf",
+    "bogen_zeit": 15.36,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": [
+     "nb_ohren"
+    ]
+   }
+  },
+  {
+   "id": "E12",
+   "start": 15.4333,
+   "ende": 17.1333,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "nacht",
+   "kamera": {
+    "baustein": "truck_side",
+    "pos": [
+     -2.5,
+     1.8,
+     15
+    ],
+    "ziel": [
+     11,
+     4.6,
+     -5
+    ],
+    "fov": 48,
+    "richtung": "rechts",
+    "strecke": 2.4,
+    "vordergrund": {
+     "art": "pfosten",
+     "abstand": 1.5,
+     "breite": 0.18,
+     "zeit": 15.68
+    }
+   },
+   "stellung": {
+    "nb_ohren": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [],
+   "licht_ereignisse": [
+    {
+     "art": "aus",
+     "start": 15.88,
+     "ziele": [
+      "strasse.fenster_o3_oben",
+      "strasse.fenster_pike_oben",
+      "strasse.fenster_o2_oben",
+      "strasse.fenster_o1_oben"
+     ],
+     "dauer": 0.3,
+     "versatz": 0.25
+    }
+   ],
+   "schatten_bereich": 24,
+   "text": "and the whole town hears it.",
+   "plan": {
+    "key": "5:and the whole",
+    "satz": 5,
+    "woerter": [
+     49,
+     54
+    ],
+    "block": "monster",
+    "groesse": "totale",
+    "ort": "hauptstrasse",
+    "modul": "haeuserzeile",
+    "haupt": {
+     "art": "licht",
+     "wort": "hears",
+     "wort_i": 53,
+     "wort_start": 16.28,
+     "start": 15.88,
+     "ende": 16.93,
+     "anker": "start",
+     "schluesselwort_idee": "hears"
+    },
+    "gesichter": [],
+    "hauptsache": null,
+    "bogen_zeit": 17.03,
+    "akzent": true,
+    "monster": false,
+    "sichtbar": []
+   }
+  },
+  {
+   "id": "E13",
+   "start": 17.1333,
+   "ende": 19.1667,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "nacht",
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": {
+     "anker": "eli.kopf",
+     "versatz": [
+      0,
+      -0.1,
+      0
+     ]
+    },
+    "blick": {
+     "azimut": 112,
+     "hoehe": 3,
+     "abstand": 2.4
+    },
+    "fov": 40,
+    "rate": 0.07
+   },
+   "stellung": {
+    "eli": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -7.4,
+      0,
+      3.6
+     ],
+     "blick": 90,
+     "gesicht": "nervoes"
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "eli",
+     "was": "mund_zuhalten",
+     "start": 17.82,
+     "dauer": 0.4
+    },
+    {
+     "wer": "eli",
+     "was": "gesicht",
+     "start": 18.46,
+     "params": {
+      "name": "angst"
+     }
+    }
+   ],
+   "partikel": [
+    {
+     "start": 17.26,
+     "dauer": 1.9067,
+     "art": "atem",
+     "ort": "eli.mund",
+     "periode": 1.4,
+     "groesse": 0.1,
+     "deckkraft": 0.75
+    }
+   ],
+   "tiefenunschaerfe": {
+    "fokus": "eli.kopf",
+    "staerke": 0.8
+   },
+   "schatten_bereich": 24,
+   "text": "Your breath turns white when it's close.",
+   "plan": {
+    "key": "6",
+    "satz": 6,
+    "woerter": [
+     55,
+     61
+    ],
+    "block": "monster",
+    "groesse": "nah",
+    "ort": "hauptstrasse",
+    "modul": "marsh-aussen",
+    "haupt": {
+     "art": "aktion",
+     "wer": "eli",
+     "was": "mund_zuhalten",
+     "wort": "white",
+     "wort_i": 58,
+     "wort_start": 17.82,
+     "start": 17.82,
+     "ende": 18.22,
+     "anker": "start",
+     "schluesselwort_idee": "white"
+    },
+    "gesichter": [
+     {
+      "wer": "eli",
+      "name": "angst",
+      "wort": "close",
+      "wort_start": 18.46,
+      "start": 18.46
+     }
+    ],
+    "hauptsache": "eli.kopf",
+    "bogen_zeit": 18.32,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": [
+     "eli"
+    ]
+   }
+  },
+  {
+   "id": "E14",
+   "start": 19.1667,
+   "ende": 20.0667,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "nacht",
+   "kamera": {
+    "baustein": "push_in",
+    "pos": [
+     9.55,
+     0.28,
+     22.4
+    ],
+    "ziel": {
+     "anker": "mh.fuss",
+     "versatz": [
+      0,
+      0.45,
+      0
+     ]
+    },
+    "fov": 58,
+    "rate": 0.06
+   },
+   "stellung": {
+    "mh": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      7.9,
+      0,
+      27
+     ],
+     "blick": 180,
+     "gesicht": "glatt"
+    },
+    "eli": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "mh",
+     "was": "stapfen",
+     "start": 17.58,
+     "dauer": 1.8,
+     "params": {
+      "nach": [
+       7.9,
+       24
+      ],
+      "schritt": 0.9,
+      "halt_im_schritt": true
+     }
+    }
+   ],
+   "schatten_bereich": 24,
+   "text": "When it finds you,",
+   "plan": {
+    "key": "7",
+    "satz": 7,
+    "woerter": [
+     62,
+     65
+    ],
+    "block": "monster",
+    "groesse": "pov",
+    "ort": "hauptstrasse",
+    "modul": "haeuserzeile",
+    "haupt": {
+     "art": "aktion",
+     "wer": "mh",
+     "was": "stapfen",
+     "wort": "finds",
+     "wort_i": 64,
+     "wort_start": 19.38,
+     "start": 17.58,
+     "ende": 19.38,
+     "anker": "ende",
+     "schluesselwort_idee": "finds"
+    },
+    "gesichter": [],
+    "hauptsache": "mh.fuss",
+    "bogen_zeit": 19.48,
+    "akzent": false,
+    "monster": true,
+    "sichtbar": [
+     "mh"
+    ]
+   }
+  },
+  {
+   "id": "E15",
+   "start": 20.0667,
+   "ende": 20.9,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "nacht",
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": {
+     "anker": "mh.huefte",
+     "versatz": [
+      0,
+      1,
+      -1.8
+     ]
+    },
+    "blick": {
+     "azimut": 272,
+     "hoehe": 6,
+     "abstand": 12.5
+    },
+    "fov": 50,
+    "rate": 0.04
+   },
+   "stellung": {
+    "mh": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      7.9,
+      0,
+      24
+     ],
+     "blick": 180,
+     "gesicht": "glatt"
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "mh",
+     "was": "vorbeugen",
+     "start": 20.22,
+     "dauer": 0.8,
+     "params": {
+      "winkel": 65
+     }
+    }
+   ],
+   "schatten_bereich": 24,
+   "text": "it bends down and",
+   "plan": {
+    "key": "7:it bends",
+    "satz": 7,
+    "woerter": [
+     66,
+     69
+    ],
+    "block": "monster",
+    "groesse": "halbtotale",
+    "ort": "hauptstrasse",
+    "modul": "haeuserzeile",
+    "haupt": {
+     "art": "aktion",
+     "wer": "mh",
+     "was": "vorbeugen",
+     "wort": "bends",
+     "wort_i": 67,
+     "wort_start": 20.22,
+     "start": 20.22,
+     "ende": 21.02,
+     "anker": "start",
+     "schluesselwort_idee": "bends"
+    },
+    "gesichter": [],
+    "hauptsache": "mh.kopf",
+    "bogen_zeit": 20.8333,
+    "akzent": false,
+    "monster": true,
+    "sichtbar": [
+     "mh"
+    ]
+   }
+  },
+  {
+   "id": "E16",
+   "start": 20.9,
+   "ende": 22.8,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "nacht",
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": {
+     "anker": "mh.kopf",
+     "versatz": [
+      0.3,
+      -1.8,
+      -2
+     ]
+    },
+    "blick": {
+     "azimut": -20,
+     "hoehe": 22,
+     "abstand": 5.5,
+     "bezug": "mh.kopf"
+    },
+    "fov": 50,
+    "rate": 0.07
+   },
+   "stellung": {
+    "mh": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      7.9,
+      0,
+      24
+     ],
+     "blick": 180,
+     "gesicht": "glatt",
+     "pose": "vorbeugen",
+     "pose_params": {
+      "winkel": 65
+     }
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "mh",
+     "was": "haende_weg",
+     "start": 21.56,
+     "dauer": 0.6
+    }
+   ],
+   "tiefenunschaerfe": {
+    "fokus": "mh.kopf",
+    "staerke": 0.8
+   },
+   "schatten_bereich": 24,
+   "text": "takes its hands away from its face.",
+   "plan": {
+    "key": "7:takes",
+    "satz": 7,
+    "woerter": [
+     70,
+     76
+    ],
+    "block": "monster",
+    "groesse": "ueber-schulter",
+    "ort": "hauptstrasse",
+    "modul": "haeuserzeile",
+    "haupt": {
+     "art": "aktion",
+     "wer": "mh",
+     "was": "haende_weg",
+     "wort": "away",
+     "wort_i": 73,
+     "wort_start": 21.56,
+     "start": 21.56,
+     "ende": 22.16,
+     "anker": "start",
+     "schluesselwort_idee": "away"
+    },
+    "gesichter": [],
+    "hauptsache": "mh.kopf",
+    "bogen_zeit": 22.26,
+    "akzent": false,
+    "monster": true,
+    "sichtbar": [
+     "mh"
+    ]
+   }
+  },
+  {
+   "id": "E17",
+   "start": 22.8,
+   "ende": 24.4333,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "tag",
+   "licht_anpassung": {
+    "haupt": {
+     "richtung": [
+      0.8,
+      0.42,
+      0.25
+     ],
+     "farbe": "#ffe2c0"
+    },
+    "hemi": {
+     "himmel": "#e6ecf5"
+    }
+   },
+   "kamera": {
+    "baustein": "crane_down_tilt",
+    "ziel": "sp_strasse.mitte",
+    "pos": [
+     1.2,
+     2.6,
+     21
+    ],
+    "hoehe": 9,
+    "rueck": 3,
+    "fov": 48,
+    "ankunft": 24,
+    "start": 22.55
+   },
+   "stellung": {
+    "sp_strasse": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      0.4,
+      0.02,
+      12
+     ],
+     "blick": 0
+    },
+    "mh": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [],
+   "schatten_bereich": 24,
+   "text": "In the morning, all that's left are your",
+   "plan": {
+    "key": "8",
+    "satz": 8,
+    "woerter": [
+     77,
+     84
+    ],
+    "block": "monster",
+    "groesse": "totale",
+    "ort": "hauptstrasse",
+    "modul": "haeuserzeile",
+    "haupt": {
+     "art": "kamera",
+     "wort": "left",
+     "wort_i": 82,
+     "wort_start": 24,
+     "start": 24,
+     "ende": 24,
+     "anker": "start",
+     "schluesselwort_idee": "left"
+    },
+    "gesichter": [],
+    "hauptsache": "sp_strasse.mitte",
+    "bogen_zeit": 24.15,
+    "akzent": true,
+    "monster": false,
+    "sichtbar": [
+     "sp_strasse"
+    ]
+   }
+  },
+  {
+   "id": "E18",
+   "start": 24.4333,
+   "ende": 26.3333,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "tag",
+   "licht_anpassung": {
+    "haupt": {
+     "richtung": [
+      0.8,
+      0.42,
+      0.25
+     ],
+     "farbe": "#ffe2c0"
+    },
+    "hemi": {
+     "himmel": "#e6ecf5"
+    }
+   },
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": "sp_strasse.mitte",
+    "blick": {
+     "azimut": 8,
+     "hoehe": 14,
+     "abstand": 1.1
+    },
+    "fov": 36,
+    "rate": 0.07
+   },
+   "stellung": {
+    "sp_strasse": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      0.4,
+      0.02,
+      12
+     ],
+     "blick": 0
+    }
+   },
+   "aktionen": [],
+   "tiefenunschaerfe": {
+    "fokus": "sp_strasse.mitte",
+    "staerke": 0.8
+   },
+   "schatten_bereich": 24,
+   "text": "shoes, side by side.",
+   "plan": {
+    "key": "8:shoes",
+    "satz": 8,
+    "woerter": [
+     85,
+     88
+    ],
+    "block": "monster",
+    "groesse": "detail",
+    "ort": "hauptstrasse",
+    "modul": "haeuserzeile",
+    "haupt": {
+     "art": "kamera",
+     "wort": "shoes",
+     "wort_i": 85,
+     "wort_start": 24.48,
+     "start": 24.48,
+     "ende": 24.48,
+     "anker": "start",
+     "schluesselwort_idee": "shoes"
+    },
+    "gesichter": [],
+    "hauptsache": "sp_strasse.mitte",
+    "bogen_zeit": 24.63,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": [
+     "sp_strasse"
+    ]
+   }
+  },
+  {
+   "id": "E19",
+   "start": 26.3333,
+   "ende": 28.2667,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "tag",
+   "kamera": {
+    "baustein": "push_in",
+    "pos": [
+     -5.5,
+     8.5,
+     -38
+    ],
+    "ziel": [
+     0.4,
+     2.5,
+     -56.5
+    ],
+    "fov": 50,
+    "rate": 0.07
+   },
+   "stellung": {
+    "odell": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      1.2,
+      0,
+      -57.6
+     ],
+     "blick": 0,
+     "gesicht": "streng"
+    },
+    "nb_passant": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -6.5,
+      0,
+      -53
+     ],
+     "blick": 90,
+     "gesicht": "neutral"
+    },
+    "nb_alt": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      6.5,
+      0,
+      -52
+     ],
+     "blick": -100,
+     "gesicht": "neutral"
+    },
+    "sp_strasse": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "nb_passant",
+     "was": "gehen",
+     "dauer": 2,
+     "ease": "linear",
+     "params": {
+      "nach": [
+       -2.5,
+       -53
+      ]
+     },
+     "start": 26.3333,
+     "nebenbei": true
+    },
+    {
+     "wer": "nb_alt",
+     "was": "gehen",
+     "dauer": 2,
+     "ease": "linear",
+     "params": {
+      "nach": [
+       3.6,
+       -52.6
+      ]
+     },
+     "start": 26.3333,
+     "nebenbei": true
+    },
+    {
+     "wer": "odell",
+     "was": "kopf_drehen",
+     "start": 27.28,
+     "dauer": 0.3,
+     "params": {
+      "zu": "kamera"
+     }
+    }
+   ],
+   "schatten_bereich": 24,
+   "text": "The town calls it Hiding Night.",
+   "plan": {
+    "key": "9",
+    "satz": 9,
+    "woerter": [
+     89,
+     94
+    ],
+    "block": "system",
+    "groesse": "totale",
+    "ort": "hauptstrasse",
+    "modul": "platz",
+    "haupt": {
+     "art": "aktion",
+     "wer": "odell",
+     "was": "kopf_drehen",
+     "wort": "Hiding",
+     "wort_i": 93,
+     "wort_start": 27.28,
+     "start": 27.28,
+     "ende": 27.58,
+     "anker": "start",
+     "schluesselwort_idee": "Hiding"
+    },
+    "gesichter": [],
+    "hauptsache": "odell.kopf",
+    "bogen_zeit": 27.68,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": [
+     "odell",
+     "nb_passant",
+     "nb_alt"
+    ]
+   }
+  },
+  {
+   "id": "E20",
+   "start": 28.2667,
+   "ende": 29.5333,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "tag",
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": {
+     "anker": "odell.kopf",
+     "versatz": [
+      -0.1,
+      -0.3,
+      0
+     ]
+    },
+    "blick": {
+     "azimut": -24,
+     "hoehe": 4,
+     "abstand": 2.9
+    },
+    "fov": 40,
+    "rate": 0.07
+   },
+   "stellung": {
+    "odell": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      1.2,
+      0,
+      -57.6
+     ],
+     "blick": 0,
+     "gesicht": "streng"
+    },
+    "nb_passant": {
+     "sichtbar": false
+    },
+    "nb_alt": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "odell",
+     "was": "geste",
+     "start": 28.58,
+     "dauer": 0.3,
+     "params": {
+      "art": "finger_heben"
+     }
+    }
+   ],
+   "schatten_bereich": 24,
+   "text": "There's only one rule.",
+   "plan": {
+    "key": "10",
+    "satz": 10,
+    "woerter": [
+     95,
+     98
+    ],
+    "block": "system",
+    "groesse": "halbnah",
+    "ort": "hauptstrasse",
+    "modul": "platz",
+    "haupt": {
+     "art": "aktion",
+     "wer": "odell",
+     "was": "geste",
+     "wort": "one",
+     "wort_i": 97,
+     "wort_start": 28.58,
+     "start": 28.58,
+     "ende": 28.88,
+     "anker": "start",
+     "schluesselwort_idee": "one"
+    },
+    "gesichter": [],
+    "hauptsache": "odell.kopf",
+    "bogen_zeit": 28.98,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": [
+     "odell"
+    ]
+   }
+  },
+  {
+   "id": "E21",
+   "start": 29.5333,
+   "ende": 31.1333,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "tag",
+   "kamera": {
+    "baustein": "truck_side",
+    "ziel": [
+     -0.6,
+     1.35,
+     -50.2
+    ],
+    "blick": {
+     "azimut": 32,
+     "hoehe": 5,
+     "abstand": 4.6
+    },
+    "fov": 46,
+    "richtung": "rechts",
+    "mitschwenken": true,
+    "strecke": 1.8,
+    "vordergrund": {
+     "art": "pfosten",
+     "abstand": 1.4,
+     "breite": 0.16,
+     "zeit": 29.57
+    }
+   },
+   "stellung": {
+    "nb_mantel": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -0.75,
+      0,
+      -50.4
+     ],
+     "blick": 80,
+     "gesicht": "besorgt"
+    },
+    "nb_jungfrau": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      0.05,
+      0,
+      -50.6
+     ],
+     "blick": -100,
+     "gesicht": "nervoes"
+    },
+    "odell": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -1.25,
+      0,
+      -49.75
+     ],
+     "blick": 125,
+     "gesicht": "streng"
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "nb_mantel",
+     "was": "arm_heben",
+     "dauer": 0.35,
+     "params": {
+      "seite": "r",
+      "vorn": 70,
+      "seitlich": 20
+     },
+     "start": 29.5333,
+     "nebenbei": true
+    },
+    {
+     "wer": "odell",
+     "was": "greifen",
+     "start": 30.1,
+     "dauer": 0.4,
+     "params": {
+      "zu": "nb_mantel.hand_r",
+      "seite": "r"
+     }
+    }
+   ],
+   "schatten_bereich": 24,
+   "text": "Nobody can help you hide.",
+   "plan": {
+    "key": "11",
+    "satz": 11,
+    "woerter": [
+     99,
+     103
+    ],
+    "block": "system",
+    "groesse": "halbnah",
+    "ort": "hauptstrasse",
+    "modul": "platz",
+    "haupt": {
+     "art": "aktion",
+     "wer": "odell",
+     "was": "greifen",
+     "wort": "help",
+     "wort_i": 101,
+     "wort_start": 30.1,
+     "start": 30.1,
+     "ende": 30.5,
+     "anker": "start",
+     "schluesselwort_idee": "help"
+    },
+    "gesichter": [],
+    "hauptsache": "nb_mantel.kopf",
+    "bogen_zeit": 30.6,
+    "akzent": true,
+    "monster": false,
+    "sichtbar": [
+     "nb_mantel",
+     "nb_jungfrau",
+     "odell"
+    ]
+   }
+  },
+  {
+   "id": "E22",
+   "start": 31.1333,
+   "ende": 32,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "nacht",
+   "licht_anpassung": {
+    "hemi": {
+     "staerke": 2
+    },
+    "belichtung": 1.45
+   },
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": [
+     -9.5,
+     1.45,
+     -18.9
+    ],
+    "pos": [
+     -6.6,
+     1.6,
+     -20
+    ],
+    "fov": 46,
+    "rate": 0.07
+   },
+   "stellung": {
+    "nb_frau": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -10.15,
+      0.6,
+      -19.1
+     ],
+     "blick": 90,
+     "gesicht": "angst"
+    },
+    "nb_jung": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -8.9,
+      0,
+      -18.55
+     ],
+     "blick": -114,
+     "gesicht": "angst"
+    },
+    "nb_mantel": {
+     "sichtbar": false
+    },
+    "nb_jungfrau": {
+     "sichtbar": false
+    },
+    "odell": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "nb_jung",
+     "was": "arm_heben",
+     "dauer": 0.3,
+     "params": {
+      "seite": "r",
+      "vorn": 55
+     },
+     "start": 31.1333,
+     "nebenbei": true
+    },
+    {
+     "wer": "nb_frau",
+     "was": "greifen",
+     "start": 31.38,
+     "dauer": 0.4,
+     "params": {
+      "zu": "nb_jung.hand_r",
+      "seite": "r"
+     }
+    }
+   ],
+   "schatten_bereich": 24,
+   "text": "If they try,",
+   "plan": {
+    "key": "12",
+    "satz": 12,
+    "woerter": [
+     104,
+     106
+    ],
+    "block": "system",
+    "groesse": "halbtotale",
+    "ort": "hauptstrasse",
+    "modul": "haeuserzeile",
+    "haupt": {
+     "art": "aktion",
+     "wer": "nb_frau",
+     "was": "greifen",
+     "wort": "try",
+     "wort_i": 106,
+     "wort_start": 31.38,
+     "start": 31.38,
+     "ende": 31.78,
+     "anker": "start",
+     "schluesselwort_idee": "try"
+    },
+    "gesichter": [],
+    "hauptsache": "nb_frau.hand_r",
+    "bogen_zeit": 31.88,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": [
+     "nb_frau",
+     "nb_jung"
+    ]
+   }
+  },
+  {
+   "id": "E23",
+   "start": 32,
+   "ende": 33.2333,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "tag",
+   "licht_anpassung": {
+    "haupt": {
+     "richtung": [
+      0.8,
+      0.42,
+      0.25
+     ],
+     "farbe": "#ffe2c0"
+    },
+    "hemi": {
+     "himmel": "#e6ecf5"
+    }
+   },
+   "kamera": {
+    "baustein": "snap_zoom",
+    "ziel": [
+     -11.2,
+     0.7,
+     -19.05
+    ],
+    "blick": {
+     "azimut": 108,
+     "hoehe": 26,
+     "abstand": 2.4
+    },
+    "fov": 40,
+    "faktor": 1.18,
+    "bilder": 2,
+    "zeit": 32.58
+   },
+   "stellung": {
+    "sp_v1": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -11.25,
+      0.6,
+      -18.82
+     ],
+     "blick": 90
+    },
+    "sp_v2": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -11.25,
+      0.6,
+      -19.28
+     ],
+     "blick": 90
+    },
+    "nb_frau": {
+     "sichtbar": false
+    },
+    "nb_jung": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [],
+   "tiefenunschaerfe": {
+    "fokus": -11.25,
+    "staerke": 0.8
+   },
+   "schatten_bereich": 24,
+   "text": "it takes them too.",
+   "plan": {
+    "key": "12:it takes",
+    "satz": 12,
+    "woerter": [
+     107,
+     110
+    ],
+    "block": "system",
+    "groesse": "detail",
+    "ort": "hauptstrasse",
+    "modul": "haeuserzeile",
+    "haupt": {
+     "art": "kamera",
+     "wort": "too",
+     "wort_i": 110,
+     "wort_start": 32.58,
+     "start": 32.58,
+     "ende": 32.58,
+     "anker": "start",
+     "schluesselwort_idee": "too"
+    },
+    "gesichter": [],
+    "hauptsache": [
+     -11.25,
+     0.65,
+     -19.05
+    ],
+    "bogen_zeit": 32.73,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": [
+     "sp_v1",
+     "sp_v2"
+    ]
+   }
+  },
+  {
+   "id": "E24",
+   "start": 33.2333,
+   "ende": 34.5333,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "nacht",
+   "kamera": {
+    "baustein": "push_in",
+    "punkt": "strasse.ende_halbtotale",
+    "rate": 0.1
+   },
+   "stellung": {
+    "sp_v1": {
+     "sichtbar": false
+    },
+    "sp_v2": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [],
+   "schatten_bereich": 24,
+   "text": "You can't run, either.",
+   "plan": {
+    "key": "13",
+    "satz": 13,
+    "woerter": [
+     111,
+     114
+    ],
+    "block": "system",
+    "groesse": "totale",
+    "ort": "hauptstrasse",
+    "modul": "strassenende",
+    "haupt": {
+     "art": "kamera",
+     "wort": "run",
+     "wort_i": 113,
+     "wort_start": 33.6,
+     "start": 33.6,
+     "ende": 33.6,
+     "anker": "start",
+     "schluesselwort_idee": "run"
+    },
+    "gesichter": [],
+    "hauptsache": "strasse.ende_schranke",
+    "bogen_zeit": 33.75,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": []
+   }
+  },
+  {
+   "id": "E25",
+   "start": 34.5333,
+   "ende": 36.3333,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "nacht",
+   "licht_anpassung": {
+    "grade": {
+     "saettigung": 0.62,
+     "kontrast": 1.04
+    },
+    "belichtung": 1.35
+   },
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": "owen.kopf",
+    "blick": {
+     "azimut": -68,
+     "hoehe": 4,
+     "abstand": 2.8
+    },
+    "fov": 42,
+    "rate": 0.07
+   },
+   "stellung": {
+    "owen": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      7.6,
+      0,
+      -11.25
+     ],
+     "blick": -90,
+     "gesicht": "entschlossen"
+    },
+    "pk": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      8.6,
+      0,
+      -12.6
+     ],
+     "blick": -90
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "owen",
+     "was": "kopf_drehen",
+     "dauer": 0.03,
+     "params": {
+      "winkel": -65
+     },
+     "start": 34.5333,
+     "nebenbei": true
+    },
+    {
+     "wer": "owen",
+     "was": "kopf_drehen",
+     "start": 35.91,
+     "dauer": 0.25,
+     "params": {
+      "zu": "kamera"
+     }
+    }
+   ],
+   "schatten_bereich": 24,
+   "text": "On his eighteenth birthday, Owen Pike",
+   "plan": {
+    "key": "14",
+    "satz": 14,
+    "woerter": [
+     115,
+     120
+    ],
+    "block": "system",
+    "groesse": "halbnah",
+    "ort": "hauptstrasse",
+    "modul": "pike-haus",
+    "haupt": {
+     "art": "aktion",
+     "wer": "owen",
+     "was": "kopf_drehen",
+     "wort": "Owen",
+     "wort_i": 119,
+     "wort_start": 35.91,
+     "start": 35.91,
+     "ende": 36.16,
+     "anker": "start",
+     "schluesselwort_idee": "Owen"
+    },
+    "gesichter": [],
+    "hauptsache": "owen.kopf",
+    "bogen_zeit": 36.26,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": [
+     "owen",
+     "pk"
+    ],
+    "rueckblende": true
+   }
+  },
+  {
+   "id": "E26",
+   "start": 36.3333,
+   "ende": 37.7,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "nacht",
+   "licht_anpassung": {
+    "grade": {
+     "saettigung": 0.62,
+     "kontrast": 1.04
+    }
+   },
+   "kamera": {
+    "baustein": "track_follow",
+    "folge": "pk.mitte",
+    "versatz": [
+     0.6,
+     2.5,
+     -8
+    ],
+    "ziel_versatz": [
+     0,
+     0.3,
+     1.2
+    ],
+    "fov": 50
+   },
+   "stellung": {
+    "pk": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      1.8,
+      0,
+      -8
+     ],
+     "blick": 0
+    },
+    "owen": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "pk",
+     "was": "fahren",
+     "start": 36.38,
+     "dauer": 3,
+     "ease": "ease_in",
+     "params": {
+      "nach": [
+       1.8,
+       40
+      ]
+     }
+    }
+   ],
+   "schatten_bereich": 24,
+   "text": "drove all night.",
+   "plan": {
+    "key": "14:drove",
+    "satz": 14,
+    "woerter": [
+     121,
+     123
+    ],
+    "block": "system",
+    "groesse": "totale",
+    "ort": "hauptstrasse",
+    "modul": "haeuserzeile",
+    "haupt": {
+     "art": "aktion",
+     "wer": "pk",
+     "was": "fahren",
+     "wort": "drove",
+     "wort_i": 121,
+     "wort_start": 36.38,
+     "start": 36.38,
+     "ende": 39.38,
+     "anker": "start",
+     "schluesselwort_idee": "drove"
+    },
+    "gesichter": [],
+    "hauptsache": "pk.mitte",
+    "bogen_zeit": 37.6333,
+    "akzent": true,
+    "monster": false,
+    "sichtbar": [
+     "pk"
+    ],
+    "rueckblende": true
+   }
+  },
+  {
+   "id": "E27",
+   "start": 37.7,
+   "ende": 38.5333,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "daemmerung",
+   "licht_anpassung": {
+    "himmel": {
+     "zenit": "#3b4f8a",
+     "horizont": "#f6b27a",
+     "scheibe": {
+      "richtung": [
+       0.08,
+       0.07,
+       0.99
+      ],
+      "farbe": "#ffd29a",
+      "groesse": 2.6,
+      "staerke": 6,
+      "glanz": 0.7
+     }
+    },
+    "haupt": {
+     "richtung": [
+      0.1,
+      0.25,
+      0.96
+     ],
+     "farbe": "#ffc08a",
+     "staerke": 2.3
+    },
+    "nebel": {
+     "farbe": "#c9a49a",
+     "dichte": 0.014
+    },
+    "grade": {
+     "saettigung": 0.62,
+     "kontrast": 1.04
+    }
+   },
+   "kamera": {
+    "baustein": "push_in",
+    "pos": [
+     0.6,
+     1.6,
+     34
+    ],
+    "ziel": [
+     0,
+     4.5,
+     75
+    ],
+    "fov": 50,
+    "rate": 0.08
+   },
+   "stellung": {
+    "pk": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [],
+   "schatten_bereich": 24,
+   "text": "At sunrise,",
+   "plan": {
+    "key": "15",
+    "satz": 15,
+    "woerter": [
+     124,
+     125
+    ],
+    "block": "system",
+    "groesse": "totale",
+    "ort": "hauptstrasse",
+    "modul": "strassenende",
+    "haupt": {
+     "art": "kamera",
+     "wort": "sunrise",
+     "wort_i": 125,
+     "wort_start": 37.84,
+     "start": 37.84,
+     "ende": 37.84,
+     "anker": "start",
+     "schluesselwort_idee": "sunrise"
+    },
+    "gesichter": [],
+    "hauptsache": null,
+    "bogen_zeit": 37.99,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": [],
+    "rueckblende": true
+   }
+  },
+  {
+   "id": "E28",
+   "start": 38.5333,
+   "ende": 40.3,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "daemmerung",
+   "licht_anpassung": {
+    "himmel": {
+     "zenit": "#3b4f8a",
+     "horizont": "#f6b27a",
+     "scheibe": {
+      "richtung": [
+       0.08,
+       0.07,
+       0.99
+      ],
+      "farbe": "#ffd29a",
+      "groesse": 2.6,
+      "staerke": 6,
+      "glanz": 0.7
+     }
+    },
+    "haupt": {
+     "richtung": [
+      0.1,
+      0.25,
+      0.96
+     ],
+     "farbe": "#ffc08a",
+     "staerke": 2.3
+    },
+    "nebel": {
+     "farbe": "#c9a49a",
+     "dichte": 0.014
+    },
+    "grade": {
+     "saettigung": 0.62,
+     "kontrast": 1.04
+    }
+   },
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": {
+     "anker": "pk2.mitte",
+     "versatz": [
+      0,
+      0.3,
+      0.4
+     ]
+    },
+    "pos": [
+     3.4,
+     1.3,
+     -7.8
+    ],
+    "fov": 46,
+    "rate": 0.07
+   },
+   "stellung": {
+    "pk2": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      8.6,
+      0,
+      -12.6
+     ],
+     "blick": -90,
+     "pose": "tuer_auf",
+     "pose_params": {
+      "winkel": 25
+     }
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "pk2",
+     "was": "tuer_auf",
+     "start": 39.08,
+     "dauer": 0.9,
+     "params": {
+      "winkel": 62
+     }
+    }
+   ],
+   "partikel": [
+    {
+     "start": 38.5333,
+     "dauer": 1.7667,
+     "art": "atem",
+     "ort": "pk2.auspuff",
+     "periode": 0.7,
+     "richtung": [
+      1,
+      0.15,
+      0
+     ],
+     "groesse": 0.12,
+     "deckkraft": 0.6
+    }
+   ],
+   "schatten_bereich": 24,
+   "text": "his truck was back in front of his house,",
+   "plan": {
+    "key": "15:his truck",
+    "satz": 15,
+    "woerter": [
+     126,
+     134
+    ],
+    "block": "system",
+    "groesse": "halbtotale",
+    "ort": "hauptstrasse",
+    "modul": "pike-haus",
+    "haupt": {
+     "art": "aktion",
+     "wer": "pk2",
+     "was": "tuer_auf",
+     "wort": "back",
+     "wort_i": 129,
+     "wort_start": 39.08,
+     "start": 39.08,
+     "ende": 39.98,
+     "anker": "start",
+     "schluesselwort_idee": "back"
+    },
+    "gesichter": [],
+    "hauptsache": "pk2.mitte",
+    "bogen_zeit": 40.08,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": [
+     "pk2"
+    ],
+    "rueckblende": true
+   }
+  },
+  {
+   "id": "E29",
+   "start": 40.3,
+   "ende": 41.2333,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "daemmerung",
+   "licht_anpassung": {
+    "himmel": {
+     "zenit": "#3b4f8a",
+     "horizont": "#f6b27a",
+     "scheibe": {
+      "richtung": [
+       0.08,
+       0.07,
+       0.99
+      ],
+      "farbe": "#ffd29a",
+      "groesse": 2.6,
+      "staerke": 6,
+      "glanz": 0.7
+     }
+    },
+    "haupt": {
+     "richtung": [
+      0.1,
+      0.25,
+      0.96
+     ],
+     "farbe": "#ffc08a",
+     "staerke": 2.3
+    },
+    "nebel": {
+     "farbe": "#c9a49a",
+     "dichte": 0.014
+    },
+    "grade": {
+     "saettigung": 0.62,
+     "kontrast": 1.04
+    }
+   },
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": {
+     "anker": "pk2.auspuff",
+     "versatz": [
+      0.3,
+      0.2,
+      0
+     ]
+    },
+    "blick": {
+     "azimut": 125,
+     "hoehe": 12,
+     "abstand": 2.8
+    },
+    "fov": 40,
+    "rate": 0.07
+   },
+   "stellung": {
+    "pk2": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      8.6,
+      0,
+      -12.6
+     ],
+     "blick": -90,
+     "pose": "tuer_auf",
+     "pose_params": {
+      "winkel": 62
+     }
+    }
+   },
+   "aktionen": [],
+   "partikel": [
+    {
+     "art": "atem",
+     "start": 40.34,
+     "ort": "pk2.auspuff",
+     "periode": 0.55,
+     "richtung": [
+      1,
+      0.15,
+      0
+     ],
+     "groesse": 0.07,
+     "deckkraft": 0.55,
+     "dauer": 1
+    }
+   ],
+   "tiefenunschaerfe": {
+    "fokus": "pk2.auspuff",
+    "staerke": 0.8
+   },
+   "schatten_bereich": 24,
+   "text": "engine running.",
+   "plan": {
+    "key": "15:engine",
+    "satz": 15,
+    "woerter": [
+     135,
+     136
+    ],
+    "block": "system",
+    "groesse": "detail",
+    "ort": "hauptstrasse",
+    "modul": "pike-haus",
+    "haupt": {
+     "art": "partikel",
+     "wort": "engine",
+     "wort_i": 135,
+     "wort_start": 40.34,
+     "start": 40.34,
+     "ende": 40.84,
+     "anker": "start",
+     "schluesselwort_idee": "engine"
+    },
+    "gesichter": [],
+    "hauptsache": "pk2.auspuff",
+    "bogen_zeit": 40.54,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": [
+     "pk2"
+    ],
+    "rueckblende": true
+   }
+  },
+  {
+   "id": "E30",
+   "start": 41.2333,
+   "ende": 43.7,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "daemmerung",
+   "licht_anpassung": {
+    "himmel": {
+     "zenit": "#3b4f8a",
+     "horizont": "#f6b27a",
+     "scheibe": {
+      "richtung": [
+       0.08,
+       0.07,
+       0.99
+      ],
+      "farbe": "#ffd29a",
+      "groesse": 2.6,
+      "staerke": 6,
+      "glanz": 0.7
+     }
+    },
+    "haupt": {
+     "richtung": [
+      0.1,
+      0.25,
+      0.96
+     ],
+     "farbe": "#ffc08a",
+     "staerke": 2.3
+    },
+    "nebel": {
+     "farbe": "#c9a49a",
+     "dichte": 0.014
+    },
+    "grade": {
+     "saettigung": 0.62,
+     "kontrast": 1.04
+    },
+    "belichtung": 1.5
+   },
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": "pk2.sitz",
+    "blick": {
+     "azimut": 10,
+     "hoehe": 30,
+     "abstand": 1.35
+    },
+    "fov": 42,
+    "rate": 0.07
+   },
+   "stellung": {
+    "pk2": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      8.6,
+      0,
+      -12.6
+     ],
+     "blick": -90,
+     "pose": "tuer_auf",
+     "pose_params": {
+      "winkel": 62
+     }
+    }
+   },
+   "aktionen": [],
+   "tiefenunschaerfe": {
+    "fokus": "pk2.sitz",
+    "staerke": 0.8
+   },
+   "schatten_bereich": 24,
+   "text": "His shoes were on the seat, side by side.",
+   "plan": {
+    "key": "16",
+    "satz": 16,
+    "woerter": [
+     137,
+     145
+    ],
+    "block": "system",
+    "groesse": "detail",
+    "ort": "hauptstrasse",
+    "modul": "pike-haus",
+    "haupt": {
+     "art": "kamera",
+     "wort": "shoes",
+     "wort_i": 138,
+     "wort_start": 41.4,
+     "start": 41.4,
+     "ende": 41.4,
+     "anker": "start",
+     "schluesselwort_idee": "shoes"
+    },
+    "gesichter": [],
+    "hauptsache": "pk2.sitz",
+    "bogen_zeit": 41.55,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": [
+     "pk2"
+    ],
+    "rueckblende": true
+   }
+  },
+  {
+   "id": "E31",
+   "start": 43.7,
+   "ende": 45.4,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "tag",
+   "kamera": {
+    "baustein": "truck_side",
+    "ziel": {
+     "anker": "nb_jung.kopf",
+     "versatz": [
+      0.15,
+      -0.2,
+      0
+     ]
+    },
+    "blick": {
+     "azimut": 18,
+     "hoehe": 4,
+     "abstand": 3.3
+    },
+    "fov": 42,
+    "richtung": "links",
+    "mitschwenken": true,
+    "strecke": 1.8,
+    "vordergrund": {
+     "art": "pfosten",
+     "abstand": 1.4,
+     "breite": 0.16,
+     "zeit": 43.96
+    }
+   },
+   "stellung": {
+    "nb_jung": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      1,
+      0,
+      -49
+     ],
+     "blick": 10,
+     "gesicht": "grinsen"
+    },
+    "nb_alt": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      2.3,
+      0,
+      -48.4
+     ],
+     "blick": -70,
+     "gesicht": "besorgt"
+    },
+    "pk2": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "nb_jung",
+     "was": "augen_zuhalten",
+     "start": 44.48,
+     "dauer": 0.35
+    }
+   ],
+   "schatten_bereich": 24,
+   "text": "Nobody here plays hide and seek,",
+   "plan": {
+    "key": "17",
+    "satz": 17,
+    "woerter": [
+     146,
+     151
+    ],
+    "block": "system",
+    "groesse": "halbnah",
+    "ort": "hauptstrasse",
+    "modul": "platz",
+    "haupt": {
+     "art": "aktion",
+     "wer": "nb_jung",
+     "was": "augen_zuhalten",
+     "wort": "hide",
+     "wort_i": 149,
+     "wort_start": 44.48,
+     "start": 44.48,
+     "ende": 44.83,
+     "anker": "start",
+     "schluesselwort_idee": "hide"
+    },
+    "gesichter": [],
+    "hauptsache": "nb_jung.kopf",
+    "bogen_zeit": 44.93,
+    "akzent": true,
+    "monster": false,
+    "sichtbar": [
+     "nb_jung",
+     "nb_alt"
+    ]
+   }
+  },
+  {
+   "id": "E32",
+   "start": 45.4,
+   "ende": 46.5667,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "tag",
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": {
+     "anker": "nb_jung.kopf",
+     "versatz": [
+      0.12,
+      -0.25,
+      -0.1
+     ]
+    },
+    "blick": {
+     "azimut": -8,
+     "hoehe": 4,
+     "abstand": 3.2
+    },
+    "fov": 44,
+    "rate": 0.07
+   },
+   "stellung": {
+    "nb_jung": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      1,
+      0,
+      -49
+     ],
+     "blick": 10,
+     "gesicht": "grinsen",
+     "pose": "augen_zuhalten"
+    },
+    "nb_alt": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      2.05,
+      0,
+      -49.6
+     ],
+     "blick": -95,
+     "gesicht": "besorgt"
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "nb_alt",
+     "was": "greifen",
+     "start": 45.88,
+     "dauer": 0.4,
+     "params": {
+      "zu": "nb_jung.hand_l",
+      "seite": "r",
+      "form": "faust"
+     }
+    },
+    {
+     "wer": "nb_jung",
+     "was": "arme_senken",
+     "dauer": 0.3,
+     "start": 46,
+     "nebenbei": true
+    },
+    {
+     "wer": "nb_jung",
+     "was": "gesicht",
+     "params": {
+      "name": "schock"
+     },
+     "start": 46,
+     "nebenbei": true
+    }
+   ],
+   "tiefenunschaerfe": {
+    "fokus": "nb_jung.kopf",
+    "staerke": 0.8
+   },
+   "schatten_bereich": 24,
+   "text": "not even for fun.",
+   "plan": {
+    "key": "17:not",
+    "satz": 17,
+    "woerter": [
+     152,
+     155
+    ],
+    "block": "system",
+    "groesse": "nah",
+    "ort": "hauptstrasse",
+    "modul": "platz",
+    "haupt": {
+     "art": "aktion",
+     "wer": "nb_alt",
+     "was": "greifen",
+     "wort": "fun",
+     "wort_i": 155,
+     "wort_start": 45.88,
+     "start": 45.88,
+     "ende": 46.28,
+     "anker": "start",
+     "schluesselwort_idee": "fun"
+    },
+    "gesichter": [],
+    "hauptsache": "nb_jung.kopf",
+    "bogen_zeit": 46.38,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": [
+     "nb_jung",
+     "nb_alt"
+    ]
+   }
+  },
+  {
+   "id": "E33",
+   "start": 46.5667,
+   "ende": 47.6333,
+   "set": [
+    "strasse",
+    "haus"
+   ],
+   "licht": "tag",
+   "licht_anpassung": {
+    "haupt": {
+     "richtung": [
+      0.8,
+      0.42,
+      0.25
+     ],
+     "farbe": "#ffe2c0"
+    },
+    "hemi": {
+     "himmel": "#e6ecf5"
+    }
+   },
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": {
+     "anker": "sp_eli_a.mitte",
+     "versatz": [
+      -0.05,
+      0.1,
+      0.05
+     ]
+    },
+    "blick": {
+     "azimut": 150,
+     "hoehe": 38,
+     "abstand": 1.8
+    },
+    "fov": 52,
+    "rate": 0.07
+   },
+   "stellung": {
+    "eli": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -13.75,
+      0.6,
+      -2
+     ],
+     "blick": 133,
+     "gesicht": "entschlossen"
+    },
+    "sp_eli_a": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -13.49,
+      0.6,
+      -2.24
+     ],
+     "blick": 133
+    },
+    "sp_eli_b": {
+     "neu": true,
+     "sichtbar": false,
+     "position": [
+      -13.2,
+      0.6,
+      -2.55
+     ],
+     "blick": 60
+    },
+    "nb_jung": {
+     "sichtbar": false
+    },
+    "nb_alt": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "eli",
+     "was": "kicken",
+     "start": 46.86,
+     "dauer": 0.4,
+     "params": {
+      "seite": "r"
+     }
+    },
+    {
+     "wer": "sp_eli_a",
+     "was": "sichtbar",
+     "params": {
+      "wert": false
+     },
+     "start": 47.01,
+     "nebenbei": true
+    },
+    {
+     "wer": "sp_eli_b",
+     "was": "sichtbar",
+     "params": {
+      "wert": true
+     },
+     "start": 47.01,
+     "nebenbei": true
+    }
+   ],
+   "schatten_bereich": 16,
+   "text": "Nobody leaves their shoes",
+   "plan": {
+    "key": "18",
+    "satz": 18,
+    "woerter": [
+     156,
+     159
+    ],
+    "block": "system",
+    "groesse": "halbnah",
+    "ort": "marsh-innen",
+    "modul": "flur",
+    "haupt": {
+     "art": "aktion",
+     "wer": "eli",
+     "was": "kicken",
+     "wort": "leaves",
+     "wort_i": 157,
+     "wort_start": 46.86,
+     "start": 46.86,
+     "ende": 47.26,
+     "anker": "start",
+     "schluesselwort_idee": "leaves"
+    },
+    "gesichter": [],
+    "hauptsache": "sp_eli_a.mitte",
+    "bogen_zeit": 47.36,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": [
+     "eli",
+     "sp_eli_a",
+     "sp_eli_b"
+    ]
+   }
+  },
+  {
+   "id": "E34",
+   "start": 47.6333,
+   "ende": 48.9333,
+   "set": [
+    "strasse",
+    "haus"
+   ],
+   "licht": "tag",
+   "licht_anpassung": {
+    "haupt": {
+     "richtung": [
+      0.8,
+      0.42,
+      0.25
+     ],
+     "farbe": "#ffe2c0"
+    },
+    "hemi": {
+     "himmel": "#e6ecf5"
+    }
+   },
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": "sp_eli_b.mitte",
+    "blick": {
+     "azimut": 60,
+     "hoehe": 52,
+     "abstand": 1.4
+    },
+    "fov": 42,
+    "rate": 0.07
+   },
+   "stellung": {
+    "sp_eli_b": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -13.2,
+      0.6,
+      -2.55
+     ],
+     "blick": 60
+    },
+    "eli": {
+     "sichtbar": false
+    },
+    "sp_eli_a": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [],
+   "tiefenunschaerfe": {
+    "fokus": "sp_eli_b.mitte",
+    "staerke": 0.8
+   },
+   "schatten_bereich": 16,
+   "text": "side by side.",
+   "plan": {
+    "key": "18:side",
+    "satz": 18,
+    "woerter": [
+     160,
+     162
+    ],
+    "block": "system",
+    "groesse": "detail",
+    "ort": "marsh-innen",
+    "modul": "flur",
+    "haupt": {
+     "art": "kamera",
+     "wort": "side",
+     "wort_i": 160,
+     "wort_start": 47.66,
+     "start": 47.66,
+     "ende": 47.66,
+     "anker": "start",
+     "schluesselwort_idee": "side"
+    },
+    "gesichter": [],
+    "hauptsache": "sp_eli_b.mitte",
+    "bogen_zeit": 47.81,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": [
+     "sp_eli_b"
+    ]
+   }
+  },
+  {
+   "id": "E35",
+   "start": 48.9333,
+   "ende": 51.4333,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "tag",
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": "odell.kopf",
+    "blick": {
+     "azimut": 12,
+     "hoehe": 2,
+     "abstand": 1.5
+    },
+    "fov": 38,
+    "rate": 0.07
+   },
+   "stellung": {
+    "odell": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      1.2,
+      0,
+      -57.6
+     ],
+     "blick": 0,
+     "gesicht": "warnend"
+    },
+    "sp_eli_b": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "odell",
+     "was": "geste",
+     "start": 50.71,
+     "dauer": 0.3,
+     "params": {
+      "art": "finger_auf_lippen"
+     }
+    }
+   ],
+   "tiefenunschaerfe": {
+    "fokus": "odell.kopf",
+    "staerke": 0.8
+   },
+   "schatten_bereich": 24,
+   "text": "And nobody ever says the word ready.",
+   "plan": {
+    "key": "19",
+    "satz": 19,
+    "woerter": [
+     163,
+     169
+    ],
+    "block": "system",
+    "groesse": "nah",
+    "ort": "hauptstrasse",
+    "modul": "platz",
+    "haupt": {
+     "art": "aktion",
+     "wer": "odell",
+     "was": "geste",
+     "wort": "ready",
+     "wort_i": 169,
+     "wort_start": 50.71,
+     "start": 50.71,
+     "ende": 51.01,
+     "anker": "start",
+     "schluesselwort_idee": "ready"
+    },
+    "gesichter": [],
+    "hauptsache": "odell.kopf",
+    "bogen_zeit": 51.11,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": [
+     "odell"
+    ]
+   }
+  },
+  {
+   "id": "E36",
+   "start": 51.4333,
+   "ende": 53.5,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "nacht",
+   "kamera": {
+    "baustein": "orbit",
+    "ziel": "mh.haende",
+    "blick": {
+     "azimut": -28,
+     "hoehe": -22,
+     "abstand": 6.6
+    },
+    "grad_pro_s": 20,
+    "fov": 50
+   },
+   "stellung": {
+    "mh": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      2.5,
+      0,
+      -54
+     ],
+     "blick": 0,
+     "gesicht": "glatt"
+    },
+    "odell": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "mh",
+     "was": "kopf_schief",
+     "start": 51.84,
+     "dauer": 0.4
+    }
+   ],
+   "tiefenunschaerfe": {
+    "fokus": "mh.haende",
+    "staerke": 0.8
+   },
+   "schatten_bereich": 24,
+   "text": "That's what it asks when it's done counting.",
+   "plan": {
+    "key": "20",
+    "satz": 20,
+    "woerter": [
+     170,
+     177
+    ],
+    "block": "system",
+    "groesse": "nah",
+    "ort": "hauptstrasse",
+    "modul": "platz",
+    "haupt": {
+     "art": "aktion",
+     "wer": "mh",
+     "was": "kopf_schief",
+     "wort": "asks",
+     "wort_i": 173,
+     "wort_start": 51.84,
+     "start": 51.84,
+     "ende": 52.24,
+     "anker": "start",
+     "schluesselwort_idee": "asks"
+    },
+    "gesichter": [],
+    "hauptsache": "mh.haende",
+    "bogen_zeit": 52.34,
+    "akzent": true,
+    "monster": true,
+    "sichtbar": [
+     "mh"
+    ]
+   }
+  },
+  {
+   "id": "E37",
+   "start": 53.5,
+   "ende": 55.4667,
+   "set": [
+    "strasse",
+    "haus"
+   ],
+   "licht": "tag",
+   "licht_anpassung": {
+    "haupt": {
+     "richtung": [
+      0.8,
+      0.42,
+      0.25
+     ],
+     "farbe": "#ffe2c0"
+    },
+    "hemi": {
+     "himmel": "#e6ecf5"
+    }
+   },
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": [
+     -14.05,
+     1.58,
+     2.6
+    ],
+    "blick": {
+     "azimut": -60,
+     "hoehe": 12,
+     "abstand": 2.7
+    },
+    "fov": 58,
+    "rate": 0.07
+   },
+   "stellung": {
+    "eli": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -13.65,
+      0.6,
+      2.6
+     ],
+     "blick": -90,
+     "pose": "sitzen",
+     "gesicht": "neutral"
+    },
+    "mh": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "eli",
+     "was": "vorbeugen",
+     "dauer": 0.35,
+     "params": {
+      "winkel": 16,
+      "kopf_ausgleich": 10
+     },
+     "start": 54.12,
+     "nebenbei": true
+    }
+   ],
+   "licht_ereignisse": [
+    {
+     "art": "aus",
+     "start": 54.42,
+     "ziel": "haus.kerzen",
+     "dauer": 0.3
+    }
+   ],
+   "partikel": [
+    {
+     "start": 54.6,
+     "dauer": 0.8667,
+     "art": "staub",
+     "ort": "haus.kuchen",
+     "farbe": "#d8d8d8",
+     "anzahl": 24,
+     "groesse": 0.035,
+     "bereich": [
+      0.25,
+      0.7,
+      0.25
+     ],
+     "deckkraft": 0.55
+    }
+   ],
+   "schatten_bereich": 16,
+   "text": "On Friday, I turned eighteen.",
+   "plan": {
+    "key": "21",
+    "satz": 21,
+    "woerter": [
+     178,
+     182
+    ],
+    "block": "persoenlich",
+    "groesse": "halbnah",
+    "ort": "marsh-innen",
+    "modul": "kueche",
+    "haupt": {
+     "art": "licht",
+     "wort": "turned",
+     "wort_i": 181,
+     "wort_start": 54.42,
+     "start": 54.42,
+     "ende": 54.72,
+     "anker": "start",
+     "schluesselwort_idee": "turned"
+    },
+    "gesichter": [],
+    "hauptsache": [
+     "eli.kopf",
+     "haus.kuchen"
+    ],
+    "bogen_zeit": 54.82,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": [
+     "eli"
+    ]
+   }
+  },
+  {
+   "id": "E38",
+   "start": 55.4667,
+   "ende": 56.3,
+   "set": [
+    "strasse",
+    "haus"
+   ],
+   "licht": "tag",
+   "licht_anpassung": {
+    "haupt": {
+     "richtung": [
+      0.8,
+      0.42,
+      0.25
+     ],
+     "farbe": "#ffe2c0"
+    },
+    "hemi": {
+     "himmel": "#e6ecf5"
+    }
+   },
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": "june.kopf",
+    "blick": {
+     "azimut": 200,
+     "hoehe": 5,
+     "abstand": 2.6,
+     "bezug": "june.kopf"
+    },
+    "fov": 42,
+    "rate": 0.07
+   },
+   "stellung": {
+    "june": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -15.3,
+      0.6,
+      3.7
+     ],
+     "blick": 0,
+     "gesicht": "neutral"
+    },
+    "eli": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "june",
+     "was": "umdrehen",
+     "start": 55.82,
+     "dauer": 0.3,
+     "params": {
+      "blick": 175
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 55.97,
+     "params": {
+      "name": "laecheln"
+     }
+    }
+   ],
+   "schatten_bereich": 16,
+   "text": "My sister June is",
+   "plan": {
+    "key": "22",
+    "satz": 22,
+    "woerter": [
+     183,
+     186
+    ],
+    "block": "persoenlich",
+    "groesse": "halbnah",
+    "ort": "marsh-innen",
+    "modul": "kueche",
+    "haupt": {
+     "art": "aktion",
+     "wer": "june",
+     "was": "umdrehen",
+     "wort": "June",
+     "wort_i": 185,
+     "wort_start": 55.82,
+     "start": 55.82,
+     "ende": 56.12,
+     "anker": "start",
+     "schluesselwort_idee": "June"
+    },
+    "gesichter": [
+     {
+      "wer": "june",
+      "name": "laecheln",
+      "wort": "June",
+      "wort_start": 55.82,
+      "start": 55.97
+     }
+    ],
+    "hauptsache": "june.kopf",
+    "bogen_zeit": 56.22,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": [
+     "june"
+    ]
+   }
+  },
+  {
+   "id": "E39",
+   "start": 56.3,
+   "ende": 57.9333,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "daemmerung",
+   "licht_anpassung": {
+    "himmel": {
+     "zenit": "#3b4f8a",
+     "horizont": "#f6b27a",
+     "scheibe": {
+      "richtung": [
+       0.08,
+       0.07,
+       0.99
+      ],
+      "farbe": "#ffd29a",
+      "groesse": 2.6,
+      "staerke": 6,
+      "glanz": 0.7
+     }
+    },
+    "haupt": {
+     "richtung": [
+      0.1,
+      0.25,
+      0.96
+     ],
+     "farbe": "#ffc08a",
+     "staerke": 2.3
+    },
+    "nebel": {
+     "farbe": "#c9a49a",
+     "dichte": 0.014
+    },
+    "grade": {
+     "saettigung": 0.62,
+     "kontrast": 1.04
+    }
+   },
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": "june18.kopf",
+    "blick": {
+     "azimut": 125,
+     "hoehe": 4,
+     "abstand": 3.4
+    },
+    "fov": 42,
+    "rate": 0.07
+   },
+   "stellung": {
+    "june18": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -10.6,
+      0.6,
+      -3
+     ],
+     "blick": 90,
+     "gesicht": "leer"
+    },
+    "june": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "june18",
+     "was": "kopf_drehen",
+     "start": 57.66,
+     "dauer": 0.4,
+     "params": {
+      "winkel": 25,
+      "nicken": -14
+     }
+    }
+   ],
+   "schatten_bereich": 24,
+   "text": "the only one who ever made it to sunrise.",
+   "plan": {
+    "key": "22:the only",
+    "satz": 22,
+    "woerter": [
+     187,
+     195
+    ],
+    "block": "persoenlich",
+    "groesse": "halbtotale",
+    "ort": "hauptstrasse",
+    "modul": "marsh-aussen",
+    "haupt": {
+     "art": "aktion",
+     "wer": "june18",
+     "was": "kopf_drehen",
+     "wort": "sunrise",
+     "wort_i": 195,
+     "wort_start": 57.66,
+     "start": 57.66,
+     "ende": 58.06,
+     "anker": "start",
+     "schluesselwort_idee": "sunrise"
+    },
+    "gesichter": [],
+    "hauptsache": "june18.kopf",
+    "bogen_zeit": 57.8666,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": [
+     "june18"
+    ],
+    "rueckblende": true
+   }
+  },
+  {
+   "id": "E40",
+   "start": 57.9333,
+   "ende": 59.7333,
+   "set": [
+    "strasse",
+    "haus"
+   ],
+   "licht": "nacht",
+   "licht_anpassung": {
+    "grade": {
+     "saettigung": 0.62,
+     "kontrast": 1.04
+    }
+   },
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": {
+     "anker": "luke_rb.mitte",
+     "versatz": [
+      -0.3,
+      0.12,
+      0
+     ]
+    },
+    "pos": [
+     -18,
+     2.4,
+     4.6
+    ],
+    "fov": 56,
+    "rate": 0.07
+   },
+   "stellung": {
+    "dad": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -19.55,
+      0.6,
+      1.45
+     ],
+     "blick": 40,
+     "gesicht": "entschlossen"
+    },
+    "june18": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -20.15,
+      0.6,
+      2.75
+     ],
+     "blick": 100,
+     "gesicht": "angst"
+    },
+    "luke_rb": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -19.25,
+      0.6,
+      2
+     ],
+     "blick": 90
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "dad",
+     "was": "ducken",
+     "dauer": 0.4,
+     "params": {
+      "tiefe": 0.5,
+      "arme": "knie"
+     },
+     "start": 57.9333,
+     "nebenbei": true
+    },
+    {
+     "wer": "luke_rb",
+     "was": "oeffnen",
+     "start": 59.09,
+     "dauer": 0.5
+    }
+   ],
+   "schatten_bereich": 16,
+   "text": "Six years ago, Dad",
+   "plan": {
+    "key": "23",
+    "satz": 23,
+    "woerter": [
+     196,
+     199
+    ],
+    "block": "persoenlich",
+    "groesse": "halbtotale",
+    "ort": "marsh-innen",
+    "modul": "june-zimmer",
+    "haupt": {
+     "art": "aktion",
+     "wer": "luke_rb",
+     "was": "oeffnen",
+     "wort": "Dad",
+     "wort_i": 199,
+     "wort_start": 59.59,
+     "start": 59.09,
+     "ende": 59.59,
+     "anker": "ende",
+     "schluesselwort_idee": "Dad"
+    },
+    "gesichter": [],
+    "hauptsache": "luke_rb.mitte",
+    "bogen_zeit": 59.6666,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": [
+     "dad",
+     "june18",
+     "luke_rb"
+    ],
+    "rueckblende": true
+   }
+  },
+  {
+   "id": "E41",
+   "start": 59.7333,
+   "ende": 61.8333,
+   "set": [
+    "strasse",
+    "haus"
+   ],
+   "licht": "nacht",
+   "licht_anpassung": {
+    "grade": {
+     "saettigung": 0.62,
+     "kontrast": 1.04
+    }
+   },
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": "luke_rb.mitte",
+    "pos": [
+     -18.3,
+     3.35,
+     2.7
+    ],
+    "fov": 50,
+    "profil": "ease_in",
+    "faktor": 1.9,
+    "vorlauf": 0.18
+   },
+   "stellung": {
+    "dad": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -19.5,
+      0.6,
+      1.5
+     ],
+     "blick": 40,
+     "gesicht": "entschlossen",
+     "pose": "ducken",
+     "pose_params": {
+      "tiefe": 0.6,
+      "arme": "knie"
+     }
+    },
+    "june18": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -18.8,
+      -1.05,
+      2
+     ],
+     "blick": 90,
+     "gesicht": "angst"
+    },
+    "luke_rb": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -19.25,
+      0.6,
+      2
+     ],
+     "blick": 90,
+     "pose": "oeffnen"
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "june18",
+     "was": "kopf_drehen",
+     "dauer": 0.03,
+     "params": {
+      "nicken": -40
+     },
+     "start": 59.7333,
+     "nebenbei": true
+    },
+    {
+     "wer": "luke_rb",
+     "was": "schliessen",
+     "start": 59.76,
+     "dauer": 1,
+     "ease": "ease_in"
+    }
+   ],
+   "tiefenunschaerfe": {
+    "fokus": "luke_rb.mitte",
+    "staerke": 0.8
+   },
+   "schatten_bereich": 16,
+   "text": "hid her in the crawl space under her room.",
+   "plan": {
+    "key": "23:hid",
+    "satz": 23,
+    "woerter": [
+     200,
+     208
+    ],
+    "block": "persoenlich",
+    "groesse": "nah",
+    "ort": "marsh-innen",
+    "modul": "june-zimmer",
+    "haupt": {
+     "art": "aktion",
+     "wer": "luke_rb",
+     "was": "schliessen",
+     "wort": "hid",
+     "wort_i": 200,
+     "wort_start": 59.76,
+     "start": 59.76,
+     "ende": 60.76,
+     "anker": "start",
+     "schluesselwort_idee": "hid"
+    },
+    "gesichter": [],
+    "hauptsache": "luke_rb.mitte",
+    "bogen_zeit": 60.28,
+    "akzent": true,
+    "monster": false,
+    "sichtbar": [
+     "dad",
+     "june18",
+     "luke_rb"
+    ],
+    "rueckblende": true
+   }
+  },
+  {
+   "id": "E42",
+   "start": 61.8333,
+   "ende": 63.6333,
+   "set": [
+    "strasse",
+    "haus"
+   ],
+   "licht": "tag",
+   "licht_anpassung": {
+    "haupt": {
+     "richtung": [
+      0.8,
+      0.42,
+      0.25
+     ],
+     "farbe": "#ffe2c0"
+    },
+    "hemi": {
+     "himmel": "#e6ecf5"
+    },
+    "grade": {
+     "saettigung": 0.62,
+     "kontrast": 1.04
+    }
+   },
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": {
+     "anker": "june18.kopf",
+     "versatz": [
+      0,
+      -0.1,
+      0
+     ]
+    },
+    "pos": [
+     -20.6,
+     1.55,
+     3.3
+    ],
+    "fov": 48,
+    "rate": 0.07
+   },
+   "stellung": {
+    "june18": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -18.8,
+      -0.55,
+      2
+     ],
+     "blick": -90,
+     "gesicht": "verschlafen"
+    },
+    "luke_rb": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -19.25,
+      0.6,
+      2
+     ],
+     "blick": 90,
+     "pose": "oeffnen"
+    },
+    "dad": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "june18",
+     "was": "klettern",
+     "start": 62.72,
+     "dauer": 0.8,
+     "params": {
+      "hoehe": 1.15,
+      "vor": 0.55
+     }
+    }
+   ],
+   "schatten_bereich": 16,
+   "text": "In the morning, she climbed out.",
+   "plan": {
+    "key": "24",
+    "satz": 24,
+    "woerter": [
+     209,
+     214
+    ],
+    "block": "persoenlich",
+    "groesse": "halbnah",
+    "ort": "marsh-innen",
+    "modul": "june-zimmer",
+    "haupt": {
+     "art": "aktion",
+     "wer": "june18",
+     "was": "klettern",
+     "wort": "climbed",
+     "wort_i": 213,
+     "wort_start": 62.72,
+     "start": 62.72,
+     "ende": 63.52,
+     "anker": "start",
+     "schluesselwort_idee": "climbed"
+    },
+    "gesichter": [],
+    "hauptsache": "june18.kopf",
+    "bogen_zeit": 63.5666,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": [
+     "june18",
+     "luke_rb"
+    ],
+    "rueckblende": true
+   }
+  },
+  {
+   "id": "E43",
+   "start": 63.6333,
+   "ende": 65.3333,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "tag",
+   "licht_anpassung": {
+    "haupt": {
+     "richtung": [
+      0.8,
+      0.42,
+      0.25
+     ],
+     "farbe": "#ffe2c0"
+    },
+    "hemi": {
+     "himmel": "#e6ecf5"
+    },
+    "grade": {
+     "saettigung": 0.62,
+     "kontrast": 1.04
+    }
+   },
+   "kamera": {
+    "baustein": "push_in",
+    "punkt": "marsh.detail",
+    "rate": 0.07
+   },
+   "stellung": {
+    "sp_dad": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -10.9,
+      0.6,
+      -2.8
+     ],
+     "blick": 90
+    },
+    "june18": {
+     "sichtbar": false
+    },
+    "luke_rb": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [],
+   "tiefenunschaerfe": {
+    "fokus": "sp_dad.mitte",
+    "staerke": 0.8
+   },
+   "schatten_bereich": 24,
+   "text": "Dad's shoes were on the porch.",
+   "plan": {
+    "key": "25",
+    "satz": 25,
+    "woerter": [
+     215,
+     220
+    ],
+    "block": "persoenlich",
+    "groesse": "detail",
+    "ort": "hauptstrasse",
+    "modul": "marsh-aussen",
+    "haupt": {
+     "art": "kamera",
+     "wort": "shoes",
+     "wort_i": 216,
+     "wort_start": 63.96,
+     "start": 63.96,
+     "ende": 63.96,
+     "anker": "start",
+     "schluesselwort_idee": "shoes"
+    },
+    "gesichter": [],
+    "hauptsache": "sp_dad.mitte",
+    "bogen_zeit": 64.11,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": [
+     "sp_dad"
+    ],
+    "rueckblende": true
+   }
+  },
+  {
+   "id": "E44",
+   "start": 65.3333,
+   "ende": 67.5,
+   "set": [
+    "strasse",
+    "haus"
+   ],
+   "licht": "innen_warm",
+   "kamera": {
+    "baustein": "crane_down_tilt",
+    "ziel": "june.kopf",
+    "blick": {
+     "azimut": 140,
+     "hoehe": 52,
+     "abstand": 1.7
+    },
+    "hoehe": 0.85,
+    "rueck": 0.4,
+    "fov": 54,
+    "ankunft": 66.58,
+    "start": 65.0833
+   },
+   "stellung": {
+    "june": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -18.85,
+      1,
+      4.2
+     ],
+     "blick": 90,
+     "pose": "liegen",
+     "gesicht": "augen_zu"
+    },
+    "luke_tp": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -19.25,
+      0.6,
+      2
+     ],
+     "blick": 90
+    },
+    "sp_dad": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 66.58,
+     "params": {
+      "name": "zaehlt_a"
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 66.8,
+     "params": {
+      "name": "zaehlt_a"
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 67.02,
+     "params": {
+      "name": "zaehlt_b"
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 67.24,
+     "params": {
+      "name": "zaehlt_c"
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 67.46,
+     "params": {
+      "name": "zaehlt_b"
+     }
+    }
+   ],
+   "schatten_bereich": 16,
+   "text": "Every night since, June counts to one hundred",
+   "plan": {
+    "key": "26",
+    "satz": 26,
+    "woerter": [
+     221,
+     228
+    ],
+    "block": "persoenlich",
+    "groesse": "halbtotale",
+    "ort": "marsh-innen",
+    "modul": "june-zimmer",
+    "haupt": {
+     "art": "gesicht",
+     "wer": "june",
+     "name": "zaehlt_a",
+     "wort": "counts",
+     "wort_i": 225,
+     "wort_start": 66.58,
+     "start": 66.58,
+     "ende": 66.58,
+     "anker": "start",
+     "schluesselwort_idee": "counts"
+    },
+    "gesichter": [],
+    "mund": {
+     "wer": "june",
+     "art": "zaehlen",
+     "wechsel": 4
+    },
+    "hauptsache": "june.kopf",
+    "bogen_zeit": 66.78,
+    "akzent": true,
+    "monster": false,
+    "sichtbar": [
+     "june",
+     "luke_tp"
+    ]
+   }
+  },
+  {
+   "id": "E45",
+   "start": 67.5,
+   "ende": 69.0333,
+   "set": [
+    "strasse",
+    "haus"
+   ],
+   "licht": "innen_warm",
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": "june.kopf",
+    "blick": {
+     "azimut": 140,
+     "hoehe": 42,
+     "abstand": 1.5
+    },
+    "fov": 40,
+    "rate": 0.06
+   },
+   "stellung": {
+    "june": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -18.85,
+      1,
+      4.2
+     ],
+     "blick": 90,
+     "pose": "liegen",
+     "gesicht": "zaehlt_b"
+    },
+    "luke_tp": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 67.5,
+     "params": {
+      "name": "zaehlt_a"
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 67.72,
+     "params": {
+      "name": "zaehlt_b"
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 67.94,
+     "params": {
+      "name": "zaehlt_c"
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 68.16,
+     "params": {
+      "name": "zaehlt_b"
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 68.28,
+     "params": {
+      "name": "augen_zu"
+     }
+    }
+   ],
+   "tiefenunschaerfe": {
+    "fokus": "june.kopf",
+    "staerke": 0.8
+   },
+   "schatten_bereich": 16,
+   "text": "before she falls asleep.",
+   "plan": {
+    "key": "26:before",
+    "satz": 26,
+    "woerter": [
+     229,
+     232
+    ],
+    "block": "persoenlich",
+    "groesse": "nah",
+    "ort": "marsh-innen",
+    "modul": "june-zimmer",
+    "haupt": {
+     "art": "gesicht",
+     "wer": "june",
+     "name": "augen_zu",
+     "wort": "asleep",
+     "wort_i": 232,
+     "wort_start": 68.28,
+     "start": 68.28,
+     "ende": 68.28,
+     "anker": "start",
+     "schluesselwort_idee": "asleep"
+    },
+    "gesichter": [],
+    "mund": {
+     "wer": "june",
+     "art": "zaehlen",
+     "wechsel": 4
+    },
+    "hauptsache": "june.kopf",
+    "bogen_zeit": 68.48,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": [
+     "june"
+    ]
+   }
+  },
+  {
+   "id": "E46",
+   "start": 69.0333,
+   "ende": 70.2,
+   "set": [
+    "strasse",
+    "haus"
+   ],
+   "licht": "tag",
+   "licht_anpassung": {
+    "haupt": {
+     "richtung": [
+      0.8,
+      0.42,
+      0.25
+     ],
+     "farbe": "#ffe2c0"
+    },
+    "hemi": {
+     "himmel": "#e6ecf5"
+    }
+   },
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": {
+     "anker": "june.kopf",
+     "versatz": [
+      0,
+      -0.2,
+      0
+     ]
+    },
+    "blick": {
+     "azimut": 165,
+     "hoehe": 3,
+     "abstand": 2.4
+    },
+    "fov": 40,
+    "rate": 0.07
+   },
+   "stellung": {
+    "june": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -15,
+      0.6,
+      3.5
+     ],
+     "blick": 180,
+     "gesicht": "laecheln"
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "june",
+     "was": "schulterzucken",
+     "start": 69.48,
+     "dauer": 0.7
+    }
+   ],
+   "tiefenunschaerfe": {
+    "fokus": "june.kopf",
+    "staerke": 0.8
+   },
+   "schatten_bereich": 16,
+   "text": "She says it helps.",
+   "plan": {
+    "key": "27",
+    "satz": 27,
+    "woerter": [
+     233,
+     236
+    ],
+    "block": "persoenlich",
+    "groesse": "nah",
+    "ort": "marsh-innen",
+    "modul": "kueche",
+    "haupt": {
+     "art": "aktion",
+     "wer": "june",
+     "was": "schulterzucken",
+     "wort": "helps",
+     "wort_i": 236,
+     "wort_start": 69.48,
+     "start": 69.48,
+     "ende": 70.18,
+     "anker": "start",
+     "schluesselwort_idee": "helps"
+    },
+    "gesichter": [],
+    "hauptsache": "june.kopf",
+    "bogen_zeit": 70.1333,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": [
+     "june"
+    ]
+   }
+  },
+  {
+   "id": "E47",
+   "start": 70.2,
+   "ende": 72.0333,
+   "set": [
+    "strasse",
+    "haus"
+   ],
+   "licht": "tag",
+   "licht_anpassung": {
+    "haupt": {
+     "richtung": [
+      0.8,
+      0.42,
+      0.25
+     ],
+     "farbe": "#ffe2c0"
+    },
+    "hemi": {
+     "himmel": "#e6ecf5"
+    }
+   },
+   "kamera": {
+    "baustein": "crane_down_tilt",
+    "ziel": [
+     -14.2,
+     1.3,
+     3.1
+    ],
+    "blick": {
+     "azimut": 35,
+     "hoehe": 50,
+     "abstand": 1.8
+    },
+    "hoehe": 0.7,
+    "rueck": 0.3,
+    "fov": 54,
+    "ankunft": 71.04,
+    "start": 69.95
+   },
+   "stellung": {
+    "june": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -14.5,
+      0.6,
+      3.75
+     ],
+     "blick": 180,
+     "pose": "sitzen",
+     "gesicht": "besorgt"
+    },
+    "eli": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -13.65,
+      0.6,
+      2.6
+     ],
+     "blick": -90,
+     "pose": "sitzen",
+     "gesicht": "neutral"
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "eli",
+     "was": "greifen",
+     "dauer": 0.3,
+     "params": {
+      "zu": [
+       -14.15,
+       1.32,
+       3
+      ],
+      "seite": "l",
+      "lehnen": false
+     },
+     "start": 70.2,
+     "nebenbei": true
+    },
+    {
+     "wer": "june",
+     "was": "greifen",
+     "start": 71.04,
+     "dauer": 0.4,
+     "params": {
+      "zu": "eli.hand_l",
+      "seite": "r"
+     }
+    }
+   ],
+   "tiefenunschaerfe": {
+    "fokus": "june.hand_r",
+    "staerke": 0.8
+   },
+   "schatten_bereich": 16,
+   "text": "At breakfast, she took my hand.",
+   "plan": {
+    "key": "28",
+    "satz": 28,
+    "woerter": [
+     237,
+     242
+    ],
+    "block": "persoenlich",
+    "groesse": "detail",
+    "ort": "marsh-innen",
+    "modul": "kueche",
+    "haupt": {
+     "art": "aktion",
+     "wer": "june",
+     "was": "greifen",
+     "wort": "took",
+     "wort_i": 240,
+     "wort_start": 71.04,
+     "start": 71.04,
+     "ende": 71.44,
+     "anker": "start",
+     "schluesselwort_idee": "took"
+    },
+    "gesichter": [],
+    "hauptsache": "june.hand_r",
+    "bogen_zeit": 71.54,
+    "akzent": true,
+    "monster": false,
+    "sichtbar": [
+     "june",
+     "eli"
+    ]
+   }
+  },
+  {
+   "id": "E48",
+   "start": 72.0333,
+   "ende": 73.8,
+   "set": [
+    "strasse",
+    "haus"
+   ],
+   "licht": "tag",
+   "licht_anpassung": {
+    "haupt": {
+     "richtung": [
+      0.8,
+      0.42,
+      0.25
+     ],
+     "farbe": "#ffe2c0"
+    },
+    "hemi": {
+     "himmel": "#e6ecf5"
+    }
+   },
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": {
+     "anker": "june.kopf",
+     "versatz": [
+      0,
+      -0.13,
+      0
+     ]
+    },
+    "blick": {
+     "azimut": 200,
+     "hoehe": 2,
+     "abstand": 2.1
+    },
+    "fov": 38,
+    "rate": 0.07
+   },
+   "stellung": {
+    "june": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -14.5,
+      0.6,
+      3.75
+     ],
+     "blick": 180,
+     "pose": "sitzen",
+     "gesicht": "besorgt"
+    },
+    "eli": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 72.05,
+     "params": {
+      "name": "besorgt/reden_a"
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 72.14,
+     "params": {
+      "name": "besorgt/reden_b"
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 72.36,
+     "params": {
+      "name": "besorgt/reden_c"
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 72.56,
+     "params": {
+      "name": "besorgt/reden_a"
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 72.72,
+     "params": {
+      "name": "besorgt/reden_b"
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 72.86,
+     "params": {
+      "name": "besorgt/reden_c"
+     }
+    },
+    {
+     "wer": "june",
+     "was": "vorbeugen",
+     "start": 73.12,
+     "dauer": 0.5,
+     "params": {
+      "winkel": 14,
+      "kopf_ausgleich": 12
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 73.12,
+     "params": {
+      "name": "besorgt/reden_a"
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 73.33,
+     "params": {
+      "name": "besorgt/reden_b"
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 73.54,
+     "params": {
+      "name": "besorgt"
+     }
+    }
+   ],
+   "tiefenunschaerfe": {
+    "fokus": "june.kopf",
+    "staerke": 0.8
+   },
+   "schatten_bereich": 16,
+   "text": "\"It never looks in my room, Rabbit.\"",
+   "plan": {
+    "key": "29",
+    "satz": 29,
+    "woerter": [
+     243,
+     249
+    ],
+    "block": "persoenlich",
+    "groesse": "nah",
+    "ort": "marsh-innen",
+    "modul": "kueche",
+    "haupt": {
+     "art": "aktion",
+     "wer": "june",
+     "was": "vorbeugen",
+     "wort": "Rabbit",
+     "wort_i": 249,
+     "wort_start": 73.12,
+     "start": 73.12,
+     "ende": 73.62,
+     "anker": "start",
+     "schluesselwort_idee": "Rabbit"
+    },
+    "gesichter": [],
+    "mund": {
+     "wer": "june",
+     "art": "rede",
+     "wechsel": 9
+    },
+    "hauptsache": "june.kopf",
+    "bogen_zeit": 73.72,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": [
+     "june"
+    ]
+   }
+  },
+  {
+   "id": "E49",
+   "start": 73.8,
+   "ende": 75.7333,
+   "set": [
+    "strasse",
+    "haus"
+   ],
+   "licht": "tag",
+   "kamera": {
+    "baustein": "orbit",
+    "ziel": "luke_tp.ring",
+    "pos": [
+     -17.95,
+     1.65,
+     1.55
+    ],
+    "grad_pro_s": 20,
+    "fov": 40
+   },
+   "stellung": {
+    "luke_tp": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -19.25,
+      0.6,
+      2
+     ],
+     "blick": 90
+    },
+    "june": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [],
+   "tiefenunschaerfe": {
+    "fokus": "luke_tp.ring",
+    "staerke": 0.8
+   },
+   "schatten_bereich": 16,
+   "text": "\"I'll hide you there.\" \"I promise.\"",
+   "plan": {
+    "key": "30",
+    "satz": 30,
+    "woerter": [
+     250,
+     255
+    ],
+    "block": "persoenlich",
+    "groesse": "detail",
+    "ort": "marsh-innen",
+    "modul": "june-zimmer",
+    "haupt": {
+     "art": "kamera",
+     "wort": "hide",
+     "wort_i": 251,
+     "wort_start": 73.98,
+     "start": 73.98,
+     "ende": 73.98,
+     "anker": "start",
+     "schluesselwort_idee": "hide"
+    },
+    "gesichter": [],
+    "hauptsache": "luke_tp.ring",
+    "bogen_zeit": 74.13,
+    "akzent": true,
+    "monster": false,
+    "sichtbar": [
+     "luke_tp"
+    ],
+    "ohne_schnitt": [
+     "31"
+    ]
+   }
+  },
+  {
+   "id": "E50",
+   "start": 75.7333,
+   "ende": 77,
+   "set": [
+    "strasse",
+    "haus"
+   ],
+   "licht": "daemmerung",
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": {
+     "anker": "eli.kopf",
+     "versatz": [
+      0,
+      -0.2,
+      0
+     ]
+    },
+    "pos": [
+     -12.3,
+     1.45,
+     -2.6
+    ],
+    "fov": 54,
+    "rate": 0.07
+   },
+   "stellung": {
+    "eli": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -12.8,
+      0.6,
+      -4.32
+     ],
+     "blick": -90,
+     "gesicht": "neutral"
+    },
+    "luke_tp": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "eli",
+     "was": "gehen",
+     "start": 75.43,
+     "dauer": 1.35,
+     "ease": "linear",
+     "params": {
+      "nach": [
+       -14.8,
+       -4.32
+      ]
+     }
+    },
+    {
+     "wer": "eli",
+     "was": "klettern",
+     "dauer": 1.35,
+     "ease": "linear",
+     "params": {
+      "hoehe": 1.45,
+      "arme": false
+     },
+     "start": 75.43,
+     "nebenbei": true
+    }
+   ],
+   "schatten_bereich": 16,
+   "text": "At sunset, I went upstairs",
+   "plan": {
+    "key": "32",
+    "satz": 32,
+    "woerter": [
+     256,
+     260
+    ],
+    "block": "cliffhanger",
+    "groesse": "halbtotale",
+    "ort": "marsh-innen",
+    "modul": "flur",
+    "haupt": {
+     "art": "aktion",
+     "wer": "eli",
+     "was": "gehen",
+     "wort": "upstairs",
+     "wort_i": 260,
+     "wort_start": 76.78,
+     "start": 75.43,
+     "ende": 76.78,
+     "anker": "ende",
+     "schluesselwort_idee": "upstairs"
+    },
+    "gesichter": [],
+    "hauptsache": "eli.kopf",
+    "bogen_zeit": 76.88,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": [
+     "eli"
+    ]
+   }
+  },
+  {
+   "id": "E51",
+   "start": 77,
+   "ende": 78.4333,
+   "set": [
+    "strasse",
+    "haus"
+   ],
+   "licht": "daemmerung",
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": {
+     "anker": "eli.kopf",
+     "versatz": [
+      0,
+      -0.2,
+      0
+     ]
+    },
+    "pos": [
+     -15.9,
+     5.3,
+     1.6
+    ],
+    "fov": 50,
+    "rate": 0.07
+   },
+   "stellung": {
+    "eli": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -15,
+      3.8,
+      3.75
+     ],
+     "blick": -125,
+     "gesicht": "neutral"
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "eli",
+     "was": "greifen",
+     "start": 77.32,
+     "dauer": 0.4,
+     "params": {
+      "zu": "haus.taschenlampe",
+      "seite": "r"
+     }
+    }
+   ],
+   "tiefenunschaerfe": {
+    "fokus": "eli.kopf",
+    "staerke": 0.8
+   },
+   "schatten_bereich": 16,
+   "text": "to grab a flashlight.",
+   "plan": {
+    "key": "32:to grab",
+    "satz": 32,
+    "woerter": [
+     261,
+     264
+    ],
+    "block": "cliffhanger",
+    "groesse": "nah",
+    "ort": "marsh-innen",
+    "modul": "eli-zimmer",
+    "haupt": {
+     "art": "aktion",
+     "wer": "eli",
+     "was": "greifen",
+     "wort": "grab",
+     "wort_i": 262,
+     "wort_start": 77.32,
+     "start": 77.32,
+     "ende": 77.72,
+     "anker": "start",
+     "schluesselwort_idee": "grab"
+    },
+    "gesichter": [],
+    "hauptsache": "eli.kopf",
+    "bogen_zeit": 77.82,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": [
+     "eli"
+    ]
+   }
+  },
+  {
+   "id": "E52",
+   "start": 78.4333,
+   "ende": 79.8,
+   "set": [
+    "strasse",
+    "haus"
+   ],
+   "licht": "daemmerung",
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": {
+     "anker": "eli.kopf",
+     "versatz": [
+      0,
+      -0.1,
+      0
+     ]
+    },
+    "blick": {
+     "azimut": 0,
+     "hoehe": 3,
+     "abstand": 2
+    },
+    "fov": 40,
+    "rate": 0.07
+   },
+   "stellung": {
+    "eli": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -13.3,
+      3.8,
+      2.6
+     ],
+     "blick": 60,
+     "gesicht": "nervoes"
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "eli",
+     "was": "gesicht",
+     "start": 79.12,
+     "params": {
+      "name": "angst"
+     }
+    }
+   ],
+   "licht_ereignisse": [
+    {
+     "art": "dimmen",
+     "start": 78.82,
+     "ziel": "umgebung",
+     "faktor": 0.6,
+     "dauer": 0.4
+    }
+   ],
+   "partikel": [
+    {
+     "start": 78.58,
+     "dauer": 1.22,
+     "art": "atem",
+     "ort": "eli.mund",
+     "periode": 1.3,
+     "groesse": 0.1,
+     "deckkraft": 0.75
+    }
+   ],
+   "tiefenunschaerfe": {
+    "fokus": "eli.kopf",
+    "staerke": 0.8
+   },
+   "schatten_bereich": 16,
+   "text": "My breath turned white.",
+   "plan": {
+    "key": "33",
+    "satz": 33,
+    "woerter": [
+     265,
+     268
+    ],
+    "block": "cliffhanger",
+    "groesse": "nah",
+    "ort": "marsh-innen",
+    "modul": "eli-zimmer",
+    "haupt": {
+     "art": "licht",
+     "wort": "turned",
+     "wort_i": 267,
+     "wort_start": 78.82,
+     "start": 78.82,
+     "ende": 79.22,
+     "anker": "start",
+     "schluesselwort_idee": "turned"
+    },
+    "gesichter": [
+     {
+      "wer": "eli",
+      "name": "angst",
+      "wort": "white",
+      "wort_start": 79.12,
+      "start": 79.12
+     }
+    ],
+    "hauptsache": "eli.kopf",
+    "bogen_zeit": 79.32,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": [
+     "eli"
+    ]
+   }
+  },
+  {
+   "id": "E53",
+   "start": 79.8,
+   "ende": 81.7667,
+   "set": [
+    "strasse",
+    "haus"
+   ],
+   "licht": "daemmerung",
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": "mh.haende",
+    "pos": [
+     -14.3,
+     5.45,
+     2
+    ],
+    "fov": 46,
+    "zusaetze": [
+     {
+      "baustein": "shake",
+      "staerke": 1,
+      "start": 80.23
+     }
+    ],
+    "rate": 0.07
+   },
+   "stellung": {
+    "eli": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -12.75,
+      3.8,
+      2.6
+     ],
+     "blick": 90,
+     "gesicht": "angst"
+    },
+    "mh": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -8,
+      0,
+      2.6
+     ],
+     "blick": -90,
+     "gesicht": "glatt"
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "eli",
+     "was": "erschrecken",
+     "start": 80.18,
+     "dauer": 0.25
+    }
+   ],
+   "tiefenunschaerfe": {
+    "fokus": "mh.haende",
+    "staerke": 0.7
+   },
+   "schatten_bereich": 16,
+   "text": "Mister Hundred was standing in our yard,",
+   "plan": {
+    "key": "34",
+    "satz": 34,
+    "woerter": [
+     269,
+     275
+    ],
+    "block": "cliffhanger",
+    "groesse": "ueber-schulter",
+    "ort": "marsh-innen",
+    "modul": "eli-zimmer",
+    "haupt": {
+     "art": "aktion",
+     "wer": "eli",
+     "was": "erschrecken",
+     "wort": "Hundred",
+     "wort_i": 270,
+     "wort_start": 80.18,
+     "start": 80.18,
+     "ende": 80.43,
+     "anker": "start",
+     "schluesselwort_idee": "Hundred"
+    },
+    "gesichter": [],
+    "hauptsache": "mh.haende",
+    "bogen_zeit": 80.53,
+    "akzent": false,
+    "monster": true,
+    "sichtbar": [
+     "eli",
+     "mh"
+    ]
+   }
+  },
+  {
+   "id": "E54",
+   "start": 81.7667,
+   "ende": 83.0667,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "daemmerung",
+   "kamera": {
+    "baustein": "dolly_out",
+    "punkt": "strasse.platz_detail",
+    "rate": -0.08
+   },
+   "stellung": {
+    "eli": {
+     "sichtbar": false
+    },
+    "mh": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [],
+   "tiefenunschaerfe": {
+    "fokus": "strasse.kirche_uhr",
+    "staerke": 0.8
+   },
+   "schatten_bereich": 24,
+   "text": "six hours early.",
+   "plan": {
+    "key": "34:six",
+    "satz": 34,
+    "woerter": [
+     276,
+     278
+    ],
+    "block": "cliffhanger",
+    "groesse": "detail",
+    "ort": "hauptstrasse",
+    "modul": "platz",
+    "haupt": {
+     "art": "kamera",
+     "wort": "early",
+     "wort_i": 278,
+     "wort_start": 82.32,
+     "start": 82.32,
+     "ende": 82.32,
+     "anker": "start",
+     "schluesselwort_idee": "early"
+    },
+    "gesichter": [],
+    "hauptsache": "strasse.kirche_uhr",
+    "bogen_zeit": 82.47,
+    "akzent": true,
+    "monster": false,
+    "sichtbar": []
+   }
+  },
+  {
+   "id": "E55",
+   "start": 83.0667,
+   "ende": 84.2,
+   "set": [
+    "strasse",
+    "haus"
+   ],
+   "licht": "daemmerung",
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": {
+     "anker": "eli.kopf",
+     "versatz": [
+      0,
+      -0.1,
+      0
+     ]
+    },
+    "blick": {
+     "azimut": 0,
+     "hoehe": 2,
+     "abstand": 2
+    },
+    "fov": 40,
+    "rate": 0.07
+   },
+   "stellung": {
+    "eli": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -12.75,
+      3.8,
+      2.6
+     ],
+     "blick": 90,
+     "gesicht": "angst"
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "eli",
+     "was": "atem_anhalten",
+     "start": 83.46,
+     "dauer": 0.25
+    },
+    {
+     "wer": "eli",
+     "was": "gesicht",
+     "start": 83.46,
+     "params": {
+      "name": "augen_zu"
+     }
+    }
+   ],
+   "partikel": [
+    {
+     "start": 83.0667,
+     "dauer": 0.3933,
+     "art": "atem",
+     "ort": "eli.mund",
+     "periode": 1,
+     "groesse": 0.1,
+     "deckkraft": 0.7
+    }
+   ],
+   "tiefenunschaerfe": {
+    "fokus": "eli.kopf",
+    "staerke": 0.8
+   },
+   "schatten_bereich": 16,
+   "text": "It wasn't counting.",
+   "plan": {
+    "key": "35",
+    "satz": 35,
+    "woerter": [
+     279,
+     281
+    ],
+    "block": "cliffhanger",
+    "groesse": "nah",
+    "ort": "marsh-innen",
+    "modul": "eli-zimmer",
+    "haupt": {
+     "art": "aktion",
+     "wer": "eli",
+     "was": "atem_anhalten",
+     "wort": "counting",
+     "wort_i": 281,
+     "wort_start": 83.46,
+     "start": 83.46,
+     "ende": 83.71,
+     "anker": "start",
+     "schluesselwort_idee": "counting"
+    },
+    "gesichter": [
+     {
+      "wer": "eli",
+      "name": "augen_zu",
+      "wort": "counting",
+      "wort_start": 83.46,
+      "start": 83.46
+     }
+    ],
+    "hauptsache": "eli.kopf",
+    "bogen_zeit": 83.81,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": [
+     "eli"
+    ]
+   }
+  },
+  {
+   "id": "E56",
+   "start": 84.2,
+   "ende": 85.2333,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "daemmerung",
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": "mh.haende",
+    "pos": [
+     -12.55,
+     5.5,
+     2.45
+    ],
+    "fov": 40,
+    "rate": 0.07
+   },
+   "stellung": {
+    "mh": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -8,
+      0,
+      2.6
+     ],
+     "blick": -90,
+     "gesicht": "glatt"
+    },
+    "eli": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "mh",
+     "was": "kopf_drehen",
+     "dauer": 0.03,
+     "params": {
+      "nicken": 12
+     },
+     "start": 84.2,
+     "nebenbei": true
+    },
+    {
+     "wer": "mh",
+     "was": "spaehen",
+     "start": 84.4,
+     "dauer": 0.3
+    }
+   ],
+   "tiefenunschaerfe": {
+    "fokus": "mh.haende",
+    "staerke": 0.8
+   },
+   "schatten_bereich": 24,
+   "text": "It was looking at me,",
+   "plan": {
+    "key": "36",
+    "satz": 36,
+    "woerter": [
+     282,
+     286
+    ],
+    "block": "cliffhanger",
+    "groesse": "nah",
+    "ort": "hauptstrasse",
+    "modul": "marsh-aussen",
+    "haupt": {
+     "art": "aktion",
+     "wer": "mh",
+     "was": "spaehen",
+     "wort": "looking",
+     "wort_i": 284,
+     "wort_start": 84.4,
+     "start": 84.4,
+     "ende": 84.7,
+     "anker": "start",
+     "schluesselwort_idee": "looking"
+    },
+    "gesichter": [],
+    "hauptsache": "mh.haende",
+    "bogen_zeit": 84.8,
+    "akzent": false,
+    "monster": true,
+    "sichtbar": [
+     "mh"
+    ]
+   }
+  },
+  {
+   "id": "E57",
+   "start": 85.2333,
+   "ende": 86.2667,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "daemmerung",
+   "kamera": {
+    "baustein": "snap_zoom",
+    "ziel": "mh.auge",
+    "blick": {
+     "azimut": -90,
+     "hoehe": -4,
+     "abstand": 1.6,
+     "bezug": "mh.auge"
+    },
+    "fov": 34,
+    "faktor": 1.18,
+    "bilder": 2,
+    "zeit": 85.56
+   },
+   "stellung": {
+    "mh": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -8,
+      0,
+      2.6
+     ],
+     "blick": -90,
+     "gesicht": "glatt",
+     "pose": "spaehen"
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "mh",
+     "was": "kopf_drehen",
+     "dauer": 0.03,
+     "params": {
+      "nicken": 12
+     },
+     "start": 85.2333,
+     "nebenbei": true
+    }
+   ],
+   "tiefenunschaerfe": {
+    "fokus": "mh.auge",
+    "staerke": 0.8
+   },
+   "schatten_bereich": 24,
+   "text": "through its fingers.",
+   "plan": {
+    "key": "36:through",
+    "satz": 36,
+    "woerter": [
+     287,
+     289
+    ],
+    "block": "cliffhanger",
+    "groesse": "gross",
+    "ort": "hauptstrasse",
+    "modul": "marsh-aussen",
+    "haupt": {
+     "art": "kamera",
+     "wort": "fingers",
+     "wort_i": 289,
+     "wort_start": 85.56,
+     "start": 85.56,
+     "ende": 85.56,
+     "anker": "start",
+     "schluesselwort_idee": "fingers"
+    },
+    "gesichter": [],
+    "hauptsache": "mh.auge",
+    "bogen_zeit": 85.71,
+    "akzent": false,
+    "monster": true,
+    "sichtbar": [
+     "mh"
+    ]
+   }
+  },
+  {
+   "id": "END",
+   "start": 86.2667,
+   "ende": 87.2667,
+   "set": [
+    "karte"
+   ],
+   "licht": "nacht",
+   "licht_anpassung": {
+    "nebel": {
+     "dichte": 0.0001
+    }
+   },
+   "kamera": {
+    "baustein": "push_in",
+    "rate": 0.07,
+    "punkt": "karte.karte"
+   },
+   "stellung": {
+    "mh": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [],
+   "schatten_bereich": 12,
+   "text": "PART 2",
+   "plan": {
+    "key": "endkarte",
+    "endkarte": true,
+    "bogen_zeit": 86.7667,
+    "hauptsache": "karte.mitte",
+    "haupt": {
+     "art": "kamera"
+    },
+    "sichtbar": []
+   }
+  }
+ ],
+ "licht_ereignisse": [
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 0,
+   "dauer": 0,
+   "quelle": "auto:1"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 0,
+   "dauer": 0,
+   "quelle": "auto:1"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 0,
+   "dauer": 0,
+   "quelle": "auto:1"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 0,
+   "dauer": 0,
+   "quelle": "auto:1"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 0,
+   "dauer": 0,
+   "quelle": "auto:1"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 0,
+   "dauer": 0,
+   "quelle": "auto:1"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 0,
+   "dauer": 0,
+   "quelle": "auto:1"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 0.8667,
+   "dauer": 0,
+   "quelle": "auto:1:when"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 0.8667,
+   "dauer": 0,
+   "quelle": "auto:1:when"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 0.8667,
+   "dauer": 0,
+   "quelle": "auto:1:when"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 0.8667,
+   "dauer": 0,
+   "quelle": "auto:1:when"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 0.8667,
+   "dauer": 0,
+   "quelle": "auto:1:when"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 0.8667,
+   "dauer": 0,
+   "quelle": "auto:1:when"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 0.8667,
+   "dauer": 0,
+   "quelle": "auto:1:when"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 0.8667,
+   "dauer": 0,
+   "quelle": "auto:1:when"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 2.0667,
+   "dauer": 0,
+   "quelle": "auto:1:you hide"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 2.0667,
+   "dauer": 0,
+   "quelle": "auto:1:you hide"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 2.0667,
+   "dauer": 0,
+   "quelle": "auto:1:you hide"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 2.0667,
+   "dauer": 0,
+   "quelle": "auto:1:you hide"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 2.0667,
+   "dauer": 0,
+   "quelle": "auto:1:you hide"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 2.0667,
+   "dauer": 0,
+   "quelle": "auto:1:you hide"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 2.0667,
+   "dauer": 0,
+   "quelle": "auto:1:you hide"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 3.7,
+   "dauer": 0,
+   "quelle": "auto:1:or"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 3.7,
+   "dauer": 0,
+   "quelle": "auto:1:or"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 3.7,
+   "dauer": 0,
+   "quelle": "auto:1:or"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 3.7,
+   "dauer": 0,
+   "quelle": "auto:1:or"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 3.7,
+   "dauer": 0,
+   "quelle": "auto:1:or"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 3.7,
+   "dauer": 0,
+   "quelle": "auto:1:or"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 3.7,
+   "dauer": 0,
+   "quelle": "auto:1:or"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 4.8333,
+   "dauer": 0,
+   "quelle": "auto:2"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 4.8333,
+   "dauer": 0,
+   "quelle": "auto:2"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 4.8333,
+   "dauer": 0,
+   "quelle": "auto:2"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 4.8333,
+   "dauer": 0,
+   "quelle": "auto:2"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 4.8333,
+   "dauer": 0,
+   "quelle": "auto:2"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 4.8333,
+   "dauer": 0,
+   "quelle": "auto:2"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 4.8333,
+   "dauer": 0,
+   "quelle": "auto:2"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 6.5667,
+   "dauer": 0,
+   "quelle": "auto:3"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 6.5667,
+   "dauer": 0,
+   "quelle": "auto:3"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 6.5667,
+   "dauer": 0,
+   "quelle": "auto:3"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 6.5667,
+   "dauer": 0,
+   "quelle": "auto:3"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 6.5667,
+   "dauer": 0,
+   "quelle": "auto:3"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 6.5667,
+   "dauer": 0,
+   "quelle": "auto:3"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 6.5667,
+   "dauer": 0,
+   "quelle": "auto:3"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 8.6667,
+   "dauer": 0,
+   "quelle": "auto:3:and"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 8.6667,
+   "dauer": 0,
+   "quelle": "auto:3:and"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 8.6667,
+   "dauer": 0,
+   "quelle": "auto:3:and"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 8.6667,
+   "dauer": 0,
+   "quelle": "auto:3:and"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 8.6667,
+   "dauer": 0,
+   "quelle": "auto:3:and"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 8.6667,
+   "dauer": 0,
+   "quelle": "auto:3:and"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 8.6667,
+   "dauer": 0,
+   "quelle": "auto:3:and"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 10.8,
+   "dauer": 0,
+   "quelle": "auto:4"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 10.8,
+   "dauer": 0,
+   "quelle": "auto:4"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 10.8,
+   "dauer": 0,
+   "quelle": "auto:4"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 10.8,
+   "dauer": 0,
+   "quelle": "auto:4"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 10.8,
+   "dauer": 0,
+   "quelle": "auto:4"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 10.8,
+   "dauer": 0,
+   "quelle": "auto:4"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 10.8,
+   "dauer": 0,
+   "quelle": "auto:4"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 12,
+   "dauer": 0,
+   "quelle": "auto:5"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 12,
+   "dauer": 0,
+   "quelle": "auto:5"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 12,
+   "dauer": 0,
+   "quelle": "auto:5"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 12,
+   "dauer": 0,
+   "quelle": "auto:5"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 12,
+   "dauer": 0,
+   "quelle": "auto:5"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 12,
+   "dauer": 0,
+   "quelle": "auto:5"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 12,
+   "dauer": 0,
+   "quelle": "auto:5"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 12.7667,
+   "dauer": 0,
+   "quelle": "auto:5:it counts"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 12.7667,
+   "dauer": 0,
+   "quelle": "auto:5:it counts"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 12.7667,
+   "dauer": 0,
+   "quelle": "auto:5:it counts"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 12.7667,
+   "dauer": 0,
+   "quelle": "auto:5:it counts"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 12.7667,
+   "dauer": 0,
+   "quelle": "auto:5:it counts"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 12.7667,
+   "dauer": 0,
+   "quelle": "auto:5:it counts"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 12.7667,
+   "dauer": 0,
+   "quelle": "auto:5:it counts"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 14.1333,
+   "dauer": 0,
+   "quelle": "auto:5:slow"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 14.1333,
+   "dauer": 0,
+   "quelle": "auto:5:slow"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 14.1333,
+   "dauer": 0,
+   "quelle": "auto:5:slow"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 14.1333,
+   "dauer": 0,
+   "quelle": "auto:5:slow"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 14.1333,
+   "dauer": 0,
+   "quelle": "auto:5:slow"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 14.1333,
+   "dauer": 0,
+   "quelle": "auto:5:slow"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 14.1333,
+   "dauer": 0,
+   "quelle": "auto:5:slow"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 15.4333,
+   "dauer": 0,
+   "quelle": "auto:5:and the whole"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 15.4333,
+   "dauer": 0,
+   "quelle": "auto:5:and the whole"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 15.4333,
+   "dauer": 0,
+   "quelle": "auto:5:and the whole"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 15.4333,
+   "dauer": 0,
+   "quelle": "auto:5:and the whole"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 15.4333,
+   "dauer": 0,
+   "quelle": "auto:5:and the whole"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 15.4333,
+   "dauer": 0,
+   "quelle": "auto:5:and the whole"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 15.4333,
+   "dauer": 0,
+   "quelle": "auto:5:and the whole"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 17.1333,
+   "dauer": 0,
+   "quelle": "auto:6"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 17.1333,
+   "dauer": 0,
+   "quelle": "auto:6"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 17.1333,
+   "dauer": 0,
+   "quelle": "auto:6"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 17.1333,
+   "dauer": 0,
+   "quelle": "auto:6"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 17.1333,
+   "dauer": 0,
+   "quelle": "auto:6"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 17.1333,
+   "dauer": 0,
+   "quelle": "auto:6"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 17.1333,
+   "dauer": 0,
+   "quelle": "auto:6"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 19.1667,
+   "dauer": 0,
+   "quelle": "auto:7"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 19.1667,
+   "dauer": 0,
+   "quelle": "auto:7"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 19.1667,
+   "dauer": 0,
+   "quelle": "auto:7"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 19.1667,
+   "dauer": 0,
+   "quelle": "auto:7"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 19.1667,
+   "dauer": 0,
+   "quelle": "auto:7"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 19.1667,
+   "dauer": 0,
+   "quelle": "auto:7"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 19.1667,
+   "dauer": 0,
+   "quelle": "auto:7"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 20.0667,
+   "dauer": 0,
+   "quelle": "auto:7:it bends"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 20.0667,
+   "dauer": 0,
+   "quelle": "auto:7:it bends"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 20.0667,
+   "dauer": 0,
+   "quelle": "auto:7:it bends"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 20.0667,
+   "dauer": 0,
+   "quelle": "auto:7:it bends"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 20.0667,
+   "dauer": 0,
+   "quelle": "auto:7:it bends"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 20.0667,
+   "dauer": 0,
+   "quelle": "auto:7:it bends"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 20.0667,
+   "dauer": 0,
+   "quelle": "auto:7:it bends"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 20.9,
+   "dauer": 0,
+   "quelle": "auto:7:takes"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 20.9,
+   "dauer": 0,
+   "quelle": "auto:7:takes"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 20.9,
+   "dauer": 0,
+   "quelle": "auto:7:takes"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 20.9,
+   "dauer": 0,
+   "quelle": "auto:7:takes"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 20.9,
+   "dauer": 0,
+   "quelle": "auto:7:takes"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 20.9,
+   "dauer": 0,
+   "quelle": "auto:7:takes"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 20.9,
+   "dauer": 0,
+   "quelle": "auto:7:takes"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 22.8,
+   "dauer": 0,
+   "quelle": "auto:8"
+  },
+  {
+   "art": "aus",
+   "ziel": "marsh.*",
+   "start": 22.8,
+   "dauer": 0,
+   "quelle": "auto:8"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 22.8,
+   "dauer": 0,
+   "quelle": "auto:8"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.june_lampe",
+   "start": 22.8,
+   "dauer": 0,
+   "quelle": "auto:8"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.eli_lampe",
+   "start": 22.8,
+   "dauer": 0,
+   "quelle": "auto:8"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.flur_lampe",
+   "start": 22.8,
+   "dauer": 0,
+   "quelle": "auto:8"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 22.8,
+   "dauer": 0,
+   "quelle": "auto:8"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 24.4333,
+   "dauer": 0,
+   "quelle": "auto:8:shoes"
+  },
+  {
+   "art": "aus",
+   "ziel": "marsh.*",
+   "start": 24.4333,
+   "dauer": 0,
+   "quelle": "auto:8:shoes"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 24.4333,
+   "dauer": 0,
+   "quelle": "auto:8:shoes"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.june_lampe",
+   "start": 24.4333,
+   "dauer": 0,
+   "quelle": "auto:8:shoes"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.eli_lampe",
+   "start": 24.4333,
+   "dauer": 0,
+   "quelle": "auto:8:shoes"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.flur_lampe",
+   "start": 24.4333,
+   "dauer": 0,
+   "quelle": "auto:8:shoes"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 24.4333,
+   "dauer": 0,
+   "quelle": "auto:8:shoes"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 26.3333,
+   "dauer": 0,
+   "quelle": "auto:9"
+  },
+  {
+   "art": "aus",
+   "ziel": "marsh.*",
+   "start": 26.3333,
+   "dauer": 0,
+   "quelle": "auto:9"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 26.3333,
+   "dauer": 0,
+   "quelle": "auto:9"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.june_lampe",
+   "start": 26.3333,
+   "dauer": 0,
+   "quelle": "auto:9"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.eli_lampe",
+   "start": 26.3333,
+   "dauer": 0,
+   "quelle": "auto:9"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.flur_lampe",
+   "start": 26.3333,
+   "dauer": 0,
+   "quelle": "auto:9"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 26.3333,
+   "dauer": 0,
+   "quelle": "auto:9"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 28.2667,
+   "dauer": 0,
+   "quelle": "auto:10"
+  },
+  {
+   "art": "aus",
+   "ziel": "marsh.*",
+   "start": 28.2667,
+   "dauer": 0,
+   "quelle": "auto:10"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 28.2667,
+   "dauer": 0,
+   "quelle": "auto:10"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.june_lampe",
+   "start": 28.2667,
+   "dauer": 0,
+   "quelle": "auto:10"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.eli_lampe",
+   "start": 28.2667,
+   "dauer": 0,
+   "quelle": "auto:10"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.flur_lampe",
+   "start": 28.2667,
+   "dauer": 0,
+   "quelle": "auto:10"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 28.2667,
+   "dauer": 0,
+   "quelle": "auto:10"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 29.5333,
+   "dauer": 0,
+   "quelle": "auto:11"
+  },
+  {
+   "art": "aus",
+   "ziel": "marsh.*",
+   "start": 29.5333,
+   "dauer": 0,
+   "quelle": "auto:11"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 29.5333,
+   "dauer": 0,
+   "quelle": "auto:11"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.june_lampe",
+   "start": 29.5333,
+   "dauer": 0,
+   "quelle": "auto:11"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.eli_lampe",
+   "start": 29.5333,
+   "dauer": 0,
+   "quelle": "auto:11"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.flur_lampe",
+   "start": 29.5333,
+   "dauer": 0,
+   "quelle": "auto:11"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 29.5333,
+   "dauer": 0,
+   "quelle": "auto:11"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 31.1333,
+   "dauer": 0,
+   "quelle": "auto:12"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 31.1333,
+   "dauer": 0,
+   "quelle": "auto:12"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 31.1333,
+   "dauer": 0,
+   "quelle": "auto:12"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 31.1333,
+   "dauer": 0,
+   "quelle": "auto:12"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 31.1333,
+   "dauer": 0,
+   "quelle": "auto:12"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 31.1333,
+   "dauer": 0,
+   "quelle": "auto:12"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 31.1333,
+   "dauer": 0,
+   "quelle": "auto:12"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 32,
+   "dauer": 0,
+   "quelle": "auto:12:it takes"
+  },
+  {
+   "art": "aus",
+   "ziel": "marsh.*",
+   "start": 32,
+   "dauer": 0,
+   "quelle": "auto:12:it takes"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 32,
+   "dauer": 0,
+   "quelle": "auto:12:it takes"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.june_lampe",
+   "start": 32,
+   "dauer": 0,
+   "quelle": "auto:12:it takes"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.eli_lampe",
+   "start": 32,
+   "dauer": 0,
+   "quelle": "auto:12:it takes"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.flur_lampe",
+   "start": 32,
+   "dauer": 0,
+   "quelle": "auto:12:it takes"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 32,
+   "dauer": 0,
+   "quelle": "auto:12:it takes"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 33.2333,
+   "dauer": 0,
+   "quelle": "auto:13"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 33.2333,
+   "dauer": 0,
+   "quelle": "auto:13"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 33.2333,
+   "dauer": 0,
+   "quelle": "auto:13"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 33.2333,
+   "dauer": 0,
+   "quelle": "auto:13"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 33.2333,
+   "dauer": 0,
+   "quelle": "auto:13"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 33.2333,
+   "dauer": 0,
+   "quelle": "auto:13"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 33.2333,
+   "dauer": 0,
+   "quelle": "auto:13"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 34.5333,
+   "dauer": 0,
+   "quelle": "auto:14"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 34.5333,
+   "dauer": 0,
+   "quelle": "auto:14"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 34.5333,
+   "dauer": 0,
+   "quelle": "auto:14"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 34.5333,
+   "dauer": 0,
+   "quelle": "auto:14"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 34.5333,
+   "dauer": 0,
+   "quelle": "auto:14"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 34.5333,
+   "dauer": 0,
+   "quelle": "auto:14"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 34.5333,
+   "dauer": 0,
+   "quelle": "auto:14"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 36.3333,
+   "dauer": 0,
+   "quelle": "auto:14:drove"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 36.3333,
+   "dauer": 0,
+   "quelle": "auto:14:drove"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 36.3333,
+   "dauer": 0,
+   "quelle": "auto:14:drove"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 36.3333,
+   "dauer": 0,
+   "quelle": "auto:14:drove"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 36.3333,
+   "dauer": 0,
+   "quelle": "auto:14:drove"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 36.3333,
+   "dauer": 0,
+   "quelle": "auto:14:drove"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 36.3333,
+   "dauer": 0,
+   "quelle": "auto:14:drove"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 37.7,
+   "dauer": 0,
+   "quelle": "auto:15"
+  },
+  {
+   "art": "aus",
+   "ziel": "marsh.*",
+   "start": 37.7,
+   "dauer": 0,
+   "quelle": "auto:15"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 37.7,
+   "dauer": 0,
+   "quelle": "auto:15"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.june_lampe",
+   "start": 37.7,
+   "dauer": 0,
+   "quelle": "auto:15"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.eli_lampe",
+   "start": 37.7,
+   "dauer": 0,
+   "quelle": "auto:15"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.flur_lampe",
+   "start": 37.7,
+   "dauer": 0,
+   "quelle": "auto:15"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 37.7,
+   "dauer": 0,
+   "quelle": "auto:15"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 38.5333,
+   "dauer": 0,
+   "quelle": "auto:15:his truck"
+  },
+  {
+   "art": "aus",
+   "ziel": "marsh.*",
+   "start": 38.5333,
+   "dauer": 0,
+   "quelle": "auto:15:his truck"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 38.5333,
+   "dauer": 0,
+   "quelle": "auto:15:his truck"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.june_lampe",
+   "start": 38.5333,
+   "dauer": 0,
+   "quelle": "auto:15:his truck"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.eli_lampe",
+   "start": 38.5333,
+   "dauer": 0,
+   "quelle": "auto:15:his truck"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.flur_lampe",
+   "start": 38.5333,
+   "dauer": 0,
+   "quelle": "auto:15:his truck"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 38.5333,
+   "dauer": 0,
+   "quelle": "auto:15:his truck"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 40.3,
+   "dauer": 0,
+   "quelle": "auto:15:engine"
+  },
+  {
+   "art": "aus",
+   "ziel": "marsh.*",
+   "start": 40.3,
+   "dauer": 0,
+   "quelle": "auto:15:engine"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 40.3,
+   "dauer": 0,
+   "quelle": "auto:15:engine"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.june_lampe",
+   "start": 40.3,
+   "dauer": 0,
+   "quelle": "auto:15:engine"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.eli_lampe",
+   "start": 40.3,
+   "dauer": 0,
+   "quelle": "auto:15:engine"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.flur_lampe",
+   "start": 40.3,
+   "dauer": 0,
+   "quelle": "auto:15:engine"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 40.3,
+   "dauer": 0,
+   "quelle": "auto:15:engine"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 41.2333,
+   "dauer": 0,
+   "quelle": "auto:16"
+  },
+  {
+   "art": "aus",
+   "ziel": "marsh.*",
+   "start": 41.2333,
+   "dauer": 0,
+   "quelle": "auto:16"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 41.2333,
+   "dauer": 0,
+   "quelle": "auto:16"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.june_lampe",
+   "start": 41.2333,
+   "dauer": 0,
+   "quelle": "auto:16"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.eli_lampe",
+   "start": 41.2333,
+   "dauer": 0,
+   "quelle": "auto:16"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.flur_lampe",
+   "start": 41.2333,
+   "dauer": 0,
+   "quelle": "auto:16"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 41.2333,
+   "dauer": 0,
+   "quelle": "auto:16"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 43.7,
+   "dauer": 0,
+   "quelle": "auto:17"
+  },
+  {
+   "art": "aus",
+   "ziel": "marsh.*",
+   "start": 43.7,
+   "dauer": 0,
+   "quelle": "auto:17"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 43.7,
+   "dauer": 0,
+   "quelle": "auto:17"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.june_lampe",
+   "start": 43.7,
+   "dauer": 0,
+   "quelle": "auto:17"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.eli_lampe",
+   "start": 43.7,
+   "dauer": 0,
+   "quelle": "auto:17"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.flur_lampe",
+   "start": 43.7,
+   "dauer": 0,
+   "quelle": "auto:17"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 43.7,
+   "dauer": 0,
+   "quelle": "auto:17"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 45.4,
+   "dauer": 0,
+   "quelle": "auto:17:not"
+  },
+  {
+   "art": "aus",
+   "ziel": "marsh.*",
+   "start": 45.4,
+   "dauer": 0,
+   "quelle": "auto:17:not"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 45.4,
+   "dauer": 0,
+   "quelle": "auto:17:not"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.june_lampe",
+   "start": 45.4,
+   "dauer": 0,
+   "quelle": "auto:17:not"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.eli_lampe",
+   "start": 45.4,
+   "dauer": 0,
+   "quelle": "auto:17:not"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.flur_lampe",
+   "start": 45.4,
+   "dauer": 0,
+   "quelle": "auto:17:not"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 45.4,
+   "dauer": 0,
+   "quelle": "auto:17:not"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 46.5667,
+   "dauer": 0,
+   "quelle": "auto:18"
+  },
+  {
+   "art": "aus",
+   "ziel": "marsh.*",
+   "start": 46.5667,
+   "dauer": 0,
+   "quelle": "auto:18"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 46.5667,
+   "dauer": 0,
+   "quelle": "auto:18"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.june_lampe",
+   "start": 46.5667,
+   "dauer": 0,
+   "quelle": "auto:18"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.eli_lampe",
+   "start": 46.5667,
+   "dauer": 0,
+   "quelle": "auto:18"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.flur_lampe",
+   "start": 46.5667,
+   "dauer": 0,
+   "quelle": "auto:18"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 46.5667,
+   "dauer": 0,
+   "quelle": "auto:18"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 47.6333,
+   "dauer": 0,
+   "quelle": "auto:18:side"
+  },
+  {
+   "art": "aus",
+   "ziel": "marsh.*",
+   "start": 47.6333,
+   "dauer": 0,
+   "quelle": "auto:18:side"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 47.6333,
+   "dauer": 0,
+   "quelle": "auto:18:side"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.june_lampe",
+   "start": 47.6333,
+   "dauer": 0,
+   "quelle": "auto:18:side"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.eli_lampe",
+   "start": 47.6333,
+   "dauer": 0,
+   "quelle": "auto:18:side"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.flur_lampe",
+   "start": 47.6333,
+   "dauer": 0,
+   "quelle": "auto:18:side"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 47.6333,
+   "dauer": 0,
+   "quelle": "auto:18:side"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 48.9333,
+   "dauer": 0,
+   "quelle": "auto:19"
+  },
+  {
+   "art": "aus",
+   "ziel": "marsh.*",
+   "start": 48.9333,
+   "dauer": 0,
+   "quelle": "auto:19"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 48.9333,
+   "dauer": 0,
+   "quelle": "auto:19"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.june_lampe",
+   "start": 48.9333,
+   "dauer": 0,
+   "quelle": "auto:19"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.eli_lampe",
+   "start": 48.9333,
+   "dauer": 0,
+   "quelle": "auto:19"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.flur_lampe",
+   "start": 48.9333,
+   "dauer": 0,
+   "quelle": "auto:19"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 48.9333,
+   "dauer": 0,
+   "quelle": "auto:19"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 51.4333,
+   "dauer": 0,
+   "quelle": "auto:20"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 51.4333,
+   "dauer": 0,
+   "quelle": "auto:20"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 51.4333,
+   "dauer": 0,
+   "quelle": "auto:20"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 51.4333,
+   "dauer": 0,
+   "quelle": "auto:20"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 51.4333,
+   "dauer": 0,
+   "quelle": "auto:20"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 51.4333,
+   "dauer": 0,
+   "quelle": "auto:20"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 51.4333,
+   "dauer": 0,
+   "quelle": "auto:20"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 53.5,
+   "dauer": 0,
+   "quelle": "auto:21"
+  },
+  {
+   "art": "aus",
+   "ziel": "marsh.*",
+   "start": 53.5,
+   "dauer": 0,
+   "quelle": "auto:21"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 53.5,
+   "dauer": 0,
+   "quelle": "auto:21"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.june_lampe",
+   "start": 53.5,
+   "dauer": 0,
+   "quelle": "auto:21"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.eli_lampe",
+   "start": 53.5,
+   "dauer": 0,
+   "quelle": "auto:21"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.flur_lampe",
+   "start": 53.5,
+   "dauer": 0,
+   "quelle": "auto:21"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 53.5,
+   "dauer": 0,
+   "quelle": "auto:21"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 55.4667,
+   "dauer": 0,
+   "quelle": "auto:22"
+  },
+  {
+   "art": "aus",
+   "ziel": "marsh.*",
+   "start": 55.4667,
+   "dauer": 0,
+   "quelle": "auto:22"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 55.4667,
+   "dauer": 0,
+   "quelle": "auto:22"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.june_lampe",
+   "start": 55.4667,
+   "dauer": 0,
+   "quelle": "auto:22"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.eli_lampe",
+   "start": 55.4667,
+   "dauer": 0,
+   "quelle": "auto:22"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.flur_lampe",
+   "start": 55.4667,
+   "dauer": 0,
+   "quelle": "auto:22"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 55.4667,
+   "dauer": 0,
+   "quelle": "auto:22"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 56.3,
+   "dauer": 0,
+   "quelle": "auto:22:the only"
+  },
+  {
+   "art": "aus",
+   "ziel": "marsh.*",
+   "start": 56.3,
+   "dauer": 0,
+   "quelle": "auto:22:the only"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 56.3,
+   "dauer": 0,
+   "quelle": "auto:22:the only"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.june_lampe",
+   "start": 56.3,
+   "dauer": 0,
+   "quelle": "auto:22:the only"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.eli_lampe",
+   "start": 56.3,
+   "dauer": 0,
+   "quelle": "auto:22:the only"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.flur_lampe",
+   "start": 56.3,
+   "dauer": 0,
+   "quelle": "auto:22:the only"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 56.3,
+   "dauer": 0,
+   "quelle": "auto:22:the only"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 57.9333,
+   "dauer": 0,
+   "quelle": "auto:23"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 57.9333,
+   "dauer": 0,
+   "quelle": "auto:23"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 57.9333,
+   "dauer": 0,
+   "quelle": "auto:23"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 57.9333,
+   "dauer": 0,
+   "quelle": "auto:23"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 57.9333,
+   "dauer": 0,
+   "quelle": "auto:23"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 57.9333,
+   "dauer": 0,
+   "quelle": "auto:23"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 57.9333,
+   "dauer": 0,
+   "quelle": "auto:23"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 59.7333,
+   "dauer": 0,
+   "quelle": "auto:23:hid"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 59.7333,
+   "dauer": 0,
+   "quelle": "auto:23:hid"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 59.7333,
+   "dauer": 0,
+   "quelle": "auto:23:hid"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 59.7333,
+   "dauer": 0,
+   "quelle": "auto:23:hid"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 59.7333,
+   "dauer": 0,
+   "quelle": "auto:23:hid"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 59.7333,
+   "dauer": 0,
+   "quelle": "auto:23:hid"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 59.7333,
+   "dauer": 0,
+   "quelle": "auto:23:hid"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 61.8333,
+   "dauer": 0,
+   "quelle": "auto:24"
+  },
+  {
+   "art": "aus",
+   "ziel": "marsh.*",
+   "start": 61.8333,
+   "dauer": 0,
+   "quelle": "auto:24"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 61.8333,
+   "dauer": 0,
+   "quelle": "auto:24"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.june_lampe",
+   "start": 61.8333,
+   "dauer": 0,
+   "quelle": "auto:24"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.eli_lampe",
+   "start": 61.8333,
+   "dauer": 0,
+   "quelle": "auto:24"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.flur_lampe",
+   "start": 61.8333,
+   "dauer": 0,
+   "quelle": "auto:24"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 61.8333,
+   "dauer": 0,
+   "quelle": "auto:24"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 63.6333,
+   "dauer": 0,
+   "quelle": "auto:25"
+  },
+  {
+   "art": "aus",
+   "ziel": "marsh.*",
+   "start": 63.6333,
+   "dauer": 0,
+   "quelle": "auto:25"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 63.6333,
+   "dauer": 0,
+   "quelle": "auto:25"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.june_lampe",
+   "start": 63.6333,
+   "dauer": 0,
+   "quelle": "auto:25"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.eli_lampe",
+   "start": 63.6333,
+   "dauer": 0,
+   "quelle": "auto:25"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.flur_lampe",
+   "start": 63.6333,
+   "dauer": 0,
+   "quelle": "auto:25"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 63.6333,
+   "dauer": 0,
+   "quelle": "auto:25"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 65.3333,
+   "dauer": 0,
+   "quelle": "auto:26"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 65.3333,
+   "dauer": 0,
+   "quelle": "auto:26"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 65.3333,
+   "dauer": 0,
+   "quelle": "auto:26"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 65.3333,
+   "dauer": 0,
+   "quelle": "auto:26"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 65.3333,
+   "dauer": 0,
+   "quelle": "auto:26"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 65.3333,
+   "dauer": 0,
+   "quelle": "auto:26"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 65.3333,
+   "dauer": 0,
+   "quelle": "auto:26"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 67.5,
+   "dauer": 0,
+   "quelle": "auto:26:before"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 67.5,
+   "dauer": 0,
+   "quelle": "auto:26:before"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 67.5,
+   "dauer": 0,
+   "quelle": "auto:26:before"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 67.5,
+   "dauer": 0,
+   "quelle": "auto:26:before"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 67.5,
+   "dauer": 0,
+   "quelle": "auto:26:before"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 67.5,
+   "dauer": 0,
+   "quelle": "auto:26:before"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 67.5,
+   "dauer": 0,
+   "quelle": "auto:26:before"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 69.0333,
+   "dauer": 0,
+   "quelle": "auto:27"
+  },
+  {
+   "art": "aus",
+   "ziel": "marsh.*",
+   "start": 69.0333,
+   "dauer": 0,
+   "quelle": "auto:27"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 69.0333,
+   "dauer": 0,
+   "quelle": "auto:27"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.june_lampe",
+   "start": 69.0333,
+   "dauer": 0,
+   "quelle": "auto:27"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.eli_lampe",
+   "start": 69.0333,
+   "dauer": 0,
+   "quelle": "auto:27"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.flur_lampe",
+   "start": 69.0333,
+   "dauer": 0,
+   "quelle": "auto:27"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 69.0333,
+   "dauer": 0,
+   "quelle": "auto:27"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 70.2,
+   "dauer": 0,
+   "quelle": "auto:28"
+  },
+  {
+   "art": "aus",
+   "ziel": "marsh.*",
+   "start": 70.2,
+   "dauer": 0,
+   "quelle": "auto:28"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 70.2,
+   "dauer": 0,
+   "quelle": "auto:28"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.june_lampe",
+   "start": 70.2,
+   "dauer": 0,
+   "quelle": "auto:28"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.eli_lampe",
+   "start": 70.2,
+   "dauer": 0,
+   "quelle": "auto:28"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.flur_lampe",
+   "start": 70.2,
+   "dauer": 0,
+   "quelle": "auto:28"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 70.2,
+   "dauer": 0,
+   "quelle": "auto:28"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 72.0333,
+   "dauer": 0,
+   "quelle": "auto:29"
+  },
+  {
+   "art": "aus",
+   "ziel": "marsh.*",
+   "start": 72.0333,
+   "dauer": 0,
+   "quelle": "auto:29"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 72.0333,
+   "dauer": 0,
+   "quelle": "auto:29"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.june_lampe",
+   "start": 72.0333,
+   "dauer": 0,
+   "quelle": "auto:29"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.eli_lampe",
+   "start": 72.0333,
+   "dauer": 0,
+   "quelle": "auto:29"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.flur_lampe",
+   "start": 72.0333,
+   "dauer": 0,
+   "quelle": "auto:29"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 72.0333,
+   "dauer": 0,
+   "quelle": "auto:29"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 73.8,
+   "dauer": 0,
+   "quelle": "auto:30"
+  },
+  {
+   "art": "aus",
+   "ziel": "marsh.*",
+   "start": 73.8,
+   "dauer": 0,
+   "quelle": "auto:30"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 73.8,
+   "dauer": 0,
+   "quelle": "auto:30"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.june_lampe",
+   "start": 73.8,
+   "dauer": 0,
+   "quelle": "auto:30"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.eli_lampe",
+   "start": 73.8,
+   "dauer": 0,
+   "quelle": "auto:30"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.flur_lampe",
+   "start": 73.8,
+   "dauer": 0,
+   "quelle": "auto:30"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 73.8,
+   "dauer": 0,
+   "quelle": "auto:30"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 75.7333,
+   "dauer": 0,
+   "quelle": "auto:32"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 75.7333,
+   "dauer": 0,
+   "quelle": "auto:32"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 75.7333,
+   "dauer": 0,
+   "quelle": "auto:32"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 75.7333,
+   "dauer": 0,
+   "quelle": "auto:32"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 75.7333,
+   "dauer": 0,
+   "quelle": "auto:32"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 75.7333,
+   "dauer": 0,
+   "quelle": "auto:32"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 75.7333,
+   "dauer": 0,
+   "quelle": "auto:32"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 77,
+   "dauer": 0,
+   "quelle": "auto:32:to grab"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 77,
+   "dauer": 0,
+   "quelle": "auto:32:to grab"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 77,
+   "dauer": 0,
+   "quelle": "auto:32:to grab"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 77,
+   "dauer": 0,
+   "quelle": "auto:32:to grab"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 77,
+   "dauer": 0,
+   "quelle": "auto:32:to grab"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 77,
+   "dauer": 0,
+   "quelle": "auto:32:to grab"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 77,
+   "dauer": 0,
+   "quelle": "auto:32:to grab"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 78.4333,
+   "dauer": 0,
+   "quelle": "auto:33"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 78.4333,
+   "dauer": 0,
+   "quelle": "auto:33"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 78.4333,
+   "dauer": 0,
+   "quelle": "auto:33"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 78.4333,
+   "dauer": 0,
+   "quelle": "auto:33"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 78.4333,
+   "dauer": 0,
+   "quelle": "auto:33"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 78.4333,
+   "dauer": 0,
+   "quelle": "auto:33"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 78.4333,
+   "dauer": 0,
+   "quelle": "auto:33"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 79.8,
+   "dauer": 0,
+   "quelle": "auto:34"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 79.8,
+   "dauer": 0,
+   "quelle": "auto:34"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 79.8,
+   "dauer": 0,
+   "quelle": "auto:34"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 79.8,
+   "dauer": 0,
+   "quelle": "auto:34"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 79.8,
+   "dauer": 0,
+   "quelle": "auto:34"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 79.8,
+   "dauer": 0,
+   "quelle": "auto:34"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 79.8,
+   "dauer": 0,
+   "quelle": "auto:34"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 81.7667,
+   "dauer": 0,
+   "quelle": "auto:34:six"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 81.7667,
+   "dauer": 0,
+   "quelle": "auto:34:six"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 81.7667,
+   "dauer": 0,
+   "quelle": "auto:34:six"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 81.7667,
+   "dauer": 0,
+   "quelle": "auto:34:six"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 81.7667,
+   "dauer": 0,
+   "quelle": "auto:34:six"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 81.7667,
+   "dauer": 0,
+   "quelle": "auto:34:six"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 81.7667,
+   "dauer": 0,
+   "quelle": "auto:34:six"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 83.0667,
+   "dauer": 0,
+   "quelle": "auto:35"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 83.0667,
+   "dauer": 0,
+   "quelle": "auto:35"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 83.0667,
+   "dauer": 0,
+   "quelle": "auto:35"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 83.0667,
+   "dauer": 0,
+   "quelle": "auto:35"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 83.0667,
+   "dauer": 0,
+   "quelle": "auto:35"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 83.0667,
+   "dauer": 0,
+   "quelle": "auto:35"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 83.0667,
+   "dauer": 0,
+   "quelle": "auto:35"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 84.2,
+   "dauer": 0,
+   "quelle": "auto:36"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 84.2,
+   "dauer": 0,
+   "quelle": "auto:36"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 84.2,
+   "dauer": 0,
+   "quelle": "auto:36"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 84.2,
+   "dauer": 0,
+   "quelle": "auto:36"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 84.2,
+   "dauer": 0,
+   "quelle": "auto:36"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 84.2,
+   "dauer": 0,
+   "quelle": "auto:36"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 84.2,
+   "dauer": 0,
+   "quelle": "auto:36"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 85.2333,
+   "dauer": 0,
+   "quelle": "auto:36:through"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 85.2333,
+   "dauer": 0,
+   "quelle": "auto:36:through"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 85.2333,
+   "dauer": 0,
+   "quelle": "auto:36:through"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 85.2333,
+   "dauer": 0,
+   "quelle": "auto:36:through"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 85.2333,
+   "dauer": 0,
+   "quelle": "auto:36:through"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 85.2333,
+   "dauer": 0,
+   "quelle": "auto:36:through"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 85.2333,
+   "dauer": 0,
+   "quelle": "auto:36:through"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 86.2667,
+   "dauer": 0,
+   "quelle": "auto:endkarte"
+  },
+  {
+   "art": "aus",
+   "ziel": "marsh.*",
+   "start": 86.2667,
+   "dauer": 0,
+   "quelle": "auto:endkarte"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 86.2667,
+   "dauer": 0,
+   "quelle": "auto:endkarte"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.june_lampe",
+   "start": 86.2667,
+   "dauer": 0,
+   "quelle": "auto:endkarte"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.eli_lampe",
+   "start": 86.2667,
+   "dauer": 0,
+   "quelle": "auto:endkarte"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.flur_lampe",
+   "start": 86.2667,
+   "dauer": 0,
+   "quelle": "auto:endkarte"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 86.2667,
+   "dauer": 0,
+   "quelle": "auto:endkarte"
+  }
+ ],
+ "partikel": []
+}

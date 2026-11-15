@@ -22,6 +22,7 @@ Grundlage sind `horror/docs/bewegungs-spec.md` (Kamera, Schnitt, Aktionen), `hor
 13. [Regeln für Modul-Autoren](#13-regeln-für-modul-autoren)
 14. [Grenzen und Offenes](#14-grenzen-und-offenes)
 15. [Bausteine der Serie „Hiding Night“](#15-bausteine-der-serie-hiding-night)
+16. [Shotliste, Messtor, Kontaktbogen](#16-shotliste-messtor-kontaktbogen)
 
 ## 1. Schnellstart
 
@@ -48,7 +49,8 @@ python3 -c "import json,jsonschema; jsonschema.validate(json.load(open('EPISODE.
 | Pfad | Inhalt |
 |---|---|
 | `index.html` | Render-Seite; lädt `src/haupt.js` mit Importmap auf `node_modules/three` |
-| `render.mjs` | Startet Xvfb, Chromium (`--use-angle=gl`, Mesa llvmpipe), rendert Bildbereiche, baut MP4 mit ffmpeg |
+| `render.mjs` | Startet Xvfb, Chromium (`--use-angle=gl`, Mesa llvmpipe), rendert Bildbereiche, baut MP4 mit ffmpeg; Schnell-Kontaktbogen mit Kompositionsprüfung |
+| `shotliste.mjs` | Shotlisten-Compiler mit Messtor: `timing.json` + `bildideen.json` + `regie.mjs` → `episode.json` (Abschnitt 16) |
 | `episode.schema.json` | JSON-Schema einer Episode (Draft 2020-12) |
 | `src/haupt.js` | Bild-Funktion: Zeit setzen, Einstellung wechseln, Unterbilder, Ausgabe |
 | `src/zeitplan.js` | Einstellungen auf Bildgrenzen, Aktionen sammeln, Prüfregeln |
@@ -70,7 +72,7 @@ python3 -c "import json,jsonschema; jsonschema.validate(json.load(open('EPISODE.
 | `figuren/` | Figurenmodule: Eli, June, Dad, Owen, Tess, Odell, Nachbar, Mister Hundred, Requisiten (Schuhpaar, Tür, Luke, Pick-up); Platzhalter zum Testen |
 | `animationen/` | Gemeinsame Animationen, eine Datei je Animation |
 | `assets/` | CC0-Assets, Lizenz in `assets/LICENSES.md` |
-| `test/` | `testszene.json` (6 s, 3 Einstellungen), `kamera-probe.json` (10 Bausteine), `kamera.test.mjs`, `belege.mjs` + `belege-sets.mjs` (Kontaktbögen) |
+| `test/` | `testszene.json` (6 s, 3 Einstellungen), `kamera-probe.json` (10 Bausteine), `kamera.test.mjs`, `shotliste.test.mjs` (Messtor), `belege.mjs` + `belege-sets.mjs` (Kontaktbögen) |
 | `belege/` | Kontaktbögen der Bausteine als kleine JPGs (je Figur, Monster, Requisiten, Animationen, Set) |
 
 Episoden-eigene Module dürfen auch neben der Episode liegen (`"modul": "./sets/bauernhof.js"`, relativ zur JSON-Datei).
@@ -131,6 +133,8 @@ Formal: `episode.schema.json`. Beispiel: `test/testszene.json`.
 ```
 
 - `stellung` setzt Figuren am Einstellungsbeginn sofort (Position, Blick, Gesicht, Pose, Sichtbarkeit). Das ist die Film-„Mogelei“ zwischen Einstellungen. Der Zustand bleibt danach bestehen, bis eine spätere Stellung oder Aktion ihn ändert.
+- `stellung.neu: true` ist ein Neuanfang am Schnitt: Die Figur geht erst auf ihre Vorgabe aus `figuren[]` zurück (Grundpose, Position, Blick, Gesicht, Sichtbarkeit), dann gilt die Stellung. Posen früherer Aktionen (geduckt, Arm oben) wirken danach nicht mehr. Die Engine rechnet je Bild ab der letzten solchen Stellung. Der Shotlisten-Compiler setzt `neu` für jede sichtbare Figur jeder Einstellung.
+- `plan` (frei) trägt die Planungsdaten des Compilers (Satz, Wörter, Hauptaktion, Akzent, Monster). Die Engine liest davon nur `plan.bogen_zeit` (Bild für den Kontaktbogen) und `plan.hauptsache` (Anker oder Punkt für die Kompositionsprüfung).
 - Sonder-Aktionen ohne Animationsmodul: `gesicht` (`params.name`), `sichtbar` (`params.wert`), `stellung` (wie oben).
 
 **Punkte und Anker** (überall, wo ein Ort gebraucht wird): `[x, y, z]` in Metern, `"figur.anker"` / `"set.anker"`, `"figur"` allein (= Wurzel, Füße), oder `{ "anker": "held.kopf", "versatz": [0, 0.2, 0] }`. Figuren-Anker des Standard-Rigs: `kopf`, `augen`, `mund`, `ueber_kopf`, `brust`, `huefte`, `hand_l`, `hand_r`, `fuss_l`, `fuss_r`, `fuss`; dazu jedes Gelenk (`armR`, …). Anker sind zeitabhängig (sie bewegen sich mit der Figur).
@@ -352,11 +356,14 @@ node render.mjs <episode.json> [Optionen]
   --ton <datei>            Tonspur ins MP4                  --crf <n>          H.264-Qualität (18)
   --nur-bilder             kein MP4                         --kein-bogen       kein Kontaktbogen
   --backend gl|swiftshader gl = Mesa llvmpipe unter Xvfb    --debug            Konsolenmeldungen der Seite zeigen
+  --schnellbogen           nur 1 Bild je Einstellung + beschriftete Kontaktbögen + Kompositionsprüfung
+  --bogenbild plan|anfang|ende   welches Bild der Schnellbogen nimmt (Std plan = plan.bogen_zeit)
 ```
 
 - `render.mjs` startet einen eigenen Xvfb (falls kein `DISPLAY`), Chromium mit `--use-gl=angle --use-angle=gl` und `LIBGL_ALWAYS_SOFTWARE=1`, wie im Messversuch. Playwright kommt aus `/opt/node22/lib/node_modules/playwright` (anderer Pfad: `PLAYWRIGHT_PFAD`).
 - Mit `--prozesse 2` bekommt jeder Chromium-Prozess einen zusammenhängenden Bildbereich. Die Bilder sind bitgleich zu einem Lauf mit 1 Prozess.
-- MP4: H.264 High, yuv420p, crf 18, BT.709 (Matrix und Kennzeichnung), `+faststart`. Mit `--ton` wird die Tonspur ab dem Bereichsbeginn angelegt.
+- MP4: H.264 High, yuv420p, crf 18, BT.709 (Matrix und Kennzeichnung), `+faststart`. Mit `--ton` wird die Tonspur ab dem Bereichsbeginn angelegt und mit Stille bis zum Bildende aufgefüllt (die Endkarte hat keinen Ton und wird nicht abgeschnitten).
+- Heißt die Datei `episode.json`, ist der Ausgabeordner nach ihrem Ordner benannt: `episoden/folge-01/episode.json` → `horror/build/folge-01/`.
 - Untertitel, Endkarte „PART 2“ und Ton-Mix sind nicht Teil der Engine; sie kommen im nächsten Schritt auf das MP4 (ffmpeg/libass oder HyperFrames).
 
 ## 12. Messwerte
@@ -402,7 +409,7 @@ Der PNG-Export im Browser (toDataURL) kostet etwa 0,17 s je Bild und Prozess; JP
 - **Tiefenunschärfe** ist eine schnelle Näherung (zwei Gauß-Durchgänge in halber Auflösung). Vordergrund-Objekte vor einer scharfen Figur bekommen weiche, aber keine echten Bokeh-Kanten.
 - **Bewegungsunschärfe** nur in schnellen Phasen (Whip, Snap) oder auf Wunsch je Einstellung; sie vervielfacht die Renderzeit dieser Bilder (bis 16 Unterbilder).
 - **Platzhalter:** `platzhalter`, `platzhalter_monster`, `platzhalter_strasse` dienen nur zum Testen der Schnittstelle; die echten Module stehen in Abschnitt 15.
-- **Noch nicht gebaut:** Shotlisten-Compiler (Wortindex → Sekunden aus `timing.json`), Messtor über die Renders, Untertitel und Endkarte.
+- **Noch nicht gebaut:** Untertitel, Ton-Mix (Effekte, Klangbett) und ein Messtor über die fertigen Renders (Schnitterkennung, optischer Fluss). Shotlisten-Compiler, Messtor vor dem Render und Endkarte: Abschnitt 16.
 
 ## 15. Bausteine der Serie „Hiding Night“
 
@@ -489,6 +496,10 @@ Dauern nach bewegungs-spec.md 1.4 und 2.1. Englische Namen aus der Aufgabenliste
 | `kicken` | – | 0,4 s | `seite`, `staerke` (Satz 18) |
 | `geste` | – | 0,3 s | `art` finger_heben / finger_auf_lippen / stopp / winken (Satz 10, 19) |
 | `arm_heben`, `vorbeugen` | – | wie bisher | |
+| `augen_zuhalten` | – | 0,35 s | `senken`; beide Hände flach vors Gesicht (Satz 17), auch als Pose |
+| `arme_senken` | – | 0,3 s | `seite`; Arme aus jeder IK-Haltung zurück in die Ruhe (Satz 17) |
+| `liegen` | – | Pose oder 0,6 s | `anheben`, `kopf`; auf dem Rücken, Kopf zeigt nach lokal −z, Position = Füße (Satz 26) |
+| `klettern` | – | 0,8 s | `hoehe` (Pflicht), `vor`, `arme`; steigt aus der Luke oder (mit `gehen`, `arme: false`) die Treppe hinauf |
 
 IK-Hilfen für eigene Animationen: `src/ik.js` (`zweiGlied(fig, 'L'|'R', zielWelt, p, { pol, glied })`, `richteAus`, `handDrehung`, `kurve`, `huelle`, `beinGeometrie`).
 
@@ -557,3 +568,61 @@ Gemessen am 15.11.2026 mit den Beleg-Episoden (2 Prozesse). Achtung: In den Bele
 | 1080 × 1920, PNG, Set marsh_innen (69 Bilder) | 0,52 | 0,70 | 15,7 min |
 
 Gegenüber der Testszene (0,29 s/Bild) kosten die echten Sets etwa das 1,4- bis 1,8-Fache. Ein Teil von 80 s braucht damit grob 16–21 min Rechenzeit in voller Auflösung.
+
+## 16. Shotliste, Messtor, Kontaktbogen
+
+Stand 15.11.2026. Aus Wortzeiten wird ohne Handarbeit an Sekunden eine renderfertige Episode.
+
+```bash
+cd horror/engine
+node shotliste.mjs ../episoden/folge-01 [--tabelle] [--entwurf]       # baut episoden/folge-01/episode.json oder bricht ab
+node render.mjs ../episoden/folge-01/episode.json --schnellbogen --skala 0.25            # 1 Bild je Einstellung, 270×480, ~15 s
+node render.mjs ../episoden/folge-01/episode.json --schnellbogen --skala 0.25 --bogenbild anfang   # erste Bilder nach den Schnitten
+```
+
+### 16.1 Eingaben (im Episoden-Ordner)
+
+| Datei | Inhalt | Wer |
+|---|---|---|
+| `timing.json` | Wortzeiten der fertigen Stimme (Abschnitt „Stimme“) | Stimm-Werkzeug `ton/stimme.py` |
+| `bildideen.json` | WAS jede Einstellung zeigt: Satz = Schnitt (außer `"neuer_schnitt": false`), Teilbilder schneiden ab `ab_wort`; je Einstellung Ort, Licht, Schlüsselwort, Reaktionsgesicht, Monster | Geschichte, im Kontaktbogen nachgebessert |
+| `regie.mjs` | WIE es gezeigt wird: je Einstellung (Schlüssel `"<satz>"` oder `"<satz>:<ab_wort>"`) Figuren-Stellung, Kamera, genau eine Hauptaktion, Nebenbewegungen, Gesichter, Mundformen, Lichtereignisse, Partikel, Hauptsache. Zeiten nur als Wörter | Regie (JS-Modul, damit Hilfsfunktionen und Kommentare gehen) |
+
+Wortbezüge: `"town"` (erstes Vorkommen in der Einstellung), `"side#2"` (zweites), oder globaler Wortindex. In der Kamera: `ankunft_wort` (Kran, Tilt), `zeit_wort` (Snap, Whip), `vordergrund.wort` (Wisch), `zusaetze[].wort` (Wackeln 0,05 s nach dem Wort). Hauptaktion `{ wer, was, wort, dauer?, anker: "start" | "ende" }` oder `{ art: "gesicht" | "licht" | "set" | "partikel" | "kamera", … }`; `art: "kamera"` heißt: die Kamera (Insert, Enthüllung, Snap) ist die Hauptaktion, ihre Schlüsselzeit liegt auf dem Wort.
+
+### 16.2 Was der Compiler setzt
+
+- **Schnitte:** Bild des Wortbeginns minus 1 (erste Einstellung ab Bild 0). Ende des letzten Bildes: letztes Wort + `nachlauf` (0,14 s), dann **Endkarte** `PART 2` (Set `endkarte`, 1,0 s, ohne Ton, Push-in).
+- **Kamera:** ohne Angabe Push-in 7 %/s linear. Kran und Tilt starten 0,25 s vor dem Schnitt, damit sie im ersten Bild schon fahren.
+- **Figuren:** jede sichtbare Figur bekommt am Schnitt `stellung.neu`, alle anderen werden ausgeblendet.
+- **Licht:** Bildideen-Licht → Preset (`tag`, `morgen` = Tag mit tiefer Ostsonne, `sonnenaufgang`, `daemmerung`, `nacht`, `innen-nacht` = innen_warm, `rueckblende-nacht`). Rückblenden sind entsättigt. Lampen und Fenster (`strasse.*`, `marsh.*`, Innenlampen, nicht die Kerzen) und die Umgebung werden an jedem Schnitt auf an/aus gesetzt.
+- **Mund:** wörtliche Rede tauscht Mundformen je Wort (lange Wörter zweimal, Pausen geschlossen); `art: "zaehlen"` zählt stumm im Takt.
+- **Tiefenunschärfe** in Nah, Groß, Detail und Über-Schulter auf die Hauptsache.
+- **Turmuhr:** Hauptaktion `{ art: "set", was: "uhr" }` oder `uhr: "10:20"` je Einstellung.
+
+### 16.3 Messtor (bricht ab, schreibt dann keine episode.json)
+
+| Nr. | Regel | Grenze |
+|---|---|---|
+| M1 | Schnitt auf Wortbeginn | 0–2 Bilder davor |
+| M2 | Länge je Einstellung, Median, Takt | 0,7–2,5 s; 1,4–1,6 s; 38–45 /min |
+| M3 | Kamera fährt ab Bild 1; Push-in-Tempo | ≥ 90 %; 4–12 %/s; Kran/Tilt vor dem Schnitt gestartet |
+| M4 | Akzentfahrten (Tilt, Kran, Seitenfahrt, Folgefahrt, Orbit, Whip, Dolly-out, Sturzfahrt) | im Mittel alle 6–10 s, nie über 10 s Lücke; Ankunft ±0,1 s aufs Wort |
+| M5 | genau eine Hauptaktion, auf ihrem Schlüsselwort; Wort = Schlüsselwort der Bildidee | ±0,2 s (lange Aktionen: Ende) |
+| M6 | Reaktionsgesichter auf ihrem Wort; Gesichter der Bildideen zu sehen; Mundformen bei wörtlicher Rede | ±0,3 s; Takt 0,1–0,3 s |
+| M7 | Lichtereignisse auf Wörtern ihrer Einstellung | 1–3 je Teil; Start bis 0,5 s vor dem Verb |
+| M8 | Hook: Monster im ersten Bild, Hauptsache, Kamera fährt ab Bild 1 | Push ≥ 7 %/s |
+| M9 | Snap-Zooms, Wackeln | 2–3; höchstens 4 |
+| M10 | Monster-Anteil | 15–25 % der Einstellungen |
+| M11 | Endkarte | ≤ 0,2 s nach dem letzten Wort, 1,0 s |
+| M12 | Kamera, Hauptsache und Aktionen nur auf sichtbare Figuren | – |
+
+Danach prüft der Compiler die Datei gegen `episode.schema.json` (Python-jsonschema der Umgebung). Tests: `npm test` (`test/shotliste.test.mjs` baut absichtlich Fehler ein und erwartet, dass das Messtor sie findet).
+
+### 16.4 Kontaktbogen und Kompositionsprüfung
+
+`render.mjs --schnellbogen` rendert nur das Bild `plan.bogen_zeit` jeder Einstellung (nach der Hauptaktion bzw. Ankunft der Fahrt), beschriftet mit Nummer, Zeit und Text, und legt Bögen zu je 18 Bildern plus einen Gesamtbogen nach `horror/build/<folge>/`. Für jede Einstellung wird `plan.hauptsache` ins Bild projiziert: Sie muss im mittleren Drittel liegen (x 360–720, y 640–1150 bei 1080 × 1920), und ist sie ein Kopf, darf der Mund nicht im Untertitel-Streifen (y 1150–1300) liegen. Verstöße stehen rot im Bogen und in `komposition.json`.
+
+### 16.5 Folge 1 in Zahlen (Messtor)
+
+57 Einstellungen plus Endkarte, 87,27 s. Median 1,53 s, 39,6 Einstellungen/min, kürzeste 0,77 s, längste 2,50 s. 14 Akzentfahrten (im Mittel alle 6,2 s, größte Lücke 8,9 s), 3 Snap-Zooms, 2-mal Wackeln, 3 Lichtereignisse, Monster in 24,6 % der Einstellungen, Körperaktion in 61 % (Spec 35–55 %: etwas viel, kein Abbruch). Endkarte 0,147 s nach dem letzten Wort. Kompositionsprüfung: 56 von 56 Einstellungen ohne Verstoß.

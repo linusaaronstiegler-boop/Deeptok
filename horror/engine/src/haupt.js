@@ -170,7 +170,10 @@ async function starten() {
     startBild: zeitplan.startBild,
     bilder: zeitplan.gesamtBilder,
     warnungen: zeitplan.warnungen,
-    einstellungen: zeitplan.einstellungen.map((e) => ({ id: e.id, startBild: e.startBild, endeBild: e.endeBild })),
+    einstellungen: zeitplan.einstellungen.map((e) => ({
+      id: e.id, startBild: e.startBild, endeBild: e.endeBild,
+      text: e.text ?? '', bogenZeit: e.plan?.bogen_zeit ?? null, hauptsache: e.plan?.hauptsache ?? null,
+    })),
     info() {
       const ext = gl.getExtension('WEBGL_debug_renderer_info');
       return ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER);
@@ -194,6 +197,24 @@ async function starten() {
       const n = bild(i);
       fertig();
       return { ms: performance.now() - t0, unterbilder: n };
+    },
+    // Kompositionsprüfung: Wo liegen Anker (z. B. die Hauptsache einer Einstellung) im Bild i?
+    // Ergebnis in Pixeln der vollen Auflösung (1080 × 1920), unabhängig von --skala;
+    // vorn = false heißt: der Punkt liegt hinter der Kamera.
+    projiziere(i, anker) {
+      const e = zeitplan.einstellungFuer(i);
+      einstellungAktivieren(e);
+      const t = i / fps;
+      zeitSetzen(t, e);
+      kamera.updateMatrixWorld();
+      // Ein Punkt [x, y, z] ist erlaubt (Mitte zwischen zwei Dingen), sonst Anker-Namen
+      const liste = Array.isArray(anker) && typeof anker[0] === 'number' ? [anker] : [].concat(anker);
+      return liste.map((a) => {
+        const v = Array.isArray(a) ? new THREE.Vector3(...a) : welt.anker(a, t).clone();
+        const vorn = v.clone().applyMatrix4(kamera.matrixWorldInverse).z < 0;
+        v.project(kamera);
+        return { anker: a, x: Math.round(((v.x + 1) / 2) * W0), y: Math.round(((1 - v.y) / 2) * H0), vorn };
+      });
     },
     // Rendern und als Daten-URL zurückgeben (im selben Aufruf, sonst ist der Puffer leer).
     bildDaten(i, format = 'image/png', qualitaet = 0.92) {
