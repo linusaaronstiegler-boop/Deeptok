@@ -49,6 +49,7 @@ export const REGELN = {
   mundTakt: [0.1, 0.3],            // Mundformen bei wörtlicher Rede alle 0,1–0,3 s (BEW 1.4)
   endkarteAbstand: 0.2,            // harter Schnitt ≤ 0,2 s nach dem letzten Wort (A6)
   endkarteDauer: 1.0,              // Endkarte 1,0 s (A6)
+  vordergrundMin: 1.5,             // Wisch-Objekte mindestens 1,5 m vor der Kamera (Review Folge 1)
 };
 
 // Akzentfahrten: Kamera-Bausteine mit Zweck (BEW 1.3 Regel 3). Snap-Zooms zählen extra (Regel 4).
@@ -327,7 +328,9 @@ export async function kompiliere(ordner) {
     if (r.uhr) {
       const p = setParams('strasse');
       p.uhr ??= { zeit: r.uhr, spruenge: [] };
-      p.uhr.spruenge.push({ start, zeit: r.uhr });
+      // ein halbes Bild vor dem Schnitt: Schnittzeit und Bildzeit sind gerundet, sonst zeigt das erste
+      // Bild der Einstellung noch die alte Uhrzeit (Review Folge 1: Blitzer bei 81,77 s)
+      p.uhr.spruenge.push({ start: r4(start - 0.5 / FPS), zeit: r.uhr });
     }
 
     // --- Licht: Preset, Anpassung, Lampen an/aus am Schnitt ---
@@ -345,7 +348,9 @@ export async function kompiliere(ordner) {
     const hauptsache = r.hauptsache ?? (typeof k.ziel === 'string' ? k.ziel : null);
     plan.hauptsache = hauptsache;
     let tiefe = r.tiefe;
-    if (tiefe === undefined && TIEFE_GROESSEN.has(idee.groesse)) tiefe = { fokus: typeof hauptsache === 'string' ? hauptsache : [].concat(hauptsache ?? [])[0] ?? undefined, staerke: 0.8 };
+    // Fokus auf die Hauptsache: Anker, Punkt [x, y, z] oder bei mehreren Ankern der erste
+    const istPunkt = Array.isArray(hauptsache) && hauptsache.length === 3 && hauptsache.every((v) => typeof v === 'number');
+    if (tiefe === undefined && TIEFE_GROESSEN.has(idee.groesse)) tiefe = { fokus: typeof hauptsache === 'string' || istPunkt ? hauptsache : [].concat(hauptsache ?? [])[0] ?? undefined, staerke: 0.8 };
     if (tiefe && tiefe.fokus === undefined) tiefe = true;
 
     // --- Bild für den Kontaktbogen: wenn das Gesagte zu sehen ist (nach Hauptaktion/Ankunft) ---
@@ -568,6 +573,15 @@ export function messtor({ episode, einst, timing, monsterIds }) {
       if (ids.has(id) && !e.plan.sichtbar.includes(id)) V.push(`M12 ${e.id}: Kamera/Hauptsache zeigt auf „${ref}“, ${id} ist aber nicht sichtbar`);
     }
     for (const a of e.aktionen) if (!e.plan.sichtbar.includes(a.wer)) V.push(`M12 ${e.id}: Aktion ${a.was} für unsichtbare Figur ${a.wer}`);
+  }
+
+  // M13 Nichts direkt vor der Linse (Review Folge 1): Ein Wisch-Objekt näher als 1,5 m rendert als
+  // unbeleuchteter schwarzer Balken über bis zu einem Drittel der Bildbreite und liest sich wie ein
+  // Renderfehler. Seitenfahrten fahren deshalb ohne Pfosten oder mit Abstand ≥ 1,5 m.
+  for (const e of story) {
+    // truck_side stellt ohne "vordergrund: false" einen Pfosten 0,9 m vor die Kamera (src/kamera.js)
+    const vg = e.kamera.baustein === 'truck_side' && e.kamera.vordergrund !== false ? (e.kamera.vordergrund ?? {}) : null;
+    if (vg && (vg.abstand ?? 0.9) < REGELN.vordergrundMin) V.push(`M13 ${e.id}: Vordergrund-Objekt ${vg.abstand ?? 0.9} m vor der Kamera (mindestens ${REGELN.vordergrundMin} m)`);
   }
   return { kennzahlen: kz, verstoesse: V, laengen };
 }

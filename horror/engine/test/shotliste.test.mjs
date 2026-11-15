@@ -77,3 +77,12 @@ test('Messtor erkennt zu lange Einstellungen und Kamera auf unsichtbare Figur', 
   assert.ok(hat(tor, 'M2'));
   assert.ok(hat(tor, 'M12'));
 });
+
+test('Messtor erkennt ein Wisch-Objekt direkt vor der Linse (M13)', opt, async () => {
+  const erg = await frisch();
+  const e = erg.episode.einstellungen.find((x) => x.kamera.baustein === 'truck_side');
+  e.kamera.vordergrund = { zeit: e.start + 0.3, abstand: 1.0, art: 'pfosten' };
+  assert.ok(hat(messtor(erg), 'M13'));
+  delete e.kamera.vordergrund;                                  // ohne Angabe stellt truck_side 0,9 m vor die Linse
+  assert.ok(hat(messtor(erg), 'M13'));
+});

@@ -214,16 +214,19 @@ export default async function baue(ctx, params = {}) {
     zyl(statisch, 0.205, 0.205, 0.03, ctx.mat('#d87a8a', { rauheit: 0.6 }), kx, so + tischH + 0.12, kzz, { segmente: 20 });
     zyl(statisch, 0.24, 0.24, 0.015, porzellan, kx, so + tischH + 0.035, kzz, { segmente: 20 });
     const kerze = ctx.mat('#4fa36a', { rauheit: 0.5 });
+    // Die Zahl "18" steht quer zur Tischachse und ist von der Weltseite +z aus lesbar (Review Folge 1:
+    // in E37 stand aus Kamerasicht "81"). Alle Einstellungen mit Kuchen schauen von dieser Seite
+    // (kueche_detail, E37 über Elis Schulter, E47 von oben); Haus-z zeigt nach Welt +x.
     // "1"
-    k(statisch, 0.03, 0.14, 0.03, kerze, kx - 0.07, so + tischH + 0.23, kzz, { schatten: false });
-    k(statisch, 0.035, 0.02, 0.03, kerze, kx - 0.08, so + tischH + 0.29, kzz, { schatten: false, dreh: [0, 0, 0.6] });
+    k(statisch, 0.03, 0.14, 0.03, kerze, kx, so + tischH + 0.23, kzz - 0.07, { schatten: false });
+    k(statisch, 0.03, 0.02, 0.035, kerze, kx, so + tischH + 0.29, kzz - 0.08, { schatten: false, dreh: [-0.6, 0, 0] });
     // "8" aus zwei Ringen
-    for (const yy of [0.2, 0.27]) { const r = new T.Mesh(new T.TorusGeometry(0.03, 0.011, 6, 14), kerze); r.position.set(kx + 0.07, so + tischH + yy, kzz); statisch.add(r); }
-    for (const [fx, fy] of [[kx - 0.07, 0.33], [kx + 0.07, 0.34]]) {
+    for (const yy of [0.2, 0.27]) { const r = new T.Mesh(new T.TorusGeometry(0.03, 0.011, 6, 14), kerze); r.position.set(kx, so + tischH + yy, kzz + 0.07); r.rotation.y = Math.PI / 2; statisch.add(r); }
+    for (const [fz, fy] of [[kzz - 0.07, 0.33], [kzz + 0.07, 0.34]]) {
       // Flamme als Tropfen (gestreckte Kugel), hell genug für Bloom
       const fl = new T.Mesh(new T.SphereGeometry(0.014, 10, 8), kerzenMat);
       fl.scale.set(1, 2.2, 1);
-      fl.position.set(fx, so + tischH + fy, kzz);
+      fl.position.set(kx, so + tischH + fy, fz);
       fl.userData.einzeln = true;
       haus.add(fl);
       flammen.push(fl);
@@ -376,7 +379,7 @@ export default async function baue(ctx, params = {}) {
       kueche_totale: { pos: W(-0.6, so + 2.5, -0.6), ziel: W(-3.4, so + 0.8, -3.4), fov: 62 },
       kueche_halbtotale: { pos: W(-0.9, so + 1.5, -0.8), ziel: W(-2.8, so + 0.9, -2.8), fov: 50 },
       kueche_nah: { pos: W(-1.5, so + 1.35, -1.5), ziel: W(-2.6, so + 1.0, -2.6), fov: 44 },
-      kueche_detail: { pos: W(-2.1, so + 1.35, -1.55), ziel: W(-2.6, so + 0.82, -2.48), fov: 36 },
+      kueche_detail: { pos: W(-3.45, so + 1.35, -2.85), ziel: W(-2.6, so + 0.82, -2.48), fov: 36 },
       kueche_untersicht: { pos: W(-1.0, so + 0.5, -0.9), ziel: W(-2.8, so + 2.6, -3.2), fov: 58 },
       flur_totale: { pos: W(1.2, so + 2.6, -5.6), ziel: W(2.4, so + 1.0, -0.6), fov: 60 },
       flur_halbtotale: { pos: W(2.2, so + 1.5, -5.0), ziel: W(2.6, so + 1.4, -1.0), fov: 48 },

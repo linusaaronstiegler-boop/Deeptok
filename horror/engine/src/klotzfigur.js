@@ -180,7 +180,9 @@ export function baueKlotzfigur(ctx, o = {}) {
   const m = { ...STANDARD, ...(o.masse ?? {}) };
   m.schuh = { ...STANDARD.schuh, ...(o.masse?.schuh ?? {}) };
   const f = { haut: '#e8c9a8', oberteil: '#888888', hose: '#555a60', schuh: '#f2f2ee', ...(o.farben ?? {}) };
-  const mat = (farbe, opt = {}) => ctx.mat(farbe, { rauheit: 0.82, ...opt });
+  // Schwaches Kantenlicht für alle Figurenteile (Review Folge 1): Köpfe, Haare und dunkle Kleidung
+  // lösen sich vom Hintergrund, auch wenn das Hauptlicht von hinten kommt.
+  const mat = (farbe, opt = {}) => ctx.mat(farbe, { rauheit: 0.82, kante: { farbe: '#d6deff', staerke: 0.2, exponent: 3 }, ...opt });
   const matHaut = mat(f.haut, { rauheit: 0.68 });
   const matOben = o.matOben ?? mat(f.oberteil);
   const matAermel = o.matAermel ?? mat(f.aermel ?? f.oberteil);

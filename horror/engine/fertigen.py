@@ -12,7 +12,7 @@ Ablauf:
      <folge>-upload.mp4  (Stimme + Effekte; so lädt Linus hoch und wählt den Sound in der App)
      <folge>-vorhoer.mp4 (zusätzlich leises eigenes Klangbett)
   5. True Peak nach AAC nachmessen. AAC hebt Spitzen etwas an; liegt eine Fassung über
-     −1 dBTP, wird die Mischung mit tieferer Begrenzer-Decke neu gebaut (höchstens 3 Runden).
+     −1 dBTP, wird nur diese Fassung mit tieferer Begrenzer-Decke neu gebaut (höchstens 4 Runden).
 
 Vorher: Einzelbilder mit render.mjs --nur-bilder (siehe README Abschnitt 11/17).
 In der Cloud: [ -f /opt/deeptok/env.sh ] && . /opt/deeptok/env.sh
@@ -101,10 +101,11 @@ def main() -> None:
         s = kodiere_bild(build, ordner / "untertitel.ass", bild, bilder)
         print(f"    {bild} in {s:.0f} s")
 
-    decke = mischen.DECKE_DB
-    for runde in range(3):
-        print(f"3/4 Ton mischen (Begrenzer-Decke {decke} dBFS)")
-        bericht = mischen.mische(ordner, bett if bett.exists() else None, decke)
+    # Je Fassung eine eigene Begrenzer-Decke: nur die Fassung, die nach AAC zu heiß ist, wird gesenkt
+    decken = {"upload": mischen.DECKE_DB, "vorhoer": mischen.DECKE_DB}
+    for runde in range(4):
+        print(f"3/4 Ton mischen (Begrenzer-Decken {decken} dBFS)")
+        bericht = mischen.mische(ordner, bett if bett.exists() else None, decken["upload"], decken["vorhoer"])
         print("4/4 Fassungen bauen")
         fassungen = {"upload": build / "ton" / "mix-upload.wav"}
         if bericht["vorhoer"]:
@@ -118,8 +119,10 @@ def main() -> None:
         schlimmste = max(m["true_peak_dbtp"] for m in messung.values())
         if schlimmste <= mischen.MAX_TP:
             break
-        decke -= schlimmste - mischen.MAX_TP + 0.2
-    bericht["nach_aac"] = {"kbit": AAC_KBIT, **messung, "decke_dbfs": decke}
+        for art, m in messung.items():
+            if m["true_peak_dbtp"] > mischen.MAX_TP:
+                decken[art] = round(decken[art] - (m["true_peak_dbtp"] - mischen.MAX_TP + 0.2), 2)
+    bericht["nach_aac"] = {"kbit": AAC_KBIT, **messung, "decken_dbfs": decken}
     (ordner / "mischung.json").write_text(json.dumps(bericht, ensure_ascii=False, indent=1), encoding="utf-8")
     if schlimmste > mischen.MAX_TP:
         sys.exit(f"True Peak nach AAC {schlimmste} dBTP liegt über {mischen.MAX_TP}")

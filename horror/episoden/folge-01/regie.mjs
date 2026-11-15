@@ -39,10 +39,12 @@ export const seed = 2611;
 export const monster = ['mh'];
 export const nachlauf = 0.14;   // Bild bleibt nach dem letzten Wort noch 0,14 s (Ende der Stimme), dann Endkarte
 
-export const look = { licht: 'nacht', bloom: { staerke: 0.55, radius: 0.55, schwelle: 1.0 }, vignette: 0.32, korn: 0.025, toene: 'aces' };
+// belichtung 1.08 (Review Folge 1): hebt alle Einstellungen leicht an; Ziel Bild-Median ≥ 85 von 255 (pruefen.py)
+export const look = { licht: 'nacht', belichtung: 1.08, bloom: { staerke: 0.55, radius: 0.55, schwelle: 1.0 }, vignette: 0.32, korn: 0.025, toene: 'aces' };
 
 export const sets = [
-  { id: 'strasse', modul: 'hauptstrasse', params: { uhr: { zeit: '11:59', spruenge: [] } } },
+  // licht_an 0.8: mehr warme Fenster als Akzente in der Nacht (Review Folge 1, Std 0.55)
+  { id: 'strasse', modul: 'hauptstrasse', params: { uhr: { zeit: '11:59', spruenge: [] }, licht_an: 0.8 } },
   { id: 'marsh', modul: 'marsh_haus' },
   { id: 'haus', modul: 'marsh_innen', params: { kuchen: true, luke: 'figur', taschenlampe: true } },
   { id: 'karte', modul: 'endkarte', position: [0, 0, -400] },  // weit weg: in ihrer Einstellung allein
@@ -77,6 +79,18 @@ export const figuren = [
   { id: 'luke_tp', modul: 'luke', params: { teppich: true } },   // heute: Teppich über der Luke
 ];
 
+// Lichtkipp nach „My breath turned white“ (serie.md, Review Folge 1): dunkleres Abendrot, hartes
+// Gegenlicht der tiefen Sonne, kaltes blaues Füll- und Kantenlicht, mehr Kontrast.
+const KALT = {
+  himmel: { zenit: '#161b44', horizont: '#c45a52' },
+  nebel: { farbe: '#5a4f7e', dichte: 0.012 },
+  hemi: { himmel: '#8790dc', boden: '#2e2a44', staerke: 1.9 },
+  haupt: { farbe: '#ff9466', staerke: 3.2 },
+  kante: { farbe: '#7f9cff', staerke: 1.3 },
+  grade: { saettigung: 1.08, kontrast: 1.14, faerbung: [0.95, 0.98, 1.1] },
+  belichtung: 1.15,
+};
+
 // Kurzformen für Stellungen
 const MH = (position, blick, mehr = {}) => ({ mh: { position, blick, gesicht: 'glatt', ...mehr } });
 
@@ -84,16 +98,19 @@ export const endkarte = { dauer: 1.0, kamera: { punkt: 'karte.karte', rate: 0.07
 
 export const einstellungen = {
   // ───────── Hook (0–4,8 s): ab Bild 1 Bewegung auf das Monster ─────────
-  // "In this town," – Mister Hundred am Platzende im Nebel, Eli klein im Vordergrund (Rücken zur Kamera)
+  // "In this town, when you turn" – Mister Hundred groß und vom Mond angestrahlt vor Uhrturm und Mond,
+  // Untersicht, Push-in 12 %/s. Review Folge 1: Das erste Bild war dunkel, das Monster nur 25 % hoch und
+  // Eli ein schwarzer Klumpen im Vordergrund. Jetzt ≈ 60 % der Bildhöhe, die Hände klar vor dem Gesicht.
   '1': {
-    figuren: { ...MH(ORT.monsterPlatz, 0), eli: { position: [1.55, 0, -42.0], blick: 178, gesicht: 'angst' } },
-    kamera: { ziel: { anker: 'mh.brust', versatz: [0, 1.0, 0] }, pos: [1.1, 1.6, -38.4], fov: 40, rate: 0.12 },
+    figuren: MH(ORT.monsterPlatz, 0),
+    kamera: { ziel: { anker: 'mh.haende', versatz: [0, -1.3, 0] }, pos: [1.2, 1.4, -43.2], fov: 48, rate: 0.12 },
+    licht_anpassung: { haupt: { richtung: [-0.3, 0.55, 0.78], staerke: 3.2 }, kante: { staerke: 2.0 } },
     haupt: { art: 'kamera', wort: 'town' },
     hauptsache: 'mh.haende',
   },
-  // "when you turn eighteen," – Zahlenkerzen 1 und 8 auf dem Kuchen
-  '1:when': {
-    kamera: { punkt: 'haus.kueche_detail', rate: 0.09 },
+  // "eighteen," – Zahlenkerzen 1 und 8 auf dem Kuchen (kurz: 0,8 s, schneller Push)
+  '1:eighteen': {
+    kamera: { punkt: 'haus.kueche_detail', rate: 0.12 },
     lampen_einzeln: { 'haus.kueche_lampe': false },
     licht_anpassung: { belichtung: 0.85 },
     haupt: { art: 'kamera', wort: 'eighteen' },
@@ -102,7 +119,7 @@ export const einstellungen = {
   // "you hide until sunrise," – Eli duckt sich hinter das Verandageländer; Pfosten wischt durchs Bild
   '1:you hide': {
     figuren: { eli: { position: mw(3.4, SO, 1.75), blick: 90, gesicht: 'angst' } },
-    kamera: { baustein: 'truck_side', ziel: { anker: 'eli.kopf', versatz: [0, -0.35, 0] }, pos: [-7.5, 1.15, -2.9], fov: 44, richtung: 'links', mitschwenken: true, strecke: 1.8, vordergrund: { wort: 'you', abstand: 1.3, breite: 0.16 } },
+    kamera: { baustein: 'truck_side', ziel: { anker: 'eli.kopf', versatz: [0, -0.35, 0] }, pos: [-7.5, 1.15, -2.9], fov: 44, richtung: 'links', mitschwenken: true, strecke: 1.8, vordergrund: false },
     haupt: { wer: 'eli', was: 'ducken', wort: 'hide', params: { tiefe: 0.75, arme: 'kopf' } },
     hauptsache: 'eli.kopf',
   },
@@ -127,7 +144,7 @@ export const einstellungen = {
   '3': {
     figuren: MH(ORT.monsterHaus, 0),
     kamera: { baustein: 'dolly_out', ziel: { anker: 'mh.brust', versatz: [0.5, 0.6, 0] }, pos: [2.4, 1.6, 10.2], fov: 52, rate: -0.07 },
-    licht_anpassung: { hemi: { staerke: 2.2 }, kante: { staerke: 1.4 }, belichtung: 1.3 },
+    licht_anpassung: { hemi: { staerke: 2.9 }, kante: { staerke: 1.6 }, belichtung: 1.8 },
     haupt: { wer: 'mh', was: 'kopf_drehen', wort: 'upstairs', dauer: 0.5, ease: 'ease_in', params: { zu: ORT.fensterO3 } },
     hauptsache: 'mh.kopf',
   },
@@ -155,6 +172,7 @@ export const einstellungen = {
   '5:it counts': {
     figuren: MH(ORT.monsterPlatz, 0),
     kamera: { ziel: { anker: 'mh.brust', versatz: [0, 0.6, 0] }, pos: [-6.0, 1.3, -44.0], fov: 48 },
+    licht_anpassung: { haupt: { richtung: [-0.45, 0.55, 0.7], staerke: 3.0 }, belichtung: 1.85 },
     haupt: { wer: 'mh', was: 'zaehlen', wort: 'counts', dauer: 1.3, params: { takt: 0.5 } },
     hauptsache: 'mh.haende',
   },
@@ -167,7 +185,7 @@ export const einstellungen = {
   },
   // "and the whole town hears it." – Seitenfahrt, die oberen Fenster gehen nacheinander aus
   '5:and the whole': {
-    kamera: { baustein: 'truck_side', pos: [-2.5, 1.8, 15.0], ziel: [11, 4.6, -5], fov: 48, richtung: 'rechts', strecke: 2.4, vordergrund: { wort: 'whole', art: 'pfosten', abstand: 1.5, breite: 0.18 } },
+    kamera: { baustein: 'truck_side', pos: [-2.5, 1.8, 15.0], ziel: [11, 4.6, -5], fov: 48, richtung: 'rechts', strecke: 2.4, vordergrund: false },
     haupt: { art: 'licht', licht_art: 'aus', ziele: ['strasse.fenster_o3_oben', 'strasse.fenster_pike_oben', 'strasse.fenster_o2_oben', 'strasse.fenster_o1_oben'], versatz_ziele: 0.25, dauer: 0.3, wort: 'hears', vorlauf: 0.4 },
   },
   // "Your breath turns white when it's close." – Elis Atem wird weiß, Hand vor den Mund
@@ -182,7 +200,8 @@ export const einstellungen = {
   // "When it finds you," – aus dem Versteck unter einer Veranda: die Füße bleiben mitten im Schritt stehen
   '7': {
     figuren: MH([7.9, 0, 27.0], 180),
-    kamera: { pos: [9.55, 0.28, 22.4], ziel: { anker: 'mh.fuss', versatz: [0, 0.45, 0] }, fov: 58, rate: 0.06 },
+    // Review Folge 1: Unter der Veranda stand ein schwarzer Pfosten vor der Linse; jetzt flach im Vorgarten
+    kamera: { pos: [6.9, 0.3, 20.8], ziel: { anker: 'mh.fuss', versatz: [0, 0.45, 0] }, fov: 58, rate: 0.06 },
     haupt: { wer: 'mh', was: 'stapfen', wort: 'finds', anker: 'ende', dauer: 1.8, params: { nach: [7.9, 24.0], schritt: 0.9, halt_im_schritt: true } },
     hauptsache: 'mh.fuss',
   },
@@ -193,24 +212,29 @@ export const einstellungen = {
     haupt: { wer: 'mh', was: 'vorbeugen', wort: 'bends', dauer: 0.8, params: { winkel: 65 } },
     hauptsache: 'mh.kopf',
   },
-  // "takes its hands away from its face." – von hinten über die Schulter; harter Schnitt, bevor man etwas sieht
+  // "takes its hands away from its face." – von schräg vorn unten auf die Hände: Sie lösen sich ein
+  // Stück vom Gesicht, kaltes Licht bricht dazwischen hervor; harter Schnitt, bevor man ein Gesicht sieht.
+  // Review Folge 1: Von hinten war die Schlüsselaktion im Dunkeln kaum zu sehen, der Kopf las sich als Karton.
   '7:takes': {
     figuren: MH([7.9, 0, 24.0], 180, { pose: 'vorbeugen', pose_params: { winkel: 65 } }),
-    kamera: { ziel: { anker: 'mh.kopf', versatz: [0.3, -1.8, -2.0] }, blick: { azimut: -20, hoehe: 22, abstand: 5.5, bezug: 'mh.kopf' }, fov: 50 },
-    haupt: { wer: 'mh', was: 'haende_weg', wort: 'away' },
-    hauptsache: 'mh.kopf',
+    kamera: { ziel: 'mh.haende', blick: { azimut: 152, hoehe: -18, abstand: 3.6, bezug: 'mh.haende' }, fov: 52 },
+    haupt: { wer: 'mh', was: 'haende_weg', wort: 'away', dauer: 0.5, params: { staerke: 0.3 } },
+    neben: [{ wer: 'mh', was: 'leuchten', wort: 'away', dauer: 0.4, params: { staerke: 1.8 } }],
+    hauptsache: 'mh.haende',
   },
   // "In the morning, all that's left are your" – Kranabstieg über der leeren Straße, Schuhe klein in der Mitte
   '8': {
     figuren: { sp_strasse: { position: [0.4, 0.02, 12.0], blick: 0 } },
     kamera: { baustein: 'crane_down_tilt', ziel: 'sp_strasse.mitte', pos: [1.2, 2.6, 21.0], hoehe: 9, rueck: 3, ankunft_wort: 'left', fov: 48 },
+    licht_anpassung: { belichtung: 1.25 },
     haupt: { art: 'kamera', wort: 'left' },
     hauptsache: 'sp_strasse.mitte',
   },
   // "shoes, side by side." – die Schuhe, exakt nebeneinander, Spitzen zur Kamera
   '8:shoes': {
     figuren: { sp_strasse: { position: [0.4, 0.02, 12.0], blick: 0 } },
-    kamera: { ziel: 'sp_strasse.mitte', blick: { azimut: 8, hoehe: 14, abstand: 1.1 }, fov: 36 },
+    kamera: { ziel: 'sp_strasse.mitte', blick: { azimut: 38, hoehe: 22, abstand: 1.25 }, fov: 36 },
+    licht_anpassung: { belichtung: 1.45 },
     haupt: { art: 'kamera', wort: 'shoes' },
     hauptsache: 'sp_strasse.mitte',
   },
@@ -248,7 +272,7 @@ export const einstellungen = {
       nb_jungfrau: { position: [0.05, 0, -50.6], blick: -100, gesicht: 'nervoes' },
       odell: { position: [-1.25, 0, -49.75], blick: 125, gesicht: 'streng' },
     },
-    kamera: { baustein: 'truck_side', ziel: [-0.6, 1.35, -50.2], blick: { azimut: 32, hoehe: 5, abstand: 4.6 }, fov: 46, richtung: 'rechts', mitschwenken: true, strecke: 1.8, vordergrund: { wort: 'Nobody', art: 'pfosten', abstand: 1.4, breite: 0.16 } },
+    kamera: { baustein: 'truck_side', ziel: [-0.6, 1.35, -50.2], blick: { azimut: 32, hoehe: 5, abstand: 4.6 }, fov: 46, richtung: 'rechts', mitschwenken: true, strecke: 1.8, vordergrund: false },
     neben: [{ wer: 'nb_mantel', was: 'arm_heben', ab: 'start', dauer: 0.35, params: { seite: 'r', vorn: 70, seitlich: 20 } }],
     haupt: { wer: 'odell', was: 'greifen', wort: 'help', params: { zu: 'nb_mantel.hand_r', seite: 'r' } },
     hauptsache: 'nb_mantel.kopf',
@@ -260,7 +284,7 @@ export const einstellungen = {
       nb_jung: { position: [-8.9, 0, -18.55], blick: -114, gesicht: 'angst' },
     },
     kamera: { ziel: [-9.5, 1.45, -18.9], pos: [-6.6, 1.6, -20.0], fov: 46 },
-    licht_anpassung: { hemi: { staerke: 2.0 }, belichtung: 1.45 },
+    licht_anpassung: { hemi: { staerke: 2.8 }, belichtung: 1.75 },
     neben: [{ wer: 'nb_jung', was: 'arm_heben', ab: 'start', dauer: 0.3, params: { seite: 'r', vorn: 55 } }],
     haupt: { wer: 'nb_frau', was: 'greifen', wort: 'try', params: { zu: 'nb_jung.hand_r', seite: 'r' } },
     hauptsache: 'nb_frau.hand_r',
@@ -275,11 +299,13 @@ export const einstellungen = {
     haupt: { art: 'kamera', wort: 'too' },
     hauptsache: [-11.25, 0.65, -19.05],
   },
-  // "You can't run, either." – die Straße endet in einer Nebelwand vor den Kiefern
+  // "You can't run, either." – die Straße endet an Schranke und Schild in einer Nebelwand vor den Kiefern;
+  // ein junger Mann rennt darauf zu und bleibt an der Schranke stehen (Review Folge 1: vorher leere Straße)
   '13': {
-    kamera: { punkt: 'strasse.ende_halbtotale', rate: 0.1 },
-    haupt: { art: 'kamera', wort: 'run' },
-    hauptsache: 'strasse.ende_schranke',
+    figuren: { nb_jung: { position: [1.1, 0, 58.6], blick: -6, gesicht: 'angst' } },
+    kamera: { pos: [1.6, 1.7, 51.5], ziel: [0.3, 1.5, 64], fov: 44, rate: 0.08 },
+    haupt: { wer: 'nb_jung', was: 'rennen', wort: 'run', anker: 'ende', dauer: 0.36, params: { nach: [0.6, 62.4] } },
+    hauptsache: 'nb_jung.kopf',
   },
   // "On his eighteenth birthday, Owen Pike" – Rückblende: Owen an seinem Pick-up, Blick trotzig in die Kamera
   '14': {
@@ -287,8 +313,8 @@ export const einstellungen = {
       owen: { position: [7.6, 0, -11.25], blick: -90, gesicht: 'entschlossen' },
       pk: { position: ORT.pikeEinfahrt, blick: -90 },
     },
-    kamera: { ziel: 'owen.kopf', blick: { azimut: -68, hoehe: 4, abstand: 2.8 }, fov: 42 },
-    licht_anpassung: { belichtung: 1.35 },
+    kamera: { ziel: { anker: 'owen.kopf', versatz: [0, -0.1, 0] }, blick: { azimut: -68, hoehe: 4, abstand: 2.8 }, fov: 42 },
+    licht_anpassung: { belichtung: 1.8 },
     neben: [{ wer: 'owen', was: 'kopf_drehen', ab: 'start', dauer: 0.03, params: { winkel: -65 } }],
     haupt: { wer: 'owen', was: 'kopf_drehen', wort: 'Owen', dauer: 0.25, params: { zu: 'kamera' } },
     hauptsache: 'owen.kopf',
@@ -309,6 +335,7 @@ export const einstellungen = {
   '15:his truck': {
     figuren: { pk2: { position: ORT.pikeEinfahrt, blick: -90, pose: 'tuer_auf', pose_params: { winkel: 25 } } },
     kamera: { ziel: { anker: 'pk2.mitte', versatz: [0, 0.3, 0.4] }, pos: [3.4, 1.3, -7.8], fov: 46 },
+    licht_anpassung: { belichtung: 1.25 },
     haupt: { wer: 'pk2', was: 'tuer_auf', wort: 'back', dauer: 0.9, params: { winkel: 62 } },
     partikel: [{ art: 'atem', ort: 'pk2.auspuff', periode: 0.7, richtung: [1, 0.15, 0], groesse: 0.12, deckkraft: 0.6 }],
     hauptsache: 'pk2.mitte',
@@ -316,15 +343,18 @@ export const einstellungen = {
   // "engine running," – der Auspuff stößt weißen Dampf aus
   '15:engine': {
     figuren: { pk2: { position: ORT.pikeEinfahrt, blick: -90, pose: 'tuer_auf', pose_params: { winkel: 62 } } },
-    kamera: { ziel: { anker: 'pk2.auspuff', versatz: [0.3, 0.2, 0] }, blick: { azimut: 125, hoehe: 12, abstand: 2.8 }, fov: 40 },
-    haupt: { art: 'partikel', partikel_art: 'atem', ort: 'pk2.auspuff', wort: 'engine', periode: 0.55, richtung: [1, 0.15, 0], groesse: 0.07, deckkraft: 0.55, dauer: 1.0 },
-    hauptsache: 'pk2.auspuff',
+    // Review Folge 1: fast schwarz, nur ein Wölkchen. Jetzt halbtotal von der Straße: Scheinwerfer an,
+    // weißer Dampf steigt hinter dem Führerhaus auf (das Heck steht vor der Hauswand).
+    kamera: { pos: [3.7, 1.0, -10.9], ziel: [8.4, 1.6, -12.6], fov: 46, rate: 0.08 },
+    haupt: { art: 'partikel', partikel_art: 'atem', ort: 'pk2.auspuff', wort: 'engine', periode: 0.5, richtung: [0.2, 1, 0], groesse: 0.32, deckkraft: 0.85, dauer: 1.0 },
+    hauptsache: 'pk2.mitte',
   },
   // "His shoes were on the seat, side by side." – durch die offene Fahrertür: Owens Stiefel auf dem Sitz
   '16': {
     figuren: { pk2: { position: ORT.pikeEinfahrt, blick: -90, pose: 'tuer_auf', pose_params: { winkel: 62 } } },
     kamera: { ziel: 'pk2.sitz', blick: { azimut: 10, hoehe: 30, abstand: 1.35 }, fov: 42 },
-    licht_anpassung: { belichtung: 1.5 },
+    licht_anpassung: { belichtung: 1.55, hemi: { staerke: 2.8 }, haupt: { staerke: 3.0 } },
+    tiefe: { fokus: 'pk2.sitz', staerke: 0.5 },
     haupt: { art: 'kamera', wort: 'shoes' },
     hauptsache: 'pk2.sitz',
   },
@@ -335,7 +365,7 @@ export const einstellungen = {
       nb_jung: { position: [1.0, 0, -49.0], blick: 10, gesicht: 'grinsen' },
       nb_alt: { position: [2.3, 0, -48.4], blick: -70, gesicht: 'besorgt' },
     },
-    kamera: { baustein: 'truck_side', ziel: { anker: 'nb_jung.kopf', versatz: [0.15, -0.2, 0] }, blick: { azimut: 18, hoehe: 4, abstand: 3.3 }, fov: 42, richtung: 'links', mitschwenken: true, strecke: 1.8, vordergrund: { wort: 'here', art: 'pfosten', abstand: 1.4, breite: 0.16 } },
+    kamera: { baustein: 'truck_side', ziel: { anker: 'nb_jung.kopf', versatz: [0.15, -0.2, 0] }, blick: { azimut: 18, hoehe: 4, abstand: 3.3 }, fov: 42, richtung: 'links', mitschwenken: true, strecke: 1.8, vordergrund: false },
     haupt: { wer: 'nb_jung', was: 'augen_zuhalten', wort: 'hide' },
     hauptsache: 'nb_jung.kopf',
   },
@@ -362,6 +392,7 @@ export const einstellungen = {
       sp_eli_b: { position: [-13.2, SO, -2.55], blick: 60, sichtbar: false },
     },
     kamera: { ziel: { anker: 'sp_eli_a.mitte', versatz: [-0.05, 0.1, 0.05] }, blick: { azimut: 150, hoehe: 38, abstand: 1.8 }, fov: 52 },
+    licht_anpassung: { belichtung: 1.25 },
     haupt: { wer: 'eli', was: 'kicken', wort: 'leaves', params: { seite: 'r' } },
     neben: [
       { wer: 'sp_eli_a', was: 'sichtbar', wort: 'leaves', versatz: 0.15, params: { wert: false } },
@@ -380,14 +411,18 @@ export const einstellungen = {
   '19': {
     uhr: '10:20',
     figuren: { odell: { position: ORT.odell, blick: 0, gesicht: 'warnend' } },
-    kamera: { ziel: 'odell.kopf', blick: { azimut: 12, hoehe: 2, abstand: 1.5 }, fov: 38 },
-    haupt: { wer: 'odell', was: 'geste', wort: 'ready', params: { art: 'finger_auf_lippen' } },
+    // Augen bei y ≈ 700, Mund ≈ 950: Untertitel (y 1150–1300) verdeckt weder Mund noch Finger (Review Folge 1)
+    kamera: { ziel: { anker: 'odell.kopf', versatz: [0, -0.22, 0] }, blick: { azimut: 12, hoehe: 2, abstand: 2.2 }, fov: 38 },
+    haupt: { wer: 'odell', was: 'geste', wort: 'ready', anker: 'ende', dauer: 0.3, params: { art: 'finger_auf_lippen' } },
     hauptsache: 'odell.kopf',
   },
   // "That's what it asks when it's done counting." – nachts, Untersicht, Bogenfahrt: der Kopf neigt sich fragend
   '20': {
     figuren: MH(ORT.monsterPlatz, 0),
     kamera: { baustein: 'orbit', ziel: 'mh.haende', blick: { azimut: -28, hoehe: -22, abstand: 6.6 }, grad_pro_s: 20, fov: 50 },
+    // Review Folge 1: zwei Laternen mit Bloom unten rechts lasen sich wie Augen; hier aus
+    licht_anpassung: { belichtung: 1.85 },
+    lampen_einzeln: { 'strasse.laterne_platz': false, 'strasse.platz_2': false, 'strasse.platz_3': false, 'strasse.platz_4': false, 'strasse.platz_5': false, 'strasse.platz_6': false },
     haupt: { wer: 'mh', was: 'kopf_schief', wort: 'asks' },
     hauptsache: 'mh.haende',
   },
@@ -404,9 +439,11 @@ export const einstellungen = {
   },
   // "My sister June is" – June dreht sich am Herd um und lächelt
   '22': {
-    figuren: { june: { position: [-15.3, SO, 3.7], blick: 0, gesicht: 'neutral' } },
-    kamera: { ziel: 'june.kopf', blick: { azimut: 200, hoehe: 5, abstand: 2.6, bezug: 'june.kopf' }, fov: 42 },
-    haupt: { wer: 'june', was: 'umdrehen', wort: 'June', params: { blick: 175 } },
+    // Review Folge 1: Die Kamera stand im Hängeschrank (grüner Block über 35 % des Bildes), June von hinten.
+    // Jetzt von der Tischseite, June beginnt im Dreiviertelprofil und dreht sich ganz zur Kamera.
+    figuren: { june: { position: [-15.3, SO, 3.7], blick: 95, gesicht: 'neutral' } },
+    kamera: { ziel: { anker: 'june.kopf', versatz: [0, -0.08, 0] }, blick: { azimut: 160, hoehe: 4, abstand: 2.4 }, fov: 42 },
+    haupt: { wer: 'june', was: 'umdrehen', wort: 'June', params: { blick: 160 } },
     gesichter: [{ wer: 'june', name: 'laecheln', wort: 'June', versatz: 0.15 }],
     hauptsache: 'june.kopf',
   },
@@ -424,7 +461,9 @@ export const einstellungen = {
       june18: { position: [-20.15, SO, 2.75], blick: 100, gesicht: 'angst' },
       luke_rb: { position: ORT.luke, blick: 90 },
     },
-    kamera: { ziel: { anker: 'luke_rb.mitte', versatz: [-0.3, 0.12, 0] }, pos: [-18.0, 2.4, 4.6], fov: 56 },
+    // Review Folge 1: Dads Kopf war an der Augenlinie abgeschnitten; weiterer Winkel, Blick etwas höher
+    kamera: { ziel: { anker: 'luke_rb.mitte', versatz: [-0.3, 0.3, 0] }, pos: [-18.0, 2.4, 4.6], fov: 64 },
+    licht_anpassung: { belichtung: 1.5, hemi: { staerke: 2.8 } },
     neben: [{ wer: 'dad', was: 'ducken', ab: 'start', dauer: 0.4, params: { tiefe: 0.5, arme: 'knie' } }],
     haupt: { wer: 'luke_rb', was: 'oeffnen', wort: 'Dad', anker: 'ende', dauer: 0.5 },
     hauptsache: 'luke_rb.mitte',
@@ -437,6 +476,7 @@ export const einstellungen = {
       luke_rb: { position: ORT.luke, blick: 90, pose: 'oeffnen' },
     },
     kamera: { baustein: 'push_in', ziel: 'luke_rb.mitte', pos: [-18.3, 3.35, 2.7], fov: 50, profil: 'ease_in', faktor: 1.9, vorlauf: 0.18 },
+    licht_anpassung: { belichtung: 1.7, hemi: { staerke: 3.0 } },
     neben: [{ wer: 'june18', was: 'kopf_drehen', ab: 'start', dauer: 0.03, params: { nicken: -40 } }],
     haupt: { wer: 'luke_rb', was: 'schliessen', wort: 'hid', dauer: 1.0, ease: 'ease_in' },
     bogen_wort: 'crawl',
@@ -445,17 +485,21 @@ export const einstellungen = {
   // "In the morning, she climbed out." – die Luke ist offen, June klettert heraus und blinzelt ins Licht
   '24': {
     figuren: {
-      june18: { position: [-18.8, -0.55, 2.0], blick: -90, gesicht: 'verschlafen' },
+      // June klettert zur Kamera hin heraus, der aufgeklappte Deckel steht hinter ihr (Review Folge 1:
+      // von der Deckelseite verdeckte er sie fast die ganze Einstellung)
+      june18: { position: [-18.8, -0.55, 2.0], blick: 90, gesicht: 'verschlafen' },
       luke_rb: { position: ORT.luke, blick: 90, pose: 'oeffnen' },
     },
-    kamera: { ziel: { anker: 'june18.kopf', versatz: [0, -0.1, 0] }, pos: [-20.6, 1.55, 3.3], fov: 48 },
-    haupt: { wer: 'june18', was: 'klettern', wort: 'climbed', dauer: 0.8, params: { hoehe: 1.15, vor: 0.55 } },
+    kamera: { ziel: { anker: 'june18.kopf', versatz: [0, -0.15, 0] }, pos: [-17.0, 2.0, 3.0], fov: 50 },
+    licht_anpassung: { belichtung: 1.25 },
+    haupt: { wer: 'june18', was: 'klettern', wort: 'climbed', dauer: 0.8, params: { hoehe: 1.15, vor: 0.2 } },
     hauptsache: 'june18.kopf',
   },
   // "Dad's shoes were on the porch." – Dads Arbeitsstiefel auf der Veranda, nebeneinander
   '25': {
     figuren: { sp_dad: { position: [-10.9, SO, -2.8], blick: 90 } },
-    kamera: { punkt: 'marsh.detail' },
+    // Review Folge 1: von oben lasen sich die Stiefel wie Brotlaibe; jetzt schräg von der Seite
+    kamera: { ziel: 'sp_dad.mitte', blick: { azimut: 38, hoehe: 20, abstand: 1.3 }, fov: 38, rate: 0.07 },
     haupt: { art: 'kamera', wort: 'shoes' },
     hauptsache: 'sp_dad.mitte',
   },
@@ -505,15 +549,27 @@ export const einstellungen = {
   '30': {
     figuren: { luke_tp: { position: ORT.luke, blick: 90 } },
     kamera: { baustein: 'orbit', ziel: 'luke_tp.ring', pos: [-17.95, 1.65, 1.55], grad_pro_s: 20, fov: 40 },
+    licht_anpassung: { belichtung: 1.7 },
     haupt: { art: 'kamera', wort: 'hide' },
     hauptsache: 'luke_tp.ring',
+  },
+
+  // "I promise." – June nickt am Frühstückstisch (Review Folge 1: sonst hört man das Versprechen
+  // leicht als Satz des Erzählers; jetzt ist June im Bild, Mundformen, gelber Untertitel)
+  '31': {
+    figuren: { june: { position: [-14.5, SO, 3.75], blick: 180, pose: 'sitzen', gesicht: 'entschlossen' } },
+    kamera: { ziel: { anker: 'june.kopf', versatz: [0, -0.2, 0] }, blick: { azimut: 165, hoehe: 2, abstand: 2.0 }, fov: 38, rate: 0.09 },
+    haupt: { wer: 'june', was: 'kopf_drehen', wort: 'promise', dauer: 0.35, params: { nicken: 14 } },
+    mund: { wer: 'june', miene: 'entschlossen' },
+    hauptsache: 'june.kopf',
   },
 
   // ───────── Cliffhanger ─────────
   // "At sunset, I went upstairs" – Folgefahrt hinter Eli die Treppe hinauf
   '32': {
     figuren: { eli: { position: [-12.8, SO, -4.32], blick: -90, gesicht: 'neutral' } },
-    kamera: { ziel: { anker: 'eli.kopf', versatz: [0, -0.2, 0] }, pos: [-12.3, 1.45, -2.6], fov: 54 },
+    // Review Folge 1: vorher nur Elis Hinterkopf. Jetzt schräg von vorn, er kommt die Treppe herauf.
+    kamera: { ziel: { anker: 'eli.kopf', versatz: [0, -0.2, 0] }, pos: [-15.5, 3.7, -2.5], fov: 54 },
     haupt: { wer: 'eli', was: 'gehen', wort: 'upstairs', anker: 'ende', dauer: 1.35, ease: 'linear', params: { nach: [-14.8, -4.32] } },
     neben: [{ wer: 'eli', was: 'klettern', wort: 'upstairs', anker: 'ende', dauer: 1.35, ease: 'linear', params: { hoehe: 1.45, arme: false } }],
     hauptsache: 'eli.kopf',
@@ -528,16 +584,19 @@ export const einstellungen = {
   // "My breath turned white." – das Zimmer wird dunkler, Elis Atem wird weiß
   '33': {
     figuren: { eli: { position: [-13.3, OG, 2.6], blick: 60, gesicht: 'nervoes' } },
-    kamera: { ziel: { anker: 'eli.kopf', versatz: [0, -0.1, 0] }, blick: { azimut: 0, hoehe: 3, abstand: 2.0 }, fov: 40 },
+    // Review Folge 1: Der Atem erschien erst am rechten Rand. Eli steht jetzt links der Mitte mit
+    // Blickraum nach rechts, der Dampf ist größer und kommt auf "white".
+    kamera: { ziel: { anker: 'eli.kopf', versatz: [0.12, -0.1, 0] }, blick: { azimut: 0, hoehe: 3, abstand: 2.0 }, fov: 40 },
     haupt: { art: 'licht', licht_art: 'dimmen', ziel: 'umgebung', faktor: 0.6, dauer: 0.4, wort: 'turned' },
     gesichter: [{ wer: 'eli', name: 'angst', wort: 'white' }],
-    partikel: [{ art: 'atem', ort: 'eli.mund', wort: 'breath', periode: 1.3, groesse: 0.1, deckkraft: 0.75 }],
+    partikel: [{ art: 'atem', ort: 'eli.mund', wort: 'white', vorlauf: 0.15, periode: 1.1, groesse: 0.15, deckkraft: 0.85 }],
     hauptsache: 'eli.kopf',
   },
   // "Mister Hundred was standing in our yard," – über Elis Schulter durchs Fenster: der Riese im Vorgarten
   '34': {
     figuren: { eli: { position: ORT.eliFenster, blick: 90, gesicht: 'angst' }, ...MH(ORT.monsterGarten, -90) },
     kamera: { ziel: 'mh.haende', pos: [-14.3, 5.45, 2.0], fov: 46, zusaetze: [{ baustein: 'shake', wort: 'Hundred', staerke: 1 }] },
+    licht_anpassung: KALT,
     haupt: { wer: 'eli', was: 'erschrecken', wort: 'Hundred' },
     tiefe: { fokus: 'mh.haende', staerke: 0.7 },
     hauptsache: 'mh.haende',
@@ -546,31 +605,44 @@ export const einstellungen = {
   '34:six': {
     uhr: '6:00',
     kamera: { baustein: 'dolly_out', punkt: 'strasse.platz_detail', rate: -0.08 },
+    licht_anpassung: KALT,
     haupt: { art: 'kamera', wort: 'early' },
     hauptsache: 'strasse.kirche_uhr',
   },
   // "It wasn't counting." – Eli erstarrt am Fenster und hält den Atem an
   '35': {
-    figuren: { eli: { position: ORT.eliFenster, blick: 90, gesicht: 'angst' } },
-    kamera: { ziel: { anker: 'eli.kopf', versatz: [0, -0.1, 0] }, blick: { azimut: 0, hoehe: 2, abstand: 2.0 }, fov: 40 },
+    // Review Folge 1: vorher Elis Hinterkopf direkt vor dem Cliffhanger. Jetzt Dreiviertel von vorn,
+    // sein Blick geht an der Kamera vorbei zum Fenster.
+    figuren: { eli: { position: [-13.8, OG, 2.6], blick: 90, gesicht: 'angst' } },
+    kamera: { ziel: { anker: 'eli.kopf', versatz: [0, -0.1, 0] }, blick: { azimut: 50, hoehe: 3, abstand: 2.0 }, fov: 44 },
+    licht_anpassung: KALT,
     haupt: { wer: 'eli', was: 'atem_anhalten', wort: 'counting' },
     gesichter: [{ wer: 'eli', name: 'augen_zu', wort: 'counting' }],
     partikel: [{ art: 'atem', ort: 'eli.mund', periode: 1.0, groesse: 0.1, deckkraft: 0.7, bis: 'counting' }],
     hauptsache: 'eli.kopf',
   },
   // "It was looking at me," – aus Elis Fenster: die Finger öffnen einen Spalt, dahinter das Auge
+  // Review Folge 1: kein Opfer im Bild. Jetzt Elis Schulter und der Fensterrahmen als Vordergrund.
   '36': {
-    figuren: MH(ORT.monsterGarten, -90),
-    kamera: { ziel: 'mh.haende', pos: [-12.55, 5.5, 2.45], fov: 40 },
+    set: ['strasse', 'haus'],
+    figuren: { ...MH(ORT.monsterGarten, -90), eli: { position: ORT.eliFenster, blick: 90, gesicht: 'angst' } },
+    kamera: { ziel: 'mh.haende', pos: [-13.3, 5.55, 2.15], fov: 40 },
+    tiefe: { fokus: 'mh.haende', staerke: 0.6 },
+    licht_anpassung: KALT,
     neben: [{ wer: 'mh', was: 'kopf_drehen', ab: 'start', dauer: 0.03, params: { nicken: 12 } }],
     haupt: { wer: 'mh', was: 'spaehen', wort: 'looking' },
     hauptsache: 'mh.haende',
   },
   // "through its fingers." – Großaufnahme: das bernsteinfarbene Auge im Fingerspalt, Snap-Zoom auf "fingers"
   '36:through': {
-    figuren: MH(ORT.monsterGarten, -90, { pose: 'spaehen' }),
+    figuren: MH(ORT.monsterGarten, -90, { pose: 'spaehen', pose_params: { staerke: 0.6 } }),
     kamera: { baustein: 'snap_zoom', ziel: 'mh.auge', blick: { azimut: -90, hoehe: -4, abstand: 1.6, bezug: 'mh.auge' }, fov: 34, zeit_wort: 'fingers', faktor: 1.18, bilder: 2 },
-    neben: [{ wer: 'mh', was: 'kopf_drehen', ab: 'start', dauer: 0.03, params: { nicken: 12 } }],
+    neben: [
+      { wer: 'mh', was: 'kopf_drehen', ab: 'start', dauer: 0.03, params: { nicken: 12 } },
+      // auf "fingers" spreizen sich die Finger weiter (serie.md Handpose, 0,3 s)
+      { wer: 'mh', was: 'finger_spreizen', wort: 'fingers', dauer: 0.3, params: { seite: 'r', staerke: 1.5 } },
+    ],
+    licht_anpassung: KALT,
     haupt: { art: 'kamera', wort: 'fingers' },
     hauptsache: 'mh.auge',
   },

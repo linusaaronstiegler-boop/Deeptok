@@ -14,14 +14,17 @@ import { rauschen, hash } from './zufall.js';
 
 // Richtungen zeigen ZUM Licht (von der Szene aus gesehen).
 export const PRESETS = {
+  // Review Folge 1: Die Nacht war mit Bild-Median 55 von 255 viel dunkler als r2 (102) und r5 (106).
+  // Mond-Key, Füll- und Kantenlicht sind um etwa eine Blende angehoben, der Himmel am Horizont
+  // heller (Silhouetten setzen sich ab), der Nebel lichter.
   nacht: {
-    himmel: { zenit: '#050a1e', horizont: '#1f2d55', scheibe: { richtung: [-0.42, 0.5, -0.76], farbe: '#e6eeff', groesse: 1.6, staerke: 6, glanz: 0.35 }, sterne: 0.7 },
-    nebel: { farbe: '#18244a', dichte: 0.03 },
-    hemi: { himmel: '#6378c0', boden: '#1e2436', staerke: 1.3 },
-    haupt: { farbe: '#a6bcff', staerke: 1.5, richtung: [-0.42, 0.75, -0.5], weich: 3 },
-    kante: { farbe: '#5070ff', staerke: 0.6, richtung: [0.55, 0.45, -0.7] },
-    belichtung: 1.2,
-    grade: { saettigung: 1.04, kontrast: 1.05, faerbung: [0.97, 1.0, 1.07] },
+    himmel: { zenit: '#0a1430', horizont: '#34487e', scheibe: { richtung: [-0.42, 0.5, -0.76], farbe: '#e6eeff', groesse: 1.6, staerke: 6, glanz: 0.45 }, sterne: 0.7 },
+    nebel: { farbe: '#26355f', dichte: 0.026 },
+    hemi: { himmel: '#7a90d6', boden: '#323a52', staerke: 2.6 },
+    haupt: { farbe: '#b4c6ff', staerke: 2.6, richtung: [-0.42, 0.75, -0.5], weich: 3 },
+    kante: { farbe: '#6d88ff', staerke: 1.4, richtung: [0.55, 0.45, -0.7] },
+    belichtung: 1.6,
+    grade: { saettigung: 1.06, kontrast: 1.05, faerbung: [0.97, 1.0, 1.06] },
   },
   daemmerung: {
     himmel: { zenit: '#2a2b62', horizont: '#f0a49c', scheibe: { richtung: [0.72, 0.07, -0.69], farbe: '#ffd7a8', groesse: 2.4, staerke: 5, glanz: 0.6 }, sterne: 0 },

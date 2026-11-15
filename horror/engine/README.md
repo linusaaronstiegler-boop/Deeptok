@@ -250,7 +250,8 @@ Punktlichter kosten in Software-Rendering bei jedem Pixel: höchstens 2–3 echt
 |---|---|
 | `THREE` | three.js |
 | `zufall(...teile)` | Generator mit Seed aus Episode + Modul-ID + Teilen → `() => [0,1)` |
-| `mat(farbe, { rauheit, metall, flach, leuchten, leuchtStaerke, karte, transparent, deckkraft, eigenes })` | geteiltes MeshStandardMaterial |
+| `mat(farbe, { rauheit, metall, flach, leuchten, leuchtStaerke, karte, transparent, deckkraft, eigenes, kante })` | geteiltes MeshStandardMaterial. Grundfarben werden auf mindestens 0,02 lineare Helligkeit angehoben (nichts rendert als Loch). `kante: { farbe, staerke, exponent }` = Kantenlicht (Fresnel im Shader, kein zusätzliches Licht) |
+| `kantenlicht(material, { farbe, staerke, exponent })` | Kantenlicht auf ein fertiges MeshStandardMaterial |
 | `leuchtMat(farbe, staerke, opt)` | selbstleuchtend (Werte > 1 blühen) |
 | `kiste(b, h, t, mat, { rund, schatten, empfangen })` | Kiste, optional abgerundet; Ursprung in der Mitte |
 | `zylinder(rOben, rUnten, h, mat, { segmente })`, `kugel(r, mat)` | Grundformen |
@@ -300,6 +301,8 @@ gruppe ─ huefte (Höhe = Beinlänge) ─┬ rumpf ─┬ kopf
 ## 9. Licht, Lichtereignisse, Partikel
 
 **Presets** (`src/licht.js`): `nacht` (blauer Himmel mit Mond und Sternen, Mondlicht von hinten-oben, Nebel), `daemmerung` (violett-rosa Verlauf, tiefe warme Sonne), `innen_warm`, `tag`. Jedes Preset setzt Himmel, Nebel (FogExp2), Himmel-/Bodenlicht, Hauptlicht mit weichen Schatten (PCF, 2048er Karte, `weich` = Radius) und Kantenlicht, dazu Belichtung und Farbstimmung. Die Zahl der Lichter ist immer gleich; ein Preset-Wechsel am Schnitt kostet deshalb keine Shader-Übersetzung. Die Schattenkarte deckt je Einstellung `schatten_bereich` m (Std 24) um das Kameraziel am Einstellungsbeginn ab und bleibt in der Einstellung fest (kein Flimmern).
+
+Review Folge 1: `nacht` ist um etwa eine Blende heller (Himmel/Boden 1,3 → 2,3, Mond 1,5 → 2,6, Kante 0,6 → 1,4, Belichtung 1,2 → 1,4, hellerer Horizont), weil die Folge mit Bild-Median 55 von 255 weit dunkler war als r2 (102) und r5 (106). Figurenteile aus `src/klotzfigur.js` haben ein schwaches Kantenlicht.
 
 **Lichtereignisse** (global oder je Einstellung, Zeiten absolut; Spec 1.6: 1–3 je Teil, auf dem Verb):
 
@@ -440,6 +443,7 @@ Kein R6/R15-Nachbau: Kopf ≈ 30 % der Höhe (R6 ≈ 20 %), Würfel mit runden K
 
 Etwa 7 m, dünn, langer dunkelgrauer Mantel mit A-Linie und stufig ausgefranstem Saum (Saumzungen wehen im Wind), barfuß mit langen weißen Füßen, übergroße knochige Hände mit je 4 Fingern zu 3 Gliedern **immer vor dem glatten Würfelkopf**, Ellbogen spitz nach außen: Hände, Unterarme, Oberarme bilden eine Raute (auch als Schattenriss lesbar).
 
+- **Review Folge 1:** Mantel dunkelgrau `#5B5E6C` mit Stofftextur und kalt-türkisem Kantenlicht statt fast schwarz, Glieder kräftiger (Arme 0,24 m), Hände 0,42 m breit mit gekrümmten, gefächerten Fingern und Daumen, glimmende Fingerspitzen und eine Grundglut zwischen den Fingern (`params.grundglut`, Std 0,55). Neue Animation `leuchten` (Licht bricht hinter den Händen hervor und bleibt). Das Auge bleibt bernsteinfarben: Es ist Junes Auge (serie.md, Twist in Teil 4).
 - **Technik:** Die Hände sitzen per IK vor dem Gesicht, gerechnet im System des Kopfes; der Nachlauf läuft in `setzeGesicht`/`atmen` nach allen Aktionen. Kopf drehen, schief legen, Vorbeugen: die Hände bleiben vor dem Gesicht. Eigene Animationen schreiben nur in `fig.zustand` (`weg`, `spreizL/R`, `druck`, `auge`, `glut`).
 - **Gesichter:** `glatt` (Std), `auge` (bernsteinfarbenes Auge hinter dem Fingerspalt offen), `june_gross`, `june_mund` (Teil 4).
 - **Animationen (eigene, Vorrang vor `animationen/`):**
@@ -463,7 +467,7 @@ Etwa 7 m, dünn, langer dunkelgrauer Mantel mit A-Linie und stufig ausgefranstem
 
 | Modul | Zweck | params | Animationen / Anker |
 |---|---|---|---|
-| `schuhpaar` | „your shoes, side by side“ | `art` eli/june/dad/owen/tess/grau/nachbar, `ordnung` nebeneinander/schief | Anker `mitte` |
+| `schuhpaar` | „your shoes, side by side“: eigenes, genaueres Modell (`baueSchuhDetail`: Sohle, flache Zehenkappe, höhere Ferse, Rist mit Schnürung, dunkle Öffnung mit Polsterrand, Fersenkappe, Streifen), schlank wie ein echter Schuh; „grau“ ist hell mit Navy-Akzent | `art` eli/june/dad/owen/tess/grau/nachbar, `ordnung` nebeneinander/schief | Anker `mitte` |
 | `tuer` | Tür, die aufgeht (Set lässt dann das feste Blatt weg) | `breite`, `hoehe`, `farbe`, `anschlag` links/rechts, `fenster`, `offen` | `oeffnen` {`winkel` 85; negativ = nach vorn}, `schliessen`; Anker `griff_vorn/hinten` (bewegen sich mit), `mitte`, `angel` |
 | `luke` | Bodenluke in Junes Zimmer | `teppich` (Ring zeichnet sich ab) | `oeffnen` {`winkel` 105}, `schliessen`; Anker `ring`, `mitte`, `schacht` |
 | `pickup` | Owens hellblauer Pick-up | `farbe`, `stiefel` (Owens Stiefel auf dem Sitz), `scheinwerfer` | `fahren` {`nach`, `von`; Räder drehen passend, Std `ease_in`}, `tuer_auf` {`winkel` 62}, `tuer_zu`; Anker `auspuff` (Partikel `atem` = Dampf), `sitz`, `fahrertuer`, `motorhaube`, `ladeflaeche`, `mitte` |
@@ -617,16 +621,17 @@ Wortbezüge: `"town"` (erstes Vorkommen in der Einstellung), `"side#2"` (zweites
 | M10 | Monster-Anteil | 15–25 % der Einstellungen |
 | M11 | Endkarte | ≤ 0,2 s nach dem letzten Wort, 1,0 s |
 | M12 | Kamera, Hauptsache und Aktionen nur auf sichtbare Figuren | – |
+| M13 | Kein Wisch-Objekt der Seitenfahrt direkt vor der Linse (ohne `vordergrund: false` stellt `truck_side` einen Pfosten 0,9 m vor die Kamera) | ≥ 1,5 m |
 
 Danach prüft der Compiler die Datei gegen `episode.schema.json` (Python-jsonschema der Umgebung). Tests: `npm test` (`test/shotliste.test.mjs` baut absichtlich Fehler ein und erwartet, dass das Messtor sie findet).
 
 ### 16.4 Kontaktbogen und Kompositionsprüfung
 
-`render.mjs --schnellbogen` rendert nur das Bild `plan.bogen_zeit` jeder Einstellung (nach der Hauptaktion bzw. Ankunft der Fahrt), beschriftet mit Nummer, Zeit und Text, und legt Bögen zu je 18 Bildern plus einen Gesamtbogen nach `horror/build/<folge>/`. Für jede Einstellung wird `plan.hauptsache` ins Bild projiziert: Sie muss im mittleren Drittel liegen (x 360–720, y 640–1150 bei 1080 × 1920), und ist sie ein Kopf, darf der Mund nicht im Untertitel-Streifen (y 1150–1300) liegen. Verstöße stehen rot im Bogen und in `komposition.json`.
+`render.mjs --schnellbogen` rendert nur das Bild `plan.bogen_zeit` jeder Einstellung (nach der Hauptaktion bzw. Ankunft der Fahrt), beschriftet mit Nummer, Zeit und Text, und legt Bögen zu je 18 Bildern plus einen Gesamtbogen nach `horror/build/<folge>/`. Für jede Einstellung wird `plan.hauptsache` ins Bild projiziert: Sie muss im mittleren Drittel liegen (x 360–720, y 640–1150 bei 1080 × 1920), und ist sie ein Kopf, darf der Mund nicht im Untertitel-Streifen mit Rand (y 1080–1320) liegen. Verstöße stehen rot im Bogen und in `komposition.json`.
 
 ### 16.5 Folge 1 in Zahlen (Messtor)
 
-57 Einstellungen plus Endkarte, 87,27 s. Median 1,53 s, 39,6 Einstellungen/min, kürzeste 0,77 s, längste 2,50 s. 14 Akzentfahrten (im Mittel alle 6,2 s, größte Lücke 8,9 s), 3 Snap-Zooms, 2-mal Wackeln, 3 Lichtereignisse, Monster in 24,6 % der Einstellungen, Körperaktion in 61 % (Spec 35–55 %: etwas viel, kein Abbruch). Endkarte 0,147 s nach dem letzten Wort. Kompositionsprüfung: 56 von 56 Einstellungen ohne Verstoß.
+Nach dem Review (REVIEW.md im Episoden-Ordner): 58 Einstellungen plus Endkarte, 87,27 s. Median 1,40 s, 40,3 Einstellungen/min, kürzeste 0,77 s, längste 2,50 s. 14 Akzentfahrten (im Mittel alle 6,2 s, größte Lücke 8,9 s), 3 Snap-Zooms, 2-mal Wackeln, 3 Lichtereignisse, Monster in 24,1 % der Einstellungen, Körperaktion in 64 % (Spec 35–55 %: etwas viel, kein Abbruch). Endkarte 0,147 s nach dem letzten Wort. Kompositionsprüfung: 57 von 57 Einstellungen ohne Verstoß.
 
 ## 17. Untertitel, Effekte, Mischung, fertige MP4
 
@@ -656,33 +661,37 @@ Einzeln: `python engine/untertitel.py episoden/folge-01 --tabelle`, `python engi
 
 ### 17.2 Untertitel
 
-- Archivo Black (OFL, `assets/schriften/`), 84 px, Versalien, weiß, Kontur 7 px schwarz, Schatten 4 px. Mitte x 540, y 1200, höchstens 760 px breit (der Pop auf 134 % bleibt im Bild). Zu breite feste Paare werden bis 72 px kleiner gesetzt („MISTER HUNDRED“ 74 px).
+- Archivo Black (OFL, `assets/schriften/`), 96 px (Review Folge 1, vorher 84 px), Versalien, weiß, Kontur 7 px schwarz, Schatten 4 px. Mitte x 540, y 1200, höchstens 810 px breit (A5). Zu breite feste Paare werden bis 72 px kleiner gesetzt, zu breite freie Paare stehen einzeln.
 - 1–2 Wörter je Einblendung. Die Gruppierung ist eine kleinste-Kosten-Zerlegung: Funktionswort + Inhaltswort („THIS TOWN“) ist billig, Verb + Objekt-Pronomen („MADE IT“) ebenso, Inhaltswort + Bindewort („WHITE WHEN“) teuer, ein Funktionswort allein teuer, eine Einblendung unter 3 Bildern teuer. Feste Paare (Namen, „CRAWL SPACE“, „6 YEARS“) und Wörter, die allein stehen (Snap-Zooms, „READY“), stehen in `untertitel.json`.
 - Zahlen als Ziffern (18, 18TH, 100, 6), „ONE RULE“ bleibt ausgeschrieben.
-- Zeit: Einblendung ab dem Bild, das dem Wortbeginn am nächsten liegt (≤ 1/60 s). Der ASS-Start liegt mitten zwischen dem Bild davor und dem ersten Bild, weil libass nur Hundertstel kennt und ffmpeg die Bildzeit abrundet. Pop als zwei `\t`-Stufen mit 5 ms Abstand zu den Bildzeiten: Bild 1 134 %, Bild 2 88 %, Bild 3 100 %. Lücken bleiben nie leer, über der Endkarte steht nichts.
+- Zeit: Einblendung ab dem Bild, das dem Wortbeginn am nächsten liegt (≤ 1/60 s). Der ASS-Start liegt mitten zwischen dem Bild davor und dem ersten Bild, weil libass nur Hundertstel kennt und ffmpeg die Bildzeit abrundet. Pop als zwei `\t`-Stufen mit 5 ms Abstand zu den Bildzeiten: Bild 1 73 %, Bild 2 92 %, Bild 3 100 % (A5: ohne Überschwingen; vorher 134/88/100). Lücken bleiben nie leer, über der Endkarte steht nichts.
 - Farben (serie.md): Akzent `#9FD8D2` (kaltes Leuchten von Mister Hundred) für Monstername, „HIDING NIGHT“, die Regel, „READY“ und „100“; June `#F2C14E`; Erzählung weiß.
 
 ### 17.3 Ton
 
 - Upload = Stimme + Effekte. Vorhör = zusätzlich ein eigenes Klangbett (Spieluhr aus der Ton-Analyse, `betten.py r2 a`), 12 LU unter der Stimme, läuft über die Endkarte und blendet in den letzten 0,5 s aus. Im Upload ist die Endkarte stumm (Effekte enden mit dem Schnitt, 30 ms Blende).
+- Review Folge 1: 11 statt 23 Cues (Akzente, nicht jede Bewegung), Hook-Impact auf „eighteen“. `sub_boom` und `zaehlschlag` haben eine Mitten-Schicht (`mitten_schicht`: dumpfer Schlag mit Teiltönen bei 200–700 Hz, Anschlag 1–3 kHz) und sind unter 35 Hz hochgepasst: über 300 Hz lagen sie 34–42 dB unter der Stimme, jetzt 24–28 dB. Wörtliche Rede (`effekte.json` → `rede`) wird formant-erhaltend höher gesetzt (June +2,5 Halbtöne, −2 dB, ffmpeg `rubberband`), die Wortzeiten bleiben.
 - Effekte: Pegel je Cue relativ zur auf −1 dBFS normierten Klangdatei; gemessen wird die lauteste Momentan-Lautheit der Effekte in den 1,5 s ab dem Cue gegen die integrierte Lautheit der Stimme. Ziel ≥ 5 LU darunter.
-- AAC hebt Spitzen an: Die Spieluhr-Anschläge überschwingen beim Kodieren bis 2 dB. `fertigen.py` misst deshalb den True Peak der dekodierten AAC-Spur und senkt die Begrenzer-Decke, bis beide Fassungen ≤ −1 dBTP liegen (Folge 1: −1,8 → −3,23 dBFS; der Begrenzer regelt dabei höchstens 1,3 dB ab, in 0,08 % der Rahmen über 1 dB).
+- AAC hebt Spitzen an: Die Spieluhr-Anschläge überschwingen beim Kodieren bis 2 dB. `fertigen.py` misst deshalb den True Peak der dekodierten AAC-Spur und senkt die Begrenzer-Decke je Fassung getrennt, bis beide ≤ −1 dBTP liegen (Folge 1 vor dem Review: gemeinsame Decke −3,23 dBFS wegen der Spieluhr; nach dem Review reicht −1,8 dBFS für beide Fassungen, der Begrenzer regelt höchstens 0,35 dB ab).
 
 ### 17.4 Prüfung
 
 - Untertitel-Sync wird nicht aus der ASS abgeleitet, sondern gemessen: Die ASS wird allein auf Schwarz gerendert (dieselbe libass), jede Einblendung muss genau auf ihrem Bild wechseln. Der Wortbeginn kommt aus dem Ton des MP4: Versatz zur Master-WAV per Kreuzkorrelation; nach Lücken der akustische Einsatz (≥ 30 ms unter −40 dBFS, dann über −35 dBFS), mitten im Satz Whisper. Whisper allein legt das erste Wort nach einer Pause oft 0,2–0,7 s zu früh in die Stille, das ist kein Sync-Fehler.
 - Stillstand: mittlere Änderung zum Vorbild < 0,15 Graustufen (bei 108 × 192), länger als 0,33 s außerhalb der Endkarte ist ein Verstoß.
+- Helligkeits-Tor (Review Folge 1): Median der Bildhelligkeit ≥ 85 von 255, keine Einstellung im Mittel unter 35. Balken-Tor: kein Bild mit fast schwarzen Spalten über 10 % der Breite. Kantendichte wird berichtet (r2 16,5 %, r5 13,3 %).
 
 ### 17.5 Folge 1 in Zahlen
 
+Stand nach dem Review (Einzelheiten und Vorher-Werte: `episoden/folge-01/REVIEW.md`).
+
 | | Wert |
 |---|---|
-| Render 1080 × 1920, 2 Prozesse, JPEG 0,95 | 2.618 Bilder in 964,7 s (16,1 min), 0,368 s/Bild effektiv, 0,624 s/Bild je Prozess, 11,1 min Rechenzeit je Minute Video |
-| Bild kodieren (libx264 medium, crf 18, maxrate 14 Mbit/s) | 126 s; MP4 144 MB (≈ 13 Mbit/s, das Filmkorn braucht Bitrate) |
-| `fertigen.py` gesamt | 207 s (zwei Mischrunden wegen AAC) |
-| Untertitel | 178 Einblendungen, 110 mit zwei Wörtern, Standzeit Median 0,40 s, kürzeste 0,10 s; Abstand zum Wortbeginn gemessen: Median 0,00 s, p90 0,02 s, höchstens 0,04 s |
-| Effekte | 10 Klänge, 23 Cues, 5,3–13,8 LU unter der Stimme (Median 9,2 LU) |
-| Ton nach AAC (192 kbit/s, Stereo) | Upload −14,07 LUFS, −2,99 dBTP, LRA 2,6 LU; Vorhör −14,06 LUFS, −2,21 dBTP, LRA 2,5 LU |
-| Hör-Check Whisper auf dem MP4 | Upload 0 Wortfehler (1 Einschub „mister“ bei 80,0 s), Vorhör 0 Fehler |
+| Render 1080 × 1920, 2 Prozesse, JPEG 0,95 | 2.618 Bilder in 933,3 s (15,6 min), 0,357 s/Bild effektiv, 0,608 s/Bild je Prozess, 10,7 min Rechenzeit je Minute Video. Teil-Render einzelner Einstellungen mit `--bilder a-b --nur-bilder --kein-bogen` |
+| Bild kodieren (libx264 medium, crf 18, maxrate 14 Mbit/s) | 126–131 s; MP4 155 MB |
+| `fertigen.py` gesamt | 164–172 s (eine Mischrunde: beide Fassungen nach AAC ≤ −1,8 dBTP) |
+| Untertitel | 179 Einblendungen, 109 mit zwei Wörtern, 96 px, breiteste 807 px; Abstand zum Wortbeginn gemessen: Median 0,00 s, p90 0,02 s, höchstens 0,047 s |
+| Effekte | 10 Klänge, 11 Cues, K-gewichtet 8,6–11,0 LU unter der Stimme; über 300 Hz 24–28 dB unter der Stimme |
+| Ton nach AAC (192 kbit/s, Stereo) | Upload −14,05 LUFS, −1,80 dBTP, LRA 3,0 LU; Vorhör −14,05 LUFS, −1,84 dBTP, LRA 2,7 LU |
+| Hör-Check Whisper auf dem MP4 | Upload und Vorhör je 0 Wortfehler, 0 Einschübe |
 | Dauer | Stimme 86,12 s, Endkarte ab 86,267 s (0,147 s nach dem letzten Wort), Video 87,267 s |
-| Bilder | keine schwarzen, einfarbigen oder eingefrorenen Bilder, keine Dekodierfehler; dunkelstes Bild 423 (Mittel 6,2 von 255, Nacht) |
+| Bilder | Helligkeit Median 87,8, P10 65,6, kein Bild unter 30, dunkelste Einstellung 58,9; keine Balken; Kantendichte 15,6 %; keine schwarzen, einfarbigen oder eingefrorenen Bilder |

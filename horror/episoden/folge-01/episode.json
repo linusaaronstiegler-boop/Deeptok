@@ -8,6 +8,7 @@
  "seed": 2611,
  "look": {
   "licht": "nacht",
+  "belichtung": 1.08,
   "bloom": {
    "staerke": 0.55,
    "radius": 0.55,
@@ -30,35 +31,36 @@
        "zeit": "12:00"
       },
       {
-       "start": 26.3333,
+       "start": 26.3166,
        "zeit": "10:20"
       },
       {
-       "start": 28.2667,
+       "start": 28.25,
        "zeit": "10:20"
       },
       {
-       "start": 29.5333,
+       "start": 29.5166,
        "zeit": "10:20"
       },
       {
-       "start": 43.7,
+       "start": 43.6833,
        "zeit": "10:20"
       },
       {
-       "start": 45.4,
+       "start": 45.3833,
        "zeit": "10:20"
       },
       {
-       "start": 48.9333,
+       "start": 48.9166,
        "zeit": "10:20"
       },
       {
-       "start": 81.7667,
+       "start": 81.75,
        "zeit": "6:00"
       }
      ]
-    }
+    },
+    "licht_an": 0.8
    }
   },
   {
@@ -435,28 +437,41 @@
   {
    "id": "E01",
    "start": 0,
-   "ende": 0.8667,
+   "ende": 1.2667,
    "set": [
     "strasse",
     "marsh"
    ],
    "licht": "nacht",
+   "licht_anpassung": {
+    "haupt": {
+     "richtung": [
+      -0.3,
+      0.55,
+      0.78
+     ],
+     "staerke": 3.2
+    },
+    "kante": {
+     "staerke": 2
+    }
+   },
    "kamera": {
     "baustein": "push_in",
     "ziel": {
-     "anker": "mh.brust",
+     "anker": "mh.haende",
      "versatz": [
       0,
-      1,
+      -1.3,
       0
      ]
     },
     "pos": [
-     1.1,
-     1.6,
-     -38.4
+     1.2,
+     1.4,
+     -43.2
     ],
-    "fov": 40,
+    "fov": 48,
     "rate": 0.12
    },
    "stellung": {
@@ -470,28 +485,17 @@
      ],
      "blick": 0,
      "gesicht": "glatt"
-    },
-    "eli": {
-     "neu": true,
-     "sichtbar": true,
-     "position": [
-      1.55,
-      0,
-      -42
-     ],
-     "blick": 178,
-     "gesicht": "angst"
     }
    },
    "aktionen": [],
    "schatten_bereich": 24,
-   "text": "In this town,",
+   "text": "In this town, when you turn",
    "plan": {
     "key": "1",
     "satz": 1,
     "woerter": [
      0,
-     2
+     5
     ],
     "block": "hook",
     "groesse": "totale",
@@ -513,14 +517,13 @@
     "akzent": false,
     "monster": true,
     "sichtbar": [
-     "mh",
-     "eli"
+     "mh"
     ]
    }
   },
   {
    "id": "E02",
-   "start": 0.8667,
+   "start": 1.2667,
    "ende": 2.0667,
    "set": [
     "strasse",
@@ -533,13 +536,10 @@
    "kamera": {
     "baustein": "push_in",
     "punkt": "haus.kueche_detail",
-    "rate": 0.09
+    "rate": 0.12
    },
    "stellung": {
     "mh": {
-     "sichtbar": false
-    },
-    "eli": {
      "sichtbar": false
     }
    },
@@ -549,12 +549,12 @@
     "staerke": 0.8
    },
    "schatten_bereich": 16,
-   "text": "when you turn eighteen,",
+   "text": "eighteen,",
    "plan": {
-    "key": "1:when",
+    "key": "1:eighteen",
     "satz": 1,
     "woerter": [
-     3,
+     6,
      6
     ],
     "block": "hook",
@@ -607,11 +607,7 @@
     "richtung": "links",
     "mitschwenken": true,
     "strecke": 1.8,
-    "vordergrund": {
-     "abstand": 1.3,
-     "breite": 0.16,
-     "zeit": 2.1
-    }
+    "vordergrund": false
    },
    "stellung": {
     "eli": {
@@ -858,12 +854,12 @@
    "licht": "nacht",
    "licht_anpassung": {
     "hemi": {
-     "staerke": 2.2
+     "staerke": 2.9
     },
     "kante": {
-     "staerke": 1.4
+     "staerke": 1.6
     },
-    "belichtung": 1.3
+    "belichtung": 1.8
    },
    "kamera": {
     "baustein": "dolly_out",
@@ -1166,6 +1162,17 @@
     "marsh"
    ],
    "licht": "nacht",
+   "licht_anpassung": {
+    "haupt": {
+     "richtung": [
+      -0.45,
+      0.55,
+      0.7
+     ],
+     "staerke": 3
+    },
+    "belichtung": 1.85
+   },
    "kamera": {
     "baustein": "push_in",
     "ziel": {
@@ -1353,12 +1360,7 @@
     "fov": 48,
     "richtung": "rechts",
     "strecke": 2.4,
-    "vordergrund": {
-     "art": "pfosten",
-     "abstand": 1.5,
-     "breite": 0.18,
-     "zeit": 15.68
-    }
+    "vordergrund": false
    },
    "stellung": {
     "nb_ohren": {
@@ -1537,9 +1539,9 @@
    "kamera": {
     "baustein": "push_in",
     "pos": [
-     9.55,
-     0.28,
-     22.4
+     6.9,
+     0.3,
+     20.8
     ],
     "ziel": {
      "anker": "mh.fuss",
@@ -1716,21 +1718,14 @@
    "licht": "nacht",
    "kamera": {
     "baustein": "push_in",
-    "ziel": {
-     "anker": "mh.kopf",
-     "versatz": [
-      0.3,
-      -1.8,
-      -2
-     ]
-    },
+    "ziel": "mh.haende",
     "blick": {
-     "azimut": -20,
-     "hoehe": 22,
-     "abstand": 5.5,
-     "bezug": "mh.kopf"
+     "azimut": 152,
+     "hoehe": -18,
+     "abstand": 3.6,
+     "bezug": "mh.haende"
     },
-    "fov": 50,
+    "fov": 52,
     "rate": 0.07
    },
    "stellung": {
@@ -1755,11 +1750,24 @@
      "wer": "mh",
      "was": "haende_weg",
      "start": 21.56,
-     "dauer": 0.6
+     "dauer": 0.5,
+     "params": {
+      "staerke": 0.3
+     }
+    },
+    {
+     "wer": "mh",
+     "was": "leuchten",
+     "dauer": 0.4,
+     "params": {
+      "staerke": 1.8
+     },
+     "start": 21.56,
+     "nebenbei": true
     }
    ],
    "tiefenunschaerfe": {
-    "fokus": "mh.kopf",
+    "fokus": "mh.haende",
     "staerke": 0.8
    },
    "schatten_bereich": 24,
@@ -1783,13 +1791,13 @@
      "wort_i": 73,
      "wort_start": 21.56,
      "start": 21.56,
-     "ende": 22.16,
+     "ende": 22.06,
      "anker": "start",
      "schluesselwort_idee": "away"
     },
     "gesichter": [],
-    "hauptsache": "mh.kopf",
-    "bogen_zeit": 22.26,
+    "hauptsache": "mh.haende",
+    "bogen_zeit": 22.16,
     "akzent": false,
     "monster": true,
     "sichtbar": [
@@ -1817,7 +1825,8 @@
     },
     "hemi": {
      "himmel": "#e6ecf5"
-    }
+    },
+    "belichtung": 1.25
    },
    "kamera": {
     "baustein": "crane_down_tilt",
@@ -1902,15 +1911,16 @@
     },
     "hemi": {
      "himmel": "#e6ecf5"
-    }
+    },
+    "belichtung": 1.45
    },
    "kamera": {
     "baustein": "push_in",
     "ziel": "sp_strasse.mitte",
     "blick": {
-     "azimut": 8,
-     "hoehe": 14,
-     "abstand": 1.1
+     "azimut": 38,
+     "hoehe": 22,
+     "abstand": 1.25
     },
     "fov": 36,
     "rate": 0.07
@@ -2220,12 +2230,7 @@
     "richtung": "rechts",
     "mitschwenken": true,
     "strecke": 1.8,
-    "vordergrund": {
-     "art": "pfosten",
-     "abstand": 1.4,
-     "breite": 0.16,
-     "zeit": 29.57
-    }
+    "vordergrund": false
    },
    "stellung": {
     "nb_mantel": {
@@ -2334,9 +2339,9 @@
    "licht": "nacht",
    "licht_anpassung": {
     "hemi": {
-     "staerke": 2
+     "staerke": 2.8
     },
-    "belichtung": 1.45
+    "belichtung": 1.75
    },
    "kamera": {
     "baustein": "push_in",
@@ -2514,7 +2519,11 @@
    },
    "aktionen": [],
    "tiefenunschaerfe": {
-    "fokus": -11.25,
+    "fokus": [
+     -11.25,
+     0.65,
+     -19.05
+    ],
     "staerke": 0.8
    },
    "schatten_bereich": 24,
@@ -2566,10 +2575,31 @@
    "licht": "nacht",
    "kamera": {
     "baustein": "push_in",
-    "punkt": "strasse.ende_halbtotale",
-    "rate": 0.1
+    "pos": [
+     1.6,
+     1.7,
+     51.5
+    ],
+    "ziel": [
+     0.3,
+     1.5,
+     64
+    ],
+    "fov": 44,
+    "rate": 0.08
    },
    "stellung": {
+    "nb_jung": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      1.1,
+      0,
+      58.6
+     ],
+     "blick": -6,
+     "gesicht": "angst"
+    },
     "sp_v1": {
      "sichtbar": false
     },
@@ -2577,7 +2607,20 @@
      "sichtbar": false
     }
    },
-   "aktionen": [],
+   "aktionen": [
+    {
+     "wer": "nb_jung",
+     "was": "rennen",
+     "start": 33.24,
+     "dauer": 0.36,
+     "params": {
+      "nach": [
+       0.6,
+       62.4
+      ]
+     }
+    }
+   ],
    "schatten_bereich": 24,
    "text": "You can't run, either.",
    "plan": {
@@ -2588,25 +2631,29 @@
      114
     ],
     "block": "system",
-    "groesse": "totale",
+    "groesse": "halbtotale",
     "ort": "hauptstrasse",
     "modul": "strassenende",
     "haupt": {
-     "art": "kamera",
+     "art": "aktion",
+     "wer": "nb_jung",
+     "was": "rennen",
      "wort": "run",
      "wort_i": 113,
      "wort_start": 33.6,
-     "start": 33.6,
+     "start": 33.24,
      "ende": 33.6,
-     "anker": "start",
+     "anker": "ende",
      "schluesselwort_idee": "run"
     },
     "gesichter": [],
-    "hauptsache": "strasse.ende_schranke",
-    "bogen_zeit": 33.75,
+    "hauptsache": "nb_jung.kopf",
+    "bogen_zeit": 33.7,
     "akzent": false,
     "monster": false,
-    "sichtbar": []
+    "sichtbar": [
+     "nb_jung"
+    ]
    }
   },
   {
@@ -2623,11 +2670,18 @@
      "saettigung": 0.62,
      "kontrast": 1.04
     },
-    "belichtung": 1.35
+    "belichtung": 1.8
    },
    "kamera": {
     "baustein": "push_in",
-    "ziel": "owen.kopf",
+    "ziel": {
+     "anker": "owen.kopf",
+     "versatz": [
+      0,
+      -0.1,
+      0
+     ]
+    },
     "blick": {
      "azimut": -68,
      "hoehe": 4,
@@ -2657,6 +2711,9 @@
       -12.6
      ],
      "blick": -90
+    },
+    "nb_jung": {
+     "sichtbar": false
     }
    },
    "aktionen": [
@@ -2950,7 +3007,8 @@
     "grade": {
      "saettigung": 0.62,
      "kontrast": 1.04
-    }
+    },
+    "belichtung": 1.25
    },
    "kamera": {
     "baustein": "push_in",
@@ -3094,21 +3152,18 @@
    },
    "kamera": {
     "baustein": "push_in",
-    "ziel": {
-     "anker": "pk2.auspuff",
-     "versatz": [
-      0.3,
-      0.2,
-      0
-     ]
-    },
-    "blick": {
-     "azimut": 125,
-     "hoehe": 12,
-     "abstand": 2.8
-    },
-    "fov": 40,
-    "rate": 0.07
+    "pos": [
+     3.7,
+     1,
+     -10.9
+    ],
+    "ziel": [
+     8.4,
+     1.6,
+     -12.6
+    ],
+    "fov": 46,
+    "rate": 0.08
    },
    "stellung": {
     "pk2": {
@@ -3132,19 +3187,19 @@
      "art": "atem",
      "start": 40.34,
      "ort": "pk2.auspuff",
-     "periode": 0.55,
+     "periode": 0.5,
      "richtung": [
+      0.2,
       1,
-      0.15,
       0
      ],
-     "groesse": 0.07,
-     "deckkraft": 0.55,
+     "groesse": 0.32,
+     "deckkraft": 0.85,
      "dauer": 1
     }
    ],
    "tiefenunschaerfe": {
-    "fokus": "pk2.auspuff",
+    "fokus": "pk2.mitte",
     "staerke": 0.8
    },
    "schatten_bereich": 24,
@@ -3171,7 +3226,7 @@
      "schluesselwort_idee": "engine"
     },
     "gesichter": [],
-    "hauptsache": "pk2.auspuff",
+    "hauptsache": "pk2.mitte",
     "bogen_zeit": 40.54,
     "akzent": false,
     "monster": false,
@@ -3213,7 +3268,7 @@
       0.96
      ],
      "farbe": "#ffc08a",
-     "staerke": 2.3
+     "staerke": 3
     },
     "nebel": {
      "farbe": "#c9a49a",
@@ -3223,7 +3278,10 @@
      "saettigung": 0.62,
      "kontrast": 1.04
     },
-    "belichtung": 1.5
+    "belichtung": 1.55,
+    "hemi": {
+     "staerke": 2.8
+    }
    },
    "kamera": {
     "baustein": "push_in",
@@ -3255,7 +3313,7 @@
    "aktionen": [],
    "tiefenunschaerfe": {
     "fokus": "pk2.sitz",
-    "staerke": 0.8
+    "staerke": 0.5
    },
    "schatten_bereich": 24,
    "text": "His shoes were on the seat, side by side.",
@@ -3319,12 +3377,7 @@
     "richtung": "links",
     "mitschwenken": true,
     "strecke": 1.8,
-    "vordergrund": {
-     "art": "pfosten",
-     "abstand": 1.4,
-     "breite": 0.16,
-     "zeit": 43.96
-    }
+    "vordergrund": false
    },
    "stellung": {
     "nb_jung": {
@@ -3538,7 +3591,8 @@
     },
     "hemi": {
      "himmel": "#e6ecf5"
-    }
+    },
+    "belichtung": 1.25
    },
    "kamera": {
     "baustein": "push_in",
@@ -3763,11 +3817,18 @@
    "licht": "tag",
    "kamera": {
     "baustein": "push_in",
-    "ziel": "odell.kopf",
+    "ziel": {
+     "anker": "odell.kopf",
+     "versatz": [
+      0,
+      -0.22,
+      0
+     ]
+    },
     "blick": {
      "azimut": 12,
      "hoehe": 2,
-     "abstand": 1.5
+     "abstand": 2.2
     },
     "fov": 38,
     "rate": 0.07
@@ -3792,7 +3853,7 @@
     {
      "wer": "odell",
      "was": "geste",
-     "start": 50.71,
+     "start": 50.41,
      "dauer": 0.3,
      "params": {
       "art": "finger_auf_lippen"
@@ -3823,14 +3884,14 @@
      "wort": "ready",
      "wort_i": 169,
      "wort_start": 50.71,
-     "start": 50.71,
-     "ende": 51.01,
-     "anker": "start",
+     "start": 50.41,
+     "ende": 50.71,
+     "anker": "ende",
      "schluesselwort_idee": "ready"
     },
     "gesichter": [],
     "hauptsache": "odell.kopf",
-    "bogen_zeit": 51.11,
+    "bogen_zeit": 50.81,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -3847,6 +3908,9 @@
     "marsh"
    ],
    "licht": "nacht",
+   "licht_anpassung": {
+    "belichtung": 1.85
+   },
    "kamera": {
     "baustein": "orbit",
     "ziel": "mh.haende",
@@ -4073,12 +4137,18 @@
    },
    "kamera": {
     "baustein": "push_in",
-    "ziel": "june.kopf",
+    "ziel": {
+     "anker": "june.kopf",
+     "versatz": [
+      0,
+      -0.08,
+      0
+     ]
+    },
     "blick": {
-     "azimut": 200,
-     "hoehe": 5,
-     "abstand": 2.6,
-     "bezug": "june.kopf"
+     "azimut": 160,
+     "hoehe": 4,
+     "abstand": 2.4
     },
     "fov": 42,
     "rate": 0.07
@@ -4092,7 +4162,7 @@
       0.6,
       3.7
      ],
-     "blick": 0,
+     "blick": 95,
      "gesicht": "neutral"
     },
     "eli": {
@@ -4106,7 +4176,7 @@
      "start": 55.82,
      "dauer": 0.3,
      "params": {
-      "blick": 175
+      "blick": 160
      }
     },
     {
@@ -4292,6 +4362,10 @@
     "grade": {
      "saettigung": 0.62,
      "kontrast": 1.04
+    },
+    "belichtung": 1.5,
+    "hemi": {
+     "staerke": 2.8
     }
    },
    "kamera": {
@@ -4300,7 +4374,7 @@
      "anker": "luke_rb.mitte",
      "versatz": [
       -0.3,
-      0.12,
+      0.3,
       0
      ]
     },
@@ -4309,7 +4383,7 @@
      2.4,
      4.6
     ],
-    "fov": 56,
+    "fov": 64,
     "rate": 0.07
    },
    "stellung": {
@@ -4416,6 +4490,10 @@
     "grade": {
      "saettigung": 0.62,
      "kontrast": 1.04
+    },
+    "belichtung": 1.7,
+    "hemi": {
+     "staerke": 3
     }
    },
    "kamera": {
@@ -4556,7 +4634,8 @@
     "grade": {
      "saettigung": 0.62,
      "kontrast": 1.04
-    }
+    },
+    "belichtung": 1.25
    },
    "kamera": {
     "baustein": "push_in",
@@ -4564,16 +4643,16 @@
      "anker": "june18.kopf",
      "versatz": [
       0,
-      -0.1,
+      -0.15,
       0
      ]
     },
     "pos": [
-     -20.6,
-     1.55,
-     3.3
+     -17,
+     2,
+     3
     ],
-    "fov": 48,
+    "fov": 50,
     "rate": 0.07
    },
    "stellung": {
@@ -4585,7 +4664,7 @@
       -0.55,
       2
      ],
-     "blick": -90,
+     "blick": 90,
      "gesicht": "verschlafen"
     },
     "luke_rb": {
@@ -4611,7 +4690,7 @@
      "dauer": 0.8,
      "params": {
       "hoehe": 1.15,
-      "vor": 0.55
+      "vor": 0.2
      }
     }
    ],
@@ -4680,7 +4759,13 @@
    },
    "kamera": {
     "baustein": "push_in",
-    "punkt": "marsh.detail",
+    "ziel": "sp_dad.mitte",
+    "blick": {
+     "azimut": 38,
+     "hoehe": 20,
+     "abstand": 1.3
+    },
+    "fov": 38,
     "rate": 0.07
    },
    "stellung": {
@@ -5418,12 +5503,15 @@
   {
    "id": "E49",
    "start": 73.8,
-   "ende": 75.7333,
+   "ende": 74.8,
    "set": [
     "strasse",
     "haus"
    ],
    "licht": "tag",
+   "licht_anpassung": {
+    "belichtung": 1.7
+   },
    "kamera": {
     "baustein": "orbit",
     "ziel": "luke_tp.ring",
@@ -5456,13 +5544,13 @@
     "staerke": 0.8
    },
    "schatten_bereich": 16,
-   "text": "\"I'll hide you there.\" \"I promise.\"",
+   "text": "\"I'll hide you there.\"",
    "plan": {
     "key": "30",
     "satz": 30,
     "woerter": [
      250,
-     255
+     253
     ],
     "block": "persoenlich",
     "groesse": "detail",
@@ -5485,14 +5573,155 @@
     "monster": false,
     "sichtbar": [
      "luke_tp"
-    ],
-    "ohne_schnitt": [
-     "31"
     ]
    }
   },
   {
    "id": "E50",
+   "start": 74.8,
+   "ende": 75.7333,
+   "set": [
+    "strasse",
+    "haus"
+   ],
+   "licht": "tag",
+   "licht_anpassung": {
+    "haupt": {
+     "richtung": [
+      0.8,
+      0.42,
+      0.25
+     ],
+     "farbe": "#ffe2c0"
+    },
+    "hemi": {
+     "himmel": "#e6ecf5"
+    }
+   },
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": {
+     "anker": "june.kopf",
+     "versatz": [
+      0,
+      -0.2,
+      0
+     ]
+    },
+    "blick": {
+     "azimut": 165,
+     "hoehe": 2,
+     "abstand": 2
+    },
+    "fov": 38,
+    "rate": 0.09
+   },
+   "stellung": {
+    "june": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -14.5,
+      0.6,
+      3.75
+     ],
+     "blick": 180,
+     "pose": "sitzen",
+     "gesicht": "entschlossen"
+    },
+    "luke_tp": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 74.83,
+     "params": {
+      "name": "entschlossen/reden_a"
+     }
+    },
+    {
+     "wer": "june",
+     "was": "kopf_drehen",
+     "start": 74.92,
+     "dauer": 0.35,
+     "params": {
+      "nicken": 14
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 74.92,
+     "params": {
+      "name": "entschlossen/reden_b"
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 75.195,
+     "params": {
+      "name": "entschlossen/reden_c"
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 75.47,
+     "params": {
+      "name": "entschlossen"
+     }
+    }
+   ],
+   "tiefenunschaerfe": {
+    "fokus": "june.kopf",
+    "staerke": 0.8
+   },
+   "schatten_bereich": 16,
+   "text": "\"I promise.\"",
+   "plan": {
+    "key": "31",
+    "satz": 31,
+    "woerter": [
+     254,
+     255
+    ],
+    "block": "persoenlich",
+    "groesse": "nah",
+    "ort": "marsh-innen",
+    "modul": "kueche",
+    "haupt": {
+     "art": "aktion",
+     "wer": "june",
+     "was": "kopf_drehen",
+     "wort": "promise",
+     "wort_i": 255,
+     "wort_start": 74.92,
+     "start": 74.92,
+     "ende": 75.27,
+     "anker": "start",
+     "schluesselwort_idee": "promise"
+    },
+    "gesichter": [],
+    "mund": {
+     "wer": "june",
+     "art": "rede",
+     "wechsel": 4
+    },
+    "hauptsache": "june.kopf",
+    "bogen_zeit": 75.37,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": [
+     "june"
+    ]
+   }
+  },
+  {
+   "id": "E51",
    "start": 75.7333,
    "ende": 77,
    "set": [
@@ -5511,9 +5740,9 @@
      ]
     },
     "pos": [
-     -12.3,
-     1.45,
-     -2.6
+     -15.5,
+     3.7,
+     -2.5
     ],
     "fov": 54,
     "rate": 0.07
@@ -5530,7 +5759,7 @@
      "blick": -90,
      "gesicht": "neutral"
     },
-    "luke_tp": {
+    "june": {
      "sichtbar": false
     }
    },
@@ -5597,7 +5826,7 @@
    }
   },
   {
-   "id": "E51",
+   "id": "E52",
    "start": 77,
    "ende": 78.4333,
    "set": [
@@ -5688,7 +5917,7 @@
    }
   },
   {
-   "id": "E52",
+   "id": "E53",
    "start": 78.4333,
    "ende": 79.8,
    "set": [
@@ -5701,7 +5930,7 @@
     "ziel": {
      "anker": "eli.kopf",
      "versatz": [
-      0,
+      0.12,
       -0.1,
       0
      ]
@@ -5748,13 +5977,13 @@
    ],
    "partikel": [
     {
-     "start": 78.58,
-     "dauer": 1.22,
+     "start": 78.97,
+     "dauer": 0.83,
      "art": "atem",
      "ort": "eli.mund",
-     "periode": 1.3,
-     "groesse": 0.1,
-     "deckkraft": 0.75
+     "periode": 1.1,
+     "groesse": 0.15,
+     "deckkraft": 0.85
     }
    ],
    "tiefenunschaerfe": {
@@ -5803,7 +6032,7 @@
    }
   },
   {
-   "id": "E53",
+   "id": "E54",
    "start": 79.8,
    "ende": 81.7667,
    "set": [
@@ -5811,6 +6040,39 @@
     "haus"
    ],
    "licht": "daemmerung",
+   "licht_anpassung": {
+    "himmel": {
+     "zenit": "#161b44",
+     "horizont": "#c45a52"
+    },
+    "nebel": {
+     "farbe": "#5a4f7e",
+     "dichte": 0.012
+    },
+    "hemi": {
+     "himmel": "#8790dc",
+     "boden": "#2e2a44",
+     "staerke": 1.9
+    },
+    "haupt": {
+     "farbe": "#ff9466",
+     "staerke": 3.2
+    },
+    "kante": {
+     "farbe": "#7f9cff",
+     "staerke": 1.3
+    },
+    "grade": {
+     "saettigung": 1.08,
+     "kontrast": 1.14,
+     "faerbung": [
+      0.95,
+      0.98,
+      1.1
+     ]
+    },
+    "belichtung": 1.15
+   },
    "kamera": {
     "baustein": "push_in",
     "ziel": "mh.haende",
@@ -5902,7 +6164,7 @@
    }
   },
   {
-   "id": "E54",
+   "id": "E55",
    "start": 81.7667,
    "ende": 83.0667,
    "set": [
@@ -5910,6 +6172,39 @@
     "marsh"
    ],
    "licht": "daemmerung",
+   "licht_anpassung": {
+    "himmel": {
+     "zenit": "#161b44",
+     "horizont": "#c45a52"
+    },
+    "nebel": {
+     "farbe": "#5a4f7e",
+     "dichte": 0.012
+    },
+    "hemi": {
+     "himmel": "#8790dc",
+     "boden": "#2e2a44",
+     "staerke": 1.9
+    },
+    "haupt": {
+     "farbe": "#ff9466",
+     "staerke": 3.2
+    },
+    "kante": {
+     "farbe": "#7f9cff",
+     "staerke": 1.3
+    },
+    "grade": {
+     "saettigung": 1.08,
+     "kontrast": 1.14,
+     "faerbung": [
+      0.95,
+      0.98,
+      1.1
+     ]
+    },
+    "belichtung": 1.15
+   },
    "kamera": {
     "baustein": "dolly_out",
     "punkt": "strasse.platz_detail",
@@ -5960,7 +6255,7 @@
    }
   },
   {
-   "id": "E55",
+   "id": "E56",
    "start": 83.0667,
    "ende": 84.2,
    "set": [
@@ -5968,6 +6263,39 @@
     "haus"
    ],
    "licht": "daemmerung",
+   "licht_anpassung": {
+    "himmel": {
+     "zenit": "#161b44",
+     "horizont": "#c45a52"
+    },
+    "nebel": {
+     "farbe": "#5a4f7e",
+     "dichte": 0.012
+    },
+    "hemi": {
+     "himmel": "#8790dc",
+     "boden": "#2e2a44",
+     "staerke": 1.9
+    },
+    "haupt": {
+     "farbe": "#ff9466",
+     "staerke": 3.2
+    },
+    "kante": {
+     "farbe": "#7f9cff",
+     "staerke": 1.3
+    },
+    "grade": {
+     "saettigung": 1.08,
+     "kontrast": 1.14,
+     "faerbung": [
+      0.95,
+      0.98,
+      1.1
+     ]
+    },
+    "belichtung": 1.15
+   },
    "kamera": {
     "baustein": "push_in",
     "ziel": {
@@ -5979,11 +6307,11 @@
      ]
     },
     "blick": {
-     "azimut": 0,
-     "hoehe": 2,
+     "azimut": 50,
+     "hoehe": 3,
      "abstand": 2
     },
-    "fov": 40,
+    "fov": 44,
     "rate": 0.07
    },
    "stellung": {
@@ -5991,7 +6319,7 @@
      "neu": true,
      "sichtbar": true,
      "position": [
-      -12.75,
+      -13.8,
       3.8,
       2.6
      ],
@@ -6074,21 +6402,54 @@
    }
   },
   {
-   "id": "E56",
+   "id": "E57",
    "start": 84.2,
    "ende": 85.2333,
    "set": [
     "strasse",
-    "marsh"
+    "haus"
    ],
    "licht": "daemmerung",
+   "licht_anpassung": {
+    "himmel": {
+     "zenit": "#161b44",
+     "horizont": "#c45a52"
+    },
+    "nebel": {
+     "farbe": "#5a4f7e",
+     "dichte": 0.012
+    },
+    "hemi": {
+     "himmel": "#8790dc",
+     "boden": "#2e2a44",
+     "staerke": 1.9
+    },
+    "haupt": {
+     "farbe": "#ff9466",
+     "staerke": 3.2
+    },
+    "kante": {
+     "farbe": "#7f9cff",
+     "staerke": 1.3
+    },
+    "grade": {
+     "saettigung": 1.08,
+     "kontrast": 1.14,
+     "faerbung": [
+      0.95,
+      0.98,
+      1.1
+     ]
+    },
+    "belichtung": 1.15
+   },
    "kamera": {
     "baustein": "push_in",
     "ziel": "mh.haende",
     "pos": [
-     -12.55,
-     5.5,
-     2.45
+     -13.3,
+     5.55,
+     2.15
     ],
     "fov": 40,
     "rate": 0.07
@@ -6106,7 +6467,15 @@
      "gesicht": "glatt"
     },
     "eli": {
-     "sichtbar": false
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -12.75,
+      3.8,
+      2.6
+     ],
+     "blick": 90,
+     "gesicht": "angst"
     }
    },
    "aktionen": [
@@ -6129,7 +6498,7 @@
    ],
    "tiefenunschaerfe": {
     "fokus": "mh.haende",
-    "staerke": 0.8
+    "staerke": 0.6
    },
    "schatten_bereich": 24,
    "text": "It was looking at me,",
@@ -6162,12 +6531,13 @@
     "akzent": false,
     "monster": true,
     "sichtbar": [
-     "mh"
+     "mh",
+     "eli"
     ]
    }
   },
   {
-   "id": "E57",
+   "id": "E58",
    "start": 85.2333,
    "ende": 86.2667,
    "set": [
@@ -6175,6 +6545,39 @@
     "marsh"
    ],
    "licht": "daemmerung",
+   "licht_anpassung": {
+    "himmel": {
+     "zenit": "#161b44",
+     "horizont": "#c45a52"
+    },
+    "nebel": {
+     "farbe": "#5a4f7e",
+     "dichte": 0.012
+    },
+    "hemi": {
+     "himmel": "#8790dc",
+     "boden": "#2e2a44",
+     "staerke": 1.9
+    },
+    "haupt": {
+     "farbe": "#ff9466",
+     "staerke": 3.2
+    },
+    "kante": {
+     "farbe": "#7f9cff",
+     "staerke": 1.3
+    },
+    "grade": {
+     "saettigung": 1.08,
+     "kontrast": 1.14,
+     "faerbung": [
+      0.95,
+      0.98,
+      1.1
+     ]
+    },
+    "belichtung": 1.15
+   },
    "kamera": {
     "baustein": "snap_zoom",
     "ziel": "mh.auge",
@@ -6200,7 +6603,13 @@
      ],
      "blick": -90,
      "gesicht": "glatt",
-     "pose": "spaehen"
+     "pose": "spaehen",
+     "pose_params": {
+      "staerke": 0.6
+     }
+    },
+    "eli": {
+     "sichtbar": false
     }
    },
    "aktionen": [
@@ -6212,6 +6621,17 @@
       "nicken": 12
      },
      "start": 85.2333,
+     "nebenbei": true
+    },
+    {
+     "wer": "mh",
+     "was": "finger_spreizen",
+     "dauer": 0.3,
+     "params": {
+      "seite": "r",
+      "staerke": 1.5
+     },
+     "start": 85.56,
      "nebenbei": true
     }
    ],
@@ -6343,58 +6763,58 @@
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 0.8667,
+   "start": 1.2667,
    "dauer": 0,
-   "quelle": "auto:1:when"
+   "quelle": "auto:1:eighteen"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 0.8667,
+   "start": 1.2667,
    "dauer": 0,
-   "quelle": "auto:1:when"
+   "quelle": "auto:1:eighteen"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 0.8667,
+   "start": 1.2667,
    "dauer": 0,
-   "quelle": "auto:1:when"
+   "quelle": "auto:1:eighteen"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 0.8667,
+   "start": 1.2667,
    "dauer": 0,
-   "quelle": "auto:1:when"
+   "quelle": "auto:1:eighteen"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 0.8667,
+   "start": 1.2667,
    "dauer": 0,
-   "quelle": "auto:1:when"
+   "quelle": "auto:1:eighteen"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 0.8667,
+   "start": 1.2667,
    "dauer": 0,
-   "quelle": "auto:1:when"
+   "quelle": "auto:1:eighteen"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 0.8667,
+   "start": 1.2667,
    "dauer": 0,
-   "quelle": "auto:1:when"
+   "quelle": "auto:1:eighteen"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 0.8667,
+   "start": 1.2667,
    "dauer": 0,
-   "quelle": "auto:1:when"
+   "quelle": "auto:1:eighteen"
   },
   {
    "art": "an",
@@ -8064,6 +8484,48 @@
   },
   {
    "art": "aus",
+   "ziel": "strasse.laterne_platz",
+   "start": 51.4333,
+   "dauer": 0,
+   "quelle": "auto:20"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.platz_2",
+   "start": 51.4333,
+   "dauer": 0,
+   "quelle": "auto:20"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.platz_3",
+   "start": 51.4333,
+   "dauer": 0,
+   "quelle": "auto:20"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.platz_4",
+   "start": 51.4333,
+   "dauer": 0,
+   "quelle": "auto:20"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.platz_5",
+   "start": 51.4333,
+   "dauer": 0,
+   "quelle": "auto:20"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.platz_6",
+   "start": 51.4333,
+   "dauer": 0,
+   "quelle": "auto:20"
+  },
+  {
+   "art": "aus",
    "ziel": "strasse.*",
    "start": 53.5,
    "dauer": 0,
@@ -8698,6 +9160,55 @@
    "start": 73.8,
    "dauer": 0,
    "quelle": "auto:30"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 74.8,
+   "dauer": 0,
+   "quelle": "auto:31"
+  },
+  {
+   "art": "aus",
+   "ziel": "marsh.*",
+   "start": 74.8,
+   "dauer": 0,
+   "quelle": "auto:31"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 74.8,
+   "dauer": 0,
+   "quelle": "auto:31"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.june_lampe",
+   "start": 74.8,
+   "dauer": 0,
+   "quelle": "auto:31"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.eli_lampe",
+   "start": 74.8,
+   "dauer": 0,
+   "quelle": "auto:31"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.flur_lampe",
+   "start": 74.8,
+   "dauer": 0,
+   "quelle": "auto:31"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 74.8,
+   "dauer": 0,
+   "quelle": "auto:31"
   },
   {
    "art": "an",

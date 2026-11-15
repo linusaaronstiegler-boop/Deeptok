@@ -24,13 +24,15 @@ import { zweiGlied, richteAus } from '../src/ik.js';
 import { zeichneGesicht } from '../src/gesichter.js';
 import { knopfleiste, naht } from '../src/kleidung.js';
 
+// Review Folge 1: Glieder kräftiger (Arme 0,15 -> 0,24 m), Hände größer und knochiger mit Daumen,
+// damit die Figur keine Strichfigur ist und sich klar von Slender Man unterscheidet (A7.3).
 const M = {
-  fussL: 0.95, fussB: 0.24, fussH: 0.12,
-  oberschenkel: 1.6, unterschenkel: 1.6, beinD: 0.17, beinAbstand: 0.26,
-  rumpfH: 2.45, rumpfOben: 0.82, rumpfUnten: 0.5, rumpfT: 0.38,
+  fussL: 0.95, fussB: 0.26, fussH: 0.13,
+  oberschenkel: 1.6, unterschenkel: 1.6, beinD: 0.22, beinAbstand: 0.3,
+  rumpfH: 2.45, rumpfOben: 0.98, rumpfUnten: 0.56, rumpfT: 0.44,
   hals: 0.4, kopfB: 0.6, kopfH: 0.66, kopfT: 0.56,
-  oberarm: 1.25, unterarm: 1.15, armD: 0.15,
-  handB: 0.3, handH: 0.3, handT: 0.08, finger: [0.25, 0.21, 0.18], fingerD: 0.058,
+  oberarm: 1.25, unterarm: 1.15, armD: 0.24,
+  handB: 0.42, handH: 0.36, handT: 0.1, finger: [0.33, 0.28, 0.23], fingerD: 0.078,
   saumY: 1.05, // Höhe der Mantelkante über dem Boden
 };
 
@@ -38,8 +40,12 @@ const glatt01 = (x) => { const u = Math.min(1, Math.max(0, x)); return u * u * (
 
 export default async function baue(ctx, params = {}) {
   const T = ctx.THREE;
-  const haut = ctx.mat('#DAD6CC', { rauheit: 0.6 });
+  // Kantenlicht (Fresnel, src/werkzeug.js): Haut und Mantel setzen sich gegen den Himmel ab.
+  // Kalt-türkis wie das Leuchten hinter den Händen (#9FD8D2), damit die Akzentfarbe zum Monster gehört.
+  const haut = ctx.mat('#DAD6CC', { rauheit: 0.6, kante: { farbe: '#bfe6e2', staerke: 0.35, exponent: 2.2 } });
   const naegel = ctx.mat('#8C8F94', { rauheit: 0.4 });
+  // Fingerspitzen glimmen kalt (Leuchten zwischen und an den Fingern, Review Folge 1)
+  const fingerNaegel = ctx.mat('#a9c9c6', { rauheit: 0.4, leuchten: '#9FD8D2', leuchtStaerke: 1.6 });
   const mantelTex = ctx.zeichenTextur((g, w, h) => {
     // grober Wollstoff: feine Körnung, damit der Mantel nicht wie Plastik wirkt
     g.fillStyle = '#ffffff'; g.fillRect(0, 0, w, h);
@@ -48,9 +54,12 @@ export default async function baue(ctx, params = {}) {
   }, 128, 128);
   mantelTex.wrapS = mantelTex.wrapT = T.RepeatWrapping;
   mantelTex.repeat.set(3, 3);
-  const mantel = ctx.mat('#2A2B30', { rauheit: 0.95, karte: mantelTex });
-  const saumMat = ctx.mat('#3A3B42', { rauheit: 0.95, karte: mantelTex });
+  // Mantel dunkelgrau statt fast schwarz, mit Stofftextur und kaltem Kantenlicht (Review Folge 1:
+  // der Körper las sich als flache schwarze Strichfigur)
+  const mantel = ctx.mat('#5B5E6C', { rauheit: 0.85, karte: mantelTex, kante: { farbe: '#9FD8D2', staerke: 0.9, exponent: 2.2 } });
+  const saumMat = ctx.mat('#6A6D7B', { rauheit: 0.85, karte: mantelTex, kante: { farbe: '#9FD8D2', staerke: 0.75, exponent: 2.2 } });
 
+  const grundglut = params.grundglut ?? 0.55;
   const gruppe = new T.Group();
   const huefteHoehe = M.fussH + M.oberschenkel + M.unterschenkel;
   const huefte = new T.Group();
@@ -120,7 +129,7 @@ export default async function baue(ctx, params = {}) {
   glut.position.set(0, M.kopfH * 0.62, M.kopfT / 2 + 0.004);
   kopf.add(glut);
   // Bernsteinfarbenes Auge hinter dem Spalt zwischen Mittel- und Ringfinger der rechten Hand
-  const augePos = new T.Vector3(-0.155, 0.52, M.kopfT / 2 + 0.008);
+  const augePos = new T.Vector3(-0.2, 0.52, M.kopfT / 2 + 0.008);
   const augeGruppe = new T.Group();
   augeGruppe.position.copy(augePos);
   kopf.add(augeGruppe);
@@ -151,7 +160,7 @@ export default async function baue(ctx, params = {}) {
     unterMesh.position.y = -M.unterarm * 0.41;
     unter.add(unterMesh);
     // spitzer Ellbogen: ein Stoffkeil, der nach hinten-außen absteht (Spitze der Raute)
-    const ellbogen = new T.Mesh(new T.ConeGeometry(0.1, 0.32, 4), mantel);
+    const ellbogen = new T.Mesh(new T.ConeGeometry(0.15, 0.44, 4), mantel);
     ellbogen.position.set(0, 0.06, -0.12);
     ellbogen.rotation.x = -Math.PI / 2 - 0.5;
     ellbogen.castShadow = true;
@@ -162,7 +171,7 @@ export default async function baue(ctx, params = {}) {
       f.position.set((i - 1) * M.armD * 0.32, -M.unterarm * 0.82 - 0.02 - i * 0.02, 0);
       unter.add(f);
     }
-    const gelenk = rundeKiste(0.1, M.unterarm * 0.25, 0.1, haut, 0.03);
+    const gelenk = rundeKiste(0.15, M.unterarm * 0.25, 0.15, haut, 0.04);
     gelenk.position.y = -M.unterarm * 0.88;
     unter.add(gelenk);
     const hand = new T.Group();
@@ -177,7 +186,7 @@ export default async function baue(ctx, params = {}) {
     hand.add(knoechel);
     for (let i = 0; i < 4; i++) {
       const basis = new T.Group();
-      basis.position.set(sx * (-0.108 + 0.072 * i), M.handH, 0);
+      basis.position.set(sx * (-0.36 + 0.24 * i) * M.handB, M.handH, 0);
       hand.add(basis);
       const kette = [basis];
       let eltern = basis;
@@ -193,10 +202,10 @@ export default async function baue(ctx, params = {}) {
         eltern.add(knubbel);
         if (k === 2) {
           // spitzer, grauer Nagel auf der Außenseite der Fingerspitze
-          const nagel = rundeKiste(d * 0.66, 0.085, 0.014, naegel, 0.006, false);
+          const nagel = rundeKiste(d * 0.66, 0.085, 0.014, fingerNaegel, 0.006, false);
           nagel.position.set(0, l * 0.66, d * 0.42);
           eltern.add(nagel);
-          const spitzeN = rundeKiste(d * 0.36, 0.04, 0.012, naegel, 0.004, false);
+          const spitzeN = rundeKiste(d * 0.36, 0.04, 0.012, fingerNaegel, 0.004, false);
           spitzeN.position.set(0, l + 0.01, d * 0.36);
           eltern.add(spitzeN);
         }
@@ -214,6 +223,29 @@ export default async function baue(ctx, params = {}) {
       fingerGelenke[S].push({ kette, spitze });
       kette.forEach((g, k) => { gelenke[`finger${S}${i}_${k}`] = g; });
     }
+    // Daumen (Review Folge 1: "Hand größer und knochiger mit sichtbarem Daumen"): zwei Glieder,
+    // setzt an der Innenkante unten an und zeigt schräg nach oben-innen, mit Knubbeln und Nagel.
+    const daumen = new T.Group();
+    daumen.position.set(sx * -M.handB * 0.5, M.handH * 0.28, -0.01);
+    daumen.rotation.set(-0.25, 0, sx * 0.75);
+    hand.add(daumen);
+    const dD = M.fingerD * 1.15;
+    const d1 = rundeKiste(dD, 0.2, dD, haut, 0.022);
+    d1.position.y = 0.1;
+    daumen.add(d1);
+    const dk = rundeKiste(dD * 1.15, 0.05, dD * 1.1, haut, 0.02);
+    dk.position.y = 0.2;
+    daumen.add(dk);
+    const d2 = new T.Group();
+    d2.position.y = 0.2;
+    d2.rotation.z = sx * -0.35;
+    daumen.add(d2);
+    const d2m = rundeKiste(dD * 0.9, 0.17, dD * 0.9, haut, 0.02);
+    d2m.position.y = 0.085;
+    d2.add(d2m);
+    const dn = rundeKiste(dD * 0.62, 0.07, 0.014, fingerNaegel, 0.006, false);
+    dn.position.set(0, 0.13, dD * 0.45);
+    d2.add(dn);
     const mitte = new T.Object3D();
     mitte.position.set(0, M.handH * 0.5, 0);
     hand.add(mitte);
@@ -326,7 +358,7 @@ export default async function baue(ctx, params = {}) {
     for (const S of ['L', 'R']) {
       const sx = S === 'L' ? 1 : -1;
       // Handgelenk-Ziel im Kopf-System: vor dem Gesicht (deck) bzw. seitlich gesenkt (weg)
-      const deck = new T.Vector3(sx * 0.155, 0.06 - 0.025 * z.druck, M.kopfT / 2 + 0.085 - 0.025 * z.druck);
+      const deck = new T.Vector3(sx * 0.2, 0.06 - 0.025 * z.druck, M.kopfT / 2 + 0.085 - 0.025 * z.druck);
       const weg = new T.Vector3(sx * 1.0, -0.95, 0.55);
       const ziel = kopf.localToWorld(deck.lerp(weg, w));
       // Pol nach außen und etwas nach oben: Ellbogen auf Kopfhöhe, Arme und Hände bilden die Raute
@@ -340,20 +372,26 @@ export default async function baue(ctx, params = {}) {
       fingerGelenke[S].forEach(({ kette }, i) => {
         const innen = -sx; // Richtung zur Kopfmitte
         // rotation.z positiv kippt die Fingerspitze nach −x. Innere Finger kippen zur Mitte.
-        let rz = -(i - 1.5) * 0.015 * sx * (1 - z.druck);
+        // gefächert statt parallel (Review Folge 1: die Hände lasen sich wie ein Kamm oder eine Krone)
+        let rz = -(i - 1.5) * 0.075 * sx * (1 - 0.5 * z.druck);
         if (i === 1) rz += -innen * 0.15 * spreiz; // Mittelfinger zur Mitte
         if (i === 2) rz += innen * 0.15 * spreiz; // Ringfinger nach außen
         rz += -(i - 1.5) * 0.22 * sx * w;
-        kette[0].rotation.set(-0.06 - 0.12 * z.druck - 0.25 * w, 0, rz);
-        kette[1].rotation.set(-0.1 - 0.22 * z.druck - 0.35 * w, 0, 0);
-        kette[2].rotation.set(-0.12 - 0.25 * z.druck - 0.4 * w, 0, 0);
+        // Glieder zum Gesicht gekrümmt: die Finger umgreifen Stirn und Schädel
+        kette[0].rotation.set(-0.16 - 0.12 * z.druck - 0.25 * w, 0, rz);
+        kette[1].rotation.set(-0.3 - 0.22 * z.druck - 0.3 * w, 0, 0);
+        kette[2].rotation.set(-0.34 - 0.25 * z.druck - 0.3 * w, 0, 0);
       });
     }
     const offen = Math.max(z.auge, gesichtName === 'auge' ? 1 : 0);
     augeGruppe.visible = offen > 0.01;
     augeGruppe.scale.set(1, Math.max(0.01, offen), 1);
-    glutMat.emissiveIntensity = 1.6 * z.glut;
-    glut.visible = z.glut > 0.001; // sonst verdeckt die Platte die Gesichter aus Teil 4
+    // Grundglut (Review Folge 1): Auch ohne Zählen dringt ein schwaches kaltes Licht durch die
+    // Fingerspalten. Nur beim glatten Gesicht, sonst verdeckt die Platte die Gesichter aus Teil 4.
+    const grund = gesichtName === 'glatt' || gesichtName === 'auge' ? grundglut : 0;
+    const gl = Math.max(z.glut, grund);
+    glutMat.emissiveIntensity = 2.2 * gl;
+    glut.visible = gl > 0.001;
   };
 
   fig.setzeGesicht = (name) => {
@@ -403,6 +441,12 @@ export default async function baue(ctx, params = {}) {
         const v = 0.5 + 0.5 * Math.sin(2 * Math.PI * (prm.frequenz ?? 5) * c.tLokal);
         f.zustand.glut = Math.max(f.zustand.glut, v * (prm.staerke ?? 1) * Math.sin(Math.PI * c.roh));
       },
+    },
+    // Kaltes Licht bricht hinter den Händen hervor und bleibt (Satz 7, "takes its hands away":
+    // das Gesicht wird nie gezeigt, nur das Licht). params: staerke (Std 1.6)
+    leuchten: {
+      dauer: 0.4, ease: 'ease_in',
+      anwenden(f, p, prm) { f.zustand.glut = Math.max(f.zustand.glut, (prm.staerke ?? 1.6) * p); },
     },
     // Späht durch die Finger: Spalt öffnet sich, dahinter das bernsteinfarbene Auge (Satz 36).
     spaehen: {

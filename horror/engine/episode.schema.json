@@ -194,7 +194,7 @@
         "aktionen": { "type": "array", "items": { "$ref": "#/$defs/aktion" } },
         "licht_ereignisse": { "type": "array", "items": { "$ref": "#/$defs/lichtEreignis" } },
         "partikel": { "type": "array", "items": { "$ref": "#/$defs/partikel" } },
-        "tiefenunschaerfe": { "oneOf": [{ "type": "boolean" }, { "type": "object", "properties": { "fokus": { "oneOf": [{ "type": "number" }, { "type": "string" }] }, "staerke": { "type": "number" } }, "additionalProperties": false }] },
+        "tiefenunschaerfe": { "oneOf": [{ "type": "boolean" }, { "type": "object", "properties": { "fokus": { "oneOf": [{ "type": "number" }, { "type": "string" }, { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 }] }, "staerke": { "type": "number" } }, "additionalProperties": false }] },
         "bewegungsunschaerfe": { "$ref": "#/$defs/bewegungsunschaerfe" },
         "schatten_bereich": { "type": "number" },
         "schatten_mitte": { "$ref": "#/$defs/punkt" },

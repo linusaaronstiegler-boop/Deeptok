@@ -83,10 +83,9 @@
    "modul": "platz",
    "licht": "nacht",
    "figuren": [
-    "mister-hundred",
-    "eli"
+    "mister-hundred"
    ],
-   "aktion": "Mister Hundred steht reglos am Platzende im Nebel, Hände vor dem Gesicht; Eli klein im Vordergrund, Rücken zur Kamera",
+   "aktion": "Mister Hundred steht reglos am Platzende vor Uhrturm und Mond, groß im Bild und vom Mond angestrahlt, Hände vor dem Gesicht (Review Folge 1: kein Eli-Rücken mehr im Vordergrund)",
    "schluesselwort": "town",
    "kamera": "push-in",
    "groesse": "totale",
@@ -94,12 +93,12 @@
    "hinweis": "Einstieg mit Unschärfe-Zoom ≤ 3 Bilder, Bedrohung ab Bild 3 sichtbar",
    "teilbilder": [
     {
-     "ab_wort": "when",
+     "ab_wort": "eighteen",
      "ort": "marsh-innen",
      "modul": "kueche",
      "licht": "innen-nacht",
      "figuren": [],
-     "aktion": "Zahlenkerzen 1 und 8 brennen auf dem Kuchen, die Flammen zucken einmal",
+     "aktion": "Zahlenkerzen 1 und 8 brennen auf dem Kuchen, schneller Push (0,8 s, Review Folge 1: Kuchen kürzer)",
      "schluesselwort": "eighteen",
      "kamera": "push-in",
      "groesse": "detail",
@@ -458,11 +457,13 @@
    "ort": "hauptstrasse",
    "modul": "strassenende",
    "licht": "nacht",
-   "figuren": [],
-   "aktion": "die Hauptstraße endet in einer Nebelwand vor den Kiefern",
+   "figuren": [
+    "nachbarn"
+   ],
+   "aktion": "die Hauptstraße endet an Schranke und Schild in einer Nebelwand vor den Kiefern; ein junger Mann rennt darauf zu und bleibt stehen (Review Folge 1)",
    "schluesselwort": "run",
    "kamera": "push-in",
-   "groesse": "totale",
+   "groesse": "halbtotale",
    "monster": false,
    "hinweis": "Push schneller als üblich, etwa 10 %/s"
   },
@@ -908,24 +909,29 @@
    "kamera": "orbit",
    "groesse": "detail",
    "monster": false,
-   "hinweis": "Bogenfahrt aus der Aufsicht um den Ring (Akzentfahrt); \"I promise\" liegt ohne Schnitt über demselben Bild"
+   "hinweis": "Bogenfahrt aus der Aufsicht um den Ring (Akzentfahrt); \"I promise\" bekommt eine eigene Einstellung mit Junes Gesicht (Review Folge 1)"
   },
   "31": {
    "text": "\"I promise.\"",
    "t_schaetz_s": 69.6,
    "block": "persoenlich",
    "dialog": "june",
-   "neuer_schnitt": false,
+   "neuer_schnitt": true,
    "ort": "marsh-innen",
-   "modul": "june-zimmer",
-   "licht": "tag",
-   "figuren": [],
-   "aktion": "Bild der Luke läuft weiter",
+   "modul": "kueche",
+   "licht": "morgen",
+   "figuren": [
+    "june"
+   ],
+   "aktion": "June am Frühstückstisch, nickt beim Versprechen (Review Folge 1: Junes Gesicht bei „I promise“ im Bild)",
    "schluesselwort": "promise",
    "kamera": "push-in",
-   "groesse": "detail",
+   "groesse": "nah",
    "monster": false,
-   "hinweis": "kein Schnitt: 'I promise' liegt über dem Bild der Luke"
+   "hinweis": "Mundformen, Untertitel in Junes Farbe",
+   "gesicht": {
+    "june": "entschlossen"
+   }
   },
   "32": {
    "text": "At sunset, I went upstairs to grab a flashlight.",

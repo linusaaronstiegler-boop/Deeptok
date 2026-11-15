@@ -22,6 +22,11 @@ Regeln:
      nach einer Stille oft 0,2–0,7 s zu früh, mitten in die Pause.
   5. Bilder: kein schwarzes oder einfarbiges Bild (Mittel < 6 oder Streuung < 2 von 255),
      keine Dekodierfehler, kein Stillstand über 0,33 s außer auf der Endkarte.
+     Helligkeits-Tor (Review Folge 1, pruefen.py fing nur „schwarz“ ab, nicht „zu dunkel“):
+     Median der Bildhelligkeit ≥ 85 von 255 (r2 102, r5 106), keine Einstellung im Mittel < 35.
+     Balken-Tor: Eine Spalte, in der über 85 % der Pixel fast schwarz sind (< 12), gehört zu
+     einem Balken; kein Bild darf Balken über 10 % der Bildbreite haben (Objekt vor der Linse).
+     Kantendichte (Gradient > 20 bei 108 × 192) wird berichtet: r2 16,5 %, r5 13,3 %.
   6. Ton: −14 LUFS ±0,5, True Peak ≤ −1 dBTP auf der dekodierten AAC-Spur.
 """
 
@@ -129,8 +134,14 @@ def einsaetze(wav: Path) -> np.ndarray:
     return np.array(aus)
 
 
-def bilder_pruefen(mp4: Path, endkarte_bild: int) -> dict:
-    """Ganzes MP4 klein dekodieren: Helligkeit, Streuung, Stillstand, Dekodierfehler."""
+HELL_MEDIAN_MIN = 85.0    # Median der Bildhelligkeit (0–255)
+HELL_EINSTELLUNG_MIN = 35.0
+BALKEN_MAX = 0.10         # Anteil der Bildbreite
+
+
+def bilder_pruefen(mp4: Path, endkarte_bild: int, einstellungen: list | None = None) -> dict:
+    """Ganzes MP4 klein dekodieren: Helligkeit (je Bild und je Einstellung), schwarze Balken,
+    Kantendichte, Streuung, Stillstand, Dekodierfehler. einstellungen: [(id, erstes, letztes Bild)]."""
     w, h = 108, 192
     p = subprocess.run(["ffmpeg", "-v", "error", "-i", str(mp4), "-vf", f"scale={w}:{h},format=gray",
                         "-f", "rawvideo", "-"], capture_output=True)
@@ -150,7 +161,24 @@ def bilder_pruefen(mp4: Path, endkarte_bild: int) -> dict:
         if lauf > laengste:
             laengste, ende_lauf = lauf, i + 1
     schwarz = [int(i) for i in np.where((mittel < 6) | (streu < 2))[0]]
+    # Balken: Spalten, die fast ganz schwarz sind (Pfosten vor der Linse, Review Folge 1)
+    balken = ((f < 12).mean(axis=1) > 0.85).mean(axis=1)
+    gx = np.abs(np.diff(f, axis=2))[:, :-1, :]
+    gy = np.abs(np.diff(f, axis=1))[:, :, :-1]
+    kanten = (np.hypot(gx, gy) > 20).mean(axis=(1, 2))
+    inhalt = slice(0, endkarte_bild)
+    je_einstellung = []
+    for eid, a, b in einstellungen or []:
+        if a >= endkarte_bild:
+            continue
+        je_einstellung.append({"id": eid, "mittel": round(float(mittel[a:b + 1].mean()), 1),
+                               "balken_max": round(float(balken[a:b + 1].max()), 3)})
     return {"bilder": int(n), "dekodierfehler": fehler or None,
+            "helligkeit_p10": round(float(np.percentile(mittel[inhalt], 10)), 1),
+            "fast_schwarz_anteil": round(float((mittel[inhalt] < 30).mean()), 3),
+            "balken_max": round(float(balken[inhalt].max()), 3), "balken_bild": int(balken[inhalt].argmax()),
+            "kantendichte_median": round(float(np.median(kanten[inhalt])), 3),
+            "einstellungen": je_einstellung,
             "helligkeit_min": round(float(mittel.min()), 1), "helligkeit_median": round(float(np.median(mittel)), 1),
             "dunkelstes_bild": int(mittel.argmin()), "streuung_min": round(float(streu.min()), 1),
             "schwarz_oder_einfarbig": schwarz,
@@ -285,8 +313,16 @@ def main() -> None:
         verstoesse.append("Untertitel wechseln nicht genau auf den geplanten Bildern")
 
     # 5. Bilder
-    erg["bilder"] = bilder_pruefen(build / f"{name}-upload.mp4", karte_bild)
+    grenzen = [(e["id"], round(e["start"] * FPS), round(e["ende"] * FPS) - 1) for e in episode["einstellungen"]]
+    erg["bilder"] = bilder_pruefen(build / f"{name}-upload.mp4", karte_bild, grenzen)
     b = erg["bilder"]
+    if b["helligkeit_median"] < HELL_MEDIAN_MIN:
+        verstoesse.append(f"Bilder zu dunkel: Median {b['helligkeit_median']} < {HELL_MEDIAN_MIN}")
+    dunkel = [f"{e['id']} {e['mittel']}" for e in b["einstellungen"] if e["mittel"] < HELL_EINSTELLUNG_MIN]
+    if dunkel:
+        verstoesse.append(f"Einstellungen zu dunkel (< {HELL_EINSTELLUNG_MIN}): {', '.join(dunkel)}")
+    if b["balken_max"] > BALKEN_MAX:
+        verstoesse.append(f"Schwarzer Balken über {b['balken_max'] * 100:.0f} % der Breite (Bild {b['balken_bild']})")
     if b["dekodierfehler"] or b["schwarz_oder_einfarbig"] or b["bilder"] != bilder_soll:
         verstoesse.append(f"Bilder: {b['dekodierfehler']}, schwarz {b['schwarz_oder_einfarbig'][:5]}, {b['bilder']} Bilder")
     if b["laengster_stillstand_s"] > 0.33:

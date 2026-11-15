@@ -7,13 +7,13 @@
 Stil (anhang-a-serienformat A5, Aufgabe Render/Zusammenschnitt):
   - 1–2 Wörter je Einblendung: Funktionswort plus nächstes Inhaltswort („THIS TOWN“),
     betonte Wörter allein. Gruppiert wird mit einer kleinen Kostenrechnung (siehe gruppieren()).
-  - Versalien, Archivo Black (OFL, liegt in engine/assets/schriften/), 84 px, weiß,
+  - Versalien, Archivo Black (OFL, liegt in engine/assets/schriften/), 96 px, weiß,
     schwarze Kontur 7 px, Schatten 4 px. Mitte bei x 540, y 1200 (über TikToks Beschreibung,
-    unter den Gesichtern). Höchstens 760 px breit, damit der Pop auf 134 % noch ins Bild passt.
+    unter den Gesichtern). Höchstens 810 px breit (A5); zu breite Paare stehen einzeln.
   - Wechsel auf dem Bild, in dem das erste Wort beginnt (gerundet auf das nächste Bild,
     also höchstens 1/60 s daneben). Lücken bleiben nie leer: Eine Einblendung steht,
     bis die nächste kommt. Über der Endkarte steht nichts.
-  - Pop: Bild 1 134 %, Bild 2 88 %, Bild 3 100 %.
+  - Pop: Bild 1 73 %, Bild 2 92 %, Bild 3 100 % (A5: 0,73 -> 1,0 ohne Überschwingen).
   - Farben: Monstername, Name der Nacht, Regel, „ready“ und das Zählen in der Akzentfarbe
     (kaltes Türkis von Mister Hundred); wörtliche Rede in der Farbe der Figur (serie.md).
   - Zahlen als Ziffern (format-spec §5): eighteen -> 18, one hundred -> 100, six -> 6.
@@ -40,11 +40,11 @@ SCHRIFT_NAME = "Archivo Black"
 FPS = 30
 BREITE, HOEHE = 1080, 1920
 MITTE = (540, 1200)
-GROESSE = 84            # px bei 1080 × 1920
+GROESSE = 96            # px bei 1080 × 1920 (Review Folge 1: 84 px wirkten in der Handyvorschau dünn)
 KONTUR = 7              # px, Vorgabe 6–8
 SCHATTEN = 4            # px nach unten rechts
-MAX_BREITE = 760        # px bei 100 %; 760 · 1,34 = 1018 < 1080
-POP = (134, 88, 100)    # Skalierung in den ersten drei Bildern
+MAX_BREITE = 810        # px bei 100 % (A5); der Pop wächst nur bis 100 %, nie darüber
+POP = (73, 92, 100)     # Skalierung in den ersten drei Bildern: 0,73 -> 1,0 ohne Überschwingen (A5)
 MAX_PAAR_ABSTAND = 0.55  # s: Das zweite Wort einer Einblendung beginnt höchstens so spät
 MIN_GROESSE = 72        # feste Paare (Namen) dürfen bis hierhin kleiner werden (format-spec §5)
 
@@ -254,7 +254,7 @@ def ass_zeit(cs: int) -> str:
 
 
 def pop_tags(n: int, cs: int) -> str:
-    """\\t-Übergänge: Bild n 134 %, Bild n+1 88 %, ab Bild n+2 100 %."""
+    """\\t-Übergänge: Bild n 73 %, Bild n+1 92 %, ab Bild n+2 100 % (Werte aus POP)."""
     d = bild_ms(n) - cs * 10            # Abstand Ereignisbeginn -> erstes Bild (ms)
     t = [round(d + x) for x in (5, 28, 38, 61)]
     a, b, c = POP

@@ -1,29 +1,21 @@
 {
-  "_hinweis": "Cue-Liste für engine/ton/mischen.py. 'wort' ist der Index in timing.json, 'text' wird dagegen geprüft. Zeit = Wortbeginn + versatz (s); bei Klängen mit Sync-Punkt (whoosh) liegt dieser auf der Zeit. 'db' ist der Pegel relativ zur auf −1 dBFS normierten Klangdatei. Klänge: engine/ton/effekte.py.",
+  "_hinweis": "Cue-Liste für engine/ton/mischen.py. 'wort' ist der Index in timing.json, 'text' wird dagegen geprüft. Zeit = Wortbeginn + versatz (s); bei Klängen mit Sync-Punkt (whoosh) liegt dieser auf der Zeit. 'db' ist der Pegel relativ zur auf −1 dBFS normierten Klangdatei. Klänge: engine/ton/effekte.py. Review Folge 1: von 23 auf 11 Cues gekürzt (Plan und Anhang B: Akzente, nicht jede Bewegung vertonen; der TikTok-Sound kommt darüber), Hook-Impact auf „eighteen“, Sub-Boom und Zählschlag mit Mitten-Schicht.",
   "endkarte_stumm": true,
+  "rede": {
+    "_hinweis": "Wörtliche Rede klingt anders als die Erzählung (format-spec §1.4/§7, Review Folge 1): Abschnitte aus untertitel.json 'rede' werden formant-erhaltend in der Tonhöhe verschoben (ffmpeg rubberband) und leiser gesetzt.",
+    "june": { "halbtoene": 2.5, "db": -2.0 }
+  },
   "cues": [
-    {"klang": "sub_boom", "wort": 19, "text": "Hundred.", "versatz": -0.02, "db": -11, "grund": "Monstername, Kranfahrt kommt auf „Hundred“ an (E05)"},
+    {"klang": "sub_boom", "wort": 6, "text": "eighteen,", "versatz": -0.03, "db": -13, "params": {"f_start": 60.0, "f_ende": 34.0, "dauer": 1.8}, "grund": "Hook-Impact mit Mitten-Anteil auf dem Schnitt zum Kuchen (Review: bis 5,9 s gab es keinen Effekt, A2.4)"},
+    {"klang": "sub_boom", "wort": 19, "text": "Hundred.", "versatz": -0.02, "db": -12, "grund": "Monstername, Kranfahrt kommt auf „Hundred“ an (E05)"},
     {"klang": "whoosh", "wort": 38, "text": "peeks.", "versatz": 0.0, "db": -12, "grund": "Snap-Zoom (E08)"},
     {"klang": "glocke", "wort": 40, "text": "midnight,", "versatz": 0.0, "db": -16, "grund": "Turmuhr auf zwölf (E09)"},
-    {"klang": "zaehlschlag", "wort": 42, "text": "counts", "versatz": 0.0, "db": -13, "grund": "Leitgeräusch: ein Schlag je Zahl, Zählpuls (E10)"},
-    {"klang": "zaehlschlag", "wort": 45, "text": "hundred,", "versatz": 0.0, "db": -12, "params": {"f": 58.0}, "grund": "Leitgeräusch"},
-    {"klang": "zaehlschlag", "wort": 48, "text": "deep,", "versatz": 0.0, "db": -11, "params": {"f": 54.0}, "grund": "Leitgeräusch, tiefster Schlag auf „deep“"},
-    {"klang": "frost", "wort": 58, "text": "white", "versatz": -0.12, "db": -15, "grund": "Atem wird weiß (E13)"},
-    {"klang": "klopfen", "wort": 86, "text": "side", "versatz": 0.0, "db": -9, "grund": "Schuhe nebeneinander: erster Schuh"},
-    {"klang": "klopfen", "wort": 88, "text": "side.", "versatz": 0.0, "db": -9, "params": {"tonhoehe": 0.93}, "grund": "zweiter Schuh (Motiv)"},
-    {"klang": "whoosh", "wort": 110, "text": "too.", "versatz": 0.0, "db": -11, "params": {"richtung": -1.0}, "grund": "Snap-Zoom (E23)"},
-    {"klang": "motor", "wort": 135, "text": "engine", "versatz": -0.15, "db": -14, "grund": "Motor läuft im Leerlauf (E29)"},
-    {"klang": "klopfen", "wort": 143, "text": "side", "versatz": 0.0, "db": -10, "grund": "Motiv „side by side“, Owens Schuhe"},
-    {"klang": "klopfen", "wort": 145, "text": "side.", "versatz": 0.0, "db": -10, "params": {"tonhoehe": 0.93}, "grund": "Motiv"},
+    {"klang": "zaehlschlag", "wort": 45, "text": "hundred,", "versatz": 0.0, "db": -12, "params": {"f": 58.0}, "grund": "Leitgeräusch: ein Schlag auf die Zahl (E10)"},
+    {"klang": "klopfen", "wort": 86, "text": "side", "versatz": 0.0, "db": -9, "grund": "Schuhe nebeneinander: erster Schuh (Motiv, nur beim ersten Mal)"},
+    {"klang": "klopfen", "wort": 88, "text": "side.", "versatz": 0.0, "db": -9, "params": {"tonhoehe": 0.93}, "grund": "zweiter Schuh"},
     {"klang": "zaehlschlag", "wort": 169, "text": "ready.", "versatz": 0.0, "db": -11, "params": {"f": 52.0, "schimmer": 1.4}, "grund": "das verbotene Wort, Frage des Monsters"},
-    {"klang": "auspusten", "wort": 181, "text": "turned", "versatz": 0.0, "db": -12, "grund": "Kerzen gehen aus (Lichtereignis E37)"},
-    {"klang": "riegel", "wort": 200, "text": "hid", "versatz": 0.92, "db": -10, "grund": "Luke fällt zu, Ende der Bewegung 60,76 s (E41)"},
-    {"klang": "knarzen", "wort": 213, "text": "climbed", "versatz": 0.05, "db": -13, "grund": "June klettert aus der Luke (E42)"},
-    {"klang": "knarzen", "wort": 260, "text": "upstairs", "versatz": -0.25, "db": -14, "params": {"tonhoehe": 1.15}, "grund": "Treppenstufe (E50)"},
-    {"klang": "frost", "wort": 268, "text": "white.", "versatz": -0.2, "db": -16, "grund": "Atem wird weiß, Lichtereignis „turned“ (E52)"},
-    {"klang": "sub_boom", "wort": 270, "text": "Hundred", "versatz": -0.02, "db": -11, "grund": "Mister Hundred steht im Garten (E53)"},
-    {"klang": "glocke", "wort": 276, "text": "six", "versatz": 0.0, "db": -16, "params": {"f": 185.0}, "grund": "Turmuhr auf sechs (E54)"},
-    {"klang": "whoosh", "wort": 289, "text": "fingers.", "versatz": -0.06, "db": -15, "grund": "Snap-Zoom auf die Finger (E57); Spitze 60 ms vor dem Wort, damit das f von „fingers“ frei bleibt"},
+    {"klang": "klopfen", "wort": 216, "text": "shoes", "versatz": 0.0, "db": -10, "params": {"tonhoehe": 0.78}, "grund": "Dads Stiefel auf der Veranda (schwerer, tiefer)"},
+    {"klang": "sub_boom", "wort": 270, "text": "Hundred", "versatz": -0.02, "db": -12, "grund": "Mister Hundred steht im Garten"},
     {"klang": "sub_boom", "wort": 289, "text": "fingers.", "versatz": 0.0, "db": -11, "params": {"f_start": 48.0, "f_ende": 27.0}, "grund": "Cliffhanger, bricht mit der Endkarte ab"}
   ]
 }

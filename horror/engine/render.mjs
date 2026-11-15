@@ -198,7 +198,9 @@ async function baueBogen(o, ordner, einstellungen, von, bis, ziel) {
 // Regel (Aufgabe Shotliste, anhang-a A5): Die Hauptsache liegt im mittleren Drittel des Bildes,
 // der Streifen der Untertitel (y ≈ 1150–1300) bleibt frei. Geprüft wird der Punkt plan.hauptsache
 // (Anker, auch mehrere) im Bild des Kontaktbogens.
-const KOMPOSITION = { x: [360, 720], y: [640, 1150], untertitel: [1150, 1300] };
+// Untertitel-Streifen mit Rand: Die Schrift ist 96 px hoch (Mitte y 1200); ein Mund knapp über 1150
+// lag in Folge 1 trotzdem unter dem Text (Review: E35 „READY“ über Odells Mund und Finger).
+const KOMPOSITION = { x: [360, 720], y: [640, 1150], untertitel: [1080, 1320] };
 
 async function schnellBogen(o, meta, browser, seitenUrl, ordner, name, fps) { // eslint-disable-line max-params
   const page = await oeffneSeite(browser, seitenUrl, 'b1');

@@ -14,11 +14,12 @@ export function baueWerkzeug({ seed, engineUrl, basisUrl, renderer }) {
   const gltfLader = new GLTFLoader();
 
   // Matt-Material im Low-Poly-Stil. Gleiche Parameter -> dasselbe Material (geteilt).
+  // opt.kante: Kantenlicht (Fresnel), { farbe, staerke, exponent } oder eine Zahl (= staerke).
   function mat(farbe, opt = {}) {
     const schluessel = JSON.stringify([farbe, opt]);
     if (opt.eigenes !== true && materialCache.has(schluessel)) return materialCache.get(schluessel);
     const m = new THREE.MeshStandardMaterial({
-      color: new THREE.Color(farbe),
+      color: mindestHell(new THREE.Color(farbe)),
       roughness: opt.rauheit ?? 0.88,
       metalness: opt.metall ?? 0,
       flatShading: opt.flach ?? false,
@@ -29,7 +30,42 @@ export function baueWerkzeug({ seed, engineUrl, basisUrl, renderer }) {
     }
     if (opt.karte) m.map = opt.karte;
     if (opt.transparent) { m.transparent = true; m.opacity = opt.deckkraft ?? 1; }
+    if (opt.kante) kantenlicht(m, typeof opt.kante === 'number' ? { staerke: opt.kante } : opt.kante);
     if (opt.eigenes !== true) materialCache.set(schluessel, m);
+    return m;
+  }
+
+  // Mindest-Grundhelligkeit (Review Folge 1): Ein fast schwarzes Material wird im Software-Render
+  // nach dem Tonemapping zu reinem Schwarz und sieht aus wie ein Loch im Bild (Pfosten, Haare,
+  // Monster-Mantel). Darum wird die lineare Helligkeit jeder Grundfarbe auf mindestens 0,02
+  // angehoben (sRGB etwa 40 von 255), der Farbton bleibt.
+  function mindestHell(c, min = 0.02) {
+    const l = 0.2126 * c.r + 0.7152 * c.g + 0.0722 * c.b;
+    if (l >= min) return c;
+    if (l <= 1e-5) return c.setRGB(min, min, min);
+    const f = min / l;
+    return c.setRGB(Math.min(1, c.r * f), Math.min(1, c.g * f), Math.min(1, c.b * f));
+  }
+
+  // Kantenlicht (Fresnel): Flächen, die schräg zur Kamera stehen, leuchten in einer Farbe auf.
+  // So setzt sich eine dunkle Silhouette (Monster, Haare) gegen den Nachthimmel ab, ohne ein
+  // zusätzliches Licht (die Lichtzahl muss fest bleiben, siehe licht.js). Gerechnet im Shader:
+  // rand = 1 − |n · v|, Beitrag = farbe · staerke · rand^exponent, addiert zum Eigenleuchten.
+  function kantenlicht(m, { farbe = '#9fb6ff', staerke = 0.6, exponent = 2.6 } = {}) {
+    const uni = { uKanteFarbe: { value: new THREE.Color(farbe) }, uKanteStaerke: { value: staerke }, uKanteExp: { value: exponent } };
+    m.userData.kante = uni;
+    m.onBeforeCompile = (shader) => {
+      Object.assign(shader.uniforms, uni);
+      shader.fragmentShader = shader.fragmentShader
+        .replace('void main() {', 'uniform vec3 uKanteFarbe;\nuniform float uKanteStaerke;\nuniform float uKanteExp;\nvoid main() {')
+        .replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
+  {
+    float kRand = 1.0 - clamp(abs(dot(normalize(normal), normalize(vViewPosition))), 0.0, 1.0);
+    totalEmissiveRadiance += uKanteFarbe * uKanteStaerke * pow(kRand, uKanteExp);
+  }`);
+    };
+    // eigenes Shader-Programm für Materialien mit Kantenlicht (sonst teilt three.js das Programm)
+    m.customProgramCacheKey = () => 'kantenlicht';
     return m;
   }
 
@@ -162,6 +198,6 @@ export function baueWerkzeug({ seed, engineUrl, basisUrl, renderer }) {
     renderer,
     // Jedes Modul bekommt seinen eigenen Zufall: ctx.zufall("strasse") -> () => Zahl in [0,1)
     zufall: (...teile) => zufallFuer(seed, ...teile),
-    mat, leuchtMat, kiste, zylinder, kugel, setze, zeichenTextur, gesichtsSatz, ladeModell, ladeTextur, verschmelzen,
+    mat, leuchtMat, kantenlicht, kiste, zylinder, kugel, setze, zeichenTextur, gesichtsSatz, ladeModell, ladeTextur, verschmelzen,
   };
 }

@@ -30,7 +30,8 @@ export default async function baue(ctx, params = {}) {
     hinten: (g, w, h, rand) => { saum(g, w, h, rand); naht(g, w, w * 0.2, h * 0.3, w * 0.8, h * 0.3); },
     becken: (g, w, h) => { naht(g, w, w * 0.15, h * 0.4, w * 0.32, h * 0.95); naht(g, w, w * 0.85, h * 0.4, w * 0.68, h * 0.95); },
     schmuck: ({ gelenke, masse: m, mat, rundeKiste }) => {
-      const haar = mat('#3B2A20', { rauheit: 0.9 });
+      // Haar mit etwas Glanz und Kantenlicht (Review Folge 1: las sich als schwarzer Klotz)
+      const haar = mat('#4A3426', { rauheit: 0.55, kante: { farbe: '#e0d2ff', staerke: 0.45, exponent: 2.6 } });
       const k = gelenke.kopf;
       // Haare aus drei Klötzen: Kappe, Hinterkopf, Pony – dazu eine Strähne, die absteht
       const kappe = rundeKiste(m.kopfB + 0.03, 0.13, m.kopfT + 0.03, haar, 0.05);
@@ -44,7 +45,7 @@ export default async function baue(ctx, params = {}) {
       pony.rotation.z = -0.06;
       k.add(pony);
       // hellere Oberseite und Büschel: Frisur liest sich auch im Schatten als Haar
-      const haarHell = mat('#5a4232', { rauheit: 0.85 });
+      const haarHell = mat('#6a4e3a', { rauheit: 0.6, kante: { farbe: '#e0d2ff', staerke: 0.45, exponent: 2.6 } });
       for (const [x, z, rx, rz] of [[-0.14, 0.02, -0.2, 0.15], [0.0, -0.06, -0.1, -0.1], [-0.04, 0.12, -0.35, 0.05], [0.16, -0.1, 0.1, -0.2]]) {
         const b = rundeKiste(0.16, 0.08, 0.18, haarHell, 0.035);
         b.position.set(x, m.kopfH + 0.06, z);

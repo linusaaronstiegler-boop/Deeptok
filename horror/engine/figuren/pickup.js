@@ -63,7 +63,8 @@ export default async function baue(ctx, params = {}) {
   const tf = ctx.kiste(0.07, 0.48, 0.85, glas, { rund: 0.01 }); tf.position.set(-0.025, 1.6, -0.6); tuer.add(tf);
   const tg = ctx.kiste(0.04, 0.04, 0.16, chrom); tg.position.set(-0.07, 1.3, -1.0); tuer.add(tg);
   // Innenraum: Sitzbank (hinter der offenen Tür sichtbar), Lenkrad
-  const sitzMat = ctx.mat('#4a3b30', { rauheit: 0.9 });
+  // helle Sitzbank (Review Folge 1): Owens schwarze Stiefel brauchen Kontrast
+  const sitzMat = ctx.mat('#a39580', { rauheit: 0.8 });
   const sitz = ctx.kiste(B * 0.8, 0.18, 0.6, sitzMat, { rund: 0.04 }); sitz.position.set(0, 1.12, -0.25); karosse.add(sitz);
   const lehne = ctx.kiste(B * 0.8, 0.55, 0.15, sitzMat, { rund: 0.04 }); lehne.position.set(0, 1.42, -0.55); karosse.add(lehne);
   const lenk = new T.Mesh(new T.TorusGeometry(0.17, 0.025, 6, 16), schwarz); lenk.position.set(-0.45, 1.5, 0.55); lenk.rotation.x = -0.9; karosse.add(lenk);

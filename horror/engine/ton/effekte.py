@@ -133,6 +133,25 @@ def bandrauschen_gleitend(n: int, mitten: np.ndarray, breite_okt: float, rng: np
     return aus[:n] / np.maximum(norm[:n], 1e-3)
 
 
+def mitten_schicht(rng, n: int, f: float = 190.0, tau: float = 0.11, klick: float = 1.0) -> np.ndarray:
+    """Mitten-Schicht für tiefe Schläge (Review Folge 1): Handy-Lautsprecher geben unter etwa 300 Hz
+    kaum etwas wieder, Sub-Boom und Zählschlag fielen dort ganz weg. Dazu kommt ein dumpfer Schlag
+    bei 120–600 Hz (gedämpfter Ton mit fallender Tonhöhe plus Bandrauschen) und ein kurzer
+    Anschlag bei 1–3 kHz, der den Einsatz auch auf kleinen Lautsprechern hörbar macht."""
+    t = np.arange(n) / SR
+    fk = f * (1 + 0.35 * np.exp(-t / 0.03))
+    ph = 2 * np.pi * np.cumsum(fk) / SR
+    # Grundton plus 2. und 3. Teilton: so liegt Energie auch zwischen 300 und 700 Hz
+    ton = (np.sin(ph) + 0.6 * np.sin(2 * ph) + 0.3 * np.sin(3 * ph)) * huelle(n, 0.002, tau)
+    rausch = filter_fft(rng.standard_normal(n), tief=200, hoch=900, ordnung=2) * huelle(n, 0.001, tau * 0.6) * 1.2
+    anschlag = filter_fft(rng.standard_normal(n), tief=1000, hoch=3000, ordnung=2) * huelle(n, 0.0005, 0.009) * 1.4 * klick
+    return ton + rausch + anschlag
+
+
+def rms(x: np.ndarray) -> float:
+    return float(np.sqrt(np.mean(np.square(x))) + 1e-12)
+
+
 # ---------------------------------------------------------------- Klänge
 
 def klang_sub_boom(rng, f_start=52.0, f_ende=29.0, dauer=3.0):
@@ -147,8 +166,13 @@ def klang_sub_boom(rng, f_start=52.0, f_ende=29.0, dauer=3.0):
     ton = np.sin(ph) * huelle(len(t), 0.006, 0.9)
     stoss = filter_fft(rng.standard_normal(len(t)), hoch=140, ordnung=2) * huelle(len(t), 0.002, 0.08) * 0.8
     x = np.tanh(1.8 * (ton + stoss)) / np.tanh(1.8)
-    x = filter_fft(x, tief=22, hoch=900, ordnung=2)
-    y = hall(x, 2.2, 0.18, rng, dunkel=900)
+    # Review Folge 1: unter 35 Hz hochpassen (vorher 22 Hz) und den Sub-Anteil um 3 dB senken;
+    # die Mitten-Schicht liegt 4 dB (RMS) unter dem Boom (gehört: −8 dB reichte am Handy nicht,
+    # gemessen −25 dB gegen die Stimme über 300 Hz).
+    x = filter_fft(x, tief=35, hoch=900, ordnung=3) * 10 ** (-3 / 20)
+    m = mitten_schicht(rng, len(t), f=210.0, tau=0.14)
+    x = x + m * (rms(x) / rms(m)) * 10 ** (-4 / 20)
+    y = hall(x, 2.2, 0.18, rng, dunkel=1800)
     return normieren(ausblenden(y))
 
 
@@ -162,6 +186,10 @@ def klang_zaehlschlag(rng, f=62.0, schimmer=1.0, dauer=2.6):
     koerper += 0.35 * np.sin(2 * np.pi * np.cumsum(fk * 2.3) / SR) * huelle(len(t), 0.003, 0.12)
     anschlag = filter_fft(rng.standard_normal(len(t)), tief=80, hoch=900, ordnung=2) * huelle(len(t), 0.001, 0.025) * 0.5
     x = np.tanh(1.5 * (koerper + anschlag))
+    # Mitten-Schicht (Review Folge 1): das Leitgeräusch muss auch am Handy hörbar sein
+    x = filter_fft(x, tief=35, ordnung=3)
+    m = mitten_schicht(rng, len(t), f=2.6 * f, tau=0.12, klick=0.8)
+    x = x + m * (rms(x) / rms(m)) * 10 ** (-5 / 20)
     # Schimmern: unharmonische Teiltöne, leicht verstimmt (Schwebung), langsamer Anstieg
     sch = np.zeros(len(t))
     for fs, a in ((2093.0, 1.0), (2911.0, 0.7), (3687.0, 0.5), (5120.0, 0.25)):

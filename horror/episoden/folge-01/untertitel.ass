@@ -10,185 +10,186 @@ YCbCr Matrix: None
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Wort,Archivo Black,84,&H00FFFFFF,&H00FFFFFF,&H00000000,&H59000000,0,0,0,0,100,100,0,0,1,7,4,5,0,0,0,1
+Style: Wort,Archivo Black,96,&H00FFFFFF,&H00FFFFFF,&H00000000,&H59000000,0,0,0,0,100,100,0,0,1,7,4,5,0,0,0,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
-Dialogue: 0,0:00:00.00,0:00:00.11,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(5,28,\fscx88\fscy88)\t(38,61,\fscx100\fscy100)}IN
-Dialogue: 0,0:00:00.11,0:00:00.88,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}THIS TOWN
-Dialogue: 0,0:00:00.88,0:00:01.11,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}WHEN YOU
-Dialogue: 0,0:00:01.11,0:00:02.08,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}TURN 18
-Dialogue: 0,0:00:02.08,0:00:02.48,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}YOU HIDE
-Dialogue: 0,0:00:02.48,0:00:02.75,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}UNTIL
-Dialogue: 0,0:00:02.75,0:00:03.71,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}SUNRISE
-Dialogue: 0,0:00:03.71,0:00:03.91,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}OR IT
-Dialogue: 0,0:00:03.91,0:00:04.85,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}FINDS YOU
-Dialogue: 0,0:00:04.85,0:00:05.15,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}WE CALL
-Dialogue: 0,0:00:05.15,0:00:05.51,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}IT
-Dialogue: 0,0:00:05.51,0:00:06.58,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)\fs73\1c&HD2D89F&}MISTER HUNDRED
-Dialogue: 0,0:00:06.58,0:00:06.95,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}IT'S TALL
-Dialogue: 0,0:00:06.95,0:00:07.15,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}ENOUGH
-Dialogue: 0,0:00:07.15,0:00:07.41,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}TO LOOK
-Dialogue: 0,0:00:07.41,0:00:07.81,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}IN UPSTAIRS
-Dialogue: 0,0:00:07.81,0:00:08.68,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}WINDOWS
-Dialogue: 0,0:00:08.68,0:00:08.85,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}AND IT
-Dialogue: 0,0:00:08.85,0:00:09.01,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}KEEPS
-Dialogue: 0,0:00:09.01,0:00:09.65,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}BOTH HANDS
-Dialogue: 0,0:00:09.65,0:00:09.88,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}OVER
-Dialogue: 0,0:00:09.88,0:00:10.81,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}ITS FACE
-Dialogue: 0,0:00:10.81,0:00:11.21,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}IT NEVER
-Dialogue: 0,0:00:11.21,0:00:12.01,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}PEEKS
-Dialogue: 0,0:00:12.01,0:00:12.78,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}AT MIDNIGHT
-Dialogue: 0,0:00:12.78,0:00:13.11,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}IT COUNTS
-Dialogue: 0,0:00:13.11,0:00:13.31,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}TO
-Dialogue: 0,0:00:13.31,0:00:14.11,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)\1c&HD2D89F&}100
-Dialogue: 0,0:00:14.11,0:00:14.51,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}SLOW
-Dialogue: 0,0:00:14.51,0:00:15.45,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}AND DEEP
-Dialogue: 0,0:00:15.45,0:00:15.55,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}AND
-Dialogue: 0,0:00:15.55,0:00:15.91,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}THE WHOLE
-Dialogue: 0,0:00:15.91,0:00:16.25,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}TOWN
-Dialogue: 0,0:00:16.25,0:00:17.11,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}HEARS IT
-Dialogue: 0,0:00:17.11,0:00:17.48,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}YOUR BREATH
-Dialogue: 0,0:00:17.48,0:00:17.81,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}TURNS
-Dialogue: 0,0:00:17.81,0:00:18.08,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}WHITE
-Dialogue: 0,0:00:18.08,0:00:18.45,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}WHEN IT'S
-Dialogue: 0,0:00:18.45,0:00:19.18,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}CLOSE
-Dialogue: 0,0:00:19.18,0:00:19.35,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}WHEN IT
-Dialogue: 0,0:00:19.35,0:00:20.08,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}FINDS YOU
-Dialogue: 0,0:00:20.08,0:00:20.41,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}IT BENDS
-Dialogue: 0,0:00:20.41,0:00:20.75,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}DOWN
-Dialogue: 0,0:00:20.75,0:00:21.11,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}AND TAKES
-Dialogue: 0,0:00:21.11,0:00:21.55,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}ITS HANDS
-Dialogue: 0,0:00:21.55,0:00:21.95,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}AWAY FROM
-Dialogue: 0,0:00:21.95,0:00:22.81,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}ITS FACE
-Dialogue: 0,0:00:22.81,0:00:22.91,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}IN
-Dialogue: 0,0:00:22.91,0:00:23.58,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}THE MORNING
-Dialogue: 0,0:00:23.58,0:00:23.98,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}ALL THAT'S
-Dialogue: 0,0:00:23.98,0:00:24.18,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}LEFT
-Dialogue: 0,0:00:24.18,0:00:24.35,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}ARE
-Dialogue: 0,0:00:24.35,0:00:25.11,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}YOUR SHOES
-Dialogue: 0,0:00:25.11,0:00:25.35,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}SIDE
-Dialogue: 0,0:00:25.35,0:00:26.31,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}BY SIDE
-Dialogue: 0,0:00:26.31,0:00:26.65,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}THE TOWN
-Dialogue: 0,0:00:26.65,0:00:27.25,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}CALLS IT
-Dialogue: 0,0:00:27.25,0:00:28.28,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)\1c&HD2D89F&}HIDING NIGHT
-Dialogue: 0,0:00:28.28,0:00:28.55,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}THERE'S ONLY
-Dialogue: 0,0:00:28.55,0:00:29.55,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)\1c&HD2D89F&}ONE RULE
-Dialogue: 0,0:00:29.55,0:00:29.85,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)\1c&HD2D89F&}NOBODY
-Dialogue: 0,0:00:29.85,0:00:30.25,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)\1c&HD2D89F&}CAN HELP
-Dialogue: 0,0:00:30.25,0:00:31.15,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)\1c&HD2D89F&}YOU HIDE
-Dialogue: 0,0:00:31.15,0:00:31.35,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}IF THEY
-Dialogue: 0,0:00:31.35,0:00:32.01,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}TRY
-Dialogue: 0,0:00:32.01,0:00:32.35,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}IT TAKES
-Dialogue: 0,0:00:32.35,0:00:32.55,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}THEM
-Dialogue: 0,0:00:32.55,0:00:33.25,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}TOO
-Dialogue: 0,0:00:33.25,0:00:33.58,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}YOU CAN'T
-Dialogue: 0,0:00:33.58,0:00:33.81,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}RUN
-Dialogue: 0,0:00:33.81,0:00:34.51,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}EITHER
-Dialogue: 0,0:00:34.51,0:00:34.61,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}ON
-Dialogue: 0,0:00:34.61,0:00:35.21,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}HIS 18TH
-Dialogue: 0,0:00:35.21,0:00:35.88,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}BIRTHDAY
-Dialogue: 0,0:00:35.88,0:00:36.35,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}OWEN PIKE
-Dialogue: 0,0:00:36.35,0:00:36.68,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}DROVE
-Dialogue: 0,0:00:36.68,0:00:37.71,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}ALL NIGHT
-Dialogue: 0,0:00:37.71,0:00:38.55,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}AT SUNRISE
-Dialogue: 0,0:00:38.55,0:00:38.91,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}HIS TRUCK
-Dialogue: 0,0:00:38.91,0:00:39.31,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}WAS BACK
-Dialogue: 0,0:00:39.31,0:00:39.61,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}IN FRONT
-Dialogue: 0,0:00:39.61,0:00:39.71,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}OF
-Dialogue: 0,0:00:39.71,0:00:40.31,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}HIS HOUSE
-Dialogue: 0,0:00:40.31,0:00:40.55,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}ENGINE
-Dialogue: 0,0:00:40.55,0:00:41.25,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}RUNNING
-Dialogue: 0,0:00:41.25,0:00:41.65,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}HIS SHOES
-Dialogue: 0,0:00:41.65,0:00:41.95,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}WERE ON
-Dialogue: 0,0:00:41.95,0:00:42.51,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}THE SEAT
-Dialogue: 0,0:00:42.51,0:00:42.75,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}SIDE
-Dialogue: 0,0:00:42.75,0:00:43.71,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}BY SIDE
-Dialogue: 0,0:00:43.71,0:00:43.95,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}NOBODY
-Dialogue: 0,0:00:43.95,0:00:44.21,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}HERE
-Dialogue: 0,0:00:44.21,0:00:44.45,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}PLAYS
-Dialogue: 0,0:00:44.45,0:00:44.75,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}HIDE
-Dialogue: 0,0:00:44.75,0:00:45.41,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}AND SEEK
-Dialogue: 0,0:00:45.41,0:00:45.68,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}NOT EVEN
-Dialogue: 0,0:00:45.68,0:00:46.58,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}FOR FUN
-Dialogue: 0,0:00:46.58,0:00:46.85,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}NOBODY
-Dialogue: 0,0:00:46.85,0:00:47.15,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}LEAVES
-Dialogue: 0,0:00:47.15,0:00:47.65,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}THEIR SHOES
-Dialogue: 0,0:00:47.65,0:00:47.98,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}SIDE
-Dialogue: 0,0:00:47.98,0:00:48.95,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}BY SIDE
-Dialogue: 0,0:00:48.95,0:00:49.38,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}AND NOBODY
-Dialogue: 0,0:00:49.38,0:00:49.98,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}EVER SAYS
-Dialogue: 0,0:00:49.98,0:00:50.68,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}THE WORD
-Dialogue: 0,0:00:50.68,0:00:51.45,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)\1c&HD2D89F&}READY
-Dialogue: 0,0:00:51.45,0:00:51.71,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}THAT'S WHAT
-Dialogue: 0,0:00:51.71,0:00:52.15,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}IT ASKS
-Dialogue: 0,0:00:52.15,0:00:52.58,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}WHEN IT'S
-Dialogue: 0,0:00:52.58,0:00:52.68,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}DONE
-Dialogue: 0,0:00:52.68,0:00:53.51,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}COUNTING
-Dialogue: 0,0:00:53.51,0:00:54.31,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}ON FRIDAY
-Dialogue: 0,0:00:54.31,0:00:54.58,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}I TURNED
-Dialogue: 0,0:00:54.58,0:00:55.48,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}18
-Dialogue: 0,0:00:55.48,0:00:55.81,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}MY SISTER
-Dialogue: 0,0:00:55.81,0:00:56.11,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}JUNE
-Dialogue: 0,0:00:56.11,0:00:56.38,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}IS THE
-Dialogue: 0,0:00:56.38,0:00:56.81,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}ONLY ONE
-Dialogue: 0,0:00:56.81,0:00:57.21,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}WHO EVER
-Dialogue: 0,0:00:57.21,0:00:57.51,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}MADE IT
-Dialogue: 0,0:00:57.51,0:00:57.95,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}TO SUNRISE
-Dialogue: 0,0:00:57.95,0:00:58.95,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}6 YEARS
-Dialogue: 0,0:00:58.95,0:00:59.58,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}AGO
-Dialogue: 0,0:00:59.58,0:00:59.75,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}DAD
-Dialogue: 0,0:00:59.75,0:01:00.08,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}HID HER
-Dialogue: 0,0:01:00.08,0:01:00.25,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}IN THE
-Dialogue: 0,0:01:00.25,0:01:00.75,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}CRAWL SPACE
-Dialogue: 0,0:01:00.75,0:01:01.01,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}UNDER
-Dialogue: 0,0:01:01.01,0:01:01.85,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}HER ROOM
-Dialogue: 0,0:01:01.85,0:01:01.95,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}IN
-Dialogue: 0,0:01:01.95,0:01:02.58,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}THE MORNING
-Dialogue: 0,0:01:02.58,0:01:02.95,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}SHE CLIMBED
-Dialogue: 0,0:01:02.95,0:01:03.65,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}OUT
-Dialogue: 0,0:01:03.65,0:01:03.95,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}DAD'S
-Dialogue: 0,0:01:03.95,0:01:04.15,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}SHOES
-Dialogue: 0,0:01:04.15,0:01:04.51,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}WERE ON
-Dialogue: 0,0:01:04.51,0:01:05.35,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}THE PORCH
-Dialogue: 0,0:01:05.35,0:01:05.71,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}EVERY NIGHT
-Dialogue: 0,0:01:05.71,0:01:06.35,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}SINCE
-Dialogue: 0,0:01:06.35,0:01:06.55,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}JUNE
-Dialogue: 0,0:01:06.55,0:01:07.08,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}COUNTS TO
-Dialogue: 0,0:01:07.08,0:01:07.51,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)\1c&HD2D89F&}100
-Dialogue: 0,0:01:07.51,0:01:07.85,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}BEFORE
-Dialogue: 0,0:01:07.85,0:01:08.25,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}SHE FALLS
-Dialogue: 0,0:01:08.25,0:01:09.05,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}ASLEEP
-Dialogue: 0,0:01:09.05,0:01:09.35,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}SHE SAYS
-Dialogue: 0,0:01:09.35,0:01:10.21,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}IT HELPS
-Dialogue: 0,0:01:10.21,0:01:10.95,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}AT BREAKFAST
-Dialogue: 0,0:01:10.95,0:01:11.18,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}SHE TOOK
-Dialogue: 0,0:01:11.18,0:01:12.05,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}MY HAND
-Dialogue: 0,0:01:12.05,0:01:12.35,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)\1c&H4EC1F2&}IT NEVER
-Dialogue: 0,0:01:12.35,0:01:12.71,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)\1c&H4EC1F2&}LOOKS IN
-Dialogue: 0,0:01:12.71,0:01:13.11,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)\1c&H4EC1F2&}MY ROOM
-Dialogue: 0,0:01:13.11,0:01:13.81,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)\1c&H4EC1F2&}RABBIT
-Dialogue: 0,0:01:13.81,0:01:14.11,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)\1c&H4EC1F2&}I'LL HIDE
-Dialogue: 0,0:01:14.11,0:01:14.81,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)\1c&H4EC1F2&}YOU THERE
-Dialogue: 0,0:01:14.81,0:01:15.75,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)\1c&H4EC1F2&}I PROMISE
-Dialogue: 0,0:01:15.75,0:01:16.55,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}AT SUNSET
-Dialogue: 0,0:01:16.55,0:01:16.75,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}I WENT
-Dialogue: 0,0:01:16.75,0:01:17.01,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}UPSTAIRS
-Dialogue: 0,0:01:17.01,0:01:17.45,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}TO GRAB
-Dialogue: 0,0:01:17.45,0:01:18.45,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}A FLASHLIGHT
-Dialogue: 0,0:01:18.45,0:01:18.81,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}MY BREATH
-Dialogue: 0,0:01:18.81,0:01:19.11,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}TURNED
-Dialogue: 0,0:01:19.11,0:01:19.81,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}WHITE
-Dialogue: 0,0:01:19.81,0:01:20.35,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)\fs73\1c&HD2D89F&}MISTER HUNDRED
-Dialogue: 0,0:01:20.35,0:01:20.91,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}WAS STANDING
-Dialogue: 0,0:01:20.91,0:01:21.08,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}IN
-Dialogue: 0,0:01:21.08,0:01:21.78,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}OUR YARD
-Dialogue: 0,0:01:21.78,0:01:22.31,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}6 HOURS
-Dialogue: 0,0:01:22.31,0:01:23.08,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}EARLY
-Dialogue: 0,0:01:23.08,0:01:23.45,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}IT WASN'T
-Dialogue: 0,0:01:23.45,0:01:24.21,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}COUNTING
-Dialogue: 0,0:01:24.21,0:01:24.38,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(28,51,\fscx88\fscy88)\t(61,84,\fscx100\fscy100)}IT WAS
-Dialogue: 0,0:01:24.38,0:01:24.65,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(25,48,\fscx88\fscy88)\t(58,81,\fscx100\fscy100)}LOOKING
-Dialogue: 0,0:01:24.65,0:01:25.25,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}AT ME
-Dialogue: 0,0:01:25.25,0:01:25.55,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}THROUGH ITS
-Dialogue: 0,0:01:25.55,0:01:26.25,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx134\fscy134\t(22,45,\fscx88\fscy88)\t(55,78,\fscx100\fscy100)}FINGERS
+Dialogue: 0,0:00:00.00,0:00:00.11,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(5,28,\fscx92\fscy92)\t(38,61,\fscx100\fscy100)}IN
+Dialogue: 0,0:00:00.11,0:00:00.88,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}THIS TOWN
+Dialogue: 0,0:00:00.88,0:00:01.11,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}WHEN YOU
+Dialogue: 0,0:00:01.11,0:00:02.08,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}TURN 18
+Dialogue: 0,0:00:02.08,0:00:02.48,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}YOU HIDE
+Dialogue: 0,0:00:02.48,0:00:02.75,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}UNTIL
+Dialogue: 0,0:00:02.75,0:00:03.71,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}SUNRISE
+Dialogue: 0,0:00:03.71,0:00:03.91,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}OR IT
+Dialogue: 0,0:00:03.91,0:00:04.85,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}FINDS YOU
+Dialogue: 0,0:00:04.85,0:00:05.15,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}WE CALL
+Dialogue: 0,0:00:05.15,0:00:05.51,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}IT
+Dialogue: 0,0:00:05.51,0:00:06.58,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)\fs78\1c&HD2D89F&}MISTER HUNDRED
+Dialogue: 0,0:00:06.58,0:00:06.95,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}IT'S TALL
+Dialogue: 0,0:00:06.95,0:00:07.15,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}ENOUGH
+Dialogue: 0,0:00:07.15,0:00:07.41,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}TO LOOK
+Dialogue: 0,0:00:07.41,0:00:07.81,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}IN UPSTAIRS
+Dialogue: 0,0:00:07.81,0:00:08.68,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}WINDOWS
+Dialogue: 0,0:00:08.68,0:00:08.85,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}AND IT
+Dialogue: 0,0:00:08.85,0:00:09.01,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}KEEPS
+Dialogue: 0,0:00:09.01,0:00:09.65,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}BOTH HANDS
+Dialogue: 0,0:00:09.65,0:00:09.88,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}OVER
+Dialogue: 0,0:00:09.88,0:00:10.81,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}ITS FACE
+Dialogue: 0,0:00:10.81,0:00:11.21,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}IT NEVER
+Dialogue: 0,0:00:11.21,0:00:12.01,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}PEEKS
+Dialogue: 0,0:00:12.01,0:00:12.78,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}AT MIDNIGHT
+Dialogue: 0,0:00:12.78,0:00:13.11,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}IT COUNTS
+Dialogue: 0,0:00:13.11,0:00:13.31,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}TO
+Dialogue: 0,0:00:13.31,0:00:14.11,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)\1c&HD2D89F&}100
+Dialogue: 0,0:00:14.11,0:00:14.51,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}SLOW
+Dialogue: 0,0:00:14.51,0:00:15.45,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}AND DEEP
+Dialogue: 0,0:00:15.45,0:00:15.55,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}AND
+Dialogue: 0,0:00:15.55,0:00:15.91,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}THE WHOLE
+Dialogue: 0,0:00:15.91,0:00:16.25,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}TOWN
+Dialogue: 0,0:00:16.25,0:00:17.11,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}HEARS IT
+Dialogue: 0,0:00:17.11,0:00:17.48,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}YOUR BREATH
+Dialogue: 0,0:00:17.48,0:00:17.81,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}TURNS
+Dialogue: 0,0:00:17.81,0:00:18.08,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}WHITE
+Dialogue: 0,0:00:18.08,0:00:18.45,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}WHEN IT'S
+Dialogue: 0,0:00:18.45,0:00:19.18,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}CLOSE
+Dialogue: 0,0:00:19.18,0:00:19.35,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}WHEN IT
+Dialogue: 0,0:00:19.35,0:00:20.08,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}FINDS YOU
+Dialogue: 0,0:00:20.08,0:00:20.41,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}IT BENDS
+Dialogue: 0,0:00:20.41,0:00:20.75,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}DOWN
+Dialogue: 0,0:00:20.75,0:00:21.11,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}AND TAKES
+Dialogue: 0,0:00:21.11,0:00:21.55,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}ITS HANDS
+Dialogue: 0,0:00:21.55,0:00:21.95,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}AWAY FROM
+Dialogue: 0,0:00:21.95,0:00:22.81,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}ITS FACE
+Dialogue: 0,0:00:22.81,0:00:22.91,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}IN
+Dialogue: 0,0:00:22.91,0:00:23.58,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}THE MORNING
+Dialogue: 0,0:00:23.58,0:00:23.98,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}ALL THAT'S
+Dialogue: 0,0:00:23.98,0:00:24.18,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}LEFT
+Dialogue: 0,0:00:24.18,0:00:24.35,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}ARE
+Dialogue: 0,0:00:24.35,0:00:25.11,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}YOUR SHOES
+Dialogue: 0,0:00:25.11,0:00:25.35,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}SIDE
+Dialogue: 0,0:00:25.35,0:00:26.31,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}BY SIDE
+Dialogue: 0,0:00:26.31,0:00:26.65,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}THE TOWN
+Dialogue: 0,0:00:26.65,0:00:27.25,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}CALLS IT
+Dialogue: 0,0:00:27.25,0:00:28.28,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)\1c&HD2D89F&}HIDING NIGHT
+Dialogue: 0,0:00:28.28,0:00:28.55,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}THERE'S ONLY
+Dialogue: 0,0:00:28.55,0:00:29.55,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)\1c&HD2D89F&}ONE RULE
+Dialogue: 0,0:00:29.55,0:00:29.85,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)\1c&HD2D89F&}NOBODY
+Dialogue: 0,0:00:29.85,0:00:30.25,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)\1c&HD2D89F&}CAN HELP
+Dialogue: 0,0:00:30.25,0:00:31.15,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)\1c&HD2D89F&}YOU HIDE
+Dialogue: 0,0:00:31.15,0:00:31.35,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}IF THEY
+Dialogue: 0,0:00:31.35,0:00:32.01,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}TRY
+Dialogue: 0,0:00:32.01,0:00:32.35,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}IT TAKES
+Dialogue: 0,0:00:32.35,0:00:32.55,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}THEM
+Dialogue: 0,0:00:32.55,0:00:33.25,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}TOO
+Dialogue: 0,0:00:33.25,0:00:33.58,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}YOU CAN'T
+Dialogue: 0,0:00:33.58,0:00:33.81,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}RUN
+Dialogue: 0,0:00:33.81,0:00:34.51,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}EITHER
+Dialogue: 0,0:00:34.51,0:00:34.61,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}ON
+Dialogue: 0,0:00:34.61,0:00:35.21,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}HIS 18TH
+Dialogue: 0,0:00:35.21,0:00:35.88,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}BIRTHDAY
+Dialogue: 0,0:00:35.88,0:00:36.35,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}OWEN PIKE
+Dialogue: 0,0:00:36.35,0:00:36.68,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}DROVE
+Dialogue: 0,0:00:36.68,0:00:37.71,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}ALL NIGHT
+Dialogue: 0,0:00:37.71,0:00:38.55,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}AT SUNRISE
+Dialogue: 0,0:00:38.55,0:00:38.91,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}HIS TRUCK
+Dialogue: 0,0:00:38.91,0:00:39.31,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}WAS BACK
+Dialogue: 0,0:00:39.31,0:00:39.61,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}IN FRONT
+Dialogue: 0,0:00:39.61,0:00:39.71,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}OF
+Dialogue: 0,0:00:39.71,0:00:40.31,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}HIS HOUSE
+Dialogue: 0,0:00:40.31,0:00:40.55,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}ENGINE
+Dialogue: 0,0:00:40.55,0:00:41.25,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}RUNNING
+Dialogue: 0,0:00:41.25,0:00:41.65,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}HIS SHOES
+Dialogue: 0,0:00:41.65,0:00:41.95,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}WERE ON
+Dialogue: 0,0:00:41.95,0:00:42.51,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}THE SEAT
+Dialogue: 0,0:00:42.51,0:00:42.75,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}SIDE
+Dialogue: 0,0:00:42.75,0:00:43.71,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}BY SIDE
+Dialogue: 0,0:00:43.71,0:00:43.95,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}NOBODY
+Dialogue: 0,0:00:43.95,0:00:44.21,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}HERE
+Dialogue: 0,0:00:44.21,0:00:44.45,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}PLAYS
+Dialogue: 0,0:00:44.45,0:00:44.75,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}HIDE
+Dialogue: 0,0:00:44.75,0:00:45.41,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}AND SEEK
+Dialogue: 0,0:00:45.41,0:00:45.68,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}NOT EVEN
+Dialogue: 0,0:00:45.68,0:00:46.58,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}FOR FUN
+Dialogue: 0,0:00:46.58,0:00:46.85,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}NOBODY
+Dialogue: 0,0:00:46.85,0:00:47.15,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}LEAVES
+Dialogue: 0,0:00:47.15,0:00:47.65,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}THEIR SHOES
+Dialogue: 0,0:00:47.65,0:00:47.98,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}SIDE
+Dialogue: 0,0:00:47.98,0:00:48.95,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}BY SIDE
+Dialogue: 0,0:00:48.95,0:00:49.38,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}AND NOBODY
+Dialogue: 0,0:00:49.38,0:00:49.98,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}EVER SAYS
+Dialogue: 0,0:00:49.98,0:00:50.68,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}THE WORD
+Dialogue: 0,0:00:50.68,0:00:51.45,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)\1c&HD2D89F&}READY
+Dialogue: 0,0:00:51.45,0:00:51.71,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}THAT'S WHAT
+Dialogue: 0,0:00:51.71,0:00:52.15,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}IT ASKS
+Dialogue: 0,0:00:52.15,0:00:52.58,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}WHEN IT'S
+Dialogue: 0,0:00:52.58,0:00:52.68,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}DONE
+Dialogue: 0,0:00:52.68,0:00:53.51,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}COUNTING
+Dialogue: 0,0:00:53.51,0:00:54.31,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}ON FRIDAY
+Dialogue: 0,0:00:54.31,0:00:54.58,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}I TURNED
+Dialogue: 0,0:00:54.58,0:00:55.48,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}18
+Dialogue: 0,0:00:55.48,0:00:55.81,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}MY SISTER
+Dialogue: 0,0:00:55.81,0:00:56.11,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}JUNE
+Dialogue: 0,0:00:56.11,0:00:56.38,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}IS THE
+Dialogue: 0,0:00:56.38,0:00:56.81,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}ONLY ONE
+Dialogue: 0,0:00:56.81,0:00:57.21,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}WHO EVER
+Dialogue: 0,0:00:57.21,0:00:57.51,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}MADE IT
+Dialogue: 0,0:00:57.51,0:00:57.95,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}TO SUNRISE
+Dialogue: 0,0:00:57.95,0:00:58.95,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}6 YEARS
+Dialogue: 0,0:00:58.95,0:00:59.58,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}AGO
+Dialogue: 0,0:00:59.58,0:00:59.75,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}DAD
+Dialogue: 0,0:00:59.75,0:01:00.08,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}HID HER
+Dialogue: 0,0:01:00.08,0:01:00.25,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}IN THE
+Dialogue: 0,0:01:00.25,0:01:00.75,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}CRAWL SPACE
+Dialogue: 0,0:01:00.75,0:01:01.01,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}UNDER
+Dialogue: 0,0:01:01.01,0:01:01.85,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}HER ROOM
+Dialogue: 0,0:01:01.85,0:01:01.95,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}IN
+Dialogue: 0,0:01:01.95,0:01:02.58,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}THE MORNING
+Dialogue: 0,0:01:02.58,0:01:02.95,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}SHE CLIMBED
+Dialogue: 0,0:01:02.95,0:01:03.65,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}OUT
+Dialogue: 0,0:01:03.65,0:01:03.95,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}DAD'S
+Dialogue: 0,0:01:03.95,0:01:04.15,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}SHOES
+Dialogue: 0,0:01:04.15,0:01:04.51,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}WERE ON
+Dialogue: 0,0:01:04.51,0:01:05.35,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}THE PORCH
+Dialogue: 0,0:01:05.35,0:01:05.71,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}EVERY NIGHT
+Dialogue: 0,0:01:05.71,0:01:06.35,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}SINCE
+Dialogue: 0,0:01:06.35,0:01:06.55,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}JUNE
+Dialogue: 0,0:01:06.55,0:01:07.08,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}COUNTS TO
+Dialogue: 0,0:01:07.08,0:01:07.51,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)\1c&HD2D89F&}100
+Dialogue: 0,0:01:07.51,0:01:07.85,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}BEFORE
+Dialogue: 0,0:01:07.85,0:01:08.25,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}SHE FALLS
+Dialogue: 0,0:01:08.25,0:01:09.05,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}ASLEEP
+Dialogue: 0,0:01:09.05,0:01:09.35,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}SHE SAYS
+Dialogue: 0,0:01:09.35,0:01:10.21,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}IT HELPS
+Dialogue: 0,0:01:10.21,0:01:10.31,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}AT
+Dialogue: 0,0:01:10.31,0:01:10.95,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}BREAKFAST
+Dialogue: 0,0:01:10.95,0:01:11.18,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}SHE TOOK
+Dialogue: 0,0:01:11.18,0:01:12.05,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}MY HAND
+Dialogue: 0,0:01:12.05,0:01:12.35,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)\1c&H4EC1F2&}IT NEVER
+Dialogue: 0,0:01:12.35,0:01:12.71,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)\1c&H4EC1F2&}LOOKS IN
+Dialogue: 0,0:01:12.71,0:01:13.11,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)\1c&H4EC1F2&}MY ROOM
+Dialogue: 0,0:01:13.11,0:01:13.81,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)\1c&H4EC1F2&}RABBIT
+Dialogue: 0,0:01:13.81,0:01:14.11,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)\1c&H4EC1F2&}I'LL HIDE
+Dialogue: 0,0:01:14.11,0:01:14.81,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)\1c&H4EC1F2&}YOU THERE
+Dialogue: 0,0:01:14.81,0:01:15.75,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)\1c&H4EC1F2&}I PROMISE
+Dialogue: 0,0:01:15.75,0:01:16.55,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}AT SUNSET
+Dialogue: 0,0:01:16.55,0:01:16.75,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}I WENT
+Dialogue: 0,0:01:16.75,0:01:17.01,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}UPSTAIRS
+Dialogue: 0,0:01:17.01,0:01:17.45,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}TO GRAB
+Dialogue: 0,0:01:17.45,0:01:18.45,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}A FLASHLIGHT
+Dialogue: 0,0:01:18.45,0:01:18.81,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}MY BREATH
+Dialogue: 0,0:01:18.81,0:01:19.11,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}TURNED
+Dialogue: 0,0:01:19.11,0:01:19.81,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}WHITE
+Dialogue: 0,0:01:19.81,0:01:20.35,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)\fs78\1c&HD2D89F&}MISTER HUNDRED
+Dialogue: 0,0:01:20.35,0:01:20.55,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}WAS
+Dialogue: 0,0:01:20.55,0:01:21.08,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}STANDING IN
+Dialogue: 0,0:01:21.08,0:01:21.78,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}OUR YARD
+Dialogue: 0,0:01:21.78,0:01:22.31,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}6 HOURS
+Dialogue: 0,0:01:22.31,0:01:23.08,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}EARLY
+Dialogue: 0,0:01:23.08,0:01:23.45,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}IT WASN'T
+Dialogue: 0,0:01:23.45,0:01:24.21,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}COUNTING
+Dialogue: 0,0:01:24.21,0:01:24.38,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(28,51,\fscx92\fscy92)\t(61,84,\fscx100\fscy100)}IT WAS
+Dialogue: 0,0:01:24.38,0:01:24.65,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(25,48,\fscx92\fscy92)\t(58,81,\fscx100\fscy100)}LOOKING
+Dialogue: 0,0:01:24.65,0:01:25.25,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}AT ME
+Dialogue: 0,0:01:25.25,0:01:25.55,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}THROUGH ITS
+Dialogue: 0,0:01:25.55,0:01:26.25,Wort,,0,0,0,,{\an5\pos(540,1200)\fscx73\fscy73\t(22,45,\fscx92\fscy92)\t(55,78,\fscx100\fscy100)}FINGERS

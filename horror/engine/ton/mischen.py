@@ -148,6 +148,43 @@ def begrenzen(x: np.ndarray, decke_db: float) -> tuple[np.ndarray, dict]:
                "begrenzer_rahmen_ueber_1db_prozent": round(float(np.mean(gr > 1) * 100), 2), "ausgang": m}
 
 
+def rede_bearbeiten(stimme: np.ndarray, ordner: Path, woerter: list, cfg: dict) -> list:
+    """Wörtliche Rede von der Erzählung absetzen (Review Folge 1: Junes Zeilen hatten dieselbe
+    Tonhöhe und Lautheit wie der Erzähler; wer hört statt liest, verstand das Versprechen leicht als
+    Satz des Erzählers). Die Abschnitte stehen in untertitel.json ('rede', Wortindizes); effekte.json
+    'rede' sagt je Figur, um wie viele Halbtöne (formant-erhaltend, ffmpeg rubberband) und wie viel
+    dB. Das Tempo bleibt gleich, die Wortzeiten in timing.json stimmen weiter. Arbeitet in place."""
+    ut_pfad = ordner / "untertitel.json"
+    if not cfg or not ut_pfad.exists():
+        return []
+    protokoll = []
+    for r in json.loads(ut_pfad.read_text(encoding="utf-8")).get("rede", []):
+        c = cfg.get(r["wer"].lower())
+        if not c:
+            continue
+        a, b = woerter[r["von"]]["start"] - 0.06, woerter[r["bis"]]["ende"] + 0.08
+        i, j = int(a * SR), int(b * SR)
+        rand = int(0.25 * SR)              # Kontext, damit der Filter an den Rändern eingeschwungen ist
+        i0, j0 = max(0, i - rand), min(len(stimme), j + rand)
+        faktor = 2 ** (c.get("halbtoene", 0.0) / 12)
+        y = ffmpeg_filter(stimme[i0:j0], f"rubberband=pitch={faktor:.5f}:formant=preserved:pitchq=quality")
+        y = np.pad(y, ((0, max(0, (j0 - i0) - len(y))), (0, 0)))[: j0 - i0]
+        neu = y[i - i0: j - i0]
+        # rubberband ändert den Pegel etwas; erst auf die alte Lautheit zurück, dann c["db"] darauf
+        ausgleich = lautheit(stimme[i:j])["lufs"] - lautheit(neu)["lufs"]
+        neu = neu * 10 ** ((ausgleich + c.get("db", 0.0)) / 20)
+        # 20 ms Überblendung an beiden Enden (dort ist Pause zwischen den Sätzen)
+        k = int(0.02 * SR)
+        rampe = np.linspace(0, 1, k)[:, None]
+        alt = stimme[i:j].copy()
+        neu[:k] = alt[:k] * (1 - rampe) + neu[:k] * rampe
+        neu[-k:] = neu[-k:] * (1 - rampe) + alt[-k:] * rampe
+        stimme[i:j] = neu
+        protokoll.append({"wer": r["wer"], "von_s": round(a, 3), "bis_s": round(b, 3),
+                          "halbtoene": c.get("halbtoene", 0.0), "db": c.get("db", 0.0)})
+    return protokoll
+
+
 def setze_cue(spur: np.ndarray, klang: np.ndarray, t: float, db: float) -> None:
     i = int(round(t * SR))
     if i < 0:
@@ -156,7 +193,11 @@ def setze_cue(spur: np.ndarray, klang: np.ndarray, t: float, db: float) -> None:
     spur[i:j] += klang[: j - i] * 10 ** (db / 20)
 
 
-def mische(ordner: Path, bett_pfad: Path | None, decke_db: float) -> dict:
+def mische(ordner: Path, bett_pfad: Path | None, decke_db: float, decke_vh: float | None = None) -> dict:
+    """decke_db: Begrenzer-Decke des Uploads; decke_vh: eigene Decke der Vorhör-Fassung (Std gleich).
+    Getrennt, weil die Spieluhr-Anschläge des Klangbetts bei AAC stärker überschwingen und sonst den
+    Upload unnötig mit herunterziehen (Render-Bericht Folge 1)."""
+    decke_vh = decke_db if decke_vh is None else decke_vh
     name = ordner.name
     build = ordner.parent.parent / "build" / name
     ton = build / "ton"
@@ -180,6 +221,7 @@ def mische(ordner: Path, bett_pfad: Path | None, decke_db: float) -> dict:
     st = lade_stereo(stimme_pfad)
     stimme = np.zeros((n, 2))
     stimme[: min(n, len(st))] = st[:n]
+    rede = rede_bearbeiten(stimme, ordner, woerter, cues.get("rede", {}))
 
     # Effekte nach Cue-Liste
     fx = np.zeros((n, 2))
@@ -227,7 +269,7 @@ def mische(ordner: Path, bett_pfad: Path | None, decke_db: float) -> dict:
         # über die Endkarte weiter, in den letzten 0,5 s ausblenden (in der App liefe der Sound weiter)
         k = int(0.5 * SR)
         bett[-k:] *= np.linspace(1, 0, k)[:, None]
-        vorhoer, info_vh = begrenzen(upload_roh + bett, decke_db)
+        vorhoer, info_vh = begrenzen(upload_roh + bett, decke_vh)
         info_vh["bett"] = {"datei": str(bett_pfad), "sha256": hashlib.sha256(bett_pfad.read_bytes()).hexdigest(),
                            "lufs_roh": b_lufs, "abstand_zur_stimme_lu": BETT_ABSTAND_LU,
                            "lufs_im_mix_vor_norm": round(lautheit(bett)["lufs"], 2)}
@@ -241,13 +283,13 @@ def mische(ordner: Path, bett_pfad: Path | None, decke_db: float) -> dict:
     bericht = {
         "folge": name, "laenge_s": round(n / SR, 3), "bilder": bilder, "endkarte_ab_s": round(t_karte, 3),
         "stimme": {"datei": str(stimme_pfad.relative_to(ordner.parent.parent)), "lufs_stereo": st_lufs,
-                   "sha256": hashlib.sha256(stimme_pfad.read_bytes()).hexdigest()},
+                   "sha256": hashlib.sha256(stimme_pfad.read_bytes()).hexdigest(), "rede": rede},
         "effekte": {"klaenge": sorted({c["klang"] for c in cues["cues"]}), "cues": len(protokoll),
                     "abstand_min_lu": min(abst), "abstand_median_lu": float(np.median(abst)),
                     "lufs_integriert_allein": lautheit(fx)["lufs"], "liste": protokoll},
         "upload": info_up,
         "vorhoer": info_vh,
-        "regel": {"ziel_lufs": ZIEL_LUFS, "max_tp_dbtp": MAX_TP, "decke_dbfs": decke_db},
+        "regel": {"ziel_lufs": ZIEL_LUFS, "max_tp_dbtp": MAX_TP, "decke_dbfs": decke_db, "decke_vorhoer_dbfs": decke_vh},
     }
     (ordner / "mischung.json").write_text(json.dumps(bericht, ensure_ascii=False, indent=1), encoding="utf-8")
     return bericht

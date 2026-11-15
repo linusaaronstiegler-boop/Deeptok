@@ -128,6 +128,8 @@ async function starten() {
     let fokus = z.pos.distanceTo(z.ziel);
     if (typeof o.fokus === 'number') fokus = o.fokus;
     else if (typeof o.fokus === 'string') fokus = kamera.position.distanceTo(welt.anker(o.fokus, welt.tAktuell));
+    // Punkt [x, y, z] (Review Folge 1: E23 war unscharf, weil der Compiler eine x-Koordinate als Meter gab)
+    else if (Array.isArray(o.fokus) && o.fokus.length === 3) fokus = kamera.position.distanceTo(new THREE.Vector3(...o.fokus));
     return { fokus, blende: o.staerke ?? 1.0 };
   }
 

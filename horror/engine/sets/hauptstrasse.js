@@ -290,6 +290,31 @@ export default async function baue(ctx, params = {}) {
   k(auto, 1.62, 0.45, 2.0, ctx.mat('#1d2633', { rauheit: 0.15, metall: 0.2 }), 0, 1.22, -0.2, { rund: 0.06 });
   for (const [ax, az] of [[-0.85, 1.35], [0.85, 1.35], [-0.85, -1.35], [0.85, -1.35]]) zyl(auto, 0.34, 0.34, 0.22, ctx.mat('#1b1c1f'), ax, 0.34, az, { dreh: [0, 0, Math.PI / 2], segmente: 14 });
 
+  // Weitere geparkte Autos auf der Westseite (Review Folge 1: die Straße war zu leer, Kantendichte
+  // 9 % gegen 16 % bei r2). Die Ostspur bleibt frei für Owens Pick-up.
+  for (const [ax, az, farbe] of [[-2.5, -9.5, '#2f4f6a'], [-2.5, 23.5, '#4f5f3e'], [-2.5, 37.5, '#8a7656'], [-2.5, -27.5, '#5c5f66']]) {
+    const g = new T.Group(); g.position.set(ax, 0, az); Hg.add(g);
+    const l2 = ctx.mat(farbe, { rauheit: 0.4, metall: 0.2 });
+    k(g, 1.8, 0.7, 4.2, l2, 0, 0.6, 0, { rund: 0.12 });
+    k(g, 1.6, 0.58, 2.1, l2, 0, 1.18, 0.15, { rund: 0.12 });
+    k(g, 1.62, 0.42, 1.9, ctx.mat('#1d2633', { rauheit: 0.15, metall: 0.2 }), 0, 1.2, 0.15, { rund: 0.06 });
+    for (const [rx, rz] of [[-0.85, 1.3], [0.85, 1.3], [-0.85, -1.3], [0.85, -1.3]]) zyl(g, 0.34, 0.34, 0.22, ctx.mat('#1b1c1f'), rx, 0.34, rz, { dreh: [0, 0, Math.PI / 2], segmente: 14 });
+    for (const sx of [-0.6, 0.6]) k(g, 0.3, 0.12, 0.04, ctx.mat('#c43a2e', { leuchten: '#c43a2e', leuchtStaerke: 0.6 }), sx, 0.75, -2.11, { schatten: false });
+  }
+  // Schild am Straßenende: gelbe Raute "DEAD END" (Satz 13 "You can't run, either")
+  {
+    const schildTex = ctx.zeichenTextur((g, w, h) => {
+      g.fillStyle = '#e8b830'; g.beginPath(); g.moveTo(w / 2, 4); g.lineTo(w - 4, h / 2); g.lineTo(w / 2, h - 4); g.lineTo(4, h / 2); g.closePath(); g.fill();
+      g.strokeStyle = '#141414'; g.lineWidth = 10; g.beginPath(); g.moveTo(w / 2, 22); g.lineTo(w - 22, h / 2); g.lineTo(w / 2, h - 22); g.lineTo(22, h / 2); g.closePath(); g.stroke();
+      g.fillStyle = '#141414'; g.textAlign = 'center'; g.font = 'bold 54px sans-serif';
+      g.fillText('DEAD', w / 2, h / 2 - 6); g.fillText('END', w / 2, h / 2 + 50);
+    }, 256, 256);
+    const schild = new T.Mesh(new T.PlaneGeometry(1.0, 1.0), new T.MeshStandardMaterial({ map: schildTex, transparent: true, alphaTest: 0.5, roughness: 0.5 }));
+    schild.position.set(2.9, 2.3, 61.0); schild.rotation.y = Math.PI + 0.25; schild.castShadow = true;
+    module.ende.add(schild);
+    zyl(module.ende, 0.04, 0.04, 2.3, ctx.mat('#8a8e94', { metall: 0.6, rauheit: 0.4 }), 2.9, 1.15, 61.05, { segmente: 8 });
+  }
+
   // ---------- Straßenmöbel: Fahrräder an Vorgartenzäunen, Mülltonnen, Straßenschild, Bank ----------
   const fahrrad = (x, zz, dreh, farbe) => {
     const g = new T.Group(); g.position.set(x, 0, zz); g.rotation.set(0, dreh, 0.08); module.haeuser.add(g);
