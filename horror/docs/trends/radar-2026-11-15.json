@@ -1,0 +1,6003 @@
+{
+ "meta": {
+  "datum": "2026-11-15",
+  "lauf": "2026-11-15T21:10Z",
+  "datenstand": "2026-11-14T22:13Z bis 2026-11-14T22:34Z",
+  "dateien": 170,
+  "eingang": [
+   "/tmp/claude-0/-home-user-Deeptok/1c35efe9-205d-5858-bd54-e9b1dc5eaddd/scratchpad/nische/raw"
+  ],
+  "youtube": {
+   "suchbegriffe": [
+    "in this town horror story",
+    "roblox horror story animation",
+    "scary story animation",
+    "horror story part 2"
+   ],
+   "kanaele": [
+    "@fluppzzyy",
+    "@AuraaRobloxx",
+    "@UnluckyGuyStories"
+   ],
+   "search_aufrufe": 4,
+   "search_topf_pro_tag": 100,
+   "weitere_einheiten_hoechstens": 10,
+   "einheiten_topf_pro_tag": 10000,
+   "status": "nicht angefordert (Schalter --youtube)"
+  },
+  "vorher": null,
+  "quellen": {
+   "_hinweis": "Liste für radar.py. Hashtags ohne #, Konten ohne @. TikTok-Seiten speichert Linus von Hand im Browser (siehe README); YouTube läuft über die offizielle Data API.",
+   "fenster_tage": 14,
+   "hashtags": [
+    "inthistown",
+    "inthisworld",
+    "robloxstory",
+    "robloxhorror",
+    "horrorstory",
+    "scarystories",
+    "scarystory",
+    "robloxhorrorstory",
+    "townrules"
+   ],
+   "konten": [
+    "concet5612",
+    "dogeok",
+    "cannonanimatess",
+    "lileggy38",
+    "larpniverse",
+    "jexario",
+    "yougplat",
+    "horrorrobs",
+    "inthisworldstory",
+    "thistownbiz",
+    "town.rules",
+    "zerobraincellstudio"
+   ],
+   "konto_genre": {
+    "concet5612": "Horror",
+    "jexario": "Horror",
+    "yougplat": "Horror",
+    "horrorrobs": "Horror"
+   },
+   "youtube": {
+    "suchbegriffe": [
+     "in this town horror story",
+     "roblox horror story animation",
+     "scary story animation",
+     "horror story part 2"
+    ],
+    "kanaele": [
+     "@fluppzzyy",
+     "@AuraaRobloxx",
+     "@UnluckyGuyStories"
+    ],
+    "max_treffer_je_suche": 25
+   }
+  },
+  "notiz": "Embed-, Profil- und Videoseiten aus der Vorrecherche vom 14.11.2026 (damals automatisch geladen, was TikToks Bedingungen widerspricht; Einordnung in bericht-2026-11-15.md). Für diesen Lauf wurde nichts neu abgerufen."
+ },
+ "fenster_tage": 14,
+ "fenster_ab": "2026-10-31T22:34Z",
+ "zahlen": {
+  "videos": 141,
+  "im_fenster": 91,
+  "mit_vollstatistik": 30,
+  "mit_sound": 30,
+  "ohne_text_im_fenster": 26,
+  "storys_im_fenster": 81,
+  "sound_original": 30
+ },
+ "top_aufrufe": [
+  "https://www.tiktok.com/@inthistownthegame/video/7705079709507374367",
+  "https://www.tiktok.com/@inthisworldrobloxgame/video/7703420666665504014",
+  "https://www.tiktok.com/@larpniverse/video/7707635922652630285",
+  "https://www.tiktok.com/@kr.editzx0/video/7704731588591947016",
+  "https://www.tiktok.com/@zerobraincellstudio/video/7705300037651221768",
+  "https://www.tiktok.com/@inthisworldstory/video/7706272654302448928",
+  "https://www.tiktok.com/@milliethebaddie/video/7705638222407142670",
+  "https://www.tiktok.com/@lileggy38/video/7706667212848811294",
+  "https://www.tiktok.com/@robloxstories13346/video/7703649636795370774",
+  "https://www.tiktok.com/@larpniverse/video/7707058457534369037",
+  "https://www.tiktok.com/@nice_right1/video/7703564459272408352",
+  "https://www.tiktok.com/@frost_breezerdomi/video/7705770230311554324",
+  "https://www.tiktok.com/@lileggy38/video/7703746163652054303",
+  "https://www.tiktok.com/@concet5612/video/7707748313222630686",
+  "https://www.tiktok.com/@larpniverse/video/7707385194667461901",
+  "https://www.tiktok.com/@dogeok/video/7706749030847794453",
+  "https://www.tiktok.com/@concet5612/video/7707759204500639007",
+  "https://www.tiktok.com/@concet5612/video/7707037219986427167",
+  "https://www.tiktok.com/@larpniverse/video/7708024316100726047",
+  "https://www.tiktok.com/@zerobraincellstudio/video/7703791178336210184"
+ ],
+ "top_pro_tag": [
+  "https://www.tiktok.com/@larpniverse/video/7707635922652630285",
+  "https://www.tiktok.com/@inthistownthegame/video/7705079709507374367",
+  "https://www.tiktok.com/@concet5612/video/7707748313222630686",
+  "https://www.tiktok.com/@larpniverse/video/7707058457534369037",
+  "https://www.tiktok.com/@lileggy38/video/7706667212848811294",
+  "https://www.tiktok.com/@inthisworldstory/video/7706272654302448928",
+  "https://www.tiktok.com/@concet5612/video/7707759204500639007",
+  "https://www.tiktok.com/@larpniverse/video/7708024316100726047",
+  "https://www.tiktok.com/@inthisworldrobloxgame/video/7703420666665504014",
+  "https://www.tiktok.com/@kr.editzx0/video/7704731588591947016",
+  "https://www.tiktok.com/@milliethebaddie/video/7705638222407142670",
+  "https://www.tiktok.com/@zerobraincellstudio/video/7705300037651221768",
+  "https://www.tiktok.com/@larpniverse/video/7707385194667461901",
+  "https://www.tiktok.com/@frost_breezerdomi/video/7705770230311554324",
+  "https://www.tiktok.com/@robloxstories13346/video/7703649636795370774",
+  "https://www.tiktok.com/@dogeok/video/7706749030847794453",
+  "https://www.tiktok.com/@concet5612/video/7707037219986427167",
+  "https://www.tiktok.com/@nice_right1/video/7703564459272408352",
+  "https://www.tiktok.com/@concet5612/video/7707779306612690207",
+  "https://www.tiktok.com/@concet5612/video/7708115978927803662"
+ ],
+ "konten": [
+  {
+   "name": "larpniverse",
+   "follower": 15251,
+   "stand": "2026-11-14T22:24Z",
+   "n": 5,
+   "median_neueste": 1000000,
+   "max_neueste": 5900000,
+   "takt_pro_woche": 10.8,
+   "median_2_6_tage": 1000000,
+   "median_7_14_tage": null,
+   "bestes": "https://www.tiktok.com/@larpniverse/video/7707635922652630285"
+  },
+  {
+   "name": "dogeok",
+   "follower": 124247,
+   "stand": "2026-11-14T22:15Z",
+   "n": 10,
+   "median_neueste": 221100.0,
+   "max_neueste": 906300,
+   "takt_pro_woche": 9.0,
+   "median_2_6_tage": 466200,
+   "median_7_14_tage": 69600,
+   "bestes": "https://www.tiktok.com/@dogeok/video/7706749030847794453"
+  },
+  {
+   "name": "cannonanimatess",
+   "follower": 32049,
+   "stand": "2026-11-14T22:15Z",
+   "n": 10,
+   "median_neueste": 190050.0,
+   "max_neueste": 5100000,
+   "takt_pro_woche": 1.7,
+   "median_2_6_tage": 3418,
+   "median_7_14_tage": 19839.5,
+   "bestes": "https://www.tiktok.com/@cannonanimatess/video/7698583754603793678"
+  },
+  {
+   "name": "concet5612",
+   "follower": 107325,
+   "stand": "2026-11-14T22:13Z",
+   "n": 10,
+   "median_neueste": 139350.0,
+   "max_neueste": 1100000,
+   "takt_pro_woche": 20.6,
+   "median_2_6_tage": 155650.0,
+   "median_7_14_tage": null,
+   "bestes": "https://www.tiktok.com/@concet5612/video/7707748313222630686"
+  },
+  {
+   "name": "lileggy38",
+   "follower": 19422,
+   "stand": "2026-11-14T22:25Z",
+   "n": 10,
+   "median_neueste": 94150.0,
+   "max_neueste": 3400000,
+   "takt_pro_woche": 7.6,
+   "median_2_6_tage": 189450.0,
+   "median_7_14_tage": 64900,
+   "bestes": "https://www.tiktok.com/@lileggy38/video/7706667212848811294"
+  },
+  {
+   "name": "zerobraincellstudio",
+   "follower": 5469,
+   "stand": "2026-11-14T22:25Z",
+   "n": 8,
+   "median_neueste": 12715.5,
+   "max_neueste": 3900000,
+   "takt_pro_woche": 2.2,
+   "median_2_6_tage": 3293,
+   "median_7_14_tage": 284900.0,
+   "bestes": "https://www.tiktok.com/@zerobraincellstudio/video/7705300037651221768"
+  },
+  {
+   "name": "thistownbiz",
+   "follower": 724,
+   "stand": "2026-11-14T22:19Z",
+   "n": 10,
+   "median_neueste": 9941.0,
+   "max_neueste": 14200,
+   "takt_pro_woche": 17.1,
+   "median_2_6_tage": 9941.0,
+   "median_7_14_tage": null,
+   "bestes": "https://www.tiktok.com/@thistownbiz/video/7707665309234154783"
+  },
+  {
+   "name": "inthisworldstory",
+   "follower": 63224,
+   "stand": "2026-11-14T22:25Z",
+   "n": 10,
+   "median_neueste": 7967.5,
+   "max_neueste": 245500,
+   "takt_pro_woche": 15.8,
+   "median_2_6_tage": 8453.0,
+   "median_7_14_tage": null,
+   "bestes": "https://www.tiktok.com/@inthisworldstory/video/7706660776613842209"
+  },
+  {
+   "name": "town.rules",
+   "follower": 762,
+   "stand": "2026-11-14T22:28Z",
+   "n": 10,
+   "median_neueste": 6465.5,
+   "max_neueste": 30600,
+   "takt_pro_woche": 6.7,
+   "median_2_6_tage": 1201.0,
+   "median_7_14_tage": 9029.5,
+   "bestes": "https://www.tiktok.com/@town.rules/video/7703753959437077781"
+  }
+ ],
+ "hashtags": [
+  {
+   "name": "scarystories",
+   "aufrufe": 57988744512,
+   "videos": 1825351,
+   "stand": "2026-11-14T22:24Z",
+   "top_n": 10,
+   "top_im_fenster": 0,
+   "top_median_datum": "2020-10-01",
+   "top_median_aufrufe": 1650000.0,
+   "top_genre": {
+    "Horror": 6,
+    "Horror (nur Hashtag)": 3,
+    "unklar": 1
+   }
+  },
+  {
+   "name": "robloxstory",
+   "aufrufe": 49828489669,
+   "videos": 1557400,
+   "stand": "2026-11-14T22:24Z",
+   "top_n": 7,
+   "top_im_fenster": 0,
+   "top_median_datum": "2023-07-11",
+   "top_median_aufrufe": 17100000,
+   "top_genre": {
+    "Horror (nur Hashtag)": 1,
+    "Komik": 1,
+    "unklar": 5
+   }
+  },
+  {
+   "name": "robloxhorror",
+   "aufrufe": 11281442259,
+   "videos": 223299,
+   "stand": "2026-11-14T22:24Z",
+   "top_n": 9,
+   "top_im_fenster": 0,
+   "top_median_datum": "2025-07-24",
+   "top_median_aufrufe": 27400000,
+   "top_genre": {
+    "Horror": 5,
+    "Horror (nur Hashtag)": 4
+   }
+  },
+  {
+   "name": "inthistown",
+   "aufrufe": 377228045,
+   "videos": 19043,
+   "stand": "2026-11-14T22:24Z",
+   "top_n": 10,
+   "top_im_fenster": 7,
+   "top_median_datum": "2026-11-05",
+   "top_median_aufrufe": 5050000.0,
+   "top_genre": {
+    "Fantasy": 1,
+    "Horror": 1,
+    "Horror (nur Hashtag)": 1,
+    "Komik": 1,
+    "unklar": 5,
+    "unklar (ohne Text)": 1
+   }
+  },
+  {
+   "name": "inthisworld",
+   "aufrufe": 183083903,
+   "videos": 11102,
+   "stand": "2026-11-14T22:24Z",
+   "top_n": 10,
+   "top_im_fenster": 8,
+   "top_median_datum": "2026-11-06",
+   "top_median_aufrufe": 3450000.0,
+   "top_genre": {
+    "Fantasy": 1,
+    "Horror": 2,
+    "Horror (nur Hashtag)": 1,
+    "unklar": 4,
+    "unklar (ohne Text)": 2
+   }
+  },
+  {
+   "name": "robloxhorrorstory",
+   "aufrufe": 84512226,
+   "videos": 1485,
+   "stand": "2026-11-14T22:24Z",
+   "top_n": 7,
+   "top_im_fenster": 0,
+   "top_median_datum": "2023-07-05",
+   "top_median_aufrufe": 3700000,
+   "top_genre": {
+    "Horror": 3,
+    "Horror (nur Hashtag)": 1,
+    "unklar": 3
+   }
+  },
+  {
+   "name": "townrules",
+   "aufrufe": 402196,
+   "videos": 36,
+   "stand": "2026-11-14T22:28Z",
+   "top_n": 10,
+   "top_im_fenster": 8,
+   "top_median_datum": "2026-11-01",
+   "top_median_aufrufe": 10950.0,
+   "top_genre": {
+    "Horror": 1,
+    "unklar": 2,
+    "unklar (ohne Text)": 7
+   }
+  }
+ ],
+ "formate": [
+  {
+   "gruppe": "Zusammenschnitt/Edit",
+   "n": 4,
+   "median_aufrufe": 4000000.0,
+   "median_pro_tag": 391708.5,
+   "max_aufrufe": 12700000,
+   "bestes": "https://www.tiktok.com/@inthistownthegame/video/7705079709507374367"
+  },
+  {
+   "gruppe": "Gameplay",
+   "n": 3,
+   "median_aufrufe": 550300,
+   "median_pro_tag": 46794,
+   "max_aufrufe": 3900000,
+   "bestes": "https://www.tiktok.com/@zerobraincellstudio/video/7705300037651221768"
+  },
+  {
+   "gruppe": "Story",
+   "n": 81,
+   "median_aufrufe": 17300,
+   "median_pro_tag": 7300,
+   "max_aufrufe": 5900000,
+   "bestes": "https://www.tiktok.com/@larpniverse/video/7707635922652630285"
+  },
+  {
+   "gruppe": "Spiel-Werbung",
+   "n": 3,
+   "median_aufrufe": 10600,
+   "median_pro_tag": 1002,
+   "max_aufrufe": 6900000,
+   "bestes": "https://www.tiktok.com/@inthisworldrobloxgame/video/7703420666665504014"
+  }
+ ],
+ "laengen": [
+  {
+   "gruppe": "60–89 s",
+   "n": 1,
+   "median_aufrufe": 5900000,
+   "median_pro_tag": 4214286,
+   "max_aufrufe": 5900000,
+   "bestes": "https://www.tiktok.com/@larpniverse/video/7707635922652630285"
+  },
+  {
+   "gruppe": "150–180 s",
+   "n": 9,
+   "median_aufrufe": 151100,
+   "median_pro_tag": 127600,
+   "max_aufrufe": 3400000,
+   "bestes": "https://www.tiktok.com/@lileggy38/video/7706667212848811294"
+  },
+  {
+   "gruppe": "über 180 s",
+   "n": 1,
+   "median_aufrufe": 255500,
+   "median_pro_tag": 93248,
+   "max_aufrufe": 255500,
+   "bestes": "https://www.tiktok.com/@lileggy38/video/7707138879387602206"
+  },
+  {
+   "gruppe": "120–149 s",
+   "n": 9,
+   "median_aufrufe": 472400,
+   "median_pro_tag": 73583,
+   "max_aufrufe": 1500000,
+   "bestes": "https://www.tiktok.com/@lileggy38/video/7703746163652054303"
+  },
+  {
+   "gruppe": "90–119 s",
+   "n": 5,
+   "median_aufrufe": 33600,
+   "median_pro_tag": 30943,
+   "max_aufrufe": 2900000,
+   "bestes": "https://www.tiktok.com/@larpniverse/video/7707058457534369037"
+  }
+ ],
+ "serien": [
+  {
+   "gruppe": "einzel",
+   "n": 80,
+   "median_aufrufe": 17200.0,
+   "median_pro_tag": 7501.5,
+   "max_aufrufe": 5900000,
+   "bestes": "https://www.tiktok.com/@larpniverse/video/7707635922652630285"
+  },
+  {
+   "gruppe": "teil_2plus",
+   "n": 1,
+   "median_aufrufe": 30600,
+   "median_pro_tag": 2578,
+   "max_aufrufe": 30600,
+   "bestes": "https://www.tiktok.com/@town.rules/video/7703753959437077781"
+  }
+ ],
+ "serien_paare_alle_daten": [
+  {
+   "konto": "town.rules",
+   "teil": 2,
+   "vorher_url": "https://www.tiktok.com/@town.rules/video/7703405786906496277",
+   "vorher_aufrufe": 9641,
+   "nachher_url": "https://www.tiktok.com/@town.rules/video/7703753959437077781",
+   "nachher_aufrufe": 30600,
+   "sicher": false,
+   "quote": 3.174,
+   "datum": "2026-11-03"
+  },
+  {
+   "konto": "parabros",
+   "teil": 3,
+   "vorher_url": "https://www.tiktok.com/@parabros/video/6787132338330438917",
+   "vorher_aufrufe": 1300000,
+   "nachher_url": "https://www.tiktok.com/@parabros/video/6787843875076689158",
+   "nachher_aufrufe": 676900,
+   "sicher": false,
+   "quote": 0.521,
+   "datum": "2020-01-30"
+  }
+ ],
+ "hook_muster": [
+  {
+   "gruppe": "Altersschwelle („when you turn 18“)",
+   "n": 3,
+   "median_aufrufe": 1500000,
+   "median_pro_tag": 126156,
+   "max_aufrufe": 3400000,
+   "bestes": "https://www.tiktok.com/@lileggy38/video/7706667212848811294"
+  },
+  {
+   "gruppe": "sonstiger Satz",
+   "n": 7,
+   "median_aufrufe": 112300,
+   "median_pro_tag": 32741,
+   "max_aufrufe": 5900000,
+   "bestes": "https://www.tiktok.com/@larpniverse/video/7707635922652630285"
+  },
+  {
+   "gruppe": "Kurztitel (1–3 Wörter)",
+   "n": 15,
+   "median_aufrufe": 59100,
+   "median_pro_tag": 24024,
+   "max_aufrufe": 2900000,
+   "bestes": "https://www.tiktok.com/@larpniverse/video/7707058457534369037"
+  },
+  {
+   "gruppe": "„In this town/world …“",
+   "n": 17,
+   "median_aufrufe": 30900,
+   "median_pro_tag": 4947,
+   "max_aufrufe": 3400000,
+   "bestes": "https://www.tiktok.com/@lileggy38/video/7706667212848811294"
+  },
+  {
+   "gruppe": "Wiederkehr („every night/at midnight“)",
+   "n": 1,
+   "median_aufrufe": 14000,
+   "median_pro_tag": 4947,
+   "max_aufrufe": 14000,
+   "bestes": "https://www.tiktok.com/@thistownbiz/video/7707108274939776270"
+  },
+  {
+   "gruppe": "Verbot („never …“, „don't …“)",
+   "n": 2,
+   "median_aufrufe": 8970.5,
+   "median_pro_tag": 4028.0,
+   "max_aufrufe": 17100,
+   "bestes": "https://www.tiktok.com/@larpniverse/video/7707331694285638943"
+  },
+  {
+   "gruppe": "nur Gattungswort („story“, „In this town“)",
+   "n": 14,
+   "median_aufrufe": 8453.0,
+   "median_pro_tag": 2590.5,
+   "max_aufrufe": 3700000,
+   "bestes": "https://www.tiktok.com/@inthisworldstory/video/7706272654302448928"
+  },
+  {
+   "gruppe": "ohne Text",
+   "n": 26,
+   "median_aufrufe": 10950.0,
+   "median_pro_tag": 2202.5,
+   "max_aufrufe": 2400000,
+   "bestes": "https://www.tiktok.com/@frost_breezerdomi/video/7705770230311554324"
+  },
+  {
+   "gruppe": "Titel „The … who/that …“",
+   "n": 1,
+   "median_aufrufe": 6079,
+   "median_pro_tag": 602,
+   "max_aufrufe": 6079,
+   "bestes": "https://www.tiktok.com/@cannonanimatess/video/7704411400742980878"
+  }
+ ],
+ "motive": [
+  {
+   "gruppe": "Schule/Alltag/Komik",
+   "n": 5,
+   "median_aufrufe": 1000000,
+   "median_pro_tag": 480769,
+   "max_aufrufe": 5900000,
+   "bestes": "https://www.tiktok.com/@larpniverse/video/7707635922652630285"
+  },
+  {
+   "gruppe": "KI/Technik",
+   "n": 1,
+   "median_aufrufe": 497400,
+   "median_pro_tag": 99480,
+   "max_aufrufe": 497400,
+   "bestes": "https://www.tiktok.com/@lileggy38/video/7706300697435802911"
+  },
+  {
+   "gruppe": "Blick/Gesicht/Lächeln",
+   "n": 4,
+   "median_aufrufe": 252741.0,
+   "median_pro_tag": 50563.0,
+   "max_aufrufe": 906300,
+   "bestes": "https://www.tiktok.com/@dogeok/video/7706749030847794453"
+  },
+  {
+   "gruppe": "Tür/Haus/Einlass",
+   "n": 4,
+   "median_aufrufe": 236620.5,
+   "median_pro_tag": 36968.0,
+   "max_aufrufe": 547700,
+   "bestes": "https://www.tiktok.com/@dogeok/video/7706189011403951367"
+  },
+  {
+   "gruppe": "Superkraft/Fantasy",
+   "n": 10,
+   "median_aufrufe": 189450.0,
+   "median_pro_tag": 29915.5,
+   "max_aufrufe": 3400000,
+   "bestes": "https://www.tiktok.com/@lileggy38/video/7706667212848811294"
+  },
+  {
+   "gruppe": "Nachtritual/Auslosung",
+   "n": 2,
+   "median_aufrufe": 13600.0,
+   "median_pro_tag": 9073.5,
+   "max_aufrufe": 14000,
+   "bestes": "https://www.tiktok.com/@thistownbiz/video/7707108274939776270"
+  },
+  {
+   "gruppe": "Doppelgänger/falsche Eltern",
+   "n": 1,
+   "median_aufrufe": 64900,
+   "median_pro_tag": 7300,
+   "max_aufrufe": 64900,
+   "bestes": "https://www.tiktok.com/@lileggy38/video/7704858934200339743"
+  },
+  {
+   "gruppe": "Stimme/Geräusch/Radio",
+   "n": 1,
+   "median_aufrufe": 14000,
+   "median_pro_tag": 4947,
+   "max_aufrufe": 14000,
+   "bestes": "https://www.tiktok.com/@thistownbiz/video/7707108274939776270"
+  },
+  {
+   "gruppe": "kein Motiv erkannt",
+   "n": 51,
+   "median_aufrufe": 11000,
+   "median_pro_tag": 3554,
+   "max_aufrufe": 3700000,
+   "bestes": "https://www.tiktok.com/@inthisworldstory/video/7706272654302448928"
+  },
+  {
+   "gruppe": "Kreatur/Monster",
+   "n": 6,
+   "median_aufrufe": 13200.0,
+   "median_pro_tag": 3466.5,
+   "max_aufrufe": 123400,
+   "bestes": "https://www.tiktok.com/@lileggy38/video/7705956378749291806"
+  },
+  {
+   "gruppe": "Riese/übergroß",
+   "n": 1,
+   "median_aufrufe": 12200,
+   "median_pro_tag": 2435,
+   "max_aufrufe": 12200,
+   "bestes": "https://www.tiktok.com/@thistownbiz/video/7706299304033537311"
+  },
+  {
+   "gruppe": "Geist/Schatten",
+   "n": 1,
+   "median_aufrufe": 10500,
+   "median_pro_tag": 1332,
+   "max_aufrufe": 10500,
+   "bestes": "https://www.tiktok.com/@lileggy38/video/7705234225796107550"
+  }
+ ],
+ "genre": [
+  {
+   "gruppe": "Komik",
+   "n": 3,
+   "median_aufrufe": 2900000,
+   "median_pro_tag": 979730,
+   "max_aufrufe": 5900000,
+   "bestes": "https://www.tiktok.com/@larpniverse/video/7707635922652630285"
+  },
+  {
+   "gruppe": "Horror (laut Konto)",
+   "n": 10,
+   "median_aufrufe": 139350.0,
+   "median_pro_tag": 100428.5,
+   "max_aufrufe": 1100000,
+   "bestes": "https://www.tiktok.com/@concet5612/video/7707748313222630686"
+  },
+  {
+   "gruppe": "Fantasy",
+   "n": 11,
+   "median_aufrufe": 123400,
+   "median_pro_tag": 27090,
+   "max_aufrufe": 3400000,
+   "bestes": "https://www.tiktok.com/@lileggy38/video/7706667212848811294"
+  },
+  {
+   "gruppe": "unklar",
+   "n": 29,
+   "median_aufrufe": 14200,
+   "median_pro_tag": 6624,
+   "max_aufrufe": 3700000,
+   "bestes": "https://www.tiktok.com/@inthisworldstory/video/7706272654302448928"
+  },
+  {
+   "gruppe": "Horror",
+   "n": 11,
+   "median_aufrufe": 13200,
+   "median_pro_tag": 4947,
+   "max_aufrufe": 906300,
+   "bestes": "https://www.tiktok.com/@dogeok/video/7706749030847794453"
+  },
+  {
+   "gruppe": "unklar (ohne Text)",
+   "n": 16,
+   "median_aufrufe": 7014.0,
+   "median_pro_tag": 581.0,
+   "max_aufrufe": 2400000,
+   "bestes": "https://www.tiktok.com/@frost_breezerdomi/video/7705770230311554324"
+  },
+  {
+   "gruppe": "Horror (nur Hashtag)",
+   "n": 1,
+   "median_aufrufe": 3927,
+   "median_pro_tag": 308,
+   "max_aufrufe": 3927,
+   "bestes": "https://www.tiktok.com/@zerobraincellstudio/video/7703416647532514568"
+  }
+ ],
+ "fehlende_quellen": {
+  "konten": [
+   "jexario",
+   "yougplat",
+   "horrorrobs"
+  ],
+  "hashtags": [
+   "horrorstory",
+   "scarystory"
+  ]
+ },
+ "sounds": [
+  {
+   "titel": "original sound",
+   "autor": "larpniverse",
+   "original": true,
+   "n": 2,
+   "aufrufe_summe": 8800000,
+   "videos": [
+    "https://www.tiktok.com/@larpniverse/video/7707635922652630285",
+    "https://www.tiktok.com/@larpniverse/video/7707058457534369037"
+   ]
+  },
+  {
+   "titel": "original sound",
+   "autor": "cannonanimatess",
+   "original": true,
+   "n": 3,
+   "aufrufe_summe": 7133600,
+   "videos": [
+    "https://www.tiktok.com/@cannonanimatess/video/7705251558409161998",
+    "https://www.tiktok.com/@cannonanimatess/video/7700703518927129870",
+    "https://www.tiktok.com/@cannonanimatess/video/7698583754603793678"
+   ]
+  },
+  {
+   "titel": "original sound - lileggy",
+   "autor": "lileggy",
+   "original": true,
+   "n": 4,
+   "aufrufe_summe": 6355500,
+   "videos": [
+    "https://www.tiktok.com/@lileggy38/video/7706667212848811294",
+    "https://www.tiktok.com/@lileggy38/video/7703746163652054303",
+    "https://www.tiktok.com/@lileggy38/video/7702250665216593182",
+    "https://www.tiktok.com/@lileggy38/video/7707138879387602206"
+   ]
+  },
+  {
+   "titel": "original sound - TeamDeam",
+   "autor": "TeamDeam",
+   "original": true,
+   "n": 1,
+   "aufrufe_summe": 6300000,
+   "videos": [
+    "https://www.tiktok.com/@notmexx45/video/7701799925851458838"
+   ]
+  },
+  {
+   "titel": "original sound - concet5612",
+   "autor": "concet5612",
+   "original": true,
+   "n": 10,
+   "aufrufe_summe": 3207676,
+   "videos": [
+    "https://www.tiktok.com/@concet5612/video/7708150354227072287",
+    "https://www.tiktok.com/@concet5612/video/7708119430370233631",
+    "https://www.tiktok.com/@concet5612/video/7708115978927803662",
+    "https://www.tiktok.com/@concet5612/video/7707779306612690207",
+    "https://www.tiktok.com/@concet5612/video/7707759204500639007",
+    "https://www.tiktok.com/@concet5612/video/7707748313222630686",
+    "https://www.tiktok.com/@concet5612/video/7707377218636254494",
+    "https://www.tiktok.com/@concet5612/video/7707255986989305119",
+    "https://www.tiktok.com/@concet5612/video/7707037219986427167",
+    "https://www.tiktok.com/@concet5612/video/7707016226962263327"
+   ]
+  },
+  {
+   "titel": "sunet original",
+   "autor": "Roblox Story Compilation",
+   "original": true,
+   "n": 1,
+   "aufrufe_summe": 3200000,
+   "videos": [
+    "https://www.tiktok.com/@robloxstories13346/video/7703649636795370774"
+   ]
+  },
+  {
+   "titel": "original sound - DogeOk",
+   "autor": "DogeOk",
+   "original": true,
+   "n": 4,
+   "aufrufe_summe": 1968000,
+   "videos": [
+    "https://www.tiktok.com/@dogeok/video/7707714584647437586",
+    "https://www.tiktok.com/@dogeok/video/7706749030847794453",
+    "https://www.tiktok.com/@dogeok/video/7706189011403951367",
+    "https://www.tiktok.com/@dogeok/video/7705777966814481670"
+   ]
+  },
+  {
+   "titel": "audio originale",
+   "autor": "Chri",
+   "original": true,
+   "n": 2,
+   "aufrufe_summe": 278300,
+   "videos": [
+    "https://www.tiktok.com/@inthisworldstory/video/7707762843331857697",
+    "https://www.tiktok.com/@inthisworldstory/video/7706660776613842209"
+   ]
+  },
+  {
+   "titel": "original sound - Town rules",
+   "autor": "Town rules",
+   "original": true,
+   "n": 1,
+   "aufrufe_summe": 30600,
+   "videos": [
+    "https://www.tiktok.com/@town.rules/video/7703753959437077781"
+   ]
+  },
+  {
+   "titel": "original sound",
+   "autor": "ThisTown 🏙️",
+   "original": true,
+   "n": 2,
+   "aufrufe_summe": 18546,
+   "videos": [
+    "https://www.tiktok.com/@thistownbiz/video/7707665309234154783",
+    "https://www.tiktok.com/@thistownbiz/video/7707455609590844703"
+   ]
+  }
+ ],
+ "videos": [
+  {
+   "id": "7392323967442226465",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:robloxhorror"
+   ],
+   "konto": "calisity",
+   "text": "the SCARIEST horror game I have ever played #foryou #fyp #horror #scary #jumpscare #3am #roblox #robloxhorror #horrorgame #trending #viral #gaming ",
+   "aufrufe": 37500000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2024-07-16T19:52Z",
+   "url": "https://www.tiktok.com/@calisity/video/7392323967442226465",
+   "alter_tage": 851.11,
+   "aufrufe_pro_tag": 44060,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [],
+   "genre": "Horror",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7696259485601434913",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:robloxhorror"
+   ],
+   "konto": "realechostudio",
+   "text": "ECHO coming soon on ROBLOX #roblox #robloxhorror #horrorgame #fyp #echo ",
+   "aufrufe": 33800000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2026-10-13T20:57Z",
+   "url": "https://www.tiktok.com/@realechostudio/video/7696259485601434913",
+   "alter_tage": 32.06,
+   "aufrufe_pro_tag": 1054273,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [],
+   "genre": "Horror (nur Hashtag)",
+   "format": "Spiel-Werbung",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7582005003146022199",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:iarise",
+    "tag:robloxhorror"
+   ],
+   "konto": "iarise",
+   "text": "Why this game lwk peak 💀 #horror #roblox #fyp #robloxhorror ",
+   "aufrufe": 32200000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2025-12-09T23:31Z",
+   "url": "https://www.tiktok.com/@iarise/video/7582005003146022199",
+   "alter_tage": 339.95,
+   "aufrufe_pro_tag": 94720,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [],
+   "genre": "Horror (nur Hashtag)",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7331488124247264544",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:robloxhorror"
+   ],
+   "konto": "calisity",
+   "text": "the SCARIEST roblox horror game ever made #roblox #robloxhorror #fyp #foryou #viral #horror #jumpscare #3am #trending #gaming #backrooms #scary ",
+   "aufrufe": 31800000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2024-02-03T21:18Z",
+   "url": "https://www.tiktok.com/@calisity/video/7331488124247264544",
+   "alter_tage": 1015.05,
+   "aufrufe_pro_tag": 31329,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [],
+   "genre": "Horror",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7677744970152873229",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:robloxhorror"
+   ],
+   "konto": "iarise",
+   "text": "how did it get faster 💀 #roblox #horror #robloxhorror #horrorgame ",
+   "aufrufe": 27400000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2026-08-24T23:31Z",
+   "url": "https://www.tiktok.com/@iarise/video/7677744970152873229",
+   "alter_tage": 81.95,
+   "aufrufe_pro_tag": 334350,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [],
+   "genre": "Horror (nur Hashtag)",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7318486755689237792",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:robloxhorror"
+   ],
+   "konto": "calisity",
+   "text": "game : Nightlight.  scariest roblox horror game #viral #fyp #foryou #trending #roblox #horror #robloxhorror #3am ",
+   "aufrufe": 23700000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2023-12-30T20:26Z",
+   "url": "https://www.tiktok.com/@calisity/video/7318486755689237792",
+   "alter_tage": 1050.08,
+   "aufrufe_pro_tag": 22570,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "Spielname („Game: …“)"
+   ],
+   "motive": [
+    "Tür/Haus/Einlass"
+   ],
+   "genre": "Horror",
+   "format": "Gameplay",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7229918326313454894",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:robloxstory"
+   ],
+   "konto": "rokkorblx",
+   "text": "Does Forsaken have the scariest jumpscares? If not, what does… #robloxhorrror #roblox #robloxfyp #scaryrobloxgames #robloxedit #robloxstory #robloxhorror ",
+   "aufrufe": 21700000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2023-05-06T04:15Z",
+   "url": "https://www.tiktok.com/@rokkorblx/video/7229918326313454894",
+   "alter_tage": 1288.76,
+   "aufrufe_pro_tag": 16838,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [],
+   "genre": "Horror (nur Hashtag)",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7385263820056415521",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:robloxstories",
+    "tag:robloxstory"
+   ],
+   "konto": "rico_2tr",
+   "text": "My gf used to sing this song to my sister all the time when we first started dating and its been my sisters favorite song ever since | Also my sister is the only girl out of 7 brothers thats why she’s so obsessed with Angel lol | and my gfs account is @꒰ঌ Angel ໒꒱ #roblox #robloxvr #robloxvrgame #vi",
+   "aufrufe": 21200000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2024-06-27T19:15Z",
+   "url": "https://www.tiktok.com/@rico_2tr/video/7385263820056415521",
+   "alter_tage": 870.13,
+   "aufrufe_pro_tag": 24364,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [],
+   "genre": "Komik",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7351877814817164550",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:robloxstory"
+   ],
+   "konto": "guibe_lv",
+   "text": "xd #roblox #GuibeLV #robloxgames #robloxstory #robloxfyp #ofrendamaya @Miko ",
+   "aufrufe": 18600000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2024-03-29T20:00Z",
+   "url": "https://www.tiktok.com/@guibe_lv/video/7351877814817164550",
+   "alter_tage": 960.1,
+   "aufrufe_pro_tag": 19373,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "Kurztitel (1–3 Wörter)"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7659475000784669972",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:robloxhorror"
+   ],
+   "konto": "tt.dxzed",
+   "text": "CREDITS TO @ScaryPlay PLEASE READ: I got the release date wrong, the game is being released one week after the trailer drops which is scheduled to be sometime this month. I am also NOT a part of any development team, I edit for fun. Ty for reading ❤ IM SO EXCITED AND TERRIFIED TO PLAY THIS NEW ROBLO",
+   "aufrufe": 18500000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2026-07-06T17:54Z",
+   "url": "https://www.tiktok.com/@tt.dxzed/video/7659475000784669972",
+   "alter_tage": 131.19,
+   "aufrufe_pro_tag": 141017,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [],
+   "genre": "Horror",
+   "format": "Spiel-Werbung",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7345124441489165600",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:robloxhorror"
+   ],
+   "konto": "calisity",
+   "text": "the SCARIEST roblox scary games to play with friends #foryou #foryou #roblox #robloxhorror #horror #viral #horrorgame #trending #3am #scary #jumpscare #gaming #robloxfyp ",
+   "aufrufe": 18400000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2024-03-11T15:14Z",
+   "url": "https://www.tiktok.com/@calisity/video/7345124441489165600",
+   "alter_tage": 978.3,
+   "aufrufe_pro_tag": 18808,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [],
+   "genre": "Horror",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "6888442702082346245",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:scarystories"
+   ],
+   "konto": "daisyfontenot",
+   "text": "My neighbors have NO chill 🎈🥴 #It #Halloween #MyCostume #Yellow #MeLeaving #HorrorTok #SpookyTreats #Boo #HalloweenAtHome #ScaryStories",
+   "aufrufe": 18400000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2020-10-27T23:15Z",
+   "url": "https://www.tiktok.com/@daisyfontenot/video/6888442702082346245",
+   "alter_tage": 2208.96,
+   "aufrufe_pro_tag": 8330,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [],
+   "genre": "Horror (nur Hashtag)",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7220595954301455662",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:robloxstories",
+    "tag:robloxstory"
+   ],
+   "konto": "anticlimaxjax",
+   "text": "the squirrel just standing there💀| Discord in bio #skinwalker #skinwalkers #skinwalkerstories #robloxskinwalker #micupskinwalkers #roblox #robox #robloxmicup #micup #micuproblox #robloxedit #robloxstory #robloxx #robloxgames #robloxstories #robloxadoptme #robloxtiktok  #robloxyeti #dahoodyeti #dahoo",
+   "aufrufe": 17100000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2023-04-11T01:20Z",
+   "url": "https://www.tiktok.com/@anticlimaxjax/video/7220595954301455662",
+   "alter_tage": 1313.88,
+   "aufrufe_pro_tag": 13015,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7530458280821345566",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:robloxhorror"
+   ],
+   "konto": "phonyboo",
+   "text": "GAME: NIGHT SHIFT AT CHUCK E CHEESE 2 #CapCut #fyp #viral #fy #fypシ #foryoupage #fypage #trending #funny #viralvideo #floptok #blowthisup #horrorgame #horror #scary #chuckecheese #roblox #robloxhorror ",
+   "aufrufe": 13800000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2025-07-24T01:44Z",
+   "url": "https://www.tiktok.com/@phonyboo/video/7530458280821345566",
+   "alter_tage": 478.86,
+   "aufrufe_pro_tag": 28818,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "Spielname („Game: …“)"
+   ],
+   "motive": [],
+   "genre": "Horror (nur Hashtag)",
+   "format": "Gameplay",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7705079709507374367",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:inthistown",
+    "tag:inthisworld"
+   ],
+   "konto": "inthistownthegame",
+   "text": "\"In This Town.. full version OUT NOW LINK IN BIO! comment below ideas u want added #inthistown #inthisworld #horror #roblox #scary",
+   "aufrufe": 12700000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2026-11-06T15:24Z",
+   "url": "https://www.tiktok.com/@inthistownthegame/video/7705079709507374367",
+   "alter_tage": 8.29,
+   "aufrufe_pro_tag": 1531966,
+   "teil": {
+    "art": "zusammenschnitt",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "„In this town/world …“"
+   ],
+   "motive": [],
+   "genre": "Horror (nur Hashtag)",
+   "format": "Zusammenschnitt/Edit",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "6888682920907656449",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:scarystories"
+   ],
+   "konto": "sariaalto",
+   "text": "Hi! I’m Chucky, wanna play? ❤️🔪 #HalloweenLook #ScaryStories #Chucky",
+   "aufrufe": 12100000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2020-10-28T14:47Z",
+   "url": "https://www.tiktok.com/@sariaalto/video/6888682920907656449",
+   "alter_tage": 2208.32,
+   "aufrufe_pro_tag": 5479,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [],
+   "genre": "Horror (nur Hashtag)",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7116193261588385030",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:robloxstory"
+   ],
+   "konto": "vsedxtor",
+   "text": "@stxnger.eddieharrington antworten new story🤟🏻😍 || @taj.sar.08 @ynxxmarvel || #fypシ゚viral #robloxstory #robloxstorys #funny",
+   "aufrufe": 11300000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2022-07-03T17:04Z",
+   "url": "https://www.tiktok.com/@vsedxtor/video/7116193261588385030",
+   "alter_tage": 1595.22,
+   "aufrufe_pro_tag": 7084,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "Kurztitel (1–3 Wörter)"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7254594128120401198",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:robloxstory"
+   ],
+   "konto": "cleanmeanbeans",
+   "text": "At least I look like a bad b 😔 #roblox #robloxgames #robloxadoptme #robloxfyp #robloxstory #bloxburghouse #robloxhorror #bloxburgrp #bloxburgroleplay #totalrobloxdrama ",
+   "aufrufe": 11000000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2023-07-11T16:10Z",
+   "url": "https://www.tiktok.com/@cleanmeanbeans/video/7254594128120401198",
+   "alter_tage": 1222.26,
+   "aufrufe_pro_tag": 9000,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7266686720865897774",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:robloxstory"
+   ],
+   "konto": "therobloxgirladdict",
+   "text": "LIFE IS ROBLOX🤓🤓 (My 16th)l m grateful for the life i continue to live to my last breathe,😈 🙏 #vivitiktoks #robloxcommunity #robloxparty #royalehigh #sweet16 #royalehighroblox #robloxtiktok #robloxplayers #robloxmexico🇲🇽 #robloxfyp #roblox #robloxgames #robloxavatar #robloxstory ",
+   "aufrufe": 9600000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2023-08-13T06:15Z",
+   "url": "https://www.tiktok.com/@therobloxgirladdict/video/7266686720865897774",
+   "alter_tage": 1189.67,
+   "aufrufe_pro_tag": 8069,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7252424027715816710",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:robloxhorrorstory"
+   ],
+   "konto": "brenablox",
+   "text": "EL JUEGO MÁS *ATERRADOR* DENTRO DE ROBLOX 💀 #roblox #robloxgames #robloxterror #robloxmiedo #brenasauriox #terror #miedo #silentblox #juegosderoblox #recomendandojuegosderoblox #juegodeterror #robloxhorror #robloxhorrorgame #robloxhorrorstory ",
+   "aufrufe": 8000000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2023-07-05T19:49Z",
+   "url": "https://www.tiktok.com/@brenablox/video/7252424027715816710",
+   "alter_tage": 1228.11,
+   "aufrufe_pro_tag": 6514,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7703420666665504014",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:inthistown",
+    "tag:inthisworld"
+   ],
+   "konto": "inthisworldrobloxgame",
+   "text": "you’ve watched a thousand of these… what if you were actually in one? 🌍 tuesday 11/3, free on roblox #roblox #inthisworld #inthistown #robloxstory ",
+   "aufrufe": 6900000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2026-11-02T04:06Z",
+   "url": "https://www.tiktok.com/@inthisworldrobloxgame/video/7703420666665504014",
+   "alter_tage": 12.76,
+   "aufrufe_pro_tag": 540752,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [],
+   "genre": "Horror",
+   "format": "Spiel-Werbung",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7701799925851458838",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:notmexx45",
+    "tag:inthistown",
+    "videoseite"
+   ],
+   "konto": "notmexx45",
+   "text": "oh yeah #inthistown #roblox #fyp #robloxinthistown #robloxstory ",
+   "dauer_s": 6,
+   "sound": {
+    "titel": "original sound - TeamDeam",
+    "autor": "TeamDeam",
+    "original": true,
+    "id": "7698107291656096526"
+   },
+   "hashtags": [
+    "fyp",
+    "inthistown",
+    "roblox",
+    "robloxinthistown",
+    "robloxstory"
+   ],
+   "ki_label": false,
+   "aufrufe": 6300000,
+   "likes": 1500000,
+   "kommentare": 6478,
+   "shares": 106500,
+   "gespeichert": 113671,
+   "stand": "2026-11-14T22:26Z",
+   "datum": "2026-10-28T19:17Z",
+   "url": "https://www.tiktok.com/@notmexx45/video/7701799925851458838",
+   "alter_tage": 17.13,
+   "aufrufe_pro_tag": 367776,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "Kurztitel (1–3 Wörter)"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": "unter 60 s",
+   "likes_je_100": 23.81,
+   "shares_je_1000": 16.9
+  },
+  {
+   "id": "7707635922652630285",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:larpniverse",
+    "tag:inthistown",
+    "videoseite"
+   ],
+   "konto": "larpniverse",
+   "text": "While they are out partying🪩 #roblox #inthistown #fyp",
+   "dauer_s": 75,
+   "sound": {
+    "titel": "original sound",
+    "autor": "larpniverse",
+    "original": true,
+    "id": "7707636071127452430"
+   },
+   "hashtags": [
+    "fyp",
+    "inthistown",
+    "roblox"
+   ],
+   "ki_label": false,
+   "aufrufe": 5900000,
+   "likes": 961700,
+   "kommentare": 6860,
+   "shares": 265500,
+   "gespeichert": 74912,
+   "stand": "2026-11-14T22:25Z",
+   "datum": "2026-11-13T12:43Z",
+   "url": "https://www.tiktok.com/@larpniverse/video/7707635922652630285",
+   "alter_tage": 1.4,
+   "aufrufe_pro_tag": 4214286,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [
+    "Schule/Alltag/Komik"
+   ],
+   "genre": "Komik",
+   "format": "Story",
+   "laenge": "60–89 s",
+   "likes_je_100": 16.3,
+   "shares_je_1000": 45.0
+  },
+  {
+   "id": "7248081988010265899",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:robloxhorrorstories",
+    "tag:robloxhorrorstory"
+   ],
+   "konto": "ignitedsoftworks",
+   "text": "Game: \"A Stereotypical Obby\" (INCLUDE QUOTES WHEN SEARCHING) #roblox #robloxhorror #robloxhorrorgame #robloxdev #robloxgames #robloxgamestoplaywithyourfriends #robloxhorrorstories #robloxfyp #robloxtiktok #robloxx #robloxhorrorstory #robloxhorrorfyp #dahood #micup #fyp #robloxhorrorgamestoplaywithfr",
+   "aufrufe": 5700000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:27Z",
+   "datum": "2023-06-24T02:59Z",
+   "url": "https://www.tiktok.com/@ignitedsoftworks/video/7248081988010265899",
+   "alter_tage": 1239.81,
+   "aufrufe_pro_tag": 4597,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "Spielname („Game: …“)"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Gameplay",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7702839156375948566",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:inthistown"
+   ],
+   "konto": "bah7uz",
+   "text": "Those Roblox stories are so good😭🔥 | Roblox Stories Edit | Song: ANTROBEARS FANMADE || #robloxstory #robloxanimation #inthistown #storytelling #zackdfilms ",
+   "aufrufe": 5300000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2026-10-31T14:29Z",
+   "url": "https://www.tiktok.com/@bah7uz/video/7702839156375948566",
+   "alter_tage": 14.33,
+   "aufrufe_pro_tag": 369853,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Zusammenschnitt/Edit",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7698583754603793678",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:cannonanimatess",
+    "videoseite"
+   ],
+   "konto": "cannonanimatess",
+   "text": "In This Town, A Game Of Tag Is Deadly💀#roblox #robloxanimation #robloxstory ",
+   "dauer_s": 142,
+   "sound": {
+    "titel": "original sound",
+    "autor": "cannonanimatess",
+    "original": true,
+    "id": "7698583845418978061"
+   },
+   "hashtags": [
+    "roblox",
+    "robloxanimation",
+    "robloxstory"
+   ],
+   "ki_label": false,
+   "aufrufe": 5100000,
+   "likes": 416400,
+   "kommentare": 3425,
+   "shares": 14900,
+   "gespeichert": 41582,
+   "stand": "2026-11-14T22:25Z",
+   "datum": "2026-10-20T03:16Z",
+   "url": "https://www.tiktok.com/@cannonanimatess/video/7698583754603793678",
+   "alter_tage": 25.8,
+   "aufrufe_pro_tag": 197674,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "„In this town/world …“"
+   ],
+   "motive": [
+    "Spiel wird tödlich"
+   ],
+   "genre": "Horror",
+   "format": "Story",
+   "laenge": "120–149 s",
+   "likes_je_100": 8.16,
+   "shares_je_1000": 2.92
+  },
+  {
+   "id": "7704731588591947016",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:inthistown"
+   ],
+   "konto": "kr.editzx0",
+   "text": "THE BIGGEST COMPLATION IN THIS TOWN ROBLOX hope ya like it #roblox #usa🇺🇸 #inthistown #robloxstory #algorithm ",
+   "aufrufe": 4800000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2026-11-05T16:53Z",
+   "url": "https://www.tiktok.com/@kr.editzx0/video/7704731588591947016",
+   "alter_tage": 9.23,
+   "aufrufe_pro_tag": 520043,
+   "teil": {
+    "art": "zusammenschnitt",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Zusammenschnitt/Edit",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "6824636713072135429",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:scarystories"
+   ],
+   "konto": "austinvro",
+   "text": "The Story of the Blind Woman who could see Ghost😳 #fyp #viral #scarystories #storytime #storytelling #scaryvideos #austinvro",
+   "aufrufe": 4800000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2020-05-09T00:35Z",
+   "url": "https://www.tiktok.com/@austinvro/video/6824636713072135429",
+   "alter_tage": 2380.91,
+   "aufrufe_pro_tag": 2016,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "Titel „The … who/that …“"
+   ],
+   "motive": [
+    "Geist/Schatten"
+   ],
+   "genre": "Horror",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7657946595995979030",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:robloxhorrorstory"
+   ],
+   "konto": "roreview3",
+   "text": "1.)movie massacre 2.)mental 3.)short horror games 4.)obscure 5.)subconcious #robloxhorrorgame #robloxhorrorstory #horrorgames #scaryroblox #robloxgamestoplay ",
+   "aufrufe": 4400000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2026-07-02T15:03Z",
+   "url": "https://www.tiktok.com/@roreview3/video/7657946595995979030",
+   "alter_tage": 135.31,
+   "aufrufe_pro_tag": 32518,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [],
+   "genre": "Horror",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7705300037651221768",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:zerobraincellstudio",
+    "tag:inthisworld"
+   ],
+   "konto": "zerobraincellstudio",
+   "text": "Game name Survive the SCPs #roblox #inthisworld #animatedstories #robloxstory #fyp ",
+   "aufrufe": 3900000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:25Z",
+   "datum": "2026-11-07T05:39Z",
+   "url": "https://www.tiktok.com/@zerobraincellstudio/video/7705300037651221768",
+   "alter_tage": 7.7,
+   "aufrufe_pro_tag": 506494,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [
+    "Kreatur/Monster"
+   ],
+   "genre": "Horror",
+   "format": "Gameplay",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7706272654302448928",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:inthisworld"
+   ],
+   "konto": "inthisworldstory",
+   "text": "story #robloxstory #robloxanimation #roblox #inthisworld ",
+   "aufrufe": 3700000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2026-11-09T20:33Z",
+   "url": "https://www.tiktok.com/@inthisworldstory/video/7706272654302448928",
+   "alter_tage": 5.08,
+   "aufrufe_pro_tag": 728346,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "nur Gattungswort („story“, „In this town“)"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7132170716950170923",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:robloxhorrorstories",
+    "tag:robloxhorrorstory"
+   ],
+   "konto": "weluvduckys",
+   "text": "#pov there’s a weird man stalking you and your daughter.. #ReTokforNature #roblox #robloxedit #robloxfyp #xyzbca #foryoupage #fyp #bloxburg #bloxburgbuild #bloxburghack #bloxburgstory #robloxstory #roleplay #bloxburgroleplay #bloxburgstory #robloxhorrorstories #robloxhorrorstory #bloxburghorrorstory",
+   "aufrufe": 3700000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:27Z",
+   "datum": "2022-08-15T18:24Z",
+   "url": "https://www.tiktok.com/@weluvduckys/video/7132170716950170923",
+   "alter_tage": 1552.17,
+   "aufrufe_pro_tag": 2384,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [],
+   "genre": "Horror",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7705638222407142670",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:inthistown"
+   ],
+   "konto": "milliethebaddie",
+   "text": "In this town #inthistown #tiktok #roblox #robloxstory ",
+   "aufrufe": 3500000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2026-11-08T03:31Z",
+   "url": "https://www.tiktok.com/@milliethebaddie/video/7705638222407142670",
+   "alter_tage": 6.79,
+   "aufrufe_pro_tag": 515464,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "nur Gattungswort („story“, „In this town“)"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7444729102508084536",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:inthisworld"
+   ],
+   "konto": "mendezerik5",
+   "text": "In This World ❤️‍🩹  #asitwas #harrystyles #camila #love #amor #inthisworld #dedicar #flypシ #miamor #paraella #iloveyou #teamo #song #letras #indirecta #mandarinsong #parati #viral #Capcut #pareja",
+   "aufrufe": 3500000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2024-12-05T01:11Z",
+   "url": "https://www.tiktok.com/@mendezerik5/video/7444729102508084536",
+   "alter_tage": 709.88,
+   "aufrufe_pro_tag": 4930,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "nur Gattungswort („story“, „In this town“)"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7706667212848811294",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:lileggy38",
+    "tag:inthistown",
+    "tag:inthisworld",
+    "videoseite"
+   ],
+   "konto": "lileggy38",
+   "text": "In this town, when you turn 18, you get CRACKED 😭💀 At first, I couldn't believe everyone had to go through it, but then I realized I love CRACKING 🙈 #inthistown#inthisworld#crack#roblox#robloxanimation#plottwist #trending#fyp",
+   "dauer_s": 151,
+   "sound": {
+    "titel": "original sound - lileggy",
+    "autor": "lileggy",
+    "original": true,
+    "id": "7706667293039790878"
+   },
+   "hashtags": [
+    "crack",
+    "fyp",
+    "inthistown",
+    "inthisworld",
+    "plottwist",
+    "roblox",
+    "robloxanimation",
+    "trending"
+   ],
+   "ki_label": false,
+   "aufrufe": 3400000,
+   "likes": 495300,
+   "kommentare": 6841,
+   "shares": 135700,
+   "gespeichert": 48329,
+   "stand": "2026-11-14T22:25Z",
+   "datum": "2026-11-10T22:04Z",
+   "url": "https://www.tiktok.com/@lileggy38/video/7706667212848811294",
+   "alter_tage": 4.01,
+   "aufrufe_pro_tag": 847880,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "„In this town/world …“",
+    "Altersschwelle („when you turn 18“)"
+   ],
+   "motive": [
+    "Superkraft/Fantasy"
+   ],
+   "genre": "Fantasy",
+   "format": "Story",
+   "laenge": "150–180 s",
+   "likes_je_100": 14.57,
+   "shares_je_1000": 39.91
+  },
+  {
+   "id": "7703649636795370774",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:robloxstories13346",
+    "tag:inthisworld",
+    "videoseite"
+   ],
+   "konto": "robloxstories13346",
+   "text": "In this town #inthisworld #roblox #story #robloxstory #compilation ",
+   "dauer_s": 565,
+   "sound": {
+    "titel": "sunet original",
+    "autor": "Roblox Story Compilation",
+    "original": true,
+    "id": "7703649705909177110"
+   },
+   "hashtags": [
+    "compilation",
+    "inthisworld",
+    "roblox",
+    "robloxstory",
+    "story"
+   ],
+   "ki_label": false,
+   "aufrufe": 3200000,
+   "likes": 435800,
+   "kommentare": 1478,
+   "shares": 27000,
+   "gespeichert": 34471,
+   "stand": "2026-11-14T22:26Z",
+   "datum": "2026-11-02T18:55Z",
+   "url": "https://www.tiktok.com/@robloxstories13346/video/7703649636795370774",
+   "alter_tage": 12.15,
+   "aufrufe_pro_tag": 263374,
+   "teil": {
+    "art": "zusammenschnitt",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "nur Gattungswort („story“, „In this town“)"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Zusammenschnitt/Edit",
+   "laenge": "über 180 s",
+   "likes_je_100": 13.62,
+   "shares_je_1000": 8.44
+  },
+  {
+   "id": "7707058457534369037",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:larpniverse",
+    "videoseite"
+   ],
+   "konto": "larpniverse",
+   "text": "Showers cost millions 🚿 #roblox #inthistown #fyp #viral",
+   "dauer_s": 90,
+   "sound": {
+    "titel": "original sound",
+    "autor": "larpniverse",
+    "original": true,
+    "id": "7707058598915984142"
+   },
+   "hashtags": [
+    "fyp",
+    "inthistown",
+    "roblox",
+    "viral"
+   ],
+   "ki_label": false,
+   "aufrufe": 2900000,
+   "likes": 277700,
+   "kommentare": 1099,
+   "shares": 26100,
+   "gespeichert": 16801,
+   "stand": "2026-11-14T22:25Z",
+   "datum": "2026-11-11T23:23Z",
+   "url": "https://www.tiktok.com/@larpniverse/video/7707058457534369037",
+   "alter_tage": 2.96,
+   "aufrufe_pro_tag": 979730,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "Kurztitel (1–3 Wörter)"
+   ],
+   "motive": [
+    "Schule/Alltag/Komik"
+   ],
+   "genre": "Komik",
+   "format": "Story",
+   "laenge": "90–119 s",
+   "likes_je_100": 9.58,
+   "shares_je_1000": 9.0
+  },
+  {
+   "id": "7330351334484462854",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:inthisworld"
+   ],
+   "konto": "niya.lk",
+   "text": "#iconicduo #movie #us #meandyou #recommendations #fypage #foryou #fypシ #inthisworld #usinanotheruniverce #fyp ",
+   "aufrufe": 2900000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2024-01-31T19:46Z",
+   "url": "https://www.tiktok.com/@niya.lk/video/7330351334484462854",
+   "alter_tage": 1018.11,
+   "aufrufe_pro_tag": 2848,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "ohne Text"
+   ],
+   "motive": [],
+   "genre": "unklar (ohne Text)",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7703564459272408352",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:inthistown",
+    "tag:inthisworld"
+   ],
+   "konto": "nice_right1",
+   "text": "I love those videos #inthistown #inthisworld #inthistownrobloxstories #fyppp #viral",
+   "aufrufe": 2800000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2026-11-02T13:24Z",
+   "url": "https://www.tiktok.com/@nice_right1/video/7703564459272408352",
+   "alter_tage": 12.38,
+   "aufrufe_pro_tag": 226171,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Zusammenschnitt/Edit",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7701401085012872470",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:inthistown"
+   ],
+   "konto": "iirenelobatoo",
+   "text": "#inthistown #roblox #robloxvideos #peak ",
+   "aufrufe": 2700000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2026-10-27T17:29Z",
+   "url": "https://www.tiktok.com/@iirenelobatoo/video/7701401085012872470",
+   "alter_tage": 18.2,
+   "aufrufe_pro_tag": 148352,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "ohne Text"
+   ],
+   "motive": [],
+   "genre": "unklar (ohne Text)",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7705770230311554324",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:inthisworld"
+   ],
+   "konto": "frost_breezerdomi",
+   "text": "#CapCut #inthisworld  #roblox #creatorsearchinsight #fyp ",
+   "aufrufe": 2400000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2026-11-08T12:04Z",
+   "url": "https://www.tiktok.com/@frost_breezerdomi/video/7705770230311554324",
+   "alter_tage": 6.43,
+   "aufrufe_pro_tag": 373250,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "ohne Text"
+   ],
+   "motive": [],
+   "genre": "unklar (ohne Text)",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7700703518927129870",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:cannonanimatess",
+    "videoseite"
+   ],
+   "konto": "cannonanimatess",
+   "text": "In This Town, Everyone Lives On A Giant Clock🕰️ #roblox #robloxanimation #robloxstory ",
+   "dauer_s": 133,
+   "sound": {
+    "titel": "original sound",
+    "autor": "cannonanimatess",
+    "original": true,
+    "id": "7700703682341554957"
+   },
+   "hashtags": [
+    "roblox",
+    "robloxanimation",
+    "robloxstory"
+   ],
+   "ki_label": false,
+   "aufrufe": 2000000,
+   "likes": 132500,
+   "kommentare": 387,
+   "shares": 3535,
+   "gespeichert": 10325,
+   "stand": "2026-11-14T22:25Z",
+   "datum": "2026-10-25T20:22Z",
+   "url": "https://www.tiktok.com/@cannonanimatess/video/7700703518927129870",
+   "alter_tage": 20.09,
+   "aufrufe_pro_tag": 99552,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "„In this town/world …“"
+   ],
+   "motive": [
+    "Riese/übergroß",
+    "Superkraft/Fantasy"
+   ],
+   "genre": "Fantasy",
+   "format": "Story",
+   "laenge": "120–149 s",
+   "likes_je_100": 6.62,
+   "shares_je_1000": 1.77
+  },
+  {
+   "id": "6829397424365112582",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:scarystories"
+   ],
+   "konto": "yolkfather",
+   "text": "Scary True Story #storytime #greenscreen #scarystories #creepyfacts #foryoupage #realityripple #dinoday #edutok #horrorstory",
+   "aufrufe": 2000000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2020-05-21T20:29Z",
+   "url": "https://www.tiktok.com/@yolkfather/video/6829397424365112582",
+   "alter_tage": 2368.08,
+   "aufrufe_pro_tag": 845,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "Kurztitel (1–3 Wörter)"
+   ],
+   "motive": [],
+   "genre": "Horror",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "6865832027732643077",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:scarystories"
+   ],
+   "konto": "theparanormalfiles",
+   "text": "The haunted LIBRARY in the real CONJURING HOUSE... next video is SPOOKY. @itskrisstar #fyp #foryou #foryoupage #conjuring #halloween #scary #dance",
+   "aufrufe": 2000000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2020-08-28T00:54Z",
+   "url": "https://www.tiktok.com/@theparanormalfiles/video/6865832027732643077",
+   "alter_tage": 2269.9,
+   "aufrufe_pro_tag": 881,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [
+    "Geist/Schatten"
+   ],
+   "genre": "Horror",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7149298459370114309",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:robloxhorrorstory"
+   ],
+   "konto": "copyrend",
+   "text": "'Intrusion' recommendation! #robloxintrusion #robloxmovingday #robloxhorrorstory",
+   "aufrufe": 1800000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2022-09-30T22:09Z",
+   "url": "https://www.tiktok.com/@copyrend/video/7149298459370114309",
+   "alter_tage": 1506.01,
+   "aufrufe_pro_tag": 1195,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "Kurztitel (1–3 Wörter)"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7703746163652054303",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:lileggy38",
+    "videoseite"
+   ],
+   "konto": "lileggy38",
+   "text": "In this town, when you turn 18, you get a magical book. #inthistown #robloxanimation #roblox #animation #trending #fyp #plottwist #blackclover #inthisworld",
+   "dauer_s": 131,
+   "sound": {
+    "titel": "original sound - lileggy",
+    "autor": "lileggy",
+    "original": true,
+    "id": "7703746268312374046"
+   },
+   "hashtags": [
+    "animation",
+    "blackclover",
+    "fyp",
+    "inthistown",
+    "inthisworld",
+    "plottwist",
+    "roblox",
+    "robloxanimation",
+    "trending"
+   ],
+   "ki_label": false,
+   "aufrufe": 1500000,
+   "likes": 190400,
+   "kommentare": 4093,
+   "shares": 17600,
+   "gespeichert": 15854,
+   "stand": "2026-11-14T22:25Z",
+   "datum": "2026-11-03T01:09Z",
+   "url": "https://www.tiktok.com/@lileggy38/video/7703746163652054303",
+   "alter_tage": 11.89,
+   "aufrufe_pro_tag": 126156,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "„In this town/world …“",
+    "Altersschwelle („when you turn 18“)"
+   ],
+   "motive": [
+    "Superkraft/Fantasy"
+   ],
+   "genre": "Fantasy",
+   "format": "Story",
+   "laenge": "120–149 s",
+   "likes_je_100": 12.69,
+   "shares_je_1000": 11.73
+  },
+  {
+   "id": "7328749083907132678",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:robloxhorrorstories",
+    "tag:robloxhorrorstory"
+   ],
+   "konto": "kurtotheracc",
+   "text": "#THEMIMIC || idk if is the right one💀. time gets fast now. I didn't add the revamp update & Chapter events cause I only edit this of chapters, gamemodes & gamemodes events || #themimicbook1 #themimicbook2 #themimicwitchtrials #themimichalloweentrials #themimicchristmastrials #themimicnightmarecircus",
+   "aufrufe": 1500000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:27Z",
+   "datum": "2024-01-27T12:09Z",
+   "url": "https://www.tiktok.com/@kurtotheracc/video/7328749083907132678",
+   "alter_tage": 1022.43,
+   "aufrufe_pro_tag": 1467,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [],
+   "genre": "Horror (nur Hashtag)",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7357062467442265376",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:robloxhorrorstory"
+   ],
+   "konto": "rhiasavenuee",
+   "text": "⋆ ˚🌧️｡⋆୨doppelgänger୧⋆ ˚｡⋆⭑ 𝓲𝓫:me! #berryavenuestory #berryavenue #berryavenuehorror #robloxhorrorstory #robloxhorror #berryavenuerp #rhiasavenuee #fyp #fypシ #f #y #p #goviral #dontflop #viral #blowup? #trending #roblox #robloxfyp #robloxedit #actives? #xyzbca #tysmfor18k #20k? @ᴇᴍɪʟʏ 🪸 @кαт + αηԃяє",
+   "aufrufe": 1500000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2024-04-12T19:19Z",
+   "url": "https://www.tiktok.com/@rhiasavenuee/video/7357062467442265376",
+   "alter_tage": 946.13,
+   "aufrufe_pro_tag": 1585,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [
+    "Doppelgänger/falsche Eltern"
+   ],
+   "genre": "Horror",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7657255662639910175",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:cannonanimatess"
+   ],
+   "konto": "cannonanimatess",
+   "text": "#roblox #robloxfyp #robloxanimation #robloxstory ",
+   "aufrufe": 1400000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:15Z",
+   "datum": "2026-06-30T18:22Z",
+   "url": "https://www.tiktok.com/@cannonanimatess/video/7657255662639910175",
+   "alter_tage": 137.16,
+   "aufrufe_pro_tag": 10207,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "ohne Text"
+   ],
+   "motive": [],
+   "genre": "unklar (ohne Text)",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "6787132338330438917",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:scarystories"
+   ],
+   "konto": "parabros",
+   "text": "3 True Scary TikTok Stories (story 1) story submitted by @jesus_is_ma_bestie123 #forparabros #ghoststory #spookystory",
+   "aufrufe": 1300000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2020-01-28T22:59Z",
+   "url": "https://www.tiktok.com/@parabros/video/6787132338330438917",
+   "alter_tage": 2481.98,
+   "aufrufe_pro_tag": 524,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [],
+   "genre": "Horror",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7701534725558504717",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:cannonanimatess"
+   ],
+   "konto": "cannonanimatess",
+   "text": "In My Town, The Ocean Is In The Sky🐋 #roblox #robloxanimation #robloxstory ",
+   "aufrufe": 1200000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:15Z",
+   "datum": "2026-10-28T02:08Z",
+   "url": "https://www.tiktok.com/@cannonanimatess/video/7701534725558504717",
+   "alter_tage": 17.84,
+   "aufrufe_pro_tag": 67265,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "„In this town/world …“"
+   ],
+   "motive": [
+    "Superkraft/Fantasy"
+   ],
+   "genre": "Fantasy",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7702250665216593182",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:lileggy38",
+    "videoseite"
+   ],
+   "konto": "lileggy38",
+   "text": "In this town, every night at midnight, the radio reads three names. By morning, those people are gone. Watch to the end. 📻 #inthistown #roblox #fyp #viral #robloxanimation #animation",
+   "dauer_s": 123,
+   "sound": {
+    "titel": "original sound - lileggy",
+    "autor": "lileggy",
+    "original": true,
+    "id": "7702250753142033183"
+   },
+   "hashtags": [
+    "animation",
+    "fyp",
+    "inthistown",
+    "roblox",
+    "robloxanimation",
+    "viral"
+   ],
+   "ki_label": false,
+   "aufrufe": 1200000,
+   "likes": 179600,
+   "kommentare": 471,
+   "shares": 15000,
+   "gespeichert": 16240,
+   "stand": "2026-11-14T22:25Z",
+   "datum": "2026-10-30T00:26Z",
+   "url": "https://www.tiktok.com/@lileggy38/video/7702250665216593182",
+   "alter_tage": 15.92,
+   "aufrufe_pro_tag": 75377,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "„In this town/world …“",
+    "Wiederkehr („every night/at midnight“)"
+   ],
+   "motive": [
+    "Blick/Gesicht/Lächeln",
+    "Stimme/Geräusch/Radio",
+    "Nachtritual/Auslosung"
+   ],
+   "genre": "Horror",
+   "format": "Story",
+   "laenge": "120–149 s",
+   "likes_je_100": 14.97,
+   "shares_je_1000": 12.5
+  },
+  {
+   "id": "7707748313222630686",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:concet5612",
+    "videoseite"
+   ],
+   "konto": "concet5612",
+   "dauer_s": 170,
+   "sound": {
+    "titel": "original sound - concet5612",
+    "autor": "concet5612",
+    "original": true,
+    "id": "7707748391152831262"
+   },
+   "ki_label": false,
+   "aufrufe": 1100000,
+   "likes": 78200,
+   "kommentare": 453,
+   "shares": 1283,
+   "gespeichert": 5319,
+   "stand": "2026-11-14T22:14Z",
+   "datum": "2026-11-13T20:00Z",
+   "url": "https://www.tiktok.com/@concet5612/video/7707748313222630686",
+   "alter_tage": 1.09,
+   "aufrufe_pro_tag": 1009174,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "ohne Text"
+   ],
+   "motive": [],
+   "genre": "Horror (laut Konto)",
+   "format": "Story",
+   "laenge": "150–180 s",
+   "likes_je_100": 7.11,
+   "shares_je_1000": 1.17
+  },
+  {
+   "id": "7707385194667461901",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:larpniverse"
+   ],
+   "konto": "larpniverse",
+   "text": "Tung Tung Tung is chief in this town🪵🌳 #roblox #inthistown #tungtungtungsahur #fyp ",
+   "aufrufe": 1000000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2026-11-12T20:30Z",
+   "url": "https://www.tiktok.com/@larpniverse/video/7707385194667461901",
+   "alter_tage": 2.08,
+   "aufrufe_pro_tag": 480769,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [
+    "Schule/Alltag/Komik"
+   ],
+   "genre": "Komik",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7706749030847794453",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:dogeok",
+    "videoseite"
+   ],
+   "konto": "dogeok",
+   "text": "He Didn't Blink 👀 #roblox #robloxshorts",
+   "dauer_s": 135,
+   "sound": {
+    "titel": "original sound - DogeOk",
+    "autor": "DogeOk",
+    "original": true,
+    "id": "7706749147609500424"
+   },
+   "hashtags": [
+    "roblox",
+    "robloxshorts"
+   ],
+   "ki_label": false,
+   "aufrufe": 906300,
+   "likes": 129300,
+   "kommentare": 563,
+   "shares": 5103,
+   "gespeichert": 9683,
+   "stand": "2026-11-14T22:26Z",
+   "datum": "2026-11-11T03:22Z",
+   "url": "https://www.tiktok.com/@dogeok/video/7706749030847794453",
+   "alter_tage": 3.79,
+   "aufrufe_pro_tag": 239129,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "Kurztitel (1–3 Wörter)"
+   ],
+   "motive": [
+    "Blick/Gesicht/Lächeln"
+   ],
+   "genre": "Horror",
+   "format": "Story",
+   "laenge": "120–149 s",
+   "likes_je_100": 14.27,
+   "shares_je_1000": 5.63
+  },
+  {
+   "id": "7707759204500639007",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:concet5612",
+    "videoseite"
+   ],
+   "konto": "concet5612",
+   "dauer_s": 145,
+   "sound": {
+    "titel": "original sound - concet5612",
+    "autor": "concet5612",
+    "original": true,
+    "id": "7707759288780966686"
+   },
+   "ki_label": false,
+   "aufrufe": 756800,
+   "likes": 113400,
+   "kommentare": 478,
+   "shares": 3875,
+   "gespeichert": 8511,
+   "stand": "2026-11-14T22:14Z",
+   "datum": "2026-11-13T20:42Z",
+   "url": "https://www.tiktok.com/@concet5612/video/7707759204500639007",
+   "alter_tage": 1.06,
+   "aufrufe_pro_tag": 713962,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "ohne Text"
+   ],
+   "motive": [],
+   "genre": "Horror (laut Konto)",
+   "format": "Story",
+   "laenge": "120–149 s",
+   "likes_je_100": 14.98,
+   "shares_je_1000": 5.12
+  },
+  {
+   "id": "6884142148753607938",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:scarystories"
+   ],
+   "konto": "olivernordin1",
+   "text": "Luckiest man alive? 😱 #cantbeliveit  #parkourpov #luckiestmanalive",
+   "aufrufe": 744500,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2020-10-16T09:07Z",
+   "url": "https://www.tiktok.com/@olivernordin1/video/6884142148753607938",
+   "alter_tage": 2220.55,
+   "aufrufe_pro_tag": 335,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "Kurztitel (1–3 Wörter)"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7707037219986427167",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:concet5612",
+    "videoseite"
+   ],
+   "konto": "concet5612",
+   "dauer_s": 162,
+   "sound": {
+    "titel": "original sound - concet5612",
+    "autor": "concet5612",
+    "original": true,
+    "id": "7707037241289231118"
+   },
+   "ki_label": false,
+   "aufrufe": 715600,
+   "likes": 54700,
+   "kommentare": 1079,
+   "shares": 1637,
+   "gespeichert": 4579,
+   "stand": "2026-11-14T22:14Z",
+   "datum": "2026-11-11T22:00Z",
+   "url": "https://www.tiktok.com/@concet5612/video/7707037219986427167",
+   "alter_tage": 3.01,
+   "aufrufe_pro_tag": 237741,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "ohne Text"
+   ],
+   "motive": [],
+   "genre": "Horror (laut Konto)",
+   "format": "Story",
+   "laenge": "150–180 s",
+   "likes_je_100": 7.64,
+   "shares_je_1000": 2.29
+  },
+  {
+   "id": "7708024316100726047",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:larpniverse"
+   ],
+   "konto": "larpniverse",
+   "text": "Ahh almost almost🤏 #piratetoken #roblox #fortnite #inthistown #fy ",
+   "aufrufe": 700900,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2026-11-14T13:51Z",
+   "url": "https://www.tiktok.com/@larpniverse/video/7708024316100726047",
+   "alter_tage": 0.36,
+   "aufrufe_pro_tag": 700900,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "Kurztitel (1–3 Wörter)"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "6787843875076689158",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:scarystories"
+   ],
+   "konto": "parabros",
+   "text": "Scary TikTok Story (3 of 3) story submitted by @mattm38 #scarymary #ghoststory #ghost",
+   "aufrufe": 676900,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2020-01-30T21:00Z",
+   "url": "https://www.tiktok.com/@parabros/video/6787843875076689158",
+   "alter_tage": 2480.06,
+   "aufrufe_pro_tag": 273,
+   "teil": {
+    "art": "teil_2plus",
+    "nr": 3,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [],
+   "genre": "Horror",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7703791178336210184",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:zerobraincellstudio"
+   ],
+   "konto": "zerobraincellstudio",
+   "text": "Game Name Survive the SCPs #inthistown #fyp #roblox #robloxhorror #animatedstories ",
+   "aufrufe": 550300,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:25Z",
+   "datum": "2026-11-03T04:04Z",
+   "url": "https://www.tiktok.com/@zerobraincellstudio/video/7703791178336210184",
+   "alter_tage": 11.76,
+   "aufrufe_pro_tag": 46794,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [
+    "Kreatur/Monster"
+   ],
+   "genre": "Horror",
+   "format": "Gameplay",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7706189011403951367",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:dogeok",
+    "videoseite"
+   ],
+   "konto": "dogeok",
+   "text": "Extra Chair#roblox #robloxshorts",
+   "dauer_s": 127,
+   "sound": {
+    "titel": "original sound - DogeOk",
+    "autor": "DogeOk",
+    "original": true,
+    "id": "7706189082084444946"
+   },
+   "hashtags": [
+    "roblox",
+    "robloxshorts"
+   ],
+   "ki_label": false,
+   "aufrufe": 547700,
+   "likes": 73200,
+   "kommentare": 158,
+   "shares": 2563,
+   "gespeichert": 5052,
+   "stand": "2026-11-14T22:26Z",
+   "datum": "2026-11-09T15:09Z",
+   "url": "https://www.tiktok.com/@dogeok/video/7706189011403951367",
+   "alter_tage": 5.3,
+   "aufrufe_pro_tag": 103340,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "Kurztitel (1–3 Wörter)"
+   ],
+   "motive": [
+    "Tür/Haus/Einlass"
+   ],
+   "genre": "Horror",
+   "format": "Story",
+   "laenge": "120–149 s",
+   "likes_je_100": 13.36,
+   "shares_je_1000": 4.68
+  },
+  {
+   "id": "7706300697435802911",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:lileggy38"
+   ],
+   "konto": "lileggy38",
+   "text": "In this town, everyone gets an AI assistant… His name was Verity and he never stopped smiling 🙂 Then my girlfriend went missing 😟 #inthistown #inthisworld #roblox #robloxhorror #animation #plottwist #verity #fyp #viral",
+   "aufrufe": 497400,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:25Z",
+   "datum": "2026-11-09T22:22Z",
+   "url": "https://www.tiktok.com/@lileggy38/video/7706300697435802911",
+   "alter_tage": 5.0,
+   "aufrufe_pro_tag": 99480,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "„In this town/world …“"
+   ],
+   "motive": [
+    "Blick/Gesicht/Lächeln",
+    "KI/Technik"
+   ],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7705777966814481670",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:dogeok",
+    "videoseite"
+   ],
+   "konto": "dogeok",
+   "text": "The Hotel 🏨 #roblox#robloxshorts",
+   "dauer_s": 139,
+   "sound": {
+    "titel": "original sound - DogeOk",
+    "autor": "DogeOk",
+    "original": true,
+    "id": "7705778048882707220"
+   },
+   "hashtags": [
+    "roblox",
+    "robloxshorts"
+   ],
+   "ki_label": false,
+   "aufrufe": 472400,
+   "likes": 60800,
+   "kommentare": 113,
+   "shares": 1334,
+   "gespeichert": 4130,
+   "stand": "2026-11-14T22:34Z",
+   "datum": "2026-11-08T12:34Z",
+   "url": "https://www.tiktok.com/@dogeok/video/7705777966814481670",
+   "alter_tage": 6.42,
+   "aufrufe_pro_tag": 73583,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "Kurztitel (1–3 Wörter)"
+   ],
+   "motive": [
+    "Tür/Haus/Einlass"
+   ],
+   "genre": "Horror",
+   "format": "Story",
+   "laenge": "120–149 s",
+   "likes_je_100": 12.87,
+   "shares_je_1000": 2.82
+  },
+  {
+   "id": "7706575882441248021",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:dogeok"
+   ],
+   "konto": "dogeok",
+   "text": "Whispher 🗣️ #roblox #robloxshorts",
+   "aufrufe": 466200,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:15Z",
+   "datum": "2026-11-10T16:10Z",
+   "url": "https://www.tiktok.com/@dogeok/video/7706575882441248021",
+   "alter_tage": 4.25,
+   "aufrufe_pro_tag": 109694,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "Kurztitel (1–3 Wörter)"
+   ],
+   "motive": [],
+   "genre": "Horror",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7695532418584956173",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:cannonanimatess"
+   ],
+   "konto": "cannonanimatess",
+   "text": "The Kid Who Gained Powers From His Clothes #roblox #robloxanimation ",
+   "aufrufe": 337100,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:15Z",
+   "datum": "2026-10-11T21:56Z",
+   "url": "https://www.tiktok.com/@cannonanimatess/video/7695532418584956173",
+   "alter_tage": 34.01,
+   "aufrufe_pro_tag": 9912,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "Titel „The … who/that …“"
+   ],
+   "motive": [
+    "Superkraft/Fantasy"
+   ],
+   "genre": "Fantasy",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7706123408571960596",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:dogeok"
+   ],
+   "konto": "dogeok",
+   "text": "You Get Paid For Dreaming 💭 #roblox #robloxshorts",
+   "aufrufe": 329900,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:15Z",
+   "datum": "2026-11-09T10:54Z",
+   "url": "https://www.tiktok.com/@dogeok/video/7706123408571960596",
+   "alter_tage": 5.47,
+   "aufrufe_pro_tag": 60311,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [
+    "Superkraft/Fantasy"
+   ],
+   "genre": "Fantasy",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7704421291498949918",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:lileggy38"
+   ],
+   "konto": "lileggy38",
+   "text": "In this town, you can buy a candle that grants you any wish you want. 🕯️ I wished for my crush to love me more than anyone else in the world... #inthistown #robloxanimation #roblox #animation #trending #plottwist #fyp #inthisworld #obsession #viral #creative #funny",
+   "aufrufe": 272800,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:25Z",
+   "datum": "2026-11-04T20:49Z",
+   "url": "https://www.tiktok.com/@lileggy38/video/7704421291498949918",
+   "alter_tage": 10.07,
+   "aufrufe_pro_tag": 27090,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "„In this town/world …“"
+   ],
+   "motive": [
+    "Superkraft/Fantasy"
+   ],
+   "genre": "Fantasy",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7707138879387602206",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:lileggy38",
+    "videoseite"
+   ],
+   "konto": "lileggy38",
+   "text": "In this town, the more you CRACK, the more aura you have 💀😟 I had no aura... That was until I visited my grandma 👵🏻 #inthistown #inthisworld #roblox #robloxanimation #plottwist #animation #fyp #crack #trending #viral",
+   "dauer_s": 191,
+   "sound": {
+    "titel": "original sound - lileggy",
+    "autor": "lileggy",
+    "original": true,
+    "id": "7707139002109053709"
+   },
+   "hashtags": [
+    "animation",
+    "crack",
+    "fyp",
+    "inthistown",
+    "inthisworld",
+    "plottwist",
+    "roblox",
+    "robloxanimation",
+    "trending",
+    "viral"
+   ],
+   "ki_label": false,
+   "aufrufe": 255500,
+   "likes": 22700,
+   "kommentare": 157,
+   "shares": 1876,
+   "gespeichert": 1445,
+   "stand": "2026-11-14T22:25Z",
+   "datum": "2026-11-12T04:35Z",
+   "url": "https://www.tiktok.com/@lileggy38/video/7707138879387602206",
+   "alter_tage": 2.74,
+   "aufrufe_pro_tag": 93248,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "„In this town/world …“"
+   ],
+   "motive": [
+    "Superkraft/Fantasy"
+   ],
+   "genre": "Fantasy",
+   "format": "Story",
+   "laenge": "über 180 s",
+   "likes_je_100": 8.88,
+   "shares_je_1000": 7.34
+  },
+  {
+   "id": "7706660776613842209",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:inthisworldstory",
+    "videoseite"
+   ],
+   "konto": "inthisworldstory",
+   "text": "story #robloxstory #robloxanimation #roblox #inthisworld ",
+   "dauer_s": 133,
+   "sound": {
+    "titel": "audio originale",
+    "autor": "Chri",
+    "original": true,
+    "id": "7706660812479286049"
+   },
+   "hashtags": [
+    "inthisworld",
+    "roblox",
+    "robloxanimation",
+    "robloxstory"
+   ],
+   "ki_label": false,
+   "aufrufe": 245500,
+   "likes": 17000,
+   "kommentare": 88,
+   "shares": 875,
+   "gespeichert": 1114,
+   "stand": "2026-11-14T22:25Z",
+   "datum": "2026-11-10T21:39Z",
+   "url": "https://www.tiktok.com/@inthisworldstory/video/7706660776613842209",
+   "alter_tage": 4.03,
+   "aufrufe_pro_tag": 60918,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "nur Gattungswort („story“, „In this town“)"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": "120–149 s",
+   "likes_je_100": 6.92,
+   "shares_je_1000": 3.56
+  },
+  {
+   "id": "7702905932287724814",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:cannonanimatess"
+   ],
+   "konto": "cannonanimatess",
+   "text": "The Boy Whose Shadow Was Alive👤 #roblox #robloxanimation #robloxstory ",
+   "aufrufe": 227600,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:15Z",
+   "datum": "2026-10-31T18:49Z",
+   "url": "https://www.tiktok.com/@cannonanimatess/video/7702905932287724814",
+   "alter_tage": 14.14,
+   "aufrufe_pro_tag": 16096,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "Titel „The … who/that …“"
+   ],
+   "motive": [
+    "Geist/Schatten"
+   ],
+   "genre": "Horror",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7707016226962263327",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:concet5612",
+    "videoseite"
+   ],
+   "konto": "concet5612",
+   "dauer_s": 174,
+   "sound": {
+    "titel": "original sound - concet5612",
+    "autor": "concet5612",
+    "original": true,
+    "id": "7707016269945441054"
+   },
+   "ki_label": false,
+   "aufrufe": 224900,
+   "likes": 5416,
+   "kommentare": 42,
+   "shares": 141,
+   "gespeichert": 496,
+   "stand": "2026-11-14T22:14Z",
+   "datum": "2026-11-11T20:39Z",
+   "url": "https://www.tiktok.com/@concet5612/video/7707016226962263327",
+   "alter_tage": 3.07,
+   "aufrufe_pro_tag": 73257,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "ohne Text"
+   ],
+   "motive": [],
+   "genre": "Horror (laut Konto)",
+   "format": "Story",
+   "laenge": "150–180 s",
+   "likes_je_100": 2.41,
+   "shares_je_1000": 0.63
+  },
+  {
+   "id": "7695970789471948045",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:cannonanimatess"
+   ],
+   "konto": "cannonanimatess",
+   "text": "The Twins Who Had Opposite Powers #roblox #robloxanimation #robloxstory #viral ",
+   "aufrufe": 152500,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:15Z",
+   "datum": "2026-10-13T02:17Z",
+   "url": "https://www.tiktok.com/@cannonanimatess/video/7695970789471948045",
+   "alter_tage": 32.83,
+   "aufrufe_pro_tag": 4645,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "Titel „The … who/that …“"
+   ],
+   "motive": [
+    "Superkraft/Fantasy"
+   ],
+   "genre": "Fantasy",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7707779306612690207",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:concet5612",
+    "videoseite"
+   ],
+   "konto": "concet5612",
+   "dauer_s": 167,
+   "sound": {
+    "titel": "original sound - concet5612",
+    "autor": "concet5612",
+    "original": true,
+    "id": "7707779380705053470"
+   },
+   "ki_label": false,
+   "aufrufe": 151100,
+   "likes": 21000,
+   "kommentare": 141,
+   "shares": 470,
+   "gespeichert": 2372,
+   "stand": "2026-11-14T22:14Z",
+   "datum": "2026-11-13T22:00Z",
+   "url": "https://www.tiktok.com/@concet5612/video/7707779306612690207",
+   "alter_tage": 1.01,
+   "aufrufe_pro_tag": 149604,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "ohne Text"
+   ],
+   "motive": [],
+   "genre": "Horror (laut Konto)",
+   "format": "Story",
+   "laenge": "150–180 s",
+   "likes_je_100": 13.9,
+   "shares_je_1000": 3.11
+  },
+  {
+   "id": "6878699865958829317",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:scarystories"
+   ],
+   "konto": "babygoth420",
+   "text": "crazy Bettie Page X Harley Quinn 😏 #scarystories #halloweenathome #halloween2020 #harleyquinn #bettiepage",
+   "aufrufe": 130100,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2020-10-01T17:08Z",
+   "url": "https://www.tiktok.com/@babygoth420/video/6878699865958829317",
+   "alter_tage": 2235.22,
+   "aufrufe_pro_tag": 58,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [],
+   "genre": "Horror (nur Hashtag)",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7703087370614131989",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:townrules"
+   ],
+   "konto": "town.rules",
+   "text": "#roblox #robloxstory #fyp #inthistown #townrules ",
+   "aufrufe": 129700,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:28Z",
+   "datum": "2026-11-01T06:33Z",
+   "url": "https://www.tiktok.com/@town.rules/video/7703087370614131989",
+   "alter_tage": 13.66,
+   "aufrufe_pro_tag": 9495,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "ohne Text"
+   ],
+   "motive": [],
+   "genre": "unklar (ohne Text)",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7708115978927803662",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:concet5612",
+    "videoseite"
+   ],
+   "konto": "concet5612",
+   "dauer_s": 156,
+   "sound": {
+    "titel": "original sound - concet5612",
+    "autor": "concet5612",
+    "original": true,
+    "id": "7708116013723912991"
+   },
+   "ki_label": false,
+   "aufrufe": 127600,
+   "likes": 13500,
+   "kommentare": 54,
+   "shares": 388,
+   "gespeichert": 988,
+   "stand": "2026-11-14T22:14Z",
+   "datum": "2026-11-14T19:46Z",
+   "url": "https://www.tiktok.com/@concet5612/video/7708115978927803662",
+   "alter_tage": 0.1,
+   "aufrufe_pro_tag": 127600,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "ohne Text"
+   ],
+   "motive": [],
+   "genre": "Horror (laut Konto)",
+   "format": "Story",
+   "laenge": "150–180 s",
+   "likes_je_100": 10.58,
+   "shares_je_1000": 3.04
+  },
+  {
+   "id": "7705956378749291806",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:lileggy38"
+   ],
+   "konto": "lileggy38",
+   "text": "In this town, a golden token lets you buy ANYTHING… what would you buy first? 🏴‍☠️👀 #inthistown #inthisworld #fortnite #onepiece #roblox #robloxanimation #animation #fyp #plottwist",
+   "aufrufe": 123400,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:25Z",
+   "datum": "2026-11-09T00:06Z",
+   "url": "https://www.tiktok.com/@lileggy38/video/7705956378749291806",
+   "alter_tage": 5.93,
+   "aufrufe_pro_tag": 20809,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "„In this town/world …“"
+   ],
+   "motive": [
+    "Kreatur/Monster",
+    "Superkraft/Fantasy"
+   ],
+   "genre": "Fantasy",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7706883084029054226",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:dogeok"
+   ],
+   "konto": "dogeok",
+   "text": "You get a superpower after getting rejected... #robloxshorts #roblox",
+   "aufrufe": 112300,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:15Z",
+   "datum": "2026-11-11T12:02Z",
+   "url": "https://www.tiktok.com/@dogeok/video/7706883084029054226",
+   "alter_tage": 3.43,
+   "aufrufe_pro_tag": 32741,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [
+    "Superkraft/Fantasy"
+   ],
+   "genre": "Fantasy",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7703322187398204678",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:townrules"
+   ],
+   "konto": "town.rules",
+   "text": "#roblox #robloxstory #fyp #inthistown #townrules ",
+   "aufrufe": 101700,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:28Z",
+   "datum": "2026-11-01T21:44Z",
+   "url": "https://www.tiktok.com/@town.rules/video/7703322187398204678",
+   "alter_tage": 13.03,
+   "aufrufe_pro_tag": 7805,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "ohne Text"
+   ],
+   "motive": [],
+   "genre": "unklar (ohne Text)",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "6889091642243042565",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:scarystories"
+   ],
+   "konto": "mirandapandz",
+   "text": "Creepy things that have happened to me #scarystories #storytime #halloweenmakeup #sfxmakeup",
+   "aufrufe": 93500,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2020-10-29T17:14Z",
+   "url": "https://www.tiktok.com/@mirandapandz/video/6889091642243042565",
+   "alter_tage": 2207.22,
+   "aufrufe_pro_tag": 42,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [],
+   "genre": "Horror",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7707255986989305119",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:concet5612",
+    "videoseite"
+   ],
+   "konto": "concet5612",
+   "dauer_s": 161,
+   "sound": {
+    "titel": "original sound - concet5612",
+    "autor": "concet5612",
+    "original": true,
+    "id": "7707256035139947294"
+   },
+   "ki_label": false,
+   "aufrufe": 86400,
+   "likes": 7138,
+   "kommentare": 47,
+   "shares": 257,
+   "gespeichert": 682,
+   "stand": "2026-11-14T22:14Z",
+   "datum": "2026-11-12T12:09Z",
+   "url": "https://www.tiktok.com/@concet5612/video/7707255986989305119",
+   "alter_tage": 2.42,
+   "aufrufe_pro_tag": 35702,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "ohne Text"
+   ],
+   "motive": [],
+   "genre": "Horror (laut Konto)",
+   "format": "Story",
+   "laenge": "150–180 s",
+   "likes_je_100": 8.26,
+   "shares_je_1000": 2.97
+  },
+  {
+   "id": "7693286129356918030",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:cannonanimatess"
+   ],
+   "konto": "cannonanimatess",
+   "text": "#roblox #robloxanimation #robloxstory #viral ",
+   "aufrufe": 84500,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:15Z",
+   "datum": "2026-10-05T20:39Z",
+   "url": "https://www.tiktok.com/@cannonanimatess/video/7693286129356918030",
+   "alter_tage": 40.07,
+   "aufrufe_pro_tag": 2109,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "ohne Text"
+   ],
+   "motive": [],
+   "genre": "unklar (ohne Text)",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7706241710812187911",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:zerobraincellstudio"
+   ],
+   "konto": "zerobraincellstudio",
+   "text": "Class d #inthistown #roblox #animatedstories #robloxstory #fyp ",
+   "aufrufe": 81000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:25Z",
+   "datum": "2026-11-09T18:33Z",
+   "url": "https://www.tiktok.com/@zerobraincellstudio/video/7706241710812187911",
+   "alter_tage": 5.16,
+   "aufrufe_pro_tag": 15698,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "Kurztitel (1–3 Wörter)"
+   ],
+   "motive": [
+    "Schule/Alltag/Komik"
+   ],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7705445222246911252",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:dogeok"
+   ],
+   "konto": "dogeok",
+   "text": "We Live Inside Roblox 🎮 #roblox #robloxshorts",
+   "aufrufe": 69600,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:15Z",
+   "datum": "2026-11-07T15:02Z",
+   "url": "https://www.tiktok.com/@dogeok/video/7705445222246911252",
+   "alter_tage": 7.3,
+   "aufrufe_pro_tag": 9534,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7704858934200339743",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:lileggy38"
+   ],
+   "konto": "lileggy38",
+   "text": "WAIT THAT WASN'T MY MOM?! 😟💔 #inthistown #roblox #robloxstory #inthistown #animation #robloxedit",
+   "aufrufe": 64900,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:25Z",
+   "datum": "2026-11-06T01:07Z",
+   "url": "https://www.tiktok.com/@lileggy38/video/7704858934200339743",
+   "alter_tage": 8.89,
+   "aufrufe_pro_tag": 7300,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [
+    "Doppelgänger/falsche Eltern"
+   ],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7707243057770532103",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:dogeok"
+   ],
+   "konto": "dogeok",
+   "text": "Dream Soulmate✨#robloxshorts #roblox",
+   "aufrufe": 59100,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:15Z",
+   "datum": "2026-11-12T11:19Z",
+   "url": "https://www.tiktok.com/@dogeok/video/7707243057770532103",
+   "alter_tage": 2.46,
+   "aufrufe_pro_tag": 24024,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "Kurztitel (1–3 Wörter)"
+   ],
+   "motive": [
+    "Superkraft/Fantasy"
+   ],
+   "genre": "Fantasy",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7707510560916507934",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:lileggy38"
+   ],
+   "konto": "lileggy38",
+   "text": "In this town, when you turn 18, the person that's going to CRACK you appears on your wrist 😭💀 Becca appeared on mine. I was not ready for it... #inthistown #inthisworld #roblox #robloxanimation #plottwist #animation #crack #trending #viral #fyp",
+   "aufrufe": 52900,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:25Z",
+   "datum": "2026-11-13T04:37Z",
+   "url": "https://www.tiktok.com/@lileggy38/video/7707510560916507934",
+   "alter_tage": 1.74,
+   "aufrufe_pro_tag": 30402,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "„In this town/world …“",
+    "Altersschwelle („when you turn 18“)"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7707714584647437586",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:dogeok",
+    "videoseite"
+   ],
+   "konto": "dogeok",
+   "text": "Time Runs Fast 📷#robloxshorts #roblox",
+   "dauer_s": 118,
+   "sound": {
+    "titel": "original sound - DogeOk",
+    "autor": "DogeOk",
+    "original": true,
+    "id": "7707714657553435410"
+   },
+   "hashtags": [
+    "roblox",
+    "robloxshorts"
+   ],
+   "ki_label": false,
+   "aufrufe": 41600,
+   "likes": 6240,
+   "kommentare": 27,
+   "shares": 97,
+   "gespeichert": 500,
+   "stand": "2026-11-14T22:26Z",
+   "datum": "2026-11-13T17:49Z",
+   "url": "https://www.tiktok.com/@dogeok/video/7707714584647437586",
+   "alter_tage": 1.19,
+   "aufrufe_pro_tag": 34958,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "Kurztitel (1–3 Wörter)"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": "90–119 s",
+   "likes_je_100": 15.0,
+   "shares_je_1000": 2.33
+  },
+  {
+   "id": "7636419287460105494",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:townrules"
+   ],
+   "konto": "eyecanexplain.official",
+   "text": "No one used to enter from front door in this town. #townrules #strangethings #frontdoor ",
+   "aufrufe": 41200,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:28Z",
+   "datum": "2026-05-05T14:46Z",
+   "url": "https://www.tiktok.com/@eyecanexplain.official/video/7636419287460105494",
+   "alter_tage": 193.32,
+   "aufrufe_pro_tag": 213,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [
+    "Tür/Haus/Einlass"
+   ],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7707377218636254494",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:concet5612",
+    "videoseite"
+   ],
+   "konto": "concet5612",
+   "dauer_s": 149,
+   "sound": {
+    "titel": "original sound - concet5612",
+    "autor": "concet5612",
+    "original": true,
+    "id": "7707377258821946143"
+   },
+   "ki_label": false,
+   "aufrufe": 33900,
+   "likes": 1505,
+   "kommentare": 13,
+   "shares": 30,
+   "gespeichert": 151,
+   "stand": "2026-11-14T22:14Z",
+   "datum": "2026-11-12T19:59Z",
+   "url": "https://www.tiktok.com/@concet5612/video/7707377218636254494",
+   "alter_tage": 2.09,
+   "aufrufe_pro_tag": 16220,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "ohne Text"
+   ],
+   "motive": [],
+   "genre": "Horror (laut Konto)",
+   "format": "Story",
+   "laenge": "120–149 s",
+   "likes_je_100": 4.44,
+   "shares_je_1000": 0.88
+  },
+  {
+   "id": "7705251558409161998",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:cannonanimatess",
+    "videoseite"
+   ],
+   "konto": "cannonanimatess",
+   "text": "In This World, Everyone Can Fly🪽#roblox #robloxanimation #robloxstory #inthisworld ",
+   "dauer_s": 104,
+   "sound": {
+    "titel": "original sound",
+    "autor": "cannonanimatess",
+    "original": true,
+    "id": "7705251665435937550"
+   },
+   "hashtags": [
+    "inthisworld",
+    "roblox",
+    "robloxanimation",
+    "robloxstory"
+   ],
+   "ki_label": false,
+   "aufrufe": 33600,
+   "likes": 1976,
+   "kommentare": 26,
+   "shares": 25,
+   "gespeichert": 221,
+   "stand": "2026-11-14T22:25Z",
+   "datum": "2026-11-07T02:31Z",
+   "url": "https://www.tiktok.com/@cannonanimatess/video/7705251558409161998",
+   "alter_tage": 7.83,
+   "aufrufe_pro_tag": 4291,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "„In this town/world …“"
+   ],
+   "motive": [
+    "Superkraft/Fantasy"
+   ],
+   "genre": "Fantasy",
+   "format": "Story",
+   "laenge": "90–119 s",
+   "likes_je_100": 5.88,
+   "shares_je_1000": 0.74
+  },
+  {
+   "id": "7707762843331857697",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:inthisworldstory",
+    "videoseite"
+   ],
+   "konto": "inthisworldstory",
+   "text": "story #robloxstory #robloxanimation #roblox #inthisworld ",
+   "dauer_s": 119,
+   "sound": {
+    "titel": "audio originale",
+    "autor": "Chri",
+    "original": true,
+    "id": "7707763088639920929"
+   },
+   "hashtags": [
+    "inthisworld",
+    "roblox",
+    "robloxanimation",
+    "robloxstory"
+   ],
+   "ki_label": false,
+   "aufrufe": 32800,
+   "likes": 2451,
+   "kommentare": 22,
+   "shares": 170,
+   "gespeichert": 251,
+   "stand": "2026-11-14T22:26Z",
+   "datum": "2026-11-13T20:56Z",
+   "url": "https://www.tiktok.com/@inthisworldstory/video/7707762843331857697",
+   "alter_tage": 1.06,
+   "aufrufe_pro_tag": 30943,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "nur Gattungswort („story“, „In this town“)"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": "90–119 s",
+   "likes_je_100": 7.47,
+   "shares_je_1000": 5.18
+  },
+  {
+   "id": "7705607290484804895",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:lileggy38"
+   ],
+   "konto": "lileggy38",
+   "text": "In this town, Granny Keeps owns the Lost and Found. She demands that you have to trade something equal to get back what you want. 👵🏻👶 #inthistown #inthisworld #robloxstory #roblox #animation #fyp",
+   "aufrufe": 30900,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:25Z",
+   "datum": "2026-11-08T01:31Z",
+   "url": "https://www.tiktok.com/@lileggy38/video/7705607290484804895",
+   "alter_tage": 6.87,
+   "aufrufe_pro_tag": 4498,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "„In this town/world …“"
+   ],
+   "motive": [
+    "Kreatur/Monster"
+   ],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7703753959437077781",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:town.rules",
+    "tag:townrules",
+    "videoseite"
+   ],
+   "konto": "town.rules",
+   "text": "part 2 #townrules #inthistown #fyp #robloxstory #roblox ",
+   "dauer_s": 93,
+   "sound": {
+    "titel": "original sound - Town rules",
+    "autor": "Town rules",
+    "original": true,
+    "id": "7703754051783035669"
+   },
+   "hashtags": [
+    "fyp",
+    "inthistown",
+    "roblox",
+    "robloxstory",
+    "townrules"
+   ],
+   "ki_label": false,
+   "aufrufe": 30600,
+   "likes": 841,
+   "kommentare": 7,
+   "shares": 11,
+   "gespeichert": 132,
+   "stand": "2026-11-14T22:34Z",
+   "datum": "2026-11-03T01:39Z",
+   "url": "https://www.tiktok.com/@town.rules/video/7703753959437077781",
+   "alter_tage": 11.87,
+   "aufrufe_pro_tag": 2578,
+   "teil": {
+    "art": "teil_2plus",
+    "nr": 2,
+    "koeder": false
+   },
+   "hook_muster": [
+    "nur Gattungswort („story“, „In this town“)"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": "90–119 s",
+   "likes_je_100": 2.75,
+   "shares_je_1000": 0.36
+  },
+  {
+   "id": "7704128633484463378",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:zerobraincellstudio"
+   ],
+   "konto": "zerobraincellstudio",
+   "text": "Game name: Survive the SCPs #inthistown #animatedstories #roblox #robloxhorror #robloxhorror ",
+   "aufrufe": 19500,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:25Z",
+   "datum": "2026-11-04T01:53Z",
+   "url": "https://www.tiktok.com/@zerobraincellstudio/video/7704128633484463378",
+   "alter_tage": 10.86,
+   "aufrufe_pro_tag": 1796,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "Spielname („Game: …“)"
+   ],
+   "motive": [
+    "Kreatur/Monster"
+   ],
+   "genre": "Horror",
+   "format": "Gameplay",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7707051442942528799",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:lileggy38"
+   ],
+   "konto": "lileggy38",
+   "text": "In this town, your soulmate is connected to you by a red string. 🎀❤️ Everyone told me that mine was cut, until Becca came ❤️‍🩹 #inthistown #inthisworld #roblox #robloxanimation #plottwist #animation #trending #fyp",
+   "aufrufe": 17300,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:25Z",
+   "datum": "2026-11-11T22:55Z",
+   "url": "https://www.tiktok.com/@lileggy38/video/7707051442942528799",
+   "alter_tage": 2.98,
+   "aufrufe_pro_tag": 5805,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "„In this town/world …“"
+   ],
+   "motive": [
+    "Superkraft/Fantasy"
+   ],
+   "genre": "Fantasy",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7707331694285638943",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:larpniverse"
+   ],
+   "konto": "larpniverse",
+   "text": "Never get an F😨 #roblox #inthistown #fyp ",
+   "aufrufe": 17100,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:24Z",
+   "datum": "2026-11-12T17:03Z",
+   "url": "https://www.tiktok.com/@larpniverse/video/7707331694285638943",
+   "alter_tage": 2.22,
+   "aufrufe_pro_tag": 7703,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "Verbot („never …“, „don't …“)"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7707665309234154783",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:thistownbiz",
+    "videoseite"
+   ],
+   "konto": "thistownbiz",
+   "text": "Everything is $1 #roblox #robloxstories ",
+   "dauer_s": 141,
+   "sound": {
+    "titel": "original sound",
+    "autor": "ThisTown 🏙️",
+    "original": true,
+    "id": "7707665342335666974"
+   },
+   "hashtags": [
+    "roblox",
+    "robloxstories"
+   ],
+   "ki_label": false,
+   "aufrufe": 14200,
+   "likes": 840,
+   "kommentare": 7,
+   "shares": 16,
+   "gespeichert": 74,
+   "stand": "2026-11-14T22:34Z",
+   "datum": "2026-11-13T14:37Z",
+   "url": "https://www.tiktok.com/@thistownbiz/video/7707665309234154783",
+   "alter_tage": 1.33,
+   "aufrufe_pro_tag": 10677,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "Kurztitel (1–3 Wörter)"
+   ],
+   "motive": [
+    "Kreatur/Monster",
+    "Schule/Alltag/Komik"
+   ],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": "120–149 s",
+   "likes_je_100": 5.92,
+   "shares_je_1000": 1.13
+  },
+  {
+   "id": "7707108274939776270",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:thistownbiz"
+   ],
+   "konto": "thistownbiz",
+   "text": "In my town the siren goes off every night 🚨 #roblox #robloxstories ",
+   "aufrufe": 14000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:34Z",
+   "datum": "2026-11-12T02:36Z",
+   "url": "https://www.tiktok.com/@thistownbiz/video/7707108274939776270",
+   "alter_tage": 2.83,
+   "aufrufe_pro_tag": 4947,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "„In this town/world …“",
+    "Wiederkehr („every night/at midnight“)"
+   ],
+   "motive": [
+    "Stimme/Geräusch/Radio",
+    "Nachtritual/Auslosung"
+   ],
+   "genre": "Horror",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7708032894308240692",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:dogeok"
+   ],
+   "konto": "dogeok",
+   "text": "Leave Before Sunrise 🌅#robloxshorts#roblox",
+   "aufrufe": 13200,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:15Z",
+   "datum": "2026-11-14T14:24Z",
+   "url": "https://www.tiktok.com/@dogeok/video/7708032894308240692",
+   "alter_tage": 0.33,
+   "aufrufe_pro_tag": 13200,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "Kurztitel (1–3 Wörter)"
+   ],
+   "motive": [
+    "Nachtritual/Auslosung"
+   ],
+   "genre": "Horror",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7703405263658831124",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:town.rules"
+   ],
+   "konto": "town.rules",
+   "text": "#roblox #robloxstory #fyp #inthistown #townrules ",
+   "aufrufe": 12800,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:28Z",
+   "datum": "2026-11-02T03:06Z",
+   "url": "https://www.tiktok.com/@town.rules/video/7703405263658831124",
+   "alter_tage": 12.81,
+   "aufrufe_pro_tag": 999,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "ohne Text"
+   ],
+   "motive": [],
+   "genre": "unklar (ohne Text)",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7706299304033537311",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:thistownbiz"
+   ],
+   "konto": "thistownbiz",
+   "text": "The Stilt Men 😨 #roblox #horror ",
+   "aufrufe": 12200,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:34Z",
+   "datum": "2026-11-09T22:17Z",
+   "url": "https://www.tiktok.com/@thistownbiz/video/7706299304033537311",
+   "alter_tage": 5.01,
+   "aufrufe_pro_tag": 2435,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "Kurztitel (1–3 Wörter)"
+   ],
+   "motive": [
+    "Riese/übergroß",
+    "Kreatur/Monster"
+   ],
+   "genre": "Horror",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7706998847242898718",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:thistownbiz"
+   ],
+   "konto": "thistownbiz",
+   "text": "In this town, nobody can be late ⏰ #Roblox #Robloxstories",
+   "aufrufe": 11800,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:34Z",
+   "datum": "2026-11-11T19:31Z",
+   "url": "https://www.tiktok.com/@thistownbiz/video/7706998847242898718",
+   "alter_tage": 3.13,
+   "aufrufe_pro_tag": 3770,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "„In this town/world …“"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7706928156795489567",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:thistownbiz"
+   ],
+   "konto": "thistownbiz",
+   "text": "In this town everyone is one color 💙❤️💚💛 #Roblox #robloxstory ",
+   "aufrufe": 11800,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:34Z",
+   "datum": "2026-11-11T14:57Z",
+   "url": "https://www.tiktok.com/@thistownbiz/video/7706928156795489567",
+   "alter_tage": 3.32,
+   "aufrufe_pro_tag": 3554,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "„In this town/world …“"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7703132027138133268",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:townrules"
+   ],
+   "konto": "town.rules",
+   "text": "#roblox #robloxstory #fyp #inthistown #townrules ",
+   "aufrufe": 11000,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:28Z",
+   "datum": "2026-11-01T09:26Z",
+   "url": "https://www.tiktok.com/@town.rules/video/7703132027138133268",
+   "alter_tage": 13.54,
+   "aufrufe_pro_tag": 812,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "ohne Text"
+   ],
+   "motive": [],
+   "genre": "unklar (ohne Text)",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7703005606541577493",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:townrules"
+   ],
+   "konto": "town.rules",
+   "text": "#roblox #robloxstory #fyp #inthistown #townrules ",
+   "aufrufe": 10900,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:28Z",
+   "datum": "2026-11-01T01:15Z",
+   "url": "https://www.tiktok.com/@town.rules/video/7703005606541577493",
+   "alter_tage": 13.88,
+   "aufrufe_pro_tag": 785,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "ohne Text"
+   ],
+   "motive": [],
+   "genre": "unklar (ohne Text)",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7704232670036872468",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:town.rules"
+   ],
+   "konto": "town.rules",
+   "text": "Check out my showcase 🙌 It would help a lot. Thanks! #viral #inthistown #fyp #robloxstory #roblox ",
+   "aufrufe": 10600,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:28Z",
+   "datum": "2026-11-04T08:37Z",
+   "url": "https://www.tiktok.com/@town.rules/video/7704232670036872468",
+   "alter_tage": 10.58,
+   "aufrufe_pro_tag": 1002,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Spiel-Werbung",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7705234225796107550",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:lileggy38"
+   ],
+   "konto": "lileggy38",
+   "text": "In this town, some people can see ghosts. One stole my little sister. #inthistown #inthisworld #robloxstory #roblox #animation #fyp #bleach #robloxanimation",
+   "aufrufe": 10500,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:25Z",
+   "datum": "2026-11-07T01:24Z",
+   "url": "https://www.tiktok.com/@lileggy38/video/7705234225796107550",
+   "alter_tage": 7.88,
+   "aufrufe_pro_tag": 1332,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "„In this town/world …“"
+   ],
+   "motive": [
+    "Geist/Schatten"
+   ],
+   "genre": "Horror",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7703405786906496277",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:town.rules"
+   ],
+   "konto": "town.rules",
+   "text": "#roblox #robloxstory #fyp #inthistown #townrules ",
+   "aufrufe": 9641,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:28Z",
+   "datum": "2026-11-02T03:08Z",
+   "url": "https://www.tiktok.com/@town.rules/video/7703405786906496277",
+   "alter_tage": 12.81,
+   "aufrufe_pro_tag": 753,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "ohne Text"
+   ],
+   "motive": [],
+   "genre": "unklar (ohne Text)",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7693610152808795412",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:townrules"
+   ],
+   "konto": "addisababacodeenforcemen",
+   "text": "በከተማዋ የደንብ መተላለፍ ድርጊቶች በ77.3% መቀነሳቸው ተገለጸ        መስከረም /26/2017 ዓ.ም                ****አዲስ አበባ****    የአዲስ አበባ ከተማ አስተዳደር ደንብ ማስከበር ባለሥልጣን የ2019 በጀት ዓመት የ1ኛ ሩብ ዓመት የሥራ አፈጻጸም  የግምገማ መድረክ የማዕከል፣የክፍለ ከተማና የወረዳ ኃላፊዎችና ባለድርሻ አካላት በተገኙበት አካሂዷል። ​በመድረኩ የመክፈቻ ንግግር ያደረጉት የባለሥልጣኑ ዋና ሥራ አስኪያጅ ሻለቃ ዘሪሁን ተፈራ፣ በሩብ",
+   "aufrufe": 9413,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:28Z",
+   "datum": "2026-10-06T17:36Z",
+   "url": "https://www.tiktok.com/@addisababacodeenforcemen/video/7693610152808795412",
+   "alter_tage": 39.2,
+   "aufrufe_pro_tag": 240,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [
+    "Blick/Gesicht/Lächeln"
+   ],
+   "genre": "Horror",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7706675531051224352",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:inthisworldstory"
+   ],
+   "konto": "inthisworldstory",
+   "text": "story #robloxstory #robloxanimation #roblox #inthisworld ",
+   "aufrufe": 9020,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:25Z",
+   "datum": "2026-11-10T22:37Z",
+   "url": "https://www.tiktok.com/@inthisworldstory/video/7706675531051224352",
+   "alter_tage": 3.99,
+   "aufrufe_pro_tag": 2261,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "nur Gattungswort („story“, „In this town“)"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7706658686818618657",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:inthisworldstory"
+   ],
+   "konto": "inthisworldstory",
+   "text": "story #robloxstory #robloxanimation #roblox #inthisworld ",
+   "aufrufe": 8805,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:25Z",
+   "datum": "2026-11-10T21:31Z",
+   "url": "https://www.tiktok.com/@inthisworldstory/video/7706658686818618657",
+   "alter_tage": 4.04,
+   "aufrufe_pro_tag": 2179,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "nur Gattungswort („story“, „In this town“)"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7703888534918270228",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:town.rules"
+   ],
+   "konto": "town.rules",
+   "text": "#roblox #robloxstory #fyp #inthistown #viral ",
+   "aufrufe": 8418,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:28Z",
+   "datum": "2026-11-03T10:22Z",
+   "url": "https://www.tiktok.com/@town.rules/video/7703888534918270228",
+   "alter_tage": 11.5,
+   "aufrufe_pro_tag": 732,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "ohne Text"
+   ],
+   "motive": [],
+   "genre": "unklar (ohne Text)",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7706668611930311968",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:inthisworldstory"
+   ],
+   "konto": "inthisworldstory",
+   "text": "story #robloxstory #robloxanimation #roblox #inthisworld ",
+   "aufrufe": 8101,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:25Z",
+   "datum": "2026-11-10T22:10Z",
+   "url": "https://www.tiktok.com/@inthisworldstory/video/7706668611930311968",
+   "alter_tage": 4.01,
+   "aufrufe_pro_tag": 2020,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "nur Gattungswort („story“, „In this town“)"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7706338852473998623",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:thistownbiz"
+   ],
+   "konto": "thistownbiz",
+   "text": "The creatures watch… #roblox #horror #scary #bedtimestory ",
+   "aufrufe": 8082,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:34Z",
+   "datum": "2026-11-10T00:50Z",
+   "url": "https://www.tiktok.com/@thistownbiz/video/7706338852473998623",
+   "alter_tage": 4.91,
+   "aufrufe_pro_tag": 1646,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "Kurztitel (1–3 Wörter)"
+   ],
+   "motive": [
+    "Blick/Gesicht/Lächeln",
+    "Kreatur/Monster"
+   ],
+   "genre": "Horror",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7708119430370233631",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:concet5612",
+    "videoseite"
+   ],
+   "konto": "concet5612",
+   "dauer_s": 169,
+   "sound": {
+    "titel": "original sound - concet5612",
+    "autor": "concet5612",
+    "original": true,
+    "id": "7708119497424587551"
+   },
+   "ki_label": false,
+   "aufrufe": 7970,
+   "likes": 237,
+   "kommentare": 6,
+   "shares": 3,
+   "gespeichert": 16,
+   "stand": "2026-11-14T22:14Z",
+   "datum": "2026-11-14T20:00Z",
+   "url": "https://www.tiktok.com/@concet5612/video/7708119430370233631",
+   "alter_tage": 0.09,
+   "aufrufe_pro_tag": 7970,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "ohne Text"
+   ],
+   "motive": [],
+   "genre": "Horror (laut Konto)",
+   "format": "Story",
+   "laenge": "150–180 s",
+   "likes_je_100": 2.97,
+   "shares_je_1000": 0.38
+  },
+  {
+   "id": "7707038525115452705",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:inthisworldstory"
+   ],
+   "konto": "inthisworldstory",
+   "text": "story #robloxstory #robloxanimation #roblox #inthisworld ",
+   "aufrufe": 7834,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:25Z",
+   "datum": "2026-11-11T22:05Z",
+   "url": "https://www.tiktok.com/@inthisworldstory/video/7707038525115452705",
+   "alter_tage": 3.01,
+   "aufrufe_pro_tag": 2603,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "nur Gattungswort („story“, „In this town“)"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7707756103999802656",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:inthisworldstory"
+   ],
+   "konto": "inthisworldstory",
+   "text": "story #robloxstory #robloxanimation #roblox #inthisworld ",
+   "aufrufe": 7404,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:25Z",
+   "datum": "2026-11-13T20:30Z",
+   "url": "https://www.tiktok.com/@inthisworldstory/video/7707756103999802656",
+   "alter_tage": 1.08,
+   "aufrufe_pro_tag": 6856,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "nur Gattungswort („story“, „In this town“)"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7707755213230247200",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:inthisworldstory"
+   ],
+   "konto": "inthisworldstory",
+   "text": "story #robloxstory #robloxanimation #roblox #inthisworld ",
+   "aufrufe": 7154,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:25Z",
+   "datum": "2026-11-13T20:26Z",
+   "url": "https://www.tiktok.com/@inthisworldstory/video/7707755213230247200",
+   "alter_tage": 1.08,
+   "aufrufe_pro_tag": 6624,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "nur Gattungswort („story“, „In this town“)"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7704411400742980878",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:cannonanimatess"
+   ],
+   "konto": "cannonanimatess",
+   "text": "The Kid Who Could Make Anyone Smile😄 #roblox #robloxanimation #robloxstory ",
+   "aufrufe": 6079,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:15Z",
+   "datum": "2026-11-04T20:11Z",
+   "url": "https://www.tiktok.com/@cannonanimatess/video/7704411400742980878",
+   "alter_tage": 10.09,
+   "aufrufe_pro_tag": 602,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "Titel „The … who/that …“"
+   ],
+   "motive": [
+    "Blick/Gesicht/Lächeln"
+   ],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7698184679974767893",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:zerobraincellstudio"
+   ],
+   "konto": "zerobraincellstudio",
+   "text": "Game: Survive The SCPs#roblox #robloxhorror #horror #fyp #funny #scp",
+   "aufrufe": 5931,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:25Z",
+   "datum": "2026-10-19T01:28Z",
+   "url": "https://www.tiktok.com/@zerobraincellstudio/video/7698184679974767893",
+   "alter_tage": 26.87,
+   "aufrufe_pro_tag": 221,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "Spielname („Game: …“)"
+   ],
+   "motive": [
+    "Kreatur/Monster"
+   ],
+   "genre": "Horror",
+   "format": "Gameplay",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7702991162461752597",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:townrules"
+   ],
+   "konto": "town.rules",
+   "text": "#roblox #robloxstory #fyp #inthistown #townrules",
+   "aufrufe": 5610,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:28Z",
+   "datum": "2026-11-01T00:19Z",
+   "url": "https://www.tiktok.com/@town.rules/video/7702991162461752597",
+   "alter_tage": 13.92,
+   "aufrufe_pro_tag": 403,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "ohne Text"
+   ],
+   "motive": [],
+   "genre": "unklar (ohne Text)",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7707007764773588256",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:inthisworldstory"
+   ],
+   "konto": "inthisworldstory",
+   "text": "story #robloxstory #robloxanimation #roblox #inthisworld ",
+   "aufrufe": 5054,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:25Z",
+   "datum": "2026-11-11T20:06Z",
+   "url": "https://www.tiktok.com/@inthisworldstory/video/7707007764773588256",
+   "alter_tage": 3.1,
+   "aufrufe_pro_tag": 1630,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "nur Gattungswort („story“, „In this town“)"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7702992044259544341",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:townrules"
+   ],
+   "konto": "town.rules",
+   "text": "#townrules #inthistown #fyp #robloxstory #roblox ",
+   "aufrufe": 4677,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:28Z",
+   "datum": "2026-11-01T00:23Z",
+   "url": "https://www.tiktok.com/@town.rules/video/7702992044259544341",
+   "alter_tage": 13.92,
+   "aufrufe_pro_tag": 336,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "ohne Text"
+   ],
+   "motive": [],
+   "genre": "unklar (ohne Text)",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7702999941572250900",
+   "plattform": "tiktok",
+   "quellen": [
+    "tag:townrules"
+   ],
+   "konto": "town.rules",
+   "text": "#roblox #robloxstory #fyp #inthistown #townrules ",
+   "aufrufe": 4529,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:28Z",
+   "datum": "2026-11-01T00:53Z",
+   "url": "https://www.tiktok.com/@town.rules/video/7702999941572250900",
+   "alter_tage": 13.9,
+   "aufrufe_pro_tag": 326,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "ohne Text"
+   ],
+   "motive": [],
+   "genre": "unklar (ohne Text)",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7704260042731949333",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:town.rules"
+   ],
+   "konto": "town.rules",
+   "text": "#roblox #robloxstory #fyp #viral #inthistown ",
+   "aufrufe": 4513,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:28Z",
+   "datum": "2026-11-04T10:23Z",
+   "url": "https://www.tiktok.com/@town.rules/video/7704260042731949333",
+   "alter_tage": 10.5,
+   "aufrufe_pro_tag": 430,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "ohne Text"
+   ],
+   "motive": [],
+   "genre": "unklar (ohne Text)",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7707455609590844703",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:thistownbiz",
+    "videoseite"
+   ],
+   "konto": "thistownbiz",
+   "text": "In this town the scarecrows eat first 🍽️ #roblox #robloxstories ",
+   "dauer_s": 143,
+   "sound": {
+    "titel": "original sound",
+    "autor": "ThisTown 🏙️",
+    "original": true,
+    "id": "7707455614368303903"
+   },
+   "hashtags": [
+    "roblox",
+    "robloxstories"
+   ],
+   "ki_label": false,
+   "aufrufe": 4346,
+   "likes": 390,
+   "kommentare": 6,
+   "shares": 11,
+   "gespeichert": 38,
+   "stand": "2026-11-14T22:34Z",
+   "datum": "2026-11-13T01:04Z",
+   "url": "https://www.tiktok.com/@thistownbiz/video/7707455609590844703",
+   "alter_tage": 1.9,
+   "aufrufe_pro_tag": 2287,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "„In this town/world …“"
+   ],
+   "motive": [
+    "Kreatur/Monster"
+   ],
+   "genre": "Horror",
+   "format": "Story",
+   "laenge": "120–149 s",
+   "likes_je_100": 8.97,
+   "shares_je_1000": 2.53
+  },
+  {
+   "id": "7703416647532514568",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:zerobraincellstudio"
+   ],
+   "konto": "zerobraincellstudio",
+   "text": "This game is fun  #scp #horror #robloxhorror #fyp #roblox ",
+   "aufrufe": 3927,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:25Z",
+   "datum": "2026-11-02T03:50Z",
+   "url": "https://www.tiktok.com/@zerobraincellstudio/video/7703416647532514568",
+   "alter_tage": 12.77,
+   "aufrufe_pro_tag": 308,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "sonstiger Satz"
+   ],
+   "motive": [],
+   "genre": "Horror (nur Hashtag)",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7707134605584796941",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:cannonanimatess"
+   ],
+   "konto": "cannonanimatess",
+   "text": "In This World, Everyone Gets One Rule🌟 #roblox #robloxanimation #robloxstory ",
+   "aufrufe": 3418,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:15Z",
+   "datum": "2026-11-12T04:18Z",
+   "url": "https://www.tiktok.com/@cannonanimatess/video/7707134605584796941",
+   "alter_tage": 2.75,
+   "aufrufe_pro_tag": 1243,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "„In this town/world …“"
+   ],
+   "motive": [],
+   "genre": "Fantasy",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7708150354227072287",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:concet5612",
+    "videoseite"
+   ],
+   "konto": "concet5612",
+   "dauer_s": 156,
+   "sound": {
+    "titel": "original sound - concet5612",
+    "autor": "concet5612",
+    "original": true,
+    "id": "7708150377220950814"
+   },
+   "ki_label": false,
+   "aufrufe": 3406,
+   "likes": 114,
+   "kommentare": 7,
+   "shares": 1,
+   "gespeichert": 7,
+   "stand": "2026-11-14T22:14Z",
+   "datum": "2026-11-14T22:00Z",
+   "url": "https://www.tiktok.com/@concet5612/video/7708150354227072287",
+   "alter_tage": 0.01,
+   "aufrufe_pro_tag": 3406,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "ohne Text"
+   ],
+   "motive": [],
+   "genre": "Horror (laut Konto)",
+   "format": "Story",
+   "laenge": "150–180 s",
+   "likes_je_100": 3.35,
+   "shares_je_1000": 0.29
+  },
+  {
+   "id": "7706273126857886983",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:zerobraincellstudio"
+   ],
+   "konto": "zerobraincellstudio",
+   "text": "Ink game#inthistown #roblox #animatedstories #robloxstory #fyp ",
+   "aufrufe": 3293,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:25Z",
+   "datum": "2026-11-09T20:35Z",
+   "url": "https://www.tiktok.com/@zerobraincellstudio/video/7706273126857886983",
+   "alter_tage": 5.08,
+   "aufrufe_pro_tag": 648,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "Kurztitel (1–3 Wörter)"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7708140389378559265",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:inthisworldstory"
+   ],
+   "konto": "inthisworldstory",
+   "text": "story #robloxstory #robloxanimation #roblox #inthisworld ",
+   "aufrufe": 2543,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:25Z",
+   "datum": "2026-11-14T21:21Z",
+   "url": "https://www.tiktok.com/@inthisworldstory/video/7708140389378559265",
+   "alter_tage": 0.04,
+   "aufrufe_pro_tag": 2543,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "nur Gattungswort („story“, „In this town“)"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7704651104981716245",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:town.rules"
+   ],
+   "konto": "town.rules",
+   "text": "#inthistown #fyp #fyp #robloxstory #townrules ",
+   "aufrufe": 2504,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:28Z",
+   "datum": "2026-11-05T11:41Z",
+   "url": "https://www.tiktok.com/@town.rules/video/7704651104981716245",
+   "alter_tage": 9.45,
+   "aufrufe_pro_tag": 265,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "ohne Text"
+   ],
+   "motive": [],
+   "genre": "unklar (ohne Text)",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7706229300411862324",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:zerobraincellstudio"
+   ],
+   "konto": "zerobraincellstudio",
+   "text": "In this world #roblox #inthistown #animatedstories #robloxstory #fyp ",
+   "aufrufe": 2478,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:25Z",
+   "datum": "2026-11-09T17:45Z",
+   "url": "https://www.tiktok.com/@zerobraincellstudio/video/7706229300411862324",
+   "alter_tage": 5.19,
+   "aufrufe_pro_tag": 477,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "nur Gattungswort („story“, „In this town“)"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7705018769956998420",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:town.rules"
+   ],
+   "konto": "town.rules",
+   "text": "#robloxstory #fyp #roblox #lovestory #viral ",
+   "aufrufe": 2296,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:28Z",
+   "datum": "2026-11-06T11:27Z",
+   "url": "https://www.tiktok.com/@town.rules/video/7705018769956998420",
+   "alter_tage": 8.46,
+   "aufrufe_pro_tag": 271,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "ohne Text"
+   ],
+   "motive": [],
+   "genre": "unklar (ohne Text)",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7705658619735379221",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:town.rules"
+   ],
+   "konto": "town.rules",
+   "text": "checkout my showcase 🙌 #viral #roblox #fyp #robloxstory ",
+   "aufrufe": 1213,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:28Z",
+   "datum": "2026-11-08T04:50Z",
+   "url": "https://www.tiktok.com/@town.rules/video/7705658619735379221",
+   "alter_tage": 6.73,
+   "aufrufe_pro_tag": 180,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "Kurztitel (1–3 Wörter)"
+   ],
+   "motive": [],
+   "genre": "unklar",
+   "format": "Spiel-Werbung",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7706880907176643861",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:town.rules"
+   ],
+   "konto": "town.rules",
+   "text": "#robloxstory #roblox #fyp #viral #inthistown ",
+   "aufrufe": 1189,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:28Z",
+   "datum": "2026-11-11T11:54Z",
+   "url": "https://www.tiktok.com/@town.rules/video/7706880907176643861",
+   "alter_tage": 3.44,
+   "aufrufe_pro_tag": 346,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "ohne Text"
+   ],
+   "motive": [],
+   "genre": "unklar (ohne Text)",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7707275677992537374",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:thistownbiz"
+   ],
+   "konto": "thistownbiz",
+   "text": "In this town you never turn off the lights 💡 #roblox #robloxstories ",
+   "aufrufe": 841,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:34Z",
+   "datum": "2026-11-12T13:25Z",
+   "url": "https://www.tiktok.com/@thistownbiz/video/7707275677992537374",
+   "alter_tage": 2.38,
+   "aufrufe_pro_tag": 353,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "„In this town/world …“",
+    "Verbot („never …“, „don't …“)"
+   ],
+   "motive": [
+    "Tür/Haus/Einlass"
+   ],
+   "genre": "unklar",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7706465397750467871",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:thistownbiz"
+   ],
+   "konto": "thistownbiz",
+   "text": "#funny #roblox",
+   "aufrufe": 581,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:34Z",
+   "datum": "2026-11-10T09:01Z",
+   "url": "https://www.tiktok.com/@thistownbiz/video/7706465397750467871",
+   "alter_tage": 4.56,
+   "aufrufe_pro_tag": 127,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "ohne Text"
+   ],
+   "motive": [],
+   "genre": "unklar (ohne Text)",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  },
+  {
+   "id": "7706424860636990733",
+   "plattform": "tiktok",
+   "quellen": [
+    "konto:thistownbiz"
+   ],
+   "konto": "thistownbiz",
+   "text": "The Room #roblox #scary #horror ",
+   "aufrufe": 462,
+   "likes": null,
+   "kommentare": null,
+   "shares": null,
+   "gespeichert": null,
+   "stand": "2026-11-14T22:34Z",
+   "datum": "2026-11-10T06:24Z",
+   "url": "https://www.tiktok.com/@thistownbiz/video/7706424860636990733",
+   "alter_tage": 4.67,
+   "aufrufe_pro_tag": 99,
+   "teil": {
+    "art": "einzel",
+    "nr": null,
+    "koeder": false
+   },
+   "hook_muster": [
+    "Kurztitel (1–3 Wörter)"
+   ],
+   "motive": [
+    "Tür/Haus/Einlass"
+   ],
+   "genre": "Horror",
+   "format": "Story",
+   "laenge": null,
+   "likes_je_100": null,
+   "shares_je_1000": null
+  }
+ ],
+ "vergleich": {}
+}

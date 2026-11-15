@@ -1,0 +1,49 @@
+{
+  "_hinweis": "Liste für radar.py. Hashtags ohne #, Konten ohne @. TikTok-Seiten speichert Linus von Hand im Browser (siehe README); YouTube läuft über die offizielle Data API.",
+  "fenster_tage": 14,
+  "hashtags": [
+    "inthistown",
+    "inthisworld",
+    "robloxstory",
+    "robloxhorror",
+    "horrorstory",
+    "scarystories",
+    "scarystory",
+    "robloxhorrorstory",
+    "townrules"
+  ],
+  "konten": [
+    "concet5612",
+    "dogeok",
+    "cannonanimatess",
+    "lileggy38",
+    "larpniverse",
+    "jexario",
+    "yougplat",
+    "horrorrobs",
+    "inthisworldstory",
+    "thistownbiz",
+    "town.rules",
+    "zerobraincellstudio"
+  ],
+  "konto_genre": {
+    "concet5612": "Horror",
+    "jexario": "Horror",
+    "yougplat": "Horror",
+    "horrorrobs": "Horror"
+  },
+  "youtube": {
+    "suchbegriffe": [
+      "in this town horror story",
+      "roblox horror story animation",
+      "scary story animation",
+      "horror story part 2"
+    ],
+    "kanaele": [
+      "@fluppzzyy",
+      "@AuraaRobloxx",
+      "@UnluckyGuyStories"
+    ],
+    "max_treffer_je_suche": 25
+  }
+}

@@ -1,0 +1,527 @@
+{
+ "stand": "2026-11-15",
+ "hinweis": "Referenz = Demucs-Musikspur der Vorlage (nicht im Repo). alt = Nachbau v1 (betten.py, Stufe 2). neu = musik-v2.",
+ "stile": {
+  "r2": {
+   "referenz": {
+    "datei": "stem-other.wav",
+    "abschnitt": [
+     0.0,
+     147.0
+    ],
+    "periode_s": 17.183,
+    "bpm": 112.35,
+    "stimmung_cent": 46.0,
+    "st_std_lu": 1.96,
+    "onsets_s": 4.87,
+    "seite_mitte_db": -6.8
+   },
+   "kandidaten": [
+    {
+     "datei": "r2-v2-schleife.wav",
+     "chroma_korr": 0.866,
+     "chroma_frei": {
+      "wert": 0.866,
+      "dehnung": 1.0,
+      "transp_ht": 0
+     },
+     "periode_s": 17.183,
+     "bpm": 112.35,
+     "stimmung_cent": 43.0,
+     "spektral_db": 4.77,
+     "spektral_kern_db": 5.53,
+     "laut_korr": 0.622,
+     "st_std_lu": 0.67,
+     "onsets_s": 3.72,
+     "seite_mitte_db": -7.2,
+     "art": "neu"
+    },
+    {
+     "datei": "r2-v2-duenn.wav",
+     "chroma_korr": 0.864,
+     "chroma_frei": {
+      "wert": 0.864,
+      "dehnung": 1.0,
+      "transp_ht": 0
+     },
+     "periode_s": 17.183,
+     "bpm": 112.35,
+     "stimmung_cent": 43.0,
+     "spektral_db": 5.78,
+     "spektral_kern_db": 6.64,
+     "laut_korr": 0.565,
+     "st_std_lu": 0.84,
+     "onsets_s": 3.72,
+     "seite_mitte_db": -7.3,
+     "art": "neu"
+    },
+    {
+     "datei": "r2-v2-voll.wav",
+     "chroma_korr": 0.767,
+     "chroma_frei": {
+      "wert": 0.767,
+      "dehnung": 1.0,
+      "transp_ht": 0
+     },
+     "periode_s": 17.183,
+     "bpm": 112.35,
+     "stimmung_cent": 43.0,
+     "spektral_db": 6.96,
+     "spektral_kern_db": 8.1,
+     "laut_korr": 0.544,
+     "st_std_lu": 0.57,
+     "onsets_s": 3.72,
+     "seite_mitte_db": -7.5,
+     "art": "neu"
+    },
+    {
+     "datei": "r2-bett-a.wav",
+     "chroma_korr": 0.568,
+     "chroma_frei": {
+      "wert": 0.571,
+      "dehnung": 0.8,
+      "transp_ht": 0
+     },
+     "periode_s": 17.136,
+     "bpm": 112.35,
+     "stimmung_cent": -1.0,
+     "spektral_db": 7.44,
+     "spektral_kern_db": 7.84,
+     "laut_korr": 0.214,
+     "st_std_lu": 1.03,
+     "onsets_s": 3.26,
+     "seite_mitte_db": -9.0,
+     "art": "alt"
+    },
+    {
+     "datei": "r2-bett-b.wav",
+     "chroma_korr": 0.57,
+     "chroma_frei": {
+      "wert": 0.578,
+      "dehnung": 1.1,
+      "transp_ht": 0
+     },
+     "periode_s": 12.864,
+     "bpm": 112.35,
+     "stimmung_cent": 2.0,
+     "spektral_db": 4.86,
+     "spektral_kern_db": 5.56,
+     "laut_korr": 0.22,
+     "st_std_lu": 1.22,
+     "onsets_s": 3.26,
+     "seite_mitte_db": -6.8,
+     "art": "alt"
+    }
+   ],
+   "bau": {
+    "stil": "r2",
+    "bpm": 111.72,
+    "cent": 46,
+    "schleife_s": 17.185821697099893,
+    "schleifen": 11,
+    "dauer_s": 189.04403628117913,
+    "soundfont": "FluidR3_GM.sf2",
+    "eq_db": [
+     9.0,
+     9.0,
+     9.0,
+     9.0,
+     9.0,
+     9.0,
+     9.0,
+     9.0,
+     7.1,
+     -1.5,
+     -3.5,
+     -1.4,
+     0.3,
+     -0.1,
+     2.1,
+     1.2,
+     2.8,
+     3.4,
+     0.3,
+     -5.9,
+     -15.3,
+     -19.6,
+     -19.9,
+     -17.3,
+     -11.1,
+     -5.8,
+     -1.4
+    ],
+    "schleife_lufs": -20.0,
+    "schleife_true_peak_db": -9.24,
+    "duenn_lufs": -21.92,
+    "duenn_true_peak_db": -10.76,
+    "voll_lufs": -19.22,
+    "voll_true_peak_db": -6.53,
+    "naht_db": 0.66,
+    "naht_hf_faktor": 11.94,
+    "anschlag_hf_faktor_max": 15.34,
+    "dateien": {
+     "schleife": "../../build/musik-v2/r2-v2-schleife.wav",
+     "duenn": "../../build/musik-v2/r2-v2-duenn.wav",
+     "voll": "../../build/musik-v2/r2-v2-voll.wav"
+    }
+   }
+  },
+  "r5": {
+   "referenz": {
+    "datei": "stem-other.wav",
+    "abschnitt": [
+     0.0,
+     161.0
+    ],
+    "periode_s": 20.457,
+    "bpm": 95.7,
+    "stimmung_cent": -40.0,
+    "st_std_lu": 1.12,
+    "onsets_s": 4.37,
+    "seite_mitte_db": -7.1
+   },
+   "kandidaten": [
+    {
+     "datei": "r5-v2-schleife.wav",
+     "chroma_korr": 0.864,
+     "chroma_frei": {
+      "wert": 0.864,
+      "dehnung": 1.0,
+      "transp_ht": 0
+     },
+     "periode_s": 20.457,
+     "bpm": 184.57,
+     "stimmung_cent": 49.0,
+     "spektral_db": 5.64,
+     "spektral_kern_db": 5.89,
+     "laut_korr": 0.544,
+     "st_std_lu": 0.67,
+     "onsets_s": 3.12,
+     "seite_mitte_db": -6.9,
+     "art": "neu"
+    },
+    {
+     "datei": "r5-v2-duenn.wav",
+     "chroma_korr": 0.855,
+     "chroma_frei": {
+      "wert": 0.855,
+      "dehnung": 1.0,
+      "transp_ht": 0
+     },
+     "periode_s": 20.457,
+     "bpm": 184.57,
+     "stimmung_cent": 49.0,
+     "spektral_db": 7.02,
+     "spektral_kern_db": 7.29,
+     "laut_korr": 0.47,
+     "st_std_lu": 0.77,
+     "onsets_s": 3.12,
+     "seite_mitte_db": -7.0,
+     "art": "neu"
+    },
+    {
+     "datei": "r5-v2-voll.wav",
+     "chroma_korr": 0.806,
+     "chroma_frei": {
+      "wert": 0.806,
+      "dehnung": 1.0,
+      "transp_ht": 0
+     },
+     "periode_s": 20.457,
+     "bpm": 184.57,
+     "stimmung_cent": -44.0,
+     "spektral_db": 5.46,
+     "spektral_kern_db": 5.75,
+     "laut_korr": 0.435,
+     "st_std_lu": 0.56,
+     "onsets_s": 3.13,
+     "seite_mitte_db": -6.5,
+     "art": "neu"
+    },
+    {
+     "datei": "r5-bett-a.wav",
+     "chroma_korr": 0.54,
+     "chroma_frei": {
+      "wert": 0.623,
+      "dehnung": 0.7,
+      "transp_ht": 0
+     },
+     "periode_s": 20.643,
+     "bpm": 92.29,
+     "stimmung_cent": 0.0,
+     "spektral_db": 5.5,
+     "spektral_kern_db": 4.97,
+     "laut_korr": 0.228,
+     "st_std_lu": 1.42,
+     "onsets_s": 3.87,
+     "seite_mitte_db": -7.4,
+     "art": "alt"
+    },
+    {
+     "datei": "r5-bett-b.wav",
+     "chroma_korr": 0.53,
+     "chroma_frei": {
+      "wert": 0.567,
+      "dehnung": 0.98,
+      "transp_ht": 4
+     },
+     "periode_s": 20.643,
+     "bpm": 92.29,
+     "stimmung_cent": 0.0,
+     "spektral_db": 5.68,
+     "spektral_kern_db": 4.03,
+     "laut_korr": 0.219,
+     "st_std_lu": 1.32,
+     "onsets_s": 3.85,
+     "seite_mitte_db": -7.8,
+     "art": "alt"
+    }
+   ],
+   "bau": {
+    "stil": "r5",
+    "bpm": 93.83,
+    "cent": 55,
+    "schleife_s": 20.462538633699243,
+    "schleifen": 9,
+    "dauer_s": 184.16285714285715,
+    "soundfont": "FluidR3_GM.sf2",
+    "eq_db": [
+     9.0,
+     9.0,
+     9.0,
+     9.0,
+     9.0,
+     9.0,
+     9.0,
+     9.0,
+     9.0,
+     5.3,
+     2.2,
+     1.0,
+     -0.4,
+     0.6,
+     -1.2,
+     -4.5,
+     -2.3,
+     0.8,
+     4.0,
+     0.6,
+     -1.6,
+     -3.2,
+     -6.5,
+     -8.6,
+     -7.7,
+     -2.8,
+     0.6
+    ],
+    "schleife_lufs": -20.0,
+    "schleife_true_peak_db": -8.06,
+    "duenn_lufs": -22.35,
+    "duenn_true_peak_db": -11.08,
+    "voll_lufs": -19.09,
+    "voll_true_peak_db": -7.0,
+    "naht_db": -0.03,
+    "naht_hf_faktor": 5.26,
+    "anschlag_hf_faktor_max": 10.76,
+    "dateien": {
+     "schleife": "../../build/musik-v2/r5-v2-schleife.wav",
+     "duenn": "../../build/musik-v2/r5-v2-duenn.wav",
+     "voll": "../../build/musik-v2/r5-v2-voll.wav"
+    }
+   }
+  },
+  "ref0": {
+   "referenz": {
+    "datei": "bett-getrennt.wav",
+    "abschnitt": [
+     0.0,
+     166.0
+    ],
+    "periode_s": 21.804,
+    "bpm": 129.2,
+    "stimmung_cent": -34.0,
+    "st_std_lu": 1.91,
+    "onsets_s": 2.22,
+    "seite_mitte_db": -3.4
+   },
+   "kandidaten": [
+    {
+     "datei": "ref0-v2-schleife.wav",
+     "chroma_korr": 0.862,
+     "chroma_frei": {
+      "wert": 0.863,
+      "dehnung": 1.02,
+      "transp_ht": 0
+     },
+     "periode_s": 21.804,
+     "bpm": 129.2,
+     "stimmung_cent": -31.0,
+     "spektral_db": 2.08,
+     "spektral_kern_db": 2.08,
+     "laut_korr": 0.102,
+     "st_std_lu": 2.07,
+     "onsets_s": 2.2,
+     "seite_mitte_db": -4.2,
+     "art": "neu"
+    },
+    {
+     "datei": "ref0-v2-duenn.wav",
+     "chroma_korr": 0.836,
+     "chroma_frei": {
+      "wert": 0.836,
+      "dehnung": 1.0,
+      "transp_ht": 0
+     },
+     "periode_s": 21.804,
+     "bpm": 129.2,
+     "stimmung_cent": -31.0,
+     "spektral_db": 2.34,
+     "spektral_kern_db": 2.39,
+     "laut_korr": 0.286,
+     "st_std_lu": 0.82,
+     "onsets_s": 2.2,
+     "seite_mitte_db": -2.9,
+     "art": "neu"
+    },
+    {
+     "datei": "ref0-v2-voll.wav",
+     "chroma_korr": 0.862,
+     "chroma_frei": {
+      "wert": 0.863,
+      "dehnung": 1.02,
+      "transp_ht": 0
+     },
+     "periode_s": 21.804,
+     "bpm": 129.2,
+     "stimmung_cent": -31.0,
+     "spektral_db": 1.94,
+     "spektral_kern_db": 1.88,
+     "laut_korr": -0.008,
+     "st_std_lu": 1.03,
+     "onsets_s": 2.2,
+     "seite_mitte_db": -4.7,
+     "art": "neu"
+    },
+    {
+     "datei": "ref0-bett-a.wav",
+     "chroma_korr": 0.624,
+     "chroma_frei": {
+      "wert": 0.685,
+      "dehnung": 0.98,
+      "transp_ht": 4
+     },
+     "periode_s": 21.827,
+     "bpm": 129.2,
+     "stimmung_cent": -29.0,
+     "spektral_db": 3.6,
+     "spektral_kern_db": 3.57,
+     "laut_korr": 0.097,
+     "st_std_lu": 2.28,
+     "onsets_s": 3.34,
+     "seite_mitte_db": -3.2,
+     "art": "alt"
+    },
+    {
+     "datei": "ref0-bett-b.wav",
+     "chroma_korr": 0.685,
+     "chroma_frei": {
+      "wert": 0.69,
+      "dehnung": 0.94,
+      "transp_ht": 0
+     },
+     "periode_s": 14.536,
+     "bpm": 129.2,
+     "stimmung_cent": -30.0,
+     "spektral_db": 4.46,
+     "spektral_kern_db": 4.81,
+     "laut_korr": 0.254,
+     "st_std_lu": 2.05,
+     "onsets_s": 2.87,
+     "seite_mitte_db": -2.7,
+     "art": "alt"
+    }
+   ],
+   "bau": {
+    "stil": "ref0",
+    "bpm": 66.05,
+    "cent": -32,
+    "schleife_s": 21.801665404996214,
+    "schleifen": 9,
+    "dauer_s": 196.21498866213153,
+    "soundfont": "FluidR3_GM.sf2",
+    "eq_db": [
+     9.0,
+     9.0,
+     9.0,
+     9.0,
+     8.6,
+     6.9,
+     4.6,
+     2.8,
+     0.2,
+     -1.2,
+     -1.6,
+     -0.5,
+     0.0,
+     1.3,
+     0.3,
+     -2.8,
+     -8.3,
+     -10.8,
+     -11.1,
+     -10.6,
+     -10.5,
+     -10.6,
+     -8.9,
+     -6.7,
+     0.6,
+     2.7,
+     3.8
+    ],
+    "eq_voll_tief_db": [
+     -3.0,
+     -2.9,
+     -1.6,
+     0.0,
+     1.0,
+     1.9,
+     1.6,
+     2.5,
+     1.7,
+     1.4,
+     0.9,
+     1.0,
+     0.0,
+     0.4,
+     1.7,
+     0.7,
+     -2.8,
+     -6.9,
+     -8.5,
+     -8.6,
+     -8.2,
+     -7.9,
+     -7.3,
+     -7.2,
+     -4.6,
+     -2.2,
+     0.0
+    ],
+    "schleife_lufs": -20.0,
+    "schleife_true_peak_db": -1.32,
+    "duenn_lufs": -22.02,
+    "duenn_true_peak_db": -8.03,
+    "voll_lufs": -18.32,
+    "voll_true_peak_db": -1.32,
+    "naht_db": -0.01,
+    "naht_hf_faktor": 2.04,
+    "anschlag_hf_faktor_max": 4.51,
+    "dateien": {
+     "schleife": "../../build/musik-v2/ref0-v2-schleife.wav",
+     "duenn": "../../build/musik-v2/ref0-v2-duenn.wav",
+     "voll": "../../build/musik-v2/ref0-v2-voll.wav"
+    }
+   }
+  }
+ }
+}

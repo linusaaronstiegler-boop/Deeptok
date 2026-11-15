@@ -1,0 +1,64 @@
+# Musik v2: Rechte, Quellen, Restrisiko
+
+Stand 15.11.2026. Alle Abrufdaten in UTC.
+
+## Was von uns ist
+
+- **Noten:** `muster/spieluhr.json`, `muster/klavier.json` und die daraus erzeugten `midi/*.mid`. Sie sind aus den Demucs-Musikspuren der Vorlagen transkribiert (`analyse/`) und an den markierten Stellen neu gesetzt.
+- **Code:** `bauen.py`, `vergleich.py`, `analyse/*.py`.
+- **Klang:** Gerendert mit der Soundfont **FluidR3_GM** (Frank Wen, MIT-Lizenz, Debian-Paket `fluid-soundfont-gm`, Datei `/usr/share/sounds/sf2/FluidR3_GM.sf2`). Die MIT-Lizenz erlaubt kommerzielle Nutzung. Hall, EQ und Leiern sind eigener Code. `fluidsynth` ist nur das Werkzeug.
+
+## Was aus den Vorlagen übernommen ist
+
+Übernommen ist, was als nicht schützbar gilt:
+- Tempo, Taktart, Schleifenlänge und Stimmung
+- Akkordfolge, Register und durchgehender Achtel-Rhythmus
+- Arpeggio-Grammatik (Grundton, Terz, Quinte in 3+3+2)
+- Basslinie aus Grundtönen
+
+Eigenständig gesetzt ist die Oberstimme:
+- **Spieluhr (r2/r5):** Die Spitzentöne in Takt 5–8 sind neu: E6 statt H5, E6 statt Cis6, Cis6 statt H5, Gis5 statt H5. Dazu kommt ein eigener Glitzerton Gis6 am Schleifenende statt des A6 der Vorlage.
+- **Klavier (ref0):** Die Viertel-Melodie auf den Zählzeiten ist ganz neu, in 8 Takten aus Akkordtönen (`melodie_eigen`). Die Melodietöne der Vorlage sind entfernt.
+
+## Restrisiko (ehrlich)
+
+- **Spieluhr:** Die Spieluhr-Vorlage hat keine eigene Melodie. Das Arpeggio ist fast das ganze Stück, und unsere Begleitung folgt ihm Achtel für Achtel. Nur die Oberstimme in Takt 5–8 und der Glitzerton weichen ab.
+  - Unser eigener Chroma-Fingerabdruck (`analyse/fingerabdruck.py`) stuft die neuen Schleifen deshalb als „dasselbe Stück“ ein: r2 0,83 bei z 4,6, ref0 0,82 bei z 6,1.
+  - Plattform-Erkennung (Content ID, TikTok) vergleicht Aufnahmen, keine Noten. Weil Instrument-Samples, Hall und Mischung andere sind, ist ein Treffer unwahrscheinlich. Eine Melodie- oder Cover-Erkennung ist aber nicht ausgeschlossen. Das ist eine Einschätzung, keine Rechtsberatung.
+  - Wer mehr Abstand will, variiert die Oberstimme auch in Takt 1–4 (`VARIATION` in `analyse/muster_schreiben.py`). Dann `python -I analyse/muster_schreiben.py <analyse-ordner>` und `bauen.py` neu laufen lassen.
+- **Referenz-Ausschnitte** `proben/*-referenz-*.mp3` sind fremdes Material: Musik aus TikToks von @jexario, @yougplat und @concet5612. Sie sind nur zum Vergleichshören da, über `proben/.gitignore` vom Repo ausgeschlossen und kommen nie in ein Video.
+
+## Weg A: Ist die Vorlage ein freier Bibliothekstitel?
+
+**Ergebnis: nicht gefunden.** Mit den erlaubten Mitteln war kein Original zu identifizieren. Belegt ist Folgendes:
+
+1. **r2 und r5 sind dasselbe Stück.** r5 ist 3 Halbtöne tiefer und 1,19× langsamer, wie eine Tempo- und Tonhöhenänderung im Schnittprogramm. Der Fingerabdruck liegt bei 0,82 und z 5,2, Dehnung 1,20, Transposition −3. Fremde Stücke liegen bei 0,55–0,61 und z 2,4–3,1.
+   - Folge: I – vi7 – vi – bVI+, zweimal, 8 Takte in Achtel-Arpeggien.
+   - r2: E, +46 Cent, 111,7 BPM, Schleife 17,19 s.
+   - r5: Cis, +55 Cent, 93,8 BPM, Schleife 20,46 s.
+   - Das Originaltempo ist unbekannt.
+2. **TikTok-Angaben (öffentliche Seiten und offizielle Embeds):**
+   - r2 ist das Video `7707644009296039200` von @jexario (147 s, 7,3 Mio. Aufrufe). Als Ton steht dort „original sound – Jexario“, die Musik ist also eingebacken und nicht als Bibliothekssound verlinkt (Abruf 15.11.2026, 20:59).
+   - ref0 (@concet5612, Video `7707748313222630686`) zeigt „original sound – concet5612“ (Abruf 14.11.2026, frühere Recherche).
+   - r5 ist nicht unter den 10 neuesten Videos im Creator-Embed von @yougplat (Abruf 15.11.2026).
+3. **Pixabay Music:**
+   - Die Nutzungsbedingungen §8 (Stand 20.10.2026) verbieten „the use of programs or robots for automatic data collection“ und „Bulk, large-scale or systematic copying“. Automatisierte Abrufe bekommen außerdem HTTP 403. Deshalb habe ich keine Audiodatei geladen.
+   - Die Lizenz-Zusammenfassung erlaubt kostenlose Nutzung ohne Namensnennung. Verboten ist der Weiterverkauf als eigenständige Datei. Content ID ist dort nicht geregelt.
+   - Kandidaten von der Suchseite „creepy music box“ (Abruf 15.11.2026) zum Selbstanhören: Universfield „Creepy Music Box“ (`/music/beats-creepy-music-box-509259/`), „Horror Music Box“ (`/music/mystery-horror-music-box-145144/`), „Creepy Music Box Horror“ (`/music/mystery-creepy-music-box-horror-175957/`), „Spooky Music Box“ (`/music/suspense-spooky-music-box-513554/`), „Haunting Music Box“ (`/music/mystery-haunting-music-box-289437/`); leberch „Horror Music Box“ (`/music/suspense-horror-music-box-511181/`); Lilliben „Creeping Music Box – Horror Lullaby“ (`/music/mystery-creeping-music-box-horror-lullaby-365186/`). Alle unter `https://pixabay.com`.
+4. **Incompetech (Kevin MacLeod, CC BY 4.0):**
+   - Laut FAQ ist Monetarisierung auf YouTube erlaubt, der Credit ist Pflicht. TikTok wird nicht genannt. Eine Regel gegen automatisierte Abrufe stand dort nicht (Abruf 15.11.2026).
+   - Den Katalog `pieces.json` habe ich gefiltert, die zwei passendsten Stücke geladen und geprüft: „Gone Beyond“ 0,55 und „Darkest Child“ 0,58, kein Treffer.
+5. **Nicht geprüft:**
+   - Freemusicarchive: Regeln zu automatisiertem Zugriff nicht gefunden, deshalb nichts geladen.
+   - Freesound und OpenGameArt: HTTP 403, nicht umgangen.
+   - YouTube Audio Library und Uppbeat: nur mit Login.
+   - CapCut- und TikTok-Bibliothek: nur in der App.
+
+**So prüft Linus selbst:** Kandidaten von Hand im Browser laden (das erlauben die Bedingungen), dann
+`python -I analyse/fingerabdruck.py <referenz-schleife.wav> kandidat1.mp3 kandidat2.mp3`.
+Treffer heißt: Ähnlichkeit ≥ 0,78 und z ≥ 4,5. Tonart und Tempo dürfen abweichen.
+Die Referenz-Schleife entsteht aus der Demucs-Spur, z. B. `ffmpeg -ss 68.75 -t 17.188 -i <r2-stem-other.wav> r2-ref-schleife.wav`. Sie liegt im Scratchpad und nicht im Repo.
+
+Erfolgversprechend ist auch die **CapCut-Bibliothek**, weil die Untertitel von r5 wie CapCut-Auto-Untertitel aussehen. Dort in der App „music box“ durchhören.
+
+Wird ein Original gefunden, Lizenz und Content-ID-Hinweis der Trackseite prüfen und hier eintragen. Erst dann das Original statt v2 nehmen.
