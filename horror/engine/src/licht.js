@@ -1,4 +1,5 @@
 // Licht und Stimmung. Ziel-Look ist r2 (@jexario): weiches Licht, Dunst, violette Dämmerung,
+// (Himmel-/Bodenlicht nach dem Vergleich mit r2 angehoben: Figuren im Hausschatten blieben sonst fast schwarz)
 // blaue Nacht mit warmen Fenstern. Es gibt immer dieselben Lichter (Himmel/Boden, Haupt,
 // Kante), Presets ändern nur Farben und Stärken. Grund: Ändert sich die Zahl der Lichter,
 // kompiliert three.js alle Shader neu, und das kostet mitten im Render Sekunden.
@@ -16,7 +17,7 @@ export const PRESETS = {
   nacht: {
     himmel: { zenit: '#050a1e', horizont: '#1f2d55', scheibe: { richtung: [-0.42, 0.5, -0.76], farbe: '#e6eeff', groesse: 1.6, staerke: 6, glanz: 0.35 }, sterne: 0.7 },
     nebel: { farbe: '#18244a', dichte: 0.03 },
-    hemi: { himmel: '#6378c0', boden: '#141826', staerke: 1.05 },
+    hemi: { himmel: '#6378c0', boden: '#1e2436', staerke: 1.3 },
     haupt: { farbe: '#a6bcff', staerke: 1.5, richtung: [-0.42, 0.75, -0.5], weich: 3 },
     kante: { farbe: '#5070ff', staerke: 0.6, richtung: [0.55, 0.45, -0.7] },
     belichtung: 1.2,
@@ -25,7 +26,7 @@ export const PRESETS = {
   daemmerung: {
     himmel: { zenit: '#2a2b62', horizont: '#f0a49c', scheibe: { richtung: [0.72, 0.07, -0.69], farbe: '#ffd7a8', groesse: 2.4, staerke: 5, glanz: 0.6 }, sterne: 0 },
     nebel: { farbe: '#a68aa9', dichte: 0.017 },
-    hemi: { himmel: '#c8a8e2', boden: '#3d2b36', staerke: 1.25 },
+    hemi: { himmel: '#c8a8e2', boden: '#5a4048', staerke: 1.65 },
     haupt: { farbe: '#ffb48a', staerke: 2.1, richtung: [0.7, 0.32, -0.62], weich: 3 },
     kante: { farbe: '#8c7dff', staerke: 0.4, richtung: [-0.6, 0.5, 0.6] },
     belichtung: 1.0,
@@ -35,7 +36,7 @@ export const PRESETS = {
   innen_warm: {
     himmel: { zenit: '#1a1410', horizont: '#2a2018', sterne: 0 },
     nebel: { farbe: '#2a2018', dichte: 0.012 },
-    hemi: { himmel: '#ffe2c0', boden: '#4a3628', staerke: 1.1 },
+    hemi: { himmel: '#ffe2c0', boden: '#5a4434', staerke: 1.35 },
     haupt: { farbe: '#ffd2a0', staerke: 1.3, richtung: [0.3, 0.9, 0.35], weich: 4 },
     kante: { farbe: '#9fb0ff', staerke: 0.25, richtung: [-0.5, 0.4, -0.7] },
     belichtung: 1.05,
@@ -45,7 +46,7 @@ export const PRESETS = {
   tag: {
     himmel: { zenit: '#4f86d8', horizont: '#cfe3f5', sterne: 0 },
     nebel: { farbe: '#c4d6e8', dichte: 0.008 },
-    hemi: { himmel: '#d8e8ff', boden: '#5a5040', staerke: 1.4 },
+    hemi: { himmel: '#d8e8ff', boden: '#6a6050', staerke: 1.55 },
     haupt: { farbe: '#fff1dc', staerke: 2.6, richtung: [0.45, 0.8, 0.4], weich: 2.5 },
     kante: { farbe: '#bcd4ff', staerke: 0.3, richtung: [-0.5, 0.4, -0.7] },
     belichtung: 0.95,

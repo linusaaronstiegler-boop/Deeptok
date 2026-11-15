@@ -11,6 +11,13 @@ export default {
     G.armR.rotation.x = ctx.mischen(G.armR.rotation.x, -1.9 * s, p);
     G.armL.rotation.z = ctx.mischen(G.armL.rotation.z, -0.35 * s, p);
     G.armR.rotation.z = ctx.mischen(G.armR.rotation.z, 0.35 * s, p);
+    // Mit Ellbogen (Klötzchenfiguren): Unterarme hoch, Hände vor die Brust
+    if (G.unterarmL) {
+      G.armL.rotation.x = ctx.mischen(G.armL.rotation.x, -0.9 * s, p);
+      G.armR.rotation.x = ctx.mischen(G.armR.rotation.x, -0.9 * s, p);
+      G.unterarmL.rotation.x = ctx.mischen(G.unterarmL.rotation.x, -1.5 * s, p);
+      G.unterarmR.rotation.x = ctx.mischen(G.unterarmR.rotation.x, -1.5 * s, p);
+    }
     if (G.rumpf) G.rumpf.rotation.x = ctx.mischen(G.rumpf.rotation.x, -0.18 * s, p);
     if (G.kopf) G.kopf.rotation.x = ctx.mischen(G.kopf.rotation.x, -0.12 * s, p);
     // Hüpfer nur während der Bewegung (Sinus-Bogen), nicht in der gehaltenen Pose.

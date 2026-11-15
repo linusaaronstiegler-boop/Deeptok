@@ -5,3 +5,6 @@ renders/
 *.mp4
 *.png
 *.jpg
+
+# Ausnahme: kleine Kontaktbögen als Beleg (je < 1 MB)
+!belege/*.jpg

@@ -21,6 +21,7 @@ Grundlage sind `horror/docs/bewegungs-spec.md` (Kamera, Schnitt, Aktionen), `hor
 12. [Messwerte](#12-messwerte)
 13. [Regeln für Modul-Autoren](#13-regeln-für-modul-autoren)
 14. [Grenzen und Offenes](#14-grenzen-und-offenes)
+15. [Bausteine der Serie „Hiding Night“](#15-bausteine-der-serie-hiding-night)
 
 ## 1. Schnellstart
 
@@ -58,13 +59,19 @@ python3 -c "import json,jsonschema; jsonschema.validate(json.load(open('EPISODE.
 | `src/nachbearbeitung.js` | MSAA-HDR, Bewegungsunschärfe, Bloom, Tiefenunschärfe, Tonemapping, Vignette, Korn |
 | `src/partikel.js` | Partikel ohne Zustand (GPU) |
 | `src/rig.js` | Standard-Rig für Klötzchenfiguren (optional für Figurenmodule) |
+| `src/klotzfigur.js` | Hausstil-Figur der Serie (großer Kopf, Trapez-Rumpf, Ellbogen, Knie, Fäustlinge, Schuhklötze), Schuhe, Aufkleber |
+| `src/gesichter.js` | Gesichter als Texturen: Ausdrucks-Bibliothek, zusammengesetzte Namen („laecheln/reden_b“) |
+| `src/kleidung.js` | Zeichenhilfen für Kleidungs-Aufkleber (Reißverschluss, Taschen, Säume, Knopfleisten) |
+| `src/ik.js` | Zwei-Glied-IK, Handausrichtung, Keyframe-Kurve, Hüllkurve |
+| `src/bauteile.js` | Set-Bauteile: Texturen, Haus, Fenster, Tür, Veranda, Zaun, Laterne, Bäume, Innenwände, Maße `MARSH` |
 | `src/werkzeug.js` | Werkzeugkasten `ctx` für Set- und Figurenmodule |
 | `src/zufall.js` | Zufall mit Seed |
-| `sets/` | Setmodule, eine Datei je Set (`platzhalter_strasse.js`) |
-| `figuren/` | Figurenmodule, eine Datei je Figur (`platzhalter.js`, `platzhalter_monster.js`) |
+| `sets/` | Setmodule, eine Datei je Set (`hauptstrasse.js`, `marsh_haus.js`, `marsh_innen.js`; `platzhalter_strasse.js` zum Testen) |
+| `figuren/` | Figurenmodule: Eli, June, Dad, Owen, Tess, Odell, Nachbar, Mister Hundred, Requisiten (Schuhpaar, Tür, Luke, Pick-up); Platzhalter zum Testen |
 | `animationen/` | Gemeinsame Animationen, eine Datei je Animation |
 | `assets/` | CC0-Assets, Lizenz in `assets/LICENSES.md` |
-| `test/` | `testszene.json` (6 s, 3 Einstellungen), `kamera-probe.json` (10 Bausteine), `kamera.test.mjs` |
+| `test/` | `testszene.json` (6 s, 3 Einstellungen), `kamera-probe.json` (10 Bausteine), `kamera.test.mjs`, `belege.mjs` + `belege-sets.mjs` (Kontaktbögen) |
+| `belege/` | Kontaktbögen der Bausteine als kleine JPGs (je Figur, Monster, Requisiten, Animationen, Set) |
 
 Episoden-eigene Module dürfen auch neben der Episode liegen (`"modul": "./sets/bauernhof.js"`, relativ zur JSON-Datei).
 
@@ -394,5 +401,159 @@ Der PNG-Export im Browser (toDataURL) kostet etwa 0,17 s je Bild und Prozess; JP
 - **Kein globales Licht.** Der weiche r2-Look entsteht aus Himmel-/Bodenlicht, weichen Schatten, Nebel und Bloom. Umgebungsverdeckung (GTAO) kostete im Messversuch das Vierfache und ist nicht eingebaut; Kontaktschatten unter Figuren sind Sache der Figuren- und Setmodule.
 - **Tiefenunschärfe** ist eine schnelle Näherung (zwei Gauß-Durchgänge in halber Auflösung). Vordergrund-Objekte vor einer scharfen Figur bekommen weiche, aber keine echten Bokeh-Kanten.
 - **Bewegungsunschärfe** nur in schnellen Phasen (Whip, Snap) oder auf Wunsch je Einstellung; sie vervielfacht die Renderzeit dieser Bilder (bis 16 Unterbilder).
-- **Platzhalter:** `platzhalter`, `platzhalter_monster`, `platzhalter_strasse` dienen nur zum Testen der Schnittstelle und werden durch echte Module ersetzt.
+- **Platzhalter:** `platzhalter`, `platzhalter_monster`, `platzhalter_strasse` dienen nur zum Testen der Schnittstelle; die echten Module stehen in Abschnitt 15.
 - **Noch nicht gebaut:** Shotlisten-Compiler (Wortindex → Sekunden aus `timing.json`), Messtor über die Renders, Untertitel und Endkarte.
+
+## 15. Bausteine der Serie „Hiding Night“
+
+Stand 15.11.2026. Alles ist im Code gebaut, ohne fremde Assets (`assets/LICENSES.md`). Prüfbilder: `node test/belege.mjs` legt je Baustein einen Kontaktbogen nach `belege/` (Episoden und Einzelbilder bleiben in `horror/build/belege/`).
+
+### 15.1 Figuren (Hausstil, `src/klotzfigur.js`)
+
+Kein R6/R15-Nachbau: Kopf ≈ 30 % der Höhe (R6 ≈ 20 %), Würfel mit runden Kanten; Rumpf trapezförmig; Arme mit Ellbogen und Fäustlingshand mit eigenem Daumenklotz; kurze Beine mit Knie; große Schuhklötze in der Farbe der Figur. Kleidung als Farbflächen plus Aufkleber (Reißverschluss, Taschen, Nähte, Strickmuster).
+
+| Modul | Figur | Erkennungsmerkmal | params |
+|---|---|---|---|
+| `eli` | Eli Marsh, 18, Erzähler | grüne Kapuzenjacke, Kapuze im Nacken, abstehende Strähne | `groesse` |
+| `june` | June Marsh, 24 | senfgelbe Strickjacke mit Knopfklötzen, roter Zopf (eigenes Gelenk `zopf`), bernsteinfarbene Augen | `rueckblende` (offene Haare), `barfuss`, `groesse` |
+| `dad` | Tom Marsh, 48 (Rückblende) | Arbeitsjacke mit Reflexstreifen, Strickmütze, Bartklotz, braune Stiefel | `groesse` |
+| `owen` | Owen Pike, 18 (Rückblende) | orange Jägermütze, schwarzes T-Shirt (kurze Ärmel), Stiefel mit orangen Senkeln | `groesse` |
+| `tess` | Tess Lowry, 18 (Teil 2/3) | weißer Bob, lila Bomberjacke, lila High-Tops | `groesse` |
+| `odell` | Mr. Odell, 74 | runde Brille, langer brauner Mantel (Schöße an den Oberschenkeln), gebeugt | `groesse` |
+| `nachbar` | Nachbarn (nur Erwachsene) | 4 Varianten | `variante` muetze/kopftuch/brille/glatze, `alter` jung/mittel/alt, `farbe`, `haut`, `kleidung` jacke/pullover/mantel |
+
+- **Gelenke** wie das Standard-Rig plus `unterarmL/R`, `handL/R`, `unterbeinL/R`, `fussL/R` (June zusätzlich `zopf`). **Anker:** `kopf`, `augen`, `mund`, `ueber_kopf`, `hinterkopf`, `brust`, `ruecken`, `schulter_l/r`, `huefte`, `hand_l/r` (Handmitte), `fuss_l/r` (Sohle), `fuss`.
+- **Gesichter** (Tausch in 1 Bild, `src/gesichter.js`): Pflichtsatz `neutral`, `angst`, `schock` (offener Mund), `laecheln`, `ernst`, `augen_zu`, `blinzeln`; dazu `besorgt`, `schrei`, `grinsen`, `entschlossen`, `verschlafen`, `muede`, `streng`, `warnend`, `nervoes`, `blick_gesenkt`, `leer`, `zu_breit`, `zaehlt_a/b/c` (Augen zu, 3 Mundformen), `reden_a/b/c`. Aliasse aus serie.md: `erschrocken`, `froh`, `trotzig`, `frech`, `angespannt`, `zaehlt`, `leerer_blick`. **Zusammengesetzt:** `"laecheln/reden_b"` = Miene „laecheln“ mit Mundform „reden_b“ (wörtliche Rede: Mundformen alle 0,1–0,3 s tauschen). Blinzeln nimmt automatisch dieselbe Miene mit geschlossenen Augen. Texturen (512 px) entstehen erst beim ersten Gebrauch.
+- **Leerlauf-Atmen** ist an (0,15–0,5 % der Bildbreite). Abschalten: Figur `"atmen": false`, ab einem Zeitpunkt Aktion `idle_atmen` mit `staerke: 0` (wieder an: `1`), mit Schultern `atem_anhalten`.
+- **Handform** `fig.handForm(seite, 'offen' | 'faust' | 'zeigen')`: Animationen schalten sie (Zeigefinger erscheint bei `zeigen`, `geste`); `grundpose()` setzt zurück.
+- **Sitzhöhe:** `sitzen` nimmt ohne `sitzhoehe` die natürliche Sitzhöhe der Figur (`fig.sitzhoehe`, Füße auf dem Boden; Stühle in `marsh_innen` passen dazu).
+
+### 15.2 Monster `mister_hundred`
+
+Etwa 7 m, dünn, langer dunkelgrauer Mantel mit A-Linie und stufig ausgefranstem Saum (Saumzungen wehen im Wind), barfuß mit langen weißen Füßen, übergroße knochige Hände mit je 4 Fingern zu 3 Gliedern **immer vor dem glatten Würfelkopf**, Ellbogen spitz nach außen: Hände, Unterarme, Oberarme bilden eine Raute (auch als Schattenriss lesbar).
+
+- **Technik:** Die Hände sitzen per IK vor dem Gesicht, gerechnet im System des Kopfes; der Nachlauf läuft in `setzeGesicht`/`atmen` nach allen Aktionen. Kopf drehen, schief legen, Vorbeugen: die Hände bleiben vor dem Gesicht. Eigene Animationen schreiben nur in `fig.zustand` (`weg`, `spreizL/R`, `druck`, `auge`, `glut`).
+- **Gesichter:** `glatt` (Std), `auge` (bernsteinfarbenes Auge hinter dem Fingerspalt offen), `june_gross`, `june_mund` (Teil 4).
+- **Animationen (eigene, Vorrang vor `animationen/`):**
+
+| Animation | Dauer | params | Zweck |
+|---|---|---|---|
+| `zaehlen` | Std 4 s, linear | `takt` 0,85 s je Zahl, `staerke` | je Zahl ein Puls: Kopf nickt, Finger drücken, kaltes Leuchten (#9FD8D2) durch die Fingerspalten = Leitgeräusch-Effekt |
+| `glimmen` | 0,8 s | `frequenz` 5, `staerke` | Pulsieren mit 5 Hz auf Geräuschwörtern (Spec 1.5) |
+| `spaehen` | 0,3 s | `seite` r, `staerke` | Mittel- und Ringfinger öffnen einen Spalt, dahinter das Auge (Satz 36) |
+| `finger_spreizen` | 0,3 s | `seite` r/l/beide | Spalt ohne Auge |
+| `finger_schliessen` | 0,4 s | `staerke` | Finger fester geschlossen (Satz 3) |
+| `kopf_schief` | 0,4 s | `winkel` 24 | fragend „Ready?“ (Satz 20) |
+| `haende_weg` / `haende_vor` | 0,6 s | `staerke` | Hände vom Gesicht (findet jemanden; nur von hinten zeigen) |
+| `vorbeugen` | 1,4 s, linear | `winkel` 65, `kopf_ausgleich` 20, `knie` 8 | 60–70° über die Einstellung (Satz 7) |
+| `stapfen` (auch `gehen`) | 3,6 s, linear | `nach`, `von`, `schritt` 0,9, `schwung` 13, `halt_im_schritt` | schwer, Hüfte sackt beim Auftreten (Satz 7: bleibt mitten im Schritt stehen) |
+
+  Gemeinsame Animationen wie `kopf_drehen` (0,2–0,7 s, `ease_in`) funktionieren ebenfalls.
+- **Anker:** `kopf`, `augen`, `mund` (vor den Händen, für Atemdampf), `auge`, `haende`, `ueber_kopf`, `brust`, `ruecken`, `huefte`, `knie`, `hand_l/r`, `fuss_l/r`, `fuss`.
+
+### 15.3 Requisiten (als Figuren, damit die Episode sie stellt und bewegt)
+
+| Modul | Zweck | params | Animationen / Anker |
+|---|---|---|---|
+| `schuhpaar` | „your shoes, side by side“ | `art` eli/june/dad/owen/tess/grau/nachbar, `ordnung` nebeneinander/schief | Anker `mitte` |
+| `tuer` | Tür, die aufgeht (Set lässt dann das feste Blatt weg) | `breite`, `hoehe`, `farbe`, `anschlag` links/rechts, `fenster`, `offen` | `oeffnen` {`winkel` 85; negativ = nach vorn}, `schliessen`; Anker `griff_vorn/hinten` (bewegen sich mit), `mitte`, `angel` |
+| `luke` | Bodenluke in Junes Zimmer | `teppich` (Ring zeichnet sich ab) | `oeffnen` {`winkel` 105}, `schliessen`; Anker `ring`, `mitte`, `schacht` |
+| `pickup` | Owens hellblauer Pick-up | `farbe`, `stiefel` (Owens Stiefel auf dem Sitz), `scheinwerfer` | `fahren` {`nach`, `von`; Räder drehen passend, Std `ease_in`}, `tuer_auf` {`winkel` 62}, `tuer_zu`; Anker `auspuff` (Partikel `atem` = Dampf), `sitz`, `fahrertuer`, `motorhaube`, `ladeflaeche`, `mitte` |
+
+### 15.4 Animationen (`animationen/`, eine Datei je Animation)
+
+Dauern nach bewegungs-spec.md 1.4 und 2.1. Englische Namen aus der Aufgabenliste sind Dateien, die dieselbe Animation weiterreichen.
+
+| Animation | englisch | Dauer (Std) | params |
+|---|---|---|---|
+| Atmen der Figur, `idle_atmen`, `atem_anhalten` | idle_atmen | 0,3 / 0,25 s | `staerke` (0 = aus), `schultern` |
+| `gehen` | walk_cycle | 1,5 s, Schritt 0,32 s | `nach`, `von`, `schritt`, `schwung`, `drehen` |
+| `rennen` | run_cycle | 1,5 s, Schritt 0,17 s | `nach`, `von`, `schritt`, `schwung` 48, `neigung` 16 |
+| `kopf_drehen` | turn_head | 0,2 s | `winkel`, `nicken`, `zu` |
+| `umdrehen` | turn_body | 0,3 s | `winkel` / `blick` / `zu` |
+| `zeigen` | point | 0,25 s | `zu`, `seite`, `kopf`, `finger` |
+| `erschrecken` | flinch | 0,25 s, Nachwippen | `staerke` |
+| `umsehen` | look_around | 1,4 s (Drehungen je ≈ 0,2 s) | `winkel` 55, `zurueck`, `nicken` |
+| `sitzen` | sit | Pose oder 0,8 s | `sitzhoehe` |
+| `aufstehen` | stand_up | 0,8 s | `vor` |
+| `klopfen` | knock | 1,2 s, 2,5 Schläge/s | `zu`, `seite`, `schlaege`, `senken` |
+| `tuer_oeffnen` | open_door | 0,7 s (Greifen 35 %) | `zu` (Klinke, z. B. `"tuer1.griff_vorn"`), `seite`, `art` ziehen/druecken, `loslassen` |
+| `fallen` | fall | 0,6 s (Kippen 0,27 s) | `richtung` vorn/hinten, `kippen` |
+| `mund_zuhalten` | cover_mouth | 0,4 s | `seite` r/l/beide, `ducken` |
+| `umarmen` | hug | 0,5 s | `zu` (Figur-ID), `hoehe` |
+| `zurueckweichen` | back_away | 1,2 s | `strecke` 1 m oder `nach`, `schritt`, `schwung` |
+| `ducken` | – | 0,4 s | `tiefe`, `arme` knie/kopf |
+| `ohren_zuhalten` | – | 0,4 s | `ducken` (Satz 5) |
+| `greifen` | – | 0,4 s | `zu`, `seite`, `lehnen`, `form` (Satz 11, 28) |
+| `schulterzucken` | – | 0,7 s (hin und zurück) | `staerke` (Satz 27) |
+| `kicken` | – | 0,4 s | `seite`, `staerke` (Satz 18) |
+| `geste` | – | 0,3 s | `art` finger_heben / finger_auf_lippen / stopp / winken (Satz 10, 19) |
+| `arm_heben`, `vorbeugen` | – | wie bisher | |
+
+IK-Hilfen für eigene Animationen: `src/ik.js` (`zweiGlied(fig, 'L'|'R', zielWelt, p, { pol, glied })`, `richteAus`, `handDrehung`, `kurve`, `huelle`, `beinGeometrie`).
+
+### 15.5 Sets
+
+Alle drei Sets mit `position [0,0,0]`, `drehung 0` laden; Empfehlung für die IDs: `strasse`, `marsh`, `haus`.
+
+```jsonc
+"sets": [ { "id": "strasse", "modul": "hauptstrasse", "params": { "uhr": { "zeit": "11:58", "spruenge": [ { "start": 33.2, "zeit": "12:00" } ] } } },
+          { "id": "marsh", "modul": "marsh_haus" },
+          { "id": "haus", "modul": "marsh_innen", "params": { "kuchen": true } } ]
+```
+
+- **Außen:** `"set": ["strasse", "marsh"]`. **Innen:** `"set": ["strasse", "haus"]` (die Straße ist durch die Fenster zu sehen, die Außenhülle muss aus sein).
+- **Tag und Nacht:** Laternen und Fenster leuchten, bis ein Lichtereignis sie ausschaltet. Für Tag-Einstellungen am Einstellungsbeginn `{ "art": "aus", "ziel": "strasse.*", "dauer": 0 }` (ebenso `marsh.*`), für die nächste Nacht-Einstellung `"an"`. Der Shotlisten-Compiler sollte das automatisch setzen.
+- **Punktlichter:** hauptstrasse 2, marsh_haus 1, marsh_innen 2; Laternen sonst als Leuchtmaterial mit additiver Lichtpfütze am Boden.
+
+**`hauptstrasse`** (Lage: Fahrbahn x −3,5…3,5 entlang z, Hausfronten bei x = ±12, Platz bei z < −42, Straßenende bei z > 44)
+
+| Modul | Kamerapunkte | wichtige Anker |
+|---|---|---|
+| platz | `platz_totale/_halbtotale/_nah/_detail` (Turmuhr)`/_untersicht` | `platz_mitte`, `monster_platz` [2.5, 0, −54], `kirche_tuer`, `kirche_stufen`, `kirche_uhr`, `glocke`, `turm_spitze`, `bank` |
+| haeuser | `haeuser_*` (detail = Verandaboden für Schuhe) | `haus_<id>_tuer`, `haus_<id>_veranda` (Häuser w1, w2, w4, w5, o1–o5, pike) |
+| marsh (Vorgarten) | `marsh_*` | `marsh_garten` [−8.2, 0, 1.6], `marsh_tor`, `marsh_weg`, `marsh_briefkasten`, `laterne_marsh` |
+| pike | `pike_*` | `pike_einfahrt` [8.6, 0, −12.6] (Pick-up mit `blick` −90), `pike_tuer`, `pike_veranda` |
+| ende | `ende_*` | `ende_nebel`, `ende_schranke` |
+
+Lichtgruppen: `laterne_marsh`, `laterne_platz` (mit Punktlicht), `platz_2…6`, `strasse_2…7`, `fenster_<haus>_oben/_unten` (unten inkl. Türlampe), `kirche`. Gestaffeltes Licht-aus (Satz 5): `{ "art": "aus", "ziele": ["strasse.fenster_o1_oben", "strasse.fenster_o2_oben", "strasse.fenster_pike_oben"], "versatz": 0.3 }`. Vordergrund-Prefab für `truck_side`: `"art": "zaun"`. params: `uhr`, `licht_an` (Anteil erleuchteter Fenster, 0.55), `punktlichter`.
+
+**`marsh_haus`** (außen): Kamerapunkte `totale`, `halbtotale`, `nah` (Haustür), `detail` (Verandaboden: Dads Stiefel), `untersicht` (Elis Fenster), `daemmerung` (Haus mit Riese im Vorgarten, Satz 34). Anker `tuer`, `tuer_angel`, `veranda`, `veranda_schuhe` [−10.9, 0.6, −2.8], `stufen`, `eli_fenster`, `kueche_fenster`, `garten`, `dachfirst`. Lichtgruppen `veranda` (Punktlicht), `eli_fenster`, `kueche_fenster`, `fenster`. params `verandalicht`, `tuer_als_figur`.
+
+**`marsh_innen`**: Räume Küche, Flur mit Treppe, Elis Zimmer (oben), Junes Zimmer mit Bodenluke. Kamerapunkte `<raum>_totale/_halbtotale/_nah/_detail/_untersicht` für `kueche`, `flur`, `eli`, `june`, dazu `eli_fenster_schulter` (über Elis Schulter in den Vorgarten). Lichtgruppen `kueche_lampe`, `june_lampe` (Punktlichter), `eli_lampe`, `flur_lampe`, `kerzen` (Kerzen ausblasen = `aus`). params `kuchen`, `taschenlampe`, `luke` (teppich/zu/offen/figur), `tueren_als_figur`.
+
+Figuren-Positionen sind Zahlen (Anker gelten nur für Kamera und Aktionen). Häufige Stellen in Weltkoordinaten (Haus-System → Welt: `[−12 + z, y, −x]`, `marshWelt` in `src/bauteile.js`):
+
+| Stelle | position | blick |
+|---|---|---|
+| Eli am Fenster (innen, Satz 33–35) | [−12.75, 3.8, 2.6] | 90 |
+| Mister Hundred im Vorgarten vor Elis Fenster | [−8.0, 0, 2.5] | 90 |
+| June auf ihrem Küchenstuhl (`pose: "sitzen"`) | [−14.5, 0.6, 3.75] | 180 |
+| Eli auf seinem Küchenstuhl | [−13.65, 0.6, 2.6] | −90 |
+| Dads leerer Stuhl | [−14.5, 0.6, 1.45] | 0 |
+| Junes Bett (liegen: Figur drehen) | [−19.6, 0.6, 4.2] | – |
+| Requisite `luke` (mit `luke: "figur"`) | [−19.25, 0.6, 2.0] | 90 |
+| Requisite `tuer` als Haustür (mit `tuer_als_figur`) | [−11.98, 0.6, −1.175] | 90 |
+| Dads Stiefel auf der Veranda (`schuhpaar` dad) | [−10.9, 0.6, −2.8] | 90 |
+| Mister Hundred am Platzende | [2.5, 0, −54] | 0 |
+| Owens Pick-up in der Einfahrt | [8.6, 0, −12.6] | −90 |
+
+### 15.6 Änderungen am Kern (klein, rückwärtskompatibel)
+
+- `src/welt.js`: Posen (`"pose"` einer Figur und in `stellung`) werden jetzt vorab geladen; vorher brach `"pose": "sitzen"` mit „Animation fehlt“ ab, wenn `sitzen` nicht auch als Aktion vorkam.
+- `src/licht.js`: Himmel-/Bodenlicht aller Presets angehoben (Vergleich mit r2: Figuren im Hausschatten waren fast schwarz).
+- `animationen/sitzen.js` (natürliche Sitzhöhe der Figur), `erschrecken.js` und `gehen.js` (Ellbogen, wenn die Figur Unterarme hat).
+
+### 15.7 Messwerte der Belege
+
+Gemessen am 15.11.2026 mit den Beleg-Episoden (2 Prozesse). Achtung: In den Belegen wechseln Kamera, Licht, Sets und Figuren alle 3 Bilder; das ist der ungünstigste Fall (Schattenkarte, Texturen und Shader werden oft neu aufgebaut). Echte Einstellungen von 1–2 s werden etwas billiger sein.
+
+| Lauf | s/Bild effektiv | Render allein | Rechenzeit je Minute Video |
+|---|---|---|---|
+| Entwurf 576 × 1024, JPEG, Figuren-Bögen | 0,14 | 0,18 | 4,1 min |
+| Entwurf 576 × 1024, JPEG, Set marsh_innen | 0,19 | 0,29 | 5,8 min |
+| 1080 × 1920, PNG, Set marsh_haus (30 Bilder) | 0,47 | 0,53 | 14,1 min |
+| 1080 × 1920, PNG, Set hauptstrasse (87 Bilder) | 0,40 | 0,51 | 12,0 min |
+| 1080 × 1920, PNG, Set marsh_innen (69 Bilder) | 0,52 | 0,70 | 15,7 min |
+
+Gegenüber der Testszene (0,29 s/Bild) kosten die echten Sets etwa das 1,4- bis 1,8-Fache. Ein Teil von 80 s braucht damit grob 16–21 min Rechenzeit in voller Auflösung.

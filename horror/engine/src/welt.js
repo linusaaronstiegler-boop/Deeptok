@@ -69,8 +69,15 @@ export class Welt {
       this.szene.add(inst.gruppe);
       this.figuren.set(f.id, { spec: f, inst, aktionen: this.zeitplan.aktionenJeFigur.get(f.id) ?? [] });
     }
-    // Alle benutzten Animationen vorab laden (eigene der Figur haben Vorrang).
+    // Alle benutzten Animationen vorab laden (eigene der Figur haben Vorrang). Dazu zählen auch
+    // Posen: "pose" einer Figur und "pose" in einer Stellung (werden mit Fortschritt 1 angewendet).
+    const benutzt = [];
+    for (const [id, f] of this.figuren) if (f.spec.pose) benutzt.push({ wer: id, was: f.spec.pose });
     for (const a of this.zeitplan.aktionen) {
+      benutzt.push(a);
+      if (a.was === 'stellung' && a.params?.pose) benutzt.push({ wer: a.wer, was: a.params.pose });
+    }
+    for (const a of benutzt) {
       const fig = this.figuren.get(a.wer);
       if (!fig) throw new Error(`Aktion ${a.was}: Figur "${a.wer}" gibt es nicht`);
       if (['gesicht', 'stellung', 'sichtbar'].includes(a.was) || fig.inst.animationen?.[a.was]) continue;

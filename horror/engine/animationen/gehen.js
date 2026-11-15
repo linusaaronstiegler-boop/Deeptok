@@ -32,5 +32,7 @@ export default {
     if (G.huefte) G.huefte.position.y += (Math.abs(Math.cos(phase)) * 0.035 - 0.017) * anteil; // Wippen
     if (G.unterbeinL) G.unterbeinL.rotation.x += Math.max(0, -s) * amp * 1.2;
     if (G.unterbeinR) G.unterbeinR.rotation.x += Math.max(0, s) * amp * 1.2;
+    // Ellbogen schwingen mit (nur Figuren mit Unterarm-Gelenk)
+    if (G.unterarmL) { G.unterarmL.rotation.x -= (0.15 + Math.max(0, -s) * 0.5) * amp; G.unterarmR.rotation.x -= (0.15 + Math.max(0, s) * 0.5) * amp; }
   },
 };
