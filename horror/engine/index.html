@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<title>Horror-Engine</title>
+<link rel="icon" href="data:,">
+<style>html,body{margin:0;background:#000}</style>
+<!-- three.js ist in package.json exakt gepinnt (0.181.0); die Importmap zeigt auf node_modules. -->
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+</head>
+<body>
+<!-- Aufruf: index.html?episode=<url zur episode.json>&skala=1 – gesteuert von render.mjs -->
+<script type="module" src="./src/haupt.js"></script>
+</body>
+</html>

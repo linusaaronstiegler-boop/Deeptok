@@ -1,0 +1,7 @@
+node_modules/
+# Renders, Einzelbilder und Messläufe gehören nach horror/build/ oder in den Scratchpad
+build/
+renders/
+*.mp4
+*.png
+*.jpg

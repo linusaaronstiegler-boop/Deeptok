@@ -1,0 +1,14 @@
+{
+  "name": "horror-engine",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Deterministischer three.js-Renderer für die Horror-Serien (1080x1920, 30 fps, Cloud ohne GPU).",
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "render": "node render.mjs"
+  },
+  "dependencies": {
+    "three": "0.181.0"
+  }
+}

@@ -1,0 +1,289 @@
+{
+  "titel": "Kamera-Probe: je Einstellung ein Baustein (Entwurf, 576x1024 mit --skala 0.5333)",
+  "fps": 30,
+  "aufloesung": [
+    1080,
+    1920
+  ],
+  "seed": 7,
+  "look": {
+    "licht": "nacht",
+    "bloom": {
+      "staerke": 0.6,
+      "radius": 0.55,
+      "schwelle": 1.0
+    },
+    "vignette": 0.35,
+    "korn": 0.025,
+    "toene": "aces"
+  },
+  "sets": [
+    {
+      "id": "strasse",
+      "modul": "platzhalter_strasse",
+      "params": {
+        "haeuser": 7
+      }
+    }
+  ],
+  "figuren": [
+    {
+      "id": "held",
+      "modul": "platzhalter",
+      "position": [
+        4.2,
+        0.16,
+        0.6
+      ],
+      "blick": -90,
+      "gesicht": "neutral",
+      "params": {
+        "rumpf": "#c8553d",
+        "hose": "#2f3e5c",
+        "haare": "#3a2618"
+      }
+    },
+    {
+      "id": "monster",
+      "modul": "platzhalter_monster",
+      "position": [
+        -1.2,
+        0,
+        -9
+      ],
+      "blick": 10,
+      "gesicht": "ruhig",
+      "blinzeln": false
+    }
+  ],
+  "partikel": [
+    {
+      "art": "schweben",
+      "ort": "strasse.laterne",
+      "bereich": [
+        3,
+        3.5,
+        3
+      ],
+      "anzahl": 160
+    }
+  ],
+  "einstellungen": [
+    {
+      "id": "P1-push_in",
+      "start": 0.0,
+      "ende": 1.5,
+      "kamera": {
+        "baustein": "push_in",
+        "ziel": "held.kopf",
+        "blick": {
+          "azimut": -125,
+          "hoehe": 4,
+          "abstand": 3.0
+        },
+        "fov": 42
+      }
+    },
+    {
+      "id": "P2-dolly_out",
+      "start": 1.5,
+      "ende": 3.0,
+      "kamera": {
+        "baustein": "dolly_out",
+        "ziel": "held.brust",
+        "blick": {
+          "azimut": -140,
+          "hoehe": 8,
+          "abstand": 2.2
+        },
+        "rate": -0.12,
+        "fov": 45
+      }
+    },
+    {
+      "id": "P3-crane_down_tilt",
+      "start": 3.0,
+      "ende": 4.5,
+      "licht": "daemmerung",
+      "kamera": {
+        "baustein": "crane_down_tilt",
+        "ziel": "held.brust",
+        "blick": {
+          "azimut": -110,
+          "hoehe": 6,
+          "abstand": 5
+        },
+        "hoehe": 7,
+        "fov": 50
+      }
+    },
+    {
+      "id": "P4-tilt_up",
+      "start": 4.5,
+      "ende": 6.0,
+      "kamera": {
+        "baustein": "tilt_up",
+        "von_ziel": "monster.fuss",
+        "ziel": "monster.kopf",
+        "blick": {
+          "bezug": "monster.huefte",
+          "azimut": 10,
+          "hoehe": -10,
+          "abstand": 3.4
+        },
+        "start": 4.55,
+        "ankunft": 5.5,
+        "kran": 0.6,
+        "fov": 52
+      }
+    },
+    {
+      "id": "P5-track_follow",
+      "start": 6.0,
+      "ende": 7.5,
+      "kamera": {
+        "baustein": "track_follow",
+        "folge": "held.brust",
+        "versatz": [
+          0.6,
+          0.5,
+          -2.8
+        ],
+        "ziel_versatz": [
+          0,
+          -0.1,
+          2.0
+        ],
+        "fov": 50
+      },
+      "aktionen": [
+        {
+          "wer": "held",
+          "was": "gehen",
+          "start": 6.0,
+          "dauer": 1.5,
+          "params": {
+            "nach": [
+              4.3,
+              -1.4
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "P6-truck_side",
+      "start": 7.5,
+      "ende": 9.0,
+      "kamera": {
+        "baustein": "truck_side",
+        "ziel": "held.brust",
+        "blick": {
+          "azimut": -95,
+          "hoehe": 4,
+          "abstand": 4.2
+        },
+        "richtung": "rechts",
+        "strecke": 1.6,
+        "fov": 48,
+        "vordergrund": {
+          "zeit": 8.2,
+          "art": "baum",
+          "abstand": 1.1,
+          "breite": 0.4
+        }
+      }
+    },
+    {
+      "id": "P7-orbit",
+      "start": 9.0,
+      "ende": 10.5,
+      "kamera": {
+        "baustein": "orbit",
+        "ziel": "held.brust",
+        "blick": {
+          "azimut": -90,
+          "hoehe": 25,
+          "abstand": 6
+        },
+        "grad_pro_s": 22,
+        "fov": 50
+      }
+    },
+    {
+      "id": "P8-whip",
+      "start": 10.5,
+      "ende": 12.0,
+      "kamera": {
+        "baustein": "whip",
+        "von_ziel": "held.kopf",
+        "ziel": "monster.kopf",
+        "pos": [
+          1.8,
+          1.8,
+          3.2
+        ],
+        "zeit": 11.0,
+        "dauer": 0.3,
+        "fov": 50
+      }
+    },
+    {
+      "id": "P9-snap_zoom",
+      "start": 12.0,
+      "ende": 13.5,
+      "kamera": {
+        "baustein": "snap_zoom",
+        "ziel": "monster.kopf",
+        "blick": {
+          "azimut": 15,
+          "hoehe": -6,
+          "abstand": 4.5
+        },
+        "zeit": 12.4,
+        "faktor": 1.2,
+        "bilder": 2,
+        "fov": 45
+      }
+    },
+    {
+      "id": "P10-statisch_shake",
+      "start": 13.5,
+      "ende": 15.0,
+      "kamera": {
+        "baustein": "statisch",
+        "ziel": "held.kopf",
+        "blick": {
+          "azimut": -150,
+          "hoehe": 2,
+          "abstand": 2.6
+        },
+        "fov": 45,
+        "zusaetze": [
+          {
+            "baustein": "shake",
+            "start": 13.85,
+            "dauer": 0.45,
+            "staerke": 1.2
+          }
+        ]
+      },
+      "aktionen": [
+        {
+          "wer": "held",
+          "was": "erschrecken",
+          "start": 13.8,
+          "dauer": 0.25
+        },
+        {
+          "wer": "held",
+          "was": "gesicht",
+          "start": 13.75,
+          "params": {
+            "name": "erschrocken"
+          }
+        }
+      ]
+    }
+  ]
+}

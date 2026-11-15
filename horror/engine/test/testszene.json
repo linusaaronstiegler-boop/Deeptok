@@ -1,0 +1,60 @@
+{
+  "titel": "Engine-Testszene: 6 s, 3 Einstellungen, Platzhalter-Klötzchen",
+  "fps": 30,
+  "aufloesung": [1080, 1920],
+  "seed": 7,
+  "look": {
+    "licht": "nacht",
+    "bloom": { "staerke": 0.6, "radius": 0.55, "schwelle": 1.0 },
+    "vignette": 0.35,
+    "korn": 0.025,
+    "toene": "aces"
+  },
+  "sets": [
+    { "id": "strasse", "modul": "platzhalter_strasse", "params": { "haeuser": 7 } }
+  ],
+  "figuren": [
+    { "id": "held", "modul": "platzhalter", "position": [4.2, 0.16, 0.6], "blick": -90, "gesicht": "neutral",
+      "params": { "rumpf": "#c8553d", "hose": "#2f3e5c", "haare": "#3a2618" } },
+    { "id": "monster", "modul": "platzhalter_monster", "position": [-1.2, 0, -9], "blick": 10, "gesicht": "ruhig", "blinzeln": false }
+  ],
+  "partikel": [
+    { "art": "schweben", "ort": "strasse.laterne", "bereich": [3, 3.5, 3], "anzahl": 160 },
+    { "art": "atem", "ort": "held.mund", "start": 2.0, "dauer": 4.0 }
+  ],
+  "einstellungen": [
+    {
+      "id": "E1", "start": 0.0, "ende": 2.0, "licht": "daemmerung",
+      "kamera": { "baustein": "push_in", "ziel": "held.kopf", "blick": { "azimut": -125, "hoehe": 4, "abstand": 3.0 }, "rate": 0.07, "fov": 42 },
+      "tiefenunschaerfe": { "staerke": 1.0 },
+      "aktionen": [
+        { "wer": "held", "was": "kopf_drehen", "start": 0.8, "dauer": 0.2, "params": { "zu": "monster.kopf" } },
+        { "wer": "held", "was": "gesicht", "start": 0.95, "params": { "name": "besorgt" } }
+      ]
+    },
+    {
+      "id": "E2", "start": 2.0, "ende": 4.0, "licht": "nacht",
+      "kamera": { "baustein": "truck_side", "ziel": "held.brust", "blick": { "azimut": -100, "hoehe": 5, "abstand": 4.4 },
+                  "richtung": "links", "strecke": 1.8, "fov": 48,
+                  "vordergrund": { "zeit": 2.75, "art": "pfosten", "abstand": 1.0 } },
+      "aktionen": [
+        { "wer": "held", "was": "gehen", "start": 2.0, "dauer": 2.0, "params": { "nach": [4.3, -1.8] } }
+      ],
+      "licht_ereignisse": [
+        { "art": "aus", "ziel": "strasse.laterne", "start": 3.3, "dauer": 0.4, "faktor": 0.05 },
+        { "art": "dimmen", "ziel": "umgebung", "start": 3.3, "dauer": 0.45, "faktor": 0.6 }
+      ]
+    },
+    {
+      "id": "E3", "start": 4.0, "ende": 6.0, "licht": "nacht",
+      "kamera": { "baustein": "tilt_up", "von_ziel": "monster.fuss", "ziel": "monster.kopf",
+                  "blick": { "bezug": "monster.huefte", "azimut": 10, "hoehe": -10, "abstand": 3.4 },
+                  "start": 4.15, "ankunft": 5.1, "kran": 0.6, "fov": 52,
+                  "zusaetze": [ { "baustein": "shake", "start": 5.15, "dauer": 0.45, "staerke": 1.2 } ] },
+      "aktionen": [
+        { "wer": "monster", "was": "kopf_drehen", "start": 5.1, "dauer": 0.45, "ease": "ease_in", "params": { "zu": "kamera" } },
+        { "wer": "monster", "was": "gesicht", "start": 5.1, "params": { "name": "starr" } }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,245 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "horror-engine/episode.schema.json",
+  "title": "Episode der Horror-Engine",
+  "description": "Eine Episode: Sets, Figuren und Einstellungen. Alle Zeiten sind Sekunden der Episode (wie timing.json). Beschreibung der Felder: engine/README.md.",
+  "type": "object",
+  "required": ["einstellungen"],
+  "properties": {
+    "titel": { "type": "string" },
+    "fps": { "type": "number", "default": 30 },
+    "aufloesung": { "type": "array", "items": { "type": "integer" }, "minItems": 2, "maxItems": 2, "default": [1080, 1920] },
+    "seed": { "type": "integer", "default": 1 },
+    "look": { "$ref": "#/$defs/look" },
+    "sets": { "type": "array", "items": { "$ref": "#/$defs/set" } },
+    "figuren": { "type": "array", "items": { "$ref": "#/$defs/figur" } },
+    "einstellungen": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/einstellung" } },
+    "aktionen": { "type": "array", "items": { "$ref": "#/$defs/aktion" } },
+    "licht_ereignisse": { "type": "array", "items": { "$ref": "#/$defs/lichtEreignis" } },
+    "partikel": { "type": "array", "items": { "$ref": "#/$defs/partikel" } }
+  },
+  "$defs": {
+    "vec3": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 },
+    "punkt": {
+      "description": "[x,y,z] | Anker \"figur.anker\" / \"set.anker\" | { anker, versatz }",
+      "oneOf": [
+        { "$ref": "#/$defs/vec3" },
+        { "type": "string", "pattern": "^[A-Za-z0-9_]+(\\.[A-Za-z0-9_]+)?$" },
+        { "type": "object", "properties": { "anker": { "type": "string" }, "versatz": { "$ref": "#/$defs/vec3" } }, "additionalProperties": false }
+      ]
+    },
+    "look": {
+      "type": "object",
+      "properties": {
+        "licht": { "enum": ["nacht", "daemmerung", "innen_warm", "tag"], "default": "nacht" },
+        "licht_anpassung": { "type": "object", "description": "Teil-Überschreibung des Presets (gleiche Struktur wie PRESETS in src/licht.js)" },
+        "bloom": { "oneOf": [{ "const": false }, { "type": "object", "properties": { "staerke": { "type": "number" }, "radius": { "type": "number" }, "schwelle": { "type": "number" } }, "additionalProperties": false }] },
+        "msaa": { "type": "integer", "enum": [0, 2, 4, 8], "default": 4 },
+        "schatten": { "type": "boolean", "default": true },
+        "schatten_bereich": { "type": "number", "default": 24 },
+        "toene": { "enum": ["aces", "agx"], "default": "aces" },
+        "belichtung": { "type": "number", "default": 1 },
+        "saettigung": { "type": "number", "default": 1 },
+        "kontrast": { "type": "number", "default": 1 },
+        "vignette": { "type": "number", "default": 0.35 },
+        "korn": { "type": "number", "default": 0.03 },
+        "tiefenunschaerfe_px": { "type": "number", "default": 14 },
+        "bewegungsunschaerfe": { "$ref": "#/$defs/bewegungsunschaerfe" },
+        "nah": { "type": "number", "default": 0.05 }
+      },
+      "additionalProperties": false
+    },
+    "set": {
+      "type": "object",
+      "required": ["id", "modul"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[A-Za-z0-9_]+$" },
+        "modul": { "type": "string", "description": "Name in engine/sets/ oder Pfad relativ zur Episode (./sets/x.js)" },
+        "params": { "type": "object" },
+        "position": { "$ref": "#/$defs/vec3" },
+        "drehung": { "type": "number", "description": "Grad um y" }
+      },
+      "additionalProperties": false
+    },
+    "figur": {
+      "type": "object",
+      "required": ["id", "modul"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[A-Za-z0-9_]+$" },
+        "modul": { "type": "string" },
+        "params": { "type": "object" },
+        "position": { "$ref": "#/$defs/vec3" },
+        "blick": { "type": "number", "description": "Grad um y; 0 = schaut nach +z" },
+        "gesicht": { "type": "string" },
+        "pose": { "type": "string", "description": "Animation, die mit Fortschritt 1 als Grundpose gilt (z. B. sitzen)" },
+        "pose_params": { "type": "object" },
+        "sichtbar": { "type": "boolean", "default": true },
+        "blinzeln": { "type": "boolean", "default": true },
+        "atmen": { "type": "boolean", "default": true },
+        "atmen_staerke": { "type": "number", "default": 1 }
+      },
+      "additionalProperties": false
+    },
+    "aktion": {
+      "type": "object",
+      "required": ["wer", "was", "start"],
+      "properties": {
+        "wer": { "type": "string" },
+        "was": { "type": "string", "description": "Animation (engine/animationen/<was>.js oder eigene der Figur) oder gesicht | sichtbar | stellung" },
+        "start": { "type": "number" },
+        "dauer": { "type": "number" },
+        "ease": { "enum": ["linear", "ease_in_out", "ease_in", "ease_out", "ease_in_kubisch", "ease_out_kubisch", "ease_in_out_stark", "nachwippen", "sprung"] },
+        "params": { "type": "object" },
+        "nebenbei": { "type": "boolean", "description": "zählt nicht als Hauptaktion der Einstellung" }
+      },
+      "additionalProperties": false
+    },
+    "stellung": {
+      "type": "object",
+      "properties": {
+        "position": { "$ref": "#/$defs/vec3" },
+        "blick": { "type": "number" },
+        "gesicht": { "type": "string" },
+        "pose": { "type": "string" },
+        "pose_params": { "type": "object" },
+        "sichtbar": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "kamera": {
+      "type": "object",
+      "required": ["baustein"],
+      "properties": {
+        "baustein": { "enum": ["push_in", "dolly_out", "statisch", "crane_down_tilt", "tilt_up", "track_follow", "truck_side", "orbit", "whip", "snap_zoom"] },
+        "ziel": { "$ref": "#/$defs/punkt" },
+        "von_ziel": { "$ref": "#/$defs/punkt" },
+        "ziel_start": { "$ref": "#/$defs/punkt" },
+        "ziel_versatz": { "$ref": "#/$defs/vec3" },
+        "pos": { "$ref": "#/$defs/punkt" },
+        "punkt": { "type": "string", "description": "Kamerapunkt eines Sets, z. B. strasse.totale" },
+        "blick": {
+          "type": "object",
+          "properties": { "azimut": { "type": "number" }, "hoehe": { "type": "number" }, "abstand": { "type": "number" }, "bezug": { "$ref": "#/$defs/punkt" } },
+          "additionalProperties": false
+        },
+        "fov": { "type": "number" },
+        "roll": { "type": "number" },
+        "profil": { "enum": ["linear", "ease_in_out", "ease_in", "ease_out", "ease_in_kubisch", "ease_out_kubisch", "ease_in_out_stark", "nachwippen"] },
+        "vorlauf": { "type": "number" },
+        "rate": { "type": "number" },
+        "faktor": { "type": "number" },
+        "art": { "enum": ["dolly", "zoom"] },
+        "start": { "type": "number" },
+        "ankunft": { "type": "number" },
+        "zeit": { "type": "number" },
+        "dauer": { "type": "number" },
+        "hoehe": { "type": "number" },
+        "rueck": { "type": "number" },
+        "kran": { "type": "number" },
+        "nachlauf_rate": { "type": "number" },
+        "folge": { "type": "string" },
+        "versatz": { "$ref": "#/$defs/vec3" },
+        "lokal": { "enum": ["start", "live", false] },
+        "richtung": { "oneOf": [{ "enum": ["links", "rechts"] }, { "enum": [1, -1] }] },
+        "strecke": { "type": "number" },
+        "mitschwenken": { "type": "boolean" },
+        "vordergrund": {
+          "oneOf": [
+            { "const": false },
+            { "type": "object", "properties": { "zeit": { "type": "number" }, "abstand": { "type": "number" }, "art": { "type": "string" }, "breite": { "type": "number" }, "hoehe": { "type": "number" }, "farbe": { "type": "string" } }, "additionalProperties": false }
+          ]
+        },
+        "grad_pro_s": { "type": "number" },
+        "hoehe_aenderung": { "type": "number" },
+        "abstand_faktor": { "type": "number" },
+        "ueber": { "enum": ["kurz", "links", "rechts"] },
+        "unschaerfe": { "type": "boolean" },
+        "bilder": { "type": "integer" },
+        "zusaetze": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["baustein"],
+            "properties": {
+              "baustein": { "enum": ["shake", "snap_zoom", "roll_drift"] },
+              "start": { "type": "number" }, "dauer": { "type": "number" }, "staerke": { "type": "number" },
+              "staerke_px": { "type": "number" }, "frequenz": { "type": "number" }, "art": { "enum": ["stoss", "sinus"] },
+              "abklingen": { "type": "number" }, "zeit": { "type": "number" }, "faktor": { "type": "number" },
+              "bilder": { "type": "integer" }, "grad_pro_s": { "type": "number" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "bewegungsunschaerfe": {
+      "type": "object",
+      "properties": { "aus": { "type": "boolean" }, "immer": { "type": "boolean" }, "unterbilder": { "type": "integer" }, "max": { "type": "integer" }, "verschluss": { "type": "number" } },
+      "additionalProperties": false
+    },
+    "einstellung": {
+      "type": "object",
+      "required": ["start", "ende", "kamera"],
+      "properties": {
+        "id": { "type": "string" },
+        "start": { "type": "number" },
+        "ende": { "type": "number" },
+        "set": { "oneOf": [{ "type": "string" }, { "type": "array", "items": { "type": "string" } }] },
+        "licht": { "enum": ["nacht", "daemmerung", "innen_warm", "tag"] },
+        "licht_anpassung": { "type": "object" },
+        "kamera": { "$ref": "#/$defs/kamera" },
+        "stellung": { "type": "object", "additionalProperties": { "$ref": "#/$defs/stellung" } },
+        "aktionen": { "type": "array", "items": { "$ref": "#/$defs/aktion" } },
+        "licht_ereignisse": { "type": "array", "items": { "$ref": "#/$defs/lichtEreignis" } },
+        "partikel": { "type": "array", "items": { "$ref": "#/$defs/partikel" } },
+        "tiefenunschaerfe": { "oneOf": [{ "type": "boolean" }, { "type": "object", "properties": { "fokus": { "oneOf": [{ "type": "number" }, { "type": "string" }] }, "staerke": { "type": "number" } }, "additionalProperties": false }] },
+        "bewegungsunschaerfe": { "$ref": "#/$defs/bewegungsunschaerfe" },
+        "schatten_bereich": { "type": "number" },
+        "schatten_mitte": { "$ref": "#/$defs/punkt" },
+        "text": { "type": "string", "description": "frei: Teilsatz/Wörter dieser Einstellung (wird nicht gerendert)" }
+      },
+      "additionalProperties": false
+    },
+    "lichtEreignis": {
+      "type": "object",
+      "required": ["art", "start"],
+      "properties": {
+        "art": { "enum": ["aus", "an", "dimmen", "flackern"] },
+        "ziel": { "type": "string", "description": "umgebung | set.gruppe | set.*" },
+        "ziele": { "type": "array", "items": { "type": "string" } },
+        "versatz": { "type": "number" },
+        "start": { "type": "number" },
+        "dauer": { "type": "number" },
+        "faktor": { "type": "number" },
+        "ease": { "type": "string" },
+        "ende_faktor": { "type": "number" },
+        "tempo": { "type": "number" },
+        "schwelle": { "type": "number" },
+        "tief": { "type": "number" },
+        "quelle": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "partikel": {
+      "type": "object",
+      "required": ["art"],
+      "properties": {
+        "art": { "enum": ["schweben", "schnee", "staub", "atem"] },
+        "ort": { "$ref": "#/$defs/punkt" },
+        "start": { "type": "number" },
+        "dauer": { "type": "number" },
+        "bereich": { "$ref": "#/$defs/vec3" },
+        "anzahl": { "type": "integer" },
+        "farbe": { "type": "string" },
+        "groesse": { "type": "number" },
+        "deckkraft": { "type": "number" },
+        "periode": { "type": "number" },
+        "richtung": { "$ref": "#/$defs/vec3" },
+        "seed": { "type": ["integer", "string"] },
+        "quelle": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  }
+}
