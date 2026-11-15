@@ -1,0 +1,135 @@
+{
+ "stil": "spieluhr",
+ "titel": "Spieluhr-Arpeggio",
+ "referenz": "r2",
+ "stufe": 2,
+ "bpm": 112,
+ "takte": 80,
+ "schleife_takte": 8,
+ "laenge_s": 171.429,
+ "cent": 46.0,
+ "a4": 440.0,
+ "verstaerkung_db": -1.29,
+ "hall": {
+  "rt60": 0.95,
+  "vor_ms": 12,
+  "breite": 0.8,
+  "hoehen": 0.5,
+  "nass": 0.55
+ },
+ "varianten": {
+  "duenn": {
+   "datei": "build/musik/spieluhr-duenn.wav",
+   "lufs": -25.4,
+   "spitze_dbfs": -10.29,
+   "naht": {
+    "sprung_rel_p99": 0.23,
+    "pegel_nach_minus_vor_db": 7.41,
+    "innen_pegel_nach_minus_vor_db": 7.61
+   },
+   "pegel": {
+    "kern": -3,
+    "orgelpunkt": -4,
+    "fuell": null,
+    "zweiklang": null,
+    "orgel": null,
+    "glitzer": null,
+    "tief": null
+   }
+  },
+  "normal": {
+   "datei": "build/musik/spieluhr-normal.wav",
+   "lufs": -20.0,
+   "spitze_dbfs": -4.24,
+   "naht": {
+    "sprung_rel_p99": 0.39,
+    "pegel_nach_minus_vor_db": 3.14,
+    "innen_pegel_nach_minus_vor_db": 3.67
+   },
+   "pegel": {
+    "kern": 0,
+    "orgelpunkt": -2,
+    "fuell": -1,
+    "zweiklang": -5,
+    "orgel": -32,
+    "glitzer": null,
+    "tief": null
+   }
+  },
+  "voll": {
+   "datei": "build/musik/spieluhr-voll.wav",
+   "lufs": -18.92,
+   "spitze_dbfs": -2.84,
+   "naht": {
+    "sprung_rel_p99": 0.37,
+    "pegel_nach_minus_vor_db": 3.67,
+    "innen_pegel_nach_minus_vor_db": 4.3
+   },
+   "pegel": {
+    "kern": 0,
+    "orgelpunkt": -2,
+    "fuell": -1,
+    "zweiklang": -3,
+    "orgel": -22,
+    "glitzer": -7,
+    "tief": -9
+   }
+  }
+ },
+ "nachbesserung": {
+  "komposition": {
+   "lo": 66,
+   "hi": 86,
+   "pan": 0.22,
+   "zweiklang_auf": [
+    0
+   ],
+   "dynamik_db": 1.5
+  },
+  "hall": {
+   "rt60": 0.95
+  },
+  "klang": {
+   "spieluhr_weich": {
+    "ping": 0.68,
+    "tau": 0.13,
+    "a2": 0.01,
+    "a3": 0.028,
+    "a6": 0.003
+   }
+  },
+  "varianten": {
+   "duenn": {
+    "kern": -3,
+    "orgelpunkt": -4
+   },
+   "normal": {
+    "orgel": -32
+   },
+   "voll": {
+    "orgel": -22
+   }
+  }
+ },
+ "komposition": {
+  "anschlaege_pro_s": 4.26,
+  "einsaetze_pro_s": 3.73,
+  "toene_je_einsatz": 1.14,
+  "register_midi_p5_p50_p95": [
+   64,
+   74,
+   86
+  ],
+  "oberstimme_schritt_1_2": 0.0,
+  "oberstimme_terz_quarte_3_5": 0.407,
+  "oberstimme_ab_6": 0.531,
+  "haeufigster_ton": 74,
+  "haeufigster_ton_anteil": 0.233,
+  "tonklassen_top3": [
+   2,
+   7,
+   11
+  ],
+  "achtel_s": 0.2679
+ }
+}

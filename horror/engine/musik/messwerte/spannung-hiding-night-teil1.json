@@ -1,0 +1,111 @@
+{
+ "name": "hiding-night-teil1",
+ "stil": "wiegenlied",
+ "laenge_s": 87.267,
+ "punkte": [
+  {
+   "ab_s": 0.0,
+   "stufe": "normal",
+   "grund": "Hook: die Spieldose läuft schon, wie in r5 sofort da",
+   "zeit_s": 0.0,
+   "anker_s": 0.0,
+   "rms_vor_db": null,
+   "rms_nach_db": -22.6
+  },
+  {
+   "ab_satz": 2,
+   "stufe": "duenn",
+   "blende_s": 2.0,
+   "grund": "Mister Hundred wird beschrieben: leiser, damit jedes Detail sitzt",
+   "zeit_s": 5.106,
+   "anker_s": 4.86,
+   "rms_vor_db": -22.1,
+   "rms_nach_db": -25.4
+  },
+  {
+   "ab_satz": 9,
+   "stufe": "normal",
+   "grund": "Hiding Night und die eine Regel",
+   "zeit_s": 26.809,
+   "anker_s": 26.35,
+   "rms_vor_db": -27.4,
+   "rms_nach_db": -22.2
+  },
+  {
+   "ab_wort": 169,
+   "versatz_s": -0.25,
+   "stufe": "weg",
+   "blende_s": 0.2,
+   "grund": "Wegfall vor dem Wort ready",
+   "zeit_s": 50.46,
+   "anker_s": 50.46,
+   "rms_vor_db": -23.8,
+   "rms_nach_db": -45.8
+  },
+  {
+   "ab_satz": 20,
+   "stufe": "normal",
+   "blende_s": 0.3,
+   "grund": "Wiedereinsatz auf dem nächsten Schlag nach der Pointe",
+   "zeit_s": 51.702,
+   "anker_s": 51.46,
+   "rms_vor_db": -64.4,
+   "rms_nach_db": -22.8
+  },
+  {
+   "ab_satz": 21,
+   "stufe": "duenn",
+   "blende_s": 2.0,
+   "grund": "persönlicher Teil: Eli und June",
+   "zeit_s": 53.617,
+   "anker_s": 53.53,
+   "rms_vor_db": -23.2,
+   "rms_nach_db": -25.4
+  },
+  {
+   "ab_satz": 28,
+   "stufe": "normal",
+   "grund": "Frühstück, Junes Versprechen",
+   "zeit_s": 70.851,
+   "anker_s": 70.22,
+   "rms_vor_db": -28.3,
+   "rms_nach_db": -21.9
+  },
+  {
+   "ab_satz": 32,
+   "stufe": "voll",
+   "blende_s": 2.5,
+   "grund": "Cliffhanger-Block: Sonnenuntergang, weißer Atem",
+   "zeit_s": 75.957,
+   "anker_s": 75.77,
+   "rms_vor_db": -22.8,
+   "rms_nach_db": -21.9
+  },
+  {
+   "ab_satz": 35,
+   "versatz_s": -0.3,
+   "stufe": "weg",
+   "blende_s": 0.25,
+   "grund": "Wegfall vor der Pointe: It wasn't counting. It was looking at me.",
+   "zeit_s": 82.81,
+   "anker_s": 82.81,
+   "rms_vor_db": -23.2,
+   "rms_nach_db": -74.3
+  },
+  {
+   "ab_s": 86.267,
+   "stufe": "duenn",
+   "blende_s": 0.05,
+   "einrasten": "aus",
+   "grund": "Endkarte PART 2: die Spieldose spielt allein weiter",
+   "zeit_s": 86.267,
+   "anker_s": 86.267,
+   "rms_vor_db": -137.5,
+   "rms_nach_db": -32.6
+  }
+ ],
+ "lufs": -21.42,
+ "spitze_dbfs": -6.26,
+ "datei": "build/musik/spannung-hiding-night-teil1.wav",
+ "vorhoer": "engine/musik/proben/vorhoer-hiding-night-teil1.mp3"
+}

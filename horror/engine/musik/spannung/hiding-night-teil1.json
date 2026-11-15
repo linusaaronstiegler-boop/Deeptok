@@ -1,0 +1,21 @@
+{
+ "stil": "wiegenlied",
+ "folge": "episoden/folge-01",
+ "endkarte_s": 1.0,
+ "start_in_schleife_s": 0.0,
+ "uebergang_s": 1.5,
+ "einrasten": "schlag",
+ "ausblenden_s": 0.5,
+ "stufen": [
+  {"ab_s": 0.0, "stufe": "normal", "grund": "Hook: die Spieldose läuft schon, wie in r5 sofort da"},
+  {"ab_satz": 2, "stufe": "duenn", "blende_s": 2.0, "grund": "Mister Hundred wird beschrieben: leiser, damit jedes Detail sitzt"},
+  {"ab_satz": 9, "stufe": "normal", "grund": "Hiding Night und die eine Regel"},
+  {"ab_wort": 169, "versatz_s": -0.25, "stufe": "weg", "blende_s": 0.2, "grund": "Wegfall vor dem Wort ready"},
+  {"ab_satz": 20, "stufe": "normal", "blende_s": 0.3, "grund": "Wiedereinsatz auf dem nächsten Schlag nach der Pointe"},
+  {"ab_satz": 21, "stufe": "duenn", "blende_s": 2.0, "grund": "persönlicher Teil: Eli und June"},
+  {"ab_satz": 28, "stufe": "normal", "grund": "Frühstück, Junes Versprechen"},
+  {"ab_satz": 32, "stufe": "voll", "blende_s": 2.5, "grund": "Cliffhanger-Block: Sonnenuntergang, weißer Atem"},
+  {"ab_satz": 35, "versatz_s": -0.3, "stufe": "weg", "blende_s": 0.25, "grund": "Wegfall vor der Pointe: It wasn't counting. It was looking at me."},
+  {"ab_s": 86.267, "stufe": "duenn", "blende_s": 0.05, "einrasten": "aus", "grund": "Endkarte PART 2: die Spieldose spielt allein weiter"}
+ ]
+}

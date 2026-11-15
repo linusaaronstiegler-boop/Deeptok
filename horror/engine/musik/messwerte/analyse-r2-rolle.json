@@ -1,0 +1,46 @@
+{
+ "datei": "r2-work/demucs/bett-getrennt.wav",
+ "dauer_s": 146.0,
+ "anschlaege": 1512,
+ "anschlaege_pro_s": 10.36,
+ "einsaetze_pro_s": 7.13,
+ "toene_je_einsatz_mittel": 1.45,
+ "achtel_s": 0.2686,
+ "raster_abweichung_ms_median_abs": 37.3,
+ "anteil_einsaetze_auf_achtel_pm35ms": 0.47,
+ "belegte_achtel_anteil": 0.98,
+ "anteil_auf_sechzehntel_zwischen": -0.1,
+ "register_p5_p50_p95": [
+  "C♯4",
+  "C♯5",
+  "B5"
+ ],
+ "register_hz_p5_p95": [
+  285.0,
+  1014.0
+ ],
+ "tonlaenge_s_p25_p50_p75": [
+  0.09,
+  0.15,
+  0.22
+ ],
+ "anschlag_db_streuung": 6.9,
+ "oberstimme_schritt_1_2": 0.01,
+ "oberstimme_terz_quarte_3_5": 0.38,
+ "oberstimme_ab_6": 0.51,
+ "oberstimme_gleich": 0.1,
+ "haeufigster_ton": "E5",
+ "haeufigster_ton_anteil_anschlaege": 0.21,
+ "haeufigster_ton_in_takten_anteil": 0.99,
+ "teiltoene_db_rel_grundton": {
+  "2x": -39.2,
+  "3x": -33.0,
+  "4x": -47.2,
+  "5x": -44.5,
+  "5.4x": -53.8,
+  "6.27x": -52.1,
+  "8x": -56.0,
+  "17.55x": -120.0
+ },
+ "teiltoene_n": 246
+}

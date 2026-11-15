@@ -1,0 +1,46 @@
+{
+ "datei": "horror-analyse/ref0-arbeit/stem-other.wav",
+ "dauer_s": 166.0,
+ "anschlaege": 2510,
+ "anschlaege_pro_s": 15.12,
+ "einsaetze_pro_s": 9.02,
+ "toene_je_einsatz_mittel": 1.68,
+ "achtel_s": 0.4541,
+ "raster_abweichung_ms_median_abs": 89.3,
+ "anteil_einsaetze_auf_achtel_pm35ms": 0.26,
+ "belegte_achtel_anteil": 1.0,
+ "anteil_auf_sechzehntel_zwischen": -0.0,
+ "register_p5_p50_p95": [
+  "G2",
+  "C4",
+  "C♯5"
+ ],
+ "register_hz_p5_p95": [
+  96.0,
+  544.0
+ ],
+ "tonlaenge_s_p25_p50_p75": [
+  0.17,
+  0.35,
+  0.68
+ ],
+ "anschlag_db_streuung": 6.5,
+ "oberstimme_schritt_1_2": 0.1,
+ "oberstimme_terz_quarte_3_5": 0.22,
+ "oberstimme_ab_6": 0.66,
+ "oberstimme_gleich": 0.03,
+ "haeufigster_ton": "A4",
+ "haeufigster_ton_anteil_anschlaege": 0.09,
+ "haeufigster_ton_in_takten_anteil": 0.89,
+ "teiltoene_db_rel_grundton": {
+  "2x": -10.9,
+  "3x": -23.0,
+  "4x": -25.9,
+  "5x": -33.1,
+  "5.4x": -45.2,
+  "6.27x": -46.5,
+  "8x": -49.2,
+  "17.55x": -60.1
+ },
+ "teiltoene_n": 109
+}

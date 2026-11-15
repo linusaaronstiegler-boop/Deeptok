@@ -1,0 +1,116 @@
+{
+ "datei": "horror-analyse/r1-arbeit/bett-getrennt.wav",
+ "dauer_s": 65.55,
+ "stimmung_cent": -23.0,
+ "einsaetze_pro_s": 0.41,
+ "tempo_bpm": 114.8,
+ "autokorr_perioden_s": [
+  [
+   0.3831,
+   0.141
+  ],
+  [
+   0.5224,
+   0.217
+  ],
+  [
+   1.6486,
+   0.129
+  ]
+ ],
+ "ioi_haeufigste_s": [
+  0.12,
+  0.16,
+  0.1,
+  0.06
+ ],
+ "ioi_median_s": 0.157,
+ "schleife_kandidaten": [
+  {
+   "lag_s": 8.45,
+   "aehnlichkeit": 0.798
+  },
+  {
+   "lag_s": 7.06,
+   "aehnlichkeit": 0.784
+  },
+  {
+   "lag_s": 9.47,
+   "aehnlichkeit": 0.779
+  },
+  {
+   "lag_s": 6.04,
+   "aehnlichkeit": 0.776
+  },
+  {
+   "lag_s": 32.69,
+   "aehnlichkeit": 0.775
+  }
+ ],
+ "noten_gezaehlt": 18,
+ "register_midi_p5_p50_p95": [
+  30,
+  42,
+  71
+ ],
+ "register_namen": [
+  "F♯1",
+  "F♯2",
+  "B4"
+ ],
+ "tonklassen_anteil": {
+  "B": 0.222,
+  "A": 0.111,
+  "F♯": 0.111,
+  "G": 0.111,
+  "F": 0.111,
+  "D♯": 0.111,
+  "E": 0.056,
+  "A♯": 0.056
+ },
+ "intervall_histogramm": {
+  "-7": 0.067,
+  "-5": 0.067,
+  "-4": 0.067,
+  "-2": 0.067,
+  "0": 0.067,
+  "2": 0.133,
+  "4": 0.133,
+  "7": 0.133
+ },
+ "anteil_schritt_1_2": 0.2,
+ "anteil_sprung_3_5": 0.267,
+ "anteil_gross_ab_6": 0.467,
+ "anteil_wiederholung": 0.067,
+ "richtungswechsel_anteil": 0.385,
+ "abklang_db_pro_s_median": 122.9,
+ "ton_t20_s_median": 0.16,
+ "luecken_n": 5,
+ "hall_steigung_db_pro_s_median": -0.8,
+ "hall_rt60_schaetzung_s": 77.18,
+ "seite_mitte_db": -8.6,
+ "seite_mitte_baender_db": {
+  "60-250": -7.5,
+  "250-1000": -5.8,
+  "1000-4000": -3.0,
+  "4000-12000": -6.2
+ },
+ "pegel_1s_p10_p90": [
+  -6.9,
+  14.4
+ ],
+ "einbrueche_unter_-10dB_s": [
+  38,
+  63,
+  64
+ ],
+ "pegel_verlauf_10s": [
+  3.1,
+  -1.9,
+  -2.9,
+  -1.3,
+  7.3,
+  3.6,
+  -5.7
+ ]
+}

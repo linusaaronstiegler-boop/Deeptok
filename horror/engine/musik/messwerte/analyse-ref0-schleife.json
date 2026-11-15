@@ -1,0 +1,11 @@
+{
+ "schleife_s": 21.799,
+ "bpm": 66.06,
+ "korrelation": 0.037,
+ "phase_s": 0.944,
+ "mittel_achtel_auf": 0.3,
+ "mittel_sechzehntel_zwischen": 1.31,
+ "schablone_16tel": "Xx X.X.x.x.. x.X.xxx x.x.x.. x...xxx.X.x x.x.x.. x.X xxX.x.xxxxx.x.X.x X.x.x.Xxx.xxx.x.x.X X.Xxx",
+ "schleifen_gesamt": 7,
+ "schleifen_aehnlichkeit_mittel": 0.11
+}

@@ -1,0 +1,129 @@
+{
+ "stil": "drone",
+ "titel": "Sub-Drone",
+ "referenz": "r1",
+ "stufe": 2,
+ "bpm": 112,
+ "takte": 84,
+ "schleife_takte": 12,
+ "laenge_s": 180.0,
+ "cent": -23.0,
+ "a4": 440.0,
+ "verstaerkung_db": -10.17,
+ "hall": {
+  "rt60": 3.2,
+  "vor_ms": 30,
+  "breite": 0.7,
+  "hoehen": 0.4,
+  "nass": 0.35
+ },
+ "varianten": {
+  "duenn": {
+   "datei": "build/musik/drone-duenn.wav",
+   "lufs": -20.9,
+   "spitze_dbfs": -5.93,
+   "naht": {
+    "sprung_rel_p99": 0.13,
+    "pegel_vor_nach_db": 0.32
+   },
+   "pegel": {
+    "drone": 0,
+    "luft": -6,
+    "zischen": null,
+    "cluster": null,
+    "tritonus": null,
+    "puls": null,
+    "spannung": null,
+    "einschlag": null
+   }
+  },
+  "normal": {
+   "datei": "build/musik/drone-normal.wav",
+   "lufs": -20.0,
+   "spitze_dbfs": -3.22,
+   "naht": {
+    "sprung_rel_p99": 0.07,
+    "pegel_vor_nach_db": 0.25
+   },
+   "pegel": {
+    "drone": 0,
+    "luft": -5,
+    "zischen": -26,
+    "cluster": -4,
+    "tritonus": -8,
+    "puls": -14,
+    "spannung": null,
+    "einschlag": null
+   }
+  },
+  "voll": {
+   "datei": "build/musik/drone-voll.wav",
+   "lufs": -19.22,
+   "spitze_dbfs": -2.24,
+   "naht": {
+    "sprung_rel_p99": 0.1,
+    "pegel_vor_nach_db": 0.24
+   },
+   "pegel": {
+    "drone": 0,
+    "luft": -4,
+    "zischen": -22,
+    "cluster": -2,
+    "tritonus": -5,
+    "puls": -4,
+    "spannung": -15,
+    "einschlag": 0
+   }
+  }
+ },
+ "nachbesserung": {
+  "schichten": {
+   "drone": {
+    "schwellen": 11.0
+   },
+   "cluster": {
+    "schwellen": 14.0
+   },
+   "tritonus": {
+    "schwellen": 14.0
+   }
+  },
+  "klang": {
+   "drone": {
+    "saettigung": 2.8
+   }
+  },
+  "varianten": {
+   "normal": {
+    "zischen": -26
+   },
+   "voll": {
+    "zischen": -22,
+    "spannung": -15,
+    "einschlag": 0,
+    "puls": -4
+   }
+  }
+ },
+ "komposition": {
+  "anschlaege_pro_s": 0.7,
+  "einsaetze_pro_s": 0.47,
+  "toene_je_einsatz": 1.5,
+  "register_midi_p5_p50_p95": [
+   28,
+   36,
+   45
+  ],
+  "oberstimme_schritt_1_2": 0.0,
+  "oberstimme_terz_quarte_3_5": 0.157,
+  "oberstimme_ab_6": 0.169,
+  "haeufigster_ton": 36,
+  "haeufigster_ton_anteil": 0.667,
+  "tonklassen_top3": [
+   0,
+   11,
+   5
+  ],
+  "achtel_s": 0.2679
+ }
+}

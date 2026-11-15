@@ -1,0 +1,135 @@
+{
+ "stil": "wiegenlied",
+ "titel": "Wiegenlied-Spieluhr",
+ "referenz": "r5",
+ "stufe": 2,
+ "bpm": 94,
+ "takte": 72,
+ "schleife_takte": 8,
+ "laenge_s": 183.83,
+ "cent": -40.0,
+ "a4": 440.0,
+ "verstaerkung_db": -0.86,
+ "hall": {
+  "rt60": 1.2,
+  "vor_ms": 22,
+  "breite": 0.55,
+  "hoehen": 0.45,
+  "nass": 0.45
+ },
+ "varianten": {
+  "duenn": {
+   "datei": "build/musik/wiegenlied-duenn.wav",
+   "lufs": -24.21,
+   "spitze_dbfs": -9.38,
+   "naht": {
+    "sprung_rel_p99": 0.01,
+    "pegel_nach_minus_vor_db": 7.04,
+    "innen_pegel_nach_minus_vor_db": 8.52
+   },
+   "pegel": {
+    "kern": -3,
+    "orgelpunkt": -4,
+    "fuell": null,
+    "grund": null,
+    "glitzer": null,
+    "flaeche": null
+   }
+  },
+  "normal": {
+   "datei": "build/musik/wiegenlied-normal.wav",
+   "lufs": -20.0,
+   "spitze_dbfs": -5.75,
+   "naht": {
+    "sprung_rel_p99": 0.01,
+    "pegel_nach_minus_vor_db": 7.32,
+    "innen_pegel_nach_minus_vor_db": 8.89
+   },
+   "pegel": {
+    "kern": 0,
+    "orgelpunkt": -1,
+    "fuell": -1,
+    "grund": -16,
+    "glitzer": null,
+    "flaeche": null
+   }
+  },
+  "voll": {
+   "datei": "build/musik/wiegenlied-voll.wav",
+   "lufs": -19.34,
+   "spitze_dbfs": -4.8,
+   "naht": {
+    "sprung_rel_p99": 0.03,
+    "pegel_nach_minus_vor_db": 7.23,
+    "innen_pegel_nach_minus_vor_db": 6.65
+   },
+   "pegel": {
+    "kern": 0,
+    "orgelpunkt": -1,
+    "fuell": -1,
+    "grund": -11,
+    "glitzer": -5,
+    "flaeche": -13
+   }
+  }
+ },
+ "nachbesserung": {
+  "komposition": {
+   "pan": 0.12,
+   "dynamik_db": 0.6,
+   "lo": 62,
+   "hi": 84,
+   "akzent": 80
+  },
+  "hall": {
+   "rt60": 1.2,
+   "nass": 0.45,
+   "breite": 0.55
+  },
+  "klang": {
+   "spieluhr_kamm": {
+    "a6": 0.17,
+    "klick": 0.035,
+    "a2": 0.06,
+    "a17": 0.24,
+    "ping": 0.65,
+    "tau": 0.13
+   }
+  },
+  "varianten": {
+   "normal": {
+    "grund": -16
+   },
+   "voll": {
+    "grund": -11,
+    "glitzer": -5,
+    "flaeche": -13
+   },
+   "duenn": {
+    "kern": -3,
+    "orgelpunkt": -4
+   }
+  }
+ },
+ "komposition": {
+  "anschlaege_pro_s": 3.23,
+  "einsaetze_pro_s": 2.84,
+  "toene_je_einsatz": 1.14,
+  "register_midi_p5_p50_p95": [
+   51,
+   74,
+   83
+  ],
+  "oberstimme_schritt_1_2": 0.0,
+  "oberstimme_terz_quarte_3_5": 0.432,
+  "oberstimme_ab_6": 0.568,
+  "haeufigster_ton": 79,
+  "haeufigster_ton_anteil": 0.242,
+  "tonklassen_top3": [
+   7,
+   3,
+   10
+  ],
+  "achtel_s": 0.3191
+ }
+}

@@ -1,0 +1,97 @@
+{
+ "stil": "klavier",
+ "titel": "Klavier-Fläche",
+ "referenz": "ref0",
+ "stufe": 1,
+ "bpm": 66,
+ "takte": 48,
+ "schleife_takte": 6,
+ "laenge_s": 174.545,
+ "cent": -31.77,
+ "a4": 432.0,
+ "verstaerkung_db": 2.43,
+ "hall": {
+  "rt60": 2.0,
+  "vor_ms": 15,
+  "breite": 1.0,
+  "hoehen": 0.55,
+  "nass": 0.5
+ },
+ "varianten": {
+  "duenn": {
+   "datei": "build/musik/klavier-stufe1-duenn.wav",
+   "lufs": -26.23,
+   "spitze_dbfs": -13.72,
+   "naht": {
+    "sprung_rel_p99": 0.37,
+    "pegel_vor_nach_db": 2.22
+   },
+   "pegel": {
+    "klavier8": -1,
+    "bass": -4,
+    "klavier16": null,
+    "linie": null,
+    "streicher": null,
+    "sub": null,
+    "fall": null
+   }
+  },
+  "normal": {
+   "datei": "build/musik/klavier-stufe1-normal.wav",
+   "lufs": -20.76,
+   "spitze_dbfs": -8.19,
+   "naht": {
+    "sprung_rel_p99": 0.34,
+    "pegel_vor_nach_db": 4.87
+   },
+   "pegel": {
+    "klavier8": 0,
+    "bass": -1,
+    "klavier16": null,
+    "linie": -1,
+    "streicher": -9,
+    "sub": null,
+    "fall": null
+   }
+  },
+  "voll": {
+   "datei": "build/musik/klavier-stufe1-voll.wav",
+   "lufs": -13.92,
+   "spitze_dbfs": -1.0,
+   "naht": {
+    "sprung_rel_p99": 0.37,
+    "pegel_vor_nach_db": 2.15
+   },
+   "pegel": {
+    "klavier8": null,
+    "klavier16": 0,
+    "bass": 0,
+    "linie": 0,
+    "streicher": -2,
+    "sub": -8,
+    "fall": -8
+   }
+  }
+ },
+ "komposition": {
+  "anschlaege_pro_s": 4.45,
+  "einsaetze_pro_s": 2.2,
+  "toene_je_einsatz": 2.02,
+  "register_midi_p5_p50_p95": [
+   37,
+   61,
+   71
+  ],
+  "oberstimme_schritt_1_2": 0.042,
+  "oberstimme_terz_quarte_3_5": 0.272,
+  "oberstimme_ab_6": 0.666,
+  "haeufigster_ton": 69,
+  "haeufigster_ton_anteil": 0.134,
+  "tonklassen_top3": [
+   9,
+   2,
+   5
+  ],
+  "achtel_s": 0.4545
+ }
+}

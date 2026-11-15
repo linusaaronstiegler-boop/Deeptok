@@ -1,0 +1,46 @@
+{
+ "datei": "../../build/musik/spieluhr-normal.wav",
+ "dauer_s": 171.4,
+ "anschlaege": 794,
+ "anschlaege_pro_s": 4.63,
+ "einsaetze_pro_s": 4.18,
+ "toene_je_einsatz_mittel": 1.11,
+ "achtel_s": 0.2679,
+ "raster_abweichung_ms_median_abs": 5.9,
+ "anteil_einsaetze_auf_achtel_pm35ms": 0.88,
+ "belegte_achtel_anteil": 1.0,
+ "anteil_auf_sechzehntel_zwischen": -0.1,
+ "register_p5_p50_p95": [
+  "E4",
+  "D5",
+  "D6"
+ ],
+ "register_hz_p5_p95": [
+  339.0,
+  1206.0
+ ],
+ "tonlaenge_s_p25_p50_p75": [
+  0.13,
+  0.16,
+  0.24
+ ],
+ "anschlag_db_streuung": 5.2,
+ "oberstimme_schritt_1_2": 0.0,
+ "oberstimme_terz_quarte_3_5": 0.39,
+ "oberstimme_ab_6": 0.51,
+ "oberstimme_gleich": 0.1,
+ "haeufigster_ton": "D5",
+ "haeufigster_ton_anteil_anschlaege": 0.2,
+ "haeufigster_ton_in_takten_anteil": 1.0,
+ "teiltoene_db_rel_grundton": {
+  "2x": -36.2,
+  "3x": -32.6,
+  "4x": -40.3,
+  "5x": -42.5,
+  "5.4x": -77.5,
+  "6.27x": -51.3,
+  "8x": -96.2,
+  "17.55x": -120.0
+ },
+ "teiltoene_n": 612
+}

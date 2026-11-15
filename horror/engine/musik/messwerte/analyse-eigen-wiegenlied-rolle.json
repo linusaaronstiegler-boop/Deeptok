@@ -1,0 +1,46 @@
+{
+ "datei": "../../build/musik/wiegenlied-normal.wav",
+ "dauer_s": 183.8,
+ "anschlaege": 829,
+ "anschlaege_pro_s": 4.51,
+ "einsaetze_pro_s": 3.8,
+ "toene_je_einsatz_mittel": 1.19,
+ "achtel_s": 0.3191,
+ "raster_abweichung_ms_median_abs": 14.9,
+ "anteil_einsaetze_auf_achtel_pm35ms": 0.65,
+ "belegte_achtel_anteil": 0.93,
+ "anteil_auf_sechzehntel_zwischen": -0.11,
+ "register_p5_p50_p95": [
+  "F♯3",
+  "D5",
+  "B5"
+ ],
+ "register_hz_p5_p95": [
+  181.0,
+  965.0
+ ],
+ "tonlaenge_s_p25_p50_p75": [
+  0.12,
+  0.19,
+  0.28
+ ],
+ "anschlag_db_streuung": 8.7,
+ "oberstimme_schritt_1_2": 0.03,
+ "oberstimme_terz_quarte_3_5": 0.3,
+ "oberstimme_ab_6": 0.53,
+ "oberstimme_gleich": 0.14,
+ "haeufigster_ton": "G5",
+ "haeufigster_ton_anteil_anschlaege": 0.23,
+ "haeufigster_ton_in_takten_anteil": 1.0,
+ "teiltoene_db_rel_grundton": {
+  "2x": -25.7,
+  "3x": -72.2,
+  "4x": -80.5,
+  "5x": -78.0,
+  "5.4x": -66.9,
+  "6.27x": -15.5,
+  "8x": -78.2,
+  "17.55x": -48.4
+ },
+ "teiltoene_n": 420
+}

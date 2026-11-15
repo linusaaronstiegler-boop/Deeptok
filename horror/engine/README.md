@@ -24,6 +24,7 @@ Grundlage sind `horror/docs/bewegungs-spec.md` (Kamera, Schnitt, Aktionen), `hor
 15. [Bausteine der Serie „Hiding Night“](#15-bausteine-der-serie-hiding-night)
 16. [Shotliste, Messtor, Kontaktbogen](#16-shotliste-messtor-kontaktbogen)
 17. [Untertitel, Effekte, Mischung, fertige MP4](#17-untertitel-effekte-mischung-fertige-mp4)
+18. [Musik-Werkstatt](#18-musik-werkstatt)
 
 ## 1. Schnellstart
 
@@ -695,3 +696,11 @@ Stand nach dem Review (Einzelheiten und Vorher-Werte: `episoden/folge-01/REVIEW.
 | Hör-Check Whisper auf dem MP4 | Upload und Vorhör je 0 Wortfehler, 0 Einschübe |
 | Dauer | Stimme 86,12 s, Endkarte ab 86,267 s (0,147 s nach dem letzten Wort), Video 87,267 s |
 | Bilder | Helligkeit Median 87,8, P10 65,6, kein Bild unter 30, dunkelste Einstellung 58,9; keine Balken; Kantendichte 15,6 %; keine schwarzen, einfarbigen oder eingefrorenen Bilder |
+
+## 18. Musik-Werkstatt
+
+Stand 15.11.2026. Eigene Klangbetten im Stil der Referenzvideos, Einzelheiten in `musik/README.md`, Regeln in `musik/GRAMMATIK.md`, Lizenzen in `musik/LIZENZEN.md`.
+
+- Vier Stile (Spieluhr-Arpeggio nach r2, Wiegenlied-Spieluhr nach r5, Klavier-Fläche nach ref0, Sub-Drone nach r1), je eine nahtlose Schleife von 171–184 s in den Varianten dünn, normal, voll; MIDI in `musik/midi/`, WAV in `build/musik/`.
+- Für „Hiding Night“ empfohlen: Wiegenlied-Spieluhr. Die Spannungsfassung (`musik/spannung.py`, Steuerung über `musik/spannung/hiding-night-teil1.json`) kann als `--bett` von `fertigen.py` das bisherige Bett `klangbett-r2-a.wav` in der Vorhör-Fassung ersetzen (noch nicht eingebaut; `mischen.py` normiert dann das ganze Bett auf 12 LU unter der Stimme, `spannung.py --vorhoer` dagegen die Stufe „normal“). Der Upload bleibt ohne Musik.
+

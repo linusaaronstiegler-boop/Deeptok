@@ -1,0 +1,153 @@
+{
+ "stil": "klavier",
+ "titel": "Klavier-Fläche",
+ "referenz": "ref0",
+ "stufe": 2,
+ "bpm": 66,
+ "takte": 48,
+ "schleife_takte": 6,
+ "laenge_s": 174.545,
+ "cent": -31.77,
+ "a4": 432.0,
+ "verstaerkung_db": 3.65,
+ "hall": {
+  "rt60": 1.6,
+  "vor_ms": 15,
+  "breite": 0.7,
+  "hoehen": 0.55,
+  "nass": 0.5
+ },
+ "varianten": {
+  "duenn": {
+   "datei": "build/musik/klavier-duenn.wav",
+   "lufs": -24.17,
+   "spitze_dbfs": -9.99,
+   "naht": {
+    "sprung_rel_p99": 0.07,
+    "pegel_vor_nach_db": 7.2
+   },
+   "pegel": {
+    "klavier8": -1,
+    "bass": 0,
+    "klavier16": null,
+    "linie": null,
+    "streicher": null,
+    "sub": null,
+    "fall": null
+   }
+  },
+  "normal": {
+   "datei": "build/musik/klavier-normal.wav",
+   "lufs": -20.0,
+   "spitze_dbfs": -6.48,
+   "naht": {
+    "sprung_rel_p99": 0.11,
+    "pegel_vor_nach_db": 7.2
+   },
+   "pegel": {
+    "klavier8": 0,
+    "bass": -1,
+    "klavier16": null,
+    "linie": -1,
+    "streicher": -9,
+    "sub": null,
+    "fall": null
+   }
+  },
+  "voll": {
+   "datei": "build/musik/klavier-voll.wav",
+   "lufs": -17.08,
+   "spitze_dbfs": -3.23,
+   "naht": {
+    "sprung_rel_p99": 0.09,
+    "pegel_vor_nach_db": 6.22
+   },
+   "pegel": {
+    "klavier8": null,
+    "klavier16": 0,
+    "bass": 0,
+    "linie": 0,
+    "streicher": -6,
+    "sub": -15,
+    "fall": -13
+   }
+  }
+ },
+ "nachbesserung": {
+  "filter": {
+   "klavier8": {
+    "regal": [
+     1200,
+     -11
+    ]
+   },
+   "klavier16": {
+    "regal": [
+     1200,
+     -11
+    ]
+   },
+   "bass": {
+    "regal": [
+     1200,
+     -11
+    ]
+   },
+   "linie": {
+    "regal": [
+     1200,
+     -9
+    ]
+   },
+   "streicher": {
+    "regal": [
+     1000,
+     -14
+    ]
+   }
+  },
+  "komposition": {
+   "pan": 0.3,
+   "streicher_lage": [
+    45,
+    64
+   ],
+   "bass_vel": 74
+  },
+  "hall": {
+   "rt60": 1.6,
+   "breite": 0.7
+  },
+  "varianten": {
+   "duenn": {
+    "bass": 0
+   },
+   "voll": {
+    "sub": -15,
+    "streicher": -6,
+    "fall": -13
+   }
+  }
+ },
+ "komposition": {
+  "anschlaege_pro_s": 4.45,
+  "einsaetze_pro_s": 2.2,
+  "toene_je_einsatz": 2.02,
+  "register_midi_p5_p50_p95": [
+   37,
+   60,
+   71
+  ],
+  "oberstimme_schritt_1_2": 0.063,
+  "oberstimme_terz_quarte_3_5": 0.272,
+  "oberstimme_ab_6": 0.666,
+  "haeufigster_ton": 57,
+  "haeufigster_ton_anteil": 0.124,
+  "tonklassen_top3": [
+   9,
+   2,
+   4
+  ],
+  "achtel_s": 0.4545
+ }
+}

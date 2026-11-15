@@ -1,0 +1,97 @@
+{
+ "stil": "spieluhr",
+ "titel": "Spieluhr-Arpeggio",
+ "referenz": "r2",
+ "stufe": 1,
+ "bpm": 112,
+ "takte": 80,
+ "schleife_takte": 8,
+ "laenge_s": 171.429,
+ "cent": 46.0,
+ "a4": 440.0,
+ "verstaerkung_db": -3.59,
+ "hall": {
+  "rt60": 1.2,
+  "vor_ms": 12,
+  "breite": 0.8,
+  "hoehen": 0.5,
+  "nass": 0.55
+ },
+ "varianten": {
+  "duenn": {
+   "datei": "build/musik/spieluhr-stufe1-duenn.wav",
+   "lufs": -21.91,
+   "spitze_dbfs": -8.65,
+   "naht": {
+    "sprung_rel_p99": 0.18,
+    "pegel_vor_nach_db": 3.37
+   },
+   "pegel": {
+    "kern": 0,
+    "orgelpunkt": -1,
+    "fuell": null,
+    "zweiklang": null,
+    "orgel": null,
+    "glitzer": null,
+    "tief": null
+   }
+  },
+  "normal": {
+   "datei": "build/musik/spieluhr-stufe1-normal.wav",
+   "lufs": -20.0,
+   "spitze_dbfs": -6.14,
+   "naht": {
+    "sprung_rel_p99": 0.36,
+    "pegel_vor_nach_db": 1.78
+   },
+   "pegel": {
+    "kern": 0,
+    "orgelpunkt": -2,
+    "fuell": -1,
+    "zweiklang": -5,
+    "orgel": -24,
+    "glitzer": null,
+    "tief": null
+   }
+  },
+  "voll": {
+   "datei": "build/musik/spieluhr-stufe1-voll.wav",
+   "lufs": -18.78,
+   "spitze_dbfs": -4.38,
+   "naht": {
+    "sprung_rel_p99": 0.36,
+    "pegel_vor_nach_db": 2.03
+   },
+   "pegel": {
+    "kern": 0,
+    "orgelpunkt": -2,
+    "fuell": -1,
+    "zweiklang": -3,
+    "orgel": -16,
+    "glitzer": -7,
+    "tief": -9
+   }
+  }
+ },
+ "komposition": {
+  "anschlaege_pro_s": 4.67,
+  "einsaetze_pro_s": 3.73,
+  "toene_je_einsatz": 1.25,
+  "register_midi_p5_p50_p95": [
+   62,
+   74,
+   83
+  ],
+  "oberstimme_schritt_1_2": 0.0,
+  "oberstimme_terz_quarte_3_5": 0.493,
+  "oberstimme_ab_6": 0.46,
+  "haeufigster_ton": 79,
+  "haeufigster_ton_anteil": 0.244,
+  "tonklassen_top3": [
+   7,
+   2,
+   11
+  ],
+  "achtel_s": 0.2679
+ }
+}

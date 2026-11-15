@@ -1,0 +1,132 @@
+{
+ "datei": "horror-analyse/ref0-arbeit/stem-other.wav",
+ "dauer_s": 170.92,
+ "stimmung_cent": -34.0,
+ "einsaetze_pro_s": 2.72,
+ "tempo_bpm": 132.5,
+ "autokorr_perioden_s": [
+  [
+   0.4412,
+   0.195
+  ],
+  [
+   0.4528,
+   0.222
+  ],
+  [
+   0.9056,
+   0.252
+  ]
+ ],
+ "ioi_haeufigste_s": [
+  0.46,
+  0.12,
+  0.16,
+  0.2
+ ],
+ "ioi_median_s": 0.313,
+ "schleife_kandidaten": [
+  {
+   "lag_s": 21.83,
+   "aehnlichkeit": 0.879
+  },
+  {
+   "lag_s": 43.56,
+   "aehnlichkeit": 0.798
+  },
+  {
+   "lag_s": 22.85,
+   "aehnlichkeit": 0.784
+  },
+  {
+   "lag_s": 20.81,
+   "aehnlichkeit": 0.777
+  },
+  {
+   "lag_s": 44.58,
+   "aehnlichkeit": 0.77
+  }
+ ],
+ "noten_gezaehlt": 462,
+ "register_midi_p5_p50_p95": [
+  38,
+  53,
+  69
+ ],
+ "register_namen": [
+  "D2",
+  "F3",
+  "A4"
+ ],
+ "tonklassen_anteil": {
+  "A": 0.16,
+  "C": 0.149,
+  "F": 0.134,
+  "D": 0.102,
+  "E": 0.1,
+  "C♯": 0.078,
+  "A♯": 0.071,
+  "G": 0.054
+ },
+ "intervall_histogramm": {
+  "-12": 0.022,
+  "-8": 0.022,
+  "-7": 0.024,
+  "-5": 0.044,
+  "-4": 0.04,
+  "-3": 0.051,
+  "-2": 0.029,
+  "-1": 0.064,
+  "0": 0.075,
+  "1": 0.046,
+  "2": 0.046,
+  "3": 0.064,
+  "4": 0.055,
+  "5": 0.035,
+  "7": 0.033
+ },
+ "anteil_schritt_1_2": 0.185,
+ "anteil_sprung_3_5": 0.289,
+ "anteil_gross_ab_6": 0.45,
+ "anteil_wiederholung": 0.075,
+ "richtungswechsel_anteil": 0.658,
+ "abklang_db_pro_s_median": 47.2,
+ "ton_t20_s_median": 0.42,
+ "luecken_n": 64,
+ "hall_steigung_db_pro_s_median": -5.1,
+ "hall_rt60_schaetzung_s": 11.86,
+ "seite_mitte_db": -3.8,
+ "seite_mitte_baender_db": {
+  "60-250": -4.0,
+  "250-1000": -4.1,
+  "1000-4000": -3.3,
+  "4000-12000": -4.4
+ },
+ "pegel_1s_p10_p90": [
+  -1.5,
+  1.6
+ ],
+ "einbrueche_unter_-10dB_s": [
+  168,
+  169
+ ],
+ "pegel_verlauf_10s": [
+  -0.7,
+  -0.5,
+  -0.4,
+  -0.5,
+  -0.1,
+  0.4,
+  0.3,
+  1.0,
+  0.3,
+  0.9,
+  0.3,
+  0.7,
+  0.1,
+  -1.2,
+  -1.7,
+  0.7,
+  -6.3
+ ]
+}

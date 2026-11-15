@@ -1,0 +1,94 @@
+{
+ "stil": "wiegenlied",
+ "titel": "Wiegenlied-Spieluhr",
+ "referenz": "r5",
+ "stufe": 1,
+ "bpm": 94,
+ "takte": 72,
+ "schleife_takte": 8,
+ "laenge_s": 183.83,
+ "cent": -40.0,
+ "a4": 440.0,
+ "verstaerkung_db": -5.36,
+ "hall": {
+  "rt60": 1.7,
+  "vor_ms": 22,
+  "breite": 0.9,
+  "hoehen": 0.45,
+  "nass": 0.75
+ },
+ "varianten": {
+  "duenn": {
+   "datei": "build/musik/wiegenlied-stufe1-duenn.wav",
+   "lufs": -21.21,
+   "spitze_dbfs": -8.53,
+   "naht": {
+    "sprung_rel_p99": 0.06,
+    "pegel_vor_nach_db": 2.81
+   },
+   "pegel": {
+    "kern": 0,
+    "orgelpunkt": -1,
+    "fuell": null,
+    "grund": null,
+    "glitzer": null,
+    "flaeche": null
+   }
+  },
+  "normal": {
+   "datei": "build/musik/wiegenlied-stufe1-normal.wav",
+   "lufs": -20.0,
+   "spitze_dbfs": -7.2,
+   "naht": {
+    "sprung_rel_p99": 0.06,
+    "pegel_vor_nach_db": 3.16
+   },
+   "pegel": {
+    "kern": 0,
+    "orgelpunkt": -1,
+    "fuell": -1,
+    "grund": -10,
+    "glitzer": null,
+    "flaeche": null
+   }
+  },
+  "voll": {
+   "datei": "build/musik/wiegenlied-stufe1-voll.wav",
+   "lufs": -19.78,
+   "spitze_dbfs": -6.8,
+   "naht": {
+    "sprung_rel_p99": 0.07,
+    "pegel_vor_nach_db": 3.61
+   },
+   "pegel": {
+    "kern": 0,
+    "orgelpunkt": -1,
+    "fuell": -1,
+    "grund": -6,
+    "glitzer": -9,
+    "flaeche": -20
+   }
+  }
+ },
+ "komposition": {
+  "anschlaege_pro_s": 3.23,
+  "einsaetze_pro_s": 2.84,
+  "toene_je_einsatz": 1.14,
+  "register_midi_p5_p50_p95": [
+   51,
+   71,
+   82
+  ],
+  "oberstimme_schritt_1_2": 0.0,
+  "oberstimme_terz_quarte_3_5": 0.415,
+  "oberstimme_ab_6": 0.585,
+  "haeufigster_ton": 79,
+  "haeufigster_ton_anteil": 0.242,
+  "tonklassen_top3": [
+   7,
+   3,
+   10
+  ],
+  "achtel_s": 0.3191
+ }
+}
