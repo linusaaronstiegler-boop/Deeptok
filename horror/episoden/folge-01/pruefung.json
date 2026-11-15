@@ -1,0 +1,226 @@
+{
+ "folge": "folge-01",
+ "format": {
+  "upload": {
+   "video": {
+    "codec": "h264",
+    "profil": "High",
+    "breite": 1080,
+    "hoehe": 1920,
+    "fps": "30/1",
+    "bilder": 2618,
+    "pix_fmt": "yuv420p",
+    "farbraum": "bt709",
+    "dauer_s": 87.266667
+   },
+   "audio": {
+    "codec": "aac",
+    "kanaele": 2,
+    "abtastrate": 44100,
+    "dauer_s": 87.266009,
+    "kbit": 194
+   },
+   "megabyte": 144.0
+  },
+  "vorhoer": {
+   "video": {
+    "codec": "h264",
+    "profil": "High",
+    "breite": 1080,
+    "hoehe": 1920,
+    "fps": "30/1",
+    "bilder": 2618,
+    "pix_fmt": "yuv420p",
+    "farbraum": "bt709",
+    "dauer_s": 87.266667
+   },
+   "audio": {
+    "codec": "aac",
+    "kanaele": 2,
+    "abtastrate": 44100,
+    "dauer_s": 87.266009,
+    "kbit": 200
+   },
+   "megabyte": 144.1
+  }
+ },
+ "dauer": {
+  "stimme_s": 86.12,
+  "letztes_wort_ende_s": 86.12,
+  "endkarte_ab_s": 86.267,
+  "endkarte_s": 1.0,
+  "video_s": 87.267,
+  "abstand_letztes_wort_endkarte_s": 0.147
+ },
+ "hoer_check": {
+  "upload": {
+   "wer": 0.0034,
+   "fehler": [],
+   "eingefuegt": [
+    {
+     "gehoert": "mister",
+     "zeit_s": 80.0
+    }
+   ],
+   "n_skript": 290,
+   "n_gehoert": 291,
+   "unsicher": [
+    {
+     "wort": "Mister",
+     "p": 0.4,
+     "zeit_s": 5.36
+    },
+    {
+     "wort": "ready.",
+     "p": 0.06,
+     "zeit_s": 50.42
+    },
+    {
+     "wort": "eighteen.",
+     "p": 0.0,
+     "zeit_s": 54.6
+    },
+    {
+     "wort": "My",
+     "p": 0.39,
+     "zeit_s": 54.82
+    },
+    {
+     "wort": "Dad",
+     "p": 0.34,
+     "zeit_s": 59.26
+    },
+    {
+     "wort": "June",
+     "p": 0.33,
+     "zeit_s": 66.02
+    },
+    {
+     "wort": "Rabbit.\"",
+     "p": 0.09,
+     "zeit_s": 73.12
+    },
+    {
+     "wort": "Mister",
+     "p": 0.46,
+     "zeit_s": 79.42
+    },
+    {
+     "wort": "Hundred",
+     "p": 0.5,
+     "zeit_s": 80.16
+    }
+   ],
+   "versatz_zu_timing_median_ms": 0.0,
+   "versatz_zu_timing_p90_ms": 40.0
+  },
+  "vorhoer": {
+   "wer": 0.0,
+   "fehler": [],
+   "eingefuegt": [],
+   "n_skript": 290,
+   "n_gehoert": 290,
+   "unsicher": [
+    {
+     "wort": "Mister",
+     "p": 0.48,
+     "zeit_s": 5.34
+    },
+    {
+     "wort": "Nobody",
+     "p": 0.08,
+     "zeit_s": 29.14
+    },
+    {
+     "wort": "ready.",
+     "p": 0.1,
+     "zeit_s": 50.42
+    },
+    {
+     "wort": "Six",
+     "p": 0.37,
+     "zeit_s": 58.0
+    },
+    {
+     "wort": "\"It",
+     "p": 0.13,
+     "zeit_s": 72.02
+    }
+   ]
+  }
+ },
+ "untertitel_sync": {
+  "einblendungen": 178,
+  "wechsel_gefunden": 535,
+  "einblendung_nicht_auf_plan_bild": [],
+  "wechsel_ausserhalb_plan": [],
+  "abstand_zu_timing_max_s": 0.017,
+  "versatz_mp4_ton_zu_master_ms": 0.0,
+  "gemessen_nach_pause_einsatz": 62,
+  "gemessen_mitten_im_satz_whisper": 116,
+  "abstand_zum_wortbeginn_median_s": 0.0,
+  "abstand_zum_wortbeginn_p90_abs_s": 0.02,
+  "abstand_zum_wortbeginn_max_abs_s": 0.04,
+  "ueber_0_1_s": []
+ },
+ "bilder": {
+  "bilder": 2618,
+  "dekodierfehler": null,
+  "helligkeit_min": 6.2,
+  "helligkeit_median": 54.7,
+  "dunkelstes_bild": 423,
+  "streuung_min": 12.7,
+  "schwarz_oder_einfarbig": [],
+  "laengster_stillstand_s": 0.0,
+  "stillstand_endet_bild": null,
+  "aenderung_median": 1.38
+ },
+ "bogen_zeiten_s": [
+  1.454,
+  4.363,
+  7.272,
+  10.181,
+  13.09,
+  15.999,
+  18.908,
+  21.817,
+  24.726,
+  27.634,
+  30.543,
+  33.452,
+  36.361,
+  39.27,
+  42.179,
+  45.088,
+  47.997,
+  50.906,
+  53.814,
+  56.723,
+  59.632,
+  62.541,
+  65.45,
+  68.359,
+  71.268,
+  74.177,
+  77.086,
+  79.994,
+  82.903,
+  85.812
+ ],
+ "ton": {
+  "kbit": 192,
+  "upload": {
+   "lufs": -14.07,
+   "true_peak_dbtp": -2.99,
+   "lra_lu": 2.6
+  },
+  "vorhoer": {
+   "lufs": -14.06,
+   "true_peak_dbtp": -2.21,
+   "lra_lu": 2.5
+  },
+  "decke_dbfs": -3.23
+ },
+ "verstoesse": [],
+ "ok": true
+}

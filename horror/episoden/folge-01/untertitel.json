@@ -1,0 +1,142 @@
+{
+  "_hinweis": "Vorgaben für engine/untertitel.py. Wortbezüge sind Indizes in timing.json (woerter[].i); 'text' wird beim Bauen gegen timing.json geprüft, damit eine neue Stimmspur nicht stillschweigend falsche Wörter färbt.",
+  "akzent_farbe": "#9FD8D2",
+  "akzent_grund": "Kaltes Leuchten von Mister Hundred (serie.md). Akzent = Monstername, Name der Nacht, die Regel, das verbotene Wort und das Zählen.",
+  "akzent": [
+    {
+      "von": 18,
+      "bis": 19,
+      "text": "Mister Hundred."
+    },
+    {
+      "von": 44,
+      "bis": 45,
+      "text": "one hundred,"
+    },
+    {
+      "von": 93,
+      "bis": 94,
+      "text": "Hiding Night."
+    },
+    {
+      "von": 97,
+      "bis": 98,
+      "text": "one rule."
+    },
+    {
+      "von": 99,
+      "bis": 103,
+      "text": "Nobody can help you hide."
+    },
+    {
+      "von": 169,
+      "bis": 169,
+      "text": "ready."
+    },
+    {
+      "von": 227,
+      "bis": 228,
+      "text": "one hundred"
+    },
+    {
+      "von": 269,
+      "bis": 270,
+      "text": "Mister Hundred"
+    }
+  ],
+  "rede": [
+    {
+      "wer": "June",
+      "farbe": "#F2C14E",
+      "von": 243,
+      "bis": 255,
+      "text": "\"It never looks in my room, Rabbit.\" \"I'll hide you there.\" \"I promise.\""
+    }
+  ],
+  "allein": [
+    {
+      "i": 38,
+      "text": "peeks.",
+      "grund": "Snap-Zoom"
+    },
+    {
+      "i": 110,
+      "text": "too.",
+      "grund": "Snap-Zoom"
+    },
+    {
+      "i": 169,
+      "text": "ready.",
+      "grund": "das verbotene Wort"
+    },
+    {
+      "i": 281,
+      "text": "counting.",
+      "grund": "Cliffhanger"
+    },
+    {
+      "i": 289,
+      "text": "fingers.",
+      "grund": "Snap-Zoom, letztes Wort"
+    }
+  ],
+  "paare": [
+    {
+      "von": 5,
+      "bis": 6,
+      "text": "turn eighteen,"
+    },
+    {
+      "von": 18,
+      "bis": 19,
+      "text": "Mister Hundred."
+    },
+    {
+      "von": 93,
+      "bis": 94,
+      "text": "Hiding Night."
+    },
+    {
+      "von": 97,
+      "bis": 98,
+      "text": "one rule."
+    },
+    {
+      "von": 119,
+      "bis": 120,
+      "text": "Owen Pike"
+    },
+    {
+      "von": 196,
+      "bis": 197,
+      "text": "Six years"
+    },
+    {
+      "von": 204,
+      "bis": 205,
+      "text": "crawl space"
+    },
+    {
+      "von": 269,
+      "bis": 270,
+      "text": "Mister Hundred"
+    },
+    {
+      "von": 276,
+      "bis": 277,
+      "text": "six hours"
+    }
+  ],
+  "ziffern_nicht": [
+    {
+      "i": 97,
+      "text": "one",
+      "grund": "ONE RULE liest sich als Titel der Regel, 1 RULE wie ein Listenpunkt"
+    },
+    {
+      "i": 189,
+      "text": "one",
+      "grund": "Pronomen (the only one who), keine Zahl"
+    }
+  ]
+}

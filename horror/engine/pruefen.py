@@ -1,0 +1,312 @@
+#!/usr/bin/env python3
+"""Fertige MP4 einer Folge prüfen: Format, Dauer, Hör-Check, Untertitel-Sync, Bilder, Ton.
+
+    python engine/pruefen.py episoden/folge-01
+
+Prüft build/<folge>/<folge>-upload.mp4 (und -vorhoer.mp4) und schreibt
+episoden/<folge>/pruefung.json sowie episoden/<folge>/render-bogen.jpg (30 Bilder, klein).
+Exit 1, wenn eine harte Regel verletzt ist.
+
+Regeln:
+  1. Format: H.264 + AAC, 1080 × 1920, 30 fps, Bildzahl = episode.json.
+  2. Dauer: Stimme (erstes bis letztes Wort) 70–90 s, nie unter 62 s; Endkarte 1,0 s, beginnt
+     höchstens 0,2 s nach dem letzten Wort.
+  3. Hör-Check: faster-whisper small auf dem Ton des MP4, gegen das Skript ausgerichtet;
+     0 Wortfehler erwartet (Abweichungen werden einzeln gelistet, nicht jede ist ein Tonfehler).
+  4. Untertitel-Sync: Die ASS wird allein auf Schwarz gerendert (dieselbe libass wie im MP4),
+     Bild für Bild wird geprüft, wann der Streifen wechselt. Jede Einblendung muss genau auf
+     ihrem geplanten Bild erscheinen. Der Abstand zum Wortbeginn muss ≤ 0,1 s sein, gemessen
+     am Ton des MP4: Versatz MP4-Ton zur Master-WAV per Kreuzkorrelation; nach einer Pause
+     zählt der akustische Einsatz (≥ 30 ms unter −40 dBFS, dann über −35 dBFS), mitten im Satz der Wortanfang
+     laut Whisper auf dem MP4. Whisper allein taugt nach Pausen nicht: Es legt das erste Wort
+     nach einer Stille oft 0,2–0,7 s zu früh, mitten in die Pause.
+  5. Bilder: kein schwarzes oder einfarbiges Bild (Mittel < 6 oder Streuung < 2 von 255),
+     keine Dekodierfehler, kein Stillstand über 0,33 s außer auf der Endkarte.
+  6. Ton: −14 LUFS ±0,5, True Peak ≤ −1 dBTP auf der dekodierten AAC-Spur.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
+
+import numpy as np
+
+HIER = Path(__file__).resolve().parent
+sys.path.insert(0, str(HIER))
+sys.path.insert(0, str(HIER / "ton"))
+import untertitel  # noqa: E402
+import stimme  # noqa: E402
+
+FPS = 30
+W, H = 1080, 1920
+BAND = (1080, 1250)      # y-Bereich, in dem die Untertitel liegen (Mitte 1200, Pop bis 134 %)
+
+
+def probe(mp4: Path) -> dict:
+    p = subprocess.run(["ffprobe", "-v", "error", "-show_streams", "-show_format", "-count_frames",
+                        "-of", "json", str(mp4)], capture_output=True, text=True, check=True)
+    js = json.loads(p.stdout)
+    v = next(s for s in js["streams"] if s["codec_type"] == "video")
+    a = next((s for s in js["streams"] if s["codec_type"] == "audio"), None)
+    return {
+        "video": {"codec": v["codec_name"], "profil": v.get("profile"), "breite": v["width"], "hoehe": v["height"],
+                  "fps": v["r_frame_rate"], "bilder": int(v["nb_read_frames"]), "pix_fmt": v["pix_fmt"],
+                  "farbraum": v.get("color_space"), "dauer_s": float(v["duration"])},
+        "audio": None if a is None else {"codec": a["codec_name"], "kanaele": a["channels"],
+                                          "abtastrate": int(a["sample_rate"]), "dauer_s": float(a["duration"]),
+                                          "kbit": round(int(a.get("bit_rate", 0)) / 1000)},
+        "megabyte": round(int(js["format"]["size"]) / 1e6, 1),
+    }
+
+
+def ton_aus_mp4(mp4: Path, wav: Path) -> None:
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(mp4), "-vn", "-ac", "1", "-ar", "16000", str(wav)], check=True)
+
+
+def hoer_check(mp4: Path, skript: Path) -> dict:
+    with tempfile.TemporaryDirectory() as tmp:
+        wav = Path(tmp) / "ton.wav"
+        ton_aus_mp4(mp4, wav)
+        woerter = stimme.whisper_woerter(wav)
+    tokens, _ = stimme.skript_tokens(skript)
+    erg = stimme.ausrichten(tokens, woerter)
+    return {"wer": round(erg["wer"], 4), "fehler": erg["fehler"], "eingefuegt": erg["eingefuegt"],
+            "n_skript": erg["n_skript"], "n_gehoert": erg["n_gehoert"],
+            "unsicher": [{"wort": w["text"], "p": round(w["p"], 2), "zeit_s": round(w["start"], 2)}
+                         for w in erg["woerter"] if w["p"] < 0.5],
+            "_woerter": erg["woerter"]}
+
+
+def untertitel_wechsel(ass: Path, bilder: int) -> tuple[list[int], np.ndarray]:
+    """ASS allein auf Schwarz rendern (gleiche libass wie im MP4) und die Bilder finden,
+    in denen sich der Untertitel-Streifen ändert."""
+    schriften = HIER / "assets" / "schriften"
+    hoehe = BAND[1] - BAND[0]
+    vf = (f"subtitles=filename={ass}:fontsdir={schriften},crop={W}:{hoehe}:0:{BAND[0]},"
+          f"scale={W // 4}:{hoehe // 4},format=gray")
+    p = subprocess.run(["ffmpeg", "-v", "error", "-f", "lavfi", "-i", f"color=c=black:s={W}x{H}:r={FPS}",
+                        "-frames:v", str(bilder), "-vf", vf, "-f", "rawvideo", "-"], capture_output=True, check=True)
+    f = np.frombuffer(p.stdout, np.uint8).reshape(bilder, hoehe // 4, W // 4).astype(np.int16)
+    diff = np.abs(np.diff(f, axis=0)).mean(axis=(1, 2))
+    return [i + 1 for i, d in enumerate(diff) if d > 0.05], f
+
+
+def versatz_mp4_zu_wav(mp4: Path, wav: Path, sekunden: float = 30.0, max_lag_s: float = 0.25) -> float:
+    """Versatz der MP4-Tonspur gegen die Master-WAV (s, positiv = MP4 später), Kreuzkorrelation."""
+    def lade(pfad):
+        roh = subprocess.run(["ffmpeg", "-v", "error", "-i", str(pfad), "-t", str(sekunden), "-vn", "-ac", "1",
+                              "-ar", "44100", "-f", "f32le", "-"], capture_output=True, check=True).stdout
+        return np.frombuffer(roh, np.float32).astype(np.float64)
+    a, b = lade(mp4), lade(wav)
+    n = min(len(a), len(b))
+    a, b = a[:n], b[:n]
+    m = 1 << int(np.ceil(np.log2(2 * n)))
+    kor = np.fft.irfft(np.fft.rfft(a, m) * np.conj(np.fft.rfft(b, m)), m)
+    lag = int(max_lag_s * 44100)
+    kand = np.concatenate([kor[-lag:], kor[:lag + 1]])
+    return (int(np.argmax(kand)) - lag) / 44100
+
+
+def einsaetze(wav: Path) -> np.ndarray:
+    """Zeiten (s), an denen die Stimme nach einer Lücke einsetzt: mindestens 30 ms unter −40 dBFS,
+    dann der erste Rahmen über −35 dBFS. −40 statt echter Stille (−50), weil nach manchen Wörtern
+    ein Atemhauch liegt (z. B. nach „sunset,“ in Folge 1)."""
+    x = stimme.lade(wav)
+    db = stimme.rahmen_db(x)                       # 10-ms-Rahmen, 20-ms-Fenster
+    aus, leise = [], 3
+    for i, d in enumerate(db):
+        if d > -35 and leise >= 3:
+            aus.append(i * 0.01 + 0.01)             # Fenstermitte des ersten lauten Rahmens
+        if d < -40:
+            leise += 1
+        elif d > -35:
+            leise = 0
+    return np.array(aus)
+
+
+def bilder_pruefen(mp4: Path, endkarte_bild: int) -> dict:
+    """Ganzes MP4 klein dekodieren: Helligkeit, Streuung, Stillstand, Dekodierfehler."""
+    w, h = 108, 192
+    p = subprocess.run(["ffmpeg", "-v", "error", "-i", str(mp4), "-vf", f"scale={w}:{h},format=gray",
+                        "-f", "rawvideo", "-"], capture_output=True)
+    fehler = p.stderr.decode("utf-8", "replace").strip()
+    f = np.frombuffer(p.stdout, np.uint8)
+    n = len(f) // (w * h)
+    f = f[: n * w * h].reshape(n, h, w).astype(np.float32)
+    mittel = f.mean(axis=(1, 2))
+    streu = f.std(axis=(1, 2))
+    # Stillstand: mittlere Änderung zum Vorbild unter 0,15 Graustufen (Korn ist deterministisch,
+    # ändert sich aber mit der Bildnummer, ein stehendes Bild ist also wirklich eingefroren)
+    d = np.abs(np.diff(f, axis=0)).mean(axis=(1, 2))
+    still = d < 0.15
+    laengste, lauf, ende_lauf = 0, 0, 0
+    for i, s in enumerate(still[: endkarte_bild - 1]):
+        lauf = lauf + 1 if s else 0
+        if lauf > laengste:
+            laengste, ende_lauf = lauf, i + 1
+    schwarz = [int(i) for i in np.where((mittel < 6) | (streu < 2))[0]]
+    return {"bilder": int(n), "dekodierfehler": fehler or None,
+            "helligkeit_min": round(float(mittel.min()), 1), "helligkeit_median": round(float(np.median(mittel)), 1),
+            "dunkelstes_bild": int(mittel.argmin()), "streuung_min": round(float(streu.min()), 1),
+            "schwarz_oder_einfarbig": schwarz,
+            "laengster_stillstand_s": round((laengste + 1) / FPS, 3) if laengste else 0.0,
+            "stillstand_endet_bild": ende_lauf if laengste else None,
+            "aenderung_median": round(float(np.median(d)), 2)}
+
+
+def bogen(mp4: Path, ziel: Path, dauer: float, n: int = 30) -> list[float]:
+    """n Bilder gleichmäßig über das Video (Mitte jedes n-tels), 6 × 5, je 216 × 384."""
+    zeiten = [round((k + 0.5) * dauer / n, 3) for k in range(n)]
+    with tempfile.TemporaryDirectory() as tmp:
+        for k, t in enumerate(zeiten):
+            subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", str(t), "-i", str(mp4), "-frames:v", "1",
+                            "-vf", f"scale=216:384,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:"
+                                   f"text='{t:.1f}s':x=4:y=4:fontsize=16:fontcolor=white:box=1:boxcolor=black@0.5",
+                            str(Path(tmp) / f"b{k:02d}.png")], check=True)
+        subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(Path(tmp) / "b%02d.png"), "-vf",
+                        "tile=6x5:padding=4:color=white", "-frames:v", "1", "-q:v", "4", str(ziel)], check=True)
+    return zeiten
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+    ap.add_argument("ordner", type=Path)
+    ap.add_argument("--ohne-whisper", action="store_true")
+    a = ap.parse_args()
+    ordner = a.ordner.resolve()
+    name = ordner.name
+    build = ordner.parent.parent / "build" / name
+    episode = json.loads((ordner / "episode.json").read_text(encoding="utf-8"))
+    timing = json.loads((ordner / "timing.json").read_text(encoding="utf-8"))
+    bilder_soll = round(episode["einstellungen"][-1]["ende"] * FPS)
+    end = [e for e in episode["einstellungen"] if e.get("plan", {}).get("endkarte")][0]
+    karte_bild = round(end["start"] * FPS)
+    verstoesse = []
+    erg = {"folge": name}
+
+    # 1. Format
+    fassungen = {}
+    for art in ("upload", "vorhoer"):
+        mp4 = build / f"{name}-{art}.mp4"
+        if mp4.exists():
+            fassungen[art] = probe(mp4)
+    erg["format"] = fassungen
+    for art, pr in fassungen.items():
+        v = pr["video"]
+        if (v["codec"], v["breite"], v["hoehe"], v["fps"], v["bilder"]) != ("h264", W, H, "30/1", bilder_soll):
+            verstoesse.append(f"{art}: Format {v}")
+        if not pr["audio"] or pr["audio"]["codec"] != "aac":
+            verstoesse.append(f"{art}: kein AAC-Ton")
+
+    # 2. Dauer
+    w0, w1 = timing["woerter"][0]["start"], timing["woerter"][-1]["ende"]
+    stimme_s = w1 - w0
+    erg["dauer"] = {"stimme_s": round(stimme_s, 2), "letztes_wort_ende_s": w1, "endkarte_ab_s": round(karte_bild / FPS, 3),
+                    "endkarte_s": round((bilder_soll - karte_bild) / FPS, 3), "video_s": round(bilder_soll / FPS, 3),
+                    "abstand_letztes_wort_endkarte_s": round(karte_bild / FPS - w1, 3)}
+    if not 70 <= stimme_s <= 90:
+        verstoesse.append(f"Stimme {stimme_s:.1f} s nicht in 70–90 s")
+    if not 0 <= karte_bild / FPS - w1 <= 0.2:
+        verstoesse.append("Endkarte nicht ≤ 0,2 s nach dem letzten Wort")
+
+    # 3. Hör-Check
+    ut = json.loads((build / "untertitel-liste.json").read_text(encoding="utf-8"))
+    whisper_start = None
+    if not a.ohne_whisper:
+        erg["hoer_check"] = {}
+        for art in fassungen:
+            hc = hoer_check(build / f"{name}-{art}.mp4", ordner / "skript-teil1.txt")
+            woerter = hc.pop("_woerter")
+            if art == "upload":
+                whisper_start = [w["start"] for w in woerter]
+                # Versatz Ton im MP4 gegen timing.json (Whisper-Wortanfänge, nur sicher erkannte Wörter)
+                d = [w["start"] - t["start"] for w, t in zip(woerter, timing["woerter"]) if w["quelle"] == "whisper" and w["p"] > 0.8]
+                hc["versatz_zu_timing_median_ms"] = round(float(np.median(d)) * 1000, 1)
+                hc["versatz_zu_timing_p90_ms"] = round(float(np.percentile(np.abs(d), 90)) * 1000, 1)
+            erg["hoer_check"][art] = hc
+            if hc["fehler"]:
+                verstoesse.append(f"Hör-Check {art}: {len(hc['fehler'])} Wortfehler")
+
+    # 4. Untertitel-Sync: auf Schwarz gerendert, Wechselbilder gegen Plan und Whisper
+    wechsel, band = untertitel_wechsel(ordner / "untertitel.ass", bilder_soll)
+    wechsel = list(wechsel)
+    plan = [e["bild"] for e in ut["einblendungen"]]
+    if plan and plan[0] == 0 and band[0].mean() > 1:
+        wechsel = [0] + wechsel                     # erste Einblendung steht ab Bild 0 (kein Vorbild)
+    erwartet = set()
+    for n in plan:
+        erwartet.update({n, n + 1, n + 2})          # Pop: drei Stufen
+    erwartet.add(ut["werte"]["letztes_bild"] + 1)   # Ausblenden vor der Endkarte
+    gefunden = set(wechsel)
+    fehlt = sorted(n for n in plan if n not in gefunden)
+    unerwartet = sorted(gefunden - erwartet - {0})
+    abw_plan = [abs(e["bild"] / FPS - e["wort_start"]) for e in ut["einblendungen"]]
+    sync = {"einblendungen": len(plan), "wechsel_gefunden": len(gefunden),
+            "einblendung_nicht_auf_plan_bild": fehlt, "wechsel_ausserhalb_plan": unerwartet[:20],
+            "abstand_zu_timing_max_s": round(max(abw_plan), 3)}
+    # Wortbeginn im MP4: nach Pausen akustischer Einsatz, sonst Whisper (siehe Regel 4)
+    wav = build / "stimme.wav"
+    versatz = versatz_mp4_zu_wav(build / f"{name}-upload.mp4", wav)
+    sync["versatz_mp4_ton_zu_master_ms"] = round(versatz * 1000, 2)
+    ein = einsaetze(wav) + versatz
+    woerter_t = timing["woerter"]
+    abw, nach_pause, mitten, ohne = [], 0, 0, []
+    for e in ut["einblendungen"]:
+        i = e["woerter"][0]
+        luecke = woerter_t[i]["start"] - woerter_t[i - 1]["ende"] if i > 0 else 1.0
+        t_bild = e["bild"] / FPS
+        nah = ein[np.abs(ein - woerter_t[i]["start"]) < 0.25] if len(ein) else np.array([])
+        if luecke >= 0.08 and len(nah):
+            ref, art = float(nah[np.argmin(np.abs(nah - woerter_t[i]["start"]))]), "einsatz"
+            nach_pause += 1
+        elif whisper_start:
+            ref, art = whisper_start[i], "whisper"   # Whisper lief schon auf dem MP4-Ton
+            mitten += 1
+        else:
+            ohne.append(e["text"])
+            continue
+        abw.append((e, t_bild - ref, art))
+    werte = np.array([x for _, x, _ in abw])
+    sync["gemessen_nach_pause_einsatz"] = nach_pause
+    sync["gemessen_mitten_im_satz_whisper"] = mitten
+    sync["abstand_zum_wortbeginn_median_s"] = round(float(np.median(werte)), 3)
+    sync["abstand_zum_wortbeginn_p90_abs_s"] = round(float(np.percentile(np.abs(werte), 90)), 3)
+    sync["abstand_zum_wortbeginn_max_abs_s"] = round(float(np.max(np.abs(werte))), 3)
+    sync["ueber_0_1_s"] = [{"text": e["text"], "abstand_s": round(x, 3), "gemessen": art} for e, x, art in abw if abs(x) > 0.1]
+    if sync["ueber_0_1_s"]:
+        verstoesse.append(f"{len(sync['ueber_0_1_s'])} Einblendungen > 0,1 s neben dem Wortbeginn")
+    erg["untertitel_sync"] = sync
+    if fehlt or unerwartet:
+        verstoesse.append("Untertitel wechseln nicht genau auf den geplanten Bildern")
+
+    # 5. Bilder
+    erg["bilder"] = bilder_pruefen(build / f"{name}-upload.mp4", karte_bild)
+    b = erg["bilder"]
+    if b["dekodierfehler"] or b["schwarz_oder_einfarbig"] or b["bilder"] != bilder_soll:
+        verstoesse.append(f"Bilder: {b['dekodierfehler']}, schwarz {b['schwarz_oder_einfarbig'][:5]}, {b['bilder']} Bilder")
+    if b["laengster_stillstand_s"] > 0.33:
+        verstoesse.append(f"Stillstand {b['laengster_stillstand_s']} s (bis Bild {b['stillstand_endet_bild']})")
+    erg["bogen_zeiten_s"] = bogen(build / f"{name}-upload.mp4", ordner / "render-bogen.jpg", bilder_soll / FPS)
+
+    # 6. Ton (aus mischung.json, gemessen auf der dekodierten AAC-Spur)
+    mi = json.loads((ordner / "mischung.json").read_text(encoding="utf-8"))
+    erg["ton"] = mi.get("nach_aac")
+    for art in fassungen:
+        m = mi["nach_aac"][art]
+        if abs(m["lufs"] + 14) > 0.5 or m["true_peak_dbtp"] > -1.0:
+            verstoesse.append(f"Ton {art}: {m}")
+
+    erg["verstoesse"] = verstoesse
+    erg["ok"] = not verstoesse
+    (ordner / "pruefung.json").write_text(json.dumps(erg, ensure_ascii=False, indent=1), encoding="utf-8")
+    print(json.dumps({k: erg[k] for k in ("dauer", "untertitel_sync", "verstoesse", "ok")}, ensure_ascii=False, indent=1))
+    sys.exit(0 if erg["ok"] else 1)
+
+
+if __name__ == "__main__":
+    main()

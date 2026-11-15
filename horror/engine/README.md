@@ -23,6 +23,7 @@ Grundlage sind `horror/docs/bewegungs-spec.md` (Kamera, Schnitt, Aktionen), `hor
 14. [Grenzen und Offenes](#14-grenzen-und-offenes)
 15. [Bausteine der Serie „Hiding Night“](#15-bausteine-der-serie-hiding-night)
 16. [Shotliste, Messtor, Kontaktbogen](#16-shotliste-messtor-kontaktbogen)
+17. [Untertitel, Effekte, Mischung, fertige MP4](#17-untertitel-effekte-mischung-fertige-mp4)
 
 ## 1. Schnellstart
 
@@ -364,7 +365,7 @@ node render.mjs <episode.json> [Optionen]
 - Mit `--prozesse 2` bekommt jeder Chromium-Prozess einen zusammenhängenden Bildbereich. Die Bilder sind bitgleich zu einem Lauf mit 1 Prozess.
 - MP4: H.264 High, yuv420p, crf 18, BT.709 (Matrix und Kennzeichnung), `+faststart`. Mit `--ton` wird die Tonspur ab dem Bereichsbeginn angelegt und mit Stille bis zum Bildende aufgefüllt (die Endkarte hat keinen Ton und wird nicht abgeschnitten).
 - Heißt die Datei `episode.json`, ist der Ausgabeordner nach ihrem Ordner benannt: `episoden/folge-01/episode.json` → `horror/build/folge-01/`.
-- Untertitel, Endkarte „PART 2“ und Ton-Mix sind nicht Teil der Engine; sie kommen im nächsten Schritt auf das MP4 (ffmpeg/libass oder HyperFrames).
+- Untertitel und Ton-Mix sind nicht Teil des Renderers: `fertigen.py` legt sie auf die Einzelbilder (Abschnitt 17). Die Endkarte „PART 2“ ist ein Set (Abschnitt 16).
 
 ## 12. Messwerte
 
@@ -409,7 +410,7 @@ Der PNG-Export im Browser (toDataURL) kostet etwa 0,17 s je Bild und Prozess; JP
 - **Tiefenunschärfe** ist eine schnelle Näherung (zwei Gauß-Durchgänge in halber Auflösung). Vordergrund-Objekte vor einer scharfen Figur bekommen weiche, aber keine echten Bokeh-Kanten.
 - **Bewegungsunschärfe** nur in schnellen Phasen (Whip, Snap) oder auf Wunsch je Einstellung; sie vervielfacht die Renderzeit dieser Bilder (bis 16 Unterbilder).
 - **Platzhalter:** `platzhalter`, `platzhalter_monster`, `platzhalter_strasse` dienen nur zum Testen der Schnittstelle; die echten Module stehen in Abschnitt 15.
-- **Noch nicht gebaut:** Untertitel, Ton-Mix (Effekte, Klangbett) und ein Messtor über die fertigen Renders (Schnitterkennung, optischer Fluss). Shotlisten-Compiler, Messtor vor dem Render und Endkarte: Abschnitt 16.
+- **Noch nicht gebaut:** Schnitterkennung und optischer Fluss über die fertigen Renders. Shotlisten-Compiler, Messtor vor dem Render und Endkarte: Abschnitt 16. Untertitel, Effekte, Mischung und Prüfung der MP4: Abschnitt 17.
 
 ## 15. Bausteine der Serie „Hiding Night“
 
@@ -626,3 +627,62 @@ Danach prüft der Compiler die Datei gegen `episode.schema.json` (Python-jsonsch
 ### 16.5 Folge 1 in Zahlen (Messtor)
 
 57 Einstellungen plus Endkarte, 87,27 s. Median 1,53 s, 39,6 Einstellungen/min, kürzeste 0,77 s, längste 2,50 s. 14 Akzentfahrten (im Mittel alle 6,2 s, größte Lücke 8,9 s), 3 Snap-Zooms, 2-mal Wackeln, 3 Lichtereignisse, Monster in 24,6 % der Einstellungen, Körperaktion in 61 % (Spec 35–55 %: etwas viel, kein Abbruch). Endkarte 0,147 s nach dem letzten Wort. Kompositionsprüfung: 56 von 56 Einstellungen ohne Verstoß.
+
+## 17. Untertitel, Effekte, Mischung, fertige MP4
+
+Stand 15.11.2026. Aus den gerenderten Einzelbildern und der Stimme werden die zwei Fassungen zum Hochladen.
+
+```bash
+cd horror && . /opt/deeptok/env.sh                     # venv mit numpy, Pillow, faster-whisper
+(cd engine && node render.mjs ../episoden/folge-01/episode.json --prozesse 2 --format jpg --qualitaet 0.95 --nur-bilder)
+python engine/fertigen.py episoden/folge-01           # Untertitel + Mischung + MP4 (Std-Klangbett build/folge-01/ton/klangbett-r2-a.wav)
+python engine/pruefen.py episoden/folge-01            # Prüfung, schreibt pruefung.json und render-bogen.jpg, Exit 1 bei Verstoß
+```
+
+Einzeln: `python engine/untertitel.py episoden/folge-01 --tabelle`, `python engine/ton/mischen.py episoden/folge-01 --bett …`, `python engine/ton/effekte.py --aus build/klaenge` (alle Klänge zum Anhören). JPEG statt PNG, weil 2.618 PNG-Bilder mit Filmkorn mehr Platz brauchen, als die Cloud-Platte frei hat (JPEG 0,95: 1,1 GB).
+
+### 17.1 Dateien
+
+| Datei | Inhalt |
+|---|---|
+| `engine/untertitel.py` | ASS aus `timing.json` + `untertitel.json`: Gruppierung, Zeitraster, Pop, Farben |
+| `engine/ton/effekte.py` | 10 eigene Klänge (numpy): `sub_boom`, `zaehlschlag` (Leitgeräusch: ein Schlag je Zahl + kaltes Schimmern), `frost`, `whoosh`, `klopfen`, `riegel`, `knarzen`, `motor`, `glocke`, `auspusten` |
+| `engine/ton/mischen.py` | Cue-Liste setzen, Effekt-Abstand messen (K-gewichtete Momentan-Lautheit), Upload- und Vorhör-Mischung auf −14 LUFS mit Begrenzer (4× überabgetastet) |
+| `engine/fertigen.py` | Bild einmal kodieren (Einzelbilder + libass), zwei Tonfassungen dazulegen, True Peak nach AAC nachmessen und bei Bedarf die Decke senken |
+| `engine/pruefen.py` | Format, Dauer, Hör-Check (Whisper auf dem MP4), Untertitel-Sync, schwarze/einfarbige/eingefrorene Bilder, Ton, Bogen mit 30 Bildern |
+| `episoden/<folge>/untertitel.json` | Akzentwörter, wörtliche Rede je Figur, feste Paare, Wörter, die allein stehen (Wortindizes, gegen `timing.json` geprüft) |
+| `episoden/<folge>/effekte.json` | Cues: Klang, Wort, Versatz, Pegel, Grund |
+| `episoden/<folge>/untertitel.ass`, `mischung.json`, `pruefung.json`, `render-bogen.jpg` | Ergebnisse (klein, im Repo); MP4 und WAV liegen in `build/<folge>/` |
+
+### 17.2 Untertitel
+
+- Archivo Black (OFL, `assets/schriften/`), 84 px, Versalien, weiß, Kontur 7 px schwarz, Schatten 4 px. Mitte x 540, y 1200, höchstens 760 px breit (der Pop auf 134 % bleibt im Bild). Zu breite feste Paare werden bis 72 px kleiner gesetzt („MISTER HUNDRED“ 74 px).
+- 1–2 Wörter je Einblendung. Die Gruppierung ist eine kleinste-Kosten-Zerlegung: Funktionswort + Inhaltswort („THIS TOWN“) ist billig, Verb + Objekt-Pronomen („MADE IT“) ebenso, Inhaltswort + Bindewort („WHITE WHEN“) teuer, ein Funktionswort allein teuer, eine Einblendung unter 3 Bildern teuer. Feste Paare (Namen, „CRAWL SPACE“, „6 YEARS“) und Wörter, die allein stehen (Snap-Zooms, „READY“), stehen in `untertitel.json`.
+- Zahlen als Ziffern (18, 18TH, 100, 6), „ONE RULE“ bleibt ausgeschrieben.
+- Zeit: Einblendung ab dem Bild, das dem Wortbeginn am nächsten liegt (≤ 1/60 s). Der ASS-Start liegt mitten zwischen dem Bild davor und dem ersten Bild, weil libass nur Hundertstel kennt und ffmpeg die Bildzeit abrundet. Pop als zwei `\t`-Stufen mit 5 ms Abstand zu den Bildzeiten: Bild 1 134 %, Bild 2 88 %, Bild 3 100 %. Lücken bleiben nie leer, über der Endkarte steht nichts.
+- Farben (serie.md): Akzent `#9FD8D2` (kaltes Leuchten von Mister Hundred) für Monstername, „HIDING NIGHT“, die Regel, „READY“ und „100“; June `#F2C14E`; Erzählung weiß.
+
+### 17.3 Ton
+
+- Upload = Stimme + Effekte. Vorhör = zusätzlich ein eigenes Klangbett (Spieluhr aus der Ton-Analyse, `betten.py r2 a`), 12 LU unter der Stimme, läuft über die Endkarte und blendet in den letzten 0,5 s aus. Im Upload ist die Endkarte stumm (Effekte enden mit dem Schnitt, 30 ms Blende).
+- Effekte: Pegel je Cue relativ zur auf −1 dBFS normierten Klangdatei; gemessen wird die lauteste Momentan-Lautheit der Effekte in den 1,5 s ab dem Cue gegen die integrierte Lautheit der Stimme. Ziel ≥ 5 LU darunter.
+- AAC hebt Spitzen an: Die Spieluhr-Anschläge überschwingen beim Kodieren bis 2 dB. `fertigen.py` misst deshalb den True Peak der dekodierten AAC-Spur und senkt die Begrenzer-Decke, bis beide Fassungen ≤ −1 dBTP liegen (Folge 1: −1,8 → −3,23 dBFS; der Begrenzer regelt dabei höchstens 1,3 dB ab, in 0,08 % der Rahmen über 1 dB).
+
+### 17.4 Prüfung
+
+- Untertitel-Sync wird nicht aus der ASS abgeleitet, sondern gemessen: Die ASS wird allein auf Schwarz gerendert (dieselbe libass), jede Einblendung muss genau auf ihrem Bild wechseln. Der Wortbeginn kommt aus dem Ton des MP4: Versatz zur Master-WAV per Kreuzkorrelation; nach Lücken der akustische Einsatz (≥ 30 ms unter −40 dBFS, dann über −35 dBFS), mitten im Satz Whisper. Whisper allein legt das erste Wort nach einer Pause oft 0,2–0,7 s zu früh in die Stille, das ist kein Sync-Fehler.
+- Stillstand: mittlere Änderung zum Vorbild < 0,15 Graustufen (bei 108 × 192), länger als 0,33 s außerhalb der Endkarte ist ein Verstoß.
+
+### 17.5 Folge 1 in Zahlen
+
+| | Wert |
+|---|---|
+| Render 1080 × 1920, 2 Prozesse, JPEG 0,95 | 2.618 Bilder in 964,7 s (16,1 min), 0,368 s/Bild effektiv, 0,624 s/Bild je Prozess, 11,1 min Rechenzeit je Minute Video |
+| Bild kodieren (libx264 medium, crf 18, maxrate 14 Mbit/s) | 126 s; MP4 144 MB (≈ 13 Mbit/s, das Filmkorn braucht Bitrate) |
+| `fertigen.py` gesamt | 207 s (zwei Mischrunden wegen AAC) |
+| Untertitel | 178 Einblendungen, 110 mit zwei Wörtern, Standzeit Median 0,40 s, kürzeste 0,10 s; Abstand zum Wortbeginn gemessen: Median 0,00 s, p90 0,02 s, höchstens 0,04 s |
+| Effekte | 10 Klänge, 23 Cues, 5,3–13,8 LU unter der Stimme (Median 9,2 LU) |
+| Ton nach AAC (192 kbit/s, Stereo) | Upload −14,07 LUFS, −2,99 dBTP, LRA 2,6 LU; Vorhör −14,06 LUFS, −2,21 dBTP, LRA 2,5 LU |
+| Hör-Check Whisper auf dem MP4 | Upload 0 Wortfehler (1 Einschub „mister“ bei 80,0 s), Vorhör 0 Fehler |
+| Dauer | Stimme 86,12 s, Endkarte ab 86,267 s (0,147 s nach dem letzten Wort), Video 87,267 s |
+| Bilder | keine schwarzen, einfarbigen oder eingefrorenen Bilder, keine Dekodierfehler; dunkelstes Bild 423 (Mittel 6,2 von 255, Nacht) |

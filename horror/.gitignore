@@ -1,2 +1,5 @@
 # Renders, Einzelbilder, Roh-Audio und Messläufe: nie ins Repo
 build/
+
+# Python-Zwischendateien
+__pycache__/
