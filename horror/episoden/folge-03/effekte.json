@@ -1,0 +1,24 @@
+{
+ "_hinweis": "Cue-Liste für engine/ton/mischen.py (Teil 3, Finale; Wortindizes in timing.json mit dem Einschub vor 'Rabbit?'). Wie Teil 1 und 2: wenige Akzente, nicht jede Bewegung. Stille als Handlung: keine Effekte auf 'Her flashlight went out' und 'The bell rope swung once, without a sound'. Die drei Klopfer liegen in der eingefügten Pause vor 'Rabbit?' (0,45 s Abstand, im Bild rieselt bei jedem Staub). Junes Rede wie in Teil 2 +2,0 Halbtöne.",
+ "endkarte_stumm": true,
+ "rede": {
+  "_hinweis": "Wörtliche Rede formant-erhaltend höher (ffmpeg rubberband), wie in Teil 2. Im Finale spricht nur June.",
+  "june": {"halbtoene": 2.0, "db": -2.0}
+ },
+ "cues": [
+  {"klang": "sub_boom", "wort": 2, "text": "takes", "versatz": -0.03, "db": -13, "params": {"f_start": 60.0, "f_ende": 34.0, "dauer": 1.8}, "grund": "Hook-Impact auf dem Preis ('takes'), wie Teil 1 und 2"},
+  {"klang": "knarzen", "wort": 28, "text": "takes", "versatz": -0.02, "db": -16, "params": {"tonhoehe": 1.2, "dauer": 0.8}, "grund": "die Diele gibt 1 cm nach (Satz 3)"},
+  {"klang": "knarzen", "wort": 87, "text": "lifted", "versatz": 0.0, "db": -13, "params": {"tonhoehe": 1.35}, "grund": "das Gewicht hebt sich von den Dielen (Satz 11)"},
+  {"klang": "sub_boom", "wort": 155, "text": "hands", "versatz": 0.05, "db": -15, "params": {"f_start": 46.0, "f_ende": 28.0, "dauer": 2.0}, "grund": "die Raute löst sich am Turm (Satz 18); danach Stille bis 'without a sound'"},
+  {"klang": "knarzen", "wort": 210, "text": "groaned.", "versatz": -0.05, "db": -10, "params": {"tonhoehe": 0.8}, "grund": "die Dielen ächzen unter großem Gewicht (Satz 24, Wackeln)"},
+  {"klang": "klopfen", "wort": 238, "text": "\"Rabbit?\"", "versatz": -1.19, "db": -10, "params": {"tonhoehe": 0.75}, "grund": "erster von drei Klopfern an der Luke (Echo zu Teil 2, Satz 23)"},
+  {"klang": "klopfen", "wort": 238, "text": "\"Rabbit?\"", "versatz": -0.74, "db": -10, "params": {"tonhoehe": 0.75}, "grund": "zweiter Klopfer"},
+  {"klang": "klopfen", "wort": 238, "text": "\"Rabbit?\"", "versatz": -0.29, "db": -10, "params": {"tonhoehe": 0.75}, "grund": "dritter Klopfer, dann Junes Stimme"},
+  {"klang": "zaehlschlag", "wort": 265, "text": "\"Ninety-nine.\"", "versatz": 0.0, "db": -18, "params": {"f": 58.0}, "tiefpass_hz": 1200, "grund": "je Zahl ein dumpfer, leiser Schlag (Satz 34)"},
+  {"klang": "zaehlschlag", "wort": 267, "text": "hundred.\"", "versatz": 0.0, "db": -14, "params": {"f": 52.0, "schimmer": 1.4}, "grund": "'One hundred': das Leitgeräusch der Zählung"},
+  {"klang": "riegel", "wort": 275, "text": "opened", "versatz": 0.0, "db": -11, "grund": "die Luke geht auf: Holz und Eisenring (Satz 38)"},
+  {"klang": "sub_boom", "wort": 297, "text": "June's", "versatz": -0.02, "db": -12, "params": {"f_start": 50.0, "f_ende": 28.0, "dauer": 2.2}, "grund": "die Wendung: Junes Gesicht (Satz 40), Musik weg"},
+  {"klang": "zaehlschlag", "wort": 367, "text": "counted", "versatz": 0.0, "db": -19, "params": {"f": 56.0}, "tiefpass_hz": 1000, "grund": "das Ritual: sie zählt, es zählt mit (Satz 49), leise"},
+  {"klang": "glocke", "wort": 418, "text": "rang.", "versatz": -0.25, "db": -11, "grund": "die Sonnenglocke: klar und laut (Handlung), nach dem Wegfall der Musik"}
+ ]
+}

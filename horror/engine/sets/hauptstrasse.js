@@ -202,6 +202,38 @@ export default async function baue(ctx, params = {}) {
   glocke.userData.einzeln = true;
   const kloeppel = zyl(glockeDreh, 0.08, 0.08, 0.9, ctx.mat('#3a3a3c', { metall: 0.7, rauheit: 0.4 }), 0, -0.85, 0, { segmente: 8 });
   kloeppel.userData.einzeln = true;
+  // Teil 3 (Satz 16–20, 54): Glockenseil und Tess' Taschenlampe in der offenen Glockenstube.
+  // params.glocke.seil: das Seil hängt neben der Glocke durch den Boden; Set-Ereignis { was: "seil", start }
+  // lässt es einmal hin und zurück schwingen (ohne Ton, Satz 20). params.glocke.lampe: Lichtgruppe
+  // strasse.turm_lampe (Linse und Lichtkegel aus der Schallluke; aus = Satz 19 „Her flashlight went out“).
+  let seilDreh = null;
+  if (params.glocke?.seil) {
+    seilDreh = new T.Group(); seilDreh.position.set(0.62, 14.05, tz + 0.35); seilDreh.userData.einzeln = true; P.add(seilDreh);
+    const seil = zyl(seilDreh, 0.03, 0.03, 2.1, ctx.mat('#d8c49a', { rauheit: 0.9, kante: { farbe: '#ffe2b0', staerke: 0.5 } }), 0, -1.05, 0, { segmente: 6 });
+    seil.userData.einzeln = true;
+    const griff = zyl(seilDreh, 0.05, 0.05, 0.22, ctx.mat('#b04a3a', { rauheit: 0.8 }), 0, -1.55, 0, { segmente: 8 });
+    griff.userData.einzeln = true;
+  }
+  if (params.glocke?.lampe) {
+    const lp = params.glocke.lampe;
+    const pos = new T.Vector3(...(lp.pos ?? [0.5, 13.55, tz + 1.3]));
+    const dir = new T.Vector3(...(lp.richtung ?? [-0.1, -0.32, 1])).normalize();
+    const lg = new T.Group(); lg.position.copy(pos); lg.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), dir); lg.userData.einzeln = true; P.add(lg);
+    const linseT = ctx.leuchtMat('#fff3d6', 4.0);
+    const linse = zyl(lg, 0.06, 0.06, 0.02, linseT, 0, 0, 0, { segmente: 12, schatten: false }); linse.userData.einzeln = true;
+    const kTex = ctx.zeichenTextur((g, w, h) => {
+      const gr = g.createLinearGradient(0, 0, 0, h);
+      gr.addColorStop(0, '#000000'); gr.addColorStop(0.5, '#555555'); gr.addColorStop(1, '#ffffff');
+      g.fillStyle = gr; g.fillRect(0, 0, w, h);
+    }, 8, 128);
+    // Lambert statt Standard: ohne Glanz, ausgeschaltet (Satz 19) bleibt vom Kegel nichts übrig
+    const kMat = new T.MeshLambertMaterial({ color: '#000000', emissive: new T.Color('#ffe8c0'), emissiveIntensity: lp.kegel ?? 0.45, emissiveMap: kTex, transparent: true, depthWrite: false, blending: T.AdditiveBlending, side: T.DoubleSide });
+    kMat.fog = false;
+    const kl = lp.laenge ?? 6;
+    const kegel = new T.Mesh(new T.CylinderGeometry(1.1, 0.06, kl, 20, 1, true), kMat);
+    kegel.position.y = kl / 2; kegel.userData.einzeln = true; lg.add(kegel);
+    lichter.turm_lampe = { lichter: [], materialien: [linseT, kMat] };
+  }
   k(P, 5, 0.3, 5, zier, 0, 15.05, tz);
   const spitze = new T.Mesh(new T.ConeGeometry(3.3, 8, 4), kirchenDach);
   spitze.rotation.y = Math.PI / 4; spitze.position.set(0, 19.2, tz); spitze.castShadow = true; P.add(spitze);
@@ -393,6 +425,7 @@ export default async function baue(ctx, params = {}) {
   let uhrAlt = null;
   // Glockenschläge: params.glocke.schlaege oder Set-Ereignisse { was: "glocke", start } des Shotlisten-Compilers
   const glockenSchlaege = [...(params.glocke?.schlaege ?? []), ...(params.ereignisse ?? []).filter((e) => e.was === 'glocke').map((e) => e.start)];
+  const seilEreignisse = (params.ereignisse ?? []).filter((e) => e.was === 'seil');
   return {
     gruppe, anker, lichter, kamerapunkte,
     vordergrund: {
@@ -408,6 +441,15 @@ export default async function baue(ctx, params = {}) {
         if (d >= 0) w += 0.42 * Math.sin(d * 2 * Math.PI * 0.55) * Math.exp(-d * 0.45) * Math.min(1, d / 0.12);
       }
       glockeDreh.rotation.x = w;
+      // Glockenseil: schwingt mit der Glocke und einmal allein (Ereignis „seil“)
+      if (seilDreh) {
+        let sw = w * 0.6;
+        for (const e of seilEreignisse) {
+          const d = t - e.start;
+          if (d >= 0) sw += (e.staerke ?? 0.38) * Math.sin((d * 2 * Math.PI) / 1.5) * Math.exp(-d * 1.1) * Math.min(1, d / 0.1);
+        }
+        seilDreh.rotation.x = sw;
+      }
       let zeit = uhrSpec.zeit ?? '11:58';
       for (const s of uhrSpec.spruenge ?? []) if (t >= s.start) zeit = s.zeit;
       if (zeit === uhrAlt) return;

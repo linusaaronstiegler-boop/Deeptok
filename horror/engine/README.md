@@ -590,6 +590,24 @@ Gegenüber der Testszene (0,29 s/Bild) kosten die echten Sets etwa das 1,4- bis 
 | `luke` | `figuren/luke.js` | Animation `teppich_rollen` {rest}: der Teppich rollt sich zur fernen Kante auf |
 | `eli` | `figuren/eli.js` | `params.rucksack`: Rucksack auf dem Rücken, Anker `rucksack` am rechten Träger |
 
+### 15.9 Bausteine für Teil 3, das Finale (Stand 16.11.2026)
+
+| Baustein | Datei | Zweck, Schnittstelle |
+|---|---|---|
+| Finger durch die Fuge | `sets/kriechkeller.js` | Echter Finger mit drei Gliedern (0,55/0,45/0,35 m), kalte Kante, dunkler Nagel. Set-Ereignisse `finger_durch` {stelle [x, z], drehung (Std −90 = Spitze nach +x), dauer}, `finger_tasten` {dauer, weite}, `finger_zurueck` {dauer} (Satz 25–26) |
+| Lukenlicht | `sets/kriechkeller.js` | `params.lukenlicht`: Lichtgruppe `keller.lukenlicht` (kalter additiver Keil aus der Luke, Fläche in der Öffnung, ein Punktlicht). Startet an: im ersten Kellerbild mit `lampen_einzeln` ausschalten, auf „opened“ mit einem Lichtereignis an (Satz 38) |
+| Morgen im Keller | `sets/kriechkeller.js`, `shotliste.mjs` | `params.morgen`: Lichtgruppe `keller.gitter_morgen` (rosa Gitter, Lichtbahn). Licht `kriechkeller-morgen` im Compiler (rosa Hauptlicht flach durchs Gitter) |
+| Puls, Liegen | `sets/kriechkeller.js` | Ereignisse `puls` {dauer, takt, staerke} (die Fugen pulsieren je Zahl) und `liegen` {mitte, laenge, breite, drehung} (etwas legt sich der Länge nach auf die Dielen). `fuesse`, `finger`, `liegen` nehmen `aus: true` (ab dann weg); `biegen` mischt vom aktuellen Stand (tiefe 0 = Dielen richten sich auf) |
+| kopfüber | `figuren/mister_hundred.js` | Pose/Aktion `kopfueber` {neigung (180 = senkrecht kopfüber), nicken, senken}: die Figur kippt um ihre Füße (Füße hoch über dem Zimmer, Kopf im Keller). Mit `blick 90` schaut das Gesicht nach −x zu Eli; Großaufnahmen mit `roll: 180` |
+| Junes Gesicht | `figuren/mister_hundred.js` | Gesichter `june_gedehnt` (Junes Brauen, Wangen, Sommersprossen, bernsteinfarbene Augen, Lächeln zu breit, roter Haaransatz) und `june_bricht`; Mundformen zusammengesetzt (`june_gedehnt/reden_a`). Animation `zittern` {staerke} |
+| Wandschatten | `figuren/wandschatten.js` | Requisite: dunkle Fläche mit weicher Kante, `form` raute (zu großer Schatten mit spitzen Ellbogen), eingerollt, fenster (mit Fensterkreuz); `liegend`, `deckkraft`, Animation `einblenden`. Vor die Wand stellen, nicht in sie (Innenseite der Wände 0,2 m) |
+| Taschenlampe | `figuren/taschenlampe.js` | Requisite: Dads Lampe mit Kegel (`an`, `kegel`), `staubig`; Animationen `kippen`, `aus` |
+| Armbanduhr | `figuren/armbanduhr.js` | Requisite: Digitaluhr am Handgelenk, Anzeige als Gesicht (`2_59` → `3_00`) |
+| Glockenstube | `sets/hauptstrasse.js` | `params.glocke.seil` (Glockenseil, Ereignis `seil` schwingt einmal), `params.glocke.lampe` {pos, richtung, kegel, laenge}: Lichtgruppe `strasse.turm_lampe`. Achtung: der Compiler schaltet `strasse.*` an jedem Nacht-Schnitt an; danach mit `lampen_einzeln` aus lassen |
+| ohne Endkarte | `shotliste.mjs`, `untertitel.py`, `pruefen.py` | `export const endkarte = false`: harter Schnitt nach dem letzten Wort (M11 prüft ≤ 0,2 s), Untertitel bis zum letzten Bild. `pruefen.py --dauer 125,155` für die Länge des Finales; Skript `skript.txt` |
+
+Additive Lichtkegel des Finales sind `MeshLambertMaterial` (ohne Glanz): ausgeschaltet bleibt nichts übrig (mit `MeshStandardMaterial` blieb im Probebild ein heller Kegel stehen).
+
 Liegende Figuren (`pose: "liegen"`) schauen nach oben, der Kopf zeigt nach lokal −z. Für Nahaufnahmen den Kopf mit `pose_params.kopf` zur Kamera drehen und die Kamera rollen (`kamera.roll`, Teil 2: −90°; die ersten +70° stellten das Gesicht auf den Kopf), sonst steht das Gesicht quer im Bild. Die Kopf-oben-Regel des Schnellbogens (16.4) misst das nach. Atemdampf liegender Figuren braucht `richtung: [0, 1, 0]`.
 
 ## 16. Shotliste, Messtor, Kontaktbogen

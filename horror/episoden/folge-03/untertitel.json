@@ -1,0 +1,40 @@
+{
+ "_hinweis": "Vorgaben für engine/untertitel.py (Teil 3, Finale: 470 Wörter, Einschub 1,1 s vor 'Rabbit?'). Wortbezüge sind Indizes in timing.json; 'text' wird beim Bauen gegen timing.json geprüft. Junes Rede ganz in ihrer Farbe, auch 'READY, RABBIT?' (bildideen.json: untertitel_farben).",
+ "akzent_farbe": "#9FD8D2",
+ "akzent_grund": "Kaltes Leuchten von Mister Hundred (serie.md): Monstername und Name der Nacht.",
+ "akzent": [
+  {"von": 0, "bis": 1, "text": "Mister Hundred"},
+  {"von": 277, "bis": 278, "text": "Mister Hundred"},
+  {"von": 424, "bis": 425, "text": "Hiding Night"}
+ ],
+ "rede": [
+  {"wer": "June", "farbe": "#F2C14E", "von": 40, "bis": 46, "text": "\"It never looks in my room, Rabbit.\""},
+  {"wer": "June", "farbe": "#F2C14E", "von": 238, "bis": 245, "text": "\"Rabbit?\" \"You can come out now.\" \"It's gone.\""},
+  {"wer": "June", "farbe": "#F2C14E", "von": 265, "bis": 269, "text": "\"Ninety-nine.\" \"One hundred.\" \"Ready, Rabbit?\""},
+  {"wer": "June", "farbe": "#F2C14E", "von": 311, "bis": 344, "text": "\"It found me six years ago, Rabbit.\" \"Dad hid me down here, so it took him, and kept me.\" \"When I count, it sleeps.\" \"I thought it would never look under its own bed.\""},
+  {"wer": "June", "farbe": "#F2C14E", "von": 359, "bis": 365, "text": "\"Close your eyes, Rabbit.\" \"Count with me.\""}
+ ],
+ "allein": [
+  {"i": 104, "text": "side.", "grund": "Snap-Zoom auf Junes Schuhe"},
+  {"i": 227, "text": "face.", "grund": "Snap-Zoom: die Fingerspitze an Elis Wange"},
+  {"i": 238, "text": "\"Rabbit?\"", "grund": "Lockruf nach den drei Klopfern"},
+  {"i": 265, "text": "\"Ninety-nine.\"", "grund": "June zählt"},
+  {"i": 410, "text": "stopped.", "grund": "Abbruch, danach die Sonnenglocke"},
+  {"i": 445, "text": "side.", "grund": "Snap-Zoom auf Junes Schuhe am Morgen"}
+ ],
+ "paare": [
+  {"von": 0, "bis": 1, "text": "Mister Hundred"},
+  {"von": 52, "bis": 53, "text": "one hundred"},
+  {"von": 135, "bis": 136, "text": "Tess Lowry"},
+  {"von": 197, "bis": 198, "text": "Owen Pike"},
+  {"von": 266, "bis": 267, "text": "\"One hundred.\""},
+  {"von": 268, "bis": 269, "text": "\"Ready, Rabbit?\""},
+  {"von": 277, "bis": 278, "text": "Mister Hundred"},
+  {"von": 283, "bis": 284, "text": "crawl space,"},
+  {"von": 387, "bis": 388, "text": "one hundred,"},
+  {"von": 413, "bis": 414, "text": "one hundred,"},
+  {"von": 424, "bis": 425, "text": "Hiding Night"},
+  {"von": 468, "bis": 469, "text": "It helps."}
+ ],
+ "ziffern_nicht": []
+}

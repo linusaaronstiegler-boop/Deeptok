@@ -81,9 +81,22 @@ const SONNENAUFGANG = {
 // Kriechkeller (Teil 2): eigenes Preset in src/licht.js (fast dunkel, Taschenlampe, warme Streifen durch die
 // Fugen). Review Teil 2: vorher innen_warm mit Füll-Licht 2,4, das las sich gemütlich statt bedrohlich.
 const KELLER_LICHT = {};
+// Kriechkeller am Morgen (Teil 3, Sätze 55–56): rosa Licht fällt flach durchs Lüftungsgitter (Rückwand bei
+// lokal z = +2,6, Gitter bei x −2,25 … −1,75) und ist die Hauptquelle; das Füll-Licht ist wärmer und heller als
+// nachts (Untergrenze der dunklen Orte: 22 je Einstellung). Taschenlampe und kaltes Lukenlicht sind dann aus.
+const KELLER_MORGEN = {
+  himmel: { zenit: '#2a2230', horizont: '#5a3c48', sterne: 0 },
+  nebel: { farbe: '#3a2a30', dichte: 0.03 },
+  hemi: { himmel: '#d9a8b4', boden: '#4a3630', staerke: 1.35 },
+  haupt: { farbe: '#ffb4a6', staerke: 3.4, richtung: [-0.35, 0.32, 1.0], weich: 1.6 },
+  kante: { farbe: '#ffd2c0', staerke: 0.35, richtung: [-0.3, 0.4, 0.85] },
+  belichtung: 1.35,
+  grade: { saettigung: 1.0, kontrast: 1.06, faerbung: [1.04, 0.99, 0.98] },
+};
 export const LICHT = {
   tag: { preset: 'tag', lampen: false },
   kriechkeller: { preset: 'kriechkeller', anpassung: KELLER_LICHT, lampen: false },
+  'kriechkeller-morgen': { preset: 'kriechkeller', anpassung: KELLER_MORGEN, lampen: false },
   morgen: { preset: 'tag', anpassung: MORGEN, lampen: false },
   sonnenaufgang: { preset: 'daemmerung', anpassung: SONNENAUFGANG, lampen: false },
   daemmerung: { preset: 'daemmerung', lampen: true },
@@ -409,6 +422,17 @@ export async function kompiliere(ordner) {
   }
 
   // --- Endkarte „PART n“ (Text aus regie.endkarte): harter Schnitt nach dem letzten Wort, 1,0 s, ohne Ton ---
+  // regie.endkarte === false (Finale, Teil 3): keine Endkarte. Das Video endet hart nach dem letzten Wort
+  // (Nachlauf ≤ 0,2 s) und läuft in der App als Schleife wieder in das erste Bild.
+  const ohneEndkarte = regie.endkarte === false;
+  for (const s of sets) s.params?.uhr?.spruenge?.sort((a, b) => a.start - b.start);
+  if (ohneEndkarte) {
+    const episode = {
+      titel: regie.titel ?? 'Folge', fps: FPS, aufloesung: [1080, 1920], seed: regie.seed ?? 1,
+      look: regie.look ?? {}, sets, figuren, einstellungen, licht_ereignisse: lichtGlobal, partikel: regie.partikel ?? [],
+    };
+    return { episode, einst, timing, ideen, regie, storyEnde, monsterIds, ohneEndkarte };
+  }
   const ek = regie.endkarte ?? {};
   const ekStellung = {};
   for (const id of sichtbarVorher) ekStellung[id] = { sichtbar: false };
@@ -440,7 +464,7 @@ function tief(a, b) {
 
 // ---------- 3. Messtor ----------
 // Prüft die fertige Episode gegen die Regeln. Liefert Kennzahlen und eine Liste der Verstöße.
-export function messtor({ episode, einst, timing, monsterIds }) {
+export function messtor({ episode, einst, timing, monsterIds, ohneEndkarte = false }) {
   const W = timing.woerter;
   const V = [];
   const kz = {};
@@ -575,7 +599,13 @@ export function messtor({ episode, einst, timing, monsterIds }) {
 
   // M11 Endkarte: harter Schnitt ≤ 0,2 s nach dem letzten Wort, 1,0 s lang
   const lw = W.at(-1);
-  if (!endkarte) V.push('M11 Endkarte fehlt');
+  if (ohneEndkarte) {
+    // Finale ohne Endkarte: harter Schnitt (Ende des letzten Bildes) ≤ 0,2 s nach dem letzten Wort
+    kz.endkarte = 'keine';
+    kz.ende_nach_letztem_wort_s = +(story.at(-1).ende - lw.ende).toFixed(3);
+    if (endkarte) V.push('M11 Endkarte vorhanden, obwohl regie.endkarte = false');
+    if (kz.ende_nach_letztem_wort_s < 0 || kz.ende_nach_letztem_wort_s > REGELN.endkarteAbstand + 1e-6) V.push(`M11 Ende ${kz.ende_nach_letztem_wort_s} s nach dem letzten Wort (0–${REGELN.endkarteAbstand} s)`);
+  } else if (!endkarte) V.push('M11 Endkarte fehlt');
   else {
     kz.endkarte_nach_letztem_wort_s = +(endkarte.start - lw.ende).toFixed(3);
     kz.endkarte_dauer_s = +((bild(endkarte.ende) - bild(endkarte.start)) / FPS).toFixed(3);

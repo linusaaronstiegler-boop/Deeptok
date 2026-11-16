@@ -273,11 +273,115 @@ export default async function baue(ctx, params = {}) {
   gruppe.add(lampeLicht);
   if (params.taschenlampe === false) { lampe.visible = false; kegel.visible = false; fleck.visible = false; }
 
+  // ===================== Teil 3 (Finale) =====================
+  // Alles hier entsteht nur, wenn die Episode es braucht (params.teil3 bzw. Ereignisse); Teil 2 bleibt gleich.
+
+  // ---------- Finger durch die Fuge (Satz 25–26): ein echter, langer weißer Finger ----------
+  // Drei Glieder (0,55 / 0,45 / 0,35 m), kalkweiß mit kalter Kante, dunkler Nagel. Er kommt senkrecht durch
+  // eine Fuge, krümmt sich zum Boden und tastet mit der Spitze über die Erde (Richtung = drehung).
+  // Ereignisse: finger_durch { stelle [x, z], drehung (Grad, Std −90 = Spitze nach +x), start, dauer },
+  //             finger_tasten { start, dauer, weite (rad, Std 0.16) }, finger_zurueck { start, dauer }
+  const fingerDurchEv = (params.ereignisse ?? []).filter((e) => e.was === 'finger_durch');
+  const F3 = { glieder: [0.55, 0.45, 0.35], dicke: 0.088 };
+  const finger3 = new T.Group(); finger3.visible = false; gruppe.add(finger3);
+  const fingerKetten = [];
+  if (fingerDurchEv.length) {
+    const fingerHaut = ctx.mat('#DAD6CC', { rauheit: 0.6, kante: { farbe: '#bfe6e2', staerke: 0.9, exponent: 2.0 } });
+    const nagel = ctx.mat('#4a4e55', { rauheit: 0.35 });
+    let eltern = finger3;
+    F3.glieder.forEach((l, i) => {
+      const g = new T.Group();
+      g.position.y = i === 0 ? 0 : -F3.glieder[i - 1];
+      eltern.add(g);
+      const d = F3.dicke * (1 - i * 0.12);
+      // Glied hängt nach −y; Knöchel als dickere Kugel
+      const m = new T.Mesh(new T.CylinderGeometry(d * 0.5, d * 0.47, l, 10), fingerHaut);
+      m.position.y = -l / 2; m.castShadow = true; g.add(m);
+      const kn = new T.Mesh(new T.SphereGeometry(d * 0.58, 10, 8), fingerHaut); kn.castShadow = true; g.add(kn);
+      if (i === 2) {
+        // Nagel an der Außenseite der Spitze (Seite +x lokal = in Krümmungsrichtung außen)
+        const n = new T.Mesh(new T.BoxGeometry(d * 0.75, 0.07, d * 0.32), nagel);
+        n.position.set(0, -l + 0.045, -d * 0.36); g.add(n);
+      }
+      fingerKetten.push(g);
+      eltern = g;
+    });
+  }
+
+  // ---------- Kaltes Lukenlicht (Satz 38): Lichtgruppe keller.lukenlicht ----------
+  // Additiver kalter Lichtkeil aus der offenen Luke schräg in den Keller, kalte Fläche in der Öffnung, ein
+  // Punktlicht. Startet AN (wie jede Lichtgruppe): die Episode schaltet es im ersten Kellerbild aus
+  // (lampen_einzeln) und auf „opened“ mit einem Lichtereignis an.
+  const lukenlichtMats = [], lukenlichtLichter = [];
+  if (params.lukenlicht) {
+    const keilTex = ctx.zeichenTextur((g, w, h) => {
+      const gr = g.createLinearGradient(0, 0, 0, h);
+      gr.addColorStop(0, '#ffffff'); gr.addColorStop(0.55, '#4a4a4a'); gr.addColorStop(1, '#000000');
+      g.fillStyle = gr; g.fillRect(0, 0, w, h);
+    }, 8, 128);
+    const keilMat = new T.MeshLambertMaterial({ color: '#000000', emissive: new T.Color('#9fc4ff'), emissiveIntensity: 0.32, emissiveMap: keilTex, transparent: true, depthWrite: false, blending: T.AdditiveBlending, side: T.DoubleSide });
+    keilMat.fog = false;
+    const keil = new T.Mesh(new T.BoxGeometry(L.x1 - L.x0, 1.05, L.z1 - L.z0), keilMat);
+    // oben an der Öffnung, unten schräg zum Kopfende (−x): das Licht fällt auf Eli
+    keil.position.set((L.x0 + L.x1) / 2 - 0.18, yU - 0.5, 0);
+    keil.rotation.z = -0.32;
+    keil.userData.einzeln = true;
+    gruppe.add(keil);
+    const oeffnungMat = new T.MeshLambertMaterial({ color: '#000000', emissive: new T.Color('#b8d6ff'), emissiveIntensity: 1.6, transparent: true, depthWrite: false, blending: T.AdditiveBlending, side: T.DoubleSide });
+    const oeffnung = new T.Mesh(new T.PlaneGeometry(L.x1 - L.x0, L.z1 - L.z0), oeffnungMat);
+    oeffnung.rotation.x = Math.PI / 2; oeffnung.position.set((L.x0 + L.x1) / 2, yO + 0.06, 0);
+    oeffnung.userData.einzeln = true;
+    gruppe.add(oeffnung);
+    const pl = new T.PointLight('#a9c8ff', params.lukenlicht_staerke ?? 3.2, 4.5, 1.6);
+    pl.position.set((L.x0 + L.x1) / 2, yU - 0.05, 0);
+    gruppe.add(pl);
+    lukenlichtMats.push(keilMat, oeffnungMat); lukenlichtLichter.push(pl);
+  }
+
+  // ---------- Morgen (Satz 55): rosa Licht durchs Gitter, Lichtgruppe keller.gitter_morgen ----------
+  const morgenMats = [];
+  if (params.morgen) {
+    const gm = ctx.leuchtMat('#ffb6a8', 2.4);
+    const gmPlatte = new T.Mesh(new T.PlaneGeometry(gx1 - gx0, gy1 - gy0), gm);
+    gmPlatte.position.set((gx0 + gx1) / 2, (gy0 + gy1) / 2, K.z1 + 0.27); gmPlatte.rotation.y = Math.PI;
+    gmPlatte.userData.einzeln = true; gruppe.add(gmPlatte);
+    // Lichtbahn: additiv, vom Gitter flach in den Raum (Staub im Morgenlicht)
+    const bahnTex = ctx.zeichenTextur((g, w, h) => {
+      const gr = g.createLinearGradient(0, 0, 0, h);
+      gr.addColorStop(0, '#000000'); gr.addColorStop(0.6, '#3a3a3a'); gr.addColorStop(1, '#ffffff');
+      g.fillStyle = gr; g.fillRect(0, 0, w, h);
+    }, 8, 128);
+    const bahnMat = new T.MeshLambertMaterial({ color: '#000000', emissive: new T.Color('#ffc0b0'), emissiveIntensity: 0.3, emissiveMap: bahnTex, transparent: true, depthWrite: false, blending: T.AdditiveBlending, side: T.DoubleSide });
+    bahnMat.fog = false;
+    const bahn = new T.Mesh(new T.CylinderGeometry(0.75, 0.2, 3.4, 16, 1, true), bahnMat);
+    // Zylinder-Achse von der Wand (+z) schräg nach unten in den Raum
+    bahn.position.set((gx0 + gx1) / 2 + 0.6, 0.42, K.z1 - 1.55);
+    bahn.rotation.set(-Math.PI / 2 - 0.12, 0, -0.33);
+    bahn.userData.einzeln = true; gruppe.add(bahn);
+    morgenMats.push(gm, bahnMat);
+  }
+
+  // ---------- Lichtpuls der Fugen je Zahl (Satz 49, 51) ----------
+  // Additive warme Fläche zwischen Dielen und „Zimmer“: pulsiert im Takt (Ereignis puls { start, dauer, takt, staerke })
+  const pulsMat = new T.MeshLambertMaterial({ color: '#000000', emissive: new T.Color('#ffd7a0'), emissiveIntensity: 0, transparent: true, depthWrite: false, blending: T.AdditiveBlending, side: T.DoubleSide });
+  const pulsFl = new T.Mesh(new T.PlaneGeometry(K.x1 - K.x0, K.z1 - K.z0), pulsMat);
+  pulsFl.rotation.x = Math.PI / 2; pulsFl.position.set(0, yO + 0.2, 0); pulsFl.visible = false;
+  pulsFl.userData.einzeln = true; gruppe.add(pulsFl);
+
+  // ---------- Etwas legt sich der Länge nach auf die Dielen (Satz 33–34) ----------
+  // Ereignis liegen { start, dauer, mitte [x, z], laenge (Std 2.6), breite (Std 0.62), drehung }: eine lange
+  // dunkle Fläche schiebt sich über die Fugen, eine Fuge nach der anderen wird dunkel.
+  const liegeFl = new T.Group(); liegeFl.visible = false; gruppe.add(liegeFl);
+  const liegeKoerper = new T.Mesh(new T.PlaneGeometry(1, 1), schwarz);
+  liegeKoerper.rotation.x = -Math.PI / 2; liegeKoerper.castShadow = true; liegeFl.add(liegeKoerper);
+
   verschmelze(statisch);
 
   // ---------- Ereignisse aus params (Biegen, Finger, Glut): nur aus t ----------
   const ev = (was) => (params.ereignisse ?? []).filter((e) => e.was === was).sort((a, b) => a.start - b.start);
   const biegen = ev('biegen'), fingerEv = ev('finger'), glutEv = ev('glut'), fuesseEv = ev('fuesse');
+  const fDurch = ev('finger_durch'), fTasten = ev('finger_tasten'), fZurueck = ev('finger_zurueck');
+  const pulsEv = ev('puls'), liegenEv = ev('liegen');
   const anteil = (e, t) => glatt((t - e.start) / Math.max(1e-3, e.dauer ?? 0.6));
   let biegeAlt = -1;
 
@@ -288,6 +392,8 @@ export default async function baue(ctx, params = {}) {
       lukenrand: { lichter: [], materialien: [randMat] },
       lampe: { lichter: [lampeLicht], materialien: [linseMat, kegelMat, fleckMat] },
       gitter: { lichter: [], materialien: [gitterMat] },
+      ...(params.lukenlicht ? { lukenlicht: { lichter: lukenlichtLichter, materialien: lukenlichtMats } } : {}),
+      ...(params.morgen ? { gitter_morgen: { lichter: [], materialien: morgenMats } } : {}),
     },
     anker: {
       luke: [(L.x0 + L.x1) / 2, yU, 0],
@@ -310,10 +416,17 @@ export default async function baue(ctx, params = {}) {
     },
     aktualisiere(t) {
       // Dielen biegen: Profil um die Mitte, Brett-Enden an den Balken bleiben fast stehen
+      // Mehrere Biege-Ereignisse mischen vom aktuellen Stand zur neuen Tiefe (Teil 3: tiefe 0 = Dielen
+      // richten sich wieder auf, Satz 11). Mit einem Ereignis wie bisher: Tiefe × Anteil.
       let b = 0;
-      let mitte = [-0.35, 0.15], radius = 0.75, tiefe = 0.045;
-      for (const e of biegen) if (t >= e.start) { b = anteil(e, t); mitte = e.mitte ?? mitte; radius = e.radius ?? radius; tiefe = e.tiefe ?? tiefe; }
-      const schluessel = Math.round(b * 1000);
+      let mitte = [-0.35, 0.15], radius = 0.75, tiefe = 0.045, stand = 0;
+      for (const e of biegen) if (t >= e.start) {
+        const ziel = e.tiefe ?? 0.045;
+        stand = stand + (ziel - stand) * anteil(e, t);
+        mitte = e.mitte ?? mitte; radius = e.radius ?? radius;
+      }
+      tiefe = Math.max(stand, 1e-6); b = stand > 1e-6 ? 1 : 0;
+      const schluessel = Math.round(stand * 1e5);
       if (schluessel !== biegeAlt) {
         biegeAlt = schluessel;
         for (const { m, basis } of bretter) {
@@ -334,16 +447,19 @@ export default async function baue(ctx, params = {}) {
         }
       }
       // Sohlenschatten ab dem Ereignis "fuesse" (Lage optional: mitte [x, z], drehung in Grad)
-      const fe = fuesseEv.filter((e) => t >= e.start).at(-1);
-      fuesse.visible = !!fe;
-      if (fe) {
+      // fuesse.bis (Teil 3, Satz 11): ab dieser Zeit ist das Gewicht weg, die Sohlen verschwinden
+      const fe = fuesseEv.filter((e) => t >= e.start && !(e.bis !== undefined && t >= e.bis)).at(-1);
+      fuesse.visible = !!fe && !fe.aus;   // aus: true (Teil 3) = das Gewicht ist weg
+      if (fuesse.visible) {
         const m = fe.mitte ?? [-0.45, -0.45];
         // Höhe: auf der (ggf. gebogenen) Diele, knapp darüber
         fuesse.position.set(m[0], yO + 0.004 - (fe.mit_biegung === false ? 0 : 0), m[1]);
         fuesse.rotation.y = ((fe.drehung ?? 0) * Math.PI) / 180;
       }
       // Fingerschatten: gleitet herein, dann spreizen sich die Finger
-      const f = fingerEv.filter((e) => t >= e.start).at(-1);
+      // aus: true (Teil 3) = der Fingerschatten ist fort
+      const fRoh = fingerEv.filter((e) => t >= e.start).at(-1);
+      const f = fRoh && !fRoh.aus ? fRoh : null;
       hand.visible = !!f;
       if (f) {
         const u = glatt((t - f.start) / Math.max(1e-3, f.dauer ?? 0.35));
@@ -363,6 +479,65 @@ export default async function baue(ctx, params = {}) {
       // die Spitzen leuchten hell
       saumMat.emissiveIntensity = 1.1 * glut;
       spitzenMat.emissiveIntensity = 3.5 * glut;
+
+      // ---------- Teil 3: Finger durch die Fuge ----------
+      const fd = fDurch.filter((e) => t >= e.start).at(-1);
+      const fz = fd ? fZurueck.filter((e) => e.start >= fd.start && t >= e.start).at(-1) : null;
+      const fzEnde = fz ? fz.start + (fz.dauer ?? 0.5) : Infinity;
+      finger3.visible = !!fd && t < fzEnde;
+      if (finger3.visible) {
+        const u = glatt((t - fd.start) / Math.max(1e-3, fd.dauer ?? 0.8));
+        // Haltung: gerade (hängt) -> gekrümmt zum Boden (Spitze an der Erde)
+        const krumm = glatt((u - 0.35) / 0.65);
+        // gleichmäßiger Bogen statt Knick (Probe: mit 0,7 / 0,65 las er sich wie ein Rohr mit Knie)
+        let a1 = 0.18 * krumm, a2 = 0.5 * krumm, a3 = 0.62 * krumm;
+        // Tasten: die Spitze schabt hin und her und rückt näher (weite in rad)
+        const ft = fTasten.filter((e) => e.start >= fd.start && t >= e.start).at(-1);
+        if (ft) {
+          const tl = Math.min(t - ft.start, ft.dauer ?? 1.2);
+          const v = glatt(tl / (ft.dauer ?? 1.2));
+          a1 += (ft.weite ?? 0.16) * v;
+          a3 += 0.07 * Math.sin(tl * 2 * Math.PI * 2.2) * Math.sin(Math.PI * Math.min(1, tl / (ft.dauer ?? 1.2)));
+        }
+        // Zurückziehen: wieder gerade und nach oben
+        let hoch = 1.0 + F3.glieder.reduce((s, x) => s + x, 0) * (1 - u);
+        if (fz) {
+          const z2 = glatt((t - fz.start) / (fz.dauer ?? 0.5));
+          a1 *= 1 - z2; a2 *= 1 - z2; a3 *= 1 - z2;
+          hoch += 1.4 * z2;
+        }
+        const st = fd.stelle ?? [-1.25, -0.505];
+        // Wurzel in der Fuge (y ≥ Unterkante der Dielen); die Glieder hängen nach −y und krümmen sich um die lokale x-Achse
+        finger3.position.set(st[0], hoch, st[1]);
+        finger3.rotation.set(0, ((fd.drehung ?? -90) * Math.PI) / 180, 0);
+        // Krümmung: rotation.x positiv kippt das hängende Glied nach −z (lokal); drehung −90 macht daraus +x
+        fingerKetten[0].rotation.x = a1; fingerKetten[1].rotation.x = a2; fingerKetten[2].rotation.x = a3;
+      }
+
+      // ---------- Teil 3: Lichtpuls der Fugen ----------
+      let puls = 0;
+      for (const e of pulsEv) {
+        const d = t - e.start;
+        if (d < 0 || d > (e.dauer ?? 4)) continue;
+        const k = (d / (e.takt ?? 0.7)) % 1;
+        puls = Math.max(puls, (e.staerke ?? 1) * (k < 0.15 ? k / 0.15 : Math.exp(-(k - 0.15) / 0.25)));
+      }
+      pulsFl.visible = puls > 0.002;
+      pulsMat.emissiveIntensity = 1.2 * puls;
+
+      // ---------- Teil 3: etwas legt sich auf die Dielen ----------
+      const le = liegenEv.filter((e) => t >= e.start && !(e.bis !== undefined && t >= e.bis)).at(-1);
+      liegeFl.visible = !!le && !le.aus;
+      if (liegeFl.visible) {
+        const u = glatt((t - le.start) / Math.max(1e-3, le.dauer ?? 1.5));
+        const lang = (le.laenge ?? 2.6) * Math.max(0.02, u), breit = le.breite ?? 0.62;
+        const m = le.mitte ?? [-0.6, -0.1];
+        liegeFl.position.set(m[0], yO + 0.006, m[1]);
+        liegeFl.rotation.y = ((le.drehung ?? 0) * Math.PI) / 180;
+        // wächst von einem Ende her (lokal +x -> −x)
+        liegeKoerper.scale.set(lang, breit, 1);
+        liegeKoerper.position.x = ((le.laenge ?? 2.6) - lang) / 2;
+      }
     },
   };
 }

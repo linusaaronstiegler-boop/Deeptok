@@ -529,5 +529,15 @@
   },
   "hinweis": "Beim Anhören prüfen: ob [softly] in Satz 5 nach +8,3 dB natürlich klingt; ob der Lockruf (Sätze 28–36) mit Unterstimme als 'es spricht mit Junes Stimme' trägt; ob 'Count with me.' warm genug ist; Pause vor 'It helps.' (0,29 s) ausreichend oder im Bau gedehnt"
  },
- "werkzeug": "python engine/ton/stimme.py bewerten --skript episoden/folge-03/skript.txt --arbeit build/folge-03/arbeit --aus build/folge-03/arbeit/bewertung.json build/folge-03/roh/*.mp3; python engine/ton/stimme.py fertig --skript episoden/folge-03/skript.txt --roh build/folge-03/roh/take1-tUNgHsNBKNBkAA9wG19C.mp3 --wav build/folge-03/stimme.wav --m4a build/folge-03/stimme.m4a --max-bytes 0 --timing episoden/folge-03/timing.json --bloecke episoden/folge-03/bildideen.json --bericht build/folge-03/arbeit/bericht.json --arbeit build/folge-03/arbeit (aus horror/)"
+ "werkzeug": "python engine/ton/stimme.py bewerten --skript episoden/folge-03/skript.txt --arbeit build/folge-03/arbeit --aus build/folge-03/arbeit/bewertung.json build/folge-03/roh/*.mp3; python engine/ton/stimme.py fertig --skript episoden/folge-03/skript.txt --roh build/folge-03/roh/take1-tUNgHsNBKNBkAA9wG19C.mp3 --wav build/folge-03/stimme.wav --m4a build/folge-03/stimme.m4a --max-bytes 0 --timing episoden/folge-03/timing.json --bloecke episoden/folge-03/bildideen.json --bericht build/folge-03/arbeit/bericht.json --arbeit build/folge-03/arbeit (aus horror/)",
+ "einschub_bau": {
+  "datum": "2026-11-16",
+  "was": "1,1 s Pause vor 'Rabbit?' (Satz 28) eingefügt, für die drei Klopfer an der Luke (offener Punkt der Vertonung). Füllung: Rauschen der Pause selbst (−76 dBFS), gekachelt. Wortzeiten ab 67,10 s um 1,1 s verschoben.",
+  "dauer_s_vorher": 137.09,
+  "dauer_s_nachher": 138.19,
+  "stimme_wav_sha256": "03fbe9a74fb36576f91fcc797537a64baf4519d8cb5428e7e4c1e3c16eabf888",
+  "timing_sha256": "aee5f240e3f87a21c383d37dd70514af7a7ae5f24cd2025bf97fd7e6d59776d3",
+  "vorher": "build/folge-03/stimme-vor-einschub.wav, build/folge-03/timing-vor-einschub.json",
+  "musik_anker_hinweis": "musik_anker_s oben sind die Zeiten vor dem Einschub; ab 67,10 s gilt +1,1 s. Die Musik (engine/musik/spannung/hiding-night-teil3.json) rechnet mit Wort- und Satznummern."
+ }
 }

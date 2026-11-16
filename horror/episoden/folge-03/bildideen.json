@@ -3,7 +3,7 @@
  "teil": 3,
  "serie": "Hiding Night",
  "quelle": "skript.txt (Satz-Index = Zeilennummer, 1-basiert)",
- "stand": "2026-11-16 (Endfassung nach der Kritik am Entwurf, 60 Sätze; vertont mit Adam ×1,2, 137,09 s; Einstellungen noch nicht gebaut)",
+ "stand": "2026-11-16 (Endfassung nach der Kritik am Entwurf, 60 Sätze; vertont mit Adam ×1,2, 137,09 s; gebaut: regie.mjs, episode.json; Einschub 1,1 s vor Satz 28)",
  "hinweis": "Grobe Bildideen je Satz als Vorlage für die Shotliste, Format wie folge-02. Hauptbild = erste Einstellung des Satzes; teilbilder = weitere Schnitte im Satz, ab_wort = Wort, auf dessen Beginn geschnitten wird. t_schaetz_s ist die Schätzung aus dem Entwurf (geeicht an Teil 1 und 2); die echten Zeiten stehen in timing.json. Neu gegenüber folge-02: Licht kriechkeller-morgen, Blöcke des Finales, Gesichter june-gedehnt (Monster), june leerer-blick, odell muede.",
  "vokabular": {
   "orte": {
@@ -1030,24 +1030,40 @@
    "kamera": "push-in",
    "groesse": "detail",
    "monster": false,
-   "hinweis": "Uhr-Baustein aus Teil 1 und 2"
+   "hinweis": "Uhr-Baustein aus Teil 1 und 2",
+   "teilbilder": [
+    {
+     "ort": "kriechkeller",
+     "modul": "kriechkeller",
+     "licht": "kriechkeller",
+     "figuren": [],
+     "aktion": "die Kamera fährt von der Luke zurück: drei langsame Klopfer, bei jedem rieselt Staub aus dem Lichtspalt; dann Junes Stimme",
+     "kamera": "pull-out",
+     "groesse": "halbnah",
+     "monster": false,
+     "ab_wort": "morning",
+     "schluesselwort": "Rabbit",
+     "sfx": "drei langsame Klopfer an Holz vor 'Rabbit?' (Echo zu Teil 2, Satz 23)",
+     "dialog": "june",
+     "hinweis": "Bau Teil 3: In die Tonspur ist vor 'Rabbit?' 1,1 s Pause eingefügt (timing.json → einschub). Die Klopfer liegen in dieser Pause; geschnitten wird auf 'morning', damit Klopfer und Lockruf in einer Einstellung stehen (≤ 2,5 s)."
+    }
+   ]
   },
   "28": {
    "text": "\"Rabbit?\"",
    "t_schaetz_s": 69.4,
    "block": "lockruf",
+   "neuer_schnitt": false,
    "dialog": "june",
    "ort": "kriechkeller",
    "modul": "kriechkeller",
    "licht": "kriechkeller",
    "figuren": [],
-   "aktion": "die Kamera fährt von der Luke zurück: drei langsame Klopfer, bei jedem rieselt Staub aus dem Lichtspalt; dann Junes Stimme",
    "schluesselwort": "Rabbit",
    "kamera": "pull-out",
    "groesse": "halbnah",
    "monster": false,
-   "sfx": "drei langsame Klopfer an Holz vor 'Rabbit?' (Echo zu Teil 2, Satz 23)",
-   "hinweis": "Die gekürzte Pause vor dem Satz ist 0,28 s lang. Für die Klopfer setzt der Bau etwa 1,2 s Stille vor 'Rabbit?' ein und verschiebt die Wortzeiten danach, oder er legt sie unter das Ende von Satz 27 (Entscheidung beim Bau). Die Einstellung läuft durch Satz 29. Untertitel Gelb #F2C14E. Akzentfahrt"
+   "aktion": "kein eigener Schnitt (siehe Satz 27, Teilbild 'morning'): Klopfer, dann Junes Stimme"
   },
   "29": {
    "text": "\"You can come out now.\"",
@@ -1058,13 +1074,12 @@
    "modul": "kriechkeller",
    "licht": "kriechkeller",
    "figuren": [],
-   "aktion": "kein eigener Schnitt (siehe Satz 28)",
+   "aktion": "Untersicht nah auf den Lichtspalt am Lukenrand: ein Schatten bewegt sich oben im Spalt, wo die Stimme herkommt",
    "schluesselwort": "come",
-   "kamera": "pull-out",
-   "groesse": "halbnah",
+   "kamera": "push-in",
+   "groesse": "detail",
    "monster": false,
-   "neuer_schnitt": false,
-   "hinweis": "'Rabbit?' allein wären 0,70 s (M2-Grenze); darum eine Einstellung für Satz 28–29. Untertitel Gelb"
+   "hinweis": "Bau Teil 3: eigener Schnitt, weil die Einstellung ab morning sonst über 2,5 s läge"
   },
   "30": {
    "text": "\"It's gone.\"",
@@ -1708,11 +1723,11 @@
    "licht": "sonnenaufgang",
    "figuren": [],
    "aktion": "außen: die Kamera steigt am Turm hinauf im rosa Morgenlicht, Nebel über dem Platz",
-   "schluesselwort": "Instead",
+   "schluesselwort": "hundred",
    "kamera": "kran-enthuellung",
    "groesse": "totale",
    "monster": false,
-   "hinweis": "Akzentfahrt",
+   "hinweis": "Akzentfahrt Bau Teil 3: Schlüsselwort hundred statt Instead (die Kranfahrt kommt auf „one hundred“ an, nicht auf dem ersten Bild).",
    "teilbilder": [
     {
      "ab_wort": "the",
@@ -2013,5 +2028,26 @@
    "Tess ohne Nachnamen (Satz 16)": "Der Nachname bleibt wie in Teil 2. In Teil 2 hörte Whisper 'Tess' allein als 'Test', 'Tess Lowry' kam sicher durch; die Länge liegt ohnehin im Ziel",
    "S2+S3 zusammenlegen": "Wortlaut aus Teil 1 bleibt (Empfehlung der Kritik)"
   }
- }
+ },
+ "gebaut_im_set": [
+  "kriechkeller: echter Finger durch die Fuge (Ereignisse finger_durch / finger_tasten / finger_zurueck), Satz 25",
+  "kriechkeller: drei Klopfer als Staubwolken aus dem Lichtspalt in der eingefügten Pause, Satz 27:morning",
+  "kriechkeller: Lichtgruppe keller.lukenlicht (kalter Lichtkeil, Punktlicht), Satz 38",
+  "Mister Hundred: Pose/Aktion kopfueber (Baustein P2: kopfüber durch die Luke), haende_weg wie eine Tür, Satz 39–52",
+  "kriechkeller: Lichtpuls der Fugen (puls), Fingerspalt 0,3 s (finger_spreizen/finger_schliessen), Satz 49–51",
+  "Requisite taschenlampe (Dads Lampe, kippen; staubig und aus), Satz 43 und 55",
+  "Licht kriechkeller-morgen (shotliste.mjs) und Lichtgruppe keller.gitter_morgen (rosa Gitter, Lichtbahn), Satz 55",
+  "hauptstrasse: Mister Hundred doppelt so groß (groesse 2) richtet sich vor dem Turm auf, Hände sinken von hinten, Satz 17–18",
+  "hauptstrasse: Lichtgruppe strasse.turm_lampe (Tess' Taschenlampe) und Glockenseil (Ereignis seil), Satz 16–20",
+  "hauptstrasse: Turm im Sonnenaufgang mit Odell am Seil und Tess' High-Tops auf dem Sims, Satz 54",
+  "Requisite wandschatten: Junes zu großer Schatten mit der Raute (Satz 6), zusammengerollt (Satz 44), durchs Fenster auf Elis Bett und an die Fassaden (Satz 21–22)",
+  "Mister Hundred: Gesichter june_gedehnt und june_bricht, Animation zittern, Satz 40–46",
+  "Requisite armbanduhr (2:59 → 3:00), Satz 27"
+ ],
+ "nicht_gebaut": [
+  "Blitzbilder als Überblendung (Satz 5, 41): die Engine schneidet nur hart; das Auge zeigt Satz 41 direkt",
+  "Dads Taschenlampenkegel von oben in der Rückblende (Satz 42): June liegt im Licht von Elis Lampe",
+  "Reif an Junes Fingerspitzen (Satz 44)",
+  "Elis Blick durchs Gitter (Satz 16:bell, 31:three): gebaut als Blick vom Fuß des Marsh-Hauses, ohne Gitter vor der Linse (Lehre aus Teil 1)"
+ ]
 }

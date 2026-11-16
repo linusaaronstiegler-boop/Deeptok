@@ -113,9 +113,25 @@ export default async function baue(ctx, params = {}) {
   kopf.add(kopfMesh);
   const gb = M.kopfB - 0.15, gh = M.kopfH - 0.15;
   const stilJune = { haut: '#DAD6CC', iris: '#E3A33B', tinte: '#141012', augenAbstand: 0.22, augenGroesse: 1.5, augenHoehe: 0.45, mundHoehe: 0.8, mundBreite: 1.5 };
+  // Teil 3 (Finale, Satz 40–45): Junes eigenes Gesicht auf dem Würfelkopf, viel zu groß gedehnt, mit ihren
+  // Brauen, Wangen und Sommersprossen, bernsteinfarbenen Augen und einem Lächeln eine Spur zu breit.
+  // june_gedehnt (Std), june_bricht (das Lächeln bricht, die Brauen sinken); Mundformen für Junes Rede als
+  // zusammengesetzter Name: "june_gedehnt/reden_a" usw.
+  const stilJuneDehn = { haut: '#E2CDB8', iris: '#E3A33B', tinte: '#141012', brauen: '#5E2219', wangen: '#e8968a', sommersprossen: true,
+    augenAbstand: 0.215, augenGroesse: 1.32, augenHoehe: 0.45, mundHoehe: 0.8, mundBreite: 1.45 };
+  const JUNE_DEHN = { june_gedehnt: 'laecheln/zu_breit', june_bricht: 'besorgt' };
   const gesichtKarten = {};
   const karte = (name) => gesichtKarten[name] ??= ctx.zeichenTextur((g, w, h) => {
-    if (name === 'june_gross') zeichneGesicht(g, w, h, 'zu_breit', stilJune);
+    const [basis, ...mund] = name.split('/');
+    if (JUNE_DEHN[basis]) {
+      const miene = mund.length ? `${JUNE_DEHN[basis].split('/')[0]}/${mund.join('/')}` : JUNE_DEHN[basis];
+      zeichneGesicht(g, w, h, miene, stilJuneDehn);
+      // Junes roter Haaransatz am oberen Rand (ihr Zopf): so liest sich das Gesicht als ihres
+      g.fillStyle = '#9c3a22';
+      g.beginPath(); g.moveTo(0, 0); g.lineTo(w, 0); g.lineTo(w, h * 0.07);
+      for (let i = 8; i >= 0; i--) g.lineTo((w * i) / 8, h * (0.07 + 0.035 * Math.sin(i * 1.9)));
+      g.closePath(); g.fill();
+    } else if (name === 'june_gross') zeichneGesicht(g, w, h, 'zu_breit', stilJune);
     else if (name === 'june_mund') zeichneGesicht(g, w, h, 'leer/schrei', stilJune);
     else {
       // glatt: keine Züge, nur eine kaum sichtbare Wölbung
@@ -345,13 +361,13 @@ export default async function baue(ctx, params = {}) {
     huefteHoehe, beinDicke: M.beinD, masse: M,
     glieder: { arm: [M.oberarm, M.unterarm], bein: [M.oberschenkel, M.unterschenkel] },
     hoehe: huefteHoehe + 0.05 + M.rumpfH + M.hals + M.kopfH,
-    gesichter: ['glatt', 'auge', 'june_gross', 'june_mund'],
+    gesichter: ['glatt', 'auge', 'june_gross', 'june_mund', 'june_gedehnt', 'june_bricht'],
   };
 
   fig.grundpose = () => {
     for (const [g, p, q] of ausgang) { g.position.copy(p); g.quaternion.copy(q); g.scale.set(1, 1, 1); }
     rumpfMesh.scale.copy(rumpfScale);
-    Object.assign(zustand, { weg: 0, spreizL: 0, spreizR: 0, druck: 0, auge: 0, glut: 0 });
+    Object.assign(zustand, { weg: 0, spreizL: 0, spreizR: 0, druck: 0, auge: 0, glut: 0, zittern: 0, zitterT: 0 });
     // Grundhaltung: Rumpf minimal vor, Kopf leicht gesenkt, als lausche er
     rumpf.rotation.x = 0.05;
     kopf.rotation.x = 0.06;
@@ -367,6 +383,13 @@ export default async function baue(ctx, params = {}) {
       const sx = S === 'L' ? 1 : -1;
       // Handgelenk-Ziel im Kopf-System: vor dem Gesicht (deck) bzw. seitlich gesenkt (weg)
       const deck = new T.Vector3(sx * 0.2, 0.06 - 0.025 * z.druck, M.kopfT / 2 + 0.085 - 0.025 * z.druck);
+      // Teil 3 (Satz 46): die riesigen Hände zittern (zustand.zittern, Phase aus der Episodenzeit)
+      if (z.zittern > 0) {
+        const ph = z.zitterT * 2 * Math.PI;
+        deck.x += z.zittern * 0.022 * Math.sin(ph * 11 + sx);
+        deck.y += z.zittern * 0.018 * Math.sin(ph * 13.7 + 2 * sx);
+        deck.z += z.zittern * 0.012 * Math.sin(ph * 9.3);
+      }
       const weg = new T.Vector3(sx * 1.0, -0.95, 0.55);
       const ziel = kopf.localToWorld(deck.lerp(weg, w));
       // Pol nach außen und etwas nach oben: Ellbogen auf Kopfhöhe, Arme und Hände bilden die Raute
@@ -406,7 +429,8 @@ export default async function baue(ctx, params = {}) {
   };
 
   fig.setzeGesicht = (name) => {
-    if (!fig.gesichter.includes(name)) throw new Error(`Mister Hundred: Gesicht "${name}" unbekannt (${fig.gesichter.join(', ')})`);
+    // zusammengesetzte Namen (Mundformen) nur für Junes Gesichter: "june_gedehnt/reden_a"
+    if (!fig.gesichter.includes(name) && !(JUNE_DEHN[name.split('/')[0]] && name.includes('/'))) throw new Error(`Mister Hundred: Gesicht "${name}" unbekannt (${fig.gesichter.join(', ')})`);
     gesichtName = name;
     gesichtMat.map = karte(name === 'auge' ? 'glatt' : name);
     fig.nachlauf();
@@ -502,6 +526,30 @@ export default async function baue(ctx, params = {}) {
     haende_vor: {
       dauer: 0.6, ease: 'ease_in_out',
       anwenden(f, p) { f.zustand.weg = mischen(f.zustand.weg, 0, p); },
+    },
+    // Teil 3 (Satz 46): Die Hände zittern während der Dauer (an- und abschwellend). params: staerke (Std 1)
+    zittern: {
+      dauer: 0.8, ease: 'linear',
+      anwenden(f, p, prm, c) {
+        if (c.tLokal >= c.dauer) return;
+        f.zustand.zittern = Math.max(f.zustand.zittern, (prm.staerke ?? 1) * Math.sin(Math.PI * c.roh));
+        f.zustand.zitterT = c.t;
+      },
+    },
+    // Teil 3 (Satz 39–52): kopfüber durch die Luke in den Kriechkeller. Die ganze Figur kippt um ihre Füße
+    // (Reihenfolge YXZ wie bei „liegen“): neigung 180 = senkrecht kopfüber, 135 = schräg. nicken dreht den Kopf
+    // (negativ = in den Nacken), damit das Gesicht nach unten zu Eli schaut; die Hände folgen dem Kopf.
+    // Als Pose oder als Aktion (Baustein P2: faltet sich herein). params: neigung (Std 150), nicken (Std −30),
+    // senken (m, die Füße sinken mit, Std 0)
+    kopfueber: {
+      dauer: 1.2, ease: 'ease_in_out',
+      anwenden(f, p, prm, c) {
+        const g = f.gruppe;
+        g.rotation.order = 'YXZ';
+        g.rotation.x = mischen(g.rotation.x, (prm.neigung ?? 150) * c.GRAD, p);
+        g.position.y -= (prm.senken ?? 0) * p;
+        f.gelenke.kopf.rotation.x = mischen(f.gelenke.kopf.rotation.x, (prm.nicken ?? -30) * c.GRAD, p);
+      },
     },
     // Vorbeugen 60–70° gleichmäßig über die Einstellung (Spec 1.5, ~1,4 s). Die Hände bleiben vor dem Gesicht.
     // params: winkel (Std 65), kopf_ausgleich (Std 20), knie (Std 8: Knie geben etwas nach)

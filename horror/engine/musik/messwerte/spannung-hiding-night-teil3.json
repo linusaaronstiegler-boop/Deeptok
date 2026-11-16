@@ -1,0 +1,212 @@
+{
+ "name": "hiding-night-teil3",
+ "stil": "r2-eigen",
+ "quelle": "musik-v2",
+ "laenge_s": 138.2,
+ "punkte": [
+  {
+   "ab_s": 0.0,
+   "stufe": "normal",
+   "pegel_db": 2.5,
+   "grund": "Hook lauter als der Rest, wie Teil 1 und 2",
+   "zeit_s": 0.0,
+   "anker_s": 0.0,
+   "rms_vor_db": null,
+   "rms_nach_db": -19.4
+  },
+  {
+   "ab_satz": 2,
+   "stufe": "normal",
+   "pegel_db": 0.0,
+   "blende_s": 1.5,
+   "grund": "Regel, Versprechen, Zählen",
+   "zeit_s": 4.834,
+   "anker_s": 4.66,
+   "rms_vor_db": -18.5,
+   "rms_nach_db": -22.6
+  },
+  {
+   "ab_wort": 105,
+   "versatz_s": -0.25,
+   "stufe": "weg",
+   "blende_s": 0.2,
+   "grund": "Wegfall vor 'Side by side is all it leaves' (Satz 13)",
+   "zeit_s": 28.61,
+   "anker_s": 28.61,
+   "rms_vor_db": -22.7,
+   "rms_nach_db": -30.2
+  },
+  {
+   "ab_wort": 109,
+   "versatz_s": -0.1,
+   "stufe": "normal",
+   "blende_s": 0.35,
+   "einrasten": "aus",
+   "grund": "Wiedereinsatz auf 'all it leaves' (Wegfall etwa 1,2 s)",
+   "zeit_s": 29.66,
+   "anker_s": 29.66,
+   "rms_vor_db": -47.2,
+   "rms_nach_db": -23.8
+  },
+  {
+   "ab_wort": 163,
+   "versatz_s": 0.0,
+   "stufe": "weg",
+   "blende_s": 0.1,
+   "grund": "die Taschenlampe geht aus: Stille bis 'without a sound' (Handlung, bildideen.json); längster Wegfall des Teils, 2,9 s",
+   "zeit_s": 44.78,
+   "anker_s": 44.78,
+   "rms_vor_db": -23.3,
+   "rms_nach_db": -66.4
+  },
+  {
+   "ab_wort": 172,
+   "versatz_s": -0.3,
+   "stufe": "normal",
+   "blende_s": 0.3,
+   "einrasten": "aus",
+   "grund": "Wiedereinsatz mit 'Then it came down Main Street'",
+   "zeit_s": 47.68,
+   "anker_s": 47.68,
+   "rms_vor_db": -200.0,
+   "rms_nach_db": -21.9
+  },
+  {
+   "ab_wort": 210,
+   "versatz_s": 0.0,
+   "stufe": "voll",
+   "blende_s": 0.8,
+   "grund": "Dielen, Finger",
+   "zeit_s": 59.076,
+   "anker_s": 58.7,
+   "rms_vor_db": -23.0,
+   "rms_nach_db": -22.6
+  },
+  {
+   "ab_wort": 231,
+   "versatz_s": 0.42,
+   "stufe": "weg",
+   "blende_s": 0.1,
+   "grund": "der Finger zieht sich zurück ('back.' Wortende)",
+   "zeit_s": 64.98,
+   "anker_s": 64.98,
+   "rms_vor_db": -19.7,
+   "rms_nach_db": -43.9
+  },
+  {
+   "ab_wort": 234,
+   "versatz_s": 0.0,
+   "stufe": "duenn",
+   "blende_s": 0.4,
+   "einrasten": "aus",
+   "grund": "drei Uhr, Lockruf: dünn (Wegfall 1,16 s)",
+   "zeit_s": 66.14,
+   "anker_s": 66.14,
+   "rms_vor_db": -56.7,
+   "rms_nach_db": -27.7
+  },
+  {
+   "ab_satz": 34,
+   "stufe": "duenn",
+   "pegel_db": -3.0,
+   "blende_s": 0.5,
+   "grund": "unter dem Zählen der Stimme 3 dB zurück",
+   "zeit_s": 77.336,
+   "anker_s": 77.07,
+   "rms_vor_db": -22.8,
+   "rms_nach_db": -28.8
+  },
+  {
+   "ab_wort": 275,
+   "versatz_s": 0.0,
+   "stufe": "voll",
+   "pegel_db": 0.0,
+   "blende_s": 0.4,
+   "grund": "die Luke geht auf: das Ritual beginnt",
+   "zeit_s": 81.633,
+   "anker_s": 81.16,
+   "rms_vor_db": -30.4,
+   "rms_nach_db": -19.2
+  },
+  {
+   "ab_wort": 291,
+   "versatz_s": 0.0,
+   "stufe": "weg",
+   "blende_s": 0.15,
+   "grund": "Wegfall von 'away' bis 'June's face' (Sub-Boom auf June's)",
+   "zeit_s": 85.96,
+   "anker_s": 85.96,
+   "rms_vor_db": -22.7,
+   "rms_nach_db": -62.7
+  },
+  {
+   "ab_wort": 302,
+   "versatz_s": -0.3,
+   "stufe": "duenn",
+   "blende_s": 0.5,
+   "einrasten": "aus",
+   "grund": "unter Junes Geständnis dünn",
+   "zeit_s": 89.19,
+   "anker_s": 89.19,
+   "rms_vor_db": -200.0,
+   "rms_nach_db": -22.3
+  },
+  {
+   "ab_satz": 47,
+   "stufe": "duenn",
+   "blende_s": 0.8,
+   "grund": "Wiegenlied beim Zählen (die Oberstimme allein kann das Bett nicht; dünn)",
+   "zeit_s": 104.726,
+   "anker_s": 104.43,
+   "rms_vor_db": -26.6,
+   "rms_nach_db": -24.7
+  },
+  {
+   "ab_satz": 54,
+   "versatz_s": -0.25,
+   "stufe": "weg",
+   "blende_s": 0.15,
+   "grund": "Wegfall vor der Sonnenglocke; die Glocke klar und laut (Handlung)",
+   "zeit_s": 120.23,
+   "anker_s": 120.23,
+   "rms_vor_db": -25.4,
+   "rms_nach_db": -70.2
+  },
+  {
+   "ab_satz": 55,
+   "versatz_s": -0.2,
+   "stufe": "normal",
+   "blende_s": 0.6,
+   "einrasten": "aus",
+   "grund": "Morgen",
+   "zeit_s": 122.95,
+   "anker_s": 122.95,
+   "rms_vor_db": -200.0,
+   "rms_nach_db": -23.0
+  },
+  {
+   "ab_satz": 57,
+   "stufe": "duenn",
+   "blende_s": 1.0,
+   "grund": "Schuhe, Schluss",
+   "zeit_s": 127.82,
+   "anker_s": 127.58,
+   "rms_vor_db": -22.7,
+   "rms_nach_db": -25.8
+  },
+  {
+   "ab_satz": 60,
+   "versatz_s": -0.25,
+   "stufe": "weg",
+   "blende_s": 0.2,
+   "grund": "Wegfall vor 'It helps.'; still nach dem Schnitt",
+   "zeit_s": 137.31,
+   "anker_s": 137.31,
+   "rms_vor_db": -24.7,
+   "rms_nach_db": -81.2
+  }
+ ],
+ "lufs": -20.65,
+ "spitze_dbfs": -7.95,
+ "datei": "build/musik/spannung-hiding-night-teil3.wav"
+}

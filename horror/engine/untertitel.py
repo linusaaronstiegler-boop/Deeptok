@@ -271,7 +271,8 @@ def baue(ordner: Path, tabelle: bool = False) -> dict:
     episode = json.loads((ordner / "episode.json").read_text(encoding="utf-8"))
     # Endkarte: dort stehen keine Untertitel
     end = [e for e in episode["einstellungen"] if e.get("plan", {}).get("endkarte")]
-    ende_bild = round(end[0]["start"] * FPS) if end else round(timing["dauer_s"] * FPS)
+    # ohne Endkarte (Finale): bis zum letzten Bild der Folge
+    ende_bild = round(end[0]["start"] * FPS) if end else round(episode["einstellungen"][-1]["ende"] * FPS)
 
     gruppen = gruppieren(einheiten(timing, vorgaben))
     zeilen = []

@@ -249,19 +249,23 @@ def main() -> None:
     # Teil 1 mit neuer Musik prüfen, ohne den abgenommenen Bericht von Teil 1 zu überschreiben
     ap.add_argument("--bericht", default="pruefung.json", help="Berichtsdatei im Folgenordner (Std pruefung.json)")
     ap.add_argument("--bogen", default="render-bogen.jpg", help="Bogen mit 30 Bildern im Folgenordner (Std render-bogen.jpg)")
+    # Teil 3 (Finale): Stimme 125–155 s statt 70–90 s
+    ap.add_argument("--dauer", default="70,90", help="erlaubte Länge der Stimme in s, von,bis (Std 70,90; Finale 125,155)")
     a = ap.parse_args()
     ordner = a.ordner.resolve()
     name = ordner.name
     namen = dict(zip(["upload", "vorhoer"], a.namen.split(",")))
     mp4_von = lambda art: build / f"{name}-{namen[art]}.mp4"   # noqa: E731
     # Skript der Folge (skript-teil1.txt, skript-teil2.txt, …)
-    skript = sorted(ordner.glob("skript-teil*.txt"))[0]
+    # Finale: skript.txt (ein Satz pro Zeile)
+    skript = (sorted(ordner.glob("skript-teil*.txt")) or [ordner / "skript.txt"])[0]
     build = ordner.parent.parent / "build" / name
     episode = json.loads((ordner / "episode.json").read_text(encoding="utf-8"))
     timing = json.loads((ordner / "timing.json").read_text(encoding="utf-8"))
     bilder_soll = round(episode["einstellungen"][-1]["ende"] * FPS)
-    end = [e for e in episode["einstellungen"] if e.get("plan", {}).get("endkarte")][0]
-    karte_bild = round(end["start"] * FPS)
+    end = [e for e in episode["einstellungen"] if e.get("plan", {}).get("endkarte")]
+    # ohne Endkarte (Finale): „Endkarte“ beginnt hinter dem letzten Bild, die Regeln für den Inhalt gelten bis zum Ende
+    karte_bild = round(end[0]["start"] * FPS) if end else bilder_soll
     verstoesse = []
     erg = {"folge": name}
 
@@ -285,10 +289,13 @@ def main() -> None:
     erg["dauer"] = {"stimme_s": round(stimme_s, 2), "letztes_wort_ende_s": w1, "endkarte_ab_s": round(karte_bild / FPS, 3),
                     "endkarte_s": round((bilder_soll - karte_bild) / FPS, 3), "video_s": round(bilder_soll / FPS, 3),
                     "abstand_letztes_wort_endkarte_s": round(karte_bild / FPS - w1, 3)}
-    if not 70 <= stimme_s <= 90:
-        verstoesse.append(f"Stimme {stimme_s:.1f} s nicht in 70–90 s")
+    d0, d1 = (float(x) for x in a.dauer.split(","))
+    if not d0 <= stimme_s <= d1:
+        verstoesse.append(f"Stimme {stimme_s:.1f} s nicht in {d0:g}–{d1:g} s")
+    if not end:
+        erg["dauer"]["endkarte"] = "keine"
     if not 0 <= karte_bild / FPS - w1 <= 0.2:
-        verstoesse.append("Endkarte nicht ≤ 0,2 s nach dem letzten Wort")
+        verstoesse.append("Endkarte (bzw. Ende ohne Endkarte) nicht ≤ 0,2 s nach dem letzten Wort")
 
     # 3. Hör-Check
     ut = json.loads((build / "untertitel-liste.json").read_text(encoding="utf-8"))
