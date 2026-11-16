@@ -78,20 +78,12 @@ const SONNENAUFGANG = {
   himmel: { zenit: '#3b4f8a', horizont: '#f6b27a', scheibe: { richtung: [0.08, 0.07, 0.99], farbe: '#ffd29a', groesse: 2.6, staerke: 6, glanz: 0.7 } },
   haupt: { richtung: [0.1, 0.25, 0.96], farbe: '#ffc08a', staerke: 2.3 }, nebel: { farbe: '#c9a49a', dichte: 0.014 },
 };
-// Kriechkeller (Teil 2): fast dunkel, Junes Lampenlicht kommt nur durch die Dielenfugen (Set-Lichtgruppen),
-// dazu Elis Taschenlampe. Ein schwaches kühles Füll-Licht hält das Bild über dem Helligkeits-Tor (≥ 35).
-const KELLER_LICHT = {
-  himmel: { zenit: '#120e0c', horizont: '#1c1612' },
-  nebel: { farbe: '#16110e', dichte: 0.03 },
-  hemi: { himmel: '#9aa6c8', boden: '#6a5244', staerke: 2.4 },
-  haupt: { farbe: '#ffd2a0', staerke: 0.3, richtung: [0.2, 0.95, 0.2] },
-  kante: { farbe: '#9FD8D2', staerke: 0.35, richtung: [-0.4, 0.5, 0.75] },
-  belichtung: 1.25,
-  grade: { saettigung: 1.0, kontrast: 1.06, faerbung: [1.02, 1.0, 0.97] },
-};
+// Kriechkeller (Teil 2): eigenes Preset in src/licht.js (fast dunkel, Taschenlampe, warme Streifen durch die
+// Fugen). Review Teil 2: vorher innen_warm mit Füll-Licht 2,4, das las sich gemütlich statt bedrohlich.
+const KELLER_LICHT = {};
 export const LICHT = {
   tag: { preset: 'tag', lampen: false },
-  kriechkeller: { preset: 'innen_warm', anpassung: KELLER_LICHT, lampen: false },
+  kriechkeller: { preset: 'kriechkeller', anpassung: KELLER_LICHT, lampen: false },
   morgen: { preset: 'tag', anpassung: MORGEN, lampen: false },
   sonnenaufgang: { preset: 'daemmerung', anpassung: SONNENAUFGANG, lampen: false },
   daemmerung: { preset: 'daemmerung', lampen: true },

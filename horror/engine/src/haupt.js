@@ -45,6 +45,8 @@ async function starten() {
   const szene = new THREE.Scene();
   const kamera = new THREE.PerspectiveCamera(50, W / H, look.nah ?? 0.05, 1000);
   const zeitplan = new Zeitplan(episode);
+  // Figurenmodule mit Menschengesicht (Aufkleber auf dem Kopfwürfel); das Monster hat keins
+  const MENSCHEN = new Set(['eli', 'june', 'dad', 'owen', 'tess', 'odell', 'nachbar']);
   const licht = new Licht(szene);
   const werkzeug = baueWerkzeug({ seed, engineUrl, basisUrl: episodeUrl, renderer });
   const welt = new Welt({ szene, episode, zeitplan, werkzeug, engineUrl, basisUrl: episodeUrl, seed });
@@ -61,7 +63,10 @@ async function starten() {
     const p = new Partikel(spec, seed);
     szene.add(p.punkte);
     const ort = spec.ort ?? [0, 1, 0];
-    p.ortBei = typeof ort === 'string' ? (t) => welt.anker(ort, t) : () => vek(ort);
+    // Ort: Punkt, Anker-Name oder { anker, versatz } (Versatz in Weltkoordinaten)
+    p.ortBei = typeof ort === 'string' ? (t) => welt.anker(ort, t)
+      : (ort && ort.anker) ? (t) => welt.anker(ort.anker, t).clone().add(vek(ort.versatz ?? [0, 0, 0]))
+        : () => vek(ort);
     p.richtungBei = typeof ort === 'string' ? (t) => { const y = welt.ausrichtung(ort, t); return new THREE.Vector3(Math.sin(y), 0, Math.cos(y)); } : null;
     return p;
   });
@@ -175,6 +180,9 @@ async function starten() {
     einstellungen: zeitplan.einstellungen.map((e) => ({
       id: e.id, startBild: e.startBild, endeBild: e.endeBild,
       text: e.text ?? '', bogenZeit: e.plan?.bogen_zeit ?? null, hauptsache: e.plan?.hauptsache ?? null,
+      // Menschen mit Gesicht in dieser Einstellung (für die Kopf-oben-Regel der Kompositionsprüfung)
+      koepfe: (e.plan?.sichtbar ?? []).filter((id) => MENSCHEN.has((episode.figuren ?? []).find((f) => f.id === id)?.modul)),
+      monster: (e.plan?.sichtbar ?? []).filter((id) => (episode.figuren ?? []).find((f) => f.id === id)?.modul === 'mister_hundred'),
     })),
     info() {
       const ext = gl.getExtension('WEBGL_debug_renderer_info');

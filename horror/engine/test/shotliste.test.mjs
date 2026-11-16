@@ -111,7 +111,8 @@ test('Set-Ereignisse landen mit Wortzeit in params.ereignisse (Kriechkeller, Glo
   assert.ok(Math.abs(biegen.start - wBent.start) < 1e-3, 'Dielen biegen sich auf "bent"');
   const finger = keller.find((e) => e.was === 'finger');
   const wReady = W.find((w) => w.wort === 'Ready');
-  assert.ok(Math.abs(finger.start - wReady.start) < 1e-3, 'Fingerschatten auf "Ready"');
+  // Review Teil 2: die Hand gleitet 0,08 s vor dem Wort los, damit sie auf „Ready“ liegt (höchstens 0,1 s vorher)
+  assert.ok(finger.start <= wReady.start + 1e-3 && wReady.start - finger.start <= 0.1 + 1e-3, 'Fingerschatten auf "Ready"');
   const glocke = episode.sets.find((s) => s.id === 'strasse').params.ereignisse.filter((e) => e.was === 'glocke');
   assert.ok(glocke.length >= 2, 'Glocke schwingt mehrmals');
 });

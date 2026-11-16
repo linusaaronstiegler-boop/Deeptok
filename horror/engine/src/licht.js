@@ -45,6 +45,19 @@ export const PRESETS = {
     belichtung: 1.05,
     grade: { saettigung: 1.0, kontrast: 1.03, faerbung: [1.04, 1.0, 0.95] },
   },
+  // Kriechkeller (Review Teil 2: der Keller las sich mit Himmel-/Bodenlicht 2,4 warm und gemütlich, Median 96).
+  // Fast dunkel und kühl: kaum Füll-Licht, blaugrau. Das einzige warme Licht kommt von oben aus Junes
+  // Zimmer: Das Hauptlicht steht fast senkrecht und fällt nur durch die Dielenfugen (die Bretter werfen
+  // Schatten), also dünne warme Streifen auf Eli und den Erdboden. Dazu Elis Taschenlampe aus dem Set.
+  kriechkeller: {
+    himmel: { zenit: '#07080b', horizont: '#0c0d10', sterne: 0 },
+    nebel: { farbe: '#0b0c10', dichte: 0.05 },
+    hemi: { himmel: '#56617c', boden: '#1c1a18', staerke: 0.55 },
+    haupt: { farbe: '#ffc286', staerke: 2.6, richtung: [0.1, 1.0, 0.16], weich: 1.2 },
+    kante: { farbe: '#9FD8D2', staerke: 0.18, richtung: [-0.4, 0.5, 0.75] },
+    belichtung: 1.25,
+    grade: { saettigung: 0.95, kontrast: 1.12, faerbung: [0.98, 1.0, 1.04] },
+  },
   // Tag: die "normale" Welt (Regeln erklären, Alltag).
   tag: {
     himmel: { zenit: '#4f86d8', horizont: '#cfe3f5', sterne: 0 },

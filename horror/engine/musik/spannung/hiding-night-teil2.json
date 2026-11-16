@@ -7,68 +7,80 @@
  "uebergang_s": 1.5,
  "einrasten": "schlag",
  "ausblenden_s": 0.5,
- "_hinweis": "Endfassung (Bau Teil 2): Satznummern von skript-teil2.txt, Wortnummern von timing.json. Stufen nach bildideen.json 'musik' (dünn bis Junes Mitternachtssatz, voll ab dem Laternenzug, dünn ab Junes Zählen, Abriss am Ende von 'Ninety-nine') und zwei Wegfällen vor Pointen.",
+ "_hinweis": "Review Teil 2 (Linus: Musik 'mehr eins zu eins' wie die Vorbilder): flaches, durchgehendes Bett wie r5. Drei Zustände nah beieinander (normal 12 LU unter der Stimme, voll etwa 11, dünn mit +4,2 dB etwa 13), der Hook 2,5 dB lauter (r5: Hook am lautesten). Nur kurze Wegfälle (1,2–1,4 s) vor den Pointen; ganz still erst nach 'Ready?'. Satznummern von skript-teil2.txt, Wortnummern von timing.json.",
  "stufen": [
   {
    "ab_s": 0.0,
    "stufe": "normal",
-   "grund": "Hook: Anschluss an Teil 1, die Spieldose läuft weiter (zweite Schleifenrunde)"
+   "pegel_db": 2.5,
+   "grund": "Hook lauter als der Rest (r5: 8,9 LU unter der Stimme, Rumpf 12,6–13,4)"
   },
   {
    "ab_satz": 2,
-   "stufe": "duenn",
-   "blende_s": 1.2,
-   "grund": "Vorhang, leerer Garten, Spur im Reif, June barfuß: leise, jedes Detail soll sitzen"
-  },
-  {
-   "ab_satz": 11,
-   "stufe": "voll",
-   "blende_s": 1.5,
-   "grund": "um elf auf den Platz (Laternenzug), Odell, die Regeln, Tess"
-  },
-  {
-   "ab_satz": 24,
    "stufe": "normal",
+   "pegel_db": 0.0,
    "blende_s": 1.5,
-   "grund": "zu Hause: Turnschuhe auseinander, packen"
+   "grund": "ab dem Vorhang flach weiter; die Spieldose läuft wie in r5 durch"
   },
   {
    "ab_wort": 174,
    "versatz_s": -0.25,
    "stufe": "weg",
    "blende_s": 0.2,
-   "grund": "Wegfall vor dem Omen: 'side by side' fällt in die Stille (Klopfen der Schuhe)"
+   "grund": "kurzer Wegfall vor dem Omen: 'side by side' fällt mit dem Klopfen der Schuhe in die Stille"
   },
   {
-   "ab_satz": 27,
-   "stufe": "duenn",
-   "blende_s": 0.6,
-   "grund": "Entscheidung: Owen, Dad"
-  },
-  {
-   "ab_satz": 29,
+   "ab_wort": 177,
+   "versatz_s": -0.25,
    "stufe": "normal",
-   "blende_s": 1.0,
-   "grund": "June nimmt den Rucksack, ihr Versprechen"
+   "blende_s": 0.35,
+   "einrasten": "aus",
+   "grund": "Wiedereinsatz vor 'If I ran' (Wegfall 1,25 s)"
   },
   {
    "ab_satz": 32,
    "stufe": "voll",
    "blende_s": 1.5,
-   "grund": "Teppich, Luke, Eli steigt hinab"
-  },
-  {
-   "ab_satz": 35,
-   "stufe": "duenn",
-   "blende_s": 1.5,
-   "grund": "June zählt leise wie jede Nacht: die Spieldose wird ihr Zählen"
+   "grund": "ab der Luke: hohe Linie und Chor dazu (Review: volle Stufe erst ab der Luke, nicht unter Odell und Tess)"
   },
   {
    "ab_wort": 244,
    "versatz_s": 0.0,
    "stufe": "weg",
    "blende_s": 0.15,
-   "grund": "Abriss am Ende von 'Ninety-nine': danach nur Glocke, Dielen und das Leitgeräusch, stumm bis über die Endkarte PART 3"
+   "grund": "Abriss am Ende von 'Ninety-nine': 'Then she stopped' in der Stille"
+  },
+  {
+   "ab_wort": 247,
+   "versatz_s": 0.0,
+   "stufe": "duenn",
+   "pegel_db": 4.2,
+   "blende_s": 0.3,
+   "einrasten": "aus",
+   "grund": "Wiedereinsatz mit 'The bell struck midnight': nur Spieldose und Orgelpunkt, dünn, aber kaum leiser (Wegfall 1,2 s)"
+  },
+  {
+   "ab_wort": 252,
+   "versatz_s": -0.1,
+   "stufe": "weg",
+   "blende_s": 0.15,
+   "grund": "zweiter kurzer Wegfall: 'No counting came from the square' (das Zählen fehlt, die Musik auch)"
+  },
+  {
+   "ab_wort": 257,
+   "versatz_s": -0.2,
+   "stufe": "normal",
+   "pegel_db": 0.5,
+   "blende_s": 0.25,
+   "einrasten": "aus",
+   "grund": "Wiedereinsatz vor 'The boards above my face bent down': das Bett trägt den Höhepunkt (r5: nah an der Stimme)"
+  },
+  {
+   "ab_wort": 277,
+   "versatz_s": 0.36,
+   "stufe": "weg",
+   "blende_s": 0.05,
+   "grund": "Ende von 'Ready?': harter Schnitt in die Stille, nur der Hall klingt über PART 3 aus"
   }
  ]
 }

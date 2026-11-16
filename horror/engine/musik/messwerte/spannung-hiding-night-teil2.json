@@ -6,106 +6,118 @@
   {
    "ab_s": 0.0,
    "stufe": "normal",
-   "grund": "Hook: Anschluss an Teil 1, die Spieldose läuft weiter (zweite Schleifenrunde)",
+   "pegel_db": 2.5,
+   "grund": "Hook lauter als der Rest (r5: 8,9 LU unter der Stimme, Rumpf 12,6–13,4)",
    "zeit_s": 0.0,
    "anker_s": 0.0,
    "rms_vor_db": null,
-   "rms_nach_db": -22.8
+   "rms_nach_db": -20.2
   },
   {
    "ab_satz": 2,
-   "stufe": "duenn",
-   "blende_s": 1.2,
-   "grund": "Vorhang, leerer Garten, Spur im Reif, June barfuß: leise, jedes Detail soll sitzen",
+   "stufe": "normal",
+   "pegel_db": 0.0,
+   "blende_s": 1.5,
+   "grund": "ab dem Vorhang flach weiter; die Spieldose läuft wie in r5 durch",
    "zeit_s": 5.107,
    "anker_s": 4.62,
-   "rms_vor_db": -23.2,
-   "rms_nach_db": -29.0
-  },
-  {
-   "ab_satz": 11,
-   "stufe": "voll",
-   "blende_s": 1.5,
-   "grund": "um elf auf den Platz (Laternenzug), Odell, die Regeln, Tess",
-   "zeit_s": 21.064,
-   "anker_s": 20.59,
-   "rms_vor_db": -25.0,
-   "rms_nach_db": -21.4
-  },
-  {
-   "ab_satz": 24,
-   "stufe": "normal",
-   "blende_s": 1.5,
-   "grund": "zu Hause: Turnschuhe auseinander, packen",
-   "zeit_s": 46.596,
-   "anker_s": 46.39,
-   "rms_vor_db": -21.3,
-   "rms_nach_db": -25.6
+   "rms_vor_db": -20.6,
+   "rms_nach_db": -22.0
   },
   {
    "ab_wort": 174,
    "versatz_s": -0.25,
    "stufe": "weg",
    "blende_s": 0.2,
-   "grund": "Wegfall vor dem Omen: 'side by side' fällt in die Stille (Klopfen der Schuhe)",
+   "grund": "kurzer Wegfall vor dem Omen: 'side by side' fällt mit dem Klopfen der Schuhe in die Stille",
    "zeit_s": 51.33,
    "anker_s": 51.33,
-   "rms_vor_db": -22.9,
-   "rms_nach_db": -72.5
+   "rms_vor_db": -23.5,
+   "rms_nach_db": -39.2
   },
   {
-   "ab_satz": 27,
-   "stufe": "duenn",
-   "blende_s": 0.6,
-   "grund": "Entscheidung: Owen, Dad",
-   "zeit_s": 52.979,
-   "anker_s": 52.83,
-   "rms_vor_db": -86.4,
-   "rms_nach_db": -27.9
-  },
-  {
-   "ab_satz": 29,
+   "ab_wort": 177,
+   "versatz_s": -0.25,
    "stufe": "normal",
-   "blende_s": 1.0,
-   "grund": "June nimmt den Rucksack, ihr Versprechen",
-   "zeit_s": 57.447,
-   "anker_s": 56.86,
-   "rms_vor_db": -27.4,
-   "rms_nach_db": -26.7
+   "blende_s": 0.35,
+   "einrasten": "aus",
+   "grund": "Wiedereinsatz vor 'If I ran' (Wegfall 1,25 s)",
+   "zeit_s": 52.58,
+   "anker_s": 52.58,
+   "rms_vor_db": -64.2,
+   "rms_nach_db": -21.7
   },
   {
    "ab_satz": 32,
    "stufe": "voll",
    "blende_s": 1.5,
-   "grund": "Teppich, Luke, Eli steigt hinab",
+   "grund": "ab der Luke: hohe Linie und Chor dazu (Review: volle Stufe erst ab der Luke, nicht unter Odell und Tess)",
    "zeit_s": 61.915,
    "anker_s": 61.68,
-   "rms_vor_db": -22.6,
-   "rms_nach_db": -21.9
-  },
-  {
-   "ab_satz": 35,
-   "stufe": "duenn",
-   "blende_s": 1.5,
-   "grund": "June zählt leise wie jede Nacht: die Spieldose wird ihr Zählen",
-   "zeit_s": 67.66,
-   "anker_s": 67.33,
-   "rms_vor_db": -22.3,
-   "rms_nach_db": -27.2
+   "rms_vor_db": -22.7,
+   "rms_nach_db": -21.8
   },
   {
    "ab_wort": 244,
    "versatz_s": 0.0,
    "stufe": "weg",
    "blende_s": 0.15,
-   "grund": "Abriss am Ende von 'Ninety-nine': danach nur Glocke, Dielen und das Leitgeräusch, stumm bis über die Endkarte PART 3",
+   "grund": "Abriss am Ende von 'Ninety-nine': 'Then she stopped' in der Stille",
    "zeit_s": 72.9,
    "anker_s": 72.9,
-   "rms_vor_db": -27.9,
-   "rms_nach_db": -89.1
+   "rms_vor_db": -21.6,
+   "rms_nach_db": -50.0
+  },
+  {
+   "ab_wort": 247,
+   "versatz_s": 0.0,
+   "stufe": "duenn",
+   "pegel_db": 4.2,
+   "blende_s": 0.3,
+   "einrasten": "aus",
+   "grund": "Wiedereinsatz mit 'The bell struck midnight': nur Spieldose und Orgelpunkt, dünn, aber kaum leiser (Wegfall 1,2 s)",
+   "zeit_s": 74.1,
+   "anker_s": 74.1,
+   "rms_vor_db": -67.1,
+   "rms_nach_db": -23.9
+  },
+  {
+   "ab_wort": 252,
+   "versatz_s": -0.1,
+   "stufe": "weg",
+   "blende_s": 0.15,
+   "grund": "zweiter kurzer Wegfall: 'No counting came from the square' (das Zählen fehlt, die Musik auch)",
+   "zeit_s": 75.81,
+   "anker_s": 75.81,
+   "rms_vor_db": -24.0,
+   "rms_nach_db": -44.8
+  },
+  {
+   "ab_wort": 257,
+   "versatz_s": -0.2,
+   "stufe": "normal",
+   "pegel_db": 0.5,
+   "blende_s": 0.25,
+   "einrasten": "aus",
+   "grund": "Wiedereinsatz vor 'The boards above my face bent down': das Bett trägt den Höhepunkt (r5: nah an der Stimme)",
+   "zeit_s": 77.0,
+   "anker_s": 77.0,
+   "rms_vor_db": -68.0,
+   "rms_nach_db": -22.6
+  },
+  {
+   "ab_wort": 277,
+   "versatz_s": 0.36,
+   "stufe": "weg",
+   "blende_s": 0.05,
+   "grund": "Ende von 'Ready?': harter Schnitt in die Stille, nur der Hall klingt über PART 3 aus",
+   "zeit_s": 85.81,
+   "anker_s": 85.81,
+   "rms_vor_db": -22.0,
+   "rms_nach_db": -77.1
   }
  ],
- "lufs": -20.55,
- "spitze_dbfs": -4.97,
+ "lufs": -19.66,
+ "spitze_dbfs": -4.02,
  "datei": "build/musik/spannung-hiding-night-teil2.wav"
 }

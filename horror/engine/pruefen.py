@@ -25,6 +25,8 @@ Regeln:
      keine Dekodierfehler, kein Stillstand über 0,33 s außer auf der Endkarte.
      Helligkeits-Tor (Review Folge 1, pruefen.py fing nur „schwarz“ ab, nicht „zu dunkel“):
      Median der Bildhelligkeit ≥ 85 von 255 (r2 102, r5 106), keine Einstellung im Mittel < 35.
+     Review Teil 2: Der Kriechkeller (DUNKLE_ORTE) zählt nicht zum Median und darf bis 22 herunter;
+     kein Leerbild (Streuung < 12) in den ersten 0,5 s einer Einstellung.
      Balken-Tor: Eine Spalte, in der über 85 % der Pixel fast schwarz sind (< 12), gehört zu
      einem Balken; kein Bild darf Balken über 10 % der Bildbreite haben (Objekt vor der Linse).
      Kantendichte (Gradient > 20 bei 108 × 192) wird berichtet: r2 16,5 %, r5 13,3 %.
@@ -84,9 +86,14 @@ def hoer_check(mp4: Path, skript: Path) -> dict:
     erg = stimme.ausrichten(tokens, woerter)
     # Reine Schreibweisen sind keine Hörfehler (Teil 2: Whisper schreibt „O'Dell“ und „Mr“ statt
     # „Odell“ und „Mister“): ohne Apostrophe und Leerzeichen, mr = mister, gleich -> eigene Liste
+    # Gleich klingende Wörter zählen als Schreibweise (Review Teil 2: „helper too“ hörte Whisper nach der
+    # Neumischung als „helper to“; das klingt identisch, vorher war es „help or two“)
+    gleichklang = [{"too", "to", "two"}]
+
     def schreibweise(f: dict) -> bool:
         norm = lambda t: re.sub(r"[\s'’.]", "", re.sub(r"\bmr\b", "mister", t.lower()))  # noqa: E731
-        return norm(f["skript"]) == norm(f["gehoert"])
+        a, b = norm(f["skript"]), norm(f["gehoert"])
+        return a == b or any(a in g and b in g for g in gleichklang)
     schreib = [f for f in erg["fehler"] if schreibweise(f)]
     erg["fehler"] = [f for f in erg["fehler"] if not schreibweise(f)]
     return {"wer": round(erg["wer"], 4), "fehler": erg["fehler"], "schreibweisen": schreib, "eingefuegt": erg["eingefuegt"],
@@ -145,6 +152,13 @@ def einsaetze(wav: Path) -> np.ndarray:
 
 HELL_MEDIAN_MIN = 85.0    # Median der Bildhelligkeit (0–255)
 HELL_EINSTELLUNG_MIN = 35.0
+# Review Teil 2: Der Kriechkeller soll fast dunkel sein (r2, dunkle Strecke: Mittel 25–30). Er zählt
+# nicht zum Median und hat eine eigene Untergrenze je Einstellung; sonst hellt das Tor ihn wieder auf.
+DUNKLE_ORTE = {"kriechkeller": 22.0}
+# Review Teil 2: E40 begann 0,8 s in einer Fläche (einfarbig blauviolett). Ein Bild mit Streuung unter 12
+# in den ersten 0,5 s einer Einstellung gilt als Leerbild (sonst überall > 12).
+LEERBILD_STREUUNG = 12.0
+LEERBILD_FENSTER_S = 0.5
 BALKEN_MAX = 0.10         # Anteil der Bildbreite
 
 
@@ -177,12 +191,29 @@ def bilder_pruefen(mp4: Path, endkarte_bild: int, einstellungen: list | None = N
     kanten = (np.hypot(gx, gy) > 20).mean(axis=(1, 2))
     inhalt = slice(0, endkarte_bild)
     je_einstellung = []
-    for eid, a, b in einstellungen or []:
+    median_maske = np.zeros(n, bool)
+    median_maske[:endkarte_bild] = True
+    leerbilder = []
+    for eid, a, b, *ort in einstellungen or []:
         if a >= endkarte_bild:
             continue
-        je_einstellung.append({"id": eid, "mittel": round(float(mittel[a:b + 1].mean()), 1),
+        ort = ort[0] if ort else None
+        if ort in DUNKLE_ORTE:
+            median_maske[a:b + 1] = False
+        k = min(b + 1, a + int(round(LEERBILD_FENSTER_S * FPS)))
+        if streu[a:k].min() < LEERBILD_STREUUNG:
+            leerbilder.append({"id": eid, "bild": int(a + streu[a:k].argmin()), "streuung": round(float(streu[a:k].min()), 1)})
+        je_einstellung.append({"id": eid, "ort": ort, "mittel": round(float(mittel[a:b + 1].mean()), 1),
+                               "streuung_anfang_min": round(float(streu[a:k].min()), 1),
                                "balken_max": round(float(balken[a:b + 1].max()), 3)})
+    dunkel_mittel = mittel[:endkarte_bild][~median_maske[:endkarte_bild]]
     return {"bilder": int(n), "dekodierfehler": fehler or None,
+            "helligkeit_median_ohne_dunkle_orte": round(float(np.median(mittel[median_maske])), 1),
+            "dunkle_orte_mittel": round(float(dunkel_mittel.mean()), 1) if len(dunkel_mittel) else None,
+            "dunkle_orte_fast_schwarz_anteil": round(float((f[:endkarte_bild][~median_maske[:endkarte_bild]] < 20).mean()), 3) if len(dunkel_mittel) else None,
+            "leerbilder_am_anfang": leerbilder,
+            "balken_max_ohne_dunkle_orte": round(float(balken[:endkarte_bild][median_maske[:endkarte_bild]].max()), 3),
+            "balken_bild_ohne_dunkle_orte": int(np.where(median_maske[:endkarte_bild])[0][balken[:endkarte_bild][median_maske[:endkarte_bild]].argmax()]),
             "helligkeit_p10": round(float(np.percentile(mittel[inhalt], 10)), 1),
             "fast_schwarz_anteil": round(float((mittel[inhalt] < 30).mean()), 3),
             "balken_max": round(float(balken[inhalt].max()), 3), "balken_bild": int(balken[inhalt].argmax()),
@@ -327,16 +358,21 @@ def main() -> None:
         verstoesse.append("Untertitel wechseln nicht genau auf den geplanten Bildern")
 
     # 5. Bilder
-    grenzen = [(e["id"], round(e["start"] * FPS), round(e["ende"] * FPS) - 1) for e in episode["einstellungen"]]
+    grenzen = [(e["id"], round(e["start"] * FPS), round(e["ende"] * FPS) - 1, e.get("plan", {}).get("ort")) for e in episode["einstellungen"]]
     erg["bilder"] = bilder_pruefen(mp4_von("upload"), karte_bild, grenzen)
     b = erg["bilder"]
-    if b["helligkeit_median"] < HELL_MEDIAN_MIN:
-        verstoesse.append(f"Bilder zu dunkel: Median {b['helligkeit_median']} < {HELL_MEDIAN_MIN}")
-    dunkel = [f"{e['id']} {e['mittel']}" for e in b["einstellungen"] if e["mittel"] < HELL_EINSTELLUNG_MIN]
+    if b["helligkeit_median_ohne_dunkle_orte"] < HELL_MEDIAN_MIN:
+        verstoesse.append(f"Bilder zu dunkel: Median ohne Kriechkeller {b['helligkeit_median_ohne_dunkle_orte']} < {HELL_MEDIAN_MIN}")
+    dunkel = [f"{e['id']} {e['mittel']}" for e in b["einstellungen"]
+              if e["mittel"] < DUNKLE_ORTE.get(e.get("ort"), HELL_EINSTELLUNG_MIN)]
+    if b["leerbilder_am_anfang"]:
+        verstoesse.append("Leerbild in den ersten 0,5 s: " + ", ".join(f"{x['id']} (Bild {x['bild']}, Streuung {x['streuung']})" for x in b["leerbilder_am_anfang"]))
     if dunkel:
         verstoesse.append(f"Einstellungen zu dunkel (< {HELL_EINSTELLUNG_MIN}): {', '.join(dunkel)}")
-    if b["balken_max"] > BALKEN_MAX:
-        verstoesse.append(f"Schwarzer Balken über {b['balken_max'] * 100:.0f} % der Breite (Bild {b['balken_bild']})")
+    # Balken-Tor (Pfosten vor der Linse) gilt nicht für dunkle Orte: Im Kriechkeller sind fast schwarze
+    # Spalten gewollt (r2, dunkle Strecke: 48–75 % fast schwarze Pixel); dort gilt die Untergrenze je Einstellung
+    if b["balken_max_ohne_dunkle_orte"] > BALKEN_MAX:
+        verstoesse.append(f"Schwarzer Balken über {b['balken_max_ohne_dunkle_orte'] * 100:.0f} % der Breite (Bild {b['balken_bild_ohne_dunkle_orte']})")
     if b["dekodierfehler"] or b["schwarz_oder_einfarbig"] or b["bilder"] != bilder_soll:
         verstoesse.append(f"Bilder: {b['dekodierfehler']}, schwarz {b['schwarz_oder_einfarbig'][:5]}, {b['bilder']} Bilder")
     if b["laengster_stillstand_s"] > 0.33:

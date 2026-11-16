@@ -26,7 +26,7 @@ Stand 15.11.2026: `folge-02/skript-teil2.txt`, 278 Wörter, 46 Sätze, Stimme 85
 9. Über ihm legt June sich hin und zählt wie jede Nacht, hörbar: *"Ninety-seven." "Ninety-eight." "Ninety-nine."* Dann hört sie auf. Die Glocke schlägt Mitternacht, vom Platz kommt kein Zählen.
 10. **Cliffhanger:** Die Dielen über seinem Gesicht biegen sich, sein Atem wird weiß. *Something finished her count, slow and deep.* *"One hundred." "Ready?"* (Mister Hundred). Auf „Ready?“ fallen die Schatten von vier langen Fingern durch die Spalten. Harter Schnitt, PART 3. Offen bleibt auch, ob June mitten im Zählen genommen wurde.
 
-**Musik in drei Stufen** (Regel 8, Anker in `folge-02/bildideen.json`): leise bis Junes Mitternachtssatz (bis 20,3 s), voll ab dem Laternenzug (20,6 s, 24 %) bis „The hatch closed over me“, dünn ab Junes Zählen (67,3 s, 78 %), Abriss am Ende von „Ninety-nine“ (72,9 s). Danach nur die Glocke (Handlung) und das Leitgeräusch. Bildunterschrift: *Would you hide under June's room?*
+**Musik (Review Teil 2):** Linus wollte die Musik „mehr eins zu eins“ wie in seinen Vorbildvideos. Darum läuft jetzt wie in r5 ein flaches Bett durch (Wiegenlied-Spieluhr, normal 12 LU unter der Stimme, der Hook 2,5 dB lauter, voll erst ab der Luke). Es gibt nur kurze Wegfälle von 1,2–1,4 s: vor „side by side“, nach „Ninety-nine“ bis „The bell struck midnight“ und auf „No counting came from the square“. Ganz still wird es erst mit dem harten Schnitt nach „Ready?“. Die alte Stufen-Regie (leise, voll, dünn, 14 s Abriss) ist verworfen. Bildunterschrift: *Would you hide under June's room?*
 
 ## Teil 3: die Nacht
 
@@ -95,10 +95,13 @@ Mindestens 6 Paare sind Pflicht (A3), hier sind es 20. Alle Setups stehen in Tei
 - Ihre Turnschuhe stehen in Teil 3 schon nebeneinander, bevor das Ding die Straße hinunterkommt.
 - Bau Teil 2: Als June bei „Ninety-nine“ aufhört, steigt weißer Atem von ihren Lippen auf (kalt: es ist nah, oder es ist sie).
 
-**Bilder aus dem Bau von Teil 2, auf die Teil 3 Rücksicht nehmen muss:**
+**Bilder aus dem Bau von Teil 2, auf die Teil 3 Rücksicht nehmen muss** (Stand nach dem Review von Teil 2):
 - Auf „slow and deep“ stehen zwei lange kalkweiße Füße auf dem Teppich über der Luke in Junes Zimmer, darüber der ausgefranste Saum. Junes Bett war dabei nicht im Bild.
-- Von unten verdunkeln die Sohlen die Lichtfugen über Elis Gesicht; auf „Ready?“ kriechen vier dunkle Fingerschatten mit kalt glimmenden Spitzen über die Fugen. Kein Finger kam durch einen Spalt (das bleibt für Teil 3).
-- Elis Taschenlampe ist aus (er hat sie auf „Something“ ausgeknipst). Tess ist auf dem Weg in den Glockenturm zuletzt gesehen worden.
+- Mister Hundred steht QUER zu den Dielenfugen über Elis Gesicht (Zehen zeigen zur Lüftungsgitter-Seite, +z). Von unten verdunkeln seine Sohlen mit vier Zehen die Lichtfugen; auf „bent“ sackt die Mitte etwa 10 cm durch, Staub rieselt.
+- Auf „One hundred“ wird das Licht oben dunkler, auf „Ready?“ legen sich vier Fingerschatten quer über die Fugen, an ihren Spitzen glimmt es kalt in den Fugen. Kein Finger kam durch einen Spalt (das bleibt für Teil 3).
+- June atmet auf „she stopped“ weißen Atem aus (Hinweis: kalt, es ist nah, oder es ist sie).
+- Elis Taschenlampe ist aus (er hat sie auf „Something“ ausgeknipst). Tess ist auf dem Weg in den Glockenturm zuletzt gesehen worden. Die Glocke hängt hinter einer offenen Schallluke zur Straße und ist in Teil 2 zu sehen.
+- Der Keller ist ab Teil 2 fast dunkel und kühl (eigenes Lichtpreset `kriechkeller`): einziges warmes Licht sind die Streifen durch die Fugen, die auch auf Elis Gesicht fallen.
 
 **Dialog:** Ziel 5–8 % der Wörter über die Serie (A3 nennt 4–7 Zeilen bei drei Teilen). Teil 1 liegt bei 4,5 %. Teil 2 hat mehr, nämlich 15 % samt Junes Zählen (June 6 Zeilen, Odell 2, Tess 1, Mister Hundred 2), weil indirekte Rede an den Schlüsselstellen tot wirkte. Über die Serie sind es mit den geplanten Zeilen von Teil 3 und 4 etwa 7–8 %. Eli spricht nie laut; das ist Teil der Figur und bindet die Regel „nie antworten“.
 

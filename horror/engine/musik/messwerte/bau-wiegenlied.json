@@ -9,23 +9,23 @@
  "laenge_s": 183.83,
  "cent": -40.0,
  "a4": 440.0,
- "verstaerkung_db": -0.86,
+ "verstaerkung_db": -0.58,
  "hall": {
   "rt60": 1.2,
   "vor_ms": 22,
-  "breite": 0.55,
+  "breite": 0.75,
   "hoehen": 0.45,
   "nass": 0.45
  },
  "varianten": {
   "duenn": {
    "datei": "build/musik/wiegenlied-duenn.wav",
-   "lufs": -24.21,
-   "spitze_dbfs": -9.38,
+   "lufs": -24.23,
+   "spitze_dbfs": -9.34,
    "naht": {
     "sprung_rel_p99": 0.01,
-    "pegel_nach_minus_vor_db": 7.04,
-    "innen_pegel_nach_minus_vor_db": 8.52
+    "pegel_nach_minus_vor_db": 6.1,
+    "innen_pegel_nach_minus_vor_db": 7.56
    },
    "pegel": {
     "kern": -3,
@@ -39,35 +39,35 @@
   "normal": {
    "datei": "build/musik/wiegenlied-normal.wav",
    "lufs": -20.0,
-   "spitze_dbfs": -5.75,
+   "spitze_dbfs": -5.68,
    "naht": {
     "sprung_rel_p99": 0.01,
-    "pegel_nach_minus_vor_db": 7.32,
-    "innen_pegel_nach_minus_vor_db": 8.89
+    "pegel_nach_minus_vor_db": 6.23,
+    "innen_pegel_nach_minus_vor_db": 7.75
    },
    "pegel": {
     "kern": 0,
     "orgelpunkt": -1,
     "fuell": -1,
-    "grund": -16,
+    "grund": -20,
     "glitzer": null,
     "flaeche": null
    }
   },
   "voll": {
    "datei": "build/musik/wiegenlied-voll.wav",
-   "lufs": -19.34,
-   "spitze_dbfs": -4.8,
+   "lufs": -19.37,
+   "spitze_dbfs": -4.82,
    "naht": {
     "sprung_rel_p99": 0.03,
-    "pegel_nach_minus_vor_db": 7.23,
-    "innen_pegel_nach_minus_vor_db": 6.65
+    "pegel_nach_minus_vor_db": 6.14,
+    "innen_pegel_nach_minus_vor_db": 5.71
    },
    "pegel": {
     "kern": 0,
     "orgelpunkt": -1,
     "fuell": -1,
-    "grund": -11,
+    "grund": -14,
     "glitzer": -5,
     "flaeche": -13
    }
@@ -75,16 +75,16 @@
  },
  "nachbesserung": {
   "komposition": {
-   "pan": 0.12,
-   "dynamik_db": 0.6,
+   "pan": 0.2,
+   "dynamik_db": 0.3,
    "lo": 62,
    "hi": 84,
-   "akzent": 80
+   "akzent": 78
   },
   "hall": {
    "rt60": 1.2,
    "nass": 0.45,
-   "breite": 0.55
+   "breite": 0.75
   },
   "klang": {
    "spieluhr_kamm": {
@@ -98,10 +98,10 @@
   },
   "varianten": {
    "normal": {
-    "grund": -16
+    "grund": -20
    },
    "voll": {
-    "grund": -11,
+    "grund": -14,
     "glitzer": -5,
     "flaeche": -13
    },

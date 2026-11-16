@@ -1,7 +1,7 @@
 // Requisite: ein Paar Schuhe. Zentrales Bild der Serie ("all that's left are your shoes, side by side").
 // Als Figur gebaut, damit die Episode es frei hinstellen und per "sichtbar" ein- und ausblenden kann.
 // params: art ('eli' | 'june' | 'dad' | 'owen' | 'tess' | 'grau' | 'nachbar'), ordnung ('nebeneinander' |
-//         'schief'), groesse. Ursprung am Boden zwischen den Schuhen, Spitzen zeigen nach +z.
+//         'schief' | 'getreten' = einer auf der Seite, weit auseinander), groesse. Ursprung am Boden zwischen den Schuhen, Spitzen zeigen nach +z.
 //
 // Review Folge 1: Die Schuhe sind das Leitmotiv, lasen sich aber als Seifenstücke oder Brotlaibe.
 // Darum hat die Requisite ein eigenes, genaueres Modell (die Figuren behalten ihre Schuhklötze):
@@ -109,7 +109,12 @@ export default async function baue(ctx, params = {}) {
     const schuh = baueSchuhDetail(ctx, stil, masse);
     // Ursprung von baueSchuhDetail liegt unten an der Sohle
     schuh.position.set(sx * (masse.b / 2 + 0.03), 0, 0);
-    if (schief) {
+    if (params.ordnung === 'getreten') {
+      // Review Teil 2: „kicked apart“ muss sich klar von „side by side“ abheben (wie Elis Turnschuhe in E36):
+      // ein Schuh liegt auf der Seite und ist um ~120° gedreht, Abstand über zwei Schuhlängen
+      if (sx > 0) { schuh.position.set(0.3, masse.b / 2, 0.3); schuh.rotation.set(0, 2.1, Math.PI / 2 * 0.95); }
+      else { schuh.position.set(-0.24, 0, -0.26); schuh.rotation.y = -0.45; }
+    } else if (schief) {
       schuh.position.x += sx * 0.06 + (z() - 0.5) * 0.1;
       schuh.position.z += (z() - 0.5) * 0.2;
       schuh.rotation.y = (z() - 0.5) * 1.6;

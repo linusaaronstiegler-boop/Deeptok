@@ -301,7 +301,7 @@ gruppe ─ huefte (Höhe = Beinlänge) ─┬ rumpf ─┬ kopf
 
 ## 9. Licht, Lichtereignisse, Partikel
 
-**Presets** (`src/licht.js`): `nacht` (blauer Himmel mit Mond und Sternen, Mondlicht von hinten-oben, Nebel), `daemmerung` (violett-rosa Verlauf, tiefe warme Sonne), `innen_warm`, `tag`. Jedes Preset setzt Himmel, Nebel (FogExp2), Himmel-/Bodenlicht, Hauptlicht mit weichen Schatten (PCF, 2048er Karte, `weich` = Radius) und Kantenlicht, dazu Belichtung und Farbstimmung. Die Zahl der Lichter ist immer gleich; ein Preset-Wechsel am Schnitt kostet deshalb keine Shader-Übersetzung. Die Schattenkarte deckt je Einstellung `schatten_bereich` m (Std 24) um das Kameraziel am Einstellungsbeginn ab und bleibt in der Einstellung fest (kein Flimmern).
+**Presets** (`src/licht.js`): `nacht` (blauer Himmel mit Mond und Sternen, Mondlicht von hinten-oben, Nebel), `daemmerung` (violett-rosa Verlauf, tiefe warme Sonne), `innen_warm`, `tag`, `kriechkeller` (Review Teil 2: fast dunkel und kühl, Himmel-/Bodenlicht 0,55; das warme Hauptlicht steht fast senkrecht und fällt nur durch die Dielenfugen, dazu die Taschenlampe des Sets). Jedes Preset setzt Himmel, Nebel (FogExp2), Himmel-/Bodenlicht, Hauptlicht mit weichen Schatten (PCF, 2048er Karte, `weich` = Radius) und Kantenlicht, dazu Belichtung und Farbstimmung. Die Zahl der Lichter ist immer gleich; ein Preset-Wechsel am Schnitt kostet deshalb keine Shader-Übersetzung. Die Schattenkarte deckt je Einstellung `schatten_bereich` m (Std 24) um das Kameraziel am Einstellungsbeginn ab und bleibt in der Einstellung fest (kein Flimmern).
 
 Review Folge 1: `nacht` ist um etwa eine Blende heller (Himmel/Boden 1,3 → 2,3, Mond 1,5 → 2,6, Kante 0,6 → 1,4, Belichtung 1,2 → 1,4, hellerer Horizont), weil die Folge mit Bild-Median 55 von 255 weit dunkler war als r2 (102) und r5 (106). Figurenteile aus `src/klotzfigur.js` haben ein schwaches Kantenlicht.
 
@@ -355,7 +355,7 @@ Tiefenunschärfe nur in Nah- und Detailaufnahmen einschalten (`einstellung.tiefe
 ```
 node render.mjs <episode.json> [Optionen]
   --von <s> --bis <s>      Zeitbereich (bis exklusiv)       --bilder <a>-<b>   Bildbereich (inklusiv)
-  --einzelbild <s>         ein Probebild als JPG            --prozesse <n>     parallele Chromium (2 empfohlen)
+  --einzelbild <s>[,<s>…]  Probebilder als JPG (Liste)     --prozesse <n>     parallele Chromium (2 empfohlen)
   --format png|jpg         Einzelbilder (Std png)           --qualitaet <0..1> JPEG-Qualität (0.92)
   --skala <f>              0.5333 = 576×1024-Entwurf        --aus <ordner>     Std horror/build/<episode>/
   --ton <datei>            Tonspur ins MP4                  --crf <n>          H.264-Qualität (18)
@@ -427,7 +427,7 @@ Kein R6/R15-Nachbau: Kopf ≈ 30 % der Höhe (R6 ≈ 20 %), Würfel mit runden K
 | Modul | Figur | Erkennungsmerkmal | params |
 |---|---|---|---|
 | `eli` | Eli Marsh, 18, Erzähler | grüne Kapuzenjacke, Kapuze im Nacken, abstehende Strähne | `groesse` |
-| `june` | June Marsh, 24 | senfgelbe Strickjacke mit Knopfklötzen, roter Zopf (eigenes Gelenk `zopf`), bernsteinfarbene Augen | `rueckblende` (offene Haare), `barfuss`, `groesse` |
+| `june` | June Marsh, 24 | senfgelbe Strickjacke mit Knopfklötzen, roter Zopf (eigenes Gelenk `zopf`), bernsteinfarbene Augen | `rueckblende` (offene Haare), `barfuss` (nackte Füße mit fünf Zehen, Schuhart `barfuss` in `src/klotzfigur.js`), `groesse` |
 | `dad` | Tom Marsh, 48 (Rückblende) | Arbeitsjacke mit Reflexstreifen, Strickmütze, Bartklotz, braune Stiefel | `groesse` |
 | `owen` | Owen Pike, 18 (Rückblende) | orange Jägermütze, schwarzes T-Shirt (kurze Ärmel), Stiefel mit orangen Senkeln | `groesse` |
 | `tess` | Tess Lowry, 18 (Teil 2/3) | weißer Bob, lila Bomberjacke, lila High-Tops | `groesse` |
@@ -462,13 +462,14 @@ Etwa 7 m, dünn, langer dunkelgrauer Mantel mit A-Linie und stufig ausgefranstem
 | `stapfen` (auch `gehen`) | 3,6 s, linear | `nach`, `von`, `schritt` 0,9, `schwung` 13, `halt_im_schritt` | schwer, Hüfte sackt beim Auftreten (Satz 7: bleibt mitten im Schritt stehen) |
 
   Gemeinsame Animationen wie `kopf_drehen` (0,2–0,7 s, `ease_in`) funktionieren ebenfalls.
+- **params (Review Teil 2):** `ellbogen_pol` [x, y, z] (Pol der Arm-IK, Std [1, 0.32, −0.25]), `ellbogen_spitze` (Länge der Ellbogenspitze, Std 1), `spitzen_glut` (Leuchten der Fingerspitzen, Std 1,6), `naegel` (Farbe), `mantel` { farbe, saum, kante, exponent }. Teil 2 nimmt dunklen Mantel `#34363f` mit schmaler Kante, kurze Spitzen, gedämpfte dunkle Nägel: In Dämmerung und Untersicht las sich die Figur sonst weiß, „jubelnd“ und mit Kerzen statt Fingern.
 - **Anker:** `kopf`, `augen`, `mund` (vor den Händen, für Atemdampf), `auge`, `haende`, `ueber_kopf`, `brust`, `ruecken`, `huefte`, `knie`, `hand_l/r`, `fuss_l/r`, `fuss`.
 
 ### 15.3 Requisiten (als Figuren, damit die Episode sie stellt und bewegt)
 
 | Modul | Zweck | params | Animationen / Anker |
 |---|---|---|---|
-| `schuhpaar` | „your shoes, side by side“: eigenes, genaueres Modell (`baueSchuhDetail`: Sohle, flache Zehenkappe, höhere Ferse, Rist mit Schnürung, dunkle Öffnung mit Polsterrand, Fersenkappe, Streifen), schlank wie ein echter Schuh; „grau“ ist hell mit Navy-Akzent | `art` eli/june/dad/owen/tess/grau/nachbar, `ordnung` nebeneinander/schief | Anker `mitte` |
+| `schuhpaar` | „your shoes, side by side“: eigenes, genaueres Modell (`baueSchuhDetail`: Sohle, flache Zehenkappe, höhere Ferse, Rist mit Schnürung, dunkle Öffnung mit Polsterrand, Fersenkappe, Streifen), schlank wie ein echter Schuh; „grau“ ist hell mit Navy-Akzent | `art` eli/june/dad/owen/tess/grau/nachbar, `ordnung` nebeneinander/schief/getreten (einer auf der Seite, ~120° gedreht, 0,75 m auseinander) | Anker `mitte` |
 | `tuer` | Tür, die aufgeht (Set lässt dann das feste Blatt weg) | `breite`, `hoehe`, `farbe`, `anschlag` links/rechts, `fenster`, `offen` | `oeffnen` {`winkel` 85; negativ = nach vorn}, `schliessen`; Anker `griff_vorn/hinten` (bewegen sich mit), `mitte`, `angel` |
 | `luke` | Bodenluke in Junes Zimmer | `teppich` (Ring zeichnet sich ab) | `oeffnen` {`winkel` 105}, `schliessen`; Anker `ring`, `mitte`, `schacht` |
 | `pickup` | Owens hellblauer Pick-up | `farbe`, `stiefel` (Owens Stiefel auf dem Sitz), `scheinwerfer` | `fahren` {`nach`, `von`; Räder drehen passend, Std `ease_in`}, `tuer_auf` {`winkel` 62}, `tuer_zu`; Anker `auspuff` (Partikel `atem` = Dampf), `sitz`, `fahrertuer`, `motorhaube`, `ladeflaeche`, `mitte` |
@@ -579,16 +580,16 @@ Gegenüber der Testszene (0,29 s/Bild) kosten die echten Sets etwa das 1,4- bis 
 
 | Baustein | Datei | Zweck, Schnittstelle |
 |---|---|---|
-| Set `kriechkeller` | `sets/kriechkeller.js` | Kriechkeller unter Junes Zimmer als eigener Raum (in Teil 2 bei `position [300, 0, 0]`, allein gezeigt). Erdboden, Grundmauern mit Lüftungsgitter, Balken, Ziegelpfeiler, schmale Dielen (8,5 cm) mit 3-cm-Fugen, biegsam. Über den Dielen leuchtet eine Fläche (Junes Zimmer); die Lichtstreifen entstehen, weil man durch die Fugen wirklich auf diese Fläche sieht. Was oben steht, verdeckt sie: Sohlenschatten unter Mister Hundred (die echte Figur steht bei Dielen-Oberkante + 1,6 cm) und eine flache Hand mit kaltem Saum und glimmenden Spitzen. Ereignisse über `params.ereignisse`: `biegen` {tiefe, mitte, radius}, `fuesse` {mitte}, `finger` {von, nach, drehung, spreizen}, `glut`. Lichtgruppen `keller.oben`, `keller.lukenrand`, `keller.lampe` (Taschenlampe: Punktlicht, Kegel, Lichtfleck), `keller.gitter`. Anker `luke_angel` (Requisite `luke` mit `groesse [0.8, 0.8]`), `dielen_mitte`, `fuesse`, `lampe`. Kamerapunkte `pov` (fast senkrecht nach oben, sonst verdeckt die Brettkante die Fugen), `luke_unten`, `totale`, `halbnah` |
+| Set `kriechkeller` | `sets/kriechkeller.js` | Kriechkeller unter Junes Zimmer als eigener Raum (in Teil 2 bei `position [300, 0, 0]`, allein gezeigt). Erdboden, Grundmauern mit Lüftungsgitter, Balken, Ziegelpfeiler, schmale Dielen (7,5 cm) mit 4,2-cm-Fugen (Review Teil 2, vorher 8,5/3 cm), biegsam. Über den Dielen leuchtet eine Fläche (Junes Zimmer); die Lichtstreifen entstehen, weil man durch die Fugen wirklich auf diese Fläche sieht. Was oben steht, verdeckt sie und wirft Schatten: Sohlen mit vier Zehen unter Mister Hundred (die echte Figur steht bei Dielen-Oberkante + 1,6 cm, quer zu den Fugen) und eine flache Hand mit schmalem kaltem Saum und hell glimmenden Spitzen. Ereignisse über `params.ereignisse`: `biegen` {tiefe, mitte, radius}, `fuesse` {mitte = Standpunkt, drehung = blick}, `finger` {von, nach, drehung, spreizen, skala, spreiz_dauer}, `glut`. params `oben` (Leuchten der Fugen, Std 2,0), `kegel` (Std 0,22), `lampe_staerke` (Std 2,4). Lichtgruppen `keller.oben`, `keller.lukenrand`, `keller.lampe` (Taschenlampe: Punktlicht, Kegel, Lichtfleck), `keller.gitter`. Anker `luke_angel` (Requisite `luke` mit `groesse [0.8, 0.8]`), `dielen_mitte`, `fuesse`, `lampe`. Kamerapunkte `pov` (fast senkrecht nach oben, sonst verdeckt die Brettkante die Fugen), `luke_unten`, `totale`, `halbnah` |
 | Set `reifspur` | `sets/reifspur.js` | Reif auf dem Rasen der Marshs mit der Spur von Mister Hundred: von Junes Seitenfenster an der Hauswand entlang in den Vorgarten, Zehen VOM Fenster WEG (Hinweis fürs Wiederansehen). Eine Leinwand-Textur auf einer Fläche, Abdrücke 0,95 m mit vier Zehen. Anker `spur_fenster`, `spur_ecke`, `spur_garten`, `june_fenster`, `abdruck_<n>`; Kamerapunkte `draufsicht`, `entlang`, `fenster` |
 | Requisite `vorhang` | `figuren/vorhang.js` | Elis Vorhang: zwei Stoffbahnen mit Falten. Animationen `zuziehen` (0,25 s, ein Ruck), `aufziehen` {spalt, seite}. Anker `griff_r/l` (wandern mit der Bahn, die Hand folgt per IK), `mitte`. Mit `marsh_innen` `vorhang_als_figur: true` an Anker `haus.vorhang_stange`, `blick −90` |
 | `marsh_innen` | `sets/marsh_innen.js` | `vorhang_als_figur`, `tueren_als_figur: ["june"]` (Junes Tür als Requisite `tuer` an `haus.june_tuer_angel`, `blick 180`; negativer Winkel öffnet in Junes Zimmer). Achtung: Neben Junes Tür steht im Flur eine Konsole mit Lampe; Kameras dort mit `lampen_einzeln: { "haus.flur_lampe": false }` |
 | `marsh_haus` | `sets/marsh_haus.js` | Anker `june_fenster` (Junes Seitenfenster außen) |
-| `hauptstrasse` | `sets/hauptstrasse.js` | Die Glocke hängt an einem Drehpunkt und pendelt gedämpft nach jedem Schlag: `params.glocke.schlaege` oder Set-Ereignis `glocke` |
+| `hauptstrasse` | `sets/hauptstrasse.js` | Die Glocke hängt an einem Drehpunkt und pendelt gedämpft nach jedem Schlag: `params.glocke.schlaege` oder Set-Ereignis `glocke`. `params.glocke.offen` (Review Teil 2): Glockenstube mit offener Schallluke zur Straße und dunkler Innenwand, die Glocke ist von der Straße aus zu sehen |
 | `luke` | `figuren/luke.js` | Animation `teppich_rollen` {rest}: der Teppich rollt sich zur fernen Kante auf |
 | `eli` | `figuren/eli.js` | `params.rucksack`: Rucksack auf dem Rücken, Anker `rucksack` am rechten Träger |
 
-Liegende Figuren (`pose: "liegen"`) schauen nach oben, der Kopf zeigt nach lokal −z. Für Nahaufnahmen den Kopf mit `pose_params.kopf` zur Kamera drehen und die Kamera rollen (`kamera.roll`, Teil 2: 70°), sonst steht das Gesicht quer im Bild. Atemdampf liegender Figuren braucht `richtung: [0, 1, 0]`.
+Liegende Figuren (`pose: "liegen"`) schauen nach oben, der Kopf zeigt nach lokal −z. Für Nahaufnahmen den Kopf mit `pose_params.kopf` zur Kamera drehen und die Kamera rollen (`kamera.roll`, Teil 2: −90°; die ersten +70° stellten das Gesicht auf den Kopf), sonst steht das Gesicht quer im Bild. Die Kopf-oben-Regel des Schnellbogens (16.4) misst das nach. Atemdampf liegender Figuren braucht `richtung: [0, 1, 0]`.
 
 ## 16. Shotliste, Messtor, Kontaktbogen
 
@@ -645,6 +646,10 @@ Danach prüft der Compiler die Datei gegen `episode.schema.json` (Python-jsonsch
 
 `render.mjs --schnellbogen` rendert nur das Bild `plan.bogen_zeit` jeder Einstellung (nach der Hauptaktion bzw. Ankunft der Fahrt), beschriftet mit Nummer, Zeit und Text, und legt Bögen zu je 18 Bildern plus einen Gesamtbogen nach `horror/build/<folge>/`. Für jede Einstellung wird `plan.hauptsache` ins Bild projiziert: Sie muss im mittleren Drittel liegen (x 360–720, y 640–1150 bei 1080 × 1920), und ist sie ein Kopf, darf der Mund nicht im Untertitel-Streifen mit Rand (y 1080–1320) liegen. Verstöße stehen rot im Bogen und in `komposition.json`.
 
+Review Teil 2:
+- **Kopf-oben-Regel (Tor, bricht mit Fehler ab):** Für jede sichtbare Figur mit Menschengesicht (`plan.sichtbar`, Module eli, june, dad, owen, tess, odell, nachbar), deren Kopf im Bild liegt, wird der Vektor Kopfmitte → `ueber_kopf` projiziert. Er darf höchstens 30° von „oben im Bild“ abweichen (Draufsichten unter 12 px zählen nicht). Anlass: Elis liegendes Gesicht stand im Höhepunkt auf dem Kopf und las sich als Grinsen.
+- **Augen:** Ist die Hauptsache ein Kopf, dürfen weder Mund noch Augen im Untertitel-Streifen liegen.
+
 ### 16.5 Folge 1 in Zahlen (Messtor)
 
 Nach dem Review (REVIEW.md im Episoden-Ordner): 58 Einstellungen plus Endkarte, 87,27 s. Median 1,40 s, 40,3 Einstellungen/min, kürzeste 0,77 s, längste 2,50 s. 14 Akzentfahrten (im Mittel alle 6,2 s, größte Lücke 8,9 s), 3 Snap-Zooms, 2-mal Wackeln, 3 Lichtereignisse, Monster in 24,1 % der Einstellungen, Körperaktion in 64 % (Spec 35–55 %: etwas viel, kein Abbruch). Endkarte 0,147 s nach dem letzten Wort. Kompositionsprüfung: 57 von 57 Einstellungen ohne Verstoß.
@@ -652,7 +657,7 @@ Nach dem Review (REVIEW.md im Episoden-Ordner): 58 Einstellungen plus Endkarte, 
 ### 16.6 Erweiterungen für Teil 2
 
 - **Set-Ereignisse:** `haupt: { art: "set", set: "keller", was: "biegen", wort, dauer, params }` (Anker `ende` wie bei Aktionen) und `set_ereignisse: [{ set, was, wort, versatz, dauer, … }]` für Nebenbei-Ereignisse. Der Compiler legt sie mit Sekunden nach `sets[].params.ereignisse`; das Set rechnet daraus in `aktualisiere(t)`. `was: "uhr"` bleibt wie bisher.
-- **Ort `kriechkeller`** → Set `keller`; **Licht `kriechkeller`** = `innen_warm` mit schwachem kühlem Füll-Licht (Hemisphäre 2,4), Lampen der anderen Sets aus, Schattenbereich 10 m.
+- **Ort `kriechkeller`** → Set `keller`; **Licht `kriechkeller`** = eigenes Preset `kriechkeller` (Review Teil 2; vorher `innen_warm` mit Hemisphäre 2,4, Median 96, las sich gemütlich), Lampen der anderen Sets aus, Schattenbereich 10 m.
 - Endkarte: Text aus `regie.endkarte.text` („PART 3“), Zahl als Set-Parameter `karte.params.zahl`.
 - Folge 2 in Zahlen (Messtor): 61 Einstellungen plus Endkarte, 86,93 s. Median 1,40 s, 42,6 je Minute, kürzeste 0,83 s, längste 2,13 s. 14 Akzentfahrten (im Mittel alle 6,1 s, größte Lücke 8,0 s), 2 Snap-Zooms, 3-mal Wackeln, 3 Lichtereignisse, Monster in 16,4 % der Einstellungen, Endkarte 0,143 s nach dem letzten Wort. Vier Sätze laufen ohne eigenen Schnitt oder wurden geteilt, damit keine Einstellung unter 0,7 s oder über 2,5 s liegt (`bildideen.json`, Hinweise „Bau Teil 2“).
 
@@ -701,7 +706,7 @@ Einzeln: `python engine/untertitel.py episoden/folge-01 --tabelle`, `python engi
 
 - Untertitel-Sync wird nicht aus der ASS abgeleitet, sondern gemessen: Die ASS wird allein auf Schwarz gerendert (dieselbe libass), jede Einblendung muss genau auf ihrem Bild wechseln. Der Wortbeginn kommt aus dem Ton des MP4: Versatz zur Master-WAV per Kreuzkorrelation; nach Lücken der akustische Einsatz (≥ 30 ms unter −40 dBFS, dann über −35 dBFS), mitten im Satz Whisper. Whisper allein legt das erste Wort nach einer Pause oft 0,2–0,7 s zu früh in die Stille, das ist kein Sync-Fehler.
 - Stillstand: mittlere Änderung zum Vorbild < 0,15 Graustufen (bei 108 × 192), länger als 0,33 s außerhalb der Endkarte ist ein Verstoß.
-- Helligkeits-Tor (Review Folge 1): Median der Bildhelligkeit ≥ 85 von 255, keine Einstellung im Mittel unter 35. Balken-Tor: kein Bild mit fast schwarzen Spalten über 10 % der Breite. Kantendichte wird berichtet (r2 16,5 %, r5 13,3 %).
+- Helligkeits-Tor (Review Folge 1): Median der Bildhelligkeit ≥ 85 von 255, keine Einstellung im Mittel unter 35. Review Teil 2: Der Kriechkeller (`DUNKLE_ORTE`) zählt nicht zum Median und darf je Einstellung bis 22 herunter (r2, dunkle Strecke: 25–30). Leerbild-Tor: kein Bild mit Streuung unter 12 in den ersten 0,5 s einer Einstellung (E40 begann 0,8 s in einer Fläche; der Schnellbogen zeigt nur das Planbild). Balken-Tor: kein Bild mit fast schwarzen Spalten über 10 % der Breite. Kantendichte wird berichtet (r2 16,5 %, r5 13,3 %).
 
 ### 17.5 Folge 1 in Zahlen
 

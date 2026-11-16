@@ -19,7 +19,7 @@
     "wer": "Odell",
     "von_s": 35.76,
     "bis_s": 38.55,
-    "halbtoene": -1.5,
+    "halbtoene": -4.5,
     "db": -1.0
    },
    {
@@ -64,10 +64,10 @@
    "whoosh",
    "zaehlschlag"
   ],
-  "cues": 12,
-  "abstand_min_lu": 7.6,
-  "abstand_median_lu": 10.1,
-  "lufs_integriert_allein": -27.49,
+  "cues": 13,
+  "abstand_min_lu": 6.4,
+  "abstand_median_lu": 11.9,
+  "lufs_integriert_allein": -28.04,
   "liste": [
    {
     "nr": 0,
@@ -91,102 +91,112 @@
    },
    {
     "nr": 2,
+    "klang": "klopfen",
+    "wort": "When",
+    "zeit_s": 5.69,
+    "db": -13,
+    "fx_max_lufs": -31.9,
+    "abstand_zur_stimme_lu": 17.6,
+    "stimme_dort_lufs": -12.2
+   },
+   {
+    "nr": 3,
     "klang": "sub_boom",
     "wort": "window.",
     "zeit_s": 11.6,
     "db": -13,
-    "fx_max_lufs": -25.1,
-    "abstand_zur_stimme_lu": 10.9,
+    "fx_max_lufs": -25.9,
+    "abstand_zur_stimme_lu": 11.6,
     "stimme_dort_lufs": -10.8
    },
    {
-    "nr": 3,
+    "nr": 4,
     "klang": "glocke",
     "wort": "bell,",
     "zeit_s": 29.66,
-    "db": -17,
-    "fx_max_lufs": -21.9,
-    "abstand_zur_stimme_lu": 7.6,
+    "db": -22,
+    "fx_max_lufs": -28.0,
+    "abstand_zur_stimme_lu": 13.8,
     "stimme_dort_lufs": -13.6
    },
    {
-    "nr": 4,
+    "nr": 5,
     "klang": "zaehlschlag",
     "wort": "counting.",
     "zeit_s": 30.64,
-    "db": -12,
-    "fx_max_lufs": -21.9,
-    "abstand_zur_stimme_lu": 7.6,
+    "db": -17,
+    "fx_max_lufs": -28.1,
+    "abstand_zur_stimme_lu": 13.9,
     "stimme_dort_lufs": -10.1
-   },
-   {
-    "nr": 5,
-    "klang": "klopfen",
-    "wort": "side",
-    "zeit_s": 51.58,
-    "db": -9,
-    "fx_max_lufs": -25.8,
-    "abstand_zur_stimme_lu": 11.6,
-    "stimme_dort_lufs": -11.3
    },
    {
     "nr": 6,
     "klang": "klopfen",
-    "wort": "side.",
-    "zeit_s": 52.04,
+    "wort": "side",
+    "zeit_s": 51.58,
     "db": -9,
-    "fx_max_lufs": -25.8,
-    "abstand_zur_stimme_lu": 11.6,
+    "fx_max_lufs": -27.4,
+    "abstand_zur_stimme_lu": 13.1,
     "stimme_dort_lufs": -11.3
    },
    {
     "nr": 7,
+    "klang": "klopfen",
+    "wort": "side.",
+    "zeit_s": 52.04,
+    "db": -9,
+    "fx_max_lufs": -27.4,
+    "abstand_zur_stimme_lu": 13.1,
+    "stimme_dort_lufs": -11.3
+   },
+   {
+    "nr": 8,
     "klang": "riegel",
     "wort": "closed",
     "zeit_s": 65.45,
     "db": -12,
-    "fx_max_lufs": -27.5,
-    "abstand_zur_stimme_lu": 13.2,
+    "fx_max_lufs": -26.2,
+    "abstand_zur_stimme_lu": 11.9,
     "stimme_dort_lufs": -11.2
    },
    {
-    "nr": 8,
+    "nr": 9,
     "klang": "glocke",
     "wort": "struck",
-    "zeit_s": 74.8,
+    "zeit_s": 74.88,
     "db": -14,
-    "fx_max_lufs": -23.4,
-    "abstand_zur_stimme_lu": 9.1,
+    "fx_max_lufs": -23.7,
+    "abstand_zur_stimme_lu": 9.4,
     "stimme_dort_lufs": -12.1
    },
    {
-    "nr": 9,
+    "nr": 10,
     "klang": "knarzen",
     "wort": "bent",
     "zeit_s": 78.65,
     "db": -10,
-    "fx_max_lufs": -21.8,
-    "abstand_zur_stimme_lu": 7.6,
+    "fx_max_lufs": -20.7,
+    "abstand_zur_stimme_lu": 6.4,
     "stimme_dort_lufs": -13.6
    },
    {
-    "nr": 10,
+    "nr": 11,
     "klang": "zaehlschlag",
     "wort": "hundred.\"",
     "zeit_s": 84.15,
     "db": -11,
-    "fx_max_lufs": -22.9,
-    "abstand_zur_stimme_lu": 8.6,
+    "fx_max_lufs": -23.4,
+    "abstand_zur_stimme_lu": 9.1,
     "stimme_dort_lufs": -12.7
    },
    {
-    "nr": 11,
+    "nr": 12,
     "klang": "sub_boom",
     "wort": "\"Ready?\"",
     "zeit_s": 85.45,
     "db": -11,
-    "fx_max_lufs": -23.8,
-    "abstand_zur_stimme_lu": 9.6,
+    "fx_max_lufs": -24.5,
+    "abstand_zur_stimme_lu": 10.2,
     "stimme_dort_lufs": -13.7
    }
   ]
@@ -194,43 +204,43 @@
  "upload": {
   "eingang": {
    "lufs": -14.21,
-   "true_peak_dbtp": -1.88,
+   "true_peak_dbtp": -2.4,
    "lra_lu": 2.8
   },
   "verstaerkung_db": 0.21,
-  "decke_dbfs": -1.8,
-  "runden": 1,
-  "begrenzer_max_db": 0.12,
-  "begrenzer_rahmen_ueber_1db_prozent": 0.0,
-  "ausgang": {
-   "lufs": -14.0,
-   "true_peak_dbtp": -1.8,
-   "lra_lu": 2.8
-  }
- },
- "vorhoer": {
-  "eingang": {
-   "lufs": -14.07,
-   "true_peak_dbtp": -1.89,
-   "lra_lu": 3.0
-  },
-  "verstaerkung_db": 0.07,
   "decke_dbfs": -1.8,
   "runden": 1,
   "begrenzer_max_db": 0.03,
   "begrenzer_rahmen_ueber_1db_prozent": 0.0,
   "ausgang": {
    "lufs": -14.0,
-   "true_peak_dbtp": -1.82,
-   "lra_lu": 2.9
+   "true_peak_dbtp": -2.19,
+   "lra_lu": 2.8
+  }
+ },
+ "vorhoer": {
+  "eingang": {
+   "lufs": -14.09,
+   "true_peak_dbtp": -2.01,
+   "lra_lu": 2.6
+  },
+  "verstaerkung_db": 0.09,
+  "decke_dbfs": -1.8,
+  "runden": 1,
+  "begrenzer_max_db": 0.04,
+  "begrenzer_rahmen_ueber_1db_prozent": 0.0,
+  "ausgang": {
+   "lufs": -13.99,
+   "true_peak_dbtp": -1.92,
+   "lra_lu": 2.6
   },
   "bett": {
    "datei": "/home/user/Deeptok/horror/build/musik/spannung-hiding-night-teil2.wav",
-   "sha256": "bd27b800e33d8dafe1191d6d9ced6595f6218ff0d10e00fcc55a2dd9ace8248a",
-   "lufs_roh": -20.58,
+   "sha256": "b6ed9529c5107f6689d3e1c83189b8e8487888ca13e7d8cbc866e05fe15d67f5",
+   "lufs_roh": -19.69,
    "bezug_lufs": -20.0,
-   "abstand_zur_stimme_lu": 11.0,
-   "lufs_im_mix_vor_norm": -25.84
+   "abstand_zur_stimme_lu": 12.0,
+   "lufs_im_mix_vor_norm": -25.94
   }
  },
  "regel": {
@@ -243,13 +253,13 @@
   "kbit": 192,
   "upload": {
    "lufs": -14.05,
-   "true_peak_dbtp": -1.62,
+   "true_peak_dbtp": -2.34,
    "lra_lu": 2.8
   },
   "vorhoer": {
-   "lufs": -14.06,
-   "true_peak_dbtp": -1.76,
-   "lra_lu": 2.9
+   "lufs": -14.05,
+   "true_peak_dbtp": -1.9,
+   "lra_lu": 2.6
   },
   "decken_dbfs": {
    "upload": -1.8,

@@ -22,6 +22,10 @@ JSON (alle Zeiten in Sekunden der Folge):
                   | ab_wort (Index in timing.json, Wortbeginn); dazu versatz_s (Std 0).
                   stufe: duenn | normal | voll | weg. blende_s überschreibt uebergang_s.
                   grund: freier Text (wird nur mitgeschrieben).
+                  pegel_db: Pegel-Versatz der ganzen Musik ab diesem Punkt (Std 0), mit derselben Blende.
+                  Review Teil 2: Die Stufen unterscheiden sich über die Instrumente, kaum über die Lautstärke
+                  (Referenz r5: Hook lauter, danach flach). So hebt pegel_db den Hook an und gleicht „dünn“
+                  bis auf etwa 1 LU an „normal“ an.
   ausblenden_s    Blende am Ende (Std 0.5)
 """
 
@@ -100,6 +104,22 @@ def verlaeufe(stil: dict, punkte: list[dict], n: int, std_blende: float) -> dict
     return kurven
 
 
+def pegel_kurve(punkte: list[dict], n: int, std_blende: float) -> np.ndarray:
+    """Gesamtpegel in dB aus pegel_db der Punkte, überblendet wie die Stufen (Review Teil 2)."""
+    t = np.arange(n) / SR
+    k = np.full(n, float(punkte[0].get("pegel_db", 0.0)) if punkte and punkte[0]["zeit_s"] <= 0 else 0.0)
+    for p in punkte:
+        if p["stufe"] == "weg" and "pegel_db" not in p:
+            continue                       # ein Wegfall behält den Pegel für den Wiedereinsatz
+        z = float(p.get("pegel_db", 0.0))
+        b = float(p.get("blende_s", std_blende))
+        a = p["zeit_s"]
+        w = np.clip((t - a) / max(b, 1e-3), 0, 1)
+        vorher = k.copy()
+        k = np.where(t < a, vorher, vorher[min(n - 1, int(a * SR))] * (1 - w) + z * w)
+    return k
+
+
 def rendern(cfg: dict, name: str) -> tuple[np.ndarray, dict]:
     stil = bauen.stil_laden(cfg["stil"], 2)
     info_bau = json.loads((HORROR / "build" / "musik" / f"{cfg['stil']}.json").read_text())
@@ -129,6 +149,9 @@ def rendern(cfg: dict, name: str) -> tuple[np.ndarray, dict]:
     # Pegelverlauf in dB an mischen() geben: Verlauf 0 -> sehr leise statt -inf
     pegel = {s: 20 * np.log10(np.maximum(kurven[s], 1e-6)) for s in schichten}
     y = bauen.mischen(stil, schichten, pegel, zyklisch=False)
+    # Gesamtpegel (pegel_db) nach dem Hall: so klingt auch der Hall eines angehobenen Hooks lauter
+    g = 10 ** (pegel_kurve(punkte, n + nachlauf, cfg.get("uebergang_s", 1.5)) / 20)
+    y = y * g[: len(y), None] if y.ndim == 2 else y * g[: len(y)]
     y = y[:n] * 10 ** (info_bau["verstaerkung_db"] / 20)
     ab = klang.sek(cfg.get("ausblenden_s", 0.5))
     y[-ab:] *= np.linspace(1, 0, ab)[:, None]

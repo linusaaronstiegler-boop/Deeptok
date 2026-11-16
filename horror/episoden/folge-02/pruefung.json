@@ -20,7 +20,7 @@
     "dauer_s": 86.932993,
     "kbit": 192
    },
-   "megabyte": 153.7
+   "megabyte": 152.0
   },
   "vorhoer": {
    "video": {
@@ -39,9 +39,9 @@
     "kanaele": 2,
     "abtastrate": 44100,
     "dauer_s": 86.932993,
-    "kbit": 198
+    "kbit": 201
    },
-   "megabyte": 153.7
+   "megabyte": 152.1
   }
  },
  "dauer": {
@@ -54,12 +54,12 @@
  },
  "hoer_check": {
   "upload": {
-   "wer": 0.0178,
+   "wer": 0.0142,
    "fehler": [
     {
-     "skript": "helper too",
-     "gehoert": "help or two",
-     "zeit_s": 36.3
+     "skript": "lay",
+     "gehoert": "laid",
+     "zeit_s": 68.24
     }
    ],
    "schreibweisen": [
@@ -71,21 +71,21 @@
     {
      "skript": "odell",
      "gehoert": "o'dell",
-     "zeit_s": 34.38
+     "zeit_s": 34.36
+    },
+    {
+     "skript": "too",
+     "gehoert": "to",
+     "zeit_s": 36.54
     }
    ],
    "eingefuegt": [],
    "n_skript": 281,
-   "n_gehoert": 282,
+   "n_gehoert": 281,
    "unsicher": [
     {
-     "wort": "Mister",
-     "p": 0.49,
-     "zeit_s": 0.0
-    },
-    {
      "wort": "Hundred",
-     "p": 0.24,
+     "p": 0.23,
      "zeit_s": 0.3
     },
     {
@@ -95,96 +95,135 @@
     },
     {
      "wort": "Mr.",
-     "p": 0.0,
+     "p": 0.01,
      "zeit_s": 27.94
     },
     {
-     "wort": "\"It",
-     "p": 0.23,
-     "zeit_s": 35.82
-    },
-    {
-     "wort": "June",
-     "p": 0.11,
-     "zeit_s": 56.86
+     "wort": "Only",
+     "p": 0.08,
+     "zeit_s": 31.04
     },
     {
      "wort": "\"It",
-     "p": 0.03,
-     "zeit_s": 58.16
+     "p": 0.26,
+     "zeit_s": 35.42
+    },
+    {
+     "wort": "too.\"",
+     "p": 0.45,
+     "zeit_s": 36.54
+    },
+    {
+     "wort": "Nobody",
+     "p": 0.19,
+     "zeit_s": 42.16
+    },
+    {
+     "wort": "I",
+     "p": 0.49,
+     "zeit_s": 46.74
+    },
+    {
+     "wort": "lay",
+     "p": 0.46,
+     "zeit_s": 68.24
+    },
+    {
+     "wort": "My",
+     "p": 0.43,
+     "zeit_s": 79.34
     }
    ],
    "versatz_zu_timing_median_ms": 0.0,
-   "versatz_zu_timing_p90_ms": 50.0
+   "versatz_zu_timing_p90_ms": 100.0
   },
   "vorhoer": {
-   "wer": 0.0214,
-   "fehler": [
-    {
-     "skript": "helper too",
-     "gehoert": "help or two",
-     "zeit_s": 36.3
-    },
-    {
-     "skript": "lay",
-     "gehoert": "laid",
-     "zeit_s": 68.3
-    }
-   ],
+   "wer": 0.0107,
+   "fehler": [],
    "schreibweisen": [
     {
-     "skript": "mister",
-     "gehoert": "mr",
-     "zeit_s": 27.94
+     "skript": "odell",
+     "gehoert": "o'dell",
+     "zeit_s": 28.66
     },
     {
-     "skript": "mister",
-     "gehoert": "mr",
-     "zeit_s": 33.76
+     "skript": "odell",
+     "gehoert": "o'dell",
+     "zeit_s": 34.36
+    },
+    {
+     "skript": "too",
+     "gehoert": "to",
+     "zeit_s": 36.54
     }
    ],
    "eingefuegt": [],
    "n_skript": 281,
-   "n_gehoert": 282,
+   "n_gehoert": 281,
    "unsicher": [
     {
+     "wort": "Mister",
+     "p": 0.49,
+     "zeit_s": 0.0
+    },
+    {
      "wort": "Hundred",
-     "p": 0.22,
-     "zeit_s": 0.3
+     "p": 0.23,
+     "zeit_s": 0.32
     },
     {
      "wort": "\"It",
-     "p": 0.38,
+     "p": 0.41,
      "zeit_s": 18.78
     },
     {
      "wort": "Mr.",
-     "p": 0.0,
+     "p": 0.01,
      "zeit_s": 27.94
     },
     {
-     "wort": "Nobody",
-     "p": 0.23,
-     "zeit_s": 42.14
+     "wort": "Only",
+     "p": 0.06,
+     "zeit_s": 31.06
+    },
+    {
+     "wort": "Mr.",
+     "p": 0.46,
+     "zeit_s": 33.76
+    },
+    {
+     "wort": "\"It",
+     "p": 0.18,
+     "zeit_s": 35.4
+    },
+    {
+     "wort": "too.\"",
+     "p": 0.46,
+     "zeit_s": 36.54
+    },
+    {
+     "wort": "they",
+     "p": 0.37,
+     "zeit_s": 51.12
+    },
+    {
+     "wort": "June",
+     "p": 0.4,
+     "zeit_s": 56.9
     },
     {
      "wort": "\"Ninety-seven.\"",
-     "p": 0.42,
+     "p": 0.3,
      "zeit_s": 70.22
     },
     {
      "wort": "Then",
-     "p": 0.48,
-     "zeit_s": 72.92
-    },
-    {
-     "wort": "No",
-     "p": 0.34,
-     "zeit_s": 75.44
+     "p": 0.47,
+     "zeit_s": 72.98
     },
     {
      "wort": "My",
-     "p": 0.4,
+     "p": 0.47,
      "zeit_s": 79.34
     }
    ]
@@ -199,334 +238,473 @@
   "versatz_mp4_ton_zu_master_ms": 0.0,
   "gemessen_nach_pause_einsatz": 54,
   "gemessen_mitten_im_satz_whisper": 137,
-  "abstand_zum_wortbeginn_median_s": 0.0,
+  "abstand_zum_wortbeginn_median_s": -0.003,
   "abstand_zum_wortbeginn_p90_abs_s": 0.027,
-  "abstand_zum_wortbeginn_max_abs_s": 0.093,
-  "ueber_0_1_s": []
+  "abstand_zum_wortbeginn_max_abs_s": 0.133,
+  "ueber_0_1_s": [
+   {
+    "text": "IT NEVER",
+    "abstand_s": -0.133,
+    "gemessen": "whisper"
+   },
+   {
+    "text": "NO",
+    "abstand_s": -0.107,
+    "gemessen": "whisper"
+   }
+  ]
  },
  "bilder": {
   "bilder": 2608,
   "dekodierfehler": null,
-  "helligkeit_p10": 64.5,
-  "fast_schwarz_anteil": 0.0,
-  "balken_max": 0.0,
-  "balken_bild": 0,
-  "kantendichte_median": 0.138,
+  "helligkeit_median_ohne_dunkle_orte": 86.8,
+  "dunkle_orte_mittel": 71.1,
+  "dunkle_orte_fast_schwarz_anteil": 0.366,
+  "leerbilder_am_anfang": [],
+  "balken_max_ohne_dunkle_orte": 0.0,
+  "balken_bild_ohne_dunkle_orte": 0,
+  "helligkeit_p10": 54.7,
+  "fast_schwarz_anteil": 0.017,
+  "balken_max": 0.935,
+  "balken_bild": 2562,
+  "kantendichte_median": 0.149,
   "einstellungen": [
    {
     "id": "E01",
-    "mittel": 100.7,
+    "ort": "hauptstrasse",
+    "mittel": 98.3,
+    "streuung_anfang_min": 44.9,
     "balken_max": 0.0
    },
    {
     "id": "E02",
+    "ort": "marsh-innen",
     "mittel": 142.2,
+    "streuung_anfang_min": 39.8,
     "balken_max": 0.0
    },
    {
     "id": "E03",
-    "mittel": 92.6,
+    "ort": "hauptstrasse",
+    "mittel": 35.7,
+    "streuung_anfang_min": 32.2,
     "balken_max": 0.0
    },
    {
     "id": "E04",
-    "mittel": 53.4,
+    "ort": "hauptstrasse",
+    "mittel": 83.3,
+    "streuung_anfang_min": 46.5,
     "balken_max": 0.0
    },
    {
     "id": "E05",
-    "mittel": 73.3,
+    "ort": "marsh-innen",
+    "mittel": 74.2,
+    "streuung_anfang_min": 37.4,
     "balken_max": 0.0
    },
    {
     "id": "E06",
+    "ort": "marsh-innen",
     "mittel": 91.5,
+    "streuung_anfang_min": 57.0,
     "balken_max": 0.0
    },
    {
     "id": "E07",
+    "ort": "hauptstrasse",
     "mittel": 155.3,
+    "streuung_anfang_min": 38.7,
     "balken_max": 0.0
    },
    {
     "id": "E08",
+    "ort": "hauptstrasse",
     "mittel": 161.5,
+    "streuung_anfang_min": 25.5,
     "balken_max": 0.0
    },
    {
     "id": "E09",
+    "ort": "hauptstrasse",
     "mittel": 121.6,
+    "streuung_anfang_min": 45.0,
     "balken_max": 0.0
    },
    {
     "id": "E10",
+    "ort": "hauptstrasse",
     "mittel": 72.8,
+    "streuung_anfang_min": 40.0,
     "balken_max": 0.0
    },
    {
     "id": "E11",
+    "ort": "marsh-innen",
     "mittel": 122.9,
+    "streuung_anfang_min": 64.6,
     "balken_max": 0.0
    },
    {
     "id": "E12",
-    "mittel": 81.6,
+    "ort": "marsh-innen",
+    "mittel": 139.6,
+    "streuung_anfang_min": 51.1,
     "balken_max": 0.0
    },
    {
     "id": "E13",
+    "ort": "marsh-innen",
     "mittel": 93.3,
+    "streuung_anfang_min": 54.1,
     "balken_max": 0.0
    },
    {
     "id": "E14",
-    "mittel": 61.5,
+    "ort": "marsh-innen",
+    "mittel": 58.9,
+    "streuung_anfang_min": 60.5,
     "balken_max": 0.0
    },
    {
     "id": "E15",
-    "mittel": 104.0,
+    "ort": "marsh-innen",
+    "mittel": 135.5,
+    "streuung_anfang_min": 14.1,
     "balken_max": 0.0
    },
    {
     "id": "E16",
+    "ort": "marsh-innen",
     "mittel": 103.6,
+    "streuung_anfang_min": 51.9,
     "balken_max": 0.0
    },
    {
     "id": "E17",
+    "ort": "hauptstrasse",
     "mittel": 79.2,
+    "streuung_anfang_min": 46.8,
     "balken_max": 0.0
    },
    {
     "id": "E18",
+    "ort": "hauptstrasse",
     "mittel": 76.1,
+    "streuung_anfang_min": 38.0,
     "balken_max": 0.0
    },
    {
     "id": "E19",
-    "mittel": 88.2,
+    "ort": "hauptstrasse",
+    "mittel": 88.3,
+    "streuung_anfang_min": 34.8,
     "balken_max": 0.0
    },
    {
     "id": "E20",
-    "mittel": 80.7,
+    "ort": "hauptstrasse",
+    "mittel": 75.9,
+    "streuung_anfang_min": 33.7,
     "balken_max": 0.0
    },
    {
     "id": "E21",
+    "ort": "hauptstrasse",
     "mittel": 63.5,
+    "streuung_anfang_min": 37.5,
     "balken_max": 0.0
    },
    {
     "id": "E22",
+    "ort": "hauptstrasse",
     "mittel": 72.3,
+    "streuung_anfang_min": 59.3,
     "balken_max": 0.0
    },
    {
     "id": "E23",
-    "mittel": 67.0,
+    "ort": "hauptstrasse",
+    "mittel": 55.8,
+    "streuung_anfang_min": 35.5,
     "balken_max": 0.0
    },
    {
     "id": "E24",
-    "mittel": 147.9,
+    "ort": "hauptstrasse",
+    "mittel": 146.8,
+    "streuung_anfang_min": 43.8,
     "balken_max": 0.0
    },
    {
     "id": "E25",
-    "mittel": 127.0,
+    "ort": "hauptstrasse",
+    "mittel": 126.2,
+    "streuung_anfang_min": 47.5,
     "balken_max": 0.0
    },
    {
     "id": "E26",
-    "mittel": 79.2,
+    "ort": "hauptstrasse",
+    "mittel": 97.7,
+    "streuung_anfang_min": 49.6,
     "balken_max": 0.0
    },
    {
     "id": "E27",
+    "ort": "hauptstrasse",
     "mittel": 85.4,
+    "streuung_anfang_min": 58.8,
     "balken_max": 0.0
    },
    {
     "id": "E28",
+    "ort": "hauptstrasse",
     "mittel": 88.5,
+    "streuung_anfang_min": 47.8,
     "balken_max": 0.0
    },
    {
     "id": "E29",
+    "ort": "hauptstrasse",
     "mittel": 99.8,
+    "streuung_anfang_min": 52.4,
     "balken_max": 0.0
    },
    {
     "id": "E30",
+    "ort": "hauptstrasse",
     "mittel": 75.0,
+    "streuung_anfang_min": 51.0,
     "balken_max": 0.0
    },
    {
     "id": "E31",
+    "ort": "hauptstrasse",
     "mittel": 78.8,
+    "streuung_anfang_min": 46.3,
     "balken_max": 0.0
    },
    {
     "id": "E32",
-    "mittel": 85.6,
+    "ort": "hauptstrasse",
+    "mittel": 83.8,
+    "streuung_anfang_min": 47.9,
     "balken_max": 0.0
    },
    {
     "id": "E33",
+    "ort": "hauptstrasse",
     "mittel": 97.5,
+    "streuung_anfang_min": 59.0,
     "balken_max": 0.0
    },
    {
     "id": "E34",
+    "ort": "hauptstrasse",
     "mittel": 71.0,
+    "streuung_anfang_min": 41.6,
     "balken_max": 0.0
    },
    {
     "id": "E35",
+    "ort": "marsh-innen",
     "mittel": 69.0,
+    "streuung_anfang_min": 55.1,
     "balken_max": 0.0
    },
    {
     "id": "E36",
+    "ort": "marsh-innen",
     "mittel": 48.5,
+    "streuung_anfang_min": 45.1,
     "balken_max": 0.0
    },
    {
     "id": "E37",
-    "mittel": 82.9,
+    "ort": "marsh-innen",
+    "mittel": 89.5,
+    "streuung_anfang_min": 45.3,
     "balken_max": 0.0
    },
    {
     "id": "E38",
+    "ort": "marsh-innen",
     "mittel": 63.5,
+    "streuung_anfang_min": 43.8,
     "balken_max": 0.0
    },
    {
     "id": "E39",
+    "ort": "marsh-innen",
     "mittel": 108.0,
+    "streuung_anfang_min": 52.8,
     "balken_max": 0.0
    },
    {
     "id": "E40",
-    "mittel": 108.5,
+    "ort": "hauptstrasse",
+    "mittel": 95.3,
+    "streuung_anfang_min": 42.2,
     "balken_max": 0.0
    },
    {
     "id": "E41",
+    "ort": "hauptstrasse",
     "mittel": 69.6,
+    "streuung_anfang_min": 31.9,
     "balken_max": 0.0
    },
    {
     "id": "E42",
-    "mittel": 61.3,
+    "ort": "marsh-innen",
+    "mittel": 64.4,
+    "streuung_anfang_min": 43.9,
     "balken_max": 0.0
    },
    {
     "id": "E43",
+    "ort": "marsh-innen",
     "mittel": 88.4,
+    "streuung_anfang_min": 36.1,
     "balken_max": 0.0
    },
    {
     "id": "E44",
-    "mittel": 84.7,
+    "ort": "marsh-innen",
+    "mittel": 84.8,
+    "streuung_anfang_min": 41.2,
     "balken_max": 0.0
    },
    {
     "id": "E45",
+    "ort": "marsh-innen",
     "mittel": 62.4,
+    "streuung_anfang_min": 36.7,
     "balken_max": 0.0
    },
    {
     "id": "E46",
+    "ort": "marsh-innen",
     "mittel": 81.4,
+    "streuung_anfang_min": 41.8,
     "balken_max": 0.0
    },
    {
     "id": "E47",
+    "ort": "marsh-innen",
     "mittel": 80.2,
+    "streuung_anfang_min": 45.9,
     "balken_max": 0.0
    },
    {
     "id": "E48",
-    "mittel": 140.1,
+    "ort": "kriechkeller",
+    "mittel": 106.9,
+    "streuung_anfang_min": 76.2,
     "balken_max": 0.0
    },
    {
     "id": "E49",
-    "mittel": 69.4,
+    "ort": "kriechkeller",
+    "mittel": 53.7,
+    "streuung_anfang_min": 42.3,
     "balken_max": 0.0
    },
    {
     "id": "E50",
-    "mittel": 92.5,
+    "ort": "kriechkeller",
+    "mittel": 91.8,
+    "streuung_anfang_min": 79.2,
     "balken_max": 0.0
    },
    {
     "id": "E51",
-    "mittel": 135.2,
+    "ort": "marsh-innen",
+    "mittel": 122.1,
+    "streuung_anfang_min": 40.5,
     "balken_max": 0.0
    },
    {
     "id": "E52",
-    "mittel": 138.9,
+    "ort": "marsh-innen",
+    "mittel": 116.6,
+    "streuung_anfang_min": 39.4,
     "balken_max": 0.0
    },
    {
     "id": "E53",
-    "mittel": 83.8,
+    "ort": "kriechkeller",
+    "mittel": 69.4,
+    "streuung_anfang_min": 63.3,
     "balken_max": 0.0
    },
    {
     "id": "E54",
-    "mittel": 149.6,
+    "ort": "marsh-innen",
+    "mittel": 115.6,
+    "streuung_anfang_min": 40.6,
     "balken_max": 0.0
    },
    {
     "id": "E55",
-    "mittel": 125.3,
+    "ort": "hauptstrasse",
+    "mittel": 108.2,
+    "streuung_anfang_min": 43.8,
     "balken_max": 0.0
    },
    {
     "id": "E56",
+    "ort": "hauptstrasse",
     "mittel": 99.3,
+    "streuung_anfang_min": 32.7,
     "balken_max": 0.0
    },
    {
     "id": "E57",
-    "mittel": 141.3,
+    "ort": "kriechkeller",
+    "mittel": 103.9,
+    "streuung_anfang_min": 61.4,
     "balken_max": 0.0
    },
    {
     "id": "E58",
-    "mittel": 66.5,
+    "ort": "kriechkeller",
+    "mittel": 52.2,
+    "streuung_anfang_min": 54.3,
     "balken_max": 0.0
    },
    {
     "id": "E59",
-    "mittel": 89.2,
-    "balken_max": 0.0
+    "ort": "kriechkeller",
+    "mittel": 49.5,
+    "streuung_anfang_min": 50.7,
+    "balken_max": 0.13
    },
    {
     "id": "E60",
-    "mittel": 92.6,
+    "ort": "marsh-innen",
+    "mittel": 72.9,
+    "streuung_anfang_min": 53.4,
     "balken_max": 0.0
    },
    {
     "id": "E61",
-    "mittel": 74.7,
-    "balken_max": 0.0
+    "ort": "kriechkeller",
+    "mittel": 40.5,
+    "streuung_anfang_min": 67.2,
+    "balken_max": 0.935
    }
   ],
-  "helligkeit_min": 26.1,
-  "helligkeit_median": 85.6,
-  "dunkelstes_bild": 2578,
-  "streuung_min": 9.7,
+  "helligkeit_min": 15.2,
+  "helligkeit_median": 84.9,
+  "dunkelstes_bild": 2562,
+  "streuung_min": 14.1,
   "schwarz_oder_einfarbig": [],
   "laengster_stillstand_s": 0.0,
   "stillstand_endet_bild": null,
-  "aenderung_median": 1.56
+  "aenderung_median": 1.59
  },
  "bogen_zeiten_s": [
   1.449,
@@ -564,13 +742,13 @@
   "kbit": 192,
   "upload": {
    "lufs": -14.05,
-   "true_peak_dbtp": -1.62,
+   "true_peak_dbtp": -2.34,
    "lra_lu": 2.8
   },
   "vorhoer": {
-   "lufs": -14.06,
-   "true_peak_dbtp": -1.76,
-   "lra_lu": 2.9
+   "lufs": -14.05,
+   "true_peak_dbtp": -1.9,
+   "lra_lu": 2.6
   },
   "decken_dbfs": {
    "upload": -1.8,
@@ -579,7 +757,7 @@
  },
  "verstoesse": [
   "Hör-Check upload: 1 Wortfehler",
-  "Hör-Check vorhoer: 2 Wortfehler"
+  "2 Einblendungen > 0,1 s neben dem Wortbeginn"
  ],
  "ok": false
 }

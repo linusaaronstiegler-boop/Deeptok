@@ -172,20 +172,33 @@ export default async function baue(ctx, params = {}) {
   }
   // Turm
   const tz = kz + 17;
-  k(P, 4.4, 15, 4.4, weiss, 0, 7.5, tz);
+  if (params.glocke?.offen) {
+    // offene Glockenstube (Review Teil 2): Turm bis unter die Schallluken massiv, darüber Wände mit einer
+    // Öffnung zur Straße und dunkler Innenwand, damit die Glocke als Form vor dem Dunkel steht
+    k(P, 4.4, 12.75, 4.4, weiss, 0, 6.375, tz);
+    k(P, 4.4, 2.3, 0.2, weiss, 0, 13.9, tz - 2.1);                        // Rückseite
+    for (const sx of [-1, 1]) {
+      k(P, 0.2, 2.3, 4.4, weiss, sx * 2.1, 13.9, tz);                     // Seiten
+      k(P, 1.35, 2.3, 0.2, weiss, sx * 1.525, 13.9, tz + 2.1);            // Vorderseite links und rechts der Luke
+    }
+    k(P, 4.0, 2.3, 0.05, ctx.mat('#15161c', { rauheit: 1 }), 0, 13.9, tz - 1.95);   // dunkle Innenwand
+    k(P, 4.4, 0.3, 4.4, weiss, 0, 15.0, tz);
+  } else k(P, 4.4, 15, 4.4, weiss, 0, 7.5, tz);
   for (const sx of [-1, 1]) for (const sz of [-1, 1]) k(P, 0.25, 15, 0.25, zier, sx * 2.2, 7.5, tz + sz * 2.2);
   k(P, 4.8, 0.3, 4.8, zier, 0, 12.2, tz);
   // Glockenstube mit Schallluken (Lamellen) auf allen vier Seiten
   const lamelle = ctx.mat('#4a4e58', { rauheit: 0.8 });
   for (let s = 0; s < 4; s++) {
     const g = new T.Group(); g.position.set(0, 0, tz); g.rotation.y = (s * Math.PI) / 2; P.add(g);
-    for (let i = 0; i < 6; i++) k(g, 1.6, 0.08, 0.3, lamelle, 0, 12.9 + i * 0.32, 2.15, { dreh: [0.5, 0, 0], schatten: false });
+    // Review Teil 2: Die Glocke war nie zu sehen. params.glocke.offen: die Schallluke zur Straße (Seite 0)
+    // ohne Lamellen, dahinter hängt die Glocke im Mondlicht
+    if (!(s === 0 && params.glocke?.offen)) for (let i = 0; i < 6; i++) k(g, 1.6, 0.08, 0.3, lamelle, 0, 12.9 + i * 0.32, 2.15, { dreh: [0.5, 0, 0], schatten: false });
     k(g, 0.3, 2.3, 0.3, zier, -1.0, 13.7, 2.2); k(g, 0.3, 2.3, 0.3, zier, 1.0, 13.7, 2.2);
   }
   // Glocke an einem Drehpunkt unter dem Joch (eigenes Objekt, nicht verschmolzen): schwingt nach jedem
   // Schlag aus params.glocke.schlaege (Teil 2, Satz 40 „The bell struck midnight“)
   const glockeDreh = new T.Group(); glockeDreh.position.set(0, 14.15, tz); glockeDreh.userData.einzeln = true; P.add(glockeDreh);
-  const glocke = zyl(glockeDreh, 0.45, 0.85, 1.1, ctx.mat('#7a5a2a', { metall: 0.7, rauheit: 0.35 }), 0, -0.65, 0, { segmente: 14 });
+  const glocke = zyl(glockeDreh, 0.45, 0.85, 1.1, ctx.mat('#7a5a2a', { metall: 0.7, rauheit: 0.35, kante: params.glocke?.offen ? { farbe: '#ffd9a0', staerke: 0.8, exponent: 2.0 } : undefined }), 0, -0.65, 0, { segmente: 14 });
   glocke.userData.einzeln = true;
   const kloeppel = zyl(glockeDreh, 0.08, 0.08, 0.9, ctx.mat('#3a3a3c', { metall: 0.7, rauheit: 0.4 }), 0, -0.85, 0, { segmente: 8 });
   kloeppel.userData.einzeln = true;

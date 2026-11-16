@@ -86,7 +86,7 @@ export function musterTextur(ctx, art, farbe = '#ffffff') {
 }
 
 // ---------- Schuhe (auch für die Requisite "schuhpaar") ----------
-// stil: { farbe, sohle, senkel, art: 'turnschuh' | 'stiefel' | 'hightop' | 'halbschuh', schleife }
+// stil: { farbe, sohle, senkel, art: 'turnschuh' | 'stiefel' | 'hightop' | 'halbschuh' | 'barfuss', schleife }
 // Ursprung oben am Knöchel, Spitze zeigt nach +z.
 export function baueSchuh(ctx, stil, masse = {}) {
   const b = masse.b ?? 0.17, h = masse.h ?? 0.12, l = masse.l ?? 0.32;
@@ -94,6 +94,22 @@ export function baueSchuh(ctx, stil, masse = {}) {
   const matSchuh = ctx.mat(stil.farbe, { rauheit: 0.75 });
   const matSohle = ctx.mat(stil.sohle ?? '#ebe8e1', { rauheit: 0.9 });
   const hoch = stil.art === 'stiefel' || stil.art === 'hightop' ? 0.06 : 0;
+  if (stil.art === 'barfuss') {
+    // Nackter Fuß (Review Teil 2: Junes weiße Klötze lasen sich als Hausschuhe): flacher Fußklotz in
+    // Hautfarbe, ohne Sohlenkante, vorn fünf Zehen als einzelne Klötze mit Fugen dazwischen
+    const fussKoerper = rundeKiste(b * 0.92, h * 0.72, l * 0.8, matSchuh, 0.04);
+    fussKoerper.position.set(0, -h + h * 0.36, l * 0.08);
+    gruppe.add(fussKoerper);
+    const zehen = [0.05, 0.036, 0.032, 0.029, 0.026];           // großer Zeh innen (−x = Innenseite egal: Klotzstil)
+    let x = -b * 0.46;
+    for (const [i, zb] of zehen.entries()) {
+      const zeh = rundeKiste(zb, h * (i === 0 ? 0.4 : 0.32), 0.06 - i * 0.004, matSchuh, 0.012, false);
+      zeh.position.set(x + zb / 2, -h + h * (i === 0 ? 0.2 : 0.16), l * 0.08 + l * 0.4 + 0.022 - i * 0.008);
+      gruppe.add(zeh);
+      x += zb + 0.008;                                            // 8 mm Zehenfuge
+    }
+    return gruppe;
+  }
   const koerper = rundeKiste(b, h + hoch, l, matSchuh, 0.035);
   koerper.position.set(0, -(h - hoch) / 2, l * 0.17);
   gruppe.add(koerper);

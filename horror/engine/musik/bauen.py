@@ -66,8 +66,12 @@ NACHBESSERUNG: dict[str, dict] = {
         # (Hall-Schätzung 1,05 s statt 0,73 s). Kurzzeit-Streuung 0,4 statt 1,1 LU: Phrasen-Bogen.
         # Register (analyse/rolle.py) F♯3–G5 statt H3–A5: zwei Halbtöne höher. Anschlag-Streuung 8,5 statt
         # 2,9 dB: Akzente der 3+3+2-Gruppen schwächer, Phrasen-Bogen kleiner
-        "komposition": {"pan": 0.12, "dynamik_db": 0.6, "lo": 62, "hi": 84, "akzent": 80},
-        "hall": {"rt60": 1.2, "nass": 0.45, "breite": 0.55},
+        # Review Teil 2 (Stufe 2b): Seite/Mitte jetzt −10,1 statt −7,2 dB (zu schmal) und Anschlag-Streuung
+        # 8,7 statt 2,9 dB. Panorama 0,12 -> 0,2 und Hall-Breite 0,55 -> 0,75 (Mitte zwischen Stufe 1 und 2);
+        # Akzente 80 -> 78 bei Füllern um 76, Phrasen-Bogen 0,6 -> 0,3 dB, tiefer Grundton leiser (s. varianten).
+        # Die 3+3+2 trägt dann vor allem das Timing, wie bei einer echten Spieldose.
+        "komposition": {"pan": 0.2, "dynamik_db": 0.3, "lo": 62, "hi": 84, "akzent": 78},
+        "hall": {"rt60": 1.2, "nass": 0.45, "breite": 0.75},
         # Terz 5 kHz +11 dB, 6,3 kHz +7 dB: Zinken-Teilton 6,27× und Klick leiser; 1,25 kHz −12 dB:
         # 2. Teilton stärker; 12,5 kHz −7 dB: Teilton 17,55× etwas stärker
         # Hüllkurve des Orgelpunkts: −10 dB nach 0,23 s statt 0,12 s -> kräftigerer Ping, kürzerer Körper
@@ -75,7 +79,7 @@ NACHBESSERUNG: dict[str, dict] = {
         # Terz 125–160 Hz +8/+9 dB: tiefer Grundton leiser
         # Gebrauch, nicht Messung: dünn deutlicher leiser; voll lag nur 0,2 LU über normal -> Glitzer und
         # Fläche lauter, damit die Spannungsstufe hörbar steigt (Referenz selbst steigert nie)
-        "varianten": {"normal": {"grund": -16}, "voll": {"grund": -11, "glitzer": -5, "flaeche": -13},
+        "varianten": {"normal": {"grund": -20}, "voll": {"grund": -14, "glitzer": -5, "flaeche": -13},
                       "duenn": {"kern": -3, "orgelpunkt": -4}},
     },
     "klavier": {

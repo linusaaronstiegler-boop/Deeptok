@@ -204,6 +204,8 @@ export class Welt {
   _zielPunkt(z) {
     if (z === 'kamera') return this.kameraPos.clone();
     if (Array.isArray(z)) return new THREE.Vector3(...z);
+    // { anker, versatz }: Anker plus Versatz in Weltkoordinaten (z. B. Handgelenk statt Handmitte)
+    if (z && typeof z === 'object' && z.anker) return this._zielPunkt(z.anker).add(new THREE.Vector3(...(z.versatz ?? [0, 0, 0])));
     const id = z.split('.')[0];
     const d = this._durchgang;
     const fig = this.figuren.get(id);

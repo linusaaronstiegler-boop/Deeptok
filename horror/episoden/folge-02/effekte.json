@@ -2,7 +2,7 @@
  "_hinweis": "Cue-Liste für engine/ton/mischen.py (Teil 2). 'wort' = Index in timing.json, 'text' wird geprüft. Wie Teil 1 nach dem Review: wenige Akzente (12 Cues), nicht jede Bewegung. Ab dem Musik-Abriss nach 'Ninety-nine' nur noch Glocke (Handlung), Dielen und das Leitgeräusch.",
  "endkarte_stumm": true,
  "rede": {
-  "_hinweis": "Wörtliche Rede formant-erhaltend höher/tiefer (ffmpeg rubberband), wie in Teil 1. Mister Hundred: tiefer, Formanten mit verschoben, kurzer Hall (serie.md: Leitgeräusch −5 Halbtöne mit kurzem Hall; −4, damit 'Ready' verständlich bleibt). June in Teil 2 +2,0 statt +2,5 Halbtöne: mit +2,5 hörte Whisper im Zusammenhang 'He can't touch you' statt 'It can't …' (Bau Teil 2, gemessen).",
+  "_hinweis": "Wörtliche Rede formant-erhaltend höher/tiefer (ffmpeg rubberband), wie in Teil 1. Mister Hundred: tiefer, Formanten mit verschoben, kurzer Hall (serie.md: Leitgeräusch −5 Halbtöne mit kurzem Hall; −4, damit 'Ready' verständlich bleibt). June in Teil 2 +2,0 statt +2,5 Halbtöne: mit +2,5 hörte Whisper im Zusammenhang 'He can't touch you' statt 'It can't …' (Bau Teil 2, gemessen). Review Teil 2: Odell klang mit −1,5 Halbtönen (200 Hz) höher als June (145–162 Hz), obwohl er 74 ist; jetzt −4,5 Halbtöne (Ziel ≤ 160 Hz).",
   "june": {
    "halbtoene": 2.0,
    "db": -2.0
@@ -12,7 +12,7 @@
    "db": -2.0
   },
   "odell": {
-   "halbtoene": -1.5,
+   "halbtoene": -4.5,
    "db": -1.0
   },
   "mister hundred": {
@@ -45,6 +45,17 @@
    "grund": "Vorhang fliegt zu (Wackeln)"
   },
   {
+   "klang": "klopfen",
+   "wort": 21,
+   "text": "When",
+   "versatz": -0.32,
+   "db": -13,
+   "params": {
+    "tonhoehe": 0.7
+   },
+   "grund": "Review Teil 2: hinter dem zugezogenen Vorhang klopft es einmal langsam ans Glas (das Monster tut etwas, bevor der Garten leer ist)"
+  },
+  {
    "klang": "sub_boom",
    "wort": 41,
    "text": "window.",
@@ -62,19 +73,21 @@
    "wort": 100,
    "text": "bell,",
    "versatz": 0.0,
-   "db": -17,
-   "grund": "die Mitternachtsglocke (Regel), die Glocke schwingt im Bild"
+   "db": -22,
+   "grund": "die Mitternachtsglocke als Regel: leise und dumpf wie eine Erinnerung (Review Teil 2), der volle Schlag kommt nur einmal auf 'struck'",
+   "tiefpass_hz": 900
   },
   {
    "klang": "zaehlschlag",
    "wort": 104,
    "text": "counting.",
    "versatz": 0.0,
-   "db": -12,
+   "db": -17,
    "params": {
     "f": 58.0
    },
-   "grund": "Leitgeräusch: es zählt (Rückgriff Teil 1)"
+   "grund": "Leitgeräusch als Erinnerung (Rückblende-Bild E23), leiser und dumpfer als im Finale",
+   "tiefpass_hz": 1200
   },
   {
    "klang": "klopfen",
@@ -107,9 +120,9 @@
    "klang": "glocke",
    "wort": 249,
    "text": "struck",
-   "versatz": 0.0,
+   "versatz": 0.08,
    "db": -14,
-   "grund": "Mitternacht (Handlung); einziger Ton neben der Stimme nach dem Abriss"
+   "grund": "Mitternacht (Handlung); einziger Ton neben der Stimme nach dem Abriss; 80 ms nach dem Wortbeginn von 'struck' (Review Teil 2: der Anschlag direkt nach 'bell' ließ Whisper 'bells' hören)"
   },
   {
    "klang": "knarzen",

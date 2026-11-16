@@ -45,7 +45,9 @@ export default async function baue(ctx, params = {}) {
   const haut = ctx.mat('#DAD6CC', { rauheit: 0.6, kante: { farbe: '#bfe6e2', staerke: 0.35, exponent: 2.2 } });
   const naegel = ctx.mat('#8C8F94', { rauheit: 0.4 });
   // Fingerspitzen glimmen kalt (Leuchten zwischen und an den Fingern, Review Folge 1)
-  const fingerNaegel = ctx.mat('#a9c9c6', { rauheit: 0.4, leuchten: '#9FD8D2', leuchtStaerke: 1.6 });
+  // params.spitzen_glut (Std 1.6): Review Teil 2 – zu helle Spitzen lasen sich im Hook wie Kerzenflammen
+  // params.naegel: Farbe der Nägel (Std hell #a9c9c6); dunkle Nägel nehmen den Fingern die „Kerzendocht“-Spitze
+  const fingerNaegel = ctx.mat(params.naegel ?? '#a9c9c6', { rauheit: 0.4, leuchten: '#9FD8D2', leuchtStaerke: params.spitzen_glut ?? 1.6 });
   const mantelTex = ctx.zeichenTextur((g, w, h) => {
     // grober Wollstoff: feine Körnung, damit der Mantel nicht wie Plastik wirkt
     g.fillStyle = '#ffffff'; g.fillRect(0, 0, w, h);
@@ -56,8 +58,12 @@ export default async function baue(ctx, params = {}) {
   mantelTex.repeat.set(3, 3);
   // Mantel dunkelgrau statt fast schwarz, mit Stofftextur und kaltem Kantenlicht (Review Folge 1:
   // der Körper las sich als flache schwarze Strichfigur)
-  const mantel = ctx.mat('#5B5E6C', { rauheit: 0.85, karte: mantelTex, kante: { farbe: '#9FD8D2', staerke: 0.9, exponent: 2.2 } });
-  const saumMat = ctx.mat('#6A6D7B', { rauheit: 0.85, karte: mantelTex, kante: { farbe: '#9FD8D2', staerke: 0.75, exponent: 2.2 } });
+  // params.mantel { farbe, saum, kante, exponent }: Review Teil 2 – im Dämmer- und Nachtlicht wirkte der Mantel
+  // weiß bis türkis, die Farbe sprang zwischen den Einstellungen. Dunkler Stoff mit schmaler Kante hält ihn
+  // in jeder Lichtstimmung als dunkle Gestalt; nur der Rand leuchtet kalt.
+  const mp = params.mantel ?? {};
+  const mantel = ctx.mat(mp.farbe ?? '#5B5E6C', { rauheit: 0.85, karte: mantelTex, kante: { farbe: '#9FD8D2', staerke: mp.kante ?? 0.9, exponent: mp.exponent ?? 2.2 } });
+  const saumMat = ctx.mat(mp.saum ?? '#6A6D7B', { rauheit: 0.85, karte: mantelTex, kante: { farbe: '#9FD8D2', staerke: (mp.kante ?? 0.9) * 0.83, exponent: mp.exponent ?? 2.2 } });
 
   const grundglut = params.grundglut ?? 0.55;
   const gruppe = new T.Group();
@@ -160,7 +166,9 @@ export default async function baue(ctx, params = {}) {
     unterMesh.position.y = -M.unterarm * 0.41;
     unter.add(unterMesh);
     // spitzer Ellbogen: ein Stoffkeil, der nach hinten-außen absteht (Spitze der Raute)
-    const ellbogen = new T.Mesh(new T.ConeGeometry(0.15, 0.44, 4), mantel);
+    // params.ellbogen_spitze (Std 1): Review Teil 2 – in der Untersicht lasen sich lange Spitzen als Pfeile
+    const es = params.ellbogen_spitze ?? 1;
+    const ellbogen = new T.Mesh(new T.ConeGeometry(0.15 * Math.max(es, 0.6), 0.44 * es, 4), mantel);
     ellbogen.position.set(0, 0.06, -0.12);
     ellbogen.rotation.x = -Math.PI / 2 - 0.5;
     ellbogen.castShadow = true;
@@ -362,7 +370,10 @@ export default async function baue(ctx, params = {}) {
       const weg = new T.Vector3(sx * 1.0, -0.95, 0.55);
       const ziel = kopf.localToWorld(deck.lerp(weg, w));
       // Pol nach außen und etwas nach oben: Ellbogen auf Kopfhöhe, Arme und Hände bilden die Raute
-      zweiGlied(fig, S, ziel, 1, { pol: [1, 0.32 - 0.8 * w, -0.25] });
+      // params.ellbogen_pol: Review Teil 2 – hochgestellte Ellbogen lasen sich in der Totalen als Strecken
+      // oder Jubeln. Gesenkt und nach vorn ist es die Haltung beim Zählen im Versteckspiel.
+      const pol = params.ellbogen_pol ?? [1, 0.32, -0.25];
+      zweiGlied(fig, S, ziel, 1, { pol: [pol[0], pol[1] - 0.8 * w, pol[2]] });
       // Ausrichtung: Handflächen zum Gesicht, Finger leicht nach innen geneigt; gesenkt nach außen gedreht
       e.set(0, sx * 1.5 * w, sx * 0.06 * (1 - w) - sx * 0.55 * w);
       qTmp.setFromEuler(e);

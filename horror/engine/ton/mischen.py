@@ -251,6 +251,10 @@ def mische(ordner: Path, bett_pfad: Path | None, decke_db: float, decke_vh: floa
         if w["text"] != c["text"]:
             sys.exit(f"effekte.json Cue {k}: Wort {c['wort']} ist {w['text']!r}, erwartet {c['text']!r}")
         klang = effekte.erzeuge(c["klang"], seed=100 + k, **c.get("params", {}))
+        if c.get("tiefpass_hz"):
+            # gedämpft wie aus der Ferne oder der Erinnerung (Review Teil 2: die Regel-Glocke bei 29,7 s
+            # nahm dem echten Mitternachtsschlag die Wirkung)
+            klang = effekte.filter_fft(klang, hoch=float(c["tiefpass_hz"]))
         t = w["start"] + c.get("versatz", 0.0) - effekte.SYNC.get(c["klang"], 0.0)
         setze_cue(fx, klang, t, c["db"])
         protokoll.append({"nr": k, "klang": c["klang"], "wort": c["text"], "zeit_s": round(w["start"] + c.get("versatz", 0.0), 3),

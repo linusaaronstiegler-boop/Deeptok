@@ -47,7 +47,7 @@ function argumente(argv) {
     if (a === '--von') o.von = parseFloat(wert());
     else if (a === '--bis') o.bis = parseFloat(wert());
     else if (a === '--bilder') { const [x, y] = wert().split('-').map(Number); o.bildVon = x; o.bildBis = y; }
-    else if (a === '--einzelbild') o.einzelbild = parseFloat(wert());
+    else if (a === '--einzelbild') o.einzelbild = wert().split(',').map(parseFloat);   // auch Liste: 3.8,4.2
     else if (a === '--prozesse') o.prozesse = Math.max(1, parseInt(wert(), 10));
     else if (a === '--format') o.format = wert();
     else if (a === '--qualitaet') o.qualitaet = parseFloat(wert());
@@ -201,6 +201,7 @@ async function baueBogen(o, ordner, einstellungen, von, bis, ziel) {
 // Untertitel-Streifen mit Rand: Die Schrift ist 96 px hoch (Mitte y 1200); ein Mund knapp über 1150
 // lag in Folge 1 trotzdem unter dem Text (Review: E35 „READY“ über Odells Mund und Finger).
 const KOMPOSITION = { x: [360, 720], y: [640, 1150], untertitel: [1080, 1320] };
+const KOPF_MAX_GRAD = 30;   // Gesicht darf höchstens so weit gekippt im Bild stehen
 
 async function schnellBogen(o, meta, browser, seitenUrl, ordner, name, fps) { // eslint-disable-line max-params
   const page = await oeffneSeite(browser, seitenUrl, 'b1');
@@ -224,14 +225,43 @@ async function schnellBogen(o, meta, browser, seitenUrl, ordner, name, fps) { //
       const punkte = await page.evaluate(([i, a]) => window.engine.projiziere(i, a), [bild, e.hauptsache]);
       const fehler = punkte.filter((p) => !p.vorn || p.x < KOMPOSITION.x[0] || p.x > KOMPOSITION.x[1] || p.y < KOMPOSITION.y[0] || p.y > KOMPOSITION.y[1]);
       // Ist die Hauptsache ein Kopf, darf der Mund nicht im Untertitel-Streifen liegen (Mundformen bei Rede)
-      const muender = [].concat(e.hauptsache).filter((a) => typeof a === 'string' && a.endsWith('.kopf')).map((a) => a.replace(/\.kopf$/, '.mund'));
+      // Review Teil 2: auch die Augen nicht hinter dem Untertitel (in Nahaufnahmen stand „98“ auf der Wange,
+      // „HER COUNT“ am Auge)
+      const muender = [].concat(e.hauptsache).filter((a) => typeof a === 'string' && a.endsWith('.kopf')).flatMap((a) => [a.replace(/\.kopf$/, '.mund'), a.replace(/\.kopf$/, '.augen')]);
       if (muender.length) {
         const mp = await page.evaluate(([i, a]) => window.engine.projiziere(i, a), [bild, muender]);
         for (const p of mp) if (p.vorn && p.y >= KOMPOSITION.untertitel[0] && p.y <= KOMPOSITION.untertitel[1] && p.x > 0 && p.x < 1080) { fehler.push(p); punkte.push({ ...p, untertitel: true }); }
       }
       pruefung = { punkte, ok: fehler.length === 0 };
     }
-    ergebnis.push({ id: e.id, bild, zeit: +(bild / fps).toFixed(3), text: e.text, komposition: pruefung });
+    // Kopf-oben-Regel (Review Teil 2, P0: Elis liegendes Gesicht stand auf dem Kopf und las sich als Grinsen):
+    // Für jedes Gesicht im Bild muss der projizierte Punkt über dem Kopf höchstens 30° von „oben im Bild“
+    // abweichen (Vektor Kopfmitte -> ueber_kopf). Draufsichten (Vektor kürzer als 12 px) zählen nicht.
+    if (e.koepfe?.length) {
+      const anker = e.koepfe.flatMap((id) => [`${id}.kopf`, `${id}.ueber_kopf`]);
+      const pp = await page.evaluate(([i, a]) => window.engine.projiziere(i, a), [bild, anker]);
+      for (let k = 0; k < pp.length; k += 2) {
+        const [m, o] = [pp[k], pp[k + 1]];
+        if (!m.vorn || m.x < 0 || m.x > 1080 || m.y < 0 || m.y > 1920) continue;
+        const dx = o.x - m.x, dy = o.y - m.y;
+        if (Math.hypot(dx, dy) < 12) continue;
+        const neigung = Math.round(Math.abs(Math.atan2(dx, -dy)) * 180 / Math.PI);
+        if (neigung > KOPF_MAX_GRAD) {
+          pruefung = pruefung ?? { punkte: [], ok: true };
+          pruefung.ok = false;
+          pruefung.punkte.push({ ...m, kopf_neigung: neigung });
+        }
+      }
+    }
+    // Review Teil 2: Monster-Anteil nur zählen, wenn das Monster wirklich im Bildfeld steht (ein Anker von
+    // Kopf, Händen, Brust oder Füßen vor der Kamera und im Bild). Verdeckung prüft das nicht.
+    let monsterImBild = false;
+    if (e.monster?.length) {
+      const anker = e.monster.flatMap((id) => ['kopf', 'haende', 'brust', 'fuss_l', 'fuss_r', 'knie'].map((a) => `${id}.${a}`));
+      const mp = await page.evaluate(([i, a]) => window.engine.projiziere(i, a), [bild, anker]);
+      monsterImBild = mp.some((p) => p.vorn && p.x >= 0 && p.x <= 1080 && p.y >= 0 && p.y <= 1920);
+    }
+    ergebnis.push({ id: e.id, bild, zeit: +(bild / fps).toFixed(3), text: e.text, komposition: pruefung, monster_im_bild: monsterImBild });
     // Beschriftung unter dem Bild: Nummer, Zeit, Text (aus Datei, damit Sonderzeichen nicht stören)
     const label = path.join(bogenOrdner, `l${String(n).padStart(3, '0')}.txt`);
     const marke = pruefung ? (pruefung.ok ? '' : ' !KOMP') : '';
@@ -254,10 +284,15 @@ async function schnellBogen(o, meta, browser, seitenUrl, ordner, name, fps) { //
   const gesamt = path.join(ordner, `${name}-bogen.jpg`);
   ffmpeg(['-i', path.join(bogenOrdner, 'b%03d.jpg'), '-vf', `scale=200:-2,tile=8x${Math.ceil(anzahl / 8)}:padding=3:color=white`, '-frames:v', '1', '-q:v', '5', gesamt]);
   const verstoesse = ergebnis.filter((x) => x.komposition && !x.komposition.ok);
-  await fsp.writeFile(path.join(ordner, 'komposition.json'), JSON.stringify({ regel: KOMPOSITION, einstellungen: ergebnis }, null, 1));
+  await fsp.writeFile(path.join(ordner, 'komposition.json'), JSON.stringify({ regel: KOMPOSITION, kopf_max_grad: KOPF_MAX_GRAD, einstellungen: ergebnis }, null, 1));
   console.log(`Schnellbogen: ${anzahl} Bilder in ${((Date.now() - t0) / 1000).toFixed(1)} s -> ${boegen.join(', ')}; gesamt ${gesamt}`);
+  const mIm = ergebnis.filter((x) => x.monster_im_bild).map((x) => x.id);
+  console.log(`Monster im Bild: ${mIm.length} von ${ergebnis.length} Einstellungen (${(100 * mIm.length / ergebnis.length).toFixed(1)} %): ${mIm.join(', ')}`);
   console.log(`Komposition (Hauptsache x ${KOMPOSITION.x.join('–')}, y ${KOMPOSITION.y.join('–')}): ${ergebnis.filter((x) => x.komposition).length - verstoesse.length} ok, ${verstoesse.length} Verstöße`);
-  for (const v of verstoesse) console.log(`  ${v.id} (${v.zeit} s): ${v.komposition.punkte.map((p) => `${p.anker} x=${p.x} y=${p.y}${p.vorn ? '' : ' hinter der Kamera'}${p.untertitel ? ' (im Untertitel-Streifen)' : ''}`).join('; ')}`);
+  for (const v of verstoesse) console.log(`  ${v.id} (${v.zeit} s): ${v.komposition.punkte.map((p) => `${p.anker} x=${p.x} y=${p.y}${p.vorn ? '' : ' hinter der Kamera'}${p.untertitel ? ' (im Untertitel-Streifen)' : ''}${p.kopf_neigung !== undefined ? ` (Gesicht ${p.kopf_neigung}° gekippt)` : ''}`).join('; ')}`);
+  // Die Kopf-oben-Regel ist ein Tor (nicht nur Warnung): ein Gesicht auf dem Kopf kippt jede Szene ins Komische
+  const gekippt = ergebnis.filter((x) => x.komposition?.punkte.some((p) => p.kopf_neigung !== undefined));
+  if (gekippt.length) throw new Error(`Kopf-oben-Regel verletzt in ${gekippt.map((x) => x.id).join(', ')} (Gesicht > ${KOPF_MAX_GRAD}° gekippt)`);
 }
 
 // ---------- Ablauf ----------
@@ -313,11 +348,13 @@ async function main() {
   // Einzelbild-Probe
   if (o.einzelbild !== undefined) {
     const page = await oeffneSeite(browser0, seitenUrl, 'p1');
-    const i = Math.round(o.einzelbild * fps);
-    const r = await page.evaluate(([i]) => window.engine.bildDaten(i, 'image/jpeg', 0.92), [i]);
-    const ziel = path.join(ordner, `probe-${String(i).padStart(5, '0')}.jpg`);
-    await fsp.writeFile(ziel, Buffer.from(r.url.slice(r.url.indexOf(',') + 1), 'base64'));
-    console.log(`Einzelbild ${i} (${o.einzelbild} s): ${(r.ms / 1000).toFixed(2)} s Render (inkl. Shader-Übersetzung) -> ${ziel}`);
+    for (const s of o.einzelbild) {
+      const i = Math.round(s * fps);
+      const r = await page.evaluate(([i]) => window.engine.bildDaten(i, 'image/jpeg', 0.92), [i]);
+      const ziel = path.join(ordner, `probe-${String(i).padStart(5, '0')}.jpg`);
+      await fsp.writeFile(ziel, Buffer.from(r.url.slice(r.url.indexOf(',') + 1), 'base64'));
+      console.log(`Einzelbild ${i} (${s} s): ${(r.ms / 1000).toFixed(2)} s Render (inkl. Shader-Übersetzung) -> ${ziel}`);
+    }
     await browser0.close(); server.close(); aufraeumen(); return;
   }
 

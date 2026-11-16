@@ -24,7 +24,7 @@ export default async function baue(ctx, params = {}) {
       senkel: params.barfuss ? null : '#F4F2EC', iris: '#E3A33B', brauen: '#5E2219',
     },
     matOben: jacke, matAermel: jacke,
-    schuh: { art: 'turnschuh', schleife: !params.barfuss },
+    schuh: { art: params.barfuss ? 'barfuss' : 'turnschuh', schleife: !params.barfuss },
     gesicht: { augenAbstand: 0.19, augenHoehe: 0.5, mundHoehe: 0.78, wangen: '#e8968a', augenGroesse: 1.05 },
     vorne: (g, w, h, rand) => {
       vAusschnitt(g, w, h, '#F1E9DA', 0.4);

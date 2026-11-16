@@ -105,7 +105,8 @@
     "grund": "Abriss in die Stille, wenn June aufhört; danach nur die Glocke (Satz 40, gehört zur Handlung) und das Leitgeräusch (Sätze 45–46), stumm bis über die Endkarte"
    }
   ],
-  "umgesetzt": "Bau Teil 2: engine/musik/spannung/hiding-night-teil2.json (Wiegenlied-Spieluhr, eigene Komposition im Stil der Vorbilder). Stufen wie oben, dazu normal im Hook, normal zu Hause, ein Wegfall vor 'side by side' (Omen) und dünn/normal in der Entscheidung; Abriss am Ende von 'Ninety-nine' (72,90 s). In der Mischung liegt die Stufe 'normal' 11 LU unter der Stimme."
+  "umgesetzt": "Bau Teil 2: engine/musik/spannung/hiding-night-teil2.json (Wiegenlied-Spieluhr, eigene Komposition im Stil der Vorbilder). Stufen wie oben, dazu normal im Hook, normal zu Hause, ein Wegfall vor 'side by side' (Omen) und dünn/normal in der Entscheidung; Abriss am Ende von 'Ninety-nine' (72,90 s). In der Mischung liegt die Stufe 'normal' 11 LU unter der Stimme.",
+  "review_teil2": "Review Teil 2 (Linus: Musik 'mehr eins zu eins' wie die Vorbilder): Die Stufen-Regie oben ist ersetzt. Wie in r5 läuft ein flaches Bett durch: normal 12 LU unter der Stimme, Hook 2,5 dB lauter, voll erst ab der Luke (Satz 32), kurze Wegfälle (1,2–1,4 s) vor 'side by side', nach 'Ninety-nine' bis 'The bell struck midnight' und auf 'No counting came from the square'; danach dünn bzw. normal weiter, ganz still erst nach 'Ready?'. Steuerung: engine/musik/spannung/hiding-night-teil2.json."
  },
  "bildunterschrift": "Would you hide under June's room?",
  "ende": {

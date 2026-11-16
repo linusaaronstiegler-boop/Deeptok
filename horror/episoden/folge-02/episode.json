@@ -89,6 +89,9 @@
      ]
     },
     "licht_an": 0.8,
+    "glocke": {
+     "offen": true
+    },
     "ereignisse": [
      {
       "was": "glocke",
@@ -142,37 +145,50 @@
      {
       "was": "biegen",
       "start": 78.7,
-      "dauer": 0.45,
-      "tiefe": 0.055,
+      "dauer": 0.4,
+      "tiefe": 0.1,
       "mitte": [
-       -0.35,
-       0.15
+       -0.45,
+       -0.1
       ],
-      "radius": 0.8
+      "radius": 0.75
      },
      {
       "was": "fuesse",
       "mitte": [
-       -0.35,
-       0.15
+       -0.45,
+       -0.45
       ],
+      "drehung": 0,
       "start": 77.1667,
+      "dauer": 0.01
+     },
+     {
+      "was": "fuesse",
+      "mitte": [
+       -0.45,
+       -0.45
+      ],
+      "drehung": 0,
+      "start": 83.8,
       "dauer": 0.01
      },
      {
       "was": "finger",
       "von": [
-       -1.95,
-       0.64
+       -0.33,
+       1.72
       ],
       "nach": [
-       -1.25,
-       0.64
+       -0.33,
+       1.384
       ],
-      "drehung": 180,
-      "spreizen": 12,
-      "start": 85.45,
-      "dauer": 0.34
+      "drehung": -90,
+      "skala": 1.2,
+      "spreizen": 14,
+      "spreiz_dauer": 0.2,
+      "start": 85.37,
+      "dauer": 0.28
      }
     ]
    }
@@ -280,7 +296,23 @@
    "id": "mh",
    "modul": "mister_hundred",
    "gesicht": "glatt",
-   "blinzeln": false
+   "blinzeln": false,
+   "params": {
+    "ellbogen_pol": [
+     1,
+     0.05,
+     0.1
+    ],
+    "ellbogen_spitze": 0.5,
+    "spitzen_glut": 0.3,
+    "naegel": "#6c7075",
+    "mantel": {
+     "farbe": "#34363f",
+     "saum": "#3d3f4a",
+     "kante": 0.7,
+     "exponent": 2.8
+    }
+   }
   },
   {
    "position": [
@@ -412,6 +444,95 @@
     "alter": "alt",
     "kleidung": "mantel",
     "farbe": "#6A5038"
+   },
+   "gesicht": "besorgt"
+  },
+  {
+   "position": [
+    0,
+    -40,
+    0
+   ],
+   "blick": 0,
+   "sichtbar": false,
+   "id": "nb_6",
+   "modul": "nachbar",
+   "params": {
+    "variante": "muetze",
+    "alter": "alt",
+    "farbe": "#7A7D80",
+    "kleidung": "mantel"
+   },
+   "gesicht": "besorgt"
+  },
+  {
+   "position": [
+    0,
+    -40,
+    0
+   ],
+   "blick": 0,
+   "sichtbar": false,
+   "id": "nb_7",
+   "modul": "nachbar",
+   "params": {
+    "variante": "kopftuch",
+    "alter": "jung",
+    "farbe": "#5E6B3A"
+   },
+   "gesicht": "ernst"
+  },
+  {
+   "position": [
+    0,
+    -40,
+    0
+   ],
+   "blick": 0,
+   "sichtbar": false,
+   "id": "nb_8",
+   "modul": "nachbar",
+   "params": {
+    "variante": "brille",
+    "alter": "alt",
+    "farbe": "#6A5038",
+    "kleidung": "pullover"
+   },
+   "gesicht": "besorgt"
+  },
+  {
+   "position": [
+    0,
+    -40,
+    0
+   ],
+   "blick": 0,
+   "sichtbar": false,
+   "id": "nb_9",
+   "modul": "nachbar",
+   "params": {
+    "variante": "glatze",
+    "alter": "mittel",
+    "farbe": "#7A3B36",
+    "kleidung": "jacke"
+   },
+   "gesicht": "ernst"
+  },
+  {
+   "position": [
+    0,
+    -40,
+    0
+   ],
+   "blick": 0,
+   "sichtbar": false,
+   "id": "nb_10",
+   "modul": "nachbar",
+   "params": {
+    "variante": "muetze",
+    "alter": "mittel",
+    "farbe": "#2f3e5c",
+    "kleidung": "pullover"
    },
    "gesicht": "besorgt"
   },
@@ -561,7 +682,7 @@
    "modul": "schuhpaar",
    "params": {
     "art": "june",
-    "ordnung": "schief"
+    "ordnung": "getreten"
    }
   },
   {
@@ -658,11 +779,12 @@
     "blick": {
      "azimut": -90,
      "hoehe": -4,
-     "abstand": 2.2,
+     "abstand": 0.6,
      "bezug": "mh.auge"
     },
     "fov": 38,
-    "rate": -0.14
+    "faktor": 0.2,
+    "profil": "ease_out"
    },
    "stellung": {
     "mh": {
@@ -677,7 +799,7 @@
      "gesicht": "auge",
      "pose": "spaehen",
      "pose_params": {
-      "staerke": 0.6
+      "staerke": 2.2
      }
     }
    },
@@ -884,16 +1006,16 @@
    "kamera": {
     "baustein": "push_in",
     "pos": [
-     3,
-     1.6,
-     -4.6
+     -11.3,
+     0.9,
+     5.4
     ],
     "ziel": [
-     -8.6,
-     4.1,
-     2.4
+     -8,
+     4.4,
+     2.6
     ],
-    "fov": 50,
+    "fov": 60,
     "rate": 0.08
    },
    "stellung": {
@@ -992,16 +1114,16 @@
      "anker": "mh.haende",
      "versatz": [
       0,
-      -0.5,
+      -0.6,
       0
      ]
     },
     "blick": {
-     "azimut": -53,
-     "hoehe": -55,
-     "abstand": 5.9
+     "azimut": 180,
+     "hoehe": -26,
+     "abstand": 8.5
     },
-    "fov": 56,
+    "fov": 54,
     "rate": 0.08
    },
    "stellung": {
@@ -1113,16 +1235,16 @@
      "anker": "mh.haende",
      "versatz": [
       0,
-      -0.5,
+      -0.6,
       0
      ]
     },
     "pos": [
-     -14.4,
-     5.4,
-     1.6
+     -13.3,
+     5.55,
+     3.05
     ],
-    "fov": 46,
+    "fov": 52,
     "rate": 0.07,
     "zusaetze": [
      {
@@ -1187,8 +1309,8 @@
     }
    ],
    "tiefenunschaerfe": {
-    "fokus": "mh.haende",
-    "staerke": 0.5
+    "fokus": "eli.kopf",
+    "staerke": 0.8
    },
    "schatten_bereich": 16,
    "text": "I yanked the curtain shut.",
@@ -1216,7 +1338,7 @@
      "schluesselwort_idee": "yanked"
     },
     "gesichter": [],
-    "hauptsache": "mh.haende",
+    "hauptsache": "eli.kopf",
     "bogen_zeit": 5.07,
     "akzent": false,
     "monster": true,
@@ -1867,13 +1989,18 @@
      "dichte": 0.012
     },
     "hemi": {
-     "himmel": "#9aa2e0",
-     "boden": "#4a4058",
-     "staerke": 2.6
+     "himmel": "#b4bcf0",
+     "boden": "#6a5a70",
+     "staerke": 3.8
     },
     "haupt": {
-     "farbe": "#ff9466",
-     "staerke": 3.2
+     "farbe": "#ffb08a",
+     "staerke": 3,
+     "richtung": [
+      0.9,
+      0.35,
+      0.1
+     ]
     },
     "kante": {
      "farbe": "#7f9cff",
@@ -1888,7 +2015,7 @@
       1.1
      ]
     },
-    "belichtung": 1.45
+    "belichtung": 1.7
    },
    "kamera": {
     "baustein": "dolly_out",
@@ -2314,15 +2441,15 @@
     "baustein": "push_in",
     "ziel": [
      -16.78,
-     1.3,
+     1.9,
      -2
     ],
     "pos": [
-     -16.7,
-     1.5,
-     -0.6
+     -16.72,
+     2.05,
+     0.15
     ],
-    "fov": 50,
+    "fov": 52,
     "rate": 0.07
    },
    "stellung": {
@@ -2359,7 +2486,7 @@
      "dauer": 0.2,
      "params": {
       "seite": "r",
-      "vorn": 45
+      "vorn": 40
      },
      "start": 17.1667,
      "nebenbei": true
@@ -2369,8 +2496,17 @@
      "was": "greifen",
      "dauer": 0.35,
      "params": {
-      "zu": "eli.hand_r",
-      "seite": "l"
+      "zu": {
+       "anker": "eli.hand_r",
+       "versatz": [
+        -0.09,
+        0.06,
+        0
+       ]
+      },
+      "seite": "l",
+      "form": "faust",
+      "lehnen": false
      },
      "start": 17.3,
      "nebenbei": true
@@ -2379,7 +2515,10 @@
      "wer": "eli",
      "was": "erschrecken",
      "start": 18.02,
-     "dauer": 0.25
+     "dauer": 0.25,
+     "params": {
+      "staerke": 0.35
+     }
     },
     {
      "wer": "eli",
@@ -2388,6 +2527,17 @@
      "params": {
       "name": "angst"
      }
+    }
+   ],
+   "partikel": [
+    {
+     "start": 18.02,
+     "dauer": 0.7133,
+     "art": "atem",
+     "ort": "eli.mund",
+     "periode": 1.3,
+     "groesse": 0.06,
+     "deckkraft": 0.6
     }
    ],
    "tiefenunschaerfe": {
@@ -3246,13 +3396,20 @@
    },
    "kamera": {
     "baustein": "push_in",
-    "ziel": "sp_v2.mitte",
+    "ziel": {
+     "anker": "sp_v2.mitte",
+     "versatz": [
+      0,
+      -0.05,
+      0
+     ]
+    },
     "blick": {
      "azimut": 100,
-     "hoehe": 30,
-     "abstand": 1.45
+     "hoehe": 48,
+     "abstand": 2.5
     },
-    "fov": 40,
+    "fov": 44,
     "rate": 0.07
    },
    "stellung": {
@@ -3535,9 +3692,13 @@
       0.55,
       0.7
      ],
-     "staerke": 3
+     "staerke": 2.4
     },
-    "belichtung": 1.85
+    "belichtung": 1.6,
+    "grade": {
+     "saettigung": 0.6,
+     "kontrast": 1.06
+    }
    },
    "kamera": {
     "baustein": "push_in",
@@ -3856,19 +4017,19 @@
    "kamera": {
     "baustein": "push_in",
     "ziel": {
-     "anker": "odell.kopf",
+     "anker": "june2.kopf",
      "versatz": [
       0,
-      -0.12,
+      -0.1,
       0
      ]
     },
     "pos": [
-     -2.1,
-     1.65,
-     -55.1
+     1.9,
+     1.75,
+     -58.1
     ],
-    "fov": 44,
+    "fov": 40,
     "rate": 0.07
    },
    "stellung": {
@@ -3962,7 +4123,7 @@
       "start": 35.14
      }
     ],
-    "hauptsache": "odell.kopf",
+    "hauptsache": "june2.kopf",
     "bogen_zeit": 35.24,
     "akzent": false,
     "monster": false,
@@ -4723,95 +4884,150 @@
    "kamera": {
     "baustein": "push_in",
     "pos": [
-     1,
-     1.7,
-     -55.2
+     0.3,
+     1.75,
+     -56.4
     ],
     "ziel": [
-     0.2,
-     1.45,
-     -51.4
+     0.1,
+     1.35,
+     -51.2
     ],
-    "fov": 52,
+    "fov": 58,
     "rate": 0.06
    },
    "stellung": {
+    "nb_frau": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      0.2,
+      0,
+      -52.6
+     ],
+     "blick": 180,
+     "gesicht": "besorgt"
+    },
     "nb_mantel": {
      "neu": true,
      "sichtbar": true,
      "position": [
       -1.2,
       0,
-      -52.2
+      -52.3
      ],
-     "blick": 175,
-     "gesicht": "besorgt"
-    },
-    "nb_frau": {
-     "neu": true,
-     "sichtbar": true,
-     "position": [
-      0.3,
-      0,
-      -51.6
-     ],
-     "blick": 180,
+     "blick": 168,
      "gesicht": "besorgt"
     },
     "nb_alt": {
      "neu": true,
      "sichtbar": true,
      "position": [
-      1.9,
+      1.5,
       0,
-      -52
+      -52.2
      ],
-     "blick": 190,
-     "gesicht": "besorgt"
-    },
-    "nb_ohren": {
-     "neu": true,
-     "sichtbar": true,
-     "position": [
-      3.4,
-      0,
-      -52.8
-     ],
-     "blick": 200,
-     "gesicht": "besorgt"
-    },
-    "nb_passant": {
-     "neu": true,
-     "sichtbar": true,
-     "position": [
-      -2.6,
-      0,
-      -53
-     ],
-     "blick": 165,
-     "gesicht": "ernst"
-    },
-    "nb_alt2": {
-     "neu": true,
-     "sichtbar": true,
-     "position": [
-      -0.4,
-      0,
-      -50.4
-     ],
-     "blick": 180,
+     "blick": 192,
      "gesicht": "besorgt"
     },
     "odell": {
      "neu": true,
      "sichtbar": true,
      "position": [
-      -2.4,
+      -0.6,
       0,
-      -55.6
+      -53.4
      ],
-     "blick": 120,
+     "blick": 175,
      "gesicht": "streng"
+    },
+    "nb_ohren": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      2.3,
+      0,
+      -51.2
+     ],
+     "blick": 198,
+     "gesicht": "besorgt"
+    },
+    "nb_passant": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -2,
+      0,
+      -51.1
+     ],
+     "blick": 160,
+     "gesicht": "ernst"
+    },
+    "nb_6": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -0.6,
+      0,
+      -51
+     ],
+     "blick": 176,
+     "gesicht": "besorgt"
+    },
+    "nb_7": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      0.9,
+      0,
+      -50.8
+     ],
+     "blick": 186,
+     "gesicht": "ernst"
+    },
+    "nb_8": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -1.5,
+      0,
+      -49.8
+     ],
+     "blick": 170,
+     "gesicht": "besorgt"
+    },
+    "nb_9": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      1.8,
+      0,
+      -49.7
+     ],
+     "blick": 190,
+     "gesicht": "ernst"
+    },
+    "nb_10": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      0.2,
+      0,
+      -49.5
+     ],
+     "blick": 180,
+     "gesicht": "besorgt"
+    },
+    "nb_alt2": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -2.6,
+      0,
+      -50
+     ],
+     "blick": 165,
+     "gesicht": "besorgt"
     },
     "tess": {
      "sichtbar": false
@@ -4892,13 +5108,18 @@
     "akzent": false,
     "monster": false,
     "sichtbar": [
-     "nb_mantel",
      "nb_frau",
+     "nb_mantel",
      "nb_alt",
+     "odell",
      "nb_ohren",
      "nb_passant",
-     "nb_alt2",
-     "odell"
+     "nb_6",
+     "nb_7",
+     "nb_8",
+     "nb_9",
+     "nb_10",
+     "nb_alt2"
     ]
    }
   },
@@ -4961,10 +5182,10 @@
      "blick": -120,
      "gesicht": "streng"
     },
-    "nb_mantel": {
+    "nb_frau": {
      "sichtbar": false
     },
-    "nb_frau": {
+    "nb_mantel": {
      "sichtbar": false
     },
     "nb_alt": {
@@ -4974,6 +5195,21 @@
      "sichtbar": false
     },
     "nb_passant": {
+     "sichtbar": false
+    },
+    "nb_6": {
+     "sichtbar": false
+    },
+    "nb_7": {
+     "sichtbar": false
+    },
+    "nb_8": {
+     "sichtbar": false
+    },
+    "nb_9": {
+     "sichtbar": false
+    },
+    "nb_10": {
      "sichtbar": false
     },
     "nb_alt2": {
@@ -5066,12 +5302,12 @@
     "von_ziel": "strasse.kirche_tuer",
     "ziel": "strasse.glocke",
     "pos": [
-     -4.4,
-     1.7,
-     -37.5
+     -8.6,
+     1.6,
+     -30.5
     ],
     "kran": 1.6,
-    "fov": 58,
+    "fov": 60,
     "ankunft": 45.64,
     "start": 44.6167
    },
@@ -5341,16 +5577,16 @@
      "anker": "eli.kopf",
      "versatz": [
       0,
-      -0.3,
+      -0.4,
       0
      ]
     },
-    "blick": {
-     "azimut": -10,
-     "hoehe": 8,
-     "abstand": 2.4
-    },
-    "fov": 50,
+    "pos": [
+     -15.55,
+     5.3,
+     1.35
+    ],
+    "fov": 52,
     "rate": 0.07
    },
    "stellung": {
@@ -5358,9 +5594,9 @@
      "neu": true,
      "sichtbar": true,
      "position": [
-      -15.45,
+      -14.85,
       3.8,
-      2.25
+      3.3
      ],
      "blick": -90,
      "gesicht": "entschlossen"
@@ -5377,9 +5613,9 @@
      "dauer": 0.4,
      "params": {
       "zu": [
-       -16.02,
-       4.22,
-       2.4
+       -15.55,
+       4.42,
+       3.35
       ],
       "seite": "r",
       "lehnen": false
@@ -5678,10 +5914,10 @@
     "ziel": "pk2.sitz",
     "blick": {
      "azimut": 10,
-     "hoehe": 30,
-     "abstand": 1.45
+     "hoehe": 32,
+     "abstand": 1.22
     },
-    "fov": 42,
+    "fov": 44,
     "rate": 0.07
    },
    "stellung": {
@@ -5865,17 +6101,17 @@
    "kamera": {
     "baustein": "orbit",
     "ziel": [
-     -14.78,
-     1.45,
+     -14.75,
+     1.85,
      -2.55
     ],
     "blick": {
-     "azimut": 8,
+     "azimut": 6,
      "hoehe": 6,
-     "abstand": 2.2
+     "abstand": 2.4
     },
-    "grad_pro_s": 20,
-    "fov": 46
+    "grad_pro_s": 14,
+    "fov": 58
    },
    "stellung": {
     "eli2": {
@@ -5927,7 +6163,8 @@
      "params": {
       "zu": "eli2.rucksack",
       "seite": "r",
-      "form": "faust"
+      "form": "faust",
+      "lehnen": false
      }
     }
    ],
@@ -5957,7 +6194,10 @@
      "schluesselwort_idee": "bag"
     },
     "gesichter": [],
-    "hauptsache": "june.kopf",
+    "hauptsache": [
+     "june.kopf",
+     "eli2.rucksack"
+    ],
     "bogen_zeit": 57.96,
     "akzent": true,
     "monster": false,
@@ -6641,53 +6881,20 @@
    "set": [
     "keller"
    ],
-   "licht": "innen_warm",
-   "licht_anpassung": {
-    "himmel": {
-     "zenit": "#120e0c",
-     "horizont": "#1c1612"
-    },
-    "nebel": {
-     "farbe": "#16110e",
-     "dichte": 0.03
-    },
-    "hemi": {
-     "himmel": "#9aa6c8",
-     "boden": "#6a5244",
-     "staerke": 2.4
-    },
-    "haupt": {
-     "farbe": "#ffd2a0",
-     "staerke": 0.3,
-     "richtung": [
-      0.2,
-      0.95,
-      0.2
-     ]
-    },
-    "kante": {
-     "farbe": "#9FD8D2",
-     "staerke": 0.35,
-     "richtung": [
-      -0.4,
-      0.5,
-      0.75
-     ]
-    },
-    "belichtung": 1.25,
-    "grade": {
-     "saettigung": 1,
-     "kontrast": 1.06,
-     "faerbung": [
-      1.02,
-      1,
-      0.97
-     ]
-    }
-   },
+   "licht": "kriechkeller",
    "kamera": {
     "baustein": "push_in",
-    "punkt": "keller.luke_unten",
+    "pos": [
+     300.25,
+     0.3,
+     0.62
+    ],
+    "ziel": [
+     300.45,
+     1.2,
+     -0.05
+    ],
+    "fov": 58,
     "rate": 0.07
    },
    "stellung": {
@@ -6762,57 +6969,14 @@
    "set": [
     "keller"
    ],
-   "licht": "innen_warm",
-   "licht_anpassung": {
-    "himmel": {
-     "zenit": "#120e0c",
-     "horizont": "#1c1612"
-    },
-    "nebel": {
-     "farbe": "#16110e",
-     "dichte": 0.03
-    },
-    "hemi": {
-     "himmel": "#9aa6c8",
-     "boden": "#6a5244",
-     "staerke": 2.4
-    },
-    "haupt": {
-     "farbe": "#ffd2a0",
-     "staerke": 0.3,
-     "richtung": [
-      0.2,
-      0.95,
-      0.2
-     ]
-    },
-    "kante": {
-     "farbe": "#9FD8D2",
-     "staerke": 0.35,
-     "richtung": [
-      -0.4,
-      0.5,
-      0.75
-     ]
-    },
-    "belichtung": 1.25,
-    "grade": {
-     "saettigung": 1,
-     "kontrast": 1.06,
-     "faerbung": [
-      1.02,
-      1,
-      0.97
-     ]
-    }
-   },
+   "licht": "kriechkeller",
    "kamera": {
     "baustein": "push_in",
     "ziel": "keller.luke",
     "pos": [
-     300.15,
-     0.42,
-     -0.62
+     300.2,
+     0.4,
+     0.6
     ],
     "fov": 48,
     "rate": 0.08
@@ -6882,50 +7046,7 @@
    "set": [
     "keller"
    ],
-   "licht": "innen_warm",
-   "licht_anpassung": {
-    "himmel": {
-     "zenit": "#120e0c",
-     "horizont": "#1c1612"
-    },
-    "nebel": {
-     "farbe": "#16110e",
-     "dichte": 0.03
-    },
-    "hemi": {
-     "himmel": "#9aa6c8",
-     "boden": "#6a5244",
-     "staerke": 2.4
-    },
-    "haupt": {
-     "farbe": "#ffd2a0",
-     "staerke": 0.3,
-     "richtung": [
-      0.2,
-      0.95,
-      0.2
-     ]
-    },
-    "kante": {
-     "farbe": "#9FD8D2",
-     "staerke": 0.35,
-     "richtung": [
-      -0.4,
-      0.5,
-      0.75
-     ]
-    },
-    "belichtung": 1.25,
-    "grade": {
-     "saettigung": 1,
-     "kontrast": 1.06,
-     "faerbung": [
-      1.02,
-      1,
-      0.97
-     ]
-    }
-   },
+   "licht": "kriechkeller",
    "kamera": {
     "baustein": "push_in",
     "ziel": {
@@ -6942,7 +7063,7 @@
      "abstand": 1.6
     },
     "fov": 54,
-    "roll": 70,
+    "roll": -90,
     "rate": 0.08
    },
    "stellung": {
@@ -7023,7 +7144,7 @@
     "baustein": "crane_down_tilt",
     "ziel": "june.kopf",
     "blick": {
-     "azimut": 140,
+     "azimut": 92,
      "hoehe": 52,
      "abstand": 1.7
     },
@@ -7184,11 +7305,18 @@
    },
    "kamera": {
     "baustein": "push_in",
-    "ziel": "june.kopf",
+    "ziel": {
+     "anker": "june.kopf",
+     "versatz": [
+      0,
+      0.04,
+      0
+     ]
+    },
     "blick": {
-     "azimut": 140,
-     "hoehe": 40,
-     "abstand": 1.2
+     "azimut": 92,
+     "hoehe": 50,
+     "abstand": 1.85
     },
     "fov": 38,
     "rate": 0.07
@@ -7319,49 +7447,9 @@
    "set": [
     "keller"
    ],
-   "licht": "innen_warm",
+   "licht": "kriechkeller",
    "licht_anpassung": {
-    "himmel": {
-     "zenit": "#120e0c",
-     "horizont": "#1c1612"
-    },
-    "nebel": {
-     "farbe": "#16110e",
-     "dichte": 0.03
-    },
-    "hemi": {
-     "himmel": "#9aa6c8",
-     "boden": "#6a5244",
-     "staerke": 2.4
-    },
-    "haupt": {
-     "farbe": "#ffd2a0",
-     "staerke": 0.3,
-     "richtung": [
-      0.2,
-      0.95,
-      0.2
-     ]
-    },
-    "kante": {
-     "farbe": "#9FD8D2",
-     "staerke": 0.35,
-     "richtung": [
-      -0.4,
-      0.5,
-      0.75
-     ]
-    },
-    "belichtung": 0.85,
-    "grade": {
-     "saettigung": 1,
-     "kontrast": 1.06,
-     "faerbung": [
-      1.02,
-      1,
-      0.97
-     ]
-    }
+    "belichtung": 0.95
    },
    "kamera": {
     "baustein": "push_in",
@@ -7372,7 +7460,7 @@
      "abstand": 0.95
     },
     "fov": 46,
-    "roll": 70,
+    "roll": -90,
     "rate": 0.07
    },
    "stellung": {
@@ -7462,16 +7550,16 @@
      "anker": "june.kopf",
      "versatz": [
       0,
-      0.02,
+      0.06,
       0
      ]
     },
     "blick": {
-     "azimut": 140,
-     "hoehe": 38,
-     "abstand": 0.95
+     "azimut": 92,
+     "hoehe": 60,
+     "abstand": 1.6
     },
-    "fov": 34,
+    "fov": 36,
     "rate": 0.06
    },
    "stellung": {
@@ -7535,18 +7623,25 @@
    ],
    "partikel": [
     {
-     "start": 73.72,
-     "dauer": 0.3467,
+     "start": 73.47,
+     "dauer": 0.5967,
      "art": "atem",
-     "ort": "june.mund",
-     "periode": 1.2,
+     "ort": {
+      "anker": "june.mund",
+      "versatz": [
+       0.13,
+       0.02,
+       0
+      ]
+     },
+     "periode": 1,
      "richtung": [
       0,
       1,
       0
      ],
-     "groesse": 0.07,
-     "deckkraft": 0.75
+     "groesse": 0.022,
+     "deckkraft": 0.85
     }
    ],
    "tiefenunschaerfe": {
@@ -7626,15 +7721,15 @@
     "baustein": "push_in",
     "pos": [
      0.7,
-     8.6,
-     -51
+     9.4,
+     -46.5
     ],
     "ziel": [
      0,
-     11.15,
+     12.4,
      -62.4
     ],
-    "fov": 34,
+    "fov": 28,
     "rate": 0.06,
     "zusaetze": [
      {
@@ -7651,7 +7746,7 @@
    },
    "aktionen": [],
    "tiefenunschaerfe": {
-    "fokus": "strasse.kirche_uhr",
+    "fokus": "strasse.glocke",
     "staerke": 0.8
    },
    "schatten_bereich": 24,
@@ -7679,7 +7774,7 @@
      "schluesselwort_idee": "midnight"
     },
     "gesichter": [],
-    "hauptsache": "strasse.kirche_uhr",
+    "hauptsache": "strasse.glocke",
     "bogen_zeit": 75.3,
     "akzent": false,
     "monster": false,
@@ -7864,53 +7959,20 @@
    "set": [
     "keller"
    ],
-   "licht": "innen_warm",
-   "licht_anpassung": {
-    "himmel": {
-     "zenit": "#120e0c",
-     "horizont": "#1c1612"
-    },
-    "nebel": {
-     "farbe": "#16110e",
-     "dichte": 0.03
-    },
-    "hemi": {
-     "himmel": "#9aa6c8",
-     "boden": "#6a5244",
-     "staerke": 2.4
-    },
-    "haupt": {
-     "farbe": "#ffd2a0",
-     "staerke": 0.3,
-     "richtung": [
-      0.2,
-      0.95,
-      0.2
-     ]
-    },
-    "kante": {
-     "farbe": "#9FD8D2",
-     "staerke": 0.35,
-     "richtung": [
-      -0.4,
-      0.5,
-      0.75
-     ]
-    },
-    "belichtung": 1.25,
-    "grade": {
-     "saettigung": 1,
-     "kontrast": 1.06,
-     "faerbung": [
-      1.02,
-      1,
-      0.97
-     ]
-    }
-   },
+   "licht": "kriechkeller",
    "kamera": {
     "baustein": "push_in",
-    "punkt": "keller.pov",
+    "pos": [
+     300.25,
+     0.3,
+     0.45
+    ],
+    "ziel": [
+     299.52,
+     1,
+     -0.15
+    ],
+    "fov": 54,
     "rate": 0.07,
     "zusaetze": [
      {
@@ -7925,11 +7987,11 @@
      "neu": true,
      "sichtbar": true,
      "position": [
-      299.65,
+      299.55,
       1.032,
-      0.15
+      -0.45
      ],
-     "blick": 90,
+     "blick": 0,
      "gesicht": "glatt"
     },
     "odell": {
@@ -7964,19 +8026,19 @@
      "dauer": 1.6,
      "art": "staub",
      "ort": [
-      299.6,
-      0.95,
-      0.1
+      299.55,
+      0.85,
+      -0.2
      ],
-     "farbe": "#d8c8b0",
-     "anzahl": 70,
-     "groesse": 0.014,
+     "farbe": "#e8dcc8",
+     "anzahl": 160,
+     "groesse": 0.0045,
      "bereich": [
-      0.15,
-      0.12,
-      0.15
+      0.35,
+      0.25,
+      0.3
      ],
-     "deckkraft": 0.65
+     "deckkraft": 0.7
     }
    ],
    "tiefenunschaerfe": {
@@ -8003,7 +8065,7 @@
      "wort_i": 262,
      "wort_start": 78.7,
      "start": 78.7,
-     "ende": 79.15,
+     "ende": 79.1,
      "anker": "start",
      "schluesselwort_idee": "bent"
     },
@@ -8024,57 +8086,17 @@
    "set": [
     "keller"
    ],
-   "licht": "innen_warm",
+   "licht": "kriechkeller",
    "licht_anpassung": {
-    "himmel": {
-     "zenit": "#120e0c",
-     "horizont": "#1c1612"
-    },
-    "nebel": {
-     "farbe": "#16110e",
-     "dichte": 0.03
-    },
-    "hemi": {
-     "himmel": "#9aa6c8",
-     "boden": "#6a5244",
-     "staerke": 2.4
-    },
-    "haupt": {
-     "farbe": "#ffd2a0",
-     "staerke": 0.3,
-     "richtung": [
-      0.2,
-      0.95,
-      0.2
-     ]
-    },
-    "kante": {
-     "farbe": "#9FD8D2",
-     "staerke": 0.35,
-     "richtung": [
-      -0.4,
-      0.5,
-      0.75
-     ]
-    },
-    "belichtung": 0.7,
-    "grade": {
-     "saettigung": 1,
-     "kontrast": 1.06,
-     "faerbung": [
-      1.02,
-      1,
-      0.97
-     ]
-    }
+    "belichtung": 0.95
    },
    "kamera": {
     "baustein": "push_in",
     "ziel": {
-     "anker": "eli.kopf",
+     "anker": "eli.augen",
      "versatz": [
       0,
-      0.05,
+      0.02,
       0
      ]
     },
@@ -8084,7 +8106,7 @@
      "abstand": 1
     },
     "fov": 46,
-    "roll": 70,
+    "roll": -90,
     "rate": 0.07
    },
    "stellung": {
@@ -8107,11 +8129,11 @@
      "neu": true,
      "sichtbar": true,
      "position": [
-      299.65,
+      299.55,
       1.032,
-      0.15
+      -0.45
      ],
-     "blick": 90,
+     "blick": 0,
      "gesicht": "glatt"
     }
    },
@@ -8189,48 +8211,11 @@
    "set": [
     "keller"
    ],
-   "licht": "innen_warm",
+   "licht": "kriechkeller",
    "licht_anpassung": {
-    "himmel": {
-     "zenit": "#120e0c",
-     "horizont": "#1c1612"
-    },
-    "nebel": {
-     "farbe": "#16110e",
-     "dichte": 0.03
-    },
+    "belichtung": 1.5,
     "hemi": {
-     "himmel": "#9aa6c8",
-     "boden": "#6a5244",
-     "staerke": 2.4
-    },
-    "haupt": {
-     "farbe": "#ffd2a0",
-     "staerke": 0.3,
-     "richtung": [
-      0.2,
-      0.95,
-      0.2
-     ]
-    },
-    "kante": {
-     "farbe": "#9FD8D2",
-     "staerke": 0.35,
-     "richtung": [
-      -0.4,
-      0.5,
-      0.75
-     ]
-    },
-    "belichtung": 0.85,
-    "grade": {
-     "saettigung": 1,
-     "kontrast": 1.06,
-     "faerbung": [
-      1.02,
-      1,
-      0.97
-     ]
+     "staerke": 1.3
     }
    },
    "kamera": {
@@ -8249,7 +8234,7 @@
      "abstand": 0.9
     },
     "fov": 46,
-    "roll": 70,
+    "roll": -90,
     "rate": 0.06
    },
    "stellung": {
@@ -8447,50 +8432,7 @@
    "set": [
     "keller"
    ],
-   "licht": "innen_warm",
-   "licht_anpassung": {
-    "himmel": {
-     "zenit": "#120e0c",
-     "horizont": "#1c1612"
-    },
-    "nebel": {
-     "farbe": "#16110e",
-     "dichte": 0.03
-    },
-    "hemi": {
-     "himmel": "#9aa6c8",
-     "boden": "#6a5244",
-     "staerke": 2.4
-    },
-    "haupt": {
-     "farbe": "#ffd2a0",
-     "staerke": 0.3,
-     "richtung": [
-      0.2,
-      0.95,
-      0.2
-     ]
-    },
-    "kante": {
-     "farbe": "#9FD8D2",
-     "staerke": 0.35,
-     "richtung": [
-      -0.4,
-      0.5,
-      0.75
-     ]
-    },
-    "belichtung": 1.25,
-    "grade": {
-     "saettigung": 1,
-     "kontrast": 1.06,
-     "faerbung": [
-      1.02,
-      1,
-      0.97
-     ]
-    }
-   },
+   "licht": "kriechkeller",
    "kamera": {
     "baustein": "push_in",
     "punkt": "keller.pov",
@@ -8509,11 +8451,11 @@
      "neu": true,
      "sichtbar": true,
      "position": [
-      299.65,
+      299.55,
       1.032,
-      0.15
+      -0.45
      ],
-     "blick": 90,
+     "blick": 0,
      "gesicht": "glatt"
     },
     "luke_tp": {
@@ -8526,7 +8468,7 @@
      "art": "dimmen",
      "start": 83.84,
      "ziel": "keller.oben",
-     "faktor": 0.78,
+     "faktor": 0.5,
      "dauer": 0.4
     }
    ],

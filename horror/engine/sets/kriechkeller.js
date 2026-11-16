@@ -2,7 +2,7 @@
 // Ein eigener Raum, weit weg von den anderen Sets stellen (z. B. "position": [300, 0, 0]) und in seinen
 // Einstellungen allein zeigen: "set": ["keller"]. Alle Maße lokal (1 m, y oben):
 //   Erdboden bei y = 0, Balken (Unterzüge) laufen entlang z bei x = −2,7 … 2,7 (alle 0,9 m),
-//   Dielen laufen entlang x (schmale Bretter, 8,5 cm), Unterkante y = 1,0, Oberkante y = 1,016, Fugen 3 cm. Dünne Bretter und breite
+//   Dielen laufen entlang x (schmale Bretter, 7,5 cm), Unterkante y = 1,0, Oberkante y = 1,016, Fugen 4,2 cm. Dünne Bretter und breite
 //   Fugen, damit man auch schräg von unten noch durch die Fugen sieht (sonst verdeckt die Brettkante das Licht).
 //   Bodenluke: Öffnung x 0,04 … 0,86, z −0,41 … 0,41 (Requisite "luke" mit groesse [0.8, 0.8] an Anker
 //   "luke_angel", blick 0; sie öffnet nach oben).
@@ -17,11 +17,14 @@
 //               aus regie.mjs, haupt/neben { art: "set", set: "keller", was, wort }):
 //     biegen  { tiefe (m, Std 0.045), mitte [x, z] (Std Mitte der Füße), radius (Std 0.75) }: die Dielen
 //             biegen sich unter großem Gewicht nach unten (Satz 42) und bleiben gebogen
-//     finger  { von [x, z], nach [x, z], drehung (Grad), spreizen (Grad, Std 22) }: der Schatten von vier
+//     finger  { von [x, z], nach [x, z], drehung (Grad), spreizen (Grad, Std 22), skala (Std 1.3),
+//             spreiz_dauer (Std 0.2) }: der Schatten von vier
 //             langen Fingern gleitet über die Fugen und spreizt sich (Satz 46, Ready?)
 //     glut    { staerke (Std 1) }: der kalte Saum um die Finger leuchtet auf
-//     fuesse  { mitte [x, z], drehung }: dunkle Sohlen unter Mister Hundreds Füßen (verdecken die Fugen)
-//   taschenlampe (Std true): Elis Taschenlampe liegt an, Lichtkegel nach oben
+//     fuesse  { mitte [x, z] = Standpunkt des Monsters, drehung = sein blick }: dunkle Sohlen mit Zehen unter
+//             seinen Füßen (verdecken die Fugen und werfen Schatten)
+//   taschenlampe (Std true): Elis Taschenlampe liegt an, Lichtkegel nach oben; kegel (Std 0.22) Sichtbarkeit
+//   des Kegels, lampe_staerke (Std 2.4) Punktlicht, oben (Std 2.0) Leuchten der Fugen
 // Lichtgruppen: keller.oben (Lichtstreifen der Dielen), keller.lukenrand (Fugen um die Luke; aus, wenn der
 //   Teppich darüberfällt), keller.lampe (Elis Taschenlampe: Punktlicht, Kegel, Lichtfleck), keller.gitter
 //   (Mondlicht am Lüftungsgitter, für Teil 3)
@@ -31,7 +34,8 @@ import { k, zyl, verschmelze, tmat, lichtPfuetzeMat } from '../src/bauteile.js';
 // Maße (lokal)
 export const KELLER = {
   x0: -3.2, x1: 3.2, z0: -2.6, z1: 2.6,
-  dielenUnten: 1.0, dielenDicke: 0.016, brett: 0.085, fuge: 0.03,
+  // Review Teil 2: Fugen 3 -> 4,2 cm, Bretter 8,5 -> 7,5 cm, damit Sohlen und Finger oben als Form lesbar werden
+  dielenUnten: 1.0, dielenDicke: 0.016, brett: 0.075, fuge: 0.042,
   luke: { x0: 0.04, x1: 0.86, z0: -0.41, z1: 0.41 },
 };
 
@@ -134,7 +138,9 @@ export default async function baue(ctx, params = {}) {
   }
 
   // ---------- Junes Zimmer darüber: leuchtende Flächen (Lichtgruppen) ----------
-  const obenMat = new T.MeshStandardMaterial({ color: '#000000', emissive: new T.Color('#ffc98a'), emissiveIntensity: 3.2, roughness: 1, side: T.DoubleSide });
+  // Review Teil 2: mit den breiteren Fugen legte das Leuchten (3,2) über Bloom einen hellen Schleier über
+  // den ganzen Keller; 2,0 bleibt über der Bloom-Schwelle, die Streifen blühen nur noch schmal
+  const obenMat = new T.MeshStandardMaterial({ color: '#000000', emissive: new T.Color('#ffc98a'), emissiveIntensity: params.oben ?? 2.0, roughness: 1, side: T.DoubleSide });
   const oben = new T.Mesh(new T.PlaneGeometry(K.x1 - K.x0, K.z1 - K.z0), obenMat);
   oben.rotation.x = Math.PI / 2;
   oben.position.set(0, yO + 0.32, 0);
@@ -153,6 +159,9 @@ export default async function baue(ctx, params = {}) {
   k(statisch, 0.03, 0.12, L.z1 - L.z0 + 0.06, rahmen, L.x1 + 0.015, yU - 0.04, 0);
 
   const schwarz = new T.MeshBasicMaterial({ color: '#0a0b0d', side: T.DoubleSide });
+  // Was oben steht, wirft auch Schatten: Das warme Licht aus Junes Zimmer (Hauptlicht des Presets
+  // „kriechkeller“, fast senkrecht von oben) fällt durch die Fugen auf Eli und den Boden.
+  const schattenWerfen = (g) => g.traverse((o) => { if (o.isMesh && o.material === schwarz) o.castShadow = true; });
   // ---------- Fingerschatten (Satz 46): flache Hand mit kaltem Saum zwischen Dielen und Licht ----------
   // Von unten sieht man nur, welche Fugen dunkel werden: vier lange Finger, an den Rändern türkis.
   const hand = new T.Group();
@@ -161,6 +170,7 @@ export default async function baue(ctx, params = {}) {
   hand.visible = false;
   gruppe.add(hand);
   const saumMat = new T.MeshStandardMaterial({ color: '#000000', emissive: new T.Color('#9FD8D2'), emissiveIntensity: 0, roughness: 1, side: T.DoubleSide });
+  const spitzenMat = new T.MeshStandardMaterial({ color: '#000000', emissive: new T.Color('#c8fff8'), emissiveIntensity: 0, roughness: 1, side: T.DoubleSide });
   const flach = (b, l, mat, y) => {
     // Fläche in der xz-Ebene, liegt flach; Finger zeigen nach −x
     const m = new T.Mesh(new T.PlaneGeometry(l, b), mat);
@@ -184,10 +194,12 @@ export default async function baue(ctx, params = {}) {
     g.add(f);
     const s = flach(0.12, laenge + 0.04, saumMat, 0.008);
     g.add(s);
-    // glimmende Fingerspitze (wie die Nägel des Monsters): kaltes Licht, das durch die Fuge sickert
-    const spitze = new T.Mesh(new T.PlaneGeometry(0.14, 0.11), saumMat);
+    // glimmende Fingerspitze (wie die Nägel des Monsters): kaltes Licht, das durch die Fuge sickert.
+    // Review Teil 2: eigenes, helleres Material und länger (16 cm), damit jede Spitze in einer Fuge als
+    // kalter Punkt erscheint: vier Punkte in einer Reihe lesen sich als Fingerspitzen
+    const spitze = new T.Mesh(new T.PlaneGeometry(0.16, 0.085), spitzenMat);
     spitze.rotation.x = -Math.PI / 2;
-    spitze.position.set(-laenge - 0.05, -0.004, 0);
+    spitze.position.set(-laenge - 0.06, -0.004, 0);
     g.add(spitze);
     finger.push(g);
   }
@@ -196,16 +208,28 @@ export default async function baue(ctx, params = {}) {
   // Mister Hundred steht als echte Figur oben auf den Dielen. Seine hellen Sohlen würden aber von Elis
   // Lampe durch die Fugen angestrahlt und sähen aus wie Licht; deshalb liegen dunkle Sohlenflächen knapp
   // über den Dielen, unter den Füßen. Von unten werden die Lichtstreifen dort dunkel (Ereignis "fuesse").
+  // Review Teil 2: Die Füße stehen QUER zu den Fugen (Monster mit blick 0 oder 180), so schneidet jede Sohle
+  // 6–8 Lichtstreifen, und vorn zeigen vier Zehen mit Lücken: in der vordersten Fuge als gestrichelte Linie.
+  // Ursprung der Gruppe = Standpunkt des Monsters (Ereignis mitte [x, z]), lokal +z = Zehen, drehung = blick.
   const fuesse = new T.Group();
-  fuesse.position.set(0, yO + 0.004, 0);
   fuesse.visible = false;
   gruppe.add(fuesse);
-  for (const fz of [0, 0.3]) {
-    const sohle = new T.Mesh(new T.PlaneGeometry(0.98, 0.3), schwarz);
-    sohle.rotation.x = -Math.PI / 2;
-    sohle.position.set(-0.02, 0, fz);
-    fuesse.add(sohle);
+  const fl = (b, l, x, zz) => {
+    const m = new T.Mesh(new T.PlaneGeometry(b, l), schwarz);
+    m.rotation.x = -Math.PI / 2;
+    m.position.set(x, 0, zz);
+    fuesse.add(m);
+  };
+  for (const sx of [-1, 1]) {
+    const x = sx * 0.15;
+    fl(0.24, 0.62, x, 0.17);                               // Ferse bis Ballen
+    fl(0.27, 0.12, x, 0.5);                                // Ballen etwas breiter
+    // vier Zehen, lang und knochig, mit 2-cm-Lücken
+    [0.13, 0.15, 0.13, 0.11].forEach((zl, i) => fl(0.045, zl, x + sx * (-0.095 + i * 0.065), 0.56 + zl / 2));
   }
+  schattenWerfen(fuesse);
+  // die Hand des Fingerschattens wirft ebenfalls Schatten
+  schattenWerfen(hand);
 
   // ---------- Elis Taschenlampe: liegt neben ihm, Kegel schräg nach oben ----------
   const lampe = new T.Group();
@@ -230,9 +254,10 @@ export default async function baue(ctx, params = {}) {
     g.fillStyle = gr; g.fillRect(0, 0, w, h);
   }, 8, 128);
   const kegelLaenge = kegelZiel.distanceTo(lampePos);
-  const kegelMat = new T.MeshStandardMaterial({ color: '#000000', emissive: new T.Color('#ffd9a0'), emissiveIntensity: 0.1, emissiveMap: kegelTex, transparent: true, depthWrite: false, blending: T.AdditiveBlending, side: T.DoubleSide, roughness: 1 });
+  // Review Teil 2: Der Kegel war unsichtbar (0,1). Im dunklen Keller ist die Taschenlampe das Hauptlicht.
+  const kegelMat = new T.MeshStandardMaterial({ color: '#000000', emissive: new T.Color('#ffe4b8'), emissiveIntensity: params.kegel ?? 0.22, emissiveMap: kegelTex, transparent: true, depthWrite: false, blending: T.AdditiveBlending, side: T.DoubleSide, roughness: 1 });
   kegelMat.fog = false;
-  const kegel = new T.Mesh(new T.CylinderGeometry(0.42, 0.05, kegelLaenge, 24, 1, true), kegelMat);
+  const kegel = new T.Mesh(new T.CylinderGeometry(0.3, 0.05, kegelLaenge, 24, 1, true), kegelMat);
   kegel.position.set(0, 0.06 + kegelLaenge / 2, 0);
   kegel.userData.einzeln = true;
   lampeKoerper.add(kegel);
@@ -243,7 +268,7 @@ export default async function baue(ctx, params = {}) {
   fleck.position.set(kegelZiel.x, yU - 0.004, kegelZiel.z);
   fleck.userData.einzeln = true;
   gruppe.add(fleck);
-  const lampeLicht = new T.PointLight('#ffd6a0', params.taschenlampe === false ? 0 : 1.6, 4.5, 1.6);
+  const lampeLicht = new T.PointLight('#fff0d8', params.taschenlampe === false ? 0 : (params.lampe_staerke ?? 2.4), 5.0, 1.5);
   lampeLicht.position.copy(lampePos.clone().add(richtung.clone().multiplyScalar(0.25)));
   gruppe.add(lampeLicht);
   if (params.taschenlampe === false) { lampe.visible = false; kegel.visible = false; fleck.visible = false; }
@@ -268,7 +293,7 @@ export default async function baue(ctx, params = {}) {
       luke: [(L.x0 + L.x1) / 2, yU, 0],
       luke_angel: [(L.x0 + L.x1) / 2, yO, L.z0 + 0.01],   // Requisite "luke" (groesse [0.8, 0.8]) hier, blick 0
       dielen_mitte: [-0.45, yU, 0.1],                     // über Elis Gesicht
-      fuesse: [-0.35, yO, 0.15],                          // hier steht Mister Hundred oben (Satz 42–46)
+      fuesse: [-0.45, yO, -0.45],                         // hier steht Mister Hundred oben (Satz 42–46, blick 0)
       lampe: lampePos.toArray(),
       eli_kopf: [-0.55, 0.42, -0.35],                    // ungefähr Elis Kopf, wenn er bei kellerEli liegt
       gitter: [(gx0 + gx1) / 2, (gy0 + gy1) / 2, K.z1],
@@ -312,8 +337,9 @@ export default async function baue(ctx, params = {}) {
       const fe = fuesseEv.filter((e) => t >= e.start).at(-1);
       fuesse.visible = !!fe;
       if (fe) {
-        const m = fe.mitte ?? [-0.35, 0.15];
-        fuesse.position.x = m[0] + 0.33; fuesse.position.z = m[1] - 0.15;
+        const m = fe.mitte ?? [-0.45, -0.45];
+        // Höhe: auf der (ggf. gebogenen) Diele, knapp darüber
+        fuesse.position.set(m[0], yO + 0.004 - (fe.mit_biegung === false ? 0 : 0), m[1]);
         fuesse.rotation.y = ((fe.drehung ?? 0) * Math.PI) / 180;
       }
       // Fingerschatten: gleitet herein, dann spreizen sich die Finger
@@ -325,13 +351,18 @@ export default async function baue(ctx, params = {}) {
         hand.position.x = von[0] + (nach[0] - von[0]) * Math.min(1, u * 1.6);
         hand.position.z = von[1] + (nach[1] - von[1]) * Math.min(1, u * 1.6);
         hand.rotation.y = ((f.drehung ?? 0) * Math.PI) / 180;
-        const sp = ((f.spreizen ?? 22) * Math.PI) / 180 * glatt((u - 0.35) / 0.65);
+        hand.scale.set(f.skala ?? 1.3, 1, f.skala ?? 1.3);
+        // spreizen erst, wenn die Hand liegt (Review Teil 2: in etwa 0,2 s, deutlich sichtbar)
+        const sp = ((f.spreizen ?? 22) * Math.PI) / 180 * glatt((t - f.start - (f.dauer ?? 0.35) * 0.62) / (f.spreiz_dauer ?? 0.2));
         finger.forEach((g, i) => { g.rotation.y = (i - 1.5) * sp * 0.66; });
       }
       // kalter Saum: leuchtet mit dem Finger-Ereignis oder einem eigenen Glut-Ereignis auf
       let glut = f ? 0.9 * glatt((t - f.start) / 0.25) : 0;
       for (const e of glutEv) if (t >= e.start) glut = Math.max(glut, (e.staerke ?? 1) * anteil(e, t));
-      saumMat.emissiveIntensity = 3.6 * glut;
+      // Review Teil 2: der breite Saum flutete den Keller türkis; nur noch ein schmaler kalter Rand,
+      // die Spitzen leuchten hell
+      saumMat.emissiveIntensity = 1.1 * glut;
+      spitzenMat.emissiveIntensity = 3.5 * glut;
     },
   };
 }
