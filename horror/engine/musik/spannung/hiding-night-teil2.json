@@ -1,13 +1,13 @@
 {
  "stil": "r2-eigen",
  "folge": "episoden/folge-02",
- "dauer_s": 87.0,
+ "dauer_s": 90.65,
  "endkarte_s": 1.0,
  "start_in_schleife_s": 0.0,
  "uebergang_s": 1.5,
  "einrasten": "schlag",
  "ausblenden_s": 0.5,
- "_hinweis": "Linus: 'Musik sehr viel näher an den Vorbildern'. Bett r2-eigen aus engine/musik-v2: Spieluhr mit Akkordfolge, Tempo (111,7 BPM), Verstimmung (+46 Cent), Klang und Hall wie r2, aber eigenen Begleitfiguren in allen Takten und eigener Oberstimme (Fingerabdruck kein Treffer, siehe musik-v2/LIZENZEN.md). Regel aus dem Review Teil 2: flaches Bett, normal 12 LU unter der Stimme, voll etwa 11, dünn etwa 13, Hook +2,5 dB; nur kurze Wegfälle (≤ 1,4 s) vor den Pointen, jeder mit kurzem Nachhall. Satznummern vom Skript, Wortnummern von timing.json.",
+ "_hinweis": "Linus: 'Musik sehr viel näher an den Vorbildern'. Bett r2-eigen aus engine/musik-v2: Spieluhr mit Akkordfolge, Tempo (111,7 BPM), Verstimmung (+46 Cent), Klang und Hall wie r2, aber eigenen Begleitfiguren in allen Takten und eigener Oberstimme (Fingerabdruck kein Treffer, siehe musik-v2/LIZENZEN.md). Regel aus dem Review Teil 2: flaches Bett, normal 12 LU unter der Stimme, voll etwa 11, dünn etwa 13, Hook +2,5 dB; nur kurze Wegfälle (≤ 1,4 s) vor den Pointen, jeder mit kurzem Nachhall. Satznummern vom Skript, Wortnummern von timing.json. Neuaufnahme vom 16.11.2026: Anker auf die neuen Wort- und Satznummern umgestellt (Länge 90,63 s mit Endkarte), neu ein kurzer Wegfall auf 'Three slow knocks' (die Klopfer stehen frei), danach dünn bis zum Omen.",
  "stufen": [
   {
    "ab_s": 0.0,
@@ -23,14 +23,29 @@
    "grund": "ab dem Vorhang flach weiter; die Spieldose läuft wie in r5 durch"
   },
   {
-   "ab_wort": 174,
+   "ab_wort": 159,
+   "versatz_s": -0.25,
+   "stufe": "weg",
+   "blende_s": 0.2,
+   "grund": "Neuaufnahme: kurzer Wegfall auf 'Three slow knocks' (Satz 23), die drei Klopfer stehen in der Stille"
+  },
+  {
+   "ab_wort": 162,
+   "versatz_s": -0.42,
+   "stufe": "duenn",
+   "blende_s": 0.3,
+   "einrasten": "aus",
+   "grund": "Wiedereinsatz dünn kurz vor 'When I came back down' (Wegfall 1,40 s); dünn bis zum Omen, damit die zwei Wegfälle nicht hart wechseln"
+  },
+  {
+   "ab_wort": 169,
    "versatz_s": -0.25,
    "stufe": "weg",
    "blende_s": 0.2,
    "grund": "kurzer Wegfall vor dem Omen: 'side by side' fällt mit dem Klopfen der Schuhe in die Stille"
   },
   {
-   "ab_wort": 177,
+   "ab_wort": 172,
    "versatz_s": -0.25,
    "stufe": "normal",
    "blende_s": 0.35,
@@ -38,20 +53,20 @@
    "grund": "Wiedereinsatz vor 'If I ran' (Wegfall 1,25 s)"
   },
   {
-   "ab_satz": 32,
+   "ab_satz": 30,
    "stufe": "voll",
    "blende_s": 1.5,
    "grund": "ab der Luke: hohe Linie und Chor dazu (Review: volle Stufe erst ab der Luke, nicht unter Odell und Tess)"
   },
   {
-   "ab_wort": 244,
-   "versatz_s": 0.0,
+   "ab_wort": 257,
+   "versatz_s": -0.27,
    "stufe": "weg",
    "blende_s": 0.15,
-   "grund": "Abriss am Ende von 'Ninety-nine': 'Then she stopped' in der Stille"
+   "grund": "Abriss am Ende von 'Ninety-nine' (76,76 s, 0,27 s vor 'Then'): 'Then she stopped' in der Stille"
   },
   {
-   "ab_wort": 247,
+   "ab_wort": 260,
    "versatz_s": 0.0,
    "stufe": "duenn",
    "pegel_db": 1.2,
@@ -60,23 +75,23 @@
    "grund": "Wiedereinsatz mit 'The bell struck midnight': nur Spieldose und Orgelpunkt (dünn: nur die Figur ohne Oberstimme und Verdopplung, +1,2 dB -> etwa 13 LU unter der Stimme)"
   },
   {
-   "ab_wort": 251,
-   "versatz_s": -0.1,
+   "ab_wort": 264,
+   "versatz_s": 0.0,
    "stufe": "weg",
    "blende_s": 0.15,
-   "grund": "zweiter kurzer Wegfall: 'No counting came from the square' (das Zählen fehlt, die Musik auch) – Anker jetzt 'No' (Wort 251; dessen Wortzeit ist seit dem Review korrigiert: 75,91 s)"
+   "grund": "zweiter kurzer Wegfall: 'No counting came from the square' (das Zählen fehlt, die Musik auch)"
   },
   {
-   "ab_wort": 257,
-   "versatz_s": -0.2,
+   "ab_wort": 270,
+   "versatz_s": -0.45,
    "stufe": "normal",
    "pegel_db": 0.5,
    "blende_s": 0.25,
    "einrasten": "aus",
-   "grund": "Wiedereinsatz vor 'The boards above my face bent down': das Bett trägt den Höhepunkt (r5: nah an der Stimme)"
+   "grund": "Wiedereinsatz vor 'The boards above my face bent down': das Bett trägt den Höhepunkt (r5: nah an der Stimme) (Neuaufnahme: 0,45 s vorher, sonst 1,7 s Stille; Wegfall jetzt 1,38 s)"
   },
   {
-   "ab_wort": 277,
+   "ab_wort": 290,
    "versatz_s": 0.36,
    "stufe": "weg",
    "blende_s": 0.05,

@@ -561,6 +561,7 @@ Figuren-Positionen sind Zahlen (Anker gelten nur für Kamera und Aktionen). Häu
 - `src/welt.js`: Posen (`"pose"` einer Figur und in `stellung`) werden jetzt vorab geladen; vorher brach `"pose": "sitzen"` mit „Animation fehlt“ ab, wenn `sitzen` nicht auch als Aktion vorkam.
 - `src/licht.js`: Himmel-/Bodenlicht aller Presets angehoben (Vergleich mit r2: Figuren im Hausschatten waren fast schwarz).
 - `animationen/sitzen.js` (natürliche Sitzhöhe der Figur), `erschrecken.js` und `gehen.js` (Ellbogen, wenn die Figur Unterarme hat).
+- `src/zeitplan.js` (16.11.2026): Aktionen mit derselben Startzeit wie eine Stellung (bis auf 0,1 ms) kommen nach der Stellung. Der Compiler rundet Zeiten auf 4 Stellen (58,2333), die Stellung liegt exakt auf dem Schnittbild (58,23333…). Ohne Toleranz sortierte etwa jede dritte Nebenaktion mit `ab: "start"` vor die Stellung, deren Neuanfang verwarf sie (beim Neubau von Teil 2 gefunden: die Luke blieb in der Rückblende zu, Elis Griff zum Vorhang in Satz 3 fiel weg; welche Einstellungen es trifft, hängt von der Rundung der Schnittzeit ab). Test in `test/kamera.test.mjs`.
 
 ### 15.7 Messwerte der Belege
 
@@ -659,7 +660,7 @@ Nach dem Review (REVIEW.md im Episoden-Ordner): 58 Einstellungen plus Endkarte, 
 - **Set-Ereignisse:** `haupt: { art: "set", set: "keller", was: "biegen", wort, dauer, params }` (Anker `ende` wie bei Aktionen) und `set_ereignisse: [{ set, was, wort, versatz, dauer, … }]` für Nebenbei-Ereignisse. Der Compiler legt sie mit Sekunden nach `sets[].params.ereignisse`; das Set rechnet daraus in `aktualisiere(t)`. `was: "uhr"` bleibt wie bisher.
 - **Ort `kriechkeller`** → Set `keller`; **Licht `kriechkeller`** = eigenes Preset `kriechkeller` (Review Teil 2; vorher `innen_warm` mit Hemisphäre 2,4, Median 96, las sich gemütlich), Lampen der anderen Sets aus, Schattenbereich 10 m.
 - Endkarte: Text aus `regie.endkarte.text` („PART 3“), Zahl als Set-Parameter `karte.params.zahl`.
-- Folge 2 in Zahlen (Messtor): 61 Einstellungen plus Endkarte, 86,93 s. Median 1,40 s, 42,6 je Minute, kürzeste 0,83 s, längste 2,13 s. 14 Akzentfahrten (im Mittel alle 6,1 s, größte Lücke 8,0 s), 2 Snap-Zooms, 3-mal Wackeln, 3 Lichtereignisse, Monster in 16,4 % der Einstellungen, Endkarte 0,143 s nach dem letzten Wort. Vier Sätze laufen ohne eigenen Schnitt oder wurden geteilt, damit keine Einstellung unter 0,7 s oder über 2,5 s liegt (`bildideen.json`, Hinweise „Bau Teil 2“).
+- Folge 2 in Zahlen (Messtor), Neuaufnahme vom 16.11.2026 (44 Sätze, Stimme 89,62 s): 62 Einstellungen plus Endkarte, 90,63 s. Median 1,40 s, 41,5 je Minute, kürzeste 0,73 s, längste 2,30 s. 14 Akzentfahrten (im Mittel alle 6,4 s, größte Lücke 8,6 s), 2 Snap-Zooms, 3-mal Wackeln, 3 Lichtereignisse, Monster in 19,4 % der Einstellungen, Endkarte 0,143 s nach dem letzten Wort. Damit der Median die 1,4 s erreicht, sind die Sätze 30 („She rolled back the rug and opened the hatch.“) und 32 („The hatch closed over me, then the rug.“) je ein Bild; Satz 31 schneidet auf „could“ statt „before“ (sonst 0,63 s). Vorher (alte Aufnahme): 61 Einstellungen, 86,93 s, 42,6 je Minute, Monster 16,4 %.
 
 ## 17. Untertitel, Effekte, Mischung, fertige MP4
 

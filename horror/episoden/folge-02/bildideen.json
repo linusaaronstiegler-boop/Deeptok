@@ -3,7 +3,7 @@
  "teil": 2,
  "serie": "Hiding Night",
  "quelle": "skript-teil2.txt (Satz-Index = Zeilennummer, 1-basiert)",
- "stand": "2026-11-16 (neuer Text nach REVIEW.md, neu vertont; Satznummern geändert: 44 statt 46 Sätze. Die Einstellungen sind noch nicht neu gebaut)",
+ "stand": "2026-11-16 (neuer Text nach REVIEW.md, neu vertont, 44 Sätze; Einstellungen neu gebaut: 62 plus Endkarte)",
  "hinweis": "Grobe Bildideen je Satz als Vorlage für die Shotliste. Hauptbild = erste Einstellung des Satzes; teilbilder = weitere Schnitte im Satz, ab_wort = Wort, auf dessen Beginn geschnitten wird. t_schaetz_s ist eine Schätzung bei 219 Wörtern/min ohne Pausen; die echten Zeiten kommen aus timing.json. Neu gegenüber folge-01: Ort kriechkeller, Licht kriechkeller, Figur tess, Abschnitte musik und bildunterschrift.",
  "vokabular": {
   "orte": {
@@ -73,11 +73,12 @@
  "summen": {
   "saetze": 44,
   "woerter": 291,
-  "einstellungen": 64,
-  "einstellungen_pro_minute_geschaetzt": 48.2,
-  "monster_anteil": 0.188,
+  "einstellungen": 62,
+  "monster_anteil": 0.194,
   "laenge_geschaetzt_s": 79.7,
-  "laenge_gemessen_s": 89.62
+  "laenge_gemessen_s": 89.62,
+  "einstellungen_pro_minute_gemessen": 41.5,
+  "hinweis_bau": "Neubau 16.11.2026 nach dem Messtor: 62 Einstellungen plus Endkarte (Sätze 30 und 32 je ein Bild, Satz 31 ab 'could' geteilt)"
  },
  "musik": {
   "hinweis": "Drei Stufen nach dem Vorbild 'Porch Night' (Wechsel bei 26 % und 79 %), Regel 8 in docs/trends/geschichten-regeln.md. Anker sind Satznummern dieser Datei; die Sekunden stehen nach dem Vertonen in timing.json. Stil und Bett wählt der Musik-Schritt (engine/musik, engine/musik-v2) nach Linus' Wunsch: näher an der Musik seiner Vorbildvideos.",
@@ -939,28 +940,12 @@
    "figuren": [
     "june"
    ],
-   "aktion": "von oben: June kniet am Teppich und rollt ihn zurück, der Lukendeckel mit dem Eisenring kommt zum Vorschein",
+   "aktion": "von oben: June kniet am Teppich und rollt ihn zurück, der Lukendeckel mit dem Eisenring kommt zum Vorschein; in derselben Einstellung klappt auf 'opened' die Luke auf, darunter ein schwarzer Schacht",
    "schluesselwort": "rolled",
    "kamera": "kranabstieg",
    "groesse": "halbtotale",
    "monster": false,
-   "teilbilder": [
-    {
-     "ab_wort": "rug",
-     "ort": "marsh-innen",
-     "modul": "june-zimmer",
-     "licht": "innen-nacht",
-     "figuren": [
-      "june"
-     ],
-     "aktion": "die Luke klappt auf, darunter ein schwarzer Schacht",
-     "schluesselwort": "opened",
-     "kamera": "push-in",
-     "groesse": "halbnah",
-     "monster": false,
-     "hinweis": "Requisite luke: oeffnen, winkel 105. Bau Teil 2: ab 'opened' wären es 0,63 s"
-    }
-   ]
+   "hinweis": "Bau (Neuaufnahme): ein Bild statt zwei. 'She rolled back the' wäre allein 0,67 s (Messtor M2 ≥ 0,7 s), und der Median der Einstellungen läge bei 1,37 s (M2 ≥ 1,4 s). Das frühere Teilbild ab 'rug' (Luke klappt auf, Requisite luke: oeffnen, winkel 105) läuft jetzt nebenbei im Kranbild"
   },
   "31": {
    "text": "She pushed me in before I could say no.",
@@ -985,7 +970,7 @@
    "hinweis": "June erzwingt das Verstecken (Review P1), Eli entscheidet nicht selbst. Festes Drücken an den Schultern, kein Stoß; beide erwachsen (Eli 18, June 24). Gesichter von vorn an der Schlüsselstelle",
    "teilbilder": [
     {
-     "ab_wort": "before",
+     "ab_wort": "could",
      "ort": "marsh-innen",
      "modul": "june-zimmer",
      "licht": "innen-nacht",
@@ -1000,7 +985,7 @@
      "gesicht": {
       "june": "entschlossen"
      },
-     "hinweis": "Kopf oben im Bild (Kopf-oben-Regel), Gesicht ganz und von vorn"
+     "hinweis": "Kopf oben im Bild (Kopf-oben-Regel), Gesicht ganz und von vorn. Bau (Neuaufnahme): Schnitt auf 'could' statt 'before', sonst wäre 'She pushed me in' nur 0,63 s lang (Messtor M2 ≥ 0,7 s)"
     }
    ]
   },
@@ -1012,26 +997,12 @@
    "modul": "kriechkeller",
    "licht": "kriechkeller",
    "figuren": [],
-   "aktion": "Untersicht aus dem Kriechkeller: die Luke schließt sich über der Kamera, dann nur Elis Taschenlampe",
+   "aktion": "Untersicht aus dem Kriechkeller: die Luke schließt sich über der Kamera, dann nur Elis Taschenlampe; auf 'rug' verschwinden in derselben Einstellung die Lichtfugen am Lukenrand (der Teppich fällt darüber)",
    "schluesselwort": "closed",
    "kamera": "push-in",
    "groesse": "pov",
    "monster": false,
-   "hinweis": "neuer Ort kriechkeller (fehlt: Balken, Erdboden, Dielen mit Lichtspalten); Musik: Ende der vollen Stufe",
-   "teilbilder": [
-    {
-     "ab_wort": "then the rug",
-     "ort": "kriechkeller",
-     "modul": "kriechkeller",
-     "licht": "kriechkeller",
-     "figuren": [],
-     "aktion": "die Lichtspalten am Lukenrand verschwinden, als der Teppich darüberfällt",
-     "schluesselwort": "rug",
-     "kamera": "push-in",
-     "groesse": "detail",
-     "monster": false
-    }
-   ]
+   "hinweis": "neuer Ort kriechkeller (fehlt: Balken, Erdboden, Dielen mit Lichtspalten); Musik: Ende der vollen Stufe. Bau (Neuaufnahme): ein Bild statt zwei (Median der Einstellungen ≥ 1,4 s, Messtor M2); das Lichtereignis 'aus' auf keller.lukenrand liegt weiter auf 'rug'"
   },
   "33": {
    "text": "Above me, June lay down and counted, like every night.",

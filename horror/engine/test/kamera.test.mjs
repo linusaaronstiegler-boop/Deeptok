@@ -144,3 +144,17 @@ test('Zeitplan: Schnitte auf Bildgrenzen, Lücken werden abgelehnt', () => {
   assert.ok(z.warnungen.some((w) => w.includes('Hauptaktionen')));
   assert.throws(() => new Zeitplan({ einstellungen: [{ start: 0, ende: 1, kamera: { baustein: 'push_in' } }, { start: 1.2, ende: 2, kamera: { baustein: 'push_in' } }] }), /lückenlos/);
 });
+
+test('Zeitplan: Aktion am Einstellungsbeginn (auf 4 Stellen gerundet) kommt nach der Stellung', () => {
+  // Schnitt auf Bild 1747 = 58,23333… s; der Compiler schreibt die Aktion mit 58.2333
+  const ep = {
+    einstellungen: [
+      { id: 'A', start: 0, ende: 58.2333, kamera: { baustein: 'push_in' } },
+      { id: 'B', start: 58.2333, ende: 59.7333, kamera: { baustein: 'push_in' },
+        stellung: { luke: { neu: true, position: [0, 0, 0] } },
+        aktionen: [{ wer: 'luke', was: 'oeffnen', start: 58.2333, dauer: 0.03 }] },
+    ],
+  };
+  const reihe = new Zeitplan(ep).aktionenJeFigur.get('luke').map((a) => a.was);
+  assert.deepEqual(reihe, ['stellung', 'oeffnen']);
+});

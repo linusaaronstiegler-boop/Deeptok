@@ -53,7 +53,12 @@ export class Zeitplan {
       for (const a of e.aktionen ?? []) neu(a, e.id);
     }
     // Chronologisch, bei gleicher Startzeit "stellung" zuerst, sonst in Schreibreihenfolge.
-    aktionen.sort((a, b) => a.start - b.start || (a.was === 'stellung' ? -1 : 0) - (b.was === 'stellung' ? -1 : 0) || a.nr - b.nr);
+    // "Gleich" heißt: bis auf 0,1 ms. Die Stellung liegt exakt auf dem Schnittbild (startBild / fps, z. B.
+    // 58,23333…), der Shotlisten-Compiler schreibt Aktionen ab Einstellungsbeginn aber auf 4 Stellen gerundet
+    // (58,2333). Ohne Toleranz sortierte die Aktion VOR die Stellung, und deren Neuanfang verwarf sie
+    // (Neubau Teil 2: die Luke blieb in der Rückblende zu, June stieg durch den geschlossenen Deckel).
+    const zeitTakt = (x) => Math.round(x * 1e4);
+    aktionen.sort((a, b) => zeitTakt(a.start) - zeitTakt(b.start) || (a.was === 'stellung' ? -1 : 0) - (b.was === 'stellung' ? -1 : 0) || a.nr - b.nr);
     this.aktionen = aktionen;
     this.aktionenJeFigur = new Map();
     for (const a of aktionen) {

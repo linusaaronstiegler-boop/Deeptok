@@ -27,63 +27,55 @@
      "zeit": "11:00",
      "spruenge": [
       {
-       "start": 20.55,
+       "start": 21.1833,
        "zeit": "11:00"
       },
       {
-       "start": 22.1833,
+       "start": 23.1833,
        "zeit": "11:00"
       },
       {
-       "start": 27.8833,
+       "start": 29.5833,
        "zeit": "11:00"
       },
       {
-       "start": 31.45,
+       "start": 31.8166,
        "zeit": "6:10"
       },
       {
-       "start": 34.1166,
+       "start": 33.7166,
        "zeit": "11:00"
       },
       {
-       "start": 35.7833,
+       "start": 35.0166,
        "zeit": "11:00"
       },
       {
-       "start": 37.25,
+       "start": 36.45,
        "zeit": "11:00"
       },
       {
-       "start": 38.7166,
+       "start": 38.1833,
        "zeit": "11:00"
       },
       {
-       "start": 39.85,
+       "start": 39.0833,
        "zeit": "11:00"
       },
       {
-       "start": 40.8166,
+       "start": 40.7166,
        "zeit": "11:00"
       },
       {
-       "start": 42.45,
+       "start": 42.0833,
        "zeit": "11:00"
       },
       {
-       "start": 43.5166,
-       "zeit": "11:00"
-      },
-      {
-       "start": 44.85,
-       "zeit": "11:00"
-      },
-      {
-       "start": 74.05,
+       "start": 78.0166,
        "zeit": "11:59"
       },
       {
-       "start": 75.1,
+       "start": 78.62,
        "zeit": "12:00"
       }
      ]
@@ -95,17 +87,17 @@
     "ereignisse": [
      {
       "was": "glocke",
-      "start": 29.66,
+      "start": 30.5,
       "dauer": 0.6
      },
      {
       "was": "glocke",
-      "start": 32.16,
+      "start": 32.5,
       "dauer": 0.6
      },
      {
       "was": "glocke",
-      "start": 74.8,
+      "start": 78.34,
       "dauer": 0.6
      }
     ]
@@ -144,7 +136,7 @@
     "ereignisse": [
      {
       "was": "biegen",
-      "start": 78.7,
+      "start": 82.24,
       "dauer": 0.4,
       "tiefe": 0.1,
       "mitte": [
@@ -160,7 +152,7 @@
        -0.45
       ],
       "drehung": 0,
-      "start": 77.1667,
+      "start": 81.2333,
       "dauer": 0.01
      },
      {
@@ -170,7 +162,7 @@
        -0.45
       ],
       "drehung": 0,
-      "start": 83.8,
+      "start": 87.3333,
       "dauer": 0.01
      },
      {
@@ -187,7 +179,7 @@
       "skala": 1.2,
       "spreizen": 14,
       "spreiz_dauer": 0.2,
-      "start": 85.37,
+      "start": 89.08,
       "dauer": 0.28
      }
     ]
@@ -260,6 +252,33 @@
    "id": "june2",
    "modul": "june",
    "gesicht": "besorgt"
+  },
+  {
+   "position": [
+    0,
+    -40,
+    0
+   ],
+   "blick": 0,
+   "sichtbar": false,
+   "id": "june18",
+   "modul": "june",
+   "params": {
+    "rueckblende": true
+   },
+   "gesicht": "besorgt"
+  },
+  {
+   "position": [
+    0,
+    -40,
+    0
+   ],
+   "blick": 0,
+   "sichtbar": false,
+   "id": "dad",
+   "modul": "dad",
+   "gesicht": "entschlossen"
   },
   {
    "position": [
@@ -609,7 +628,7 @@
    "modul": "pickup",
    "params": {
     "stiefel": true,
-    "scheinwerfer": true
+    "scheinwerfer": false
    }
   },
   {
@@ -733,7 +752,7 @@
   {
    "id": "E01",
    "start": 0,
-   "ende": 1.0333,
+   "ende": 1,
    "set": [
     "strasse",
     "marsh",
@@ -836,15 +855,15 @@
      "art": "kamera",
      "wort": "Hundred",
      "wort_i": 1,
-     "wort_start": 0.3,
-     "start": 0.3,
-     "ende": 0.3,
+     "wort_start": 0.32,
+     "start": 0.32,
+     "ende": 0.32,
      "anker": "start",
      "schluesselwort_idee": "Hundred"
     },
     "gesichter": [],
     "hauptsache": "mh.auge",
-    "bogen_zeit": 0.45,
+    "bogen_zeit": 0.47,
     "akzent": true,
     "monster": true,
     "sichtbar": [
@@ -854,8 +873,8 @@
   },
   {
    "id": "E02",
-   "start": 1.0333,
-   "ende": 1.9333,
+   "start": 1,
+   "ende": 1.8667,
    "set": [
     "strasse",
     "haus"
@@ -907,8 +926,8 @@
    "aktionen": [],
    "partikel": [
     {
-     "start": 1.0333,
-     "dauer": 0.9,
+     "start": 1,
+     "dauer": 0.8667,
      "art": "atem",
      "ort": [
       -14.48,
@@ -946,15 +965,15 @@
      "art": "kamera",
      "wort": "eighteen",
      "wort_i": 5,
-     "wort_start": 1.08,
-     "start": 1.08,
-     "ende": 1.08,
+     "wort_start": 1.04,
+     "start": 1.04,
+     "ende": 1.04,
      "anker": "start",
      "schluesselwort_idee": "eighteen"
     },
     "gesichter": [],
     "hauptsache": "haus.kuchen",
-    "bogen_zeit": 1.23,
+    "bogen_zeit": 1.19,
     "akzent": false,
     "monster": false,
     "sichtbar": []
@@ -962,8 +981,8 @@
   },
   {
    "id": "E03",
-   "start": 1.9333,
-   "ende": 3.1,
+   "start": 1.8667,
+   "ende": 3.6667,
    "set": [
     "strasse",
     "marsh",
@@ -1033,13 +1052,13 @@
    },
    "aktionen": [],
    "schatten_bereich": 24,
-   "text": "and it came early,",
+   "text": "and it came six hours early,",
    "plan": {
     "key": "1:and it came",
     "satz": 1,
     "woerter": [
      6,
-     9
+     11
     ],
     "block": "hook",
     "groesse": "halbtotale",
@@ -1048,16 +1067,16 @@
     "haupt": {
      "art": "kamera",
      "wort": "early",
-     "wort_i": 9,
-     "wort_start": 2.32,
-     "start": 2.32,
-     "ende": 2.32,
+     "wort_i": 11,
+     "wort_start": 2.88,
+     "start": 2.88,
+     "ende": 2.88,
      "anker": "start",
      "schluesselwort_idee": "early"
     },
     "gesichter": [],
     "hauptsache": "mh.haende",
-    "bogen_zeit": 2.47,
+    "bogen_zeit": 3.03,
     "akzent": false,
     "monster": true,
     "sichtbar": [
@@ -1067,8 +1086,8 @@
   },
   {
    "id": "E04",
-   "start": 3.1,
-   "ende": 4.6,
+   "start": 3.6667,
+   "ende": 5.1667,
    "set": [
     "strasse",
     "marsh",
@@ -1143,7 +1162,7 @@
     {
      "wer": "mh",
      "was": "kopf_drehen",
-     "start": 3.3,
+     "start": 3.88,
      "dauer": 0.6,
      "ease": "ease_in",
      "params": {
@@ -1157,8 +1176,8 @@
     "key": "1:like",
     "satz": 1,
     "woerter": [
-     10,
-     15
+     12,
+     17
     ],
     "block": "hook",
     "groesse": "halbtotale",
@@ -1169,16 +1188,16 @@
      "wer": "mh",
      "was": "kopf_drehen",
      "wort": "hide",
-     "wort_i": 15,
-     "wort_start": 3.9,
-     "start": 3.3,
-     "ende": 3.9,
+     "wort_i": 17,
+     "wort_start": 4.48,
+     "start": 3.88,
+     "ende": 4.48,
      "anker": "ende",
      "schluesselwort_idee": "hide"
     },
     "gesichter": [],
     "hauptsache": "mh.haende",
-    "bogen_zeit": 4,
+    "bogen_zeit": 4.58,
     "akzent": false,
     "monster": true,
     "sichtbar": [
@@ -1188,8 +1207,8 @@
   },
   {
    "id": "E05",
-   "start": 4.6,
-   "ende": 5.9667,
+   "start": 5.1667,
+   "ende": 6.5333,
    "set": [
     "strasse",
     "haus",
@@ -1240,9 +1259,9 @@
      ]
     },
     "pos": [
-     -13.3,
-     5.55,
-     3.05
+     -13.9,
+     5.75,
+     2.85
     ],
     "fov": 52,
     "rate": 0.07,
@@ -1250,7 +1269,7 @@
      {
       "baustein": "shake",
       "staerke": 1,
-      "start": 4.77
+      "start": 5.35
      }
     ]
    },
@@ -1298,13 +1317,13 @@
       "seite": "r",
       "form": "faust"
      },
-     "start": 4.6,
+     "start": 5.1667,
      "nebenbei": true
     },
     {
      "wer": "vorhang",
      "was": "zuziehen",
-     "start": 4.72,
+     "start": 5.3,
      "dauer": 0.25
     }
    ],
@@ -1318,8 +1337,8 @@
     "key": "2",
     "satz": 2,
     "woerter": [
-     16,
-     20
+     18,
+     22
     ],
     "block": "regelbruch",
     "groesse": "nah",
@@ -1330,16 +1349,16 @@
      "wer": "vorhang",
      "was": "zuziehen",
      "wort": "yanked",
-     "wort_i": 17,
-     "wort_start": 4.72,
-     "start": 4.72,
-     "ende": 4.97,
+     "wort_i": 19,
+     "wort_start": 5.3,
+     "start": 5.3,
+     "ende": 5.55,
      "anker": "start",
      "schluesselwort_idee": "yanked"
     },
     "gesichter": [],
     "hauptsache": "eli.kopf",
-    "bogen_zeit": 5.07,
+    "bogen_zeit": 5.65,
     "akzent": false,
     "monster": true,
     "sichtbar": [
@@ -1351,8 +1370,8 @@
   },
   {
    "id": "E06",
-   "start": 5.9667,
-   "ende": 6.8333,
+   "start": 6.5333,
+   "ende": 7.4667,
    "set": [
     "strasse",
     "haus",
@@ -1446,13 +1465,13 @@
       "zu": "vorhang.griff_l",
       "seite": "l"
      },
-     "start": 5.9667,
+     "start": 6.5333,
      "nebenbei": true
     },
     {
      "wer": "vorhang",
      "was": "aufziehen",
-     "start": 6.18,
+     "start": 6.76,
      "dauer": 0.5,
      "params": {
       "spalt": 0.24,
@@ -1470,8 +1489,8 @@
     "key": "3",
     "satz": 3,
     "woerter": [
-     21,
-     24
+     23,
+     26
     ],
     "block": "regelbruch",
     "groesse": "nah",
@@ -1482,16 +1501,16 @@
      "wer": "vorhang",
      "was": "aufziehen",
      "wort": "looked",
-     "wort_i": 23,
-     "wort_start": 6.18,
-     "start": 6.18,
-     "ende": 6.68,
+     "wort_i": 25,
+     "wort_start": 6.76,
+     "start": 6.76,
+     "ende": 7.26,
      "anker": "start",
      "schluesselwort_idee": "looked"
     },
     "gesichter": [],
     "hauptsache": "eli.kopf",
-    "bogen_zeit": 6.7666,
+    "bogen_zeit": 7.36,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -1502,8 +1521,8 @@
   },
   {
    "id": "E07",
-   "start": 6.8333,
-   "ende": 7.9667,
+   "start": 7.4667,
+   "ende": 8.5667,
    "set": [
     "strasse",
     "haus",
@@ -1581,8 +1600,8 @@
     "key": "3:the yard",
     "satz": 3,
     "woerter": [
-     25,
-     28
+     27,
+     30
     ],
     "block": "regelbruch",
     "groesse": "ueber-schulter",
@@ -1591,10 +1610,10 @@
     "haupt": {
      "art": "kamera",
      "wort": "empty",
-     "wort_i": 28,
-     "wort_start": 7.28,
-     "start": 7.28,
-     "ende": 7.28,
+     "wort_i": 30,
+     "wort_start": 7.9,
+     "start": 7.9,
+     "ende": 7.9,
      "anker": "start",
      "schluesselwort_idee": "empty"
     },
@@ -1604,7 +1623,7 @@
      0.5,
      3
     ],
-    "bogen_zeit": 7.43,
+    "bogen_zeit": 8.05,
     "akzent": false,
     "monster": false,
     "sichtbar": []
@@ -1612,8 +1631,8 @@
   },
   {
    "id": "E08",
-   "start": 7.9667,
-   "ende": 9.5,
+   "start": 8.5667,
+   "ende": 10.0667,
    "set": [
     "strasse",
     "marsh",
@@ -1686,8 +1705,8 @@
     "key": "4",
     "satz": 4,
     "woerter": [
-     29,
-     33
+     31,
+     35
     ],
     "block": "regelbruch",
     "groesse": "detail",
@@ -1696,10 +1715,10 @@
     "haupt": {
      "art": "kamera",
      "wort": "footprints",
-     "wort_i": 30,
-     "wort_start": 8.16,
-     "start": 8.16,
-     "ende": 8.16,
+     "wort_i": 32,
+     "wort_start": 8.74,
+     "start": 8.74,
+     "ende": 8.74,
      "anker": "start",
      "schluesselwort_idee": "footprints"
     },
@@ -1709,7 +1728,7 @@
      0,
      3.2
     ],
-    "bogen_zeit": 8.31,
+    "bogen_zeit": 8.89,
     "akzent": true,
     "monster": false,
     "sichtbar": []
@@ -1717,8 +1736,8 @@
   },
   {
    "id": "E09",
-   "start": 9.5,
-   "ende": 10.7333,
+   "start": 10.0667,
+   "ende": 11.3667,
    "set": [
     "strasse",
     "marsh",
@@ -1771,8 +1790,8 @@
     "key": "4:long",
     "satz": 4,
     "woerter": [
-     34,
-     36
+     36,
+     38
     ],
     "block": "regelbruch",
     "groesse": "halbtotale",
@@ -1781,16 +1800,16 @@
     "haupt": {
      "art": "kamera",
      "wort": "bare",
-     "wort_i": 36,
-     "wort_start": 10.04,
-     "start": 10.04,
-     "ende": 10.04,
+     "wort_i": 38,
+     "wort_start": 10.66,
+     "start": 10.66,
+     "ende": 10.66,
      "anker": "start",
      "schluesselwort_idee": "bare"
     },
     "gesichter": [],
     "hauptsache": "spur.spur_ecke",
-    "bogen_zeit": 10.19,
+    "bogen_zeit": 10.81,
     "akzent": false,
     "monster": false,
     "sichtbar": []
@@ -1798,8 +1817,8 @@
   },
   {
    "id": "E10",
-   "start": 10.7333,
-   "ende": 12.2667,
+   "start": 11.3667,
+   "ende": 12.8667,
    "set": [
     "strasse",
     "marsh",
@@ -1852,8 +1871,8 @@
     "key": "5",
     "satz": 5,
     "woerter": [
-     37,
-     41
+     39,
+     43
     ],
     "block": "regelbruch",
     "groesse": "halbtotale",
@@ -1862,16 +1881,16 @@
     "haupt": {
      "art": "kamera",
      "wort": "window",
-     "wort_i": 41,
-     "wort_start": 11.62,
-     "start": 11.62,
-     "ende": 11.62,
+     "wort_i": 43,
+     "wort_start": 12.22,
+     "start": 12.22,
+     "ende": 12.22,
      "anker": "start",
      "schluesselwort_idee": "window"
     },
     "gesichter": [],
     "hauptsache": "spur.june_fenster",
-    "bogen_zeit": 11.77,
+    "bogen_zeit": 12.37,
     "akzent": false,
     "monster": false,
     "sichtbar": []
@@ -1879,8 +1898,8 @@
   },
   {
    "id": "E11",
-   "start": 12.2667,
-   "ende": 14.1333,
+   "start": 12.8667,
+   "ende": 14.7,
    "set": [
     "strasse",
     "haus"
@@ -1943,8 +1962,8 @@
     "key": "6",
     "satz": 6,
     "woerter": [
-     42,
-     48
+     44,
+     50
     ],
     "block": "regelbruch",
     "groesse": "halbtotale",
@@ -1953,16 +1972,16 @@
     "haupt": {
      "art": "kamera",
      "wort": "never",
-     "wort_i": 46,
-     "wort_start": 13.02,
-     "start": 13.02,
-     "ende": 13.02,
+     "wort_i": 48,
+     "wort_start": 13.64,
+     "start": 13.64,
+     "ende": 13.64,
      "anker": "start",
      "schluesselwort_idee": "never"
     },
     "gesichter": [],
     "hauptsache": "haus.june_bett",
-    "bogen_zeit": 13.17,
+    "bogen_zeit": 13.79,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -1972,8 +1991,8 @@
   },
   {
    "id": "E12",
-   "start": 14.1333,
-   "ende": 15.3667,
+   "start": 14.7,
+   "ende": 15.9333,
    "set": [
     "strasse",
     "haus"
@@ -2055,7 +2074,7 @@
     {
      "wer": "eli",
      "was": "rennen",
-     "start": 14.24,
+     "start": 14.82,
      "dauer": 0.95,
      "ease": "linear",
      "params": {
@@ -2074,7 +2093,7 @@
       "hoehe": -1.87,
       "arme": false
      },
-     "start": 14.24,
+     "start": 14.82,
      "nebenbei": true
     }
    ],
@@ -2084,8 +2103,8 @@
     "key": "7",
     "satz": 7,
     "woerter": [
-     49,
-     51
+     51,
+     53
     ],
     "block": "falsche-sicherheit",
     "groesse": "halbtotale",
@@ -2096,16 +2115,16 @@
      "wer": "eli",
      "was": "rennen",
      "wort": "ran",
-     "wort_i": 50,
-     "wort_start": 14.24,
-     "start": 14.24,
-     "ende": 15.19,
+     "wort_i": 52,
+     "wort_start": 14.82,
+     "start": 14.82,
+     "ende": 15.77,
      "anker": "start",
      "schluesselwort_idee": "ran"
     },
     "gesichter": [],
     "hauptsache": "eli.kopf",
-    "bogen_zeit": 15.29,
+    "bogen_zeit": 15.8666,
     "akzent": true,
     "monster": false,
     "sichtbar": [
@@ -2115,8 +2134,8 @@
   },
   {
    "id": "E13",
-   "start": 15.3667,
-   "ende": 16.2,
+   "start": 15.9333,
+   "ende": 17.0667,
    "set": [
     "strasse",
     "haus"
@@ -2218,7 +2237,7 @@
     {
      "wer": "tuer_june",
      "was": "oeffnen",
-     "start": 15.58,
+     "start": 16.18,
      "dauer": 0.5,
      "params": {
       "winkel": -82
@@ -2231,8 +2250,8 @@
     "key": "8",
     "satz": 8,
     "woerter": [
-     52,
-     55
+     54,
+     57
     ],
     "block": "falsche-sicherheit",
     "groesse": "halbnah",
@@ -2243,16 +2262,16 @@
      "wer": "tuer_june",
      "was": "oeffnen",
      "wort": "opened",
-     "wort_i": 53,
-     "wort_start": 15.58,
-     "start": 15.58,
-     "ende": 16.08,
+     "wort_i": 55,
+     "wort_start": 16.18,
+     "start": 16.18,
+     "ende": 16.68,
      "anker": "start",
      "schluesselwort_idee": "opened"
     },
     "gesichter": [],
     "hauptsache": "june.kopf",
-    "bogen_zeit": 16.1333,
+    "bogen_zeit": 16.78,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -2265,8 +2284,8 @@
   },
   {
    "id": "E14",
-   "start": 16.2,
-   "ende": 17.1667,
+   "start": 17.0667,
+   "ende": 17.8,
    "set": [
     "strasse",
     "haus"
@@ -2367,8 +2386,8 @@
     "key": "8:barefoot",
     "satz": 8,
     "woerter": [
-     56,
-     56
+     58,
+     58
     ],
     "block": "falsche-sicherheit",
     "groesse": "detail",
@@ -2377,16 +2396,16 @@
     "haupt": {
      "art": "kamera",
      "wort": "barefoot",
-     "wort_i": 56,
-     "wort_start": 16.22,
-     "start": 16.22,
-     "ende": 16.22,
+     "wort_i": 58,
+     "wort_start": 17.09,
+     "start": 17.09,
+     "ende": 17.09,
      "anker": "start",
      "schluesselwort_idee": "barefoot"
     },
     "gesichter": [],
     "hauptsache": "june.fuss",
-    "bogen_zeit": 16.37,
+    "bogen_zeit": 17.24,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -2397,8 +2416,8 @@
   },
   {
    "id": "E15",
-   "start": 17.1667,
-   "ende": 18.7333,
+   "start": 17.8,
+   "ende": 19.3667,
    "set": [
     "strasse",
     "haus"
@@ -2488,7 +2507,7 @@
       "seite": "r",
       "vorn": 40
      },
-     "start": 17.1667,
+     "start": 17.8,
      "nebenbei": true
     },
     {
@@ -2508,13 +2527,13 @@
       "form": "faust",
       "lehnen": false
      },
-     "start": 17.3,
+     "start": 17.92,
      "nebenbei": true
     },
     {
      "wer": "eli",
      "was": "erschrecken",
-     "start": 18.02,
+     "start": 18.68,
      "dauer": 0.25,
      "params": {
       "staerke": 0.35
@@ -2523,7 +2542,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 18.02,
+     "start": 18.68,
      "params": {
       "name": "angst"
      }
@@ -2531,8 +2550,8 @@
    ],
    "partikel": [
     {
-     "start": 18.02,
-     "dauer": 0.7133,
+     "start": 18.68,
+     "dauer": 0.6867,
      "art": "atem",
      "ort": "eli.mund",
      "periode": 1.3,
@@ -2550,8 +2569,8 @@
     "key": "9",
     "satz": 9,
     "woerter": [
-     57,
-     61
+     59,
+     63
     ],
     "block": "falsche-sicherheit",
     "groesse": "detail",
@@ -2562,10 +2581,10 @@
      "wer": "eli",
      "was": "erschrecken",
      "wort": "cold",
-     "wort_i": 61,
-     "wort_start": 18.02,
-     "start": 18.02,
-     "ende": 18.27,
+     "wort_i": 63,
+     "wort_start": 18.68,
+     "start": 18.68,
+     "ende": 18.93,
      "anker": "start",
      "schluesselwort_idee": "cold"
     },
@@ -2574,12 +2593,12 @@
       "wer": "eli",
       "name": "angst",
       "wort": "cold",
-      "wort_start": 18.02,
-      "start": 18.02
+      "wort_start": 18.68,
+      "start": 18.68
      }
     ],
     "hauptsache": "june.hand_l",
-    "bogen_zeit": 18.37,
+    "bogen_zeit": 19.03,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -2590,8 +2609,8 @@
   },
   {
    "id": "E16",
-   "start": 18.7333,
-   "ende": 20.5667,
+   "start": 19.3667,
+   "ende": 21.2,
    "set": [
     "strasse",
     "haus"
@@ -2668,7 +2687,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 18.77,
+     "start": 19.41,
      "params": {
       "name": "laecheln/reden_a"
      }
@@ -2676,7 +2695,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 18.9,
+     "start": 19.54,
      "params": {
       "name": "laecheln/reden_b"
      }
@@ -2684,7 +2703,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 19.18,
+     "start": 19.8,
      "params": {
       "name": "laecheln/reden_c"
      }
@@ -2692,7 +2711,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 19.34,
+     "start": 19.96,
      "params": {
       "name": "laecheln/reden_a"
      }
@@ -2700,7 +2719,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 19.52,
+     "start": 20.14,
      "params": {
       "name": "laecheln/reden_b"
      }
@@ -2708,7 +2727,7 @@
     {
      "wer": "june",
      "was": "kopf_drehen",
-     "start": 19.72,
+     "start": 20.34,
      "dauer": 0.3,
      "params": {
       "winkel": -8,
@@ -2718,7 +2737,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 19.72,
+     "start": 20.34,
      "params": {
       "name": "laecheln/reden_c"
      }
@@ -2726,7 +2745,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 20.01,
+     "start": 20.64,
      "params": {
       "name": "laecheln/reden_a"
      }
@@ -2734,7 +2753,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 20.3,
+     "start": 20.94,
      "params": {
       "name": "laecheln"
      }
@@ -2750,8 +2769,8 @@
     "key": "10",
     "satz": 10,
     "woerter": [
-     62,
-     67
+     64,
+     69
     ],
     "block": "falsche-sicherheit",
     "groesse": "nah",
@@ -2762,10 +2781,10 @@
      "wer": "june",
      "was": "kopf_drehen",
      "wort": "midnight",
-     "wort_i": 67,
-     "wort_start": 19.72,
-     "start": 19.72,
-     "ende": 20.02,
+     "wort_i": 69,
+     "wort_start": 20.34,
+     "start": 20.34,
+     "ende": 20.64,
      "anker": "start",
      "schluesselwort_idee": "midnight"
     },
@@ -2776,7 +2795,7 @@
      "wechsel": 8
     },
     "hauptsache": "june.kopf",
-    "bogen_zeit": 20.12,
+    "bogen_zeit": 20.74,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -2786,8 +2805,8 @@
   },
   {
    "id": "E17",
-   "start": 20.5667,
-   "ende": 22.2,
+   "start": 21.2,
+   "ende": 23.2,
    "set": [
     "strasse",
     "marsh"
@@ -2810,9 +2829,9 @@
      -25.2
     ],
     "ziel": [
-     0.2,
-     1.3,
-     -19.8
+     1.2,
+     1.15,
+     -21.4
     ],
     "fov": 50,
     "richtung": "rechts",
@@ -2820,6 +2839,17 @@
     "vordergrund": false
    },
    "stellung": {
+    "odell": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      1.9,
+      0,
+      -21.3
+     ],
+     "blick": 180,
+     "gesicht": "streng"
+    },
     "eli": {
      "neu": true,
      "sichtbar": true,
@@ -2919,6 +2949,20 @@
    },
    "aktionen": [
     {
+     "wer": "odell",
+     "was": "gehen",
+     "dauer": 1.6,
+     "ease": "linear",
+     "params": {
+      "nach": [
+       1.9,
+       -23.3
+      ]
+     },
+     "start": 21.2,
+     "nebenbei": true
+    },
+    {
      "wer": "eli",
      "was": "gehen",
      "dauer": 1.6,
@@ -2929,7 +2973,7 @@
        -21.1
       ]
      },
-     "start": 20.5667,
+     "start": 21.2,
      "nebenbei": true
     },
     {
@@ -2943,7 +2987,7 @@
        -21.5
       ]
      },
-     "start": 20.5667,
+     "start": 21.2,
      "nebenbei": true
     },
     {
@@ -2957,7 +3001,7 @@
        -20.7
       ]
      },
-     "start": 20.5667,
+     "start": 21.2,
      "nebenbei": true
     },
     {
@@ -2971,7 +3015,7 @@
        -19.6
       ]
      },
-     "start": 20.5667,
+     "start": 21.2,
      "nebenbei": true
     },
     {
@@ -2985,7 +3029,7 @@
        -22.6
       ]
      },
-     "start": 20.5667,
+     "start": 21.2,
      "nebenbei": true
     },
     {
@@ -2999,7 +3043,7 @@
        -23.6
       ]
      },
-     "start": 20.5667,
+     "start": 21.2,
      "nebenbei": true
     },
     {
@@ -3013,7 +3057,7 @@
        -24.2
       ]
      },
-     "start": 20.5667,
+     "start": 21.2,
      "nebenbei": true
     },
     {
@@ -3027,7 +3071,7 @@
        -21.9
       ]
      },
-     "start": 20.5667,
+     "start": 21.2,
      "nebenbei": true
     },
     {
@@ -3041,18 +3085,18 @@
        -19
       ]
      },
-     "start": 20.5667,
+     "start": 21.2,
      "nebenbei": true
     }
    ],
    "schatten_bereich": 24,
-   "text": "At eleven, the town walked me and",
+   "text": "At eleven, Mr. Odell walked me and",
    "plan": {
     "key": "11",
     "satz": 11,
     "woerter": [
-     68,
-     74
+     70,
+     76
     ],
     "block": "stadt",
     "groesse": "totale",
@@ -3060,20 +3104,21 @@
     "modul": "haeuserzeile",
     "haupt": {
      "art": "kamera",
-     "wort": "town",
-     "wort_i": 71,
-     "wort_start": 21.3,
-     "start": 21.3,
-     "ende": 21.3,
+     "wort": "Odell",
+     "wort_i": 73,
+     "wort_start": 22.22,
+     "start": 22.22,
+     "ende": 22.22,
      "anker": "start",
-     "schluesselwort_idee": "town"
+     "schluesselwort_idee": "Odell"
     },
     "gesichter": [],
-    "hauptsache": "eli.kopf",
-    "bogen_zeit": 21.45,
+    "hauptsache": "odell.kopf",
+    "bogen_zeit": 22.37,
     "akzent": true,
     "monster": false,
     "sichtbar": [
+     "odell",
      "eli",
      "june2",
      "tess",
@@ -3088,8 +3133,8 @@
   },
   {
    "id": "E18",
-   "start": 22.2,
-   "ende": 23.8,
+   "start": 23.2,
+   "ende": 24.8,
    "set": [
     "strasse",
     "marsh"
@@ -3155,6 +3200,9 @@
      ],
      "blick": 180
     },
+    "odell": {
+     "sichtbar": false
+    },
     "june2": {
      "sichtbar": false
     },
@@ -3186,7 +3234,7 @@
        -22.2
       ]
      },
-     "start": 22.2,
+     "start": 23.2,
      "nebenbei": true
     },
     {
@@ -3200,7 +3248,7 @@
        -22.6
       ]
      },
-     "start": 22.2,
+     "start": 23.2,
      "nebenbei": true
     },
     {
@@ -3214,13 +3262,13 @@
        -21.1
       ]
      },
-     "start": 22.2,
+     "start": 23.2,
      "nebenbei": true
     },
     {
      "wer": "tess",
      "was": "kopf_drehen",
-     "start": 22.24,
+     "start": 23.24,
      "dauer": 0.3,
      "params": {
       "winkel": 42
@@ -3233,8 +3281,8 @@
     "key": "11:Tess",
     "satz": 11,
     "woerter": [
-     75,
-     79
+     77,
+     81
     ],
     "block": "stadt",
     "groesse": "halbnah",
@@ -3245,16 +3293,16 @@
      "wer": "tess",
      "was": "kopf_drehen",
      "wort": "Tess",
-     "wort_i": 75,
-     "wort_start": 22.24,
-     "start": 22.24,
-     "ende": 22.54,
+     "wort_i": 77,
+     "wort_start": 23.24,
+     "start": 23.24,
+     "ende": 23.54,
      "anker": "start",
      "schluesselwort_idee": "Tess"
     },
     "gesichter": [],
     "hauptsache": "tess.kopf",
-    "bogen_zeit": 22.64,
+    "bogen_zeit": 23.64,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -3266,8 +3314,8 @@
   },
   {
    "id": "E19",
-   "start": 23.8,
-   "ende": 24.8,
+   "start": 24.8,
+   "ende": 25.8333,
    "set": [
     "strasse",
     "marsh"
@@ -3347,8 +3395,8 @@
     "key": "12",
     "satz": 12,
     "woerter": [
-     80,
-     82
+     82,
+     84
     ],
     "block": "stadt",
     "groesse": "halbtotale",
@@ -3357,16 +3405,16 @@
     "haupt": {
      "art": "kamera",
      "wort": "porch",
-     "wort_i": 82,
-     "wort_start": 24.22,
-     "start": 24.22,
-     "ende": 24.22,
+     "wort_i": 84,
+     "wort_start": 25.22,
+     "start": 25.22,
+     "ende": 25.22,
      "anker": "start",
      "schluesselwort_idee": "porch"
     },
     "gesichter": [],
     "hauptsache": "sp_v1.mitte",
-    "bogen_zeit": 24.37,
+    "bogen_zeit": 25.37,
     "akzent": true,
     "monster": false,
     "sichtbar": [
@@ -3378,8 +3426,8 @@
   },
   {
    "id": "E20",
-   "start": 24.8,
-   "ende": 26.3333,
+   "start": 25.8333,
+   "ende": 27.4667,
    "set": [
     "strasse",
     "marsh"
@@ -3436,13 +3484,13 @@
     "staerke": 0.8
    },
    "schatten_bereich": 24,
-   "text": "the shoes were kicked apart.",
+   "text": "the shoes were kicked apart, because",
    "plan": {
     "key": "12:the shoes",
     "satz": 12,
     "woerter": [
-     83,
-     87
+     85,
+     90
     ],
     "block": "stadt",
     "groesse": "detail",
@@ -3451,16 +3499,16 @@
     "haupt": {
      "art": "kamera",
      "wort": "apart",
-     "wort_i": 87,
-     "wort_start": 25.6,
-     "start": 25.6,
-     "ende": 25.6,
+     "wort_i": 89,
+     "wort_start": 26.62,
+     "start": 26.62,
+     "ende": 26.62,
      "anker": "start",
      "schluesselwort_idee": "apart"
     },
     "gesichter": [],
     "hauptsache": "sp_v2.mitte",
-    "bogen_zeit": 25.75,
+    "bogen_zeit": 26.77,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -3470,8 +3518,8 @@
   },
   {
    "id": "E21",
-   "start": 26.3333,
-   "ende": 27.9,
+   "start": 27.4667,
+   "ende": 29.6,
    "set": [
     "strasse",
     "marsh"
@@ -3544,13 +3592,13 @@
     "staerke": 0.8
    },
    "schatten_bereich": 24,
-   "text": "Side by side is all it leaves.",
+   "text": "side by side is all it leaves.",
    "plan": {
-    "key": "13",
-    "satz": 13,
+    "key": "12:side",
+    "satz": 12,
     "woerter": [
-     88,
-     94
+     91,
+     97
     ],
     "block": "stadt",
     "groesse": "detail",
@@ -3558,17 +3606,17 @@
     "modul": "haeuserzeile",
     "haupt": {
      "art": "kamera",
-     "wort": "Side",
-     "wort_i": 88,
-     "wort_start": 26.36,
-     "start": 26.36,
-     "ende": 26.36,
+     "wort": "side",
+     "wort_i": 91,
+     "wort_start": 27.5,
+     "start": 27.5,
+     "ende": 27.5,
      "anker": "start",
      "schluesselwort_idee": "side"
     },
     "gesichter": [],
     "hauptsache": "sp_grau.mitte",
-    "bogen_zeit": 26.51,
+    "bogen_zeit": 27.65,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -3579,8 +3627,8 @@
   },
   {
    "id": "E22",
-   "start": 27.9,
-   "ende": 30.0333,
+   "start": 29.6,
+   "ende": 30.7333,
    "set": [
     "strasse",
     "marsh"
@@ -3633,42 +3681,42 @@
     {
      "wer": "odell",
      "was": "kopf_drehen",
-     "start": 28.41,
      "dauer": 0.4,
      "params": {
       "winkel": 12,
       "nicken": -45
-     }
+     },
+     "start": 29.732,
+     "nebenbei": true
     }
    ],
    "schatten_bereich": 24,
-   "text": "Mr. Odell rings the midnight bell,",
+   "text": "At midnight, his bell",
    "plan": {
-    "key": "14",
-    "satz": 14,
+    "key": "13",
+    "satz": 13,
     "woerter": [
-     95,
-     100
+     98,
+     101
     ],
     "block": "stadt",
     "groesse": "halbnah",
     "ort": "hauptstrasse",
     "modul": "platz",
     "haupt": {
-     "art": "aktion",
-     "wer": "odell",
-     "was": "kopf_drehen",
-     "wort": "Odell",
-     "wort_i": 96,
-     "wort_start": 28.41,
-     "start": 28.41,
-     "ende": 28.81,
+     "art": "set",
+     "was": "glocke",
+     "wort": "bell",
+     "wort_i": 101,
+     "wort_start": 30.5,
+     "start": 30.5,
+     "ende": 31.1,
      "anker": "start",
-     "schluesselwort_idee": "Odell"
+     "schluesselwort_idee": "bell"
     },
     "gesichter": [],
     "hauptsache": "odell.kopf",
-    "bogen_zeit": 28.91,
+    "bogen_zeit": 30.6666,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -3678,8 +3726,8 @@
   },
   {
    "id": "E23",
-   "start": 30.0333,
-   "ende": 31.4667,
+   "start": 30.7333,
+   "ende": 31.8333,
    "set": [
     "strasse",
     "marsh"
@@ -3738,20 +3786,20 @@
     {
      "wer": "mh",
      "was": "zaehlen",
-     "start": 30.64,
-     "dauer": 0.8,
+     "start": 31.24,
+     "dauer": 0.55,
      "params": {
       "takt": 0.4
      }
     }
    ],
    "schatten_bereich": 24,
-   "text": "and it starts counting.",
+   "text": "starts the count.",
    "plan": {
-    "key": "14:and it starts",
-    "satz": 14,
+    "key": "13:starts",
+    "satz": 13,
     "woerter": [
-     101,
+     102,
      104
     ],
     "block": "stadt",
@@ -3762,17 +3810,17 @@
      "art": "aktion",
      "wer": "mh",
      "was": "zaehlen",
-     "wort": "counting",
+     "wort": "count",
      "wort_i": 104,
-     "wort_start": 30.64,
-     "start": 30.64,
-     "ende": 31.44,
+     "wort_start": 31.24,
+     "start": 31.24,
+     "ende": 31.79,
      "anker": "start",
-     "schluesselwort_idee": "counting"
+     "schluesselwort_idee": "count"
     },
     "gesichter": [],
     "hauptsache": "mh.haende",
-    "bogen_zeit": 31.4,
+    "bogen_zeit": 31.7666,
     "akzent": false,
     "monster": true,
     "sichtbar": [
@@ -3782,8 +3830,8 @@
   },
   {
    "id": "E24",
-   "start": 31.4667,
-   "ende": 32.6333,
+   "start": 31.8333,
+   "ende": 32.9,
    "set": [
     "strasse",
     "marsh"
@@ -3831,8 +3879,8 @@
     ],
     "kran": 1.2,
     "fov": 56,
-    "ankunft": 32.16,
-    "start": 31.2167
+    "ankunft": 32.5,
+    "start": 31.5833
    },
    "stellung": {
     "mh": {
@@ -3843,8 +3891,8 @@
    "schatten_bereich": 24,
    "text": "Only the sunrise bell",
    "plan": {
-    "key": "15",
-    "satz": 15,
+    "key": "14",
+    "satz": 14,
     "woerter": [
      105,
      108
@@ -3857,15 +3905,15 @@
      "art": "kamera",
      "wort": "bell",
      "wort_i": 108,
-     "wort_start": 32.16,
-     "start": 32.16,
-     "ende": 32.16,
+     "wort_start": 32.5,
+     "start": 32.5,
+     "ende": 32.5,
      "anker": "start",
      "schluesselwort_idee": "bell"
     },
     "gesichter": [],
     "hauptsache": "strasse.glocke",
-    "bogen_zeit": 32.31,
+    "bogen_zeit": 32.65,
     "akzent": true,
     "monster": false,
     "sichtbar": []
@@ -3873,8 +3921,8 @@
   },
   {
    "id": "E25",
-   "start": 32.6333,
-   "ende": 34.1333,
+   "start": 32.9,
+   "ende": 33.7333,
    "set": [
     "strasse",
     "marsh"
@@ -3950,7 +3998,7 @@
     {
      "wer": "mh",
      "was": "stapfen",
-     "start": 32.68,
+     "start": 32.94,
      "dauer": 1.5,
      "params": {
       "nach": [
@@ -3962,13 +4010,13 @@
     }
    ],
    "schatten_bereich": 24,
-   "text": "ends Hiding Night.",
+   "text": "ends it.",
    "plan": {
-    "key": "15:ends",
-    "satz": 15,
+    "key": "14:ends",
+    "satz": 14,
     "woerter": [
      109,
-     111
+     110
     ],
     "block": "stadt",
     "groesse": "totale",
@@ -3980,15 +4028,15 @@
      "was": "stapfen",
      "wort": "ends",
      "wort_i": 109,
-     "wort_start": 32.68,
-     "start": 32.68,
-     "ende": 34.18,
+     "wort_start": 32.94,
+     "start": 32.94,
+     "ende": 34.44,
      "anker": "start",
      "schluesselwort_idee": "ends"
     },
     "gesichter": [],
     "hauptsache": "mh.brust",
-    "bogen_zeit": 34.0666,
+    "bogen_zeit": 33.6666,
     "akzent": false,
     "monster": true,
     "sichtbar": [
@@ -3998,8 +4046,8 @@
   },
   {
    "id": "E26",
-   "start": 34.1333,
-   "ende": 35.8,
+   "start": 33.7333,
+   "ende": 35.0333,
    "set": [
     "strasse",
     "marsh"
@@ -4074,7 +4122,7 @@
     {
      "wer": "odell",
      "was": "umdrehen",
-     "start": 34.69,
+     "start": 33.97,
      "dauer": 0.45,
      "params": {
       "blick": -72
@@ -4083,20 +4131,20 @@
     {
      "wer": "odell",
      "was": "gesicht",
-     "start": 35.14,
+     "start": 34.42,
      "params": {
       "name": "warnend"
      }
     }
    ],
    "schatten_bereich": 24,
-   "text": "Mr. Odell turned to June.",
+   "text": "Odell looked at June.",
    "plan": {
-    "key": "16",
-    "satz": 16,
+    "key": "15",
+    "satz": 15,
     "woerter": [
-     112,
-     116
+     111,
+     114
     ],
     "block": "stadt",
     "groesse": "halbnah",
@@ -4107,10 +4155,10 @@
      "wer": "odell",
      "was": "umdrehen",
      "wort": "June",
-     "wort_i": 116,
-     "wort_start": 35.14,
-     "start": 34.69,
-     "ende": 35.14,
+     "wort_i": 114,
+     "wort_start": 34.42,
+     "start": 33.97,
+     "ende": 34.42,
      "anker": "ende",
      "schluesselwort_idee": "June"
     },
@@ -4119,12 +4167,12 @@
       "wer": "odell",
       "name": "warnend",
       "wort": "June",
-      "wort_start": 35.14,
-      "start": 35.14
+      "wort_start": 34.42,
+      "start": 34.42
      }
     ],
     "hauptsache": "june2.kopf",
-    "bogen_zeit": 35.24,
+    "bogen_zeit": 34.52,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -4136,8 +4184,8 @@
   },
   {
    "id": "E27",
-   "start": 35.8,
-   "ende": 37.2667,
+   "start": 35.0333,
+   "ende": 36.4667,
    "set": [
     "strasse",
     "marsh"
@@ -4201,7 +4249,7 @@
     {
      "wer": "odell",
      "was": "gesicht",
-     "start": 35.82,
+     "start": 35.08,
      "params": {
       "name": "warnend/reden_a"
      }
@@ -4209,7 +4257,7 @@
     {
      "wer": "odell",
      "was": "gesicht",
-     "start": 35.92,
+     "start": 35.2,
      "params": {
       "name": "warnend/reden_b"
      }
@@ -4217,7 +4265,7 @@
     {
      "wer": "odell",
      "was": "gesicht",
-     "start": 36.12,
+     "start": 35.4,
      "params": {
       "name": "warnend/reden_c"
      }
@@ -4225,7 +4273,7 @@
     {
      "wer": "odell",
      "was": "zeigen",
-     "start": 36.3,
+     "start": 35.64,
      "dauer": 0.25,
      "params": {
       "zu": "june2.kopf",
@@ -4235,7 +4283,7 @@
     {
      "wer": "odell",
      "was": "gesicht",
-     "start": 36.3,
+     "start": 35.64,
      "params": {
       "name": "warnend/reden_a"
      }
@@ -4243,7 +4291,7 @@
     {
      "wer": "odell",
      "was": "gesicht",
-     "start": 36.56,
+     "start": 35.915,
      "params": {
       "name": "warnend/reden_b"
      }
@@ -4251,15 +4299,7 @@
     {
      "wer": "odell",
      "was": "gesicht",
-     "start": 36.78,
-     "params": {
-      "name": "warnend/reden_c"
-     }
-    },
-    {
-     "wer": "odell",
-     "was": "gesicht",
-     "start": 37,
+     "start": 36.19,
      "params": {
       "name": "warnend"
      }
@@ -4270,13 +4310,13 @@
     "staerke": 0.8
    },
    "schatten_bereich": 24,
-   "text": "\"It takes the helper too.\"",
+   "text": "\"It takes whoever helps.\"",
    "plan": {
-    "key": "17",
-    "satz": 17,
+    "key": "16",
+    "satz": 16,
     "woerter": [
-     117,
-     121
+     115,
+     118
     ],
     "block": "stadt",
     "groesse": "nah",
@@ -4286,22 +4326,22 @@
      "art": "aktion",
      "wer": "odell",
      "was": "zeigen",
-     "wort": "helper",
-     "wort_i": 120,
-     "wort_start": 36.3,
-     "start": 36.3,
-     "ende": 36.55,
+     "wort": "helps",
+     "wort_i": 118,
+     "wort_start": 35.64,
+     "start": 35.64,
+     "ende": 35.89,
      "anker": "start",
-     "schluesselwort_idee": "helper"
+     "schluesselwort_idee": "helps"
     },
     "gesichter": [],
     "mund": {
      "wer": "odell",
      "art": "rede",
-     "wechsel": 7
+     "wechsel": 6
     },
     "hauptsache": "odell.kopf",
-    "bogen_zeit": 36.65,
+    "bogen_zeit": 35.99,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -4312,8 +4352,8 @@
   },
   {
    "id": "E28",
-   "start": 37.2667,
-   "ende": 38.7333,
+   "start": 36.4667,
+   "ende": 38.2,
    "set": [
     "strasse",
     "marsh"
@@ -4383,7 +4423,7 @@
     {
      "wer": "odell",
      "was": "gesicht",
-     "start": 37.29,
+     "start": 36.49,
      "params": {
       "name": "warnend/reden_a"
      }
@@ -4391,7 +4431,7 @@
     {
      "wer": "odell",
      "was": "gesicht",
-     "start": 37.42,
+     "start": 36.74,
      "params": {
       "name": "warnend/reden_b"
      }
@@ -4399,7 +4439,7 @@
     {
      "wer": "odell",
      "was": "gesicht",
-     "start": 37.66,
+     "start": 36.91,
      "params": {
       "name": "warnend/reden_c"
      }
@@ -4407,7 +4447,7 @@
     {
      "wer": "odell",
      "was": "gesicht",
-     "start": 37.74,
+     "start": 37.08,
      "params": {
       "name": "warnend/reden_a"
      }
@@ -4415,7 +4455,7 @@
     {
      "wer": "odell",
      "was": "gesicht",
-     "start": 37.84,
+     "start": 37.2,
      "params": {
       "name": "warnend/reden_b"
      }
@@ -4423,15 +4463,23 @@
     {
      "wer": "odell",
      "was": "gesicht",
-     "start": 38.06,
+     "start": 37.3,
      "params": {
       "name": "warnend/reden_c"
      }
     },
     {
+     "wer": "june2",
+     "was": "gesicht",
+     "start": 37.5,
+     "params": {
+      "name": "entschlossen"
+     }
+    },
+    {
      "wer": "odell",
      "was": "gesicht",
-     "start": 38.265,
+     "start": 37.5,
      "params": {
       "name": "warnend/reden_a"
      }
@@ -4439,7 +4487,15 @@
     {
      "wer": "odell",
      "was": "gesicht",
-     "start": 38.47,
+     "start": 37.725,
+     "params": {
+      "name": "warnend/reden_b"
+     }
+    },
+    {
+     "wer": "odell",
+     "was": "gesicht",
+     "start": 37.95,
      "params": {
       "name": "warnend"
      }
@@ -4452,11 +4508,11 @@
    "schatten_bereich": 24,
    "text": "\"So why are you still here?\"",
    "plan": {
-    "key": "18",
-    "satz": 18,
+    "key": "17",
+    "satz": 17,
     "woerter": [
-     122,
-     127
+     119,
+     124
     ],
     "block": "stadt",
     "groesse": "ueber-schulter",
@@ -4465,21 +4521,29 @@
     "haupt": {
      "art": "kamera",
      "wort": "still",
-     "wort_i": 126,
-     "wort_start": 37.84,
-     "start": 37.84,
-     "ende": 37.84,
+     "wort_i": 123,
+     "wort_start": 37.3,
+     "start": 37.3,
+     "ende": 37.3,
      "anker": "start",
      "schluesselwort_idee": "still"
     },
-    "gesichter": [],
+    "gesichter": [
+     {
+      "wer": "june2",
+      "name": "entschlossen",
+      "wort": "here",
+      "wort_start": 37.5,
+      "start": 37.5
+     }
+    ],
     "mund": {
      "wer": "odell",
      "art": "rede",
-     "wechsel": 8
+     "wechsel": 9
     },
     "hauptsache": "june2.kopf",
-    "bogen_zeit": 37.99,
+    "bogen_zeit": 37.45,
     "akzent": true,
     "monster": false,
     "sichtbar": [
@@ -4490,109 +4554,8 @@
   },
   {
    "id": "E29",
-   "start": 38.7333,
-   "ende": 39.8667,
-   "set": [
-    "strasse",
-    "marsh"
-   ],
-   "licht": "nacht",
-   "licht_anpassung": {
-    "hemi": {
-     "staerke": 2.9
-    },
-    "kante": {
-     "staerke": 1.6
-    },
-    "belichtung": 1.7
-   },
-   "kamera": {
-    "baustein": "push_in",
-    "ziel": {
-     "anker": "june2.kopf",
-     "versatz": [
-      0,
-      -0.15,
-      0
-     ]
-    },
-    "blick": {
-     "azimut": 118,
-     "hoehe": 2,
-     "abstand": 1.8
-    },
-    "fov": 38,
-    "rate": 0.05
-   },
-   "stellung": {
-    "june2": {
-     "neu": true,
-     "sichtbar": true,
-     "position": [
-      -0.85,
-      0,
-      -56.3
-     ],
-     "blick": 110,
-     "gesicht": "besorgt"
-    },
-    "odell": {
-     "sichtbar": false
-    }
-   },
-   "aktionen": [
-    {
-     "wer": "june2",
-     "was": "gesicht",
-     "start": 39.2,
-     "params": {
-      "name": "entschlossen"
-     }
-    }
-   ],
-   "tiefenunschaerfe": {
-    "fokus": "june2.kopf",
-    "staerke": 0.8
-   },
-   "schatten_bereich": 24,
-   "text": "June didn't answer.",
-   "plan": {
-    "key": "19",
-    "satz": 19,
-    "woerter": [
-     128,
-     130
-    ],
-    "block": "stadt",
-    "groesse": "nah",
-    "ort": "hauptstrasse",
-    "modul": "platz",
-    "haupt": {
-     "art": "gesicht",
-     "wer": "june2",
-     "name": "entschlossen",
-     "wort": "answer",
-     "wort_i": 130,
-     "wort_start": 39.2,
-     "start": 39.2,
-     "ende": 39.2,
-     "anker": "start",
-     "schluesselwort_idee": "answer"
-    },
-    "gesichter": [],
-    "hauptsache": "june2.kopf",
-    "bogen_zeit": 39.4,
-    "akzent": false,
-    "monster": false,
-    "sichtbar": [
-     "june2"
-    ]
-   }
-  },
-  {
-   "id": "E30",
-   "start": 39.8667,
-   "ende": 40.8333,
+   "start": 38.2,
+   "ende": 39.1,
    "set": [
     "strasse",
     "marsh"
@@ -4637,6 +4600,9 @@
      "blick": -40,
      "gesicht": "nervoes"
     },
+    "odell": {
+     "sichtbar": false
+    },
     "june2": {
      "sichtbar": false
     }
@@ -4645,7 +4611,7 @@
     {
      "wer": "tess",
      "was": "gesicht",
-     "start": 40.12,
+     "start": 38.42,
      "params": {
       "name": "grinsen"
      }
@@ -4658,11 +4624,11 @@
    "schatten_bereich": 24,
    "text": "Tess grinned.",
    "plan": {
-    "key": "20",
-    "satz": 20,
+    "key": "18",
+    "satz": 18,
     "woerter": [
-     131,
-     132
+     125,
+     126
     ],
     "block": "stadt",
     "groesse": "nah",
@@ -4673,16 +4639,16 @@
      "wer": "tess",
      "name": "grinsen",
      "wort": "grinned",
-     "wort_i": 132,
-     "wort_start": 40.12,
-     "start": 40.12,
-     "ende": 40.12,
+     "wort_i": 126,
+     "wort_start": 38.42,
+     "start": 38.42,
+     "ende": 38.42,
      "anker": "start",
      "schluesselwort_idee": "grinned"
     },
     "gesichter": [],
     "hauptsache": "tess.kopf",
-    "bogen_zeit": 40.32,
+    "bogen_zeit": 38.62,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -4691,9 +4657,9 @@
    }
   },
   {
-   "id": "E31",
-   "start": 40.8333,
-   "ende": 42.4667,
+   "id": "E30",
+   "start": 39.1,
+   "ende": 40.7333,
    "set": [
     "strasse",
     "marsh"
@@ -4754,7 +4720,7 @@
     {
      "wer": "tess",
      "was": "gesicht",
-     "start": 40.86,
+     "start": 39.14,
      "params": {
       "name": "grinsen/reden_a"
      }
@@ -4762,7 +4728,7 @@
     {
      "wer": "tess",
      "was": "gesicht",
-     "start": 41.02,
+     "start": 39.32,
      "params": {
       "name": "grinsen/reden_b"
      }
@@ -4770,7 +4736,7 @@
     {
      "wer": "tess",
      "was": "gesicht",
-     "start": 41.26,
+     "start": 39.54,
      "params": {
       "name": "grinsen/reden_c"
      }
@@ -4778,13 +4744,13 @@
     {
      "wer": "tess",
      "was": "augen_zuhalten",
-     "start": 41.31,
+     "start": 39.55,
      "dauer": 0.35
     },
     {
      "wer": "tess",
      "was": "gesicht",
-     "start": 41.4,
+     "start": 39.66,
      "params": {
       "name": "grinsen/reden_a"
      }
@@ -4792,7 +4758,7 @@
     {
      "wer": "tess",
      "was": "gesicht",
-     "start": 41.54,
+     "start": 39.8,
      "params": {
       "name": "grinsen/reden_b"
      }
@@ -4800,7 +4766,7 @@
     {
      "wer": "tess",
      "was": "gesicht",
-     "start": 41.66,
+     "start": 39.9,
      "params": {
       "name": "grinsen/reden_c"
      }
@@ -4808,7 +4774,7 @@
     {
      "wer": "tess",
      "was": "gesicht",
-     "start": 41.96,
+     "start": 40.22,
      "params": {
       "name": "grinsen/reden_a"
      }
@@ -4816,7 +4782,7 @@
     {
      "wer": "tess",
      "was": "gesicht",
-     "start": 42.22,
+     "start": 40.47,
      "params": {
       "name": "grinsen"
      }
@@ -4825,11 +4791,11 @@
    "schatten_bereich": 24,
    "text": "\"Last game of hide and seek, huh?\"",
    "plan": {
-    "key": "21",
-    "satz": 21,
+    "key": "19",
+    "satz": 19,
     "woerter": [
-     133,
-     139
+     127,
+     133
     ],
     "block": "stadt",
     "groesse": "halbnah",
@@ -4840,10 +4806,10 @@
      "wer": "tess",
      "was": "augen_zuhalten",
      "wort": "seek",
-     "wort_i": 138,
-     "wort_start": 41.66,
-     "start": 41.31,
-     "ende": 41.66,
+     "wort_i": 132,
+     "wort_start": 39.9,
+     "start": 39.55,
+     "ende": 39.9,
      "anker": "ende",
      "schluesselwort_idee": "seek"
     },
@@ -4854,7 +4820,7 @@
      "wechsel": 8
     },
     "hauptsache": "tess.kopf",
-    "bogen_zeit": 41.76,
+    "bogen_zeit": 40,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -4864,269 +4830,9 @@
    }
   },
   {
-   "id": "E32",
-   "start": 42.4667,
-   "ende": 43.5333,
-   "set": [
-    "strasse",
-    "marsh"
-   ],
-   "licht": "nacht",
-   "licht_anpassung": {
-    "hemi": {
-     "staerke": 2.9
-    },
-    "kante": {
-     "staerke": 1.6
-    },
-    "belichtung": 1.7
-   },
-   "kamera": {
-    "baustein": "push_in",
-    "pos": [
-     0.3,
-     1.75,
-     -56.4
-    ],
-    "ziel": [
-     0.1,
-     1.35,
-     -51.2
-    ],
-    "fov": 58,
-    "rate": 0.06
-   },
-   "stellung": {
-    "nb_frau": {
-     "neu": true,
-     "sichtbar": true,
-     "position": [
-      0.2,
-      0,
-      -52.6
-     ],
-     "blick": 180,
-     "gesicht": "besorgt"
-    },
-    "nb_mantel": {
-     "neu": true,
-     "sichtbar": true,
-     "position": [
-      -1.2,
-      0,
-      -52.3
-     ],
-     "blick": 168,
-     "gesicht": "besorgt"
-    },
-    "nb_alt": {
-     "neu": true,
-     "sichtbar": true,
-     "position": [
-      1.5,
-      0,
-      -52.2
-     ],
-     "blick": 192,
-     "gesicht": "besorgt"
-    },
-    "odell": {
-     "neu": true,
-     "sichtbar": true,
-     "position": [
-      -0.6,
-      0,
-      -53.4
-     ],
-     "blick": 175,
-     "gesicht": "streng"
-    },
-    "nb_ohren": {
-     "neu": true,
-     "sichtbar": true,
-     "position": [
-      2.3,
-      0,
-      -51.2
-     ],
-     "blick": 198,
-     "gesicht": "besorgt"
-    },
-    "nb_passant": {
-     "neu": true,
-     "sichtbar": true,
-     "position": [
-      -2,
-      0,
-      -51.1
-     ],
-     "blick": 160,
-     "gesicht": "ernst"
-    },
-    "nb_6": {
-     "neu": true,
-     "sichtbar": true,
-     "position": [
-      -0.6,
-      0,
-      -51
-     ],
-     "blick": 176,
-     "gesicht": "besorgt"
-    },
-    "nb_7": {
-     "neu": true,
-     "sichtbar": true,
-     "position": [
-      0.9,
-      0,
-      -50.8
-     ],
-     "blick": 186,
-     "gesicht": "ernst"
-    },
-    "nb_8": {
-     "neu": true,
-     "sichtbar": true,
-     "position": [
-      -1.5,
-      0,
-      -49.8
-     ],
-     "blick": 170,
-     "gesicht": "besorgt"
-    },
-    "nb_9": {
-     "neu": true,
-     "sichtbar": true,
-     "position": [
-      1.8,
-      0,
-      -49.7
-     ],
-     "blick": 190,
-     "gesicht": "ernst"
-    },
-    "nb_10": {
-     "neu": true,
-     "sichtbar": true,
-     "position": [
-      0.2,
-      0,
-      -49.5
-     ],
-     "blick": 180,
-     "gesicht": "besorgt"
-    },
-    "nb_alt2": {
-     "neu": true,
-     "sichtbar": true,
-     "position": [
-      -2.6,
-      0,
-      -50
-     ],
-     "blick": 165,
-     "gesicht": "besorgt"
-    },
-    "tess": {
-     "sichtbar": false
-    },
-    "nb_jung": {
-     "sichtbar": false
-    }
-   },
-   "aktionen": [
-    {
-     "wer": "nb_frau",
-     "was": "gesicht",
-     "start": 42.51,
-     "params": {
-      "name": "blick_gesenkt"
-     }
-    },
-    {
-     "wer": "nb_mantel",
-     "was": "gesicht",
-     "start": 42.72,
-     "params": {
-      "name": "blick_gesenkt"
-     }
-    },
-    {
-     "wer": "nb_alt",
-     "was": "gesicht",
-     "start": 42.82,
-     "params": {
-      "name": "blick_gesenkt"
-     }
-    }
-   ],
-   "schatten_bereich": 24,
-   "text": "Nobody laughed.",
-   "plan": {
-    "key": "22",
-    "satz": 22,
-    "woerter": [
-     140,
-     141
-    ],
-    "block": "stadt",
-    "groesse": "totale",
-    "ort": "hauptstrasse",
-    "modul": "platz",
-    "haupt": {
-     "art": "gesicht",
-     "wer": "nb_frau",
-     "name": "blick_gesenkt",
-     "wort": "Nobody",
-     "wort_i": 140,
-     "wort_start": 42.51,
-     "start": 42.51,
-     "ende": 42.51,
-     "anker": "start",
-     "schluesselwort_idee": "Nobody"
-    },
-    "gesichter": [
-     {
-      "wer": "nb_mantel",
-      "name": "blick_gesenkt",
-      "wort": "laughed",
-      "wort_start": 42.72,
-      "start": 42.72
-     },
-     {
-      "wer": "nb_alt",
-      "name": "blick_gesenkt",
-      "wort": "laughed",
-      "wort_start": 42.72,
-      "start": 42.82
-     }
-    ],
-    "hauptsache": "nb_frau.kopf",
-    "bogen_zeit": 42.71,
-    "akzent": false,
-    "monster": false,
-    "sichtbar": [
-     "nb_frau",
-     "nb_mantel",
-     "nb_alt",
-     "odell",
-     "nb_ohren",
-     "nb_passant",
-     "nb_6",
-     "nb_7",
-     "nb_8",
-     "nb_9",
-     "nb_10",
-     "nb_alt2"
-    ]
-   }
-  },
-  {
-   "id": "E33",
-   "start": 43.5333,
-   "ende": 44.8667,
+   "id": "E31",
+   "start": 40.7333,
+   "ende": 42.1,
    "set": [
     "strasse",
     "marsh"
@@ -5147,16 +4853,16 @@
      "anker": "tess.kopf",
      "versatz": [
       0,
-      -0.2,
+      -0.45,
       0
      ]
     },
     "pos": [
-     2.2,
-     1.1,
-     -53.6
+     0.9,
+     2.3,
+     -51.6
     ],
-    "fov": 48,
+    "fov": 50,
     "rate": 0.07
    },
    "stellung": {
@@ -5175,44 +4881,69 @@
      "neu": true,
      "sichtbar": true,
      "position": [
-      2.4,
+      1,
       0,
-      -56.6
+      -56.3
      ],
-     "blick": -120,
+     "blick": 190,
      "gesicht": "streng"
     },
     "nb_frau": {
-     "sichtbar": false
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -0.55,
+      0,
+      -55.3
+     ],
+     "blick": 172,
+     "gesicht": "besorgt"
     },
     "nb_mantel": {
-     "sichtbar": false
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      1.35,
+      0,
+      -55.1
+     ],
+     "blick": 192,
+     "gesicht": "besorgt"
     },
     "nb_alt": {
-     "sichtbar": false
-    },
-    "nb_ohren": {
-     "sichtbar": false
-    },
-    "nb_passant": {
-     "sichtbar": false
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -1.2,
+      0,
+      -56.2
+     ],
+     "blick": 165,
+     "gesicht": "besorgt"
     },
     "nb_6": {
-     "sichtbar": false
-    },
-    "nb_7": {
-     "sichtbar": false
-    },
-    "nb_8": {
-     "sichtbar": false
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      2,
+      0,
+      -56
+     ],
+     "blick": 200,
+     "gesicht": "besorgt"
     },
     "nb_9": {
-     "sichtbar": false
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      0.45,
+      0,
+      -54.4
+     ],
+     "blick": 178,
+     "gesicht": "ernst"
     },
-    "nb_10": {
-     "sichtbar": false
-    },
-    "nb_alt2": {
+    "nb_jung": {
      "sichtbar": false
     }
    },
@@ -5220,7 +4951,7 @@
     {
      "wer": "tess",
      "was": "gehen",
-     "start": 43.6,
+     "start": 40.84,
      "dauer": 0.74,
      "ease": "linear",
      "params": {
@@ -5239,18 +4970,18 @@
       "hoehe": 0.8,
       "arme": false
      },
-     "start": 43.6,
+     "start": 40.84,
      "nebenbei": true
     }
    ],
    "schatten_bereich": 24,
    "text": "She'd hide in the bell tower,",
    "plan": {
-    "key": "23",
-    "satz": 23,
+    "key": "20",
+    "satz": 20,
     "woerter": [
-     142,
-     147
+     134,
+     139
     ],
     "block": "stadt",
     "groesse": "halbtotale",
@@ -5261,28 +4992,33 @@
      "wer": "tess",
      "was": "gehen",
      "wort": "tower",
-     "wort_i": 147,
-     "wort_start": 44.34,
-     "start": 43.6,
-     "ende": 44.34,
+     "wort_i": 139,
+     "wort_start": 41.58,
+     "start": 40.84,
+     "ende": 41.58,
      "anker": "ende",
      "schluesselwort_idee": "tower"
     },
     "gesichter": [],
     "hauptsache": "tess.kopf",
-    "bogen_zeit": 44.44,
+    "bogen_zeit": 41.68,
     "akzent": false,
     "monster": false,
     "sichtbar": [
      "tess",
-     "odell"
+     "odell",
+     "nb_frau",
+     "nb_mantel",
+     "nb_alt",
+     "nb_6",
+     "nb_9"
     ]
    }
   },
   {
-   "id": "E34",
-   "start": 44.8667,
-   "ende": 46.3667,
+   "id": "E32",
+   "start": 42.1,
+   "ende": 43.5,
    "set": [
     "strasse",
     "marsh"
@@ -5308,8 +5044,8 @@
     ],
     "kran": 1.6,
     "fov": 60,
-    "ankunft": 45.64,
-    "start": 44.6167
+    "ankunft": 42.8,
+    "start": 41.85
    },
    "stellung": {
     "tess": {
@@ -5317,17 +5053,32 @@
     },
     "odell": {
      "sichtbar": false
+    },
+    "nb_frau": {
+     "sichtbar": false
+    },
+    "nb_mantel": {
+     "sichtbar": false
+    },
+    "nb_alt": {
+     "sichtbar": false
+    },
+    "nb_6": {
+     "sichtbar": false
+    },
+    "nb_9": {
+     "sichtbar": false
     }
    },
    "aktionen": [],
    "schatten_bereich": 24,
    "text": "higher than any window.",
    "plan": {
-    "key": "23:higher",
-    "satz": 23,
+    "key": "20:higher",
+    "satz": 20,
     "woerter": [
-     148,
-     151
+     140,
+     143
     ],
     "block": "stadt",
     "groesse": "totale",
@@ -5336,25 +5087,25 @@
     "haupt": {
      "art": "kamera",
      "wort": "window",
-     "wort_i": 151,
-     "wort_start": 45.64,
-     "start": 45.64,
-     "ende": 45.64,
+     "wort_i": 143,
+     "wort_start": 42.8,
+     "start": 42.8,
+     "ende": 42.8,
      "anker": "start",
      "schluesselwort_idee": "window"
     },
     "gesichter": [],
     "hauptsache": "strasse.glocke",
-    "bogen_zeit": 45.79,
+    "bogen_zeit": 42.95,
     "akzent": true,
     "monster": false,
     "sichtbar": []
    }
   },
   {
-   "id": "E35",
-   "start": 46.3667,
-   "ende": 47.4333,
+   "id": "E33",
+   "start": 43.5,
+   "ende": 44.6,
    "set": [
     "strasse",
     "haus"
@@ -5418,7 +5169,7 @@
     {
      "wer": "eli",
      "was": "kicken",
-     "start": 47.12,
+     "start": 44.3,
      "dauer": 0.4,
      "params": {
       "seite": "r"
@@ -5430,7 +5181,7 @@
      "params": {
       "wert": false
      },
-     "start": 47.27,
+     "start": 44.45,
      "nebenbei": true
     },
     {
@@ -5439,18 +5190,18 @@
      "params": {
       "wert": true
      },
-     "start": 47.27,
+     "start": 44.45,
      "nebenbei": true
     }
    ],
    "schatten_bereich": 16,
    "text": "At home, I kicked my",
    "plan": {
-    "key": "24",
-    "satz": 24,
+    "key": "21",
+    "satz": 21,
     "woerter": [
-     152,
-     156
+     144,
+     148
     ],
     "block": "entscheidung",
     "groesse": "halbnah",
@@ -5461,16 +5212,16 @@
      "wer": "eli",
      "was": "kicken",
      "wort": "kicked",
-     "wort_i": 155,
-     "wort_start": 47.12,
-     "start": 47.12,
-     "ende": 47.52,
+     "wort_i": 147,
+     "wort_start": 44.3,
+     "start": 44.3,
+     "ende": 44.7,
      "anker": "start",
      "schluesselwort_idee": "kicked"
     },
     "gesichter": [],
     "hauptsache": "eli.brust",
-    "bogen_zeit": 47.3666,
+    "bogen_zeit": 44.5333,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -5481,9 +5232,9 @@
    }
   },
   {
-   "id": "E36",
-   "start": 47.4333,
-   "ende": 48.9333,
+   "id": "E34",
+   "start": 44.6,
+   "ende": 45.6333,
    "set": [
     "strasse",
     "haus"
@@ -5527,13 +5278,13 @@
     "staerke": 0.8
    },
    "schatten_bereich": 16,
-   "text": "sneakers apart in the hall.",
+   "text": "sneakers apart.",
    "plan": {
-    "key": "24:sneakers",
-    "satz": 24,
+    "key": "21:sneakers",
+    "satz": 21,
     "woerter": [
-     157,
-     161
+     149,
+     150
     ],
     "block": "entscheidung",
     "groesse": "detail",
@@ -5542,16 +5293,16 @@
     "haupt": {
      "art": "kamera",
      "wort": "apart",
-     "wort_i": 158,
-     "wort_start": 47.74,
-     "start": 47.74,
-     "ende": 47.74,
+     "wort_i": 150,
+     "wort_start": 44.88,
+     "start": 44.88,
+     "ende": 44.88,
      "anker": "start",
      "schluesselwort_idee": "apart"
     },
     "gesichter": [],
     "hauptsache": "sp_eli_b.mitte",
-    "bogen_zeit": 47.89,
+    "bogen_zeit": 45.03,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -5560,9 +5311,9 @@
    }
   },
   {
-   "id": "E37",
-   "start": 48.9333,
-   "ende": 50.2667,
+   "id": "E35",
+   "start": 45.6333,
+   "ende": 46.4667,
    "set": [
     "strasse",
     "haus"
@@ -5609,7 +5360,7 @@
     {
      "wer": "eli",
      "was": "greifen",
-     "start": 49.14,
+     "start": 45.9,
      "dauer": 0.4,
      "params": {
       "zu": [
@@ -5627,13 +5378,13 @@
     "staerke": 0.8
    },
    "schatten_bereich": 16,
-   "text": "I packed for the woods.",
+   "text": "While I packed,",
    "plan": {
-    "key": "25",
-    "satz": 25,
+    "key": "22",
+    "satz": 22,
     "woerter": [
-     162,
-     166
+     151,
+     153
     ],
     "block": "entscheidung",
     "groesse": "nah",
@@ -5643,17 +5394,17 @@
      "art": "aktion",
      "wer": "eli",
      "was": "greifen",
-     "wort": "woods",
-     "wort_i": 166,
-     "wort_start": 49.54,
-     "start": 49.14,
-     "ende": 49.54,
-     "anker": "ende",
-     "schluesselwort_idee": "woods"
+     "wort": "packed",
+     "wort_i": 153,
+     "wort_start": 45.9,
+     "start": 45.9,
+     "ende": 46.3,
+     "anker": "start",
+     "schluesselwort_idee": "packed"
     },
     "gesichter": [],
     "hauptsache": "eli.kopf",
-    "bogen_zeit": 49.64,
+    "bogen_zeit": 46.4,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -5662,9 +5413,239 @@
    }
   },
   {
+   "id": "E36",
+   "start": 46.4667,
+   "ende": 48.2667,
+   "set": [
+    "strasse",
+    "marsh",
+    "spur"
+   ],
+   "licht": "nacht",
+   "licht_anpassung": {
+    "hemi": {
+     "staerke": 2.9
+    },
+    "kante": {
+     "staerke": 1.6
+    },
+    "belichtung": 1.7
+   },
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": [
+     -18.6,
+     2.3,
+     5.1
+    ],
+    "pos": [
+     -19.7,
+     3.4,
+     9.7
+    ],
+    "fov": 48,
+    "rate": 0.07
+   },
+   "stellung": {
+    "mh": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -18.6,
+      0.37,
+      8.65
+     ],
+     "blick": 180,
+     "gesicht": "glatt",
+     "pose": "vorbeugen",
+     "pose_params": {
+      "winkel": 100,
+      "kopf_ausgleich": 88,
+      "knie": 60
+     }
+    },
+    "eli": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "mh",
+     "was": "zaehlen",
+     "start": 46.7,
+     "dauer": 0.45,
+     "params": {
+      "takt": 0.45,
+      "staerke": 1.3
+     }
+    }
+   ],
+   "schatten_bereich": 24,
+   "text": "something tapped on June's window.",
+   "plan": {
+    "key": "22:something",
+    "satz": 22,
+    "woerter": [
+     154,
+     158
+    ],
+    "block": "entscheidung",
+    "groesse": "halbtotale",
+    "ort": "hauptstrasse",
+    "modul": "marsh-aussen",
+    "haupt": {
+     "art": "aktion",
+     "wer": "mh",
+     "was": "zaehlen",
+     "wort": "tapped",
+     "wort_i": 155,
+     "wort_start": 46.7,
+     "start": 46.7,
+     "ende": 47.15,
+     "anker": "start",
+     "schluesselwort_idee": "tapped"
+    },
+    "gesichter": [],
+    "hauptsache": "mh.haende",
+    "bogen_zeit": 47.25,
+    "akzent": false,
+    "monster": true,
+    "sichtbar": [
+     "mh"
+    ]
+   }
+  },
+  {
+   "id": "E37",
+   "start": 48.2667,
+   "ende": 49.8333,
+   "set": [
+    "strasse",
+    "haus",
+    "spur"
+   ],
+   "licht": "innen_warm",
+   "licht_anpassung": {
+    "belichtung": 1.25
+   },
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": [
+     -18.6,
+     2.55,
+     5.1
+    ],
+    "pos": [
+     -18.15,
+     1.2,
+     2.75
+    ],
+    "fov": 54,
+    "rate": 0.07
+   },
+   "stellung": {
+    "mh": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -18.6,
+      0.37,
+      8.65
+     ],
+     "blick": 180,
+     "gesicht": "glatt",
+     "pose": "vorbeugen",
+     "pose_params": {
+      "winkel": 100,
+      "kopf_ausgleich": 88,
+      "knie": 60
+     }
+    },
+    "luke_tp": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -19.25,
+      0.6,
+      2
+     ],
+     "blick": 90
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "mh",
+     "was": "zaehlen",
+     "dauer": 0.4,
+     "params": {
+      "takt": 0.4,
+      "staerke": 1.2
+     },
+     "start": 48.29,
+     "nebenbei": true
+    },
+    {
+     "wer": "mh",
+     "was": "zaehlen",
+     "dauer": 0.4,
+     "params": {
+      "takt": 0.4,
+      "staerke": 1.2
+     },
+     "start": 48.74,
+     "nebenbei": true
+    },
+    {
+     "wer": "mh",
+     "was": "zaehlen",
+     "start": 49.18,
+     "dauer": 0.4,
+     "params": {
+      "takt": 0.4,
+      "staerke": 1.4
+     }
+    }
+   ],
+   "schatten_bereich": 16,
+   "text": "Three slow knocks.",
+   "plan": {
+    "key": "23",
+    "satz": 23,
+    "woerter": [
+     159,
+     161
+    ],
+    "block": "entscheidung",
+    "groesse": "halbnah",
+    "ort": "marsh-innen",
+    "modul": "june-zimmer",
+    "haupt": {
+     "art": "aktion",
+     "wer": "mh",
+     "was": "zaehlen",
+     "wort": "knocks",
+     "wort_i": 161,
+     "wort_start": 48.98,
+     "start": 49.18,
+     "ende": 49.58,
+     "anker": "start",
+     "schluesselwort_idee": "knocks"
+    },
+    "gesichter": [],
+    "hauptsache": "mh.haende",
+    "bogen_zeit": 49.68,
+    "akzent": false,
+    "monster": true,
+    "sichtbar": [
+     "mh",
+     "luke_tp"
+    ]
+   }
+  },
+  {
    "id": "E38",
-   "start": 50.2667,
-   "ende": 51.5333,
+   "start": 49.8333,
+   "ende": 51.1333,
    "set": [
     "strasse",
     "haus"
@@ -5703,7 +5684,10 @@
      "blick": 90,
      "gesicht": "entschlossen"
     },
-    "eli": {
+    "mh": {
+     "sichtbar": false
+    },
+    "luke_tp": {
      "sichtbar": false
     }
    },
@@ -5711,7 +5695,7 @@
     {
      "wer": "eli2",
      "was": "gehen",
-     "start": 50.48,
+     "start": 50.04,
      "dauer": 1.05,
      "ease": "linear",
      "params": {
@@ -5730,18 +5714,26 @@
       "hoehe": -2.35,
       "arme": false
      },
-     "start": 50.48,
+     "start": 50.04,
      "nebenbei": true
+    },
+    {
+     "wer": "eli2",
+     "was": "gesicht",
+     "start": 50.97,
+     "params": {
+      "name": "besorgt"
+     }
     }
    ],
    "schatten_bereich": 16,
    "text": "When I came back down, they were",
    "plan": {
-    "key": "26",
-    "satz": 26,
+    "key": "24",
+    "satz": 24,
     "woerter": [
-     167,
-     173
+     162,
+     168
     ],
     "block": "entscheidung",
     "groesse": "halbtotale",
@@ -5752,16 +5744,24 @@
      "wer": "eli2",
      "was": "gehen",
      "wort": "came",
-     "wort_i": 169,
-     "wort_start": 50.48,
-     "start": 50.48,
-     "ende": 51.53,
+     "wort_i": 164,
+     "wort_start": 50.04,
+     "start": 50.04,
+     "ende": 51.09,
      "anker": "start",
      "schluesselwort_idee": "came"
     },
-    "gesichter": [],
+    "gesichter": [
+     {
+      "wer": "eli2",
+      "name": "besorgt",
+      "wort": "they",
+      "wort_start": 50.97,
+      "start": 50.97
+     }
+    ],
     "hauptsache": "eli2.kopf",
-    "bogen_zeit": 51.4666,
+    "bogen_zeit": 51.0666,
     "akzent": true,
     "monster": false,
     "sichtbar": [
@@ -5771,8 +5771,8 @@
   },
   {
    "id": "E39",
-   "start": 51.5333,
-   "ende": 52.8,
+   "start": 51.1333,
+   "ende": 52.3667,
    "set": [
     "strasse",
     "haus"
@@ -5792,7 +5792,7 @@
     "fov": 42,
     "faktor": 1.18,
     "bilder": 2,
-    "zeit": 51.58
+    "zeit": 51.16
    },
    "stellung": {
     "sp_eli_c": {
@@ -5831,11 +5831,11 @@
    "schatten_bereich": 16,
    "text": "side by side.",
    "plan": {
-    "key": "26:side",
-    "satz": 26,
+    "key": "24:side",
+    "satz": 24,
     "woerter": [
-     174,
-     176
+     169,
+     171
     ],
     "block": "entscheidung",
     "groesse": "detail",
@@ -5844,16 +5844,16 @@
     "haupt": {
      "art": "kamera",
      "wort": "side",
-     "wort_i": 174,
-     "wort_start": 51.58,
-     "start": 51.58,
-     "ende": 51.58,
+     "wort_i": 169,
+     "wort_start": 51.16,
+     "start": 51.16,
+     "ende": 51.16,
      "anker": "start",
      "schluesselwort_idee": "side"
     },
     "gesichter": [],
     "hauptsache": "sp_eli_c.mitte",
-    "bogen_zeit": 51.73,
+    "bogen_zeit": 51.31,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -5864,8 +5864,140 @@
   },
   {
    "id": "E40",
-   "start": 52.8,
-   "ende": 54.9333,
+   "start": 52.3667,
+   "ende": 54.5,
+   "set": [
+    "strasse",
+    "marsh"
+   ],
+   "licht": "daemmerung",
+   "licht_anpassung": {
+    "himmel": {
+     "zenit": "#3b4f8a",
+     "horizont": "#f6b27a",
+     "scheibe": {
+      "richtung": [
+       0.08,
+       0.07,
+       0.99
+      ],
+      "farbe": "#ffd29a",
+      "groesse": 2.6,
+      "staerke": 6,
+      "glanz": 0.7
+     }
+    },
+    "haupt": {
+     "richtung": [
+      0.1,
+      0.25,
+      0.96
+     ],
+     "farbe": "#ffc08a",
+     "staerke": 2.3
+    },
+    "nebel": {
+     "farbe": "#c9a49a",
+     "dichte": 0.014
+    },
+    "grade": {
+     "saettigung": 0.62,
+     "kontrast": 1.04
+    },
+    "belichtung": 1.3
+   },
+   "kamera": {
+    "baustein": "push_in",
+    "pos": [
+     3,
+     2.6,
+     -6.4
+    ],
+    "ziel": [
+     8.6,
+     1.1,
+     -12.4
+    ],
+    "fov": 46,
+    "rate": 0.07
+   },
+   "stellung": {
+    "pk2": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      8.6,
+      0,
+      -12.6
+     ],
+     "blick": -90,
+     "pose": "tuer_auf",
+     "pose_params": {
+      "winkel": 62
+     }
+    },
+    "sp_eli_c": {
+     "sichtbar": false
+    },
+    "tuer_june": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [],
+   "partikel": [
+    {
+     "start": 52.3667,
+     "dauer": 2.1333,
+     "art": "atem",
+     "ort": "pk2.auspuff",
+     "periode": 0.55,
+     "richtung": [
+      0.2,
+      1,
+      0
+     ],
+     "groesse": 0.28,
+     "deckkraft": 0.8
+    }
+   ],
+   "schatten_bereich": 24,
+   "text": "If I ran, I'd end up like Owen Pike,",
+   "plan": {
+    "key": "25",
+    "satz": 25,
+    "woerter": [
+     172,
+     180
+    ],
+    "block": "entscheidung",
+    "groesse": "halbtotale",
+    "ort": "hauptstrasse",
+    "modul": "pike-haus",
+    "haupt": {
+     "art": "kamera",
+     "wort": "Owen",
+     "wort_i": 179,
+     "wort_start": 53.72,
+     "start": 53.72,
+     "ende": 53.72,
+     "anker": "start",
+     "schluesselwort_idee": "Owen"
+    },
+    "gesichter": [],
+    "hauptsache": "pk2.mitte",
+    "bogen_zeit": 53.87,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": [
+     "pk2"
+    ],
+    "rueckblende": true
+   }
+  },
+  {
+   "id": "E41",
+   "start": 54.5,
+   "ende": 56.0333,
    "set": [
     "strasse",
     "marsh"
@@ -5934,41 +6066,39 @@
      "pose_params": {
       "winkel": 62
      }
-    },
-    "sp_eli_c": {
-     "sichtbar": false
-    },
-    "tuer_june": {
-     "sichtbar": false
     }
    },
    "aktionen": [],
+   "tiefenunschaerfe": {
+    "fokus": "pk2.sitz",
+    "staerke": 0.8
+   },
    "schatten_bereich": 24,
-   "text": "If I ran, I'd end up like Owen.",
+   "text": "his shoes on his truck seat.",
    "plan": {
-    "key": "27",
-    "satz": 27,
+    "key": "25:his shoes",
+    "satz": 25,
     "woerter": [
-     177,
-     184
+     181,
+     186
     ],
     "block": "entscheidung",
-    "groesse": "halbtotale",
+    "groesse": "detail",
     "ort": "hauptstrasse",
     "modul": "pike-haus",
     "haupt": {
      "art": "kamera",
-     "wort": "Owen",
-     "wort_i": 184,
-     "wort_start": 54.26,
-     "start": 54.26,
-     "ende": 54.26,
+     "wort": "seat",
+     "wort_i": 186,
+     "wort_start": 55.42,
+     "start": 55.42,
+     "ende": 55.42,
      "anker": "start",
-     "schluesselwort_idee": "Owen"
+     "schluesselwort_idee": "seat"
     },
     "gesichter": [],
     "hauptsache": "pk2.sitz",
-    "bogen_zeit": 54.41,
+    "bogen_zeit": 55.57,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -5978,9 +6108,9 @@
    }
   },
   {
-   "id": "E41",
-   "start": 54.9333,
-   "ende": 56.8333,
+   "id": "E42",
+   "start": 56.0333,
+   "ende": 58.2333,
    "set": [
     "strasse",
     "marsh"
@@ -6053,13 +6183,13 @@
     "staerke": 0.8
    },
    "schatten_bereich": 24,
-   "text": "If June hid me, she'd end up like Dad.",
+   "text": "If June hid me, she'd end up like Dad,",
    "plan": {
-    "key": "28",
-    "satz": 28,
+    "key": "26",
+    "satz": 26,
     "woerter": [
-     185,
-     193
+     187,
+     195
     ],
     "block": "entscheidung",
     "groesse": "detail",
@@ -6068,16 +6198,16 @@
     "haupt": {
      "art": "kamera",
      "wort": "Dad",
-     "wort_i": 193,
-     "wort_start": 56.6,
-     "start": 56.6,
-     "ende": 56.6,
+     "wort_i": 195,
+     "wort_start": 57.68,
+     "start": 57.68,
+     "ende": 57.68,
      "anker": "start",
      "schluesselwort_idee": "Dad"
     },
     "gesichter": [],
     "hauptsache": "sp_dad.mitte",
-    "bogen_zeit": 56.75,
+    "bogen_zeit": 57.83,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -6087,9 +6217,162 @@
    }
   },
   {
-   "id": "E42",
-   "start": 56.8333,
-   "ende": 58.5,
+   "id": "E43",
+   "start": 58.2333,
+   "ende": 59.7333,
+   "set": [
+    "strasse",
+    "haus"
+   ],
+   "licht": "nacht",
+   "licht_anpassung": {
+    "grade": {
+     "saettigung": 0.62,
+     "kontrast": 1.04
+    },
+    "belichtung": 1.5,
+    "hemi": {
+     "staerke": 2.8
+    }
+   },
+   "kamera": {
+    "baustein": "orbit",
+    "ziel": [
+     -18.95,
+     1.05,
+     1.85
+    ],
+    "blick": {
+     "azimut": 50,
+     "hoehe": 15,
+     "abstand": 2.35
+    },
+    "grad_pro_s": 16,
+    "richtung": -1,
+    "fov": 60
+   },
+   "stellung": {
+    "dad": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -19.55,
+      0.6,
+      1.45
+     ],
+     "blick": 40,
+     "gesicht": "entschlossen",
+     "pose": "ducken",
+     "pose_params": {
+      "tiefe": 0.5,
+      "arme": "knie"
+     }
+    },
+    "june18": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -18.8,
+      0.6,
+      2
+     ],
+     "blick": 40,
+     "gesicht": "besorgt"
+    },
+    "luke_tp": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -19.25,
+      0.6,
+      2
+     ],
+     "blick": 90,
+     "pose": "teppich_rollen"
+    },
+    "sp_dad": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "luke_tp",
+     "was": "oeffnen",
+     "dauer": 0.03,
+     "params": {
+      "winkel": 105
+     },
+     "start": 58.2333,
+     "nebenbei": true
+    },
+    {
+     "wer": "dad",
+     "was": "greifen",
+     "dauer": 0.25,
+     "params": {
+      "zu": "luke_tp.ring",
+      "seite": "r",
+      "lehnen": false
+     },
+     "start": 58.2333,
+     "nebenbei": true
+    },
+    {
+     "wer": "june18",
+     "was": "klettern",
+     "start": 58.385,
+     "dauer": 0.8,
+     "params": {
+      "hoehe": -0.9,
+      "arme": false
+     }
+    }
+   ],
+   "schatten_bereich": 16,
+   "text": "who hid her six years ago.",
+   "plan": {
+    "key": "26:who hid her",
+    "satz": 26,
+    "woerter": [
+     196,
+     201
+    ],
+    "block": "entscheidung",
+    "groesse": "halbtotale",
+    "ort": "marsh-innen",
+    "modul": "june-zimmer",
+    "haupt": {
+     "art": "aktion",
+     "wer": "june18",
+     "was": "klettern",
+     "wort": "hid",
+     "wort_i": 197,
+     "wort_start": 58.385,
+     "start": 58.385,
+     "ende": 59.185,
+     "anker": "start",
+     "schluesselwort_idee": "hid"
+    },
+    "gesichter": [],
+    "hauptsache": [
+     "june18.kopf",
+     "dad.kopf"
+    ],
+    "bogen_zeit": 59.285,
+    "akzent": true,
+    "monster": false,
+    "sichtbar": [
+     "dad",
+     "june18",
+     "luke_tp"
+    ],
+    "rueckblende": true
+   }
+  },
+  {
+   "id": "E44",
+   "start": 59.7333,
+   "ende": 60.9667,
    "set": [
     "strasse",
     "haus"
@@ -6099,19 +6382,19 @@
     "belichtung": 1.2
    },
    "kamera": {
-    "baustein": "orbit",
+    "baustein": "push_in",
     "ziel": [
-     -14.75,
-     1.85,
+     -14.85,
+     1.8,
      -2.55
     ],
     "blick": {
      "azimut": 6,
      "hoehe": 6,
-     "abstand": 2.4
+     "abstand": 2.45
     },
-    "grad_pro_s": 14,
-    "fov": 58
+    "fov": 62,
+    "rate": 0.07
    },
    "stellung": {
     "eli2": {
@@ -6150,7 +6433,13 @@
       "winkel": -14
      }
     },
-    "sp_dad": {
+    "dad": {
+     "sichtbar": false
+    },
+    "june18": {
+     "sichtbar": false
+    },
+    "luke_tp": {
      "sichtbar": false
     }
    },
@@ -6158,7 +6447,7 @@
     {
      "wer": "june",
      "was": "greifen",
-     "start": 57.46,
+     "start": 59.9,
      "dauer": 0.4,
      "params": {
       "zu": "eli2.rucksack",
@@ -6171,11 +6460,11 @@
    "schatten_bereich": 16,
    "text": "June took my bag.",
    "plan": {
-    "key": "29",
-    "satz": 29,
+    "key": "27",
+    "satz": 27,
     "woerter": [
-     194,
-     197
+     202,
+     205
     ],
     "block": "entscheidung",
     "groesse": "halbnah",
@@ -6186,10 +6475,10 @@
      "wer": "june",
      "was": "greifen",
      "wort": "bag",
-     "wort_i": 197,
-     "wort_start": 57.86,
-     "start": 57.46,
-     "ende": 57.86,
+     "wort_i": 205,
+     "wort_start": 60.3,
+     "start": 59.9,
+     "ende": 60.3,
      "anker": "ende",
      "schluesselwort_idee": "bag"
     },
@@ -6198,8 +6487,8 @@
      "june.kopf",
      "eli2.rucksack"
     ],
-    "bogen_zeit": 57.96,
-    "akzent": true,
+    "bogen_zeit": 60.4,
+    "akzent": false,
     "monster": false,
     "sichtbar": [
      "eli2",
@@ -6209,9 +6498,9 @@
    }
   },
   {
-   "id": "E43",
-   "start": 58.5,
-   "ende": 60.2667,
+   "id": "E45",
+   "start": 60.9667,
+   "ende": 62.8,
    "set": [
     "strasse",
     "haus"
@@ -6261,7 +6550,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 58.52,
+     "start": 61.01,
      "params": {
       "name": "besorgt/reden_a"
      }
@@ -6269,7 +6558,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 58.6,
+     "start": 61.104,
      "params": {
       "name": "besorgt/reden_b"
      }
@@ -6277,7 +6566,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 58.84,
+     "start": 61.34,
      "params": {
       "name": "besorgt/reden_c"
      }
@@ -6285,7 +6574,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 59.06,
+     "start": 61.58,
      "params": {
       "name": "besorgt/reden_a"
      }
@@ -6293,7 +6582,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 59.2,
+     "start": 61.72,
      "params": {
       "name": "besorgt/reden_b"
      }
@@ -6301,7 +6590,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 59.32,
+     "start": 61.84,
      "params": {
       "name": "besorgt/reden_c"
      }
@@ -6309,7 +6598,7 @@
     {
      "wer": "june",
      "was": "vorbeugen",
-     "start": 59.6,
+     "start": 62.1,
      "dauer": 0.5,
      "params": {
       "winkel": 14,
@@ -6319,7 +6608,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 59.6,
+     "start": 62.1,
      "params": {
       "name": "besorgt/reden_a"
      }
@@ -6327,7 +6616,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 59.81,
+     "start": 62.32,
      "params": {
       "name": "besorgt/reden_b"
      }
@@ -6335,7 +6624,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 60.02,
+     "start": 62.54,
      "params": {
       "name": "besorgt"
      }
@@ -6348,11 +6637,11 @@
    "schatten_bereich": 16,
    "text": "\"It never looks in my room, Rabbit.\"",
    "plan": {
-    "key": "30",
-    "satz": 30,
+    "key": "28",
+    "satz": 28,
     "woerter": [
-     198,
-     204
+     206,
+     212
     ],
     "block": "entscheidung",
     "groesse": "nah",
@@ -6363,10 +6652,10 @@
      "wer": "june",
      "was": "vorbeugen",
      "wort": "Rabbit",
-     "wort_i": 204,
-     "wort_start": 59.6,
-     "start": 59.6,
-     "ende": 60.1,
+     "wort_i": 212,
+     "wort_start": 62.1,
+     "start": 62.1,
+     "ende": 62.6,
      "anker": "start",
      "schluesselwort_idee": "Rabbit"
     },
@@ -6377,7 +6666,7 @@
      "wechsel": 9
     },
     "hauptsache": "june.kopf",
-    "bogen_zeit": 60.2,
+    "bogen_zeit": 62.7,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -6386,9 +6675,9 @@
    }
   },
   {
-   "id": "E44",
-   "start": 60.2667,
-   "ende": 61.6333,
+   "id": "E46",
+   "start": 62.8,
+   "ende": 64.1667,
    "set": [
     "strasse",
     "haus"
@@ -6432,7 +6721,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 60.31,
+     "start": 62.84,
      "params": {
       "name": "laecheln/reden_a"
      }
@@ -6440,7 +6729,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 60.5,
+     "start": 63.02,
      "params": {
       "name": "laecheln/reden_b"
      }
@@ -6448,7 +6737,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 60.66,
+     "start": 63.16,
      "params": {
       "name": "laecheln/reden_c"
      }
@@ -6456,7 +6745,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 60.8,
+     "start": 63.32,
      "params": {
       "name": "laecheln"
      }
@@ -6464,7 +6753,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 60.8,
+     "start": 63.32,
      "params": {
       "name": "laecheln/reden_a"
      }
@@ -6472,7 +6761,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 60.98,
+     "start": 63.5,
      "params": {
       "name": "laecheln/reden_b"
      }
@@ -6480,7 +6769,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 61.16,
+     "start": 63.7,
      "params": {
       "name": "laecheln/reden_c"
      }
@@ -6488,7 +6777,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 61.34,
+     "start": 63.9,
      "params": {
       "name": "laecheln"
      }
@@ -6501,11 +6790,11 @@
    "schatten_bereich": 16,
    "text": "\"That's why I'm still here.\"",
    "plan": {
-    "key": "31",
-    "satz": 31,
+    "key": "29",
+    "satz": 29,
     "woerter": [
-     205,
-     209
+     213,
+     217
     ],
     "block": "entscheidung",
     "groesse": "nah",
@@ -6516,10 +6805,10 @@
      "wer": "june",
      "name": "laecheln",
      "wort": "still",
-     "wort_i": 208,
-     "wort_start": 60.8,
-     "start": 60.8,
-     "ende": 60.8,
+     "wort_i": 216,
+     "wort_start": 63.32,
+     "start": 63.32,
+     "ende": 63.32,
      "anker": "start",
      "schluesselwort_idee": "still"
     },
@@ -6530,7 +6819,7 @@
      "wechsel": 7
     },
     "hauptsache": "june.kopf",
-    "bogen_zeit": 61,
+    "bogen_zeit": 63.52,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -6539,9 +6828,9 @@
    }
   },
   {
-   "id": "E45",
-   "start": 61.6333,
-   "ende": 62.3667,
+   "id": "E47",
+   "start": 64.1667,
+   "ende": 66.3,
    "set": [
     "strasse",
     "haus"
@@ -6561,8 +6850,8 @@
     "hoehe": 0.7,
     "rueck": 0.3,
     "fov": 54,
-    "ankunft": 62,
-    "start": 61.3833
+    "ankunft": 64.5,
+    "start": 63.9167
    },
    "stellung": {
     "june": {
@@ -6596,18 +6885,28 @@
     {
      "wer": "luke_tp",
      "was": "teppich_rollen",
-     "start": 61.79,
+     "start": 64.32,
      "dauer": 0.8
+    },
+    {
+     "wer": "luke_tp",
+     "was": "oeffnen",
+     "params": {
+      "winkel": 105
+     },
+     "start": 65.22,
+     "dauer": 0.5,
+     "nebenbei": true
     }
    ],
    "schatten_bereich": 16,
-   "text": "She rolled back the",
+   "text": "She rolled back the rug and opened the hatch.",
    "plan": {
-    "key": "32",
-    "satz": 32,
+    "key": "30",
+    "satz": 30,
     "woerter": [
-     210,
-     213
+     218,
+     226
     ],
     "block": "entscheidung",
     "groesse": "halbtotale",
@@ -6618,16 +6917,16 @@
      "wer": "luke_tp",
      "was": "teppich_rollen",
      "wort": "rolled",
-     "wort_i": 211,
-     "wort_start": 61.79,
-     "start": 61.79,
-     "ende": 62.59,
+     "wort_i": 219,
+     "wort_start": 64.32,
+     "start": 64.32,
+     "ende": 65.12,
      "anker": "start",
      "schluesselwort_idee": "rolled"
     },
     "gesichter": [],
     "hauptsache": "luke_tp.mitte",
-    "bogen_zeit": 62.3,
+    "bogen_zeit": 65.22,
     "akzent": true,
     "monster": false,
     "sichtbar": [
@@ -6637,9 +6936,9 @@
    }
   },
   {
-   "id": "E46",
-   "start": 62.3667,
-   "ende": 63.3667,
+   "id": "E48",
+   "start": 66.3,
+   "ende": 67.3,
    "set": [
     "strasse",
     "haus"
@@ -6650,126 +6949,17 @@
    },
    "kamera": {
     "baustein": "push_in",
-    "ziel": {
-     "anker": "luke_tp.mitte",
-     "versatz": [
-      0,
-      0.2,
-      0
-     ]
-    },
+    "ziel": [
+     -18.75,
+     1.85,
+     1.7
+    ],
     "pos": [
-     -17.5,
-     1.35,
-     3.4
+     -18.3,
+     1.65,
+     3.75
     ],
-    "fov": 50,
-    "rate": 0.07
-   },
-   "stellung": {
-    "june": {
-     "neu": true,
-     "sichtbar": true,
-     "position": [
-      -17.85,
-      0.6,
-      1.45
-     ],
-     "blick": -60,
-     "gesicht": "entschlossen",
-     "pose": "ducken",
-     "pose_params": {
-      "tiefe": 0.7,
-      "arme": "knie"
-     }
-    },
-    "luke_tp": {
-     "neu": true,
-     "sichtbar": true,
-     "position": [
-      -19.25,
-      0.6,
-      2
-     ],
-     "blick": 90,
-     "pose": "teppich_rollen"
-    }
-   },
-   "aktionen": [
-    {
-     "wer": "luke_tp",
-     "was": "oeffnen",
-     "start": 62.76,
-     "dauer": 0.5,
-     "params": {
-      "winkel": 105
-     }
-    }
-   ],
-   "schatten_bereich": 16,
-   "text": "rug and opened the hatch.",
-   "plan": {
-    "key": "32:rug",
-    "satz": 32,
-    "woerter": [
-     214,
-     218
-    ],
-    "block": "entscheidung",
-    "groesse": "halbnah",
-    "ort": "marsh-innen",
-    "modul": "june-zimmer",
-    "haupt": {
-     "art": "aktion",
-     "wer": "luke_tp",
-     "was": "oeffnen",
-     "wort": "opened",
-     "wort_i": 216,
-     "wort_start": 62.76,
-     "start": 62.76,
-     "ende": 63.26,
-     "anker": "start",
-     "schluesselwort_idee": "opened"
-    },
-    "gesichter": [],
-    "hauptsache": "luke_tp.mitte",
-    "bogen_zeit": 63.3,
-    "akzent": false,
-    "monster": false,
-    "sichtbar": [
-     "june",
-     "luke_tp"
-    ]
-   }
-  },
-  {
-   "id": "E47",
-   "start": 63.3667,
-   "ende": 65.1,
-   "set": [
-    "strasse",
-    "haus"
-   ],
-   "licht": "innen_warm",
-   "licht_anpassung": {
-    "belichtung": 1.3
-   },
-   "kamera": {
-    "baustein": "push_in",
-    "ziel": {
-     "anker": "eli.kopf",
-     "versatz": [
-      0,
-      -0.2,
-      0
-     ]
-    },
-    "pos": [
-     -17.05,
-     1.15,
-     2.3
-    ],
-    "fov": 50,
+    "fov": 52,
     "rate": 0.07
    },
    "stellung": {
@@ -6781,19 +6971,19 @@
       0.6,
       2
      ],
-     "blick": 90,
-     "gesicht": "entschlossen"
+     "blick": 0,
+     "gesicht": "besorgt"
     },
     "june": {
      "neu": true,
      "sichtbar": true,
      "position": [
-      -20.1,
+      -18.62,
       0.6,
-      1.3
+      1.4
      ],
-     "blick": 55,
-     "gesicht": "besorgt"
+     "blick": -8,
+     "gesicht": "entschlossen"
     },
     "luke_tp": {
      "neu": true,
@@ -6815,28 +7005,60 @@
      "params": {
       "winkel": 105
      },
-     "start": 63.3667,
+     "start": 66.3,
+     "nebenbei": true
+    },
+    {
+     "wer": "june",
+     "was": "greifen",
+     "dauer": 0.2,
+     "params": {
+      "zu": "eli.schulter_l",
+      "seite": "l",
+      "lehnen": false
+     },
+     "start": 66.3,
+     "nebenbei": true
+    },
+    {
+     "wer": "june",
+     "was": "greifen",
+     "dauer": 0.2,
+     "params": {
+      "zu": "eli.schulter_r",
+      "seite": "r",
+      "lehnen": false
+     },
+     "start": 66.3,
      "nebenbei": true
     },
     {
      "wer": "eli",
      "was": "klettern",
-     "start": 63.85,
-     "dauer": 0.8,
+     "start": 66.433,
+     "dauer": 0.75,
      "params": {
-      "hoehe": -1,
+      "hoehe": -0.9,
       "arme": false
+     }
+    },
+    {
+     "wer": "eli",
+     "was": "gesicht",
+     "start": 66.433,
+     "params": {
+      "name": "angst"
      }
     }
    ],
    "schatten_bereich": 16,
-   "text": "I climbed in anyway.",
+   "text": "She pushed me in before I",
    "plan": {
-    "key": "33",
-    "satz": 33,
+    "key": "31",
+    "satz": 31,
     "woerter": [
-     219,
-     222
+     227,
+     232
     ],
     "block": "entscheidung",
     "groesse": "halbnah",
@@ -6846,17 +7068,25 @@
      "art": "aktion",
      "wer": "eli",
      "was": "klettern",
-     "wort": "climbed",
-     "wort_i": 220,
-     "wort_start": 63.85,
-     "start": 63.85,
-     "ende": 64.65,
+     "wort": "pushed",
+     "wort_i": 228,
+     "wort_start": 66.433,
+     "start": 66.433,
+     "ende": 67.183,
      "anker": "start",
-     "schluesselwort_idee": "climbed"
+     "schluesselwort_idee": "pushed"
     },
-    "gesichter": [],
+    "gesichter": [
+     {
+      "wer": "eli",
+      "name": "angst",
+      "wort": "pushed",
+      "wort_start": 66.433,
+      "start": 66.433
+     }
+    ],
     "hauptsache": "eli.kopf",
-    "bogen_zeit": 64.75,
+    "bogen_zeit": 67.2333,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -6867,9 +7097,153 @@
    }
   },
   {
-   "id": "E48",
-   "start": 65.1,
-   "ende": 66.3667,
+   "id": "E49",
+   "start": 67.3,
+   "ende": 68.2333,
+   "set": [
+    "strasse",
+    "haus"
+   ],
+   "licht": "innen_warm",
+   "licht_anpassung": {
+    "belichtung": 1.35
+   },
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": {
+     "anker": "june.kopf",
+     "versatz": [
+      0,
+      -0.05,
+      0
+     ]
+    },
+    "pos": [
+     -18.8,
+     -0.09999999999999998,
+     2.25
+    ],
+    "fov": 50,
+    "rate": 0.07
+   },
+   "stellung": {
+    "june": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -18.8,
+      0.6,
+      1.3
+     ],
+     "blick": 0,
+     "gesicht": "besorgt",
+     "pose": "ducken",
+     "pose_params": {
+      "tiefe": 0.7,
+      "arme": "knie"
+     }
+    },
+    "luke_tp": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -19.25,
+      0.6,
+      2
+     ],
+     "blick": 90,
+     "pose": "teppich_rollen"
+    },
+    "eli": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "luke_tp",
+     "was": "oeffnen",
+     "dauer": 0.03,
+     "params": {
+      "winkel": 105
+     },
+     "start": 67.3,
+     "nebenbei": true
+    },
+    {
+     "wer": "june",
+     "was": "kopf_drehen",
+     "dauer": 0.03,
+     "params": {
+      "nicken": 38
+     },
+     "start": 67.3,
+     "nebenbei": true
+    },
+    {
+     "wer": "june",
+     "was": "greifen",
+     "dauer": 0.3,
+     "params": {
+      "zu": "luke_tp.ring",
+      "seite": "r",
+      "lehnen": false
+     },
+     "start": 67.3,
+     "nebenbei": true
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 67.6,
+     "params": {
+      "name": "entschlossen"
+     }
+    }
+   ],
+   "tiefenunschaerfe": {
+    "fokus": "june.kopf",
+    "staerke": 0.8
+   },
+   "schatten_bereich": 16,
+   "text": "could say no.",
+   "plan": {
+    "key": "31:could",
+    "satz": 31,
+    "woerter": [
+     233,
+     235
+    ],
+    "block": "entscheidung",
+    "groesse": "gross",
+    "ort": "marsh-innen",
+    "modul": "june-zimmer",
+    "haupt": {
+     "art": "gesicht",
+     "wer": "june",
+     "name": "entschlossen",
+     "wort": "no",
+     "wort_i": 235,
+     "wort_start": 67.6,
+     "start": 67.6,
+     "ende": 67.6,
+     "anker": "start",
+     "schluesselwort_idee": "no"
+    },
+    "gesichter": [],
+    "hauptsache": "june.kopf",
+    "bogen_zeit": 67.8,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": [
+     "june",
+     "luke_tp"
+    ]
+   }
+  },
+  {
+   "id": "E50",
+   "start": 68.2333,
+   "ende": 70.5333,
    "set": [
     "keller"
    ],
@@ -6901,9 +7275,6 @@
      "blick": 0,
      "pose": "oeffnen"
     },
-    "eli": {
-     "sichtbar": false
-    },
     "june": {
      "sichtbar": false
     },
@@ -6915,18 +7286,26 @@
     {
      "wer": "luke_k",
      "was": "schliessen",
-     "start": 65.4,
+     "start": 68.56,
      "dauer": 0.35
     }
    ],
+   "licht_ereignisse": [
+    {
+     "art": "aus",
+     "start": 69.86,
+     "ziel": "keller.lukenrand",
+     "dauer": 0.25
+    }
+   ],
    "schatten_bereich": 10,
-   "text": "The hatch closed over me,",
+   "text": "The hatch closed over me, then the rug.",
    "plan": {
-    "key": "34",
-    "satz": 34,
+    "key": "32",
+    "satz": 32,
     "woerter": [
-     223,
-     227
+     236,
+     243
     ],
     "block": "entscheidung",
     "groesse": "pov",
@@ -6937,16 +7316,16 @@
      "wer": "luke_k",
      "was": "schliessen",
      "wort": "closed",
-     "wort_i": 225,
-     "wort_start": 65.4,
-     "start": 65.4,
-     "ende": 65.75,
+     "wort_i": 238,
+     "wort_start": 68.56,
+     "start": 68.56,
+     "ende": 68.91,
      "anker": "start",
      "schluesselwort_idee": "closed"
     },
     "gesichter": [],
     "hauptsache": "keller.luke",
-    "bogen_zeit": 65.85,
+    "bogen_zeit": 69.01,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -6955,86 +7334,9 @@
    }
   },
   {
-   "id": "E49",
-   "start": 66.3667,
-   "ende": 67.3,
-   "set": [
-    "keller"
-   ],
-   "licht": "kriechkeller",
-   "kamera": {
-    "baustein": "push_in",
-    "ziel": "keller.luke",
-    "pos": [
-     300.2,
-     0.4,
-     0.6
-    ],
-    "fov": 48,
-    "rate": 0.08
-   },
-   "stellung": {
-    "luke_k": {
-     "neu": true,
-     "sichtbar": true,
-     "position": [
-      300.45,
-      1.016,
-      -0.4
-     ],
-     "blick": 0
-    }
-   },
-   "aktionen": [],
-   "licht_ereignisse": [
-    {
-     "art": "aus",
-     "start": 66.68,
-     "ziel": "keller.lukenrand",
-     "dauer": 0.25
-    }
-   ],
-   "tiefenunschaerfe": {
-    "fokus": "keller.luke",
-    "staerke": 0.8
-   },
-   "schatten_bereich": 10,
-   "text": "then the rug.",
-   "plan": {
-    "key": "34:then the rug",
-    "satz": 34,
-    "woerter": [
-     228,
-     230
-    ],
-    "block": "entscheidung",
-    "groesse": "detail",
-    "ort": "kriechkeller",
-    "modul": "kriechkeller",
-    "haupt": {
-     "art": "licht",
-     "wort": "rug",
-     "wort_i": 230,
-     "wort_start": 66.68,
-     "start": 66.68,
-     "ende": 66.93,
-     "anker": "start",
-     "schluesselwort_idee": "rug"
-    },
-    "gesichter": [],
-    "hauptsache": "keller.luke",
-    "bogen_zeit": 67.03,
-    "akzent": false,
-    "monster": false,
-    "sichtbar": [
-     "luke_k"
-    ]
-   }
-  },
-  {
-   "id": "E50",
-   "start": 67.3,
-   "ende": 68.9,
+   "id": "E51",
+   "start": 70.5333,
+   "ende": 72.1333,
    "set": [
     "keller"
    ],
@@ -7089,11 +7391,11 @@
    "schatten_bereich": 10,
    "text": "Above me, June lay down and",
    "plan": {
-    "key": "35",
-    "satz": 35,
+    "key": "33",
+    "satz": 33,
     "woerter": [
-     231,
-     236
+     244,
+     249
     ],
     "block": "cliffhanger",
     "groesse": "halbnah",
@@ -7102,16 +7404,16 @@
     "haupt": {
      "art": "kamera",
      "wort": "Above",
-     "wort_i": 231,
-     "wort_start": 67.33,
-     "start": 67.33,
-     "ende": 67.33,
+     "wort_i": 244,
+     "wort_start": 70.55,
+     "start": 70.55,
+     "ende": 70.55,
      "anker": "start",
      "schluesselwort_idee": "Above"
     },
     "gesichter": [],
     "hauptsache": "eli.kopf",
-    "bogen_zeit": 67.48,
+    "bogen_zeit": 70.7,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -7121,9 +7423,9 @@
    }
   },
   {
-   "id": "E51",
-   "start": 68.9,
-   "ende": 70.5,
+   "id": "E52",
+   "start": 72.1333,
+   "ende": 73.7333,
    "set": [
     "strasse",
     "haus"
@@ -7143,8 +7445,8 @@
     "hoehe": 0.85,
     "rueck": 0.4,
     "fov": 54,
-    "ankunft": 68.92,
-    "start": 68.65
+    "ankunft": 72.16,
+    "start": 71.8833
    },
    "stellung": {
     "june": {
@@ -7180,7 +7482,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 68.92,
+     "start": 72.16,
      "params": {
       "name": "zaehlt_a"
      }
@@ -7188,7 +7490,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 69.14,
+     "start": 72.38,
      "params": {
       "name": "zaehlt_a"
      }
@@ -7196,7 +7498,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 69.36,
+     "start": 72.6,
      "params": {
       "name": "zaehlt_b"
      }
@@ -7204,7 +7506,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 69.58,
+     "start": 72.82,
      "params": {
       "name": "zaehlt_c"
      }
@@ -7212,7 +7514,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 69.8,
+     "start": 73.04,
      "params": {
       "name": "zaehlt_b"
      }
@@ -7220,7 +7522,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 70.02,
+     "start": 73.26,
      "params": {
       "name": "zaehlt_a"
      }
@@ -7228,7 +7530,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 70.24,
+     "start": 73.48,
      "params": {
       "name": "zaehlt_b"
      }
@@ -7236,7 +7538,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 70.46,
+     "start": 73.7,
      "params": {
       "name": "zaehlt_c"
      }
@@ -7245,11 +7547,11 @@
    "schatten_bereich": 16,
    "text": "counted, like every night.",
    "plan": {
-    "key": "35:counted",
-    "satz": 35,
+    "key": "33:counted",
+    "satz": 33,
     "woerter": [
-     237,
-     240
+     250,
+     253
     ],
     "block": "cliffhanger",
     "groesse": "halbtotale",
@@ -7260,10 +7562,10 @@
      "wer": "june",
      "name": "zaehlt_a",
      "wort": "counted",
-     "wort_i": 237,
-     "wort_start": 68.92,
-     "start": 68.92,
-     "ende": 68.92,
+     "wort_i": 250,
+     "wort_start": 72.16,
+     "start": 72.16,
+     "ende": 72.16,
      "anker": "start",
      "schluesselwort_idee": "counted"
     },
@@ -7274,7 +7576,7 @@
      "wechsel": 7
     },
     "hauptsache": "june.kopf",
-    "bogen_zeit": 69.12,
+    "bogen_zeit": 72.36,
     "akzent": true,
     "monster": false,
     "sichtbar": [
@@ -7284,9 +7586,9 @@
    }
   },
   {
-   "id": "E52",
-   "start": 70.5,
-   "ende": 71.5333,
+   "id": "E53",
+   "start": 73.7333,
+   "ende": 74.8333,
    "set": [
     "strasse",
     "haus"
@@ -7334,7 +7636,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 70.54,
+     "start": 73.75,
      "params": {
       "name": "zaehlt_b"
      }
@@ -7342,7 +7644,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 70.66,
+     "start": 73.87,
      "params": {
       "name": "zaehlt_a"
      }
@@ -7350,7 +7652,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 70.83,
+     "start": 74.04,
      "params": {
       "name": "zaehlt_b"
      }
@@ -7358,7 +7660,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 71,
+     "start": 74.21,
      "params": {
       "name": "zaehlt_c"
      }
@@ -7366,7 +7668,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 71.17,
+     "start": 74.38,
      "params": {
       "name": "zaehlt_b"
      }
@@ -7374,7 +7676,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 71.34,
+     "start": 74.55,
      "params": {
       "name": "zaehlt_a"
      }
@@ -7382,7 +7684,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 71.51,
+     "start": 74.72,
      "params": {
       "name": "zaehlt_b"
      }
@@ -7395,11 +7697,11 @@
    "schatten_bereich": 16,
    "text": "\"Ninety-seven.\"",
    "plan": {
-    "key": "36",
-    "satz": 36,
+    "key": "34",
+    "satz": 34,
     "woerter": [
-     241,
-     241
+     254,
+     254
     ],
     "block": "cliffhanger",
     "groesse": "nah",
@@ -7410,10 +7712,10 @@
      "wer": "june",
      "name": "zaehlt_b",
      "wort": "Ninety-seven",
-     "wort_i": 241,
-     "wort_start": 70.54,
-     "start": 70.54,
-     "ende": 70.54,
+     "wort_i": 254,
+     "wort_start": 73.75,
+     "start": 73.75,
+     "ende": 73.75,
      "anker": "start",
      "schluesselwort_idee": "Ninety-seven"
     },
@@ -7424,7 +7726,7 @@
      "wechsel": 6
     },
     "hauptsache": "june.kopf",
-    "bogen_zeit": 70.74,
+    "bogen_zeit": 73.95,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -7433,9 +7735,9 @@
    }
   },
   {
-   "id": "E53",
-   "start": 71.5333,
-   "ende": 72.4667,
+   "id": "E54",
+   "start": 74.8333,
+   "ende": 75.8,
    "set": [
     "keller"
    ],
@@ -7479,7 +7781,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 71.57,
+     "start": 74.85,
      "params": {
       "name": "besorgt"
      }
@@ -7492,11 +7794,11 @@
    "schatten_bereich": 10,
    "text": "\"Ninety-eight.\"",
    "plan": {
-    "key": "37",
-    "satz": 37,
+    "key": "35",
+    "satz": 35,
     "woerter": [
-     242,
-     242
+     255,
+     255
     ],
     "block": "cliffhanger",
     "groesse": "nah",
@@ -7507,16 +7809,16 @@
      "wer": "eli",
      "name": "besorgt",
      "wort": "Ninety-eight",
-     "wort_i": 242,
-     "wort_start": 71.57,
-     "start": 71.57,
-     "ende": 71.57,
+     "wort_i": 255,
+     "wort_start": 74.85,
+     "start": 74.85,
+     "ende": 74.85,
      "anker": "start",
      "schluesselwort_idee": "Ninety-eight"
     },
     "gesichter": [],
     "hauptsache": "eli.kopf",
-    "bogen_zeit": 71.77,
+    "bogen_zeit": 75.05,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -7525,9 +7827,9 @@
    }
   },
   {
-   "id": "E54",
-   "start": 72.4667,
-   "ende": 74.0667,
+   "id": "E55",
+   "start": 75.8,
+   "ende": 78.0333,
    "set": [
     "strasse",
     "haus"
@@ -7575,7 +7877,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 72.51,
+     "start": 75.83,
      "params": {
       "name": "zaehlt_b"
      }
@@ -7583,7 +7885,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 72.61,
+     "start": 75.93,
      "params": {
       "name": "zaehlt_a"
      }
@@ -7591,7 +7893,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 72.74,
+     "start": 76.06,
      "params": {
       "name": "zaehlt_b"
      }
@@ -7599,7 +7901,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 72.87,
+     "start": 76.19,
      "params": {
       "name": "zaehlt_c"
      }
@@ -7607,7 +7909,55 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 72.9,
+     "start": 76.32,
+     "params": {
+      "name": "zaehlt_b"
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 76.45,
+     "params": {
+      "name": "zaehlt_a"
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 76.58,
+     "params": {
+      "name": "zaehlt_b"
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 76.71,
+     "params": {
+      "name": "zaehlt_c"
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 76.84,
+     "params": {
+      "name": "zaehlt_b"
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 76.97,
+     "params": {
+      "name": "zaehlt_a"
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 77.03,
      "params": {
       "name": "augen_zu"
      }
@@ -7615,8 +7965,8 @@
    ],
    "partikel": [
     {
-     "start": 73.47,
-     "dauer": 0.5967,
+     "start": 77.184,
+     "dauer": 0.8493,
      "art": "atem",
      "ort": {
       "anker": "june.mund",
@@ -7643,11 +7993,11 @@
    "schatten_bereich": 16,
    "text": "\"Ninety-nine.\" Then she stopped.",
    "plan": {
-    "key": "38",
-    "satz": 38,
+    "key": "36",
+    "satz": 36,
     "woerter": [
-     243,
-     246
+     256,
+     259
     ],
     "block": "cliffhanger",
     "groesse": "gross",
@@ -7658,10 +8008,10 @@
      "wer": "june",
      "name": "zaehlt_b",
      "wort": "Ninety-nine",
-     "wort_i": 243,
-     "wort_start": 72.51,
-     "start": 72.51,
-     "ende": 72.51,
+     "wort_i": 256,
+     "wort_start": 75.83,
+     "start": 75.83,
+     "ende": 75.83,
      "anker": "start",
      "schluesselwort_idee": "Ninety-nine"
     },
@@ -7670,31 +8020,31 @@
       "wer": "june",
       "name": "augen_zu",
       "wort": "Then",
-      "wort_start": 72.9,
-      "start": 72.9
+      "wort_start": 77.03,
+      "start": 77.03
      }
     ],
     "mund": {
      "wer": "june",
      "art": "zaehlen",
-     "wechsel": 3
+     "wechsel": 9
     },
     "hauptsache": "june.kopf",
-    "bogen_zeit": 72.71,
+    "bogen_zeit": 76.03,
     "akzent": false,
     "monster": false,
     "sichtbar": [
      "june"
     ],
     "ohne_schnitt": [
-     "39"
+     "37"
     ]
    }
   },
   {
-   "id": "E55",
-   "start": 74.0667,
-   "ende": 75.8667,
+   "id": "E56",
+   "start": 78.0333,
+   "ende": 79.4,
    "set": [
     "strasse",
     "marsh"
@@ -7727,7 +8077,7 @@
      {
       "baustein": "shake",
       "staerke": 0.8,
-      "start": 74.85
+      "start": 78.39
      }
     ]
    },
@@ -7744,11 +8094,11 @@
    "schatten_bereich": 24,
    "text": "The bell struck midnight.",
    "plan": {
-    "key": "40",
-    "satz": 40,
+    "key": "38",
+    "satz": 38,
     "woerter": [
-     247,
-     250
+     260,
+     263
     ],
     "block": "cliffhanger",
     "groesse": "detail",
@@ -7758,25 +8108,25 @@
      "art": "set",
      "was": "uhr",
      "wort": "midnight",
-     "wort_i": 250,
-     "wort_start": 75.1,
-     "start": 75.1,
-     "ende": 75.1,
+     "wort_i": 263,
+     "wort_start": 78.62,
+     "start": 78.62,
+     "ende": 78.62,
      "anker": "start",
      "schluesselwort_idee": "midnight"
     },
     "gesichter": [],
     "hauptsache": "strasse.glocke",
-    "bogen_zeit": 75.3,
+    "bogen_zeit": 78.82,
     "akzent": false,
     "monster": false,
     "sichtbar": []
    }
   },
   {
-   "id": "E56",
-   "start": 75.8667,
-   "ende": 77.1667,
+   "id": "E57",
+   "start": 79.4,
+   "ende": 81.2333,
    "set": [
     "strasse",
     "marsh"
@@ -7806,8 +8156,8 @@
     "hoehe": 5,
     "rueck": 2,
     "fov": 50,
-    "ankunft": 77,
-    "start": 75.6167
+    "ankunft": 80.52,
+    "start": 79.15
    },
    "stellung": {
     "odell": {
@@ -7903,11 +8253,11 @@
    "schatten_bereich": 24,
    "text": "No counting came from the square.",
    "plan": {
-    "key": "41",
-    "satz": 41,
+    "key": "39",
+    "satz": 39,
     "woerter": [
-     251,
-     256
+     264,
+     269
     ],
     "block": "cliffhanger",
     "groesse": "totale",
@@ -7916,10 +8266,10 @@
     "haupt": {
      "art": "kamera",
      "wort": "square",
-     "wort_i": 256,
-     "wort_start": 77,
-     "start": 77,
-     "ende": 77,
+     "wort_i": 269,
+     "wort_start": 80.52,
+     "start": 80.52,
+     "ende": 80.52,
      "anker": "start",
      "schluesselwort_idee": "square"
     },
@@ -7929,7 +8279,7 @@
      0.5,
      -54
     ],
-    "bogen_zeit": 77.1,
+    "bogen_zeit": 80.67,
     "akzent": true,
     "monster": false,
     "sichtbar": [
@@ -7945,9 +8295,9 @@
    }
   },
   {
-   "id": "E57",
-   "start": 77.1667,
-   "ende": 79.3,
+   "id": "E58",
+   "start": 81.2333,
+   "ende": 83.1667,
    "set": [
     "keller"
    ],
@@ -7970,7 +8320,7 @@
      {
       "baustein": "shake",
       "staerke": 0.9,
-      "start": 78.75
+      "start": 82.29
      }
     ]
    },
@@ -8014,7 +8364,7 @@
    "aktionen": [],
    "partikel": [
     {
-     "start": 78.7,
+     "start": 82.24,
      "dauer": 1.6,
      "art": "staub",
      "ort": [
@@ -8040,11 +8390,11 @@
    "schatten_bereich": 10,
    "text": "The boards above my face bent down.",
    "plan": {
-    "key": "42",
-    "satz": 42,
+    "key": "40",
+    "satz": 40,
     "woerter": [
-     257,
-     263
+     270,
+     276
     ],
     "block": "cliffhanger",
     "groesse": "nah",
@@ -8054,16 +8404,16 @@
      "art": "set",
      "was": "biegen",
      "wort": "bent",
-     "wort_i": 262,
-     "wort_start": 78.7,
-     "start": 78.7,
-     "ende": 79.1,
+     "wort_i": 275,
+     "wort_start": 82.24,
+     "start": 82.24,
+     "ende": 82.64,
      "anker": "start",
      "schluesselwort_idee": "bent"
     },
     "gesichter": [],
     "hauptsache": "keller.dielen_mitte",
-    "bogen_zeit": 78.9,
+    "bogen_zeit": 82.44,
     "akzent": false,
     "monster": true,
     "sichtbar": [
@@ -8072,9 +8422,9 @@
    }
   },
   {
-   "id": "E58",
-   "start": 79.3,
-   "ende": 81.1333,
+   "id": "E59",
+   "start": 83.1667,
+   "ende": 84.5667,
    "set": [
     "keller"
    ],
@@ -8133,7 +8483,7 @@
     {
      "wer": "eli",
      "was": "mund_zuhalten",
-     "start": 80.42,
+     "start": 83.88,
      "dauer": 0.4,
      "params": {
       "seite": "r"
@@ -8142,8 +8492,8 @@
    ],
    "partikel": [
     {
-     "start": 79.76,
-     "dauer": 1.3733,
+     "start": 83.303,
+     "dauer": 1.2637,
      "art": "atem",
      "ort": "eli.mund",
      "periode": 1.1,
@@ -8163,11 +8513,11 @@
    "schatten_bereich": 10,
    "text": "My breath turned white.",
    "plan": {
-    "key": "43",
-    "satz": 43,
+    "key": "41",
+    "satz": 41,
     "woerter": [
-     264,
-     267
+     277,
+     280
     ],
     "block": "cliffhanger",
     "groesse": "nah",
@@ -8178,16 +8528,16 @@
      "wer": "eli",
      "was": "mund_zuhalten",
      "wort": "white",
-     "wort_i": 267,
-     "wort_start": 80.42,
-     "start": 80.42,
-     "ende": 80.82,
+     "wort_i": 280,
+     "wort_start": 83.88,
+     "start": 83.88,
+     "ende": 84.28,
      "anker": "start",
      "schluesselwort_idee": "white"
     },
     "gesichter": [],
     "hauptsache": "eli.kopf",
-    "bogen_zeit": 80.92,
+    "bogen_zeit": 84.38,
     "akzent": false,
     "monster": true,
     "sichtbar": [
@@ -8197,9 +8547,9 @@
    }
   },
   {
-   "id": "E59",
-   "start": 81.1333,
-   "ende": 82.5333,
+   "id": "E60",
+   "start": 84.5667,
+   "ende": 85.9333,
    "set": [
     "keller"
    ],
@@ -8253,7 +8603,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 82.02,
+     "start": 85.4,
      "params": {
       "name": "augen_zu"
      }
@@ -8262,7 +8612,7 @@
    "licht_ereignisse": [
     {
      "art": "aus",
-     "start": 81.27,
+     "start": 84.71,
      "ziel": "keller.lampe",
      "dauer": 0.12
     }
@@ -8274,11 +8624,11 @@
    "schatten_bereich": 10,
    "text": "Something finished her count,",
    "plan": {
-    "key": "44",
-    "satz": 44,
+    "key": "42",
+    "satz": 42,
     "woerter": [
-     268,
-     271
+     281,
+     284
     ],
     "block": "cliffhanger",
     "groesse": "nah",
@@ -8287,10 +8637,10 @@
     "haupt": {
      "art": "licht",
      "wort": "Something",
-     "wort_i": 268,
-     "wort_start": 81.15,
-     "start": 81.27,
-     "ende": 81.39,
+     "wort_i": 281,
+     "wort_start": 84.59,
+     "start": 84.71,
+     "ende": 84.83,
      "anker": "start",
      "schluesselwort_idee": "Something"
     },
@@ -8299,12 +8649,12 @@
       "wer": "eli",
       "name": "augen_zu",
       "wort": "count",
-      "wort_start": 82.02,
-      "start": 82.02
+      "wort_start": 85.4,
+      "start": 85.4
      }
     ],
     "hauptsache": "eli.kopf",
-    "bogen_zeit": 81.49,
+    "bogen_zeit": 84.93,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -8313,9 +8663,9 @@
    }
   },
   {
-   "id": "E60",
-   "start": 82.5333,
-   "ende": 83.8,
+   "id": "E61",
+   "start": 85.9333,
+   "ende": 87.3333,
    "set": [
     "strasse",
     "haus"
@@ -8349,8 +8699,8 @@
     ],
     "kran": 0.3,
     "fov": 52,
-    "ankunft": 83.18,
-    "start": 82.2833
+    "ankunft": 86.68,
+    "start": 85.6833
    },
    "stellung": {
     "mh": {
@@ -8386,11 +8736,11 @@
    "schatten_bereich": 16,
    "text": "slow and deep.",
    "plan": {
-    "key": "44:slow",
-    "satz": 44,
+    "key": "42:slow",
+    "satz": 42,
     "woerter": [
-     272,
-     274
+     285,
+     287
     ],
     "block": "cliffhanger",
     "groesse": "detail",
@@ -8399,16 +8749,16 @@
     "haupt": {
      "art": "kamera",
      "wort": "deep",
-     "wort_i": 274,
-     "wort_start": 83.18,
-     "start": 83.18,
-     "ende": 83.18,
+     "wort_i": 287,
+     "wort_start": 86.68,
+     "start": 86.68,
+     "ende": 86.68,
      "anker": "start",
      "schluesselwort_idee": "deep"
     },
     "gesichter": [],
     "hauptsache": "mh.knie",
-    "bogen_zeit": 83.33,
+    "bogen_zeit": 86.83,
     "akzent": true,
     "monster": true,
     "sichtbar": [
@@ -8418,9 +8768,9 @@
    }
   },
   {
-   "id": "E61",
-   "start": 83.8,
-   "ende": 85.9333,
+   "id": "E62",
+   "start": 87.3333,
+   "ende": 89.6333,
    "set": [
     "keller"
    ],
@@ -8434,7 +8784,7 @@
       "baustein": "snap_zoom",
       "faktor": 1.18,
       "bilder": 2,
-      "zeit": 85.45
+      "zeit": 89.16
      }
     ]
    },
@@ -8458,7 +8808,7 @@
    "licht_ereignisse": [
     {
      "art": "dimmen",
-     "start": 83.84,
+     "start": 87.36,
      "ziel": "keller.oben",
      "faktor": 0.5,
      "dauer": 0.4
@@ -8467,11 +8817,11 @@
    "schatten_bereich": 10,
    "text": "\"One hundred.\" \"Ready?\"",
    "plan": {
-    "key": "45",
-    "satz": 45,
+    "key": "43",
+    "satz": 43,
     "woerter": [
-     275,
-     277
+     288,
+     290
     ],
     "block": "cliffhanger",
     "groesse": "pov",
@@ -8480,30 +8830,30 @@
     "haupt": {
      "art": "licht",
      "wort": "One",
-     "wort_i": 275,
-     "wort_start": 83.84,
-     "start": 83.84,
-     "ende": 84.24,
+     "wort_i": 288,
+     "wort_start": 87.36,
+     "start": 87.36,
+     "ende": 87.76,
      "anker": "start",
      "schluesselwort_idee": "One"
     },
     "gesichter": [],
     "hauptsache": "keller.dielen_mitte",
-    "bogen_zeit": 84.34,
+    "bogen_zeit": 87.86,
     "akzent": false,
     "monster": true,
     "sichtbar": [
      "mh"
     ],
     "ohne_schnitt": [
-     "46"
+     "44"
     ]
    }
   },
   {
    "id": "END",
-   "start": 85.9333,
-   "ende": 86.9333,
+   "start": 89.6333,
+   "ende": 90.6333,
    "set": [
     "karte"
    ],
@@ -8529,7 +8879,7 @@
    "plan": {
     "key": "endkarte",
     "endkarte": true,
-    "bogen_zeit": 86.4333,
+    "bogen_zeit": 90.1333,
     "hauptsache": "karte.mitte",
     "haupt": {
      "art": "kamera"
@@ -8591,3038 +8941,3087 @@
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 1.0333,
+   "start": 1,
    "dauer": 0,
    "quelle": "auto:1:eighteen"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 1.0333,
+   "start": 1,
    "dauer": 0,
    "quelle": "auto:1:eighteen"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 1.0333,
+   "start": 1,
    "dauer": 0,
    "quelle": "auto:1:eighteen"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 1.0333,
+   "start": 1,
    "dauer": 0,
    "quelle": "auto:1:eighteen"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 1.0333,
+   "start": 1,
    "dauer": 0,
    "quelle": "auto:1:eighteen"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 1.0333,
+   "start": 1,
    "dauer": 0,
    "quelle": "auto:1:eighteen"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 1.0333,
+   "start": 1,
    "dauer": 0,
    "quelle": "auto:1:eighteen"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 1.0333,
+   "start": 1,
    "dauer": 0,
    "quelle": "auto:1:eighteen"
   },
   {
    "art": "aus",
    "ziel": "haus.kerzen",
-   "start": 1.0333,
+   "start": 1,
    "dauer": 0,
    "quelle": "auto:1:eighteen"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 1.9333,
+   "start": 1.8667,
    "dauer": 0,
    "quelle": "auto:1:and it came"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 1.9333,
+   "start": 1.8667,
    "dauer": 0,
    "quelle": "auto:1:and it came"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 1.9333,
+   "start": 1.8667,
    "dauer": 0,
    "quelle": "auto:1:and it came"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 1.9333,
+   "start": 1.8667,
    "dauer": 0,
    "quelle": "auto:1:and it came"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 1.9333,
+   "start": 1.8667,
    "dauer": 0,
    "quelle": "auto:1:and it came"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 1.9333,
+   "start": 1.8667,
    "dauer": 0,
    "quelle": "auto:1:and it came"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 1.9333,
+   "start": 1.8667,
    "dauer": 0,
    "quelle": "auto:1:and it came"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 3.1,
+   "start": 3.6667,
    "dauer": 0,
    "quelle": "auto:1:like"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 3.1,
+   "start": 3.6667,
    "dauer": 0,
    "quelle": "auto:1:like"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 3.1,
+   "start": 3.6667,
    "dauer": 0,
    "quelle": "auto:1:like"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 3.1,
+   "start": 3.6667,
    "dauer": 0,
    "quelle": "auto:1:like"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 3.1,
+   "start": 3.6667,
    "dauer": 0,
    "quelle": "auto:1:like"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 3.1,
+   "start": 3.6667,
    "dauer": 0,
    "quelle": "auto:1:like"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 3.1,
+   "start": 3.6667,
    "dauer": 0,
    "quelle": "auto:1:like"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 4.6,
+   "start": 5.1667,
    "dauer": 0,
    "quelle": "auto:2"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 4.6,
+   "start": 5.1667,
    "dauer": 0,
    "quelle": "auto:2"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 4.6,
+   "start": 5.1667,
    "dauer": 0,
    "quelle": "auto:2"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 4.6,
+   "start": 5.1667,
    "dauer": 0,
    "quelle": "auto:2"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 4.6,
+   "start": 5.1667,
    "dauer": 0,
    "quelle": "auto:2"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 4.6,
+   "start": 5.1667,
    "dauer": 0,
    "quelle": "auto:2"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 4.6,
+   "start": 5.1667,
    "dauer": 0,
    "quelle": "auto:2"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 5.9667,
+   "start": 6.5333,
    "dauer": 0,
    "quelle": "auto:3"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 5.9667,
+   "start": 6.5333,
    "dauer": 0,
    "quelle": "auto:3"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 5.9667,
+   "start": 6.5333,
    "dauer": 0,
    "quelle": "auto:3"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 5.9667,
+   "start": 6.5333,
    "dauer": 0,
    "quelle": "auto:3"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 5.9667,
+   "start": 6.5333,
    "dauer": 0,
    "quelle": "auto:3"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 5.9667,
+   "start": 6.5333,
    "dauer": 0,
    "quelle": "auto:3"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 5.9667,
+   "start": 6.5333,
    "dauer": 0,
    "quelle": "auto:3"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 6.8333,
+   "start": 7.4667,
    "dauer": 0,
    "quelle": "auto:3:the yard"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 6.8333,
+   "start": 7.4667,
    "dauer": 0,
    "quelle": "auto:3:the yard"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 6.8333,
+   "start": 7.4667,
    "dauer": 0,
    "quelle": "auto:3:the yard"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 6.8333,
+   "start": 7.4667,
    "dauer": 0,
    "quelle": "auto:3:the yard"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 6.8333,
+   "start": 7.4667,
    "dauer": 0,
    "quelle": "auto:3:the yard"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 6.8333,
+   "start": 7.4667,
    "dauer": 0,
    "quelle": "auto:3:the yard"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 6.8333,
+   "start": 7.4667,
    "dauer": 0,
    "quelle": "auto:3:the yard"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 7.9667,
+   "start": 8.5667,
    "dauer": 0,
    "quelle": "auto:4"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 7.9667,
+   "start": 8.5667,
    "dauer": 0,
    "quelle": "auto:4"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 7.9667,
+   "start": 8.5667,
    "dauer": 0,
    "quelle": "auto:4"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 7.9667,
+   "start": 8.5667,
    "dauer": 0,
    "quelle": "auto:4"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 7.9667,
+   "start": 8.5667,
    "dauer": 0,
    "quelle": "auto:4"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 7.9667,
+   "start": 8.5667,
    "dauer": 0,
    "quelle": "auto:4"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 7.9667,
+   "start": 8.5667,
    "dauer": 0,
    "quelle": "auto:4"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 9.5,
+   "start": 10.0667,
    "dauer": 0,
    "quelle": "auto:4:long"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 9.5,
+   "start": 10.0667,
    "dauer": 0,
    "quelle": "auto:4:long"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 9.5,
+   "start": 10.0667,
    "dauer": 0,
    "quelle": "auto:4:long"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 9.5,
+   "start": 10.0667,
    "dauer": 0,
    "quelle": "auto:4:long"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 9.5,
+   "start": 10.0667,
    "dauer": 0,
    "quelle": "auto:4:long"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 9.5,
+   "start": 10.0667,
    "dauer": 0,
    "quelle": "auto:4:long"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 9.5,
+   "start": 10.0667,
    "dauer": 0,
    "quelle": "auto:4:long"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 10.7333,
+   "start": 11.3667,
    "dauer": 0,
    "quelle": "auto:5"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 10.7333,
+   "start": 11.3667,
    "dauer": 0,
    "quelle": "auto:5"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 10.7333,
+   "start": 11.3667,
    "dauer": 0,
    "quelle": "auto:5"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 10.7333,
+   "start": 11.3667,
    "dauer": 0,
    "quelle": "auto:5"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 10.7333,
+   "start": 11.3667,
    "dauer": 0,
    "quelle": "auto:5"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 10.7333,
+   "start": 11.3667,
    "dauer": 0,
    "quelle": "auto:5"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 10.7333,
+   "start": 11.3667,
    "dauer": 0,
    "quelle": "auto:5"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 12.2667,
+   "start": 12.8667,
    "dauer": 0,
    "quelle": "auto:6"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 12.2667,
+   "start": 12.8667,
    "dauer": 0,
    "quelle": "auto:6"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 12.2667,
+   "start": 12.8667,
    "dauer": 0,
    "quelle": "auto:6"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 12.2667,
+   "start": 12.8667,
    "dauer": 0,
    "quelle": "auto:6"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 12.2667,
+   "start": 12.8667,
    "dauer": 0,
    "quelle": "auto:6"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 12.2667,
+   "start": 12.8667,
    "dauer": 0,
    "quelle": "auto:6"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 12.2667,
+   "start": 12.8667,
    "dauer": 0,
    "quelle": "auto:6"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 14.1333,
+   "start": 14.7,
    "dauer": 0,
    "quelle": "auto:7"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 14.1333,
+   "start": 14.7,
    "dauer": 0,
    "quelle": "auto:7"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 14.1333,
+   "start": 14.7,
    "dauer": 0,
    "quelle": "auto:7"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 14.1333,
+   "start": 14.7,
    "dauer": 0,
    "quelle": "auto:7"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 14.1333,
+   "start": 14.7,
    "dauer": 0,
    "quelle": "auto:7"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 14.1333,
+   "start": 14.7,
    "dauer": 0,
    "quelle": "auto:7"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 14.1333,
+   "start": 14.7,
    "dauer": 0,
    "quelle": "auto:7"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 15.3667,
+   "start": 15.9333,
    "dauer": 0,
    "quelle": "auto:8"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 15.3667,
+   "start": 15.9333,
    "dauer": 0,
    "quelle": "auto:8"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 15.3667,
+   "start": 15.9333,
    "dauer": 0,
    "quelle": "auto:8"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 15.3667,
+   "start": 15.9333,
    "dauer": 0,
    "quelle": "auto:8"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 15.3667,
+   "start": 15.9333,
    "dauer": 0,
    "quelle": "auto:8"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 15.3667,
+   "start": 15.9333,
    "dauer": 0,
    "quelle": "auto:8"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 15.3667,
+   "start": 15.9333,
    "dauer": 0,
    "quelle": "auto:8"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 15.3667,
+   "start": 15.9333,
    "dauer": 0,
    "quelle": "auto:8"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 16.2,
+   "start": 17.0667,
    "dauer": 0,
    "quelle": "auto:8:barefoot"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 16.2,
+   "start": 17.0667,
    "dauer": 0,
    "quelle": "auto:8:barefoot"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 16.2,
+   "start": 17.0667,
    "dauer": 0,
    "quelle": "auto:8:barefoot"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 16.2,
+   "start": 17.0667,
    "dauer": 0,
    "quelle": "auto:8:barefoot"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 16.2,
+   "start": 17.0667,
    "dauer": 0,
    "quelle": "auto:8:barefoot"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 16.2,
+   "start": 17.0667,
    "dauer": 0,
    "quelle": "auto:8:barefoot"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 16.2,
+   "start": 17.0667,
    "dauer": 0,
    "quelle": "auto:8:barefoot"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 16.2,
+   "start": 17.0667,
    "dauer": 0,
    "quelle": "auto:8:barefoot"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 17.1667,
+   "start": 17.8,
    "dauer": 0,
    "quelle": "auto:9"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 17.1667,
+   "start": 17.8,
    "dauer": 0,
    "quelle": "auto:9"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 17.1667,
+   "start": 17.8,
    "dauer": 0,
    "quelle": "auto:9"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 17.1667,
+   "start": 17.8,
    "dauer": 0,
    "quelle": "auto:9"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 17.1667,
+   "start": 17.8,
    "dauer": 0,
    "quelle": "auto:9"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 17.1667,
+   "start": 17.8,
    "dauer": 0,
    "quelle": "auto:9"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 17.1667,
+   "start": 17.8,
    "dauer": 0,
    "quelle": "auto:9"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 17.1667,
+   "start": 17.8,
    "dauer": 0,
    "quelle": "auto:9"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 18.7333,
+   "start": 19.3667,
    "dauer": 0,
    "quelle": "auto:10"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 18.7333,
+   "start": 19.3667,
    "dauer": 0,
    "quelle": "auto:10"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 18.7333,
+   "start": 19.3667,
    "dauer": 0,
    "quelle": "auto:10"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 18.7333,
+   "start": 19.3667,
    "dauer": 0,
    "quelle": "auto:10"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 18.7333,
+   "start": 19.3667,
    "dauer": 0,
    "quelle": "auto:10"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 18.7333,
+   "start": 19.3667,
    "dauer": 0,
    "quelle": "auto:10"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 18.7333,
+   "start": 19.3667,
    "dauer": 0,
    "quelle": "auto:10"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 18.7333,
+   "start": 19.3667,
    "dauer": 0,
    "quelle": "auto:10"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 20.5667,
+   "start": 21.2,
    "dauer": 0,
    "quelle": "auto:11"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 20.5667,
+   "start": 21.2,
    "dauer": 0,
    "quelle": "auto:11"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 20.5667,
+   "start": 21.2,
    "dauer": 0,
    "quelle": "auto:11"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 20.5667,
+   "start": 21.2,
    "dauer": 0,
    "quelle": "auto:11"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 20.5667,
+   "start": 21.2,
    "dauer": 0,
    "quelle": "auto:11"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 20.5667,
+   "start": 21.2,
    "dauer": 0,
    "quelle": "auto:11"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 20.5667,
+   "start": 21.2,
    "dauer": 0,
    "quelle": "auto:11"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 22.2,
+   "start": 23.2,
    "dauer": 0,
    "quelle": "auto:11:Tess"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 22.2,
+   "start": 23.2,
    "dauer": 0,
    "quelle": "auto:11:Tess"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 22.2,
+   "start": 23.2,
    "dauer": 0,
    "quelle": "auto:11:Tess"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 22.2,
+   "start": 23.2,
    "dauer": 0,
    "quelle": "auto:11:Tess"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 22.2,
+   "start": 23.2,
    "dauer": 0,
    "quelle": "auto:11:Tess"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 22.2,
+   "start": 23.2,
    "dauer": 0,
    "quelle": "auto:11:Tess"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 22.2,
+   "start": 23.2,
    "dauer": 0,
    "quelle": "auto:11:Tess"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 23.8,
+   "start": 24.8,
    "dauer": 0,
    "quelle": "auto:12"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 23.8,
+   "start": 24.8,
    "dauer": 0,
    "quelle": "auto:12"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 23.8,
+   "start": 24.8,
    "dauer": 0,
    "quelle": "auto:12"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 23.8,
+   "start": 24.8,
    "dauer": 0,
    "quelle": "auto:12"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 23.8,
+   "start": 24.8,
    "dauer": 0,
    "quelle": "auto:12"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 23.8,
+   "start": 24.8,
    "dauer": 0,
    "quelle": "auto:12"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 23.8,
+   "start": 24.8,
    "dauer": 0,
    "quelle": "auto:12"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 24.8,
+   "start": 25.8333,
    "dauer": 0,
    "quelle": "auto:12:the shoes"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 24.8,
+   "start": 25.8333,
    "dauer": 0,
    "quelle": "auto:12:the shoes"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 24.8,
+   "start": 25.8333,
    "dauer": 0,
    "quelle": "auto:12:the shoes"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 24.8,
+   "start": 25.8333,
    "dauer": 0,
    "quelle": "auto:12:the shoes"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 24.8,
+   "start": 25.8333,
    "dauer": 0,
    "quelle": "auto:12:the shoes"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 24.8,
+   "start": 25.8333,
    "dauer": 0,
    "quelle": "auto:12:the shoes"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 24.8,
+   "start": 25.8333,
    "dauer": 0,
    "quelle": "auto:12:the shoes"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 26.3333,
+   "start": 27.4667,
    "dauer": 0,
-   "quelle": "auto:13"
+   "quelle": "auto:12:side"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 26.3333,
+   "start": 27.4667,
    "dauer": 0,
-   "quelle": "auto:13"
+   "quelle": "auto:12:side"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 26.3333,
+   "start": 27.4667,
    "dauer": 0,
-   "quelle": "auto:13"
+   "quelle": "auto:12:side"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 26.3333,
+   "start": 27.4667,
    "dauer": 0,
-   "quelle": "auto:13"
+   "quelle": "auto:12:side"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 26.3333,
+   "start": 27.4667,
    "dauer": 0,
-   "quelle": "auto:13"
+   "quelle": "auto:12:side"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 26.3333,
+   "start": 27.4667,
+   "dauer": 0,
+   "quelle": "auto:12:side"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 27.4667,
+   "dauer": 0,
+   "quelle": "auto:12:side"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 29.6,
+   "dauer": 0,
+   "quelle": "auto:13"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 29.6,
+   "dauer": 0,
+   "quelle": "auto:13"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 29.6,
+   "dauer": 0,
+   "quelle": "auto:13"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 29.6,
+   "dauer": 0,
+   "quelle": "auto:13"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 29.6,
+   "dauer": 0,
+   "quelle": "auto:13"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 29.6,
    "dauer": 0,
    "quelle": "auto:13"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 26.3333,
+   "start": 29.6,
    "dauer": 0,
    "quelle": "auto:13"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 27.9,
+   "start": 30.7333,
    "dauer": 0,
-   "quelle": "auto:14"
+   "quelle": "auto:13:starts"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 27.9,
+   "start": 30.7333,
    "dauer": 0,
-   "quelle": "auto:14"
+   "quelle": "auto:13:starts"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 27.9,
+   "start": 30.7333,
    "dauer": 0,
-   "quelle": "auto:14"
+   "quelle": "auto:13:starts"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 27.9,
+   "start": 30.7333,
    "dauer": 0,
-   "quelle": "auto:14"
+   "quelle": "auto:13:starts"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 27.9,
+   "start": 30.7333,
    "dauer": 0,
-   "quelle": "auto:14"
+   "quelle": "auto:13:starts"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 27.9,
+   "start": 30.7333,
+   "dauer": 0,
+   "quelle": "auto:13:starts"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 30.7333,
+   "dauer": 0,
+   "quelle": "auto:13:starts"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 31.8333,
+   "dauer": 0,
+   "quelle": "auto:14"
+  },
+  {
+   "art": "aus",
+   "ziel": "marsh.*",
+   "start": 31.8333,
+   "dauer": 0,
+   "quelle": "auto:14"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 31.8333,
+   "dauer": 0,
+   "quelle": "auto:14"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.june_lampe",
+   "start": 31.8333,
+   "dauer": 0,
+   "quelle": "auto:14"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.eli_lampe",
+   "start": 31.8333,
+   "dauer": 0,
+   "quelle": "auto:14"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.flur_lampe",
+   "start": 31.8333,
    "dauer": 0,
    "quelle": "auto:14"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 27.9,
+   "start": 31.8333,
    "dauer": 0,
    "quelle": "auto:14"
   },
   {
-   "art": "an",
-   "ziel": "strasse.*",
-   "start": 30.0333,
-   "dauer": 0,
-   "quelle": "auto:14:and it starts"
-  },
-  {
-   "art": "an",
-   "ziel": "marsh.*",
-   "start": 30.0333,
-   "dauer": 0,
-   "quelle": "auto:14:and it starts"
-  },
-  {
-   "art": "an",
-   "ziel": "haus.kueche_lampe",
-   "start": 30.0333,
-   "dauer": 0,
-   "quelle": "auto:14:and it starts"
-  },
-  {
-   "art": "an",
-   "ziel": "haus.june_lampe",
-   "start": 30.0333,
-   "dauer": 0,
-   "quelle": "auto:14:and it starts"
-  },
-  {
-   "art": "an",
-   "ziel": "haus.eli_lampe",
-   "start": 30.0333,
-   "dauer": 0,
-   "quelle": "auto:14:and it starts"
-  },
-  {
-   "art": "an",
-   "ziel": "haus.flur_lampe",
-   "start": 30.0333,
-   "dauer": 0,
-   "quelle": "auto:14:and it starts"
-  },
-  {
-   "art": "an",
-   "ziel": "umgebung",
-   "start": 30.0333,
-   "dauer": 0,
-   "quelle": "auto:14:and it starts"
-  },
-  {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 31.4667,
+   "start": 32.9,
    "dauer": 0,
-   "quelle": "auto:15"
+   "quelle": "auto:14:ends"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 31.4667,
+   "start": 32.9,
    "dauer": 0,
-   "quelle": "auto:15"
+   "quelle": "auto:14:ends"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 31.4667,
+   "start": 32.9,
    "dauer": 0,
-   "quelle": "auto:15"
+   "quelle": "auto:14:ends"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 31.4667,
+   "start": 32.9,
    "dauer": 0,
-   "quelle": "auto:15"
+   "quelle": "auto:14:ends"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 31.4667,
+   "start": 32.9,
    "dauer": 0,
-   "quelle": "auto:15"
+   "quelle": "auto:14:ends"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 31.4667,
+   "start": 32.9,
+   "dauer": 0,
+   "quelle": "auto:14:ends"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 32.9,
+   "dauer": 0,
+   "quelle": "auto:14:ends"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 33.7333,
    "dauer": 0,
    "quelle": "auto:15"
   },
   {
    "art": "an",
-   "ziel": "umgebung",
-   "start": 31.4667,
-   "dauer": 0,
-   "quelle": "auto:15"
-  },
-  {
-   "art": "aus",
-   "ziel": "strasse.*",
-   "start": 32.6333,
-   "dauer": 0,
-   "quelle": "auto:15:ends"
-  },
-  {
-   "art": "aus",
    "ziel": "marsh.*",
-   "start": 32.6333,
+   "start": 33.7333,
    "dauer": 0,
-   "quelle": "auto:15:ends"
+   "quelle": "auto:15"
   },
   {
-   "art": "aus",
+   "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 32.6333,
+   "start": 33.7333,
    "dauer": 0,
-   "quelle": "auto:15:ends"
+   "quelle": "auto:15"
   },
   {
-   "art": "aus",
+   "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 32.6333,
+   "start": 33.7333,
    "dauer": 0,
-   "quelle": "auto:15:ends"
+   "quelle": "auto:15"
   },
   {
-   "art": "aus",
+   "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 32.6333,
+   "start": 33.7333,
    "dauer": 0,
-   "quelle": "auto:15:ends"
+   "quelle": "auto:15"
   },
   {
-   "art": "aus",
+   "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 32.6333,
+   "start": 33.7333,
    "dauer": 0,
-   "quelle": "auto:15:ends"
+   "quelle": "auto:15"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 32.6333,
+   "start": 33.7333,
    "dauer": 0,
-   "quelle": "auto:15:ends"
+   "quelle": "auto:15"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 34.1333,
+   "start": 35.0333,
    "dauer": 0,
    "quelle": "auto:16"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 34.1333,
+   "start": 35.0333,
    "dauer": 0,
    "quelle": "auto:16"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 34.1333,
+   "start": 35.0333,
    "dauer": 0,
    "quelle": "auto:16"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 34.1333,
+   "start": 35.0333,
    "dauer": 0,
    "quelle": "auto:16"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 34.1333,
+   "start": 35.0333,
    "dauer": 0,
    "quelle": "auto:16"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 34.1333,
+   "start": 35.0333,
    "dauer": 0,
    "quelle": "auto:16"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 34.1333,
+   "start": 35.0333,
    "dauer": 0,
    "quelle": "auto:16"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 35.8,
+   "start": 36.4667,
    "dauer": 0,
    "quelle": "auto:17"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 35.8,
+   "start": 36.4667,
    "dauer": 0,
    "quelle": "auto:17"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 35.8,
+   "start": 36.4667,
    "dauer": 0,
    "quelle": "auto:17"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 35.8,
+   "start": 36.4667,
    "dauer": 0,
    "quelle": "auto:17"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 35.8,
+   "start": 36.4667,
    "dauer": 0,
    "quelle": "auto:17"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 35.8,
+   "start": 36.4667,
    "dauer": 0,
    "quelle": "auto:17"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 35.8,
+   "start": 36.4667,
    "dauer": 0,
    "quelle": "auto:17"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 37.2667,
+   "start": 38.2,
    "dauer": 0,
    "quelle": "auto:18"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 37.2667,
+   "start": 38.2,
    "dauer": 0,
    "quelle": "auto:18"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 37.2667,
+   "start": 38.2,
    "dauer": 0,
    "quelle": "auto:18"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 37.2667,
+   "start": 38.2,
    "dauer": 0,
    "quelle": "auto:18"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 37.2667,
+   "start": 38.2,
    "dauer": 0,
    "quelle": "auto:18"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 37.2667,
+   "start": 38.2,
    "dauer": 0,
    "quelle": "auto:18"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 37.2667,
+   "start": 38.2,
    "dauer": 0,
    "quelle": "auto:18"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 38.7333,
+   "start": 39.1,
    "dauer": 0,
    "quelle": "auto:19"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 38.7333,
+   "start": 39.1,
    "dauer": 0,
    "quelle": "auto:19"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 38.7333,
+   "start": 39.1,
    "dauer": 0,
    "quelle": "auto:19"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 38.7333,
+   "start": 39.1,
    "dauer": 0,
    "quelle": "auto:19"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 38.7333,
+   "start": 39.1,
    "dauer": 0,
    "quelle": "auto:19"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 38.7333,
+   "start": 39.1,
    "dauer": 0,
    "quelle": "auto:19"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 38.7333,
+   "start": 39.1,
    "dauer": 0,
    "quelle": "auto:19"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 39.8667,
+   "start": 40.7333,
    "dauer": 0,
    "quelle": "auto:20"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 39.8667,
+   "start": 40.7333,
    "dauer": 0,
    "quelle": "auto:20"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 39.8667,
+   "start": 40.7333,
    "dauer": 0,
    "quelle": "auto:20"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 39.8667,
+   "start": 40.7333,
    "dauer": 0,
    "quelle": "auto:20"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 39.8667,
+   "start": 40.7333,
    "dauer": 0,
    "quelle": "auto:20"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 39.8667,
+   "start": 40.7333,
    "dauer": 0,
    "quelle": "auto:20"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 39.8667,
+   "start": 40.7333,
    "dauer": 0,
    "quelle": "auto:20"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 40.8333,
+   "start": 42.1,
+   "dauer": 0,
+   "quelle": "auto:20:higher"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 42.1,
+   "dauer": 0,
+   "quelle": "auto:20:higher"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 42.1,
+   "dauer": 0,
+   "quelle": "auto:20:higher"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 42.1,
+   "dauer": 0,
+   "quelle": "auto:20:higher"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 42.1,
+   "dauer": 0,
+   "quelle": "auto:20:higher"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 42.1,
+   "dauer": 0,
+   "quelle": "auto:20:higher"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 42.1,
+   "dauer": 0,
+   "quelle": "auto:20:higher"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 43.5,
    "dauer": 0,
    "quelle": "auto:21"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 40.8333,
+   "start": 43.5,
    "dauer": 0,
    "quelle": "auto:21"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 40.8333,
+   "start": 43.5,
    "dauer": 0,
    "quelle": "auto:21"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 40.8333,
+   "start": 43.5,
    "dauer": 0,
    "quelle": "auto:21"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 40.8333,
+   "start": 43.5,
    "dauer": 0,
    "quelle": "auto:21"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 40.8333,
+   "start": 43.5,
    "dauer": 0,
    "quelle": "auto:21"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 40.8333,
+   "start": 43.5,
+   "dauer": 0,
+   "quelle": "auto:21"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.flur_lampe",
+   "start": 43.5,
    "dauer": 0,
    "quelle": "auto:21"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 42.4667,
+   "start": 44.6,
+   "dauer": 0,
+   "quelle": "auto:21:sneakers"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 44.6,
+   "dauer": 0,
+   "quelle": "auto:21:sneakers"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 44.6,
+   "dauer": 0,
+   "quelle": "auto:21:sneakers"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 44.6,
+   "dauer": 0,
+   "quelle": "auto:21:sneakers"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 44.6,
+   "dauer": 0,
+   "quelle": "auto:21:sneakers"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 44.6,
+   "dauer": 0,
+   "quelle": "auto:21:sneakers"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 44.6,
+   "dauer": 0,
+   "quelle": "auto:21:sneakers"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 45.6333,
    "dauer": 0,
    "quelle": "auto:22"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 42.4667,
+   "start": 45.6333,
    "dauer": 0,
    "quelle": "auto:22"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 42.4667,
+   "start": 45.6333,
    "dauer": 0,
    "quelle": "auto:22"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 42.4667,
+   "start": 45.6333,
    "dauer": 0,
    "quelle": "auto:22"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 42.4667,
+   "start": 45.6333,
    "dauer": 0,
    "quelle": "auto:22"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 42.4667,
+   "start": 45.6333,
    "dauer": 0,
    "quelle": "auto:22"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 42.4667,
+   "start": 45.6333,
    "dauer": 0,
    "quelle": "auto:22"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 43.5333,
+   "start": 46.4667,
+   "dauer": 0,
+   "quelle": "auto:22:something"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 46.4667,
+   "dauer": 0,
+   "quelle": "auto:22:something"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 46.4667,
+   "dauer": 0,
+   "quelle": "auto:22:something"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 46.4667,
+   "dauer": 0,
+   "quelle": "auto:22:something"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 46.4667,
+   "dauer": 0,
+   "quelle": "auto:22:something"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 46.4667,
+   "dauer": 0,
+   "quelle": "auto:22:something"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 46.4667,
+   "dauer": 0,
+   "quelle": "auto:22:something"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 48.2667,
    "dauer": 0,
    "quelle": "auto:23"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 43.5333,
+   "start": 48.2667,
    "dauer": 0,
    "quelle": "auto:23"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 43.5333,
+   "start": 48.2667,
    "dauer": 0,
    "quelle": "auto:23"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 43.5333,
+   "start": 48.2667,
    "dauer": 0,
    "quelle": "auto:23"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 43.5333,
+   "start": 48.2667,
    "dauer": 0,
    "quelle": "auto:23"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 43.5333,
+   "start": 48.2667,
    "dauer": 0,
    "quelle": "auto:23"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 43.5333,
+   "start": 48.2667,
    "dauer": 0,
    "quelle": "auto:23"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 44.8667,
+   "start": 49.8333,
    "dauer": 0,
-   "quelle": "auto:23:higher"
+   "quelle": "auto:24"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 44.8667,
+   "start": 49.8333,
    "dauer": 0,
-   "quelle": "auto:23:higher"
+   "quelle": "auto:24"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 44.8667,
+   "start": 49.8333,
    "dauer": 0,
-   "quelle": "auto:23:higher"
+   "quelle": "auto:24"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 44.8667,
+   "start": 49.8333,
    "dauer": 0,
-   "quelle": "auto:23:higher"
+   "quelle": "auto:24"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 44.8667,
+   "start": 49.8333,
    "dauer": 0,
-   "quelle": "auto:23:higher"
+   "quelle": "auto:24"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 44.8667,
+   "start": 49.8333,
    "dauer": 0,
-   "quelle": "auto:23:higher"
+   "quelle": "auto:24"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 44.8667,
+   "start": 49.8333,
    "dauer": 0,
-   "quelle": "auto:23:higher"
+   "quelle": "auto:24"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 46.3667,
+   "start": 51.1333,
    "dauer": 0,
-   "quelle": "auto:24"
+   "quelle": "auto:24:side"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 46.3667,
+   "start": 51.1333,
    "dauer": 0,
-   "quelle": "auto:24"
+   "quelle": "auto:24:side"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 46.3667,
+   "start": 51.1333,
    "dauer": 0,
-   "quelle": "auto:24"
+   "quelle": "auto:24:side"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 46.3667,
+   "start": 51.1333,
    "dauer": 0,
-   "quelle": "auto:24"
+   "quelle": "auto:24:side"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 46.3667,
+   "start": 51.1333,
    "dauer": 0,
-   "quelle": "auto:24"
+   "quelle": "auto:24:side"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 46.3667,
+   "start": 51.1333,
    "dauer": 0,
-   "quelle": "auto:24"
+   "quelle": "auto:24:side"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 46.3667,
+   "start": 51.1333,
    "dauer": 0,
-   "quelle": "auto:24"
+   "quelle": "auto:24:side"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 52.3667,
+   "dauer": 0,
+   "quelle": "auto:25"
+  },
+  {
+   "art": "aus",
+   "ziel": "marsh.*",
+   "start": 52.3667,
+   "dauer": 0,
+   "quelle": "auto:25"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 52.3667,
+   "dauer": 0,
+   "quelle": "auto:25"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.june_lampe",
+   "start": 52.3667,
+   "dauer": 0,
+   "quelle": "auto:25"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.eli_lampe",
+   "start": 52.3667,
+   "dauer": 0,
+   "quelle": "auto:25"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 46.3667,
-   "dauer": 0,
-   "quelle": "auto:24"
-  },
-  {
-   "art": "an",
-   "ziel": "strasse.*",
-   "start": 47.4333,
-   "dauer": 0,
-   "quelle": "auto:24:sneakers"
-  },
-  {
-   "art": "an",
-   "ziel": "marsh.*",
-   "start": 47.4333,
-   "dauer": 0,
-   "quelle": "auto:24:sneakers"
-  },
-  {
-   "art": "an",
-   "ziel": "haus.kueche_lampe",
-   "start": 47.4333,
-   "dauer": 0,
-   "quelle": "auto:24:sneakers"
-  },
-  {
-   "art": "an",
-   "ziel": "haus.june_lampe",
-   "start": 47.4333,
-   "dauer": 0,
-   "quelle": "auto:24:sneakers"
-  },
-  {
-   "art": "an",
-   "ziel": "haus.eli_lampe",
-   "start": 47.4333,
-   "dauer": 0,
-   "quelle": "auto:24:sneakers"
-  },
-  {
-   "art": "an",
-   "ziel": "haus.flur_lampe",
-   "start": 47.4333,
-   "dauer": 0,
-   "quelle": "auto:24:sneakers"
-  },
-  {
-   "art": "an",
-   "ziel": "umgebung",
-   "start": 47.4333,
-   "dauer": 0,
-   "quelle": "auto:24:sneakers"
-  },
-  {
-   "art": "an",
-   "ziel": "strasse.*",
-   "start": 48.9333,
-   "dauer": 0,
-   "quelle": "auto:25"
-  },
-  {
-   "art": "an",
-   "ziel": "marsh.*",
-   "start": 48.9333,
-   "dauer": 0,
-   "quelle": "auto:25"
-  },
-  {
-   "art": "an",
-   "ziel": "haus.kueche_lampe",
-   "start": 48.9333,
-   "dauer": 0,
-   "quelle": "auto:25"
-  },
-  {
-   "art": "an",
-   "ziel": "haus.june_lampe",
-   "start": 48.9333,
-   "dauer": 0,
-   "quelle": "auto:25"
-  },
-  {
-   "art": "an",
-   "ziel": "haus.eli_lampe",
-   "start": 48.9333,
-   "dauer": 0,
-   "quelle": "auto:25"
-  },
-  {
-   "art": "an",
-   "ziel": "haus.flur_lampe",
-   "start": 48.9333,
+   "start": 52.3667,
    "dauer": 0,
    "quelle": "auto:25"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 48.9333,
+   "start": 52.3667,
    "dauer": 0,
    "quelle": "auto:25"
   },
   {
-   "art": "an",
+   "art": "aus",
    "ziel": "strasse.*",
-   "start": 50.2667,
+   "start": 54.5,
    "dauer": 0,
-   "quelle": "auto:26"
+   "quelle": "auto:25:his shoes"
   },
   {
-   "art": "an",
+   "art": "aus",
    "ziel": "marsh.*",
-   "start": 50.2667,
+   "start": 54.5,
    "dauer": 0,
-   "quelle": "auto:26"
+   "quelle": "auto:25:his shoes"
   },
   {
-   "art": "an",
+   "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 50.2667,
+   "start": 54.5,
    "dauer": 0,
-   "quelle": "auto:26"
+   "quelle": "auto:25:his shoes"
   },
   {
-   "art": "an",
+   "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 50.2667,
+   "start": 54.5,
    "dauer": 0,
-   "quelle": "auto:26"
+   "quelle": "auto:25:his shoes"
   },
   {
-   "art": "an",
+   "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 50.2667,
+   "start": 54.5,
+   "dauer": 0,
+   "quelle": "auto:25:his shoes"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.flur_lampe",
+   "start": 54.5,
+   "dauer": 0,
+   "quelle": "auto:25:his shoes"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 54.5,
+   "dauer": 0,
+   "quelle": "auto:25:his shoes"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 56.0333,
    "dauer": 0,
    "quelle": "auto:26"
   },
   {
-   "art": "an",
+   "art": "aus",
+   "ziel": "marsh.*",
+   "start": 56.0333,
+   "dauer": 0,
+   "quelle": "auto:26"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 56.0333,
+   "dauer": 0,
+   "quelle": "auto:26"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.june_lampe",
+   "start": 56.0333,
+   "dauer": 0,
+   "quelle": "auto:26"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.eli_lampe",
+   "start": 56.0333,
+   "dauer": 0,
+   "quelle": "auto:26"
+  },
+  {
+   "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 50.2667,
+   "start": 56.0333,
    "dauer": 0,
    "quelle": "auto:26"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 50.2667,
+   "start": 56.0333,
    "dauer": 0,
    "quelle": "auto:26"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 51.5333,
+   "start": 58.2333,
    "dauer": 0,
-   "quelle": "auto:26:side"
+   "quelle": "auto:26:who hid her"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 51.5333,
+   "start": 58.2333,
    "dauer": 0,
-   "quelle": "auto:26:side"
+   "quelle": "auto:26:who hid her"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 51.5333,
+   "start": 58.2333,
    "dauer": 0,
-   "quelle": "auto:26:side"
+   "quelle": "auto:26:who hid her"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 51.5333,
+   "start": 58.2333,
    "dauer": 0,
-   "quelle": "auto:26:side"
+   "quelle": "auto:26:who hid her"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 51.5333,
+   "start": 58.2333,
    "dauer": 0,
-   "quelle": "auto:26:side"
+   "quelle": "auto:26:who hid her"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 51.5333,
+   "start": 58.2333,
    "dauer": 0,
-   "quelle": "auto:26:side"
+   "quelle": "auto:26:who hid her"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 51.5333,
+   "start": 58.2333,
    "dauer": 0,
-   "quelle": "auto:26:side"
+   "quelle": "auto:26:who hid her"
   },
   {
-   "art": "aus",
+   "art": "an",
    "ziel": "strasse.*",
-   "start": 52.8,
+   "start": 59.7333,
    "dauer": 0,
    "quelle": "auto:27"
   },
   {
-   "art": "aus",
+   "art": "an",
    "ziel": "marsh.*",
-   "start": 52.8,
+   "start": 59.7333,
    "dauer": 0,
    "quelle": "auto:27"
   },
   {
-   "art": "aus",
+   "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 52.8,
+   "start": 59.7333,
    "dauer": 0,
    "quelle": "auto:27"
   },
   {
-   "art": "aus",
+   "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 52.8,
+   "start": 59.7333,
    "dauer": 0,
    "quelle": "auto:27"
   },
   {
-   "art": "aus",
+   "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 52.8,
+   "start": 59.7333,
    "dauer": 0,
    "quelle": "auto:27"
   },
   {
-   "art": "aus",
+   "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 52.8,
+   "start": 59.7333,
    "dauer": 0,
    "quelle": "auto:27"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 52.8,
+   "start": 59.7333,
    "dauer": 0,
    "quelle": "auto:27"
   },
   {
-   "art": "aus",
+   "art": "an",
    "ziel": "strasse.*",
-   "start": 54.9333,
+   "start": 60.9667,
    "dauer": 0,
    "quelle": "auto:28"
   },
   {
-   "art": "aus",
+   "art": "an",
    "ziel": "marsh.*",
-   "start": 54.9333,
+   "start": 60.9667,
    "dauer": 0,
    "quelle": "auto:28"
   },
   {
-   "art": "aus",
+   "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 54.9333,
+   "start": 60.9667,
    "dauer": 0,
    "quelle": "auto:28"
   },
   {
-   "art": "aus",
+   "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 54.9333,
+   "start": 60.9667,
    "dauer": 0,
    "quelle": "auto:28"
   },
   {
-   "art": "aus",
+   "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 54.9333,
+   "start": 60.9667,
    "dauer": 0,
    "quelle": "auto:28"
   },
   {
-   "art": "aus",
+   "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 54.9333,
+   "start": 60.9667,
    "dauer": 0,
    "quelle": "auto:28"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 54.9333,
+   "start": 60.9667,
    "dauer": 0,
    "quelle": "auto:28"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 56.8333,
+   "start": 62.8,
    "dauer": 0,
    "quelle": "auto:29"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 56.8333,
+   "start": 62.8,
    "dauer": 0,
    "quelle": "auto:29"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 56.8333,
+   "start": 62.8,
    "dauer": 0,
    "quelle": "auto:29"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 56.8333,
+   "start": 62.8,
    "dauer": 0,
    "quelle": "auto:29"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 56.8333,
+   "start": 62.8,
    "dauer": 0,
    "quelle": "auto:29"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 56.8333,
+   "start": 62.8,
    "dauer": 0,
    "quelle": "auto:29"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 56.8333,
+   "start": 62.8,
    "dauer": 0,
    "quelle": "auto:29"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 58.5,
+   "start": 64.1667,
    "dauer": 0,
    "quelle": "auto:30"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 58.5,
+   "start": 64.1667,
    "dauer": 0,
    "quelle": "auto:30"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 58.5,
+   "start": 64.1667,
    "dauer": 0,
    "quelle": "auto:30"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 58.5,
+   "start": 64.1667,
    "dauer": 0,
    "quelle": "auto:30"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 58.5,
+   "start": 64.1667,
    "dauer": 0,
    "quelle": "auto:30"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 58.5,
+   "start": 64.1667,
    "dauer": 0,
    "quelle": "auto:30"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 58.5,
+   "start": 64.1667,
    "dauer": 0,
    "quelle": "auto:30"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 60.2667,
+   "start": 66.3,
    "dauer": 0,
    "quelle": "auto:31"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 60.2667,
+   "start": 66.3,
    "dauer": 0,
    "quelle": "auto:31"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 60.2667,
+   "start": 66.3,
    "dauer": 0,
    "quelle": "auto:31"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 60.2667,
+   "start": 66.3,
    "dauer": 0,
    "quelle": "auto:31"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 60.2667,
+   "start": 66.3,
    "dauer": 0,
    "quelle": "auto:31"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 60.2667,
+   "start": 66.3,
    "dauer": 0,
    "quelle": "auto:31"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 60.2667,
+   "start": 66.3,
    "dauer": 0,
    "quelle": "auto:31"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 61.6333,
+   "start": 67.3,
    "dauer": 0,
-   "quelle": "auto:32"
+   "quelle": "auto:31:could"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 61.6333,
+   "start": 67.3,
    "dauer": 0,
-   "quelle": "auto:32"
+   "quelle": "auto:31:could"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 61.6333,
+   "start": 67.3,
    "dauer": 0,
-   "quelle": "auto:32"
+   "quelle": "auto:31:could"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 61.6333,
+   "start": 67.3,
    "dauer": 0,
-   "quelle": "auto:32"
+   "quelle": "auto:31:could"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 61.6333,
+   "start": 67.3,
    "dauer": 0,
-   "quelle": "auto:32"
+   "quelle": "auto:31:could"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 61.6333,
-   "dauer": 0,
-   "quelle": "auto:32"
-  },
-  {
-   "art": "an",
-   "ziel": "umgebung",
-   "start": 61.6333,
-   "dauer": 0,
-   "quelle": "auto:32"
-  },
-  {
-   "art": "an",
-   "ziel": "strasse.*",
-   "start": 62.3667,
-   "dauer": 0,
-   "quelle": "auto:32:rug"
-  },
-  {
-   "art": "an",
-   "ziel": "marsh.*",
-   "start": 62.3667,
-   "dauer": 0,
-   "quelle": "auto:32:rug"
-  },
-  {
-   "art": "an",
-   "ziel": "haus.kueche_lampe",
-   "start": 62.3667,
-   "dauer": 0,
-   "quelle": "auto:32:rug"
-  },
-  {
-   "art": "an",
-   "ziel": "haus.june_lampe",
-   "start": 62.3667,
-   "dauer": 0,
-   "quelle": "auto:32:rug"
-  },
-  {
-   "art": "an",
-   "ziel": "haus.eli_lampe",
-   "start": 62.3667,
-   "dauer": 0,
-   "quelle": "auto:32:rug"
-  },
-  {
-   "art": "an",
-   "ziel": "haus.flur_lampe",
-   "start": 62.3667,
-   "dauer": 0,
-   "quelle": "auto:32:rug"
-  },
-  {
-   "art": "an",
-   "ziel": "umgebung",
-   "start": 62.3667,
-   "dauer": 0,
-   "quelle": "auto:32:rug"
-  },
-  {
-   "art": "an",
-   "ziel": "strasse.*",
-   "start": 63.3667,
-   "dauer": 0,
-   "quelle": "auto:33"
-  },
-  {
-   "art": "an",
-   "ziel": "marsh.*",
-   "start": 63.3667,
-   "dauer": 0,
-   "quelle": "auto:33"
-  },
-  {
-   "art": "an",
-   "ziel": "haus.kueche_lampe",
-   "start": 63.3667,
-   "dauer": 0,
-   "quelle": "auto:33"
-  },
-  {
-   "art": "an",
-   "ziel": "haus.june_lampe",
-   "start": 63.3667,
-   "dauer": 0,
-   "quelle": "auto:33"
-  },
-  {
-   "art": "an",
-   "ziel": "haus.eli_lampe",
-   "start": 63.3667,
-   "dauer": 0,
-   "quelle": "auto:33"
-  },
-  {
-   "art": "an",
-   "ziel": "haus.flur_lampe",
-   "start": 63.3667,
-   "dauer": 0,
-   "quelle": "auto:33"
-  },
-  {
-   "art": "an",
-   "ziel": "umgebung",
-   "start": 63.3667,
-   "dauer": 0,
-   "quelle": "auto:33"
-  },
-  {
-   "art": "aus",
-   "ziel": "strasse.*",
-   "start": 65.1,
-   "dauer": 0,
-   "quelle": "auto:34"
-  },
-  {
-   "art": "aus",
-   "ziel": "marsh.*",
-   "start": 65.1,
-   "dauer": 0,
-   "quelle": "auto:34"
-  },
-  {
-   "art": "aus",
-   "ziel": "haus.kueche_lampe",
-   "start": 65.1,
-   "dauer": 0,
-   "quelle": "auto:34"
-  },
-  {
-   "art": "aus",
-   "ziel": "haus.june_lampe",
-   "start": 65.1,
-   "dauer": 0,
-   "quelle": "auto:34"
-  },
-  {
-   "art": "aus",
-   "ziel": "haus.eli_lampe",
-   "start": 65.1,
-   "dauer": 0,
-   "quelle": "auto:34"
-  },
-  {
-   "art": "aus",
-   "ziel": "haus.flur_lampe",
-   "start": 65.1,
-   "dauer": 0,
-   "quelle": "auto:34"
-  },
-  {
-   "art": "an",
-   "ziel": "umgebung",
-   "start": 65.1,
-   "dauer": 0,
-   "quelle": "auto:34"
-  },
-  {
-   "art": "aus",
-   "ziel": "strasse.*",
-   "start": 66.3667,
-   "dauer": 0,
-   "quelle": "auto:34:then the rug"
-  },
-  {
-   "art": "aus",
-   "ziel": "marsh.*",
-   "start": 66.3667,
-   "dauer": 0,
-   "quelle": "auto:34:then the rug"
-  },
-  {
-   "art": "aus",
-   "ziel": "haus.kueche_lampe",
-   "start": 66.3667,
-   "dauer": 0,
-   "quelle": "auto:34:then the rug"
-  },
-  {
-   "art": "aus",
-   "ziel": "haus.june_lampe",
-   "start": 66.3667,
-   "dauer": 0,
-   "quelle": "auto:34:then the rug"
-  },
-  {
-   "art": "aus",
-   "ziel": "haus.eli_lampe",
-   "start": 66.3667,
-   "dauer": 0,
-   "quelle": "auto:34:then the rug"
-  },
-  {
-   "art": "aus",
-   "ziel": "haus.flur_lampe",
-   "start": 66.3667,
-   "dauer": 0,
-   "quelle": "auto:34:then the rug"
-  },
-  {
-   "art": "an",
-   "ziel": "umgebung",
-   "start": 66.3667,
-   "dauer": 0,
-   "quelle": "auto:34:then the rug"
-  },
-  {
-   "art": "aus",
-   "ziel": "strasse.*",
    "start": 67.3,
    "dauer": 0,
-   "quelle": "auto:35"
-  },
-  {
-   "art": "aus",
-   "ziel": "marsh.*",
-   "start": 67.3,
-   "dauer": 0,
-   "quelle": "auto:35"
-  },
-  {
-   "art": "aus",
-   "ziel": "haus.kueche_lampe",
-   "start": 67.3,
-   "dauer": 0,
-   "quelle": "auto:35"
-  },
-  {
-   "art": "aus",
-   "ziel": "haus.june_lampe",
-   "start": 67.3,
-   "dauer": 0,
-   "quelle": "auto:35"
-  },
-  {
-   "art": "aus",
-   "ziel": "haus.eli_lampe",
-   "start": 67.3,
-   "dauer": 0,
-   "quelle": "auto:35"
-  },
-  {
-   "art": "aus",
-   "ziel": "haus.flur_lampe",
-   "start": 67.3,
-   "dauer": 0,
-   "quelle": "auto:35"
+   "quelle": "auto:31:could"
   },
   {
    "art": "an",
    "ziel": "umgebung",
    "start": 67.3,
    "dauer": 0,
+   "quelle": "auto:31:could"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 68.2333,
+   "dauer": 0,
+   "quelle": "auto:32"
+  },
+  {
+   "art": "aus",
+   "ziel": "marsh.*",
+   "start": 68.2333,
+   "dauer": 0,
+   "quelle": "auto:32"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 68.2333,
+   "dauer": 0,
+   "quelle": "auto:32"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.june_lampe",
+   "start": 68.2333,
+   "dauer": 0,
+   "quelle": "auto:32"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.eli_lampe",
+   "start": 68.2333,
+   "dauer": 0,
+   "quelle": "auto:32"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.flur_lampe",
+   "start": 68.2333,
+   "dauer": 0,
+   "quelle": "auto:32"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 68.2333,
+   "dauer": 0,
+   "quelle": "auto:32"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 70.5333,
+   "dauer": 0,
+   "quelle": "auto:33"
+  },
+  {
+   "art": "aus",
+   "ziel": "marsh.*",
+   "start": 70.5333,
+   "dauer": 0,
+   "quelle": "auto:33"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 70.5333,
+   "dauer": 0,
+   "quelle": "auto:33"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.june_lampe",
+   "start": 70.5333,
+   "dauer": 0,
+   "quelle": "auto:33"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.eli_lampe",
+   "start": 70.5333,
+   "dauer": 0,
+   "quelle": "auto:33"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.flur_lampe",
+   "start": 70.5333,
+   "dauer": 0,
+   "quelle": "auto:33"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 70.5333,
+   "dauer": 0,
+   "quelle": "auto:33"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 72.1333,
+   "dauer": 0,
+   "quelle": "auto:33:counted"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 72.1333,
+   "dauer": 0,
+   "quelle": "auto:33:counted"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 72.1333,
+   "dauer": 0,
+   "quelle": "auto:33:counted"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 72.1333,
+   "dauer": 0,
+   "quelle": "auto:33:counted"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 72.1333,
+   "dauer": 0,
+   "quelle": "auto:33:counted"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 72.1333,
+   "dauer": 0,
+   "quelle": "auto:33:counted"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 72.1333,
+   "dauer": 0,
+   "quelle": "auto:33:counted"
+  },
+  {
+   "art": "an",
+   "ziel": "strasse.*",
+   "start": 73.7333,
+   "dauer": 0,
+   "quelle": "auto:34"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 73.7333,
+   "dauer": 0,
+   "quelle": "auto:34"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 73.7333,
+   "dauer": 0,
+   "quelle": "auto:34"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 73.7333,
+   "dauer": 0,
+   "quelle": "auto:34"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 73.7333,
+   "dauer": 0,
+   "quelle": "auto:34"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 73.7333,
+   "dauer": 0,
+   "quelle": "auto:34"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 73.7333,
+   "dauer": 0,
+   "quelle": "auto:34"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 74.8333,
+   "dauer": 0,
+   "quelle": "auto:35"
+  },
+  {
+   "art": "aus",
+   "ziel": "marsh.*",
+   "start": 74.8333,
+   "dauer": 0,
+   "quelle": "auto:35"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 74.8333,
+   "dauer": 0,
+   "quelle": "auto:35"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.june_lampe",
+   "start": 74.8333,
+   "dauer": 0,
+   "quelle": "auto:35"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.eli_lampe",
+   "start": 74.8333,
+   "dauer": 0,
+   "quelle": "auto:35"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.flur_lampe",
+   "start": 74.8333,
+   "dauer": 0,
+   "quelle": "auto:35"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 74.8333,
+   "dauer": 0,
    "quelle": "auto:35"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 68.9,
-   "dauer": 0,
-   "quelle": "auto:35:counted"
-  },
-  {
-   "art": "an",
-   "ziel": "marsh.*",
-   "start": 68.9,
-   "dauer": 0,
-   "quelle": "auto:35:counted"
-  },
-  {
-   "art": "an",
-   "ziel": "haus.kueche_lampe",
-   "start": 68.9,
-   "dauer": 0,
-   "quelle": "auto:35:counted"
-  },
-  {
-   "art": "an",
-   "ziel": "haus.june_lampe",
-   "start": 68.9,
-   "dauer": 0,
-   "quelle": "auto:35:counted"
-  },
-  {
-   "art": "an",
-   "ziel": "haus.eli_lampe",
-   "start": 68.9,
-   "dauer": 0,
-   "quelle": "auto:35:counted"
-  },
-  {
-   "art": "an",
-   "ziel": "haus.flur_lampe",
-   "start": 68.9,
-   "dauer": 0,
-   "quelle": "auto:35:counted"
-  },
-  {
-   "art": "an",
-   "ziel": "umgebung",
-   "start": 68.9,
-   "dauer": 0,
-   "quelle": "auto:35:counted"
-  },
-  {
-   "art": "an",
-   "ziel": "strasse.*",
-   "start": 70.5,
+   "start": 75.8,
    "dauer": 0,
    "quelle": "auto:36"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 70.5,
+   "start": 75.8,
    "dauer": 0,
    "quelle": "auto:36"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 70.5,
+   "start": 75.8,
    "dauer": 0,
    "quelle": "auto:36"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 70.5,
+   "start": 75.8,
    "dauer": 0,
    "quelle": "auto:36"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 70.5,
+   "start": 75.8,
    "dauer": 0,
    "quelle": "auto:36"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 70.5,
+   "start": 75.8,
    "dauer": 0,
    "quelle": "auto:36"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 70.5,
+   "start": 75.8,
    "dauer": 0,
    "quelle": "auto:36"
   },
   {
-   "art": "aus",
-   "ziel": "strasse.*",
-   "start": 71.5333,
-   "dauer": 0,
-   "quelle": "auto:37"
-  },
-  {
-   "art": "aus",
-   "ziel": "marsh.*",
-   "start": 71.5333,
-   "dauer": 0,
-   "quelle": "auto:37"
-  },
-  {
-   "art": "aus",
-   "ziel": "haus.kueche_lampe",
-   "start": 71.5333,
-   "dauer": 0,
-   "quelle": "auto:37"
-  },
-  {
-   "art": "aus",
-   "ziel": "haus.june_lampe",
-   "start": 71.5333,
-   "dauer": 0,
-   "quelle": "auto:37"
-  },
-  {
-   "art": "aus",
-   "ziel": "haus.eli_lampe",
-   "start": 71.5333,
-   "dauer": 0,
-   "quelle": "auto:37"
-  },
-  {
-   "art": "aus",
-   "ziel": "haus.flur_lampe",
-   "start": 71.5333,
-   "dauer": 0,
-   "quelle": "auto:37"
-  },
-  {
-   "art": "an",
-   "ziel": "umgebung",
-   "start": 71.5333,
-   "dauer": 0,
-   "quelle": "auto:37"
-  },
-  {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 72.4667,
+   "start": 78.0333,
    "dauer": 0,
    "quelle": "auto:38"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 72.4667,
+   "start": 78.0333,
    "dauer": 0,
    "quelle": "auto:38"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 72.4667,
+   "start": 78.0333,
    "dauer": 0,
    "quelle": "auto:38"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 72.4667,
+   "start": 78.0333,
    "dauer": 0,
    "quelle": "auto:38"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 72.4667,
+   "start": 78.0333,
    "dauer": 0,
    "quelle": "auto:38"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 72.4667,
+   "start": 78.0333,
    "dauer": 0,
    "quelle": "auto:38"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 72.4667,
+   "start": 78.0333,
    "dauer": 0,
    "quelle": "auto:38"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 74.0667,
+   "start": 79.4,
    "dauer": 0,
-   "quelle": "auto:40"
+   "quelle": "auto:39"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 74.0667,
+   "start": 79.4,
    "dauer": 0,
-   "quelle": "auto:40"
+   "quelle": "auto:39"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 74.0667,
+   "start": 79.4,
    "dauer": 0,
-   "quelle": "auto:40"
+   "quelle": "auto:39"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 74.0667,
+   "start": 79.4,
    "dauer": 0,
-   "quelle": "auto:40"
+   "quelle": "auto:39"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 74.0667,
+   "start": 79.4,
    "dauer": 0,
-   "quelle": "auto:40"
+   "quelle": "auto:39"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 74.0667,
+   "start": 79.4,
    "dauer": 0,
-   "quelle": "auto:40"
+   "quelle": "auto:39"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 74.0667,
+   "start": 79.4,
    "dauer": 0,
-   "quelle": "auto:40"
-  },
-  {
-   "art": "an",
-   "ziel": "strasse.*",
-   "start": 75.8667,
-   "dauer": 0,
-   "quelle": "auto:41"
-  },
-  {
-   "art": "an",
-   "ziel": "marsh.*",
-   "start": 75.8667,
-   "dauer": 0,
-   "quelle": "auto:41"
-  },
-  {
-   "art": "an",
-   "ziel": "haus.kueche_lampe",
-   "start": 75.8667,
-   "dauer": 0,
-   "quelle": "auto:41"
-  },
-  {
-   "art": "an",
-   "ziel": "haus.june_lampe",
-   "start": 75.8667,
-   "dauer": 0,
-   "quelle": "auto:41"
-  },
-  {
-   "art": "an",
-   "ziel": "haus.eli_lampe",
-   "start": 75.8667,
-   "dauer": 0,
-   "quelle": "auto:41"
-  },
-  {
-   "art": "an",
-   "ziel": "haus.flur_lampe",
-   "start": 75.8667,
-   "dauer": 0,
-   "quelle": "auto:41"
-  },
-  {
-   "art": "an",
-   "ziel": "umgebung",
-   "start": 75.8667,
-   "dauer": 0,
-   "quelle": "auto:41"
+   "quelle": "auto:39"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 77.1667,
+   "start": 81.2333,
    "dauer": 0,
-   "quelle": "auto:42"
+   "quelle": "auto:40"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 77.1667,
+   "start": 81.2333,
    "dauer": 0,
-   "quelle": "auto:42"
+   "quelle": "auto:40"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 77.1667,
+   "start": 81.2333,
    "dauer": 0,
-   "quelle": "auto:42"
+   "quelle": "auto:40"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 77.1667,
+   "start": 81.2333,
    "dauer": 0,
-   "quelle": "auto:42"
+   "quelle": "auto:40"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 77.1667,
+   "start": 81.2333,
    "dauer": 0,
-   "quelle": "auto:42"
+   "quelle": "auto:40"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 77.1667,
+   "start": 81.2333,
    "dauer": 0,
-   "quelle": "auto:42"
+   "quelle": "auto:40"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 77.1667,
+   "start": 81.2333,
    "dauer": 0,
-   "quelle": "auto:42"
+   "quelle": "auto:40"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 79.3,
+   "start": 83.1667,
    "dauer": 0,
-   "quelle": "auto:43"
+   "quelle": "auto:41"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 79.3,
+   "start": 83.1667,
    "dauer": 0,
-   "quelle": "auto:43"
+   "quelle": "auto:41"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 79.3,
+   "start": 83.1667,
    "dauer": 0,
-   "quelle": "auto:43"
+   "quelle": "auto:41"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 79.3,
+   "start": 83.1667,
    "dauer": 0,
-   "quelle": "auto:43"
+   "quelle": "auto:41"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 79.3,
+   "start": 83.1667,
    "dauer": 0,
-   "quelle": "auto:43"
+   "quelle": "auto:41"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 79.3,
+   "start": 83.1667,
    "dauer": 0,
-   "quelle": "auto:43"
+   "quelle": "auto:41"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 79.3,
+   "start": 83.1667,
    "dauer": 0,
-   "quelle": "auto:43"
+   "quelle": "auto:41"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 81.1333,
+   "start": 84.5667,
    "dauer": 0,
-   "quelle": "auto:44"
+   "quelle": "auto:42"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 81.1333,
+   "start": 84.5667,
    "dauer": 0,
-   "quelle": "auto:44"
+   "quelle": "auto:42"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 81.1333,
+   "start": 84.5667,
    "dauer": 0,
-   "quelle": "auto:44"
+   "quelle": "auto:42"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 81.1333,
+   "start": 84.5667,
    "dauer": 0,
-   "quelle": "auto:44"
+   "quelle": "auto:42"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 81.1333,
+   "start": 84.5667,
    "dauer": 0,
-   "quelle": "auto:44"
+   "quelle": "auto:42"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 81.1333,
+   "start": 84.5667,
    "dauer": 0,
-   "quelle": "auto:44"
+   "quelle": "auto:42"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 81.1333,
+   "start": 84.5667,
    "dauer": 0,
-   "quelle": "auto:44"
+   "quelle": "auto:42"
   },
   {
    "art": "an",
-   "ziel": "strasse.*",
-   "start": 82.5333,
-   "dauer": 0,
-   "quelle": "auto:44:slow"
-  },
-  {
-   "art": "an",
-   "ziel": "marsh.*",
-   "start": 82.5333,
-   "dauer": 0,
-   "quelle": "auto:44:slow"
-  },
-  {
-   "art": "an",
-   "ziel": "haus.kueche_lampe",
-   "start": 82.5333,
-   "dauer": 0,
-   "quelle": "auto:44:slow"
-  },
-  {
-   "art": "an",
-   "ziel": "haus.june_lampe",
-   "start": 82.5333,
-   "dauer": 0,
-   "quelle": "auto:44:slow"
-  },
-  {
-   "art": "an",
-   "ziel": "haus.eli_lampe",
-   "start": 82.5333,
-   "dauer": 0,
-   "quelle": "auto:44:slow"
-  },
-  {
-   "art": "an",
-   "ziel": "haus.flur_lampe",
-   "start": 82.5333,
-   "dauer": 0,
-   "quelle": "auto:44:slow"
-  },
-  {
-   "art": "an",
-   "ziel": "umgebung",
-   "start": 82.5333,
-   "dauer": 0,
-   "quelle": "auto:44:slow"
-  },
-  {
-   "art": "aus",
-   "ziel": "strasse.*",
-   "start": 83.8,
-   "dauer": 0,
-   "quelle": "auto:45"
-  },
-  {
-   "art": "aus",
-   "ziel": "marsh.*",
-   "start": 83.8,
-   "dauer": 0,
-   "quelle": "auto:45"
-  },
-  {
-   "art": "aus",
-   "ziel": "haus.kueche_lampe",
-   "start": 83.8,
-   "dauer": 0,
-   "quelle": "auto:45"
-  },
-  {
-   "art": "aus",
-   "ziel": "haus.june_lampe",
-   "start": 83.8,
-   "dauer": 0,
-   "quelle": "auto:45"
-  },
-  {
-   "art": "aus",
-   "ziel": "haus.eli_lampe",
-   "start": 83.8,
-   "dauer": 0,
-   "quelle": "auto:45"
-  },
-  {
-   "art": "aus",
-   "ziel": "haus.flur_lampe",
-   "start": 83.8,
-   "dauer": 0,
-   "quelle": "auto:45"
-  },
-  {
-   "art": "an",
-   "ziel": "umgebung",
-   "start": 83.8,
-   "dauer": 0,
-   "quelle": "auto:45"
-  },
-  {
-   "art": "aus",
    "ziel": "strasse.*",
    "start": 85.9333,
+   "dauer": 0,
+   "quelle": "auto:42:slow"
+  },
+  {
+   "art": "an",
+   "ziel": "marsh.*",
+   "start": 85.9333,
+   "dauer": 0,
+   "quelle": "auto:42:slow"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.kueche_lampe",
+   "start": 85.9333,
+   "dauer": 0,
+   "quelle": "auto:42:slow"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
+   "start": 85.9333,
+   "dauer": 0,
+   "quelle": "auto:42:slow"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.eli_lampe",
+   "start": 85.9333,
+   "dauer": 0,
+   "quelle": "auto:42:slow"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.flur_lampe",
+   "start": 85.9333,
+   "dauer": 0,
+   "quelle": "auto:42:slow"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 85.9333,
+   "dauer": 0,
+   "quelle": "auto:42:slow"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 87.3333,
+   "dauer": 0,
+   "quelle": "auto:43"
+  },
+  {
+   "art": "aus",
+   "ziel": "marsh.*",
+   "start": 87.3333,
+   "dauer": 0,
+   "quelle": "auto:43"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 87.3333,
+   "dauer": 0,
+   "quelle": "auto:43"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.june_lampe",
+   "start": 87.3333,
+   "dauer": 0,
+   "quelle": "auto:43"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.eli_lampe",
+   "start": 87.3333,
+   "dauer": 0,
+   "quelle": "auto:43"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.flur_lampe",
+   "start": 87.3333,
+   "dauer": 0,
+   "quelle": "auto:43"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 87.3333,
+   "dauer": 0,
+   "quelle": "auto:43"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 89.6333,
    "dauer": 0,
    "quelle": "auto:endkarte"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 85.9333,
+   "start": 89.6333,
    "dauer": 0,
    "quelle": "auto:endkarte"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 85.9333,
+   "start": 89.6333,
    "dauer": 0,
    "quelle": "auto:endkarte"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 85.9333,
+   "start": 89.6333,
    "dauer": 0,
    "quelle": "auto:endkarte"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 85.9333,
+   "start": 89.6333,
    "dauer": 0,
    "quelle": "auto:endkarte"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 85.9333,
+   "start": 89.6333,
    "dauer": 0,
    "quelle": "auto:endkarte"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 85.9333,
+   "start": 89.6333,
    "dauer": 0,
    "quelle": "auto:endkarte"
   }

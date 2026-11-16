@@ -11,6 +11,12 @@
 //   - Gesichter an Schlüsselstellen von vorn (Eli am Vorhang, Junes Sätze, Eli steigt in die Luke)
 //   - Monster mit Kantenlicht (im Modul), Leitmotiv-Requisiten (Schuhe, Luke, Fußspuren) groß und lesbar
 //
+// Neuaufnahme vom 16.11.2026 (44 statt 46 Sätze, Text aus REVIEW.md): Die Schlüssel unten sind auf die
+// neuen Satznummern umgestellt (Zuordnung alt → neu in bildideen.json unter "neuer_text"). Neu gebaut sind
+// 22:something und 23 (das Klopfen an Junes Fenster), 25 (Owens Pick-up), 26:who hid her (Rückblende),
+// 31 und 31:could (June drückt Eli in die Luke). Angepasst: 11 (Odell vorn), 13 (seine Glocke), 20 (die
+// stille Menge aus dem gestrichenen „Nobody laughed“). Die alte Fassung liegt in build/folge-02/alt-46-saetze/.
+//
 // Koordinaten: 1 m, y oben. Straße entlang z (Platz im Norden bei z < −42, Nebel im Süden bei z > 44),
 // Hausfronten bei x = ±12. Das Marsh-Haus steht bei x −12 … −21, z −5 … +5 (Front zur Straße, +x).
 // Figuren schauen bei blick 0 nach +z; Kamera-blick: azimut 0 = Kamera auf der +z-Seite des Ziels.
@@ -35,7 +41,16 @@ const ORT = {
   // Sohle viele Lichtstreifen (Review Teil 2: längs der Fugen las sich nichts)
   kellerMonster: kw(-0.45, 1.032, -0.45),
   kellerLuke: kw(0.45, 1.016, -0.40),   // Requisite luke_k an Anker keller.luke_angel
+  // vor Junes Seitenfenster (Fenster außen bei [-18.6, 2.2, 5.05], Unterkante 1,55 m, Sturz 2,85 m): die Füße
+  // 3,6 m vor der Wand, der waagrecht gebeugte Rumpf reicht bis an die Scheibe (Sätze 22–23)
+  // y 0,37: vorbeugen senkt die Hüfte bei 60° Kniebeuge um 0,8 m, die Beine werden aber nur um 0,43 m
+  // kürzer (Oberschenkel −30°, Unterschenkel +60°); ohne Ausgleich stünden die Füße im Boden
+  monsterJuneFenster: [-18.6, 0.37, 8.65],
 };
+// Mister Hundred tief gebeugt vor Junes Fenster: der Rumpf neigt sich etwas über die Waagrechte, die Knie
+// geben nach, der Kopf ist wieder angehoben. So liegen die Hände vor dem Gesicht mitten an der Scheibe
+// (Erprobt im Probebild: mit 84° und Knie 48° lagen sie 0,4 m über dem Fenstersturz)
+const BEUGEN_FENSTER = { pose: 'vorbeugen', pose_params: { winkel: 100, kopf_ausgleich: 88, knie: 60 } };
 
 export const titel = 'Hiding Night – Teil 2';
 export const seed = 2612;
@@ -62,6 +77,8 @@ export const figuren = [
   { id: 'eli2', modul: 'eli', params: { rucksack: true }, gesicht: 'entschlossen' },   // mit Rucksack (Sätze 26, 29)
   { id: 'june', modul: 'june', params: { barfuss: true }, gesicht: 'neutral' },        // zu Hause: barfuß (Hinweis fürs Wiederansehen)
   { id: 'june2', modul: 'june', gesicht: 'besorgt' },                                  // auf dem Platz, mit Schuhen
+  { id: 'june18', modul: 'june', params: { rueckblende: true }, gesicht: 'besorgt' },  // Rückblende: June mit 18, Haare offen (Satz 26)
+  { id: 'dad', modul: 'dad', gesicht: 'entschlossen' },                                // Rückblende vor sechs Jahren (Satz 26)
   { id: 'tess', modul: 'tess', gesicht: 'grinsen' },
   { id: 'odell', modul: 'odell', gesicht: 'streng' },
   // Review Teil 2: Ellbogen etwas tiefer und kürzere Spitzen (in der Untersicht lasen sich Ellbogen und
@@ -88,7 +105,7 @@ export const figuren = [
   { id: 'tuer_june', modul: 'tuer', params: { breite: 0.95, hoehe: 2.12, farbe: '#ece6da', rahmenFarbe: '#d8d0c0', anschlag: 'links' } },
   { id: 'luke_tp', modul: 'luke', params: { teppich: true } },
   { id: 'luke_k', modul: 'luke', params: { teppich: false, groesse: [0.8, 0.8] } },
-  { id: 'pk2', modul: 'pickup', params: { stiefel: true, scheinwerfer: true } },
+  { id: 'pk2', modul: 'pickup', params: { stiefel: true, scheinwerfer: false } },   // Morgenlicht: Scheinwerfer blendeten
   { id: 'sp_eli_a', modul: 'schuhpaar', params: { art: 'eli' } },
   { id: 'sp_eli_b', modul: 'schuhpaar', params: { art: 'eli', ordnung: 'schief' } },
   { id: 'sp_eli_c', modul: 'schuhpaar', params: { art: 'eli' } },                    // das Omen: nebeneinander
@@ -181,7 +198,8 @@ export const einstellungen = {
     set: ['strasse', 'haus', 'spur'],
     figuren: { eli: { position: ORT.eliFenster, blick: 90, gesicht: 'angst' }, vorhang: { position: ORT.vorhang, blick: -90 }, ...MH(ORT.monsterGarten, -90) },
     // Review Teil 2: nach dem Zuziehen sah man 1 s nur Vorhang; jetzt steht Eli mit Schulter und Hand vorn im Bild
-    kamera: { ziel: { anker: 'mh.haende', versatz: [0, -0.6, 0] }, pos: [-13.3, 5.55, 3.05], fov: 52, rate: 0.07, zusaetze: [{ baustein: 'shake', wort: 'yanked', staerke: 1 }] },
+    // Neubau: Kamera 0,6 m weiter hinter Eli, sonst stand sein Kopf neben dem Bild (Kompositionsprüfung x −1344)
+    kamera: { ziel: { anker: 'mh.haende', versatz: [0, -0.6, 0] }, pos: [-13.9, 5.75, 2.85], fov: 52, rate: 0.07, zusaetze: [{ baustein: 'shake', wort: 'yanked', staerke: 1 }] },
     licht_anpassung: KALT_INNEN,
     neben: [{ wer: 'eli', was: 'greifen', ab: 'start', dauer: 0.12, params: { zu: 'vorhang.griff_r', seite: 'r', form: 'faust' } }],
     haupt: { wer: 'vorhang', was: 'zuziehen', wort: 'yanked' },
@@ -308,10 +326,12 @@ export const einstellungen = {
   },
 
   // ───────── Die Stadt um elf ─────────
-  // "At eleven, the town walked me and" – Seitenfahrt am Laternenzug entlang
+  // "At eleven, Mr. Odell walked me and" – Seitenfahrt am Laternenzug entlang. Neu: Mr. Odell geht vorn
+  // (Brille, langer Mantel), damit „his bell“ in Satz 13 lesbar ist; die Kamera steht vor dem Zug
   '11': {
     uhr: '11:00',
     figuren: {
+      odell: { position: [1.9, 0, -21.3], blick: 180, gesicht: 'streng' },
       eli: { position: [0.4, 0, -19.0], blick: 180, gesicht: 'besorgt' },
       june2: { position: [-0.5, 0, -19.4], blick: 180, gesicht: 'besorgt' },
       tess: { position: [1.4, 0, -18.5], blick: 180, gesicht: 'grinsen' },
@@ -319,15 +339,16 @@ export const einstellungen = {
       nb_frau: { position: [-1.1, 0, -21.5], blick: 180 }, nb_alt: { position: [1.4, 0, -22.4], blick: 180 },
       nb_passant: { position: [-2.4, 0, -19.9], blick: 180 }, nb_alt2: { position: [0.2, 0, -16.9], blick: 180 },
     },
-    kamera: { baustein: 'truck_side', pos: [4.4, 1.7, -25.2], ziel: [0.2, 1.3, -19.8], fov: 50, richtung: 'rechts', strecke: 2.0, vordergrund: false },
+    kamera: { baustein: 'truck_side', pos: [4.4, 1.7, -25.2], ziel: [1.2, 1.15, -21.4], fov: 50, richtung: 'rechts', strecke: 2.0, vordergrund: false },
     licht_anpassung: NACHT_HELL,
     neben: [
+      geh('odell', [1.9, 0, -21.3], -2.0, 1.6),
       geh('eli', [0.4, 0, -19.0], -2.1, 1.6), geh('june2', [-0.5, 0, -19.4], -2.1, 1.6), geh('tess', [1.4, 0, -18.5], -2.2, 1.6),
       geh('nb_ohren', [-1.7, 0, -17.6], -2.0, 1.6), geh('nb_mantel', [2.3, 0, -20.6], -2.0, 1.6), geh('nb_frau', [-1.1, 0, -21.5], -2.1, 1.6),
       geh('nb_alt', [1.4, 0, -22.4], -1.8, 1.6), geh('nb_passant', [-2.4, 0, -19.9], -2.0, 1.6), geh('nb_alt2', [0.2, 0, -16.9], -2.1, 1.6),
     ],
-    haupt: { art: 'kamera', wort: 'town' },
-    hauptsache: 'eli.kopf',
+    haupt: { art: 'kamera', wort: 'Odell' },
+    hauptsache: 'odell.kopf',
   },
   // "Tess Lowry to the square." – Tess im Zug, sie schaut grinsend zu Eli
   '11:Tess': {
@@ -363,36 +384,38 @@ export const einstellungen = {
     haupt: { art: 'kamera', wort: 'apart' },
     hauptsache: 'sp_v2.mitte',
   },
-  // "Side by side is all it leaves." – am Morgen: ein graues Paar nebeneinander auf einer leeren Veranda
-  '13': {
+  // "side by side is all it leaves." – am Morgen danach (entsättigt): ein graues Paar nebeneinander auf
+  // einer leeren Veranda. Neu: Teil von Satz 12 (früher eigener Satz 13)
+  '12:side': {
     figuren: { sp_grau: { position: [10.9, SO, 8.0], blick: -90 } },
     kamera: { ziel: 'sp_grau.mitte', blick: { azimut: -55, hoehe: 20, abstand: 1.3 }, fov: 38, rate: 0.07 },
     licht_anpassung: { belichtung: 1.25 },
-    haupt: { art: 'kamera', wort: 'Side' },
+    haupt: { art: 'kamera', wort: 'side' },
     hauptsache: 'sp_grau.mitte',
   },
-  // "Mr. Odell rings the midnight bell," – Odell vor der Kirche schaut zum Turm, oben schwingt die Glocke
-  '14': {
+  // "At midnight, his bell" – Odell vor der Kirche schaut zum Turm hinauf, auf „bell“ schwingt oben seine
+  // Glocke (Hauptaktion; „his bell“ = Odells Glocke, darum Odell im Bild)
+  '13': {
     uhr: '11:00',
     figuren: { odell: { position: ORT.odell, blick: 0, gesicht: 'streng' } },
     kamera: { ziel: { anker: 'odell.kopf', versatz: [0, -0.3, 0] }, pos: [2.7, 1.25, -54.4], fov: 46, rate: 0.07 },
     licht_anpassung: NACHT_HELL,
-    haupt: { wer: 'odell', was: 'kopf_drehen', wort: 'Odell', dauer: 0.4, params: { winkel: 12, nicken: -45 } },
-    set_ereignisse: [{ set: 'strasse', was: 'glocke', wort: 'bell' }],
+    neben: [{ wer: 'odell', was: 'kopf_drehen', wort: 'midnight', dauer: 0.4, params: { winkel: 12, nicken: -45 } }],
+    haupt: { art: 'set', set: 'strasse', was: 'glocke', wort: 'bell' },
     hauptsache: 'odell.kopf',
   },
-  // "and it starts counting." – Rückgriff auf Teil 1: am Platzende zählt es, kaltes Licht durch die Finger
-  '14:and it starts': {
+  // "starts the count." – Rückgriff auf Teil 1: am Platzende zählt es, kaltes Licht durch die Finger
+  '13:starts': {
     figuren: MH(ORT.monsterPlatz, 0),
     kamera: { ziel: { anker: 'mh.brust', versatz: [0, 0.6, 0] }, pos: [-6.0, 1.3, -44.0], fov: 48, rate: 0.07 },
     // Review Teil 2: als „so ist es jedes Jahr“ erkennbar machen (entsättigt wie die Rückblenden), sonst
     // glaubt man bei 30 s, Mitternacht sei schon gewesen; Mantel dunkel, nur die Kante hell
     licht_anpassung: { haupt: { richtung: [-0.45, 0.55, 0.7], staerke: 2.4 }, belichtung: 1.6, grade: { saettigung: 0.6, kontrast: 1.06 } },
-    haupt: { wer: 'mh', was: 'zaehlen', wort: 'counting', dauer: 0.8, params: { takt: 0.4 } },
+    haupt: { wer: 'mh', was: 'zaehlen', wort: 'count', dauer: 0.55, params: { takt: 0.4 } },
     hauptsache: 'mh.haende',
   },
   // "Only the sunrise bell" – im ersten Morgenlicht am Kirchturm hinauf bis zur Glocke
-  '15': {
+  '14': {
     uhr: '6:10',
     kamera: { baustein: 'tilt_up', von_ziel: 'strasse.kirche_tuer', ziel: 'strasse.glocke', pos: [3.6, 1.6, -46.5], ankunft_wort: 'bell', kran: 1.2, fov: 56 },
     licht_anpassung: { belichtung: 1.2 },
@@ -400,8 +423,8 @@ export const einstellungen = {
     haupt: { art: 'kamera', wort: 'bell' },
     hauptsache: 'strasse.glocke',
   },
-  // "ends Hiding Night." – von hinten: der Riese stapft gegen die aufgehende Sonne in den Nebel
-  '15:ends': {
+  // "ends it." – von hinten: der Riese stapft gegen die aufgehende Sonne in den Nebel
+  '14:ends': {
     figuren: MH([0.4, 0, 48.5], 0),
     kamera: { ziel: { anker: 'mh.brust', versatz: [0, -0.6, 0] }, pos: [1.7, 0.7, 37.0], fov: 52, rate: 0.07 },
     licht_anpassung: { kante: { staerke: 1.8, farbe: '#ffc8a0' }, belichtung: 1.2 },
@@ -410,8 +433,8 @@ export const einstellungen = {
   },
 
   // ───────── Odell und June ─────────
-  // "Mr. Odell turned to June." – Odell dreht sich von Eli weg zu June
-  '16': {
+  // "Odell looked at June." – Odell dreht sich von Eli weg zu June
+  '15': {
     uhr: '11:00',
     figuren: {
       odell: { position: [1.2, 0, -57.0], blick: 25, gesicht: 'streng' },
@@ -425,37 +448,30 @@ export const einstellungen = {
     gesichter: [{ wer: 'odell', name: 'warnend', wort: 'June' }],
     hauptsache: 'june2.kopf',
   },
-  // "It takes the helper too." – Odell zeigt auf June (Mundformen)
-  '17': {
+  // "It takes whoever helps." – Odell zeigt auf June (Mundformen)
+  '16': {
     uhr: '11:00',
     figuren: { odell: { position: [1.2, 0, -57.0], blick: -72, gesicht: 'warnend' }, june2: { position: [-0.85, 0, -56.3], blick: 110, gesicht: 'besorgt' } },
     kamera: { ziel: { anker: 'odell.kopf', versatz: [0, -0.2, 0] }, blick: { azimut: -50, hoehe: 3, abstand: 2.2 }, fov: 40, rate: 0.07 },
     licht_anpassung: NACHT_HELL,
-    haupt: { wer: 'odell', was: 'zeigen', wort: 'helper', params: { zu: 'june2.kopf', seite: 'r' } },
+    haupt: { wer: 'odell', was: 'zeigen', wort: 'helps', params: { zu: 'june2.kopf', seite: 'r' } },
     mund: { wer: 'odell', miene: 'warnend' },
     hauptsache: 'odell.kopf',
   },
-  // "So why are you still here?" – Bogenfahrt über Odells Schulter auf June
-  '18': {
+  // "So why are you still here?" – Bogenfahrt über Odells Schulter auf June. Neu: Junes Schweigen (das
+  // gestrichene „June didn't answer.“) steckt hier: auf „here“ wird ihr Blick fest
+  '17': {
     uhr: '11:00',
     figuren: { odell: { position: [1.2, 0, -57.0], blick: -72, gesicht: 'warnend', pose: 'zeigen', pose_params: { zu: [-0.85, 1.6, -56.3], seite: 'r' } }, june2: { position: [-0.85, 0, -56.3], blick: 110, gesicht: 'besorgt' } },
     kamera: { baustein: 'orbit', ziel: { anker: 'june2.kopf', versatz: [0, -0.15, 0] }, blick: { azimut: 68, hoehe: 4, abstand: 3.3 }, grad_pro_s: 18, fov: 40 },
     licht_anpassung: NACHT_HELL,
     haupt: { art: 'kamera', wort: 'still' },
     mund: { wer: 'odell', miene: 'warnend' },
-    hauptsache: 'june2.kopf',
-  },
-  // "June didn't answer." – June hält seinem Blick stand
-  '19': {
-    uhr: '11:00',
-    figuren: { june2: { position: [-0.85, 0, -56.3], blick: 110, gesicht: 'besorgt' } },
-    kamera: { ziel: { anker: 'june2.kopf', versatz: [0, -0.15, 0] }, blick: { azimut: 118, hoehe: 2, abstand: 1.8 }, fov: 38, rate: 0.05 },
-    licht_anpassung: NACHT_HELL,
-    haupt: { art: 'gesicht', wer: 'june2', name: 'entschlossen', wort: 'answer' },
+    gesichter: [{ wer: 'june2', name: 'entschlossen', wort: 'here' }],
     hauptsache: 'june2.kopf',
   },
   // "Tess grinned." – Tess grinst in die Stille
-  '20': {
+  '18': {
     uhr: '11:00',
     figuren: { tess: { position: [2.1, 0, -55.4], blick: -40, gesicht: 'nervoes' } },
     kamera: { ziel: { anker: 'tess.kopf', versatz: [0, -0.15, 0] }, blick: { azimut: -25, hoehe: 3, abstand: 1.8 }, fov: 40, rate: 0.07 },
@@ -464,7 +480,7 @@ export const einstellungen = {
     hauptsache: 'tess.kopf',
   },
   // "Last game of hide and seek, huh?" – Tess hält sich zum Spaß die Hände vors Gesicht
-  '21': {
+  '19': {
     uhr: '11:00',
     figuren: { tess: { position: [2.1, 0, -55.4], blick: -40, gesicht: 'grinsen' }, nb_jung: { position: [3.5, 0, -54.1], blick: -100, gesicht: 'nervoes' } },
     kamera: { ziel: { anker: 'tess.kopf', versatz: [0.1, -0.3, 0] }, blick: { azimut: -18, hoehe: 4, abstand: 2.7 }, fov: 44, rate: 0.07 },
@@ -473,40 +489,25 @@ export const einstellungen = {
     mund: { wer: 'tess', miene: 'grinsen' },
     hauptsache: 'tess.kopf',
   },
-  // "Nobody laughed." – die Menge starrt Tess an, die Blicke sinken
-  '22': {
+  // "She'd hide in the bell tower," – Tess steigt die Kirchenstufen hinauf zur Turmtür. Neu: im Vordergrund
+  // sieht ihr die Menge schweigend nach (das Bild des gestrichenen „Nobody laughed.“). Die Kamera steht
+  // hinter den Erwachsenen und etwas über ihren Köpfen; links und rechts bleibt eine Gasse zu Tess frei
+  '20': {
     uhr: '11:00',
-    // Review Teil 2: 8–12 Erwachsene im Halbkreis, alle Blicke auf Tess (die Kamera steht an ihrer Stelle);
-    // eng in drei Reihen, damit sie im schmalen Hochformat alle im Bild stehen
     figuren: {
-      nb_frau: { position: [0.2, 0, -52.6], blick: 180, gesicht: 'besorgt' }, nb_mantel: { position: [-1.2, 0, -52.3], blick: 168, gesicht: 'besorgt' },
-      nb_alt: { position: [1.5, 0, -52.2], blick: 192, gesicht: 'besorgt' }, odell: { position: [-0.6, 0, -53.4], blick: 175, gesicht: 'streng' },
-      nb_ohren: { position: [2.3, 0, -51.2], blick: 198, gesicht: 'besorgt' }, nb_passant: { position: [-2.0, 0, -51.1], blick: 160, gesicht: 'ernst' },
-      nb_6: { position: [-0.6, 0, -51.0], blick: 176, gesicht: 'besorgt' }, nb_7: { position: [0.9, 0, -50.8], blick: 186, gesicht: 'ernst' },
-      nb_8: { position: [-1.5, 0, -49.8], blick: 170, gesicht: 'besorgt' }, nb_9: { position: [1.8, 0, -49.7], blick: 190, gesicht: 'ernst' },
-      nb_10: { position: [0.2, 0, -49.5], blick: 180, gesicht: 'besorgt' }, nb_alt2: { position: [-2.6, 0, -50.0], blick: 165, gesicht: 'besorgt' },
+      tess: { position: [0.3, 0, -57.4], blick: 180, gesicht: 'grinsen' }, odell: { position: [1.0, 0, -56.3], blick: 190, gesicht: 'streng' },
+      nb_frau: { position: [-0.55, 0, -55.3], blick: 172, gesicht: 'besorgt' }, nb_mantel: { position: [1.35, 0, -55.1], blick: 192, gesicht: 'besorgt' },
+      nb_alt: { position: [-1.2, 0, -56.2], blick: 165, gesicht: 'besorgt' }, nb_6: { position: [2.0, 0, -56.0], blick: 200, gesicht: 'besorgt' },
+      nb_9: { position: [0.45, 0, -54.4], blick: 178, gesicht: 'ernst' },
     },
-    kamera: { pos: [0.3, 1.75, -56.4], ziel: [0.1, 1.35, -51.2], fov: 58, rate: 0.06 },
-    licht_anpassung: NACHT_HELL,
-    haupt: { art: 'gesicht', wer: 'nb_frau', name: 'blick_gesenkt', wort: 'Nobody' },
-    gesichter: [
-      { wer: 'nb_mantel', name: 'blick_gesenkt', wort: 'laughed' },
-      { wer: 'nb_alt', name: 'blick_gesenkt', wort: 'laughed', versatz: 0.1 },
-    ],
-    hauptsache: 'nb_frau.kopf',
-  },
-  // "She'd hide in the bell tower," – Tess steigt die Kirchenstufen hinauf zur Turmtür
-  '23': {
-    uhr: '11:00',
-    figuren: { tess: { position: [0.3, 0, -57.4], blick: 180, gesicht: 'grinsen' }, odell: { position: [2.4, 0, -56.6], blick: -120, gesicht: 'streng' } },
-    kamera: { ziel: { anker: 'tess.kopf', versatz: [0, -0.2, 0] }, pos: [2.2, 1.1, -53.6], fov: 48, rate: 0.07 },
+    kamera: { ziel: { anker: 'tess.kopf', versatz: [0, -0.45, 0] }, pos: [0.9, 2.3, -51.6], fov: 50, rate: 0.07 },
     licht_anpassung: NACHT_HELL,
     haupt: { wer: 'tess', was: 'gehen', wort: 'tower', anker: 'ende', dauer: 0.74, ease: 'linear', params: { nach: [0.25, -59.2] } },
     neben: [{ wer: 'tess', was: 'klettern', wort: 'tower', anker: 'ende', dauer: 0.74, ease: 'linear', params: { hoehe: 0.8, arme: false } }],
     hauptsache: 'tess.kopf',
   },
   // "higher than any window." – Tilt am Turm hoch: die Schallluken über allen oberen Fenstern
-  '23:higher': {
+  '20:higher': {
     uhr: '11:00',
     // Review Teil 2: das Straßenschild bei x −4,4 stand vor der Linse, und kein Haus gab den Größenvergleich.
     // Jetzt vom Gehweg vor der linken Häuserzeile: deren obere Fenster stehen im Bild, der Turm darüber
@@ -518,7 +519,7 @@ export const einstellungen = {
 
   // ───────── Omen ─────────
   // "At home, I kicked my" – Eli tritt im Flur die Turnschuhe auseinander
-  '24': {
+  '21': {
     figuren: {
       eli: { position: [-13.55, SO, -1.45], blick: -118, gesicht: 'entschlossen' },
       sp_eli_a: { position: [-13.82, SO, -1.62], blick: -118 },
@@ -536,34 +537,69 @@ export const einstellungen = {
     hauptsache: 'eli.brust',
   },
   // "sneakers apart in the hall." – Elis Turnschuhe liegen auseinander
-  '24:sneakers': {
+  '21:sneakers': {
     figuren: { sp_eli_b: { position: [-14.25, SO, -1.95], blick: 160 } },
     kamera: { ziel: 'sp_eli_b.mitte', blick: { azimut: 60, hoehe: 40, abstand: 1.35 }, fov: 42, rate: 0.07 },
     licht_anpassung: { belichtung: 1.25 },
     haupt: { art: 'kamera', wort: 'apart' },
     hauptsache: 'sp_eli_b.mitte',
   },
-  // "I packed for the woods." – Eli stopft die Taschenlampe in den Rucksack
-  '25': {
+  // "While I packed," – Eli greift am Bett die Taschenlampe für den Rucksack (früher „I packed for the woods.“)
+  '22': {
     // Review Teil 2: die Kamera stand hinter Elis Kopf. Jetzt steht er am Bett und greift die Taschenlampe,
     // Dreiviertel von vorn (Kamera an der Fensterseite des Zimmers)
     figuren: { eli: { position: [-14.85, OG, 3.3], blick: -90, gesicht: 'entschlossen' } },
     kamera: { ziel: { anker: 'eli.kopf', versatz: [0, -0.4, 0] }, pos: [-15.55, OG + 1.5, 1.35], fov: 52, rate: 0.07 },
     licht_anpassung: { belichtung: 1.2 },
-    haupt: { wer: 'eli', was: 'greifen', wort: 'woods', anker: 'ende', params: { zu: [-15.55, OG + 0.62, 3.35], seite: 'r', lehnen: false } },
+    // die Einstellung dauert nur 0,83 s: der Griff beginnt auf „packed“ und ist vor dem Schnitt fertig
+    haupt: { wer: 'eli', was: 'greifen', wort: 'packed', params: { zu: [-15.55, OG + 0.62, 3.35], seite: 'r', lehnen: false } },
     hauptsache: 'eli.kopf',
   },
+
+  // ───────── Steigerung im Haus (neu): es klopft an Junes Fenster ─────────
+  // "something tapped on June's window." – Junes Seitenfenster von außen: Mister Hundred steht tief gebeugt
+  // davor, die Hände wie immer vor dem Gesicht (es späht nie). Auf „tapped“ nickt der Kopf einmal zur
+  // Scheibe, die Knöchel stoßen ans Glas, kaltes Licht pulst durch die Finger. Größenvergleich: der Kopf
+  // liegt trotz Beugen über dem Fenstersturz (2,85 m).
+  '22:something': {
+    set: AUSSEN_DAEMMERUNG,
+    figuren: MH(ORT.monsterJuneFenster, 180, BEUGEN_FENSTER),
+    // über die Schulter des Monsters (Hausrückseite) auf Junes Fenster: Rücken und Mantel verkürzt, der helle
+    // Kopf mit den Fingern liegt vor der oberen Scheibe. Von schräg vorn las sich der waagrecht gebeugte
+    // Mantel im Probebild als Kranarm; vier Kamerastellungen verglichen (build/folge-02, Probebilder)
+    kamera: { ziel: [-18.6, 2.3, 5.1], pos: [-19.7, 3.4, 9.7], fov: 48, rate: 0.07 },
+    licht_anpassung: NACHT_HELL,
+    haupt: { wer: 'mh', was: 'zaehlen', wort: 'tapped', dauer: 0.45, params: { takt: 0.45, staerke: 1.3 } },
+    hauptsache: 'mh.haende',
+  },
+  // "Three slow knocks." – Junes leeres Zimmer von innen: im Fenster die Fingerknöchel, dreimal klopft es
+  // ans Glas, jedes Mal pulst das kalte Licht (je ein Klopfer auf „Three“, „slow“ und „knocks“, gleichmäßig
+  // etwa 0,45 s auseinander, damit sie langsam wirken). Kein Vorhang an Junes Fenster im Set: der Finger ist
+  // selbst zu sehen, nicht nur sein Schatten.
+  '23': {
+    set: ['strasse', 'haus', 'spur'],
+    figuren: { ...MH(ORT.monsterJuneFenster, 180, BEUGEN_FENSTER), luke_tp: { position: ORT.luke, blick: 90 } },
+    kamera: { ziel: [-18.6, 2.55, 5.1], pos: [-18.15, 1.2, 2.75], fov: 54, rate: 0.07 },
+    licht_anpassung: { belichtung: 1.25 },
+    neben: [
+      { wer: 'mh', was: 'zaehlen', wort: 'Three', dauer: 0.4, params: { takt: 0.4, staerke: 1.2 } },
+      { wer: 'mh', was: 'zaehlen', wort: 'slow', versatz: 0.16, dauer: 0.4, params: { takt: 0.4, staerke: 1.2 } },
+    ],
+    haupt: { wer: 'mh', was: 'zaehlen', wort: 'knocks', versatz: 0.2, dauer: 0.4, params: { takt: 0.4, staerke: 1.4 } },
+    hauptsache: 'mh.haende',
+  },
   // "When I came back down," – Eli kommt mit dem Rucksack die Treppe herunter (Kamera fährt vor ihm)
-  '26': {
+  '24': {
     figuren: { eli2: { position: [-16.0, OG, -4.32], blick: 90, gesicht: 'entschlossen' } },
     kamera: { baustein: 'dolly_out', ziel: { anker: 'eli2.kopf', versatz: [0, -0.2, 0] }, pos: [-12.7, 1.55, -4.4], fov: 52, rate: -0.07 },
     licht_anpassung: { belichtung: 1.2 },
     haupt: { wer: 'eli2', was: 'gehen', wort: 'came', dauer: 1.05, ease: 'linear', params: { nach: [-13.2, -4.32] } },
+    gesichter: [{ wer: 'eli2', name: 'besorgt', wort: 'they' }],
     neben: [{ wer: 'eli2', was: 'klettern', wort: 'came', dauer: 1.05, ease: 'linear', params: { hoehe: -2.35, arme: false } }],
     hauptsache: 'eli2.kopf',
   },
   // "they were side by side." – Snap-Zoom: Elis Turnschuhe stehen genau nebeneinander, hinten Junes Tür einen Spalt offen
-  '26:side': {
+  '24:side': {
     figuren: {
       sp_eli_c: { position: [-13.35, SO, -1.95], blick: 100 },
       tuer_june: { position: ORT.juneTuer, blick: 180, pose: 'oeffnen', pose_params: { winkel: -14 } },
@@ -577,26 +613,58 @@ export const einstellungen = {
 
   // ───────── Entscheidung ─────────
   // "If I ran, I'd end up like Owen." – Rückgriff: Owens Pick-up am Morgen, Motor läuft, Tür offen
-  '27': {
+  // "If I ran, I'd end up like Owen Pike," – Rückgriff (entsättigt): Owens hellblauer Pick-up vor seinem
+  // Haus, der Motor läuft, weißer Dampf aus dem Auspuff (Kamera wie Teil 1, „engine running“)
+  '25': {
+    figuren: { pk2: { position: ORT.pikeEinfahrt, blick: -90, pose: 'tuer_auf', pose_params: { winkel: 62 } } },
+    // erhöht von der Straße über den Zaun, schräg von hinten: Pick-up, Einfahrt und Haus im Bild, der Dampf
+    // steigt am Heck auf. Frontal blendeten die Scheinwerfer (jetzt aus), pike_nah zeigte nur Blech
+    kamera: { pos: [3.0, 2.6, -6.4], ziel: [8.6, 1.1, -12.4], fov: 46, rate: 0.07 },
+    licht_anpassung: { belichtung: 1.3 },
+    partikel: [{ art: 'atem', ort: 'pk2.auspuff', periode: 0.55, richtung: [0.2, 1, 0], groesse: 0.28, deckkraft: 0.8 }],
+    haupt: { art: 'kamera', wort: 'Owen' },
+    hauptsache: 'pk2.mitte',
+  },
+  // "his shoes on his truck seat." – durch die offene Fahrertür: Owens Stiefel auf dem Sitz
+  '25:his shoes': {
     figuren: { pk2: { position: ORT.pikeEinfahrt, blick: -90, pose: 'tuer_auf', pose_params: { winkel: 62 } } },
     // durch die offene Fahrertür: Owens Stiefel auf dem Sitz, nebeneinander (Bild aus Teil 1, Satz 16)
     // Review Teil 2: die Fahrt begann im Sitz bzw. in der Tür (0,8 s einfarbige Fläche). Jetzt aus der
     // Endkadrierung: feste Position vor der offenen Tür, nur ein kleiner Push
     kamera: { ziel: 'pk2.sitz', blick: { azimut: 10, hoehe: 32, abstand: 1.22 }, fov: 44, rate: 0.07 },
     licht_anpassung: { belichtung: 1.55, hemi: { staerke: 2.8 }, haupt: { staerke: 3.0 } },
-    haupt: { art: 'kamera', wort: 'Owen' },
+    haupt: { art: 'kamera', wort: 'seat' },
     hauptsache: 'pk2.sitz',
   },
-  // "If June hid me, she'd end up like Dad." – Rückgriff: Dads Stiefel nebeneinander auf der Veranda
-  '28': {
+  // "If June hid me, she'd end up like Dad," – Rückgriff: Dads Stiefel nebeneinander auf der Veranda
+  '26': {
     figuren: { sp_dad: { position: [-10.9, SO, -2.8], blick: 90 } },
     kamera: { ziel: 'sp_dad.mitte', blick: { azimut: 38, hoehe: 20, abstand: 1.3 }, fov: 38, rate: 0.07 },
     licht_anpassung: { belichtung: 1.3 },
     haupt: { art: 'kamera', wort: 'Dad' },
     hauptsache: 'sp_dad.mitte',
   },
-  // "June took my bag." – Bogenfahrt: June greift den Träger von Elis Rucksack und hält ihn fest
-  '29': {
+  // "who hid her six years ago." – Rückblende (entsättigt), Junes Zimmer nachts: Dad hält die Luke auf,
+  // June (18, Haare offen) steigt hinein. Dieselbe Luke wie in Satz 31: damals Dad, heute June.
+  // Aufbau wie Teil 1, Satz 23; Bogenfahrt (Akzent) um beide, Gesichter von vorn
+  '26:who hid her': {
+    figuren: {
+      dad: { position: [-19.55, SO, 1.45], blick: 40, gesicht: 'entschlossen', pose: 'ducken', pose_params: { tiefe: 0.5, arme: 'knie' } },
+      june18: { position: ORT.lukeMitte, blick: 40, gesicht: 'besorgt' },   // zur Kamera gedreht: Gesicht von vorn
+      luke_tp: { position: ORT.luke, blick: 90, pose: 'teppich_rollen' },
+    },
+    // Bogenfahrt im Zimmer (bei azimut 62 und 3,1 m stand die Kamera hinter der Wand zum Flur)
+    kamera: { baustein: 'orbit', ziel: [-18.95, 1.05, 1.85], blick: { azimut: 50, hoehe: 15, abstand: 2.35 }, grad_pro_s: 16, richtung: -1, fov: 60 },
+    licht_anpassung: { belichtung: 1.5, hemi: { staerke: 2.8 } },
+    neben: [
+      { wer: 'luke_tp', was: 'oeffnen', ab: 'start', dauer: 0.03, params: { winkel: 105 } },
+      { wer: 'dad', was: 'greifen', ab: 'start', dauer: 0.25, params: { zu: 'luke_tp.ring', seite: 'r', lehnen: false } },
+    ],
+    haupt: { wer: 'june18', was: 'klettern', wort: 'hid', dauer: 0.8, params: { hoehe: -0.9, arme: false } },
+    hauptsache: ['june18.kopf', 'dad.kopf'],
+  },
+  // "June took my bag." – June greift den Träger von Elis Rucksack und hält ihn fest
+  '27': {
     figuren: {
       eli2: { position: [-14.3, SO, -2.55], blick: -90, gesicht: 'entschlossen' },
       june: { position: [-15.25, SO, -2.55], blick: 90, gesicht: 'entschlossen' },
@@ -604,14 +672,17 @@ export const einstellungen = {
     },
     // beide im Profil (Kamera auf der Flurseite zu Junes Zimmer), June greift mit der rechten Hand den Träger
     // Review Teil 2: der Rucksack war nie im Bild, June beugte sich vor wie zur Verbeugung. Jetzt halbnah von
-    // der Seite mit beiden Gesichtern und dem Träger; Junes Hand schließt sich um den Träger, ohne Vorbeugen
-    kamera: { baustein: 'orbit', ziel: [-14.75, 1.85, -2.55], blick: { azimut: 6, hoehe: 6, abstand: 2.4 }, grad_pro_s: 14, fov: 58 },
+    // der Seite mit beiden Gesichtern und dem Träger; Junes Hand schließt sich um den Träger, ohne Vorbeugen.
+    // Neuaufnahme: Push-in statt Bogenfahrt, der Akzent liegt jetzt auf der Rückblende davor (sonst 15
+    // Akzentfahrten, im Mittel alle 5,98 s statt 6–10 s)
+    // höchstens 2,45 m Abstand: dahinter steht die Wand zu Junes Zimmer (z = 0)
+    kamera: { ziel: [-14.85, 1.8, -2.55], blick: { azimut: 6, hoehe: 6, abstand: 2.45 }, fov: 62, rate: 0.07 },
     licht_anpassung: { belichtung: 1.2 },
     haupt: { wer: 'june', was: 'greifen', wort: 'bag', anker: 'ende', params: { zu: 'eli2.rucksack', seite: 'r', form: 'faust', lehnen: false } },
     hauptsache: ['june.kopf', 'eli2.rucksack'],
   },
   // "It never looks in my room, Rabbit." – June beugt sich vor und spricht leise
-  '30': {
+  '28': {
     figuren: { june: { position: [-15.2, SO, -2.5], blick: 90, gesicht: 'besorgt' } },
     kamera: { ziel: { anker: 'june.kopf', versatz: [0, -0.13, 0] }, blick: { azimut: 70, hoehe: 2, abstand: 2.0 }, fov: 38, rate: 0.07 },
     licht_anpassung: { belichtung: 1.2 },
@@ -620,7 +691,7 @@ export const einstellungen = {
     hauptsache: 'june.kopf',
   },
   // "That's why I'm still here." – June lächelt, die Kamera bleibt einen Tick zu lange auf ihr
-  '31': {
+  '29': {
     figuren: { june: { position: [-15.2, SO, -2.5], blick: 90, gesicht: 'besorgt' } },
     kamera: { ziel: { anker: 'june.kopf', versatz: [0, -0.1, 0] }, blick: { azimut: 82, hoehe: 1, abstand: 1.65 }, fov: 36, rate: 0.045 },
     licht_anpassung: { belichtung: 1.2 },
@@ -628,8 +699,8 @@ export const einstellungen = {
     mund: { wer: 'june', miene: 'laecheln' },
     hauptsache: 'june.kopf',
   },
-  // "She rolled back the" – Kran von oben: June rollt den Teppich zurück, der Eisenring kommt hervor
-  '32': {
+  // "She rolled back the rug and opened the hatch." – Kran von oben: June rollt den Teppich zurück, der Eisenring kommt hervor
+  '30': {
     figuren: {
       june: { position: [-17.85, SO, 2.05], blick: -90, gesicht: 'entschlossen', pose: 'ducken', pose_params: { tiefe: 0.7, arme: 'knie' } },
       luke_tp: { position: ORT.luke, blick: 90 },
@@ -637,58 +708,73 @@ export const einstellungen = {
     kamera: { baustein: 'crane_down_tilt', ziel: 'luke_tp.mitte', blick: { azimut: 25, hoehe: 56, abstand: 2.3 }, hoehe: 0.7, rueck: 0.3, ankunft_wort: 'back', fov: 54 },
     licht_anpassung: { belichtung: 1.3 },
     haupt: { wer: 'luke_tp', was: 'teppich_rollen', wort: 'rolled' },
+    // Neuaufnahme: ein Bild statt zwei („She rolled back the“ allein wäre 0,67 s); die Luke klappt in
+    // derselben Kranfahrt auf „opened“ auf, darunter der schwarze Schacht
+    neben: [{ wer: 'luke_tp', was: 'oeffnen', wort: 'opened', params: { winkel: 105 } }],
     hauptsache: 'luke_tp.mitte',
   },
-  // "rug and opened the hatch." – die Luke klappt auf, darunter der schwarze Schacht
-  '32:rug': {
+  // "She pushed me in" – flach über dem Boden, von vorn (Kamera an der Bettseite): June steht hinter Eli
+  // und drückt ihn an beiden Schultern in die Luke, er sinkt bis zur Brust in den Schacht. Festes Drücken,
+  // kein Stoß (früher „I climbed in anyway“: jetzt entscheidet June, nicht Eli; Review P1)
+  '31': {
     figuren: {
-      june: { position: [-17.85, SO, 1.45], blick: -60, gesicht: 'entschlossen', pose: 'ducken', pose_params: { tiefe: 0.7, arme: 'knie' } },
+      eli: { position: ORT.lukeMitte, blick: 0, gesicht: 'besorgt' },
+      june: { position: [-18.62, SO, 1.4], blick: -8, gesicht: 'entschlossen' },
       luke_tp: { position: ORT.luke, blick: 90, pose: 'teppich_rollen' },
     },
-    kamera: { ziel: { anker: 'luke_tp.mitte', versatz: [0, 0.2, 0] }, pos: [-17.5, 1.35, 3.4], fov: 50, rate: 0.07 },
+    // Kamera auf Brusthöhe: tiefer verdeckte Elis Kopf Junes Gesicht
+    kamera: { ziel: [-18.75, 1.85, 1.7], pos: [-18.3, 1.65, 3.75], fov: 52, rate: 0.07 },
     licht_anpassung: { belichtung: 1.3 },
-    haupt: { wer: 'luke_tp', was: 'oeffnen', wort: 'opened', params: { winkel: 105 } },
-    hauptsache: 'luke_tp.mitte',
-  },
-  // "I climbed in anyway." – Eli steigt in die Luke hinab, von vorn; hinter ihm steht June
-  '33': {
-    figuren: {
-      eli: { position: ORT.lukeMitte, blick: 90, gesicht: 'entschlossen' },
-      june: { position: [-20.1, SO, 1.3], blick: 55, gesicht: 'besorgt' },
-      luke_tp: { position: ORT.luke, blick: 90, pose: 'teppich_rollen' },
-    },
-    kamera: { ziel: { anker: 'eli.kopf', versatz: [0, -0.2, 0] }, pos: [-17.05, 1.15, 2.3], fov: 50, rate: 0.07 },
-    licht_anpassung: { belichtung: 1.3 },
-    neben: [{ wer: 'luke_tp', was: 'oeffnen', ab: 'start', dauer: 0.03, params: { winkel: 105 } }],
-    haupt: { wer: 'eli', was: 'klettern', wort: 'climbed', dauer: 0.8, params: { hoehe: -1.0, arme: false } },
+    neben: [
+      { wer: 'luke_tp', was: 'oeffnen', ab: 'start', dauer: 0.03, params: { winkel: 105 } },
+      // ohne Vorbeugen: mit lehnen kippte Junes Kopf nach vorn, die Kamera sah nur ihren Scheitel
+      { wer: 'june', was: 'greifen', ab: 'start', dauer: 0.2, params: { zu: 'eli.schulter_l', seite: 'l', lehnen: false } },
+      { wer: 'june', was: 'greifen', ab: 'start', dauer: 0.2, params: { zu: 'eli.schulter_r', seite: 'r', lehnen: false } },
+    ],
+    haupt: { wer: 'eli', was: 'klettern', wort: 'pushed', dauer: 0.75, params: { hoehe: -0.9, arme: false } },
+    gesichter: [{ wer: 'eli', name: 'angst', wort: 'pushed' }],
     hauptsache: 'eli.kopf',
+  },
+  // "could say no." – Untersicht aus der Luke (Elis Blick): Junes Gesicht über dem Lukenrand, die rechte
+  // Hand schon am Deckel. Auf „no“ wird ihr Blick hart. Kopf oben im Bild (Kopf-oben-Regel). Neuaufnahme:
+  // Schnitt auf „could“ statt „before“, sonst wäre „She pushed me in“ nur 0,63 s lang (Messtor M2 ≥ 0,7 s)
+  '31:could': {
+    figuren: {
+      june: { position: [-18.8, SO, 1.3], blick: 0, gesicht: 'besorgt', pose: 'ducken', pose_params: { tiefe: 0.7, arme: 'knie' } },
+      luke_tp: { position: ORT.luke, blick: 90, pose: 'teppich_rollen' },
+    },
+    kamera: { ziel: { anker: 'june.kopf', versatz: [0, -0.05, 0] }, pos: [-18.8, SO - 0.7, 2.25], fov: 50, rate: 0.07 },
+    licht_anpassung: { belichtung: 1.35 },
+    neben: [
+      { wer: 'luke_tp', was: 'oeffnen', ab: 'start', dauer: 0.03, params: { winkel: 105 } },
+      { wer: 'june', was: 'kopf_drehen', ab: 'start', dauer: 0.03, params: { nicken: 38 } },
+      { wer: 'june', was: 'greifen', ab: 'start', dauer: 0.3, params: { zu: 'luke_tp.ring', seite: 'r', lehnen: false } },
+    ],
+    haupt: { art: 'gesicht', wer: 'june', name: 'entschlossen', wort: 'no' },
+    hauptsache: 'june.kopf',
   },
 
   // ───────── Kriechkeller ─────────
-  // "The hatch closed over me," – von unten: die Luke klappt über der Kamera zu
-  '34': {
+  // "The hatch closed over me, then the rug." – von unten: die Luke klappt über der Kamera zu
+  '32': {
     figuren: { luke_k: { position: ORT.kellerLuke, blick: 0, pose: 'oeffnen' } },
     // nicht neben der Taschenlampe: dort stand die Kamera im Lichtkegel (weißes Bild)
     kamera: { pos: kw(0.25, 0.3, 0.62), ziel: kw(0.45, 1.2, -0.05), fov: 58, rate: 0.07 },
     haupt: { wer: 'luke_k', was: 'schliessen', wort: 'closed' },
-    hauptsache: 'keller.luke',
-  },
-  // "then the rug." – die Lichtfugen am Lukenrand verschwinden, als der Teppich darüberfällt
-  '34:then the rug': {
-    figuren: { luke_k: { position: ORT.kellerLuke, blick: 0 } },
-    kamera: { ziel: 'keller.luke', pos: kw(0.2, 0.4, 0.6), fov: 48, rate: 0.08 },
-    haupt: { art: 'licht', licht_art: 'aus', ziel: 'keller.lukenrand', wort: 'rug', dauer: 0.25 },
+    // "then the rug." – Neuaufnahme: in derselben Einstellung verschwinden die Lichtfugen am Lukenrand,
+    // als der Teppich darüberfällt (ein Bild statt zwei, Median der Einstellungen ≥ 1,4 s)
+    licht_ereignisse: [{ licht_art: 'aus', ziel: 'keller.lukenrand', wort: 'rug', dauer: 0.25 }],
     hauptsache: 'keller.luke',
   },
   // "Above me, June lay down and" – Eli liegt auf dem Erdboden, über ihm die Lichtstreifen der Dielen
-  '35': {
+  '33': {
     figuren: { eli: { position: ORT.kellerEli, blick: 90, pose: 'liegen', pose_params: { kopf: 30 }, gesicht: 'besorgt' }, luke_k: { position: ORT.kellerLuke, blick: 0 } },
     kamera: { ziel: { anker: 'eli.kopf', versatz: [0.25, 0.05, 0] }, blick: { azimut: 200, hoehe: 16, abstand: 1.6 }, fov: 54, roll: ROLL_LIEGEN, rate: 0.08 },
     haupt: { art: 'kamera', wort: 'Above' },
     hauptsache: 'eli.kopf',
   },
   // "counted, like every night." – Kran von oben: June im Bett, die Augen zu, die Lippen zählen
-  '35:counted': {
+  '33:counted': {
     figuren: { june: { position: ORT.juneBett, blick: 90, pose: 'liegen', gesicht: 'augen_zu' }, luke_tp: { position: ORT.luke, blick: 90 } },
     // von der Fußseite des Betts: Junes Gesicht steht aufrecht im Bild (Kopf-oben-Regel)
     kamera: { baustein: 'crane_down_tilt', ziel: 'june.kopf', blick: { azimut: 92, hoehe: 52, abstand: 1.7 }, hoehe: 0.85, rueck: 0.4, ankunft_wort: 'counted', fov: 54 },
@@ -698,7 +784,7 @@ export const einstellungen = {
     hauptsache: 'june.kopf',
   },
   // "Ninety-seven." – June zählt mit geschlossenen Augen
-  '36': {
+  '34': {
     figuren: { june: { position: ORT.juneBett, blick: 90, pose: 'liegen', gesicht: 'zaehlt_a' } },
     // Review Teil 2: das Gesicht war gedreht und angeschnitten (75 % beige Fläche). Jetzt ganz und aufrecht
     kamera: { ziel: { anker: 'june.kopf', versatz: [0, 0.04, 0] }, blick: { azimut: 92, hoehe: 50, abstand: 1.85 }, fov: 38, rate: 0.07 },
@@ -708,7 +794,7 @@ export const einstellungen = {
     hauptsache: 'june.kopf',
   },
   // "Ninety-eight." – Eli hört zu, die Lichtstreifen der Dielen über ihm
-  '37': {
+  '35': {
     figuren: { eli: { position: ORT.kellerEli, blick: 90, pose: 'liegen', pose_params: { kopf: 38 }, gesicht: 'neutral' } },
     licht_anpassung: { belichtung: 0.95 },
     kamera: { ziel: 'eli.kopf', blick: { azimut: 186, hoehe: 24, abstand: 0.95 }, fov: 46, roll: ROLL_LIEGEN, rate: 0.07 },
@@ -717,7 +803,7 @@ export const einstellungen = {
   },
   // "Ninety-nine." "Then she stopped." – ganz nah: June zählt, dann stehen die Lippen still,
   // weißer Atem steigt auf (kalt: es ist nah). Letztes Bild von June in Teil 2.
-  '38': {
+  '36': {
     figuren: { june: { position: ORT.juneBett, blick: 90, pose: 'liegen', gesicht: 'zaehlt_a' } },
     // steiler von oben: der Atem steigt zur Kamera und bleibt über den Lippen
     kamera: { ziel: { anker: 'june.kopf', versatz: [0, 0.06, 0] }, blick: { azimut: 92, hoehe: 60, abstand: 1.6 }, fov: 36, rate: 0.06 },
@@ -731,7 +817,7 @@ export const einstellungen = {
     hauptsache: 'june.kopf',
   },
   // "The bell struck midnight." – Turmuhr und Glocke: die Zeiger springen auf zwölf, die Glocke schwingt
-  '40': {
+  '38': {
     uhr: '11:59',
     // Review Teil 2: Uhr UND die schwingende Glocke hinter der offenen Schallluke
     kamera: { pos: [0.7, 9.4, -46.5], ziel: [0, 12.4, -62.4], fov: 28, rate: 0.06, zusaetze: [{ baustein: 'shake', wort: 'struck', staerke: 0.8 }] },
@@ -741,7 +827,7 @@ export const einstellungen = {
     hauptsache: 'strasse.glocke',
   },
   // "No counting came from the square." – Kran über dem Platz: alle halten Abstand zum leeren Fleck
-  '41': {
+  '39': {
     figuren: {
       odell: { position: [-0.6, 0, -50.2], blick: 160, gesicht: 'streng' },
       nb_mantel: { position: [-2.8, 0, -48.9], blick: 150, gesicht: 'angst' }, nb_frau: { position: [0.6, 0, -47.9], blick: 172, gesicht: 'angst' },
@@ -758,7 +844,7 @@ export const einstellungen = {
   // Jetzt schräg von Elis Brust aus, fast längs der Fugen: die Lichtlinien laufen in die Tiefe, die Sohlen
   // liegen quer darüber, auf „bent“ sackt die Mitte sichtbar durch (10 cm, mehr als zwei Fugen), feiner
   // Staub rieselt im Lampenkegel
-  '42': {
+  '40': {
     figuren: MH(ORT.kellerMonster, 0),
     kamera: { pos: kw(0.25, 0.3, 0.45), ziel: kw(-0.48, 1.0, -0.15), fov: 54, rate: 0.07, zusaetze: [{ baustein: 'shake', wort: 'bent', staerke: 0.9 }] },
     set_ereignisse: [{ set: 'keller', was: 'fuesse', versatz: 0, dauer: 0.01, mitte: [-0.45, -0.45], drehung: 0 }],
@@ -767,7 +853,7 @@ export const einstellungen = {
     hauptsache: 'keller.dielen_mitte',
   },
   // "My breath turned white." – Elis Atem wird weiß im Lampenkegel, er presst die Hand auf den Mund
-  '43': {
+  '41': {
     figuren: { eli: { position: ORT.kellerEli, blick: 90, pose: 'liegen', pose_params: { kopf: 38 }, gesicht: 'angst' }, ...MH(ORT.kellerMonster, 0) },
     licht_anpassung: { belichtung: 0.95 },
     // Ziel auf die Augen: sonst lagen sie im Untertitel-Streifen (Review Teil 2, „TURNED“ am Auge)
@@ -778,7 +864,7 @@ export const einstellungen = {
     hauptsache: 'eli.kopf',
   },
   // "Something finished her count," – Eli knipst die Taschenlampe aus, nur noch die Lichtstreifen
-  '44': {
+  '42': {
     figuren: { eli: { position: ORT.kellerEli, blick: 90, pose: 'liegen', pose_params: { kopf: 38 }, gesicht: 'angst' } },
     // ohne Taschenlampe nur Fugenlicht: etwas mehr Belichtung, damit das Gesicht unter den Streifen lesbar bleibt
     licht_anpassung: { belichtung: 1.5, hemi: { staerke: 1.3 } },
@@ -788,7 +874,7 @@ export const einstellungen = {
     hauptsache: 'eli.kopf',
   },
   // "slow and deep," – Junes Zimmer auf Bodenhöhe: lange weiße Füße auf dem Teppich, Tilt zum Mantelsaum
-  '44:slow': {
+  '42:slow': {
     figuren: { ...MH([-18.75, SO, 2.05], -129), luke_tp: { position: ORT.luke, blick: 90 } },
     kamera: { baustein: 'tilt_up', von_ziel: { anker: 'mh.fuss', versatz: [0, 0.1, 0] }, ziel: { anker: 'mh.fuss', versatz: [0, 1.25, 0] }, pos: [-20.35, 0.75, 0.75], ankunft_wort: 'deep', kran: 0.3, fov: 52 },
     licht_anpassung: { belichtung: 1.3 },
@@ -799,7 +885,7 @@ export const einstellungen = {
   // Teil 2: Die Finger lagen längs der Fugen und lasen sich als Glimmen. Jetzt kommen auf „Ready?“ vier lange
   // Fingerschatten von oben QUER über vier, fünf Fugen, die Spitzen glimmen kalt, in 0,2 s spreizen sie
   // sich (Snap-Zoom). Kein Finger kommt durch (das bleibt für Teil 3). Harter Schnitt, PART 3.
-  '45': {
+  '43': {
     figuren: MH(ORT.kellerMonster, 0),
     kamera: { punkt: 'keller.pov', rate: 0.05, zusaetze: [{ baustein: 'snap_zoom', wort: 'Ready', faktor: 1.18, bilder: 2 }] },
     // auf „One“ wird es oben dunkel (es steht über der Lampe): dann ist der kalte Saum der Finger das Licht

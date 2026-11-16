@@ -1,5 +1,5 @@
 {
- "_hinweis": "Cue-Liste für engine/ton/mischen.py (Teil 2). 'wort' = Index in timing.json, 'text' wird geprüft. Wie Teil 1 nach dem Review: wenige Akzente (12 Cues), nicht jede Bewegung. Ab dem Musik-Abriss nach 'Ninety-nine' nur noch Glocke (Handlung), Dielen und das Leitgeräusch.",
+ "_hinweis": "Cue-Liste für engine/ton/mischen.py (Teil 2, Neuaufnahme vom 16.11.2026). 'wort' = Index in timing.json, 'text' wird geprüft. Wie Teil 1 nach dem Review: wenige Akzente, nicht jede Bewegung. Neu: das Klopfen an Junes Fenster (Sätze 22–23), vier Klopfer, die im Bild zu sehen sind. Ab dem Musik-Abriss nach 'Ninety-nine' nur noch Glocke (Handlung), Dielen und das Leitgeräusch.",
  "endkarte_stumm": true,
  "rede": {
   "_hinweis": "Wörtliche Rede formant-erhaltend höher/tiefer (ffmpeg rubberband), wie in Teil 1. Mister Hundred: tiefer, Formanten mit verschoben, kurzer Hall (serie.md: Leitgeräusch −5 Halbtöne mit kurzem Hall; −4, damit 'Ready' verständlich bleibt). June in Teil 2 +2,0 statt +2,5 Halbtöne: mit +2,5 hörte Whisper im Zusammenhang 'He can't touch you' statt 'It can't …' (Bau Teil 2, gemessen). Review Teil 2: Odell klang mit −1,5 Halbtönen (200 Hz) höher als June (145–162 Hz), obwohl er 74 ist; jetzt −4,5 Halbtöne (Ziel ≤ 160 Hz). Nachmessung 16.11. (pyin auf der Mischung): mit −4,5 lag Odell bei 166 Hz, June bei 130–164 Hz – nicht mehr höher, aber auch nicht tiefer; jetzt −5,5 Halbtöne (rechnerisch etwa 157 Hz).",
@@ -38,7 +38,7 @@
   },
   {
    "klang": "whoosh",
-   "wort": 17,
+   "wort": 19,
    "text": "yanked",
    "versatz": 0.0,
    "db": -12,
@@ -46,7 +46,7 @@
   },
   {
    "klang": "klopfen",
-   "wort": 21,
+   "wort": 23,
    "text": "When",
    "versatz": -0.32,
    "db": -13,
@@ -57,7 +57,7 @@
   },
   {
    "klang": "sub_boom",
-   "wort": 41,
+   "wort": 43,
    "text": "window.",
    "versatz": -0.02,
    "db": -13,
@@ -70,28 +70,72 @@
   },
   {
    "klang": "glocke",
-   "wort": 100,
-   "text": "bell,",
+   "wort": 101,
+   "text": "bell",
    "versatz": 0.0,
    "db": -22,
-   "grund": "die Mitternachtsglocke als Regel: leise und dumpf wie eine Erinnerung (Review Teil 2), der volle Schlag kommt nur einmal auf 'struck'",
+   "grund": "seine Glocke als Regel ('his bell'): leise und dumpf wie eine Erinnerung (Review Teil 2), der volle Schlag kommt nur einmal auf 'struck'",
    "tiefpass_hz": 900
   },
   {
    "klang": "zaehlschlag",
    "wort": 104,
-   "text": "counting.",
+   "text": "count.",
    "versatz": 0.0,
    "db": -17,
    "params": {
     "f": 58.0
    },
-   "grund": "Leitgeräusch als Erinnerung (Rückblende-Bild E23), leiser und dumpfer als im Finale",
+   "grund": "Leitgeräusch als Erinnerung (Rückblende-Bild 13:starts), leiser und dumpfer als im Finale",
    "tiefpass_hz": 1200
   },
   {
    "klang": "klopfen",
-   "wort": 174,
+   "wort": 155,
+   "text": "tapped",
+   "versatz": 0.0,
+   "db": -11,
+   "params": {
+    "tonhoehe": 0.7
+   },
+   "grund": "Neuaufnahme: der Knöchel stößt an Junes Scheibe (Bild 22:something, ein Puls auf 'tapped')"
+  },
+  {
+   "klang": "klopfen",
+   "wort": 159,
+   "text": "Three",
+   "versatz": 0.0,
+   "db": -11,
+   "params": {
+    "tonhoehe": 0.7
+   },
+   "grund": "erster von drei Klopfern ans Glas (Bild 23, Puls auf 'Three')"
+  },
+  {
+   "klang": "klopfen",
+   "wort": 160,
+   "text": "slow",
+   "versatz": 0.16,
+   "db": -11,
+   "params": {
+    "tonhoehe": 0.7
+   },
+   "grund": "zweiter Klopfer, 0,45 s nach dem ersten (Bild: Puls 0,16 s nach 'slow')"
+  },
+  {
+   "klang": "klopfen",
+   "wort": 161,
+   "text": "knocks.",
+   "versatz": 0.2,
+   "db": -11,
+   "params": {
+    "tonhoehe": 0.7
+   },
+   "grund": "dritter Klopfer, 0,44 s nach dem zweiten (Bild: Puls 0,2 s nach 'knocks')"
+  },
+  {
+   "klang": "klopfen",
+   "wort": 169,
    "text": "side",
    "versatz": 0.0,
    "db": -9,
@@ -99,7 +143,7 @@
   },
   {
    "klang": "klopfen",
-   "wort": 176,
+   "wort": 171,
    "text": "side.",
    "versatz": 0.0,
    "db": -9,
@@ -110,7 +154,7 @@
   },
   {
    "klang": "riegel",
-   "wort": 225,
+   "wort": 238,
    "text": "closed",
    "versatz": 0.05,
    "db": -12,
@@ -118,7 +162,7 @@
   },
   {
    "klang": "glocke",
-   "wort": 249,
+   "wort": 262,
    "text": "struck",
    "versatz": 0.08,
    "db": -14,
@@ -126,7 +170,7 @@
   },
   {
    "klang": "knarzen",
-   "wort": 262,
+   "wort": 275,
    "text": "bent",
    "versatz": -0.05,
    "db": -10,
@@ -134,7 +178,7 @@
   },
   {
    "klang": "zaehlschlag",
-   "wort": 276,
+   "wort": 289,
    "text": "hundred.\"",
    "versatz": 0.0,
    "db": -11,
@@ -146,7 +190,7 @@
   },
   {
    "klang": "sub_boom",
-   "wort": 277,
+   "wort": 290,
    "text": "\"Ready?\"",
    "versatz": 0.0,
    "db": -11,
