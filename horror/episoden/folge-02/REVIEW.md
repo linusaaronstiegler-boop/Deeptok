@@ -130,6 +130,42 @@ Vorschlag für die Neuaufnahme (Änderungen gegenüber `skript-teil2.txt`):
 
 Aufwand: Den ganzen Teil in einem Take neu aufnehmen kostet etwa 1.600 Zeichen, mit zwei Takes ≈ 3.200 Credits wie beim ersten Mal. Nur die geänderten Sätze einzusetzen (≈ 650 Zeichen, ≈ 1.300 Credits für zwei Takes) wäre billiger. Tonfall und Raum der einzelnen Takes passen aber selten nahtlos. Danach müssen Wortzeiten, Shotliste und Render neu laufen (etwa 25 min Rechenzeit). „It takes whoever helps.“ ist nicht mehr wegen Whisper nötig, aber als Kernregel klarer.
 
+### Umgesetzt am 16.11.2026: Neuaufnahme
+
+Linus hat den Vorschlag freigegeben („Ja, mach alles“). Der ganze Teil ist in einem Aufruf neu vertont (2 Takes, 3.282 Credits). Gewählt ist Take 1, die Gründe stehen in `stimme.json`. Das Ergebnis: 291 Wörter, 44 Sätze, Stimme 89,62 s, Hook 4,90 s. Die Mitte (jetzt Sätze 11–20) dauert 22,0 s statt 25,5 s. Neue Satznummern stehen in `bildideen.json` unter `neuer_text`.
+
+**Drei Abweichungen vom Vorschlag oben:**
+- **Länge:** Der Vorschlag hätte nach Zeichen gerechnet etwa 93 s gedauert. Deshalb sind gestrichen: „Everyone knows“, „, like every birthday“, „Then“ vor „Odell looked at June“, „Nobody laughed.“, „in the hall“ und „for the woods“. „I packed“ und „While I packed, …“ sind zu einem Satz verbunden.
+- **Luke:** Satz 33 des Vorschlags („She closed the hatch before I could say no.“) hätte die Luke zweimal schließen lassen, denn direkt danach kommt unverändert „The hatch closed over me, then the rug.“ Eli wäre dabei nie hineingekommen. Jetzt steht dort *She pushed me in before I could say no.*
+- **Mitte:** Die Mitte ist nur um 3,5 s kürzer, nicht um 11 s. Die gewonnene Zeit steckt im Kontext (Owen, Dad, sechs Stunden) und im Klopfen.
+
+**Neu im Werkzeug:** `phrasenanfaenge_nachziehen` in `engine/ton/stimme.py`. Whisper legte das erste Wort nach einem Satzzeichen oft in den Block davor, etwa „Then“ in den Block von „Ninety-nine.“. Untertitel und Schnitte wären so 0,3–0,5 s zu früh gekommen. In der neuen Spur sind 11 Wörter korrigiert. Auch die alte Spur hatte 7 solche Fälle trotz der Hand-Korrekturen; sie ist mit dem neuen Ton ohnehin ersetzt.
+
+**Prüfbogen** (`docs/trends/geschichten-regeln.md`) für den neuen Text:
+
+| # | ja / nein | Wert |
+|---|---|---|
+| 1 | ja | Auslöser „at eighteen“, Preis „takes you“, Regel „hide“. 18 Wörter in 4,90 s (A2 für Teil 2: ≤ 5 s) |
+| 2a | ja | Eli 18, Tess 18, June 24 (Rückblende 18), Odell 74, Menge 20–70 |
+| 2b | ja | 18. Geburtstag |
+| 3 | ja | Hände immer vor dem Gesicht. Groß im Bild: Auge im Fingerspalt (Satz 1), Knöchel an Junes Scheibe (Satz 22), Fingerschatten (Sätze 23, 43–44) |
+| 4 | nein, begründet | Linus: Hiding Night bleibt drei Videos, Teil 2 hat 89,62 s. Die 120–170 s gelten für die neuen Einzelgeschichten |
+| 5 | teilweise | Regel (Sätze 1, 10, 12–14, 16), Antwort auf den Hook (es weiß, wo er liegt: Satz 40), Pointe: etwas anderes zählt Junes Zählen zu Ende (Satz 42). Dazu ein Cliffhanger, weil es ein Serienteil ist |
+| 6a | für Teil 2 nicht anwendbar | Die Wendung liegt im Finale (A3). Echos im Teil: 1 → 40, 33 → 42 |
+| 6b | ja | Der Schutz (Junes Zimmer, ihr Zählen) wird zur Gefahr |
+| 7 | ja | *Would you hide under June's room?* (6 Wörter, Bildunterschrift) |
+| 8 | ja | r2-eigen im Render. Anker in `bildideen.json`, Sekunden in `stimme.json` (`timing.musik_anker_s`) |
+| 9 | ja | keine Minderjährigen, kein Blut, „pushed me in“ ohne Gewalt, nur eigene Figuren |
+| 9b | ja | Dad schützt June |
+| 10 | ja | Mister Hundred, Hiding Night (Websuche 15.11.2026, `folge-01/praemissen.md`) |
+
+**Offen für den Neubau:** Diese Dateien gehören noch zur alten Aufnahme und müssen neu gebaut werden:
+- `regie.mjs` hat noch die alten 46 Satzschlüssel. Neue Einstellungen fehlen: 22:something, 23, 25:his shoes, 26:who hid her, 31, 31:before.
+- `episode.json`, `untertitel.*`, `effekte.json`, `mischung.json` und `pruefung.json` stammen ebenfalls aus der alten Aufnahme.
+- `engine/musik/spannung/hiding-night-teil2.json` muss auf die neuen Satznummern und Sekunden umgestellt werden.
+
+Bis dahin schlagen die beiden Folge-2-Tests in `engine/test/shotliste.test.mjs` fehl, weil `regie.mjs` Schlüssel nennt, die es nicht mehr gibt.
+
 ### Bild (P2, offen)
 
 - **Kriechkeller-Helligkeit:** Der Keller hat im Mittel 71 statt 96, die dunkle Strecke in r2 liegt aber bei 25–30. Das Licht sitzt noch warm auf den Dielen-Unterseiten. Ein weiterer Schritt wäre, die Unterseiten nur von der Taschenlampe beleuchten zu lassen.

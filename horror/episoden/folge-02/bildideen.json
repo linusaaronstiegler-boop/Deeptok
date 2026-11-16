@@ -3,7 +3,7 @@
  "teil": 2,
  "serie": "Hiding Night",
  "quelle": "skript-teil2.txt (Satz-Index = Zeilennummer, 1-basiert)",
- "stand": "2026-11-16 (Endfassung; im Bau von Teil 2 nachgebessert: Schnitte nach Messtor, Monster-Anteil, Akzentfahrten; gerendert)",
+ "stand": "2026-11-16 (neuer Text nach REVIEW.md, neu vertont; Satznummern geändert: 44 statt 46 Sätze. Die Einstellungen sind noch nicht neu gebaut)",
  "hinweis": "Grobe Bildideen je Satz als Vorlage für die Shotliste. Hauptbild = erste Einstellung des Satzes; teilbilder = weitere Schnitte im Satz, ab_wort = Wort, auf dessen Beginn geschnitten wird. t_schaetz_s ist eine Schätzung bei 219 Wörtern/min ohne Pausen; die echten Zeiten kommen aus timing.json. Neu gegenüber folge-01: Ort kriechkeller, Licht kriechkeller, Figur tess, Abschnitte musik und bildunterschrift.",
  "vokabular": {
   "orte": {
@@ -71,12 +71,13 @@
  "licht_kriechkeller": "fast dunkel, Elis Taschenlampe als Kegel, dünne Lichtstreifen durch die Dielen (verdunkeln sich, wenn oben etwas steht), Atemdampf",
  "fehlt_im_set": [],
  "summen": {
-  "saetze": 46,
-  "woerter": 278,
-  "einstellungen": 61,
-  "einstellungen_pro_minute_geschaetzt": 49.6,
-  "monster_anteil": 0.164,
-  "laenge_geschaetzt_s": 76.2
+  "saetze": 44,
+  "woerter": 291,
+  "einstellungen": 64,
+  "einstellungen_pro_minute_geschaetzt": 48.2,
+  "monster_anteil": 0.188,
+  "laenge_geschaetzt_s": 79.7,
+  "laenge_gemessen_s": 89.62
  },
  "musik": {
   "hinweis": "Drei Stufen nach dem Vorbild 'Porch Night' (Wechsel bei 26 % und 79 %), Regel 8 in docs/trends/geschichten-regeln.md. Anker sind Satznummern dieser Datei; die Sekunden stehen nach dem Vertonen in timing.json. Stil und Bett wählt der Musik-Schritt (engine/musik, engine/musik-v2) nach Linus' Wunsch: näher an der Musik seiner Vorbildvideos.",
@@ -93,20 +94,21 @@
     "grund": "voller (+6 dB) vom Laternenzug über den Platz bis 'The hatch closed over me'"
    },
    {
-    "ab_satz": 35,
+    "ab_satz": 33,
     "stufe": "duenn",
     "grund": "dünn ab Junes Zählen"
    },
    {
-    "ab_satz": 38,
+    "ab_satz": 36,
     "ab_wort": "Ninety-nine",
     "am": "wortende",
     "stufe": "weg",
-    "grund": "Abriss in die Stille, wenn June aufhört; danach nur die Glocke (Satz 40, gehört zur Handlung) und das Leitgeräusch (Sätze 45–46), stumm bis über die Endkarte"
+    "grund": "Abriss in die Stille, wenn June aufhört; danach nur die Glocke (Satz 38, gehört zur Handlung) und das Leitgeräusch (Sätze 43–44), stumm bis über die Endkarte"
    }
   ],
   "umgesetzt": "Bau Teil 2: engine/musik/spannung/hiding-night-teil2.json (Wiegenlied-Spieluhr, eigene Komposition im Stil der Vorbilder). Stufen wie oben, dazu normal im Hook, normal zu Hause, ein Wegfall vor 'side by side' (Omen) und dünn/normal in der Entscheidung; Abriss am Ende von 'Ninety-nine' (72,90 s). In der Mischung liegt die Stufe 'normal' 11 LU unter der Stimme.",
-  "review_teil2": "Review Teil 2 (Linus: Musik 'mehr eins zu eins' wie die Vorbilder): Die Stufen-Regie oben ist ersetzt. Wie in r5 läuft ein flaches Bett durch: normal 12 LU unter der Stimme, Hook 2,5 dB lauter, voll erst ab der Luke (Satz 32), kurze Wegfälle (1,2–1,4 s) vor 'side by side', nach 'Ninety-nine' bis 'The bell struck midnight' und auf 'No counting came from the square'; danach dünn bzw. normal weiter, ganz still erst nach 'Ready?'. Steuerung: engine/musik/spannung/hiding-night-teil2.json."
+  "review_teil2": "Review Teil 2 (Linus: Musik 'mehr eins zu eins' wie die Vorbilder): Die Stufen-Regie oben ist ersetzt. Wie in r5 läuft ein flaches Bett durch: normal 12 LU unter der Stimme, Hook 2,5 dB lauter, voll erst ab der Luke (Satz 30), kurze Wegfälle (1,2–1,4 s) vor 'side by side', nach 'Ninety-nine' bis 'The bell struck midnight' und auf 'No counting came from the square'; danach dünn bzw. normal weiter, ganz still erst nach 'Ready?'. Steuerung: engine/musik/spannung/hiding-night-teil2.json.",
+  "neuaufnahme": "Neue Aufnahme vom 16.11.2026: Die Wegfälle bleiben an denselben Stellen im Text: vor 'side by side' (jetzt mitten in Satz 12, nach 'because'), nach 'Ninety-nine' (Satz 36) bis 'The bell struck midnight' (Satz 38) und auf 'No counting came from the square' (Satz 39). Neu: ein kurzer Wegfall auf 'Three slow knocks' (Satz 23) liegt nahe, damit die Klopfer frei stehen; das entscheidet der Musik-Schritt. Die Sekunden stehen in timing.json"
  },
  "bildunterschrift": "Would you hide under June's room?",
  "ende": {
@@ -115,7 +117,7 @@
  },
  "saetze": {
   "1": {
-   "text": "Mister Hundred takes you at eighteen, and it came early, like it knew where I'd hide.",
+   "text": "Mister Hundred takes you at eighteen, and it came six hours early, like it knew where I'd hide.",
    "t_schaetz_s": 0.0,
    "block": "hook",
    "ort": "hauptstrasse",
@@ -129,7 +131,7 @@
    "kamera": "pull-out",
    "groesse": "gross",
    "monster": true,
-   "hinweis": "Der Name fällt auf dem ersten Bild (Regel 10). Bedrohungswort 'takes' bei etwa 0,8 s. Erste 7 s: nur Auge, Vorhang, leerer Garten, Spur (nichts Drastisches)",
+   "hinweis": "Der Name fällt auf dem ersten Bild (Regel 10). Bedrohungswort 'takes' bei etwa 0,8 s. 'six hours early' holt den Cliffhanger von Teil 1 für Neue nach (Review P1 Kontext). Erste 7 s: nur Auge, Vorhang, leerer Garten, Spur (nichts Drastisches)",
    "sfx": "Sub-Boom auf 'takes'",
    "teilbilder": [
     {
@@ -178,7 +180,7 @@
   },
   "2": {
    "text": "I yanked the curtain shut.",
-   "t_schaetz_s": 4.4,
+   "t_schaetz_s": 4.9,
    "block": "regelbruch",
    "ort": "marsh-innen",
    "modul": "eli-zimmer",
@@ -200,7 +202,7 @@
   },
   "3": {
    "text": "When I looked again, the yard was empty.",
-   "t_schaetz_s": 5.8,
+   "t_schaetz_s": 6.3,
    "block": "regelbruch",
    "ort": "marsh-innen",
    "modul": "eli-zimmer",
@@ -234,7 +236,7 @@
   },
   "4": {
    "text": "Just footprints in the frost, long and bare.",
-   "t_schaetz_s": 7.9,
+   "t_schaetz_s": 8.5,
    "block": "regelbruch",
    "ort": "hauptstrasse",
    "modul": "marsh-aussen",
@@ -264,7 +266,7 @@
   },
   "5": {
    "text": "They stopped at June's window.",
-   "t_schaetz_s": 10.1,
+   "t_schaetz_s": 10.7,
    "block": "regelbruch",
    "ort": "hauptstrasse",
    "modul": "marsh-aussen",
@@ -280,7 +282,7 @@
   },
   "6": {
    "text": "The one room it never looks in.",
-   "t_schaetz_s": 11.5,
+   "t_schaetz_s": 12.1,
    "block": "regelbruch",
    "ort": "marsh-innen",
    "modul": "june-zimmer",
@@ -295,7 +297,7 @@
   },
   "7": {
    "text": "I ran downstairs.",
-   "t_schaetz_s": 13.4,
+   "t_schaetz_s": 14.0,
    "block": "falsche-sicherheit",
    "ort": "marsh-innen",
    "modul": "flur",
@@ -312,7 +314,7 @@
   },
   "8": {
    "text": "June opened her door, barefoot.",
-   "t_schaetz_s": 14.2,
+   "t_schaetz_s": 14.8,
    "block": "falsche-sicherheit",
    "ort": "marsh-innen",
    "modul": "flur",
@@ -349,7 +351,7 @@
   },
   "9": {
    "text": "Her hands were ice cold.",
-   "t_schaetz_s": 15.6,
+   "t_schaetz_s": 16.2,
    "block": "falsche-sicherheit",
    "ort": "marsh-innen",
    "modul": "flur",
@@ -370,7 +372,7 @@
   },
   "10": {
    "text": "\"It can't touch you before midnight.\"",
-   "t_schaetz_s": 17.0,
+   "t_schaetz_s": 17.5,
    "block": "falsche-sicherheit",
    "dialog": "june",
    "ort": "marsh-innen",
@@ -390,24 +392,25 @@
    "hinweis": "Mundformen; Untertitel Gelb #F2C14E; Junes Stimme +2,5 Halbtöne wie in Teil 1. Musik: Ende der leisen Stufe"
   },
   "11": {
-   "text": "At eleven, the town walked me and Tess Lowry to the square.",
-   "t_schaetz_s": 18.6,
+   "text": "At eleven, Mr. Odell walked me and Tess Lowry to the square.",
+   "t_schaetz_s": 19.2,
    "block": "stadt",
    "ort": "hauptstrasse",
    "modul": "haeuserzeile",
    "licht": "nacht",
    "figuren": [
+    "odell",
     "nachbarn",
     "eli",
     "june",
     "tess"
    ],
-   "aktion": "Laternenzug: Erwachsene aus der Stadt gehen mit Eli, Tess und June die Hauptstraße hinunter",
-   "schluesselwort": "town",
+   "aktion": "Laternenzug: Mr. Odell geht mit der Laterne voran, dahinter Erwachsene aus der Stadt mit Eli, Tess und June die Hauptstraße hinunter",
+   "schluesselwort": "Odell",
    "kamera": "seitenfahrt",
    "groesse": "totale",
    "monster": false,
-   "hinweis": "nur Erwachsene im Zug (A7.1); Musik: ab hier die volle Stufe",
+   "hinweis": "Odell wird hier eingeführt (Brille, langer Mantel, Laterne), damit 'his bell' in Satz 13 lesbar ist; nur Erwachsene im Zug (A7.1); Musik: ab hier die volle Stufe",
    "teilbilder": [
     {
      "ab_wort": "Tess",
@@ -427,8 +430,8 @@
    ]
   },
   "12": {
-   "text": "On every porch, the shoes were kicked apart.",
-   "t_schaetz_s": 21.9,
+   "text": "On every porch, the shoes were kicked apart, because side by side is all it leaves.",
+   "t_schaetz_s": 22.5,
    "block": "stadt",
    "ort": "hauptstrasse",
    "modul": "haeuserzeile",
@@ -439,7 +442,7 @@
    "kamera": "seitenfahrt",
    "groesse": "halbtotale",
    "monster": false,
-   "hinweis": "Kamerapunkt haeuser_detail; zwei bis drei Veranden in einer Fahrt",
+   "hinweis": "Kamerapunkt haeuser_detail; zwei bis drei Veranden in einer Fahrt. Der Satz erklärt Neuen die Schuhregel, die das Omen in Satz 24 braucht",
    "teilbilder": [
     {
      "ab_wort": "the shoes",
@@ -451,30 +454,27 @@
      "schluesselwort": "apart",
      "kamera": "push-in",
      "groesse": "detail",
+     "monster": false
+    },
+    {
+     "ab_wort": "side",
+     "rueckblende": true,
+     "ort": "hauptstrasse",
+     "modul": "haeuserzeile",
+     "licht": "sonnenaufgang",
+     "figuren": [],
+     "aktion": "ein graues Schuhpaar steht nebeneinander auf einer leeren Veranda im Morgenlicht, entsättigt",
+     "schluesselwort": "side",
+     "kamera": "push-in",
+     "groesse": "detail",
      "monster": false,
-     "hinweis": "Bau Teil 2: Satz wäre 2,53 s (Messtor M2 ≤ 2,5 s)"
+     "hinweis": "erklärt Neuen das Omen und holt den Preis aus Teil 1 nach; schuhpaar grau, ordnung nebeneinander"
     }
    ]
   },
   "13": {
-   "text": "Side by side is all it leaves.",
-   "t_schaetz_s": 24.1,
-   "block": "stadt",
-   "rueckblende": true,
-   "ort": "hauptstrasse",
-   "modul": "haeuserzeile",
-   "licht": "sonnenaufgang",
-   "figuren": [],
-   "aktion": "ein graues Schuhpaar steht nebeneinander auf einer leeren Veranda im Morgenlicht, entsättigt",
-   "schluesselwort": "side",
-   "kamera": "push-in",
-   "groesse": "detail",
-   "monster": false,
-   "hinweis": "erklärt Neuen das Omen und holt den Preis aus Teil 1 nach; schuhpaar grau, ordnung nebeneinander"
-  },
-  "14": {
-   "text": "Mr. Odell rings the midnight bell, and it starts counting.",
-   "t_schaetz_s": 26.0,
+   "text": "At midnight, his bell starts the count.",
+   "t_schaetz_s": 26.8,
    "block": "stadt",
    "ort": "hauptstrasse",
    "modul": "platz",
@@ -483,17 +483,17 @@
     "odell"
    ],
    "aktion": "Mr. Odell vor den Kirchenstufen schaut zum Turm hinauf; auf 'bell' schwingt oben die Glocke",
-   "schluesselwort": "Odell",
+   "schluesselwort": "bell",
    "kamera": "push-in",
    "groesse": "halbnah",
    "monster": false,
    "gesicht": {
     "odell": "streng"
    },
-   "hinweis": "Setup für den Cliffhanger im selben Video (Regel 5): um Mitternacht beginnt das Zählen. Bau Teil 2: Glocken-Teilbild wäre 0,63 s lang",
+   "hinweis": "Setup für den Cliffhanger im selben Video (Regel 5): um Mitternacht beginnt das Zählen. 'his bell' = Odells Glocke, darum Odell im Hauptbild",
    "teilbilder": [
     {
-     "ab_wort": "and it starts",
+     "ab_wort": "starts",
      "ort": "hauptstrasse",
      "modul": "platz",
      "licht": "nacht",
@@ -501,16 +501,16 @@
       "mister-hundred"
      ],
      "aktion": "Rückgriff auf Teil 1: am Platzende im Nebel steht es und zählt, kaltes Licht pulst durch die Fingerspalten",
-     "schluesselwort": "counting",
+     "schluesselwort": "count",
      "kamera": "push-in",
      "groesse": "halbtotale",
      "monster": true,
-     "hinweis": "zeigt Neuen, wo es sonst zählt; der leere Fleck in Satz 41 wird dadurch lesbar (Setup/Payoff 19)"
+     "hinweis": "zeigt Neuen, wo es sonst zählt; der leere Fleck in Satz 39 wird dadurch lesbar (Setup/Payoff 19)"
     }
    ]
   },
-  "15": {
-   "text": "Only the sunrise bell ends Hiding Night.",
+  "14": {
+   "text": "Only the sunrise bell ends it.",
    "t_schaetz_s": 28.8,
    "block": "stadt",
    "ort": "hauptstrasse",
@@ -522,7 +522,7 @@
    "kamera": "kran-enthuellung",
    "groesse": "totale",
    "monster": false,
-   "hinweis": "Bau Teil 2: Satz wäre 2,67 s (M2), deshalb zwei Bilder; Ankunft auf 'bell'",
+   "hinweis": "Ankunft auf 'bell'; erklärt Neuen, dass man bis Sonnenaufgang versteckt bleiben muss",
    "teilbilder": [
     {
      "ab_wort": "ends",
@@ -536,14 +536,13 @@
      "schluesselwort": "ends",
      "kamera": "push-in",
      "groesse": "totale",
-     "monster": true,
-     "hinweis": "'Hiding Night' in der Akzentfarbe im Untertitel"
+     "monster": true
     }
    ]
   },
-  "16": {
-   "text": "Mr. Odell turned to June.",
-   "t_schaetz_s": 30.7,
+  "15": {
+   "text": "Odell looked at June.",
+   "t_schaetz_s": 30.4,
    "block": "stadt",
    "ort": "hauptstrasse",
    "modul": "platz",
@@ -552,7 +551,7 @@
     "odell",
     "june"
    ],
-   "aktion": "Odell wendet sich von Eli ab und dreht sich zu June",
+   "aktion": "Odell wendet sich von Eli ab und sieht June an",
    "schluesselwort": "June",
    "kamera": "push-in",
    "groesse": "halbnah",
@@ -561,9 +560,9 @@
     "odell": "warnend"
    }
   },
-  "17": {
-   "text": "\"It takes the helper too.\"",
-   "t_schaetz_s": 32.1,
+  "16": {
+   "text": "\"It takes whoever helps.\"",
+   "t_schaetz_s": 31.5,
    "block": "stadt",
    "dialog": "odell",
    "ort": "hauptstrasse",
@@ -573,18 +572,18 @@
     "odell"
    ],
    "aktion": "Odell spricht zu June, die Brille glänzt im Laternenlicht",
-   "schluesselwort": "helper",
+   "schluesselwort": "helps",
    "kamera": "push-in",
    "groesse": "nah",
    "monster": false,
    "gesicht": {
     "odell": "warnend"
    },
-   "hinweis": "Mundformen; Untertitel Blau #8EC3F4; greift Teil 1, Satz 12 auf"
+   "hinweis": "Mundformen; Untertitel Blau #8EC3F4; Kernregel aus Teil 1, Satz 12 (If they try, it takes them too)"
   },
-  "18": {
+  "17": {
    "text": "\"So why are you still here?\"",
-   "t_schaetz_s": 33.4,
+   "t_schaetz_s": 32.6,
    "block": "stadt",
    "dialog": "odell",
    "ort": "hauptstrasse",
@@ -600,33 +599,13 @@
    "groesse": "ueber-schulter",
    "monster": false,
    "gesicht": {
-    "june": "besorgt"
-   },
-   "hinweis": "Odell im Vordergrund unscharf, Mundformen sichtbar"
-  },
-  "19": {
-   "text": "June didn't answer.",
-   "t_schaetz_s": 35.1,
-   "block": "stadt",
-   "ort": "hauptstrasse",
-   "modul": "platz",
-   "licht": "nacht",
-   "figuren": [
-    "june"
-   ],
-   "aktion": "June hält seinem Blick stand und sagt nichts",
-   "schluesselwort": "answer",
-   "kamera": "statisch",
-   "groesse": "nah",
-   "monster": false,
-   "gesicht": {
     "june": "entschlossen"
    },
-   "hinweis": "kein Effekt, nur Stimme; die Stille trägt"
+   "hinweis": "Odell im Vordergrund unscharf, Mundformen sichtbar. Junes Schweigen (bisher eigener Satz 'June didn't answer.') trägt das Ende der Einstellung: June hält den Blick und sagt nichts"
   },
-  "20": {
+  "18": {
    "text": "Tess grinned.",
-   "t_schaetz_s": 35.9,
+   "t_schaetz_s": 34.2,
    "block": "stadt",
    "ort": "hauptstrasse",
    "modul": "platz",
@@ -643,9 +622,9 @@
     "tess": "grinsen"
    }
   },
-  "21": {
+  "19": {
    "text": "\"Last game of hide and seek, huh?\"",
-   "t_schaetz_s": 36.4,
+   "t_schaetz_s": 34.8,
    "block": "stadt",
    "dialog": "tess",
    "ort": "hauptstrasse",
@@ -664,37 +643,18 @@
    },
    "hinweis": "Bildecho zu Teil 1, Satz 17 und zur Handpose des Monsters; Mundformen; Untertitel Lila #C9A3F2"
   },
-  "22": {
-   "text": "Nobody laughed.",
-   "t_schaetz_s": 38.4,
-   "block": "stadt",
-   "ort": "hauptstrasse",
-   "modul": "platz",
-   "licht": "nacht",
-   "figuren": [
-    "nachbarn",
-    "odell"
-   ],
-   "aktion": "die Menge starrt Tess an, niemand bewegt sich, die Blicke sinken",
-   "schluesselwort": "Nobody",
-   "kamera": "statisch",
-   "groesse": "totale",
-   "monster": false,
-   "gesicht": {
-    "nachbarn": "besorgt"
-   }
-  },
-  "23": {
+  "20": {
    "text": "She'd hide in the bell tower, higher than any window.",
-   "t_schaetz_s": 38.9,
+   "t_schaetz_s": 36.7,
    "block": "stadt",
    "ort": "hauptstrasse",
    "modul": "platz",
    "licht": "nacht",
    "figuren": [
-    "tess"
+    "tess",
+    "nachbarn"
    ],
-   "aktion": "Tess steigt die Kirchenstufen hinauf zur Turmtür",
+   "aktion": "Tess steigt die Kirchenstufen hinauf zur Turmtür; im Vordergrund sieht ihr die Menge schweigend nach (das Bild des gestrichenen 'Nobody laughed.')",
    "schluesselwort": "tower",
    "kamera": "folgefahrt",
    "groesse": "halbtotale",
@@ -715,9 +675,9 @@
     }
    ]
   },
-  "24": {
-   "text": "At home, I kicked my sneakers apart in the hall.",
-   "t_schaetz_s": 41.6,
+  "21": {
+   "text": "At home, I kicked my sneakers apart.",
+   "t_schaetz_s": 39.5,
    "block": "entscheidung",
    "ort": "marsh-innen",
    "modul": "flur",
@@ -742,14 +702,13 @@
      "schluesselwort": "apart",
      "kamera": "push-in",
      "groesse": "detail",
-     "monster": false,
-     "hinweis": "Bau Teil 2: Satz wäre 2,57 s (M2)"
+     "monster": false
     }
    ]
   },
-  "25": {
-   "text": "I packed for the woods.",
-   "t_schaetz_s": 44.4,
+  "22": {
+   "text": "While I packed, something tapped on June's window.",
+   "t_schaetz_s": 41.4,
    "block": "entscheidung",
    "ort": "marsh-innen",
    "modul": "eli-zimmer",
@@ -758,17 +717,53 @@
     "eli"
    ],
    "aktion": "Eli stopft die Taschenlampe in den Rucksack auf seinem Bett",
-   "schluesselwort": "woods",
+   "schluesselwort": "packed",
    "kamera": "push-in",
    "groesse": "nah",
    "monster": false,
    "gesicht": {
     "eli": "entschlossen"
-   }
+   },
+   "teilbilder": [
+    {
+     "ab_wort": "something",
+     "ort": "hauptstrasse",
+     "modul": "marsh-aussen",
+     "licht": "nacht",
+     "figuren": [
+      "mister-hundred"
+     ],
+     "aktion": "Junes Fenster im Erdgeschoss von außen: Mister Hundred steht tief gebeugt davor, die Hände wie immer vor dem Gesicht; ein Fingerknöchel berührt die Scheibe",
+     "schluesselwort": "tapped",
+     "kamera": "push-in",
+     "groesse": "halbtotale",
+     "monster": true,
+     "hinweis": "Monster-Beat im Mittelteil (Review: Lücke 34–77 s). Kantenlicht kalt, Mantel #34363f; die Hände bleiben vor dem Gesicht (es späht nie, es klopft nur). Vor Mitternacht berührt es nur das Glas. Größenvergleich: der Kopf liegt trotz Beugen über dem Fenstersturz"
+    }
+   ],
+   "hinweis": "Steigerung im Haus (Review P1): erstes Zeichen, dass Junes Zimmer nicht sicher ist"
   },
-  "26": {
+  "23": {
+   "text": "Three slow knocks.",
+   "t_schaetz_s": 43.6,
+   "block": "entscheidung",
+   "ort": "marsh-innen",
+   "modul": "june-zimmer",
+   "licht": "innen-nacht",
+   "figuren": [
+    "mister-hundred"
+   ],
+   "aktion": "Junes leeres Zimmer von innen, die Tür einen Spalt offen: hinter dem Vorhang der Schatten eines langen Fingers; auf 'Three', 'slow' und 'knocks' je ein Klopfen, der Vorhang zittert",
+   "schluesselwort": "knocks",
+   "kamera": "push-in",
+   "groesse": "halbnah",
+   "monster": true,
+   "sfx": "drei langsame Klopfer an Glas, je einer auf 'Three', 'slow', 'knocks' (Handlung)",
+   "hinweis": "Echo zum Klopfen nach 'shut' (Satz 2). Zimmer hell genug (Füll-Licht), damit der Fingerschatten auf dem Vorhang klar liest; nichts vor der Linse. Eine Einstellung (Satz etwa 1,3 s)"
+  },
+  "24": {
    "text": "When I came back down, they were side by side.",
-   "t_schaetz_s": 45.8,
+   "t_schaetz_s": 44.4,
    "block": "entscheidung",
    "ort": "marsh-innen",
    "modul": "flur",
@@ -776,7 +771,7 @@
    "figuren": [
     "eli"
    ],
-   "aktion": "Eli kommt mit dem Rucksack die Treppe herunter",
+   "aktion": "Eli kommt mit dem Rucksack langsam die Treppe herunter, den Blick auf Junes Tür",
    "schluesselwort": "came",
    "kamera": "folgefahrt",
    "groesse": "halbtotale",
@@ -796,11 +791,14 @@
      "sfx": "Sub-Boom auf 'side'",
      "hinweis": "schuhpaar eli, ordnung nebeneinander; Snap-Zoom +18 % in 2 Bildern; im Hintergrund unscharf Junes Tür einen Spalt offen (nicht betonen)"
     }
-   ]
+   ],
+   "gesicht": {
+    "eli": "besorgt"
+   }
   },
-  "27": {
-   "text": "If I ran, I'd end up like Owen.",
-   "t_schaetz_s": 48.5,
+  "25": {
+   "text": "If I ran, I'd end up like Owen Pike, his shoes on his truck seat.",
+   "t_schaetz_s": 47.1,
    "block": "entscheidung",
    "rueckblende": true,
    "ort": "hauptstrasse",
@@ -812,11 +810,27 @@
    "kamera": "push-in",
    "groesse": "halbtotale",
    "monster": false,
-   "hinweis": "Rückgriff auf ein Bild aus Teil 1"
+   "hinweis": "Rückgriff auf ein Bild aus Teil 1",
+   "teilbilder": [
+    {
+     "ab_wort": "his shoes",
+     "rueckblende": true,
+     "ort": "hauptstrasse",
+     "modul": "pike-haus",
+     "licht": "sonnenaufgang",
+     "figuren": [],
+     "aktion": "Detail durch das offene Seitenfenster: Owens schwarze Stiefel mit orangen Senkeln nebeneinander auf dem Fahrersitz; entsättigt",
+     "schluesselwort": "seat",
+     "kamera": "push-in",
+     "groesse": "detail",
+     "monster": false,
+     "hinweis": "Rückgriff auf Teil 1 (Sätze 13–16); erklärt Neuen, warum Weglaufen nicht geht (Review P1 Kontext)"
+    }
+   ]
   },
-  "28": {
-   "text": "If June hid me, she'd end up like Dad.",
-   "t_schaetz_s": 50.7,
+  "26": {
+   "text": "If June hid me, she'd end up like Dad, who hid her six years ago.",
+   "t_schaetz_s": 51.2,
    "block": "entscheidung",
    "rueckblende": true,
    "ort": "hauptstrasse",
@@ -828,11 +842,34 @@
    "kamera": "push-in",
    "groesse": "detail",
    "monster": false,
-   "hinweis": "Rückgriff auf ein Bild aus Teil 1 (veranda_schuhe)"
+   "hinweis": "Rückgriff auf ein Bild aus Teil 1 (veranda_schuhe)",
+   "teilbilder": [
+    {
+     "ab_wort": "who hid her",
+     "rueckblende": true,
+     "ort": "marsh-innen",
+     "modul": "june-zimmer",
+     "licht": "rueckblende-nacht",
+     "figuren": [
+      "dad",
+      "june"
+     ],
+     "aktion": "Rückblende vor sechs Jahren: Dad hält den Lukendeckel in Junes Zimmer auf, June (18, Haare offen) steigt hinein; entsättigt",
+     "schluesselwort": "hid",
+     "kamera": "push-in",
+     "groesse": "halbtotale",
+     "monster": false,
+     "gesicht": {
+      "dad": "entschlossen",
+      "june": "besorgt"
+     },
+     "hinweis": "June ist in der Rückblende 18 (volljährig, A7.1). Spiegelt Satz 31: dieselbe Luke, damals Dad, heute June. Gesichter von vorn"
+    }
+   ]
   },
-  "29": {
+  "27": {
    "text": "June took my bag.",
-   "t_schaetz_s": 53.2,
+   "t_schaetz_s": 55.3,
    "block": "entscheidung",
    "ort": "marsh-innen",
    "modul": "flur",
@@ -850,9 +887,9 @@
     "june": "entschlossen"
    }
   },
-  "30": {
+  "28": {
    "text": "\"It never looks in my room, Rabbit.\"",
-   "t_schaetz_s": 54.2,
+   "t_schaetz_s": 56.4,
    "block": "entscheidung",
    "dialog": "june",
    "ort": "marsh-innen",
@@ -871,9 +908,9 @@
    },
    "hinweis": "Bildecho zu Teil 1, Satz 29 (gleiche Größe, gleicher Push-in); Mundformen; Untertitel Gelb"
   },
-  "31": {
+  "29": {
    "text": "\"That's why I'm still here.\"",
-   "t_schaetz_s": 56.2,
+   "t_schaetz_s": 58.4,
    "block": "entscheidung",
    "dialog": "june",
    "ort": "marsh-innen",
@@ -890,11 +927,11 @@
    "gesicht": {
     "june": "laecheln"
    },
-   "hinweis": "beantwortet Odells Frage aus Satz 18; der Doppelsinn bleibt offen"
+   "hinweis": "beantwortet Odells Frage aus Satz 17; der Doppelsinn bleibt offen"
   },
-  "32": {
+  "30": {
    "text": "She rolled back the rug and opened the hatch.",
-   "t_schaetz_s": 57.5,
+   "t_schaetz_s": 59.7,
    "block": "entscheidung",
    "ort": "marsh-innen",
    "modul": "june-zimmer",
@@ -925,29 +962,51 @@
     }
    ]
   },
-  "33": {
-   "text": "I climbed in anyway.",
-   "t_schaetz_s": 60.0,
+  "31": {
+   "text": "She pushed me in before I could say no.",
+   "t_schaetz_s": 62.2,
    "block": "entscheidung",
    "ort": "marsh-innen",
    "modul": "june-zimmer",
    "licht": "innen-nacht",
    "figuren": [
+    "june",
     "eli"
    ],
-   "aktion": "Eli steigt in die Luke hinab, von vorn und flach über dem Boden, hinter ihm steht June",
-   "schluesselwort": "climbed",
+   "aktion": "von vorn und flach über dem Boden: June drückt Eli an den Schultern in die Luke hinab, er sinkt bis zur Brust in den Schacht und sieht zu ihr hoch",
+   "schluesselwort": "pushed",
    "kamera": "push-in",
    "groesse": "halbnah",
    "monster": false,
    "gesicht": {
-    "eli": "entschlossen"
+    "eli": "erschrocken",
+    "june": "entschlossen"
    },
-   "hinweis": "Gesicht an der Schlüsselstelle von vorn (Review Folge 1); dramatische Ironie"
+   "hinweis": "June erzwingt das Verstecken (Review P1), Eli entscheidet nicht selbst. Festes Drücken an den Schultern, kein Stoß; beide erwachsen (Eli 18, June 24). Gesichter von vorn an der Schlüsselstelle",
+   "teilbilder": [
+    {
+     "ab_wort": "before",
+     "ort": "marsh-innen",
+     "modul": "june-zimmer",
+     "licht": "innen-nacht",
+     "figuren": [
+      "june"
+     ],
+     "aktion": "Untersicht aus der Luke (Elis Blick): Junes Gesicht über dem Lukenrand, eine Hand schon am Deckel",
+     "schluesselwort": "no",
+     "kamera": "push-in",
+     "groesse": "gross",
+     "monster": false,
+     "gesicht": {
+      "june": "entschlossen"
+     },
+     "hinweis": "Kopf oben im Bild (Kopf-oben-Regel), Gesicht ganz und von vorn"
+    }
+   ]
   },
-  "34": {
+  "32": {
    "text": "The hatch closed over me, then the rug.",
-   "t_schaetz_s": 61.1,
+   "t_schaetz_s": 64.7,
    "block": "entscheidung",
    "ort": "kriechkeller",
    "modul": "kriechkeller",
@@ -974,9 +1033,9 @@
     }
    ]
   },
-  "35": {
+  "33": {
    "text": "Above me, June lay down and counted, like every night.",
-   "t_schaetz_s": 63.3,
+   "t_schaetz_s": 66.8,
    "block": "cliffhanger",
    "ort": "kriechkeller",
    "modul": "kriechkeller",
@@ -1011,9 +1070,9 @@
     }
    ]
   },
-  "36": {
+  "34": {
    "text": "\"Ninety-seven.\"",
-   "t_schaetz_s": 66.0,
+   "t_schaetz_s": 69.6,
    "block": "cliffhanger",
    "dialog": "june",
    "ort": "marsh-innen",
@@ -1032,9 +1091,9 @@
    },
    "hinweis": "Mundformen im Takt; Untertitel Gelb; Junes Stimme leise"
   },
-  "37": {
+  "35": {
    "text": "\"Ninety-eight.\"",
-   "t_schaetz_s": 66.3,
+   "t_schaetz_s": 69.9,
    "block": "cliffhanger",
    "dialog": "june",
    "ort": "kriechkeller",
@@ -1053,9 +1112,9 @@
    },
    "hinweis": "June ist nicht im Bild, also keine Mundformen nötig"
   },
-  "38": {
+  "36": {
    "text": "\"Ninety-nine.\"",
-   "t_schaetz_s": 66.6,
+   "t_schaetz_s": 70.1,
    "block": "cliffhanger",
    "dialog": "june",
    "ort": "marsh-innen",
@@ -1072,11 +1131,11 @@
    "gesicht": {
     "june": "zaehlt"
    },
-   "hinweis": "Musik reißt am Wortende von Ninety-nine ab. Die Einstellung läuft durch Satz 39 (Then she stopped) und ist das letzte Bild von June in Teil 2"
+   "hinweis": "Musik reißt am Wortende von Ninety-nine ab. Die Einstellung läuft durch Satz 37 (Then she stopped) und ist das letzte Bild von June in Teil 2"
   },
-  "39": {
+  "37": {
    "text": "Then she stopped.",
-   "t_schaetz_s": 66.8,
+   "t_schaetz_s": 70.4,
    "block": "cliffhanger",
    "ort": "kriechkeller",
    "modul": "kriechkeller",
@@ -1084,7 +1143,7 @@
    "figuren": [
     "eli"
    ],
-   "aktion": "kein eigener Schnitt: die Einstellung von Satz 38 hält Junes Gesicht; die Lippen stehen still, auf 'stopped' steigt weißer Atem auf",
+   "aktion": "kein eigener Schnitt: die Einstellung von Satz 36 hält Junes Gesicht; die Lippen stehen still, auf 'stopped' steigt weißer Atem auf",
    "schluesselwort": "stopped",
    "kamera": "statisch",
    "groesse": "nah",
@@ -1092,12 +1151,12 @@
    "gesicht": {
     "eli": "nervoes"
    },
-   "hinweis": "Bau Teil 2: 'Ninety-nine' allein wäre 0,39 s lang (M2 ≥ 0,7 s). Kein Effekt, die Musik ist schon weg",
+   "hinweis": "Neue Aufnahme: 'Ninety-nine' dauert allein 0,9 s (die alte Messung von 0,39 s war eine Whisper-Verschiebung, siehe stimme.json); die durchgehende Einstellung bleibt, weil Junes stille Lippen und der weiße Atem den Beat tragen. Kein Effekt, die Musik ist schon weg",
    "neuer_schnitt": false
   },
-  "40": {
+  "38": {
    "text": "The bell struck midnight.",
-   "t_schaetz_s": 67.7,
+   "t_schaetz_s": 71.2,
    "block": "cliffhanger",
    "ort": "hauptstrasse",
    "modul": "platz",
@@ -1111,9 +1170,9 @@
    "sfx": "ein Glockenschlag (Handlung; der einzige Ton neben der Stimme)",
    "hinweis": "Turmuhr 12:00"
   },
-  "41": {
+  "39": {
    "text": "No counting came from the square.",
-   "t_schaetz_s": 68.8,
+   "t_schaetz_s": 72.3,
    "block": "cliffhanger",
    "ort": "hauptstrasse",
    "modul": "platz",
@@ -1129,9 +1188,9 @@
    "monster": false,
    "hinweis": "der leere Fleck bei monster_platz ist die Botschaft: dort zählt es sonst"
   },
-  "42": {
+  "40": {
    "text": "The boards above my face bent down.",
-   "t_schaetz_s": 70.4,
+   "t_schaetz_s": 74.0,
    "block": "cliffhanger",
    "ort": "kriechkeller",
    "modul": "kriechkeller",
@@ -1149,9 +1208,9 @@
    "effekt": "Staubpartikel, Wackeln 0,3 s",
    "hinweis": "eigener Baustein: Dielen wölben sich, Hauptbewegung auf 'bent'"
   },
-  "43": {
+  "41": {
    "text": "My breath turned white.",
-   "t_schaetz_s": 72.3,
+   "t_schaetz_s": 75.9,
    "block": "cliffhanger",
    "ort": "kriechkeller",
    "modul": "kriechkeller",
@@ -1171,9 +1230,9 @@
    "effekt": "Atemdampf",
    "hinweis": "Bildecho zu Teil 1, Satz 33"
   },
-  "44": {
+  "42": {
    "text": "Something finished her count, slow and deep.",
-   "t_schaetz_s": 73.4,
+   "t_schaetz_s": 77.0,
    "block": "cliffhanger",
    "ort": "kriechkeller",
    "modul": "kriechkeller",
@@ -1203,13 +1262,13 @@
      "kamera": "kran-enthuellung",
      "groesse": "detail",
      "monster": true,
-     "hinweis": "Payoff der Reif-Spur (Satz 4): dieselben Füße. Junes Bett bleibt außerhalb des Bildes (Satz 38: letztes Bild von June)"
+     "hinweis": "Payoff der Reif-Spur (Satz 4): dieselben Füße. Junes Bett bleibt außerhalb des Bildes (Satz 36: letztes Bild von June)"
     }
    ]
   },
-  "45": {
+  "43": {
    "text": "\"One hundred.\"",
-   "t_schaetz_s": 75.3,
+   "t_schaetz_s": 78.9,
    "block": "cliffhanger",
    "dialog": "mister-hundred",
    "ort": "kriechkeller",
@@ -1225,18 +1284,18 @@
    "monster": true,
    "effekt": "Lichtereignis: Lichtspalten werden in 0,3 s dunkel",
    "sfx": "Leitgeräusch: Stimme −5 Halbtöne, kurzer Hall, je Zahl ein dumpfer Schlag",
-   "hinweis": "Untertitel Türkis #9FD8D2. Bau Teil 2: 'One' allein wäre 0,31 s und 'Ready?' 0,5 s (M2 ≥ 0,7 s), deshalb eine Einstellung bis zur Endkarte; Snap-Zoom auf 'Ready'"
+   "hinweis": "Untertitel Türkis #9FD8D2. Neue Aufnahme: 'One hundred.' 1,5 s, 'Ready?' 0,33 s (M2 ≥ 0,7 s), deshalb eine Einstellung bis zur Endkarte; Snap-Zoom auf 'Ready'"
   },
-  "46": {
+  "44": {
    "text": "\"Ready?\"",
-   "t_schaetz_s": 75.9,
+   "t_schaetz_s": 79.5,
    "block": "cliffhanger",
    "dialog": "mister-hundred",
    "ort": "kriechkeller",
    "modul": "kriechkeller",
    "licht": "kriechkeller",
    "figuren": [],
-   "aktion": "kein eigener Schnitt (siehe Satz 45): die Fingerschatten spreizen sich, Snap-Zoom",
+   "aktion": "kein eigener Schnitt (siehe Satz 43): die Fingerschatten spreizen sich, Snap-Zoom",
    "schluesselwort": "Ready",
    "kamera": "statisch",
    "groesse": "gross",
@@ -1255,5 +1314,64 @@
   "hauptstrasse: Glocke schwingt (params.glocke / Ereignis glocke)",
   "luke: teppich_rollen",
   "eli: params.rucksack"
- ]
+ ],
+ "neuer_text": {
+  "grundlage": "REVIEW.md, Abschnitt 'Vorschlag für die Neuaufnahme' (drei Erzähl-P1)",
+  "satz_alt_zu_neu": {
+   "1": 1,
+   "2": 2,
+   "3": 3,
+   "4": 4,
+   "5": 5,
+   "6": 6,
+   "7": 7,
+   "8": 8,
+   "9": 9,
+   "10": 10,
+   "11": 11,
+   "12": 12,
+   "13": 12,
+   "14": 13,
+   "15": 14,
+   "16": 15,
+   "17": 16,
+   "18": 17,
+   "20": 18,
+   "21": 19,
+   "23": 20,
+   "24": 21,
+   "25": 22,
+   "26": 24,
+   "27": 25,
+   "28": 26,
+   "29": 27,
+   "30": 28,
+   "31": 29,
+   "32": 30,
+   "33": 31,
+   "34": 32,
+   "35": 33,
+   "36": 34,
+   "37": 35,
+   "38": 36,
+   "39": 37,
+   "40": 38,
+   "41": 39,
+   "42": 40,
+   "43": 41,
+   "44": 42,
+   "45": 43,
+   "46": 44
+  },
+  "gestrichen": {
+   "19": "June didn't answer. (Junes Schweigen steckt jetzt im Bild von Satz 17)",
+   "22": "Nobody laughed. (die stille Menge steht jetzt im Bild von Satz 20)",
+   "33": "I climbed in anyway. (ersetzt durch Satz 31)"
+  },
+  "neu": {
+   "22": "While I packed, something tapped on June's window. (ersetzt 'I packed for the woods.')",
+   "23": "Three slow knocks.",
+   "31": "She pushed me in before I could say no."
+  }
+ }
 }
