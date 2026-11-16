@@ -27,6 +27,15 @@ JSON (alle Zeiten in Sekunden der Folge):
                   (Referenz r5: Hook lauter, danach flach). So hebt pegel_db den Hook an und gleicht „dünn“
                   bis auf etwa 1 LU an „normal“ an.
   ausblenden_s    Blende am Ende (Std 0.5)
+  quelle          "musik-v2": Stufen aus den fertig gemischten Dateien von engine/musik-v2 statt aus den
+                  trockenen Schichten (stil z. B. "r2-eigen" -> build/musik-v2/r2-eigen-v2-duenn.wav,
+                  -schleife.wav = normal, -voll.wav). Die drei Dateien sind abtastgleich getaktet, also wird
+                  zwischen ihnen in der Amplitude überblendet. Weil der Hall dort schon eingemischt ist, bekommt
+                  jeder Wegfall einen eigenen kurzen Nachhall (nachhall_rt60_s, Std 1.3 wie r2), damit die
+                  Musik nicht abgeschnitten klingt. Takt-Einrasten: 4 Schläge zu bpm aus <stil>-v2.json.
+
+Review Teil 2 / Linus („Musik sehr viel näher an den Vorbildern“): Teil 1 und 2 laufen auf r2-eigen
+(Spieluhr wie r2, eigene Begleitfiguren, siehe engine/musik-v2/LIZENZEN.md).
 """
 
 from __future__ import annotations
@@ -120,7 +129,79 @@ def pegel_kurve(punkte: list[dict], n: int, std_blende: float) -> np.ndarray:
     return k
 
 
+def laenge_bestimmen(cfg: dict) -> tuple[dict | None, float]:
+    """timing.json der Folge und Länge der Fassung (dauer_s, sonst mischung.json, sonst Stimme + Endkarte)."""
+    timing, laenge = None, cfg.get("dauer_s")
+    if cfg.get("folge"):
+        ordner = HORROR / cfg["folge"]
+        tp = ordner / "timing.json"
+        timing = json.loads(tp.read_text()) if tp.exists() else None
+        mp = ordner / "mischung.json"
+        if laenge is None and mp.exists():
+            laenge = json.loads(mp.read_text())["laenge_s"]
+        if laenge is None and timing:
+            laenge = timing["dauer_s"] + cfg.get("endkarte_s", 1.0)
+    if laenge is None:
+        raise SystemExit("Länge unbekannt: dauer_s oder folge mit timing.json/mischung.json angeben")
+    return timing, laenge
+
+
+def rendern_v2(cfg: dict, name: str) -> tuple[np.ndarray, dict]:
+    """Spannungsfassung aus den drei Stufen-Dateien von musik-v2 (dünn / normal / voll)."""
+    ordner = HORROR / "build" / "musik-v2"
+    bau = json.loads((ordner / f"{cfg['stil']}-v2.json").read_text())
+    dateien = {"duenn": "duenn", "normal": "schleife", "voll": "voll"}
+    # Pseudo-Stil für zeitpunkte_aufloesen/verlaeufe: jede Stufe ist genau eine Datei bei 0 dB
+    stil = {"bpm": bau["bpm"], "schichten": list(dateien),
+            "varianten": {st: {s: (0.0 if s == st else None) for s in dateien} for st in dateien}}
+    timing, laenge = laenge_bestimmen(cfg)
+    n = klang.sek(laenge)
+    punkte = zeitpunkte_aufloesen(cfg, timing, stil)
+    kurven = verlaeufe(stil, punkte, n, cfg.get("uebergang_s", 1.5))
+    start = klang.sek(cfg.get("start_in_schleife_s", 0.0))
+    y = np.zeros((n, 2))
+    for s, datei in dateien.items():
+        x = klang.lade_wav(ordner / f"{cfg['stil']}-v2-{datei}.wav")
+        idx = (start + np.arange(n)) % len(x)      # die Dateien laufen nahtlos im Kreis
+        y += x[idx] * kurven[s][:, None]
+    # Nachhall an jedem Wegfall: die letzten 250 ms vor dem Abriss durch einen kurzen Raum schicken
+    # (eigene Impulsantwort aus klang.hall_ir) und ab dem Abriss dazulegen. Der Raum klingt so aus,
+    # wie er es in der trockenen Fassung täte; ohne das bricht die Spieluhr mitten im Hall ab.
+    ir = klang.hall_ir(cfg.get("nachhall_rt60_s", 1.3), vor_ms=15, breite=0.85, hoehen=0.5, seed=11)
+    nass = 10 ** (cfg.get("nachhall_db", -6.0) / 20)
+    for p in punkte:
+        if p["stufe"] != "weg":
+            continue
+        a = klang.sek(p["zeit_s"])
+        b = klang.sek(float(p.get("blende_s", cfg.get("uebergang_s", 1.5))))
+        seg = y[max(0, a - klang.sek(0.25)):a + b].copy()
+        if not len(seg):
+            continue
+        # falten() liefert nur len(x) Werte: mit Stille verlängern, damit der ganze Schweif herauskommt
+        schweif = klang.falten(np.vstack([seg, np.zeros((len(ir), 2))]), ir, zyklisch=False)
+        # nur der Teil nach dem Abriss zählt (davor ist der Hall in der Datei schon da)
+        ab = len(seg) - b
+        teil = schweif[ab:]
+        k = min(len(teil), n - a)
+        y[a:a + k] += nass * teil[:k] * np.clip(np.arange(k) / max(1, b), 0, 1)[:, None]
+    g = 10 ** (pegel_kurve(punkte, n, cfg.get("uebergang_s", 1.5)) / 20)
+    y *= g[:, None]
+    ab = klang.sek(cfg.get("ausblenden_s", 0.5))
+    y[-ab:] *= np.linspace(1, 0, ab)[:, None]
+    info = {"name": name, "stil": cfg["stil"], "quelle": "musik-v2", "laenge_s": round(laenge, 3), "punkte": punkte,
+            "lufs": round(klang.lufs(y), 2), "spitze_dbfs": round(float(20 * np.log10(np.abs(y).max() + 1e-12)), 2)}
+    for p in punkte:
+        a = klang.sek(p["zeit_s"])
+        vor = y[max(0, a - klang.sek(0.6)):a]
+        nach = y[a + klang.sek(0.6 + float(p.get("blende_s", cfg.get("uebergang_s", 1.5)))):][:klang.sek(0.6)]
+        p["rms_vor_db"] = round(float(10 * np.log10(np.mean(vor ** 2) + 1e-20)), 1) if len(vor) else None
+        p["rms_nach_db"] = round(float(10 * np.log10(np.mean(nach ** 2) + 1e-20)), 1) if len(nach) else None
+    return y, info
+
+
 def rendern(cfg: dict, name: str) -> tuple[np.ndarray, dict]:
+    if cfg.get("quelle") == "musik-v2":
+        return rendern_v2(cfg, name)
     stil = bauen.stil_laden(cfg["stil"], 2)
     info_bau = json.loads((HORROR / "build" / "musik" / f"{cfg['stil']}.json").read_text())
     timing, laenge = None, cfg.get("dauer_s")

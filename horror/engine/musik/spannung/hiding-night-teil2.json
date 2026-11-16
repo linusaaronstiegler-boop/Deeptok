@@ -1,13 +1,13 @@
 {
- "stil": "wiegenlied",
+ "stil": "r2-eigen",
  "folge": "episoden/folge-02",
  "dauer_s": 87.0,
  "endkarte_s": 1.0,
- "start_in_schleife_s": 20.425,
+ "start_in_schleife_s": 0.0,
  "uebergang_s": 1.5,
  "einrasten": "schlag",
  "ausblenden_s": 0.5,
- "_hinweis": "Review Teil 2 (Linus: Musik 'mehr eins zu eins' wie die Vorbilder): flaches, durchgehendes Bett wie r5. Drei Zustände nah beieinander (normal 12 LU unter der Stimme, voll etwa 11, dünn mit +4,2 dB etwa 13), der Hook 2,5 dB lauter (r5: Hook am lautesten). Nur kurze Wegfälle (1,2–1,4 s) vor den Pointen; ganz still erst nach 'Ready?'. Satznummern von skript-teil2.txt, Wortnummern von timing.json.",
+ "_hinweis": "Linus: 'Musik sehr viel näher an den Vorbildern'. Bett r2-eigen aus engine/musik-v2: Spieluhr mit Akkordfolge, Tempo (111,7 BPM), Verstimmung (+46 Cent), Klang und Hall wie r2, aber eigenen Begleitfiguren in allen Takten und eigener Oberstimme (Fingerabdruck kein Treffer, siehe musik-v2/LIZENZEN.md). Regel aus dem Review Teil 2: flaches Bett, normal 12 LU unter der Stimme, voll etwa 11, dünn etwa 13, Hook +2,5 dB; nur kurze Wegfälle (≤ 1,4 s) vor den Pointen, jeder mit kurzem Nachhall. Satznummern vom Skript, Wortnummern von timing.json.",
  "stufen": [
   {
    "ab_s": 0.0,
@@ -54,17 +54,17 @@
    "ab_wort": 247,
    "versatz_s": 0.0,
    "stufe": "duenn",
-   "pegel_db": 4.2,
+   "pegel_db": 1.2,
    "blende_s": 0.3,
    "einrasten": "aus",
-   "grund": "Wiedereinsatz mit 'The bell struck midnight': nur Spieldose und Orgelpunkt, dünn, aber kaum leiser (Wegfall 1,2 s)"
+   "grund": "Wiedereinsatz mit 'The bell struck midnight': nur Spieldose und Orgelpunkt (dünn: nur die Figur ohne Oberstimme und Verdopplung, +1,2 dB -> etwa 13 LU unter der Stimme)"
   },
   {
-   "ab_wort": 252,
+   "ab_wort": 251,
    "versatz_s": -0.1,
    "stufe": "weg",
    "blende_s": 0.15,
-   "grund": "zweiter kurzer Wegfall: 'No counting came from the square' (das Zählen fehlt, die Musik auch)"
+   "grund": "zweiter kurzer Wegfall: 'No counting came from the square' (das Zählen fehlt, die Musik auch) – Anker jetzt 'No' (Wort 251; dessen Wortzeit ist seit dem Review korrigiert: 75,91 s)"
   },
   {
    "ab_wort": 257,
@@ -82,5 +82,8 @@
    "blende_s": 0.05,
    "grund": "Ende von 'Ready?': harter Schnitt in die Stille, nur der Hall klingt über PART 3 aus"
   }
- ]
+ ],
+ "quelle": "musik-v2",
+ "nachhall_rt60_s": 1.3,
+ "nachhall_db": -6.0
 }

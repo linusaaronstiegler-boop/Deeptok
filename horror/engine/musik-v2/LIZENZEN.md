@@ -1,6 +1,6 @@
 # Musik v2: Rechte, Quellen, Restrisiko
 
-Stand 15.11.2026. Alle Abrufdaten in UTC.
+Stand 16.11.2026 (r2-eigen ergänzt). Alle Abrufdaten in UTC.
 
 ## Was von uns ist
 
@@ -19,6 +19,34 @@ Stand 15.11.2026. Alle Abrufdaten in UTC.
 Eigenständig gesetzt ist die Oberstimme:
 - **Spieluhr (r2/r5):** Die Spitzentöne in Takt 5–8 sind neu: E6 statt H5, E6 statt Cis6, Cis6 statt H5, Gis5 statt H5. Dazu kommt ein eigener Glitzerton Gis6 am Schleifenende statt des A6 der Vorlage.
 - **Klavier (ref0):** Die Viertel-Melodie auf den Zählzeiten ist ganz neu, in 8 Takten aus Akkordtönen (`melodie_eigen`). Die Melodietöne der Vorlage sind entfernt.
+
+## r2-eigen: das Bett der Serie (Stand 16.11.2026)
+
+Linus wollte die Musik „sehr viel näher an den Vorbildern“. r2-v2 ist nah, aber zu nah: Die Begleitung folgt der Vorlage Achtel für Achtel, und unser Fingerabdruck stuft sie als „dasselbe Stück“ ein (0,828 bei z 4,6). Für Teil 1 und 2 läuft deshalb **r2-eigen**:
+
+- **Bleibt wie r2 (Stil, nicht Werk):** Akkordfolge I – vi7 – vi – bVI+ zweimal, 111,7 BPM, 4/4 in Achteln, Schleife 17,19 s, Register E4–E6, Celesta aus FluidR3_GM, derselbe Hall, dasselbe Leiern, +46 Cent, Terz-EQ auf das Langzeitspektrum, Dichte und Lage der Oktav-Verdopplungen.
+- **Eigen in allen acht Takten** (`analyse/eigene_figuren.py` → `muster/spieluhr-eigen.json`):
+  - Arpeggio-Reihenfolge an 1–2 Stellen je Takt anders (Wendung nach oben, fallender Beginn, Bogen 4+4 statt 3+3+2, Rückschwung in den nächsten Takt).
+  - Eigene Linien und Umkehrungen: Takt 1 in einem Zug über zwei Oktaven, Takt 4 von oben, Takt 6 von der Terz.
+  - Haltetöne in Takt 2 und 5.
+  - Eine eigene Oberstimme in halben Noten (Wiegenlied), die die Vorlage nicht hat.
+  - Eigene Akzente (Streuung unter 3 dB); die Lautheitskurve der Vorlage je Achtel ist nicht übernommen.
+
+**Gemessen** (Referenz: Demucs-Musikspur von r2, nur im Scratchpad):
+
+| Fassung | Fingerabdruck gegen r2-Schleife (Ähnl. / z) | Urteil | Chroma fest (`vergleich.py`) | Spektrum |
+|---|---|---|---|---|
+| r2-eigen normal (`schleife`) | 0,733 / 4,1 | kein Treffer | 0,765 | 5,9 dB |
+| r2-eigen dünn | 0,724 / 3,9 | kein Treffer | 0,767 | 5,6 dB |
+| r2-eigen voll | 0,636 / 3,3 | kein Treffer | 0,685 | 7,1 dB |
+| zum Vergleich: r2-v2 (Abschrift) | 0,828 / 4,6 | **Treffer** | 0,866 | 4,8 dB |
+| zum Vergleich: v1 / fremde Stücke | – / 0,55–0,61, z 2,4–3,1 | nein | 0,57 | – |
+
+Gegen die r5-Schleife (dasselbe Stück, tiefer und langsamer): r2-eigen 0,625 / z 3,5, kein Treffer. Treffer heißt Ähnlichkeit ≥ 0,78 **und** z ≥ 4,5.
+
+Wie weit die Figuren weg sein müssen, habe ich in Stufen gemessen (Versuchsbau mit 4 Schleifen, Fingerabdruck / Chroma fest): nur die Lage ändern 0,831 / 0,866 (Treffer), 1–2 Änderungen je Takt 0,72 / 0,76, drei Änderungen 0,645 / 0,684, ganz fremde Figuren 0,575 / 0,58 (so weit weg wie ein fremdes Stück, der Stil ist dann weg). r2-eigen liegt in der Mitte: kein Treffer, aber deutlich näher an der Vorlage als v1.
+
+Was das nicht leistet: Es ist eine Messung mit unserem eigenen Chroma-Fingerabdruck, keine Rechtsberatung. Content ID und die TikTok-Erkennung vergleichen Aufnahmen; Klang, Hall und Mischung sind ohnehin eigen. Eine Cover- oder Melodie-Erkennung ist nicht ausgeschlossen, aber die Begleitfiguren sind jetzt nicht mehr die der Vorlage. `r2-v2` und `r5-v2` (Abschrift) bitte nicht in Videos verwenden.
 
 ## Restrisiko (ehrlich)
 

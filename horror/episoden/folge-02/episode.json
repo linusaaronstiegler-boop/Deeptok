@@ -6089,7 +6089,7 @@
   {
    "id": "E42",
    "start": 56.8333,
-   "ende": 58.1333,
+   "ende": 58.5,
    "set": [
     "strasse",
     "haus"
@@ -6210,7 +6210,7 @@
   },
   {
    "id": "E43",
-   "start": 58.1333,
+   "start": 58.5,
    "ende": 60.2667,
    "set": [
     "strasse",
@@ -6261,7 +6261,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 58.16,
+     "start": 58.52,
      "params": {
       "name": "besorgt/reden_a"
      }
@@ -6269,15 +6269,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 58.28,
-     "params": {
-      "name": "besorgt"
-     }
-    },
-    {
-     "wer": "june",
-     "was": "gesicht",
-     "start": 58.55,
+     "start": 58.6,
      "params": {
       "name": "besorgt/reden_b"
      }
@@ -6382,7 +6374,7 @@
     "mund": {
      "wer": "june",
      "art": "rede",
-     "wechsel": 10
+     "wechsel": 9
     },
     "hauptsache": "june.kopf",
     "bogen_zeit": 60.2,
@@ -7702,7 +7694,7 @@
   {
    "id": "E55",
    "start": 74.0667,
-   "ende": 75.4,
+   "ende": 75.8667,
    "set": [
     "strasse",
     "marsh"
@@ -7783,7 +7775,7 @@
   },
   {
    "id": "E56",
-   "start": 75.4,
+   "start": 75.8667,
    "ende": 77.1667,
    "set": [
     "strasse",
@@ -7815,7 +7807,7 @@
     "rueck": 2,
     "fov": 50,
     "ankunft": 77,
-    "start": 75.15
+    "start": 75.6167
    },
    "stellung": {
     "odell": {
@@ -10657,49 +10649,49 @@
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 58.1333,
+   "start": 58.5,
    "dauer": 0,
    "quelle": "auto:30"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 58.1333,
+   "start": 58.5,
    "dauer": 0,
    "quelle": "auto:30"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 58.1333,
+   "start": 58.5,
    "dauer": 0,
    "quelle": "auto:30"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 58.1333,
+   "start": 58.5,
    "dauer": 0,
    "quelle": "auto:30"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 58.1333,
+   "start": 58.5,
    "dauer": 0,
    "quelle": "auto:30"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 58.1333,
+   "start": 58.5,
    "dauer": 0,
    "quelle": "auto:30"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 58.1333,
+   "start": 58.5,
    "dauer": 0,
    "quelle": "auto:30"
   },
@@ -11294,49 +11286,49 @@
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 75.4,
+   "start": 75.8667,
    "dauer": 0,
    "quelle": "auto:41"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 75.4,
+   "start": 75.8667,
    "dauer": 0,
    "quelle": "auto:41"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 75.4,
+   "start": 75.8667,
    "dauer": 0,
    "quelle": "auto:41"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 75.4,
+   "start": 75.8667,
    "dauer": 0,
    "quelle": "auto:41"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 75.4,
+   "start": 75.8667,
    "dauer": 0,
    "quelle": "auto:41"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 75.4,
+   "start": 75.8667,
    "dauer": 0,
    "quelle": "auto:41"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 75.4,
+   "start": 75.8667,
    "dauer": 0,
    "quelle": "auto:41"
   },

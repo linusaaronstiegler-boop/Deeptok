@@ -2,7 +2,7 @@
  "_hinweis": "Cue-Liste für engine/ton/mischen.py (Teil 2). 'wort' = Index in timing.json, 'text' wird geprüft. Wie Teil 1 nach dem Review: wenige Akzente (12 Cues), nicht jede Bewegung. Ab dem Musik-Abriss nach 'Ninety-nine' nur noch Glocke (Handlung), Dielen und das Leitgeräusch.",
  "endkarte_stumm": true,
  "rede": {
-  "_hinweis": "Wörtliche Rede formant-erhaltend höher/tiefer (ffmpeg rubberband), wie in Teil 1. Mister Hundred: tiefer, Formanten mit verschoben, kurzer Hall (serie.md: Leitgeräusch −5 Halbtöne mit kurzem Hall; −4, damit 'Ready' verständlich bleibt). June in Teil 2 +2,0 statt +2,5 Halbtöne: mit +2,5 hörte Whisper im Zusammenhang 'He can't touch you' statt 'It can't …' (Bau Teil 2, gemessen). Review Teil 2: Odell klang mit −1,5 Halbtönen (200 Hz) höher als June (145–162 Hz), obwohl er 74 ist; jetzt −4,5 Halbtöne (Ziel ≤ 160 Hz).",
+  "_hinweis": "Wörtliche Rede formant-erhaltend höher/tiefer (ffmpeg rubberband), wie in Teil 1. Mister Hundred: tiefer, Formanten mit verschoben, kurzer Hall (serie.md: Leitgeräusch −5 Halbtöne mit kurzem Hall; −4, damit 'Ready' verständlich bleibt). June in Teil 2 +2,0 statt +2,5 Halbtöne: mit +2,5 hörte Whisper im Zusammenhang 'He can't touch you' statt 'It can't …' (Bau Teil 2, gemessen). Review Teil 2: Odell klang mit −1,5 Halbtönen (200 Hz) höher als June (145–162 Hz), obwohl er 74 ist; jetzt −4,5 Halbtöne (Ziel ≤ 160 Hz). Nachmessung 16.11. (pyin auf der Mischung): mit −4,5 lag Odell bei 166 Hz, June bei 130–164 Hz – nicht mehr höher, aber auch nicht tiefer; jetzt −5,5 Halbtöne (rechnerisch etwa 157 Hz).",
   "june": {
    "halbtoene": 2.0,
    "db": -2.0
@@ -12,7 +12,7 @@
    "db": -2.0
   },
   "odell": {
-   "halbtoene": -4.5,
+   "halbtoene": -5.5,
    "db": -1.0
   },
   "mister hundred": {

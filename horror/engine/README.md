@@ -729,21 +729,22 @@ Stand nach dem Review (Einzelheiten und Vorher-Werte: `episoden/folge-01/REVIEW.
 Stand 16.11.2026. Aufrufe:
 
 ```bash
-python engine/fertigen.py episoden/folge-02 --bett build/musik/spannung-hiding-night-teil2.wav --bett-bezug -20 --abstand 11 --namen ohne-musik,mit-musik
+python engine/musik/spannung.py engine/musik/spannung/hiding-night-teil2.json     # Bett r2-eigen (musik-v2)
+python engine/fertigen.py episoden/folge-02 --bett build/musik/spannung-hiding-night-teil2.wav --bett-bezug -20 --abstand 12 --namen ohne-musik,mit-musik
 python engine/pruefen.py episoden/folge-02 --namen ohne-musik,mit-musik
 ```
 
 | | Wert |
 |---|---|
-| Render 1080 × 1920, 2 Prozesse, JPEG 0,95 | 2.608 Bilder in 973,6 s (16,2 min), 0,373 s/Bild effektiv, 11,2 min Rechenzeit je Minute Video; danach drei Teil-Renders (45, 34 und 625 Bilder, zusammen 4,3 min) |
-| Fassungen | `build/folge-02/folge-02-mit-musik.mp4` (Hauptfassung, 153,8 MB), `folge-02-ohne-musik.mp4` (153,7 MB) |
-| Untertitel | 191 Einblendungen, 86 mit zwei Wörtern, breiteste 807 px; Abstand zum Wortbeginn im MP4: Median 0,00 s, p90 0,027 s, höchstens 0,093 s |
-| Effekte | 12 Cues (`effekte.json`); wörtliche Rede: June +2,0, Tess +3,0, Odell −1,5 Halbtöne, Mister Hundred −4 mit verschobenen Formanten und kurzem Hall |
-| Musik | Wiegenlied-Spannungsfassung; Stufe normal 11,0–11,5 LU unter der Stimme, dünn 15,0–15,4 LU, voll 10,2 LU; Wegfälle bei 51,33 s und ab 72,90 s |
-| Ton nach AAC | ohne Musik −14,05 LUFS, −1,62 dBTP, LRA 2,8 LU; mit Musik −14,06 LUFS, −1,76 dBTP, LRA 2,9 LU |
+| Render 1080 × 1920, 2 Prozesse, JPEG 0,95 | 2.608 Bilder in 973,6 s (16,2 min), 0,373 s/Bild effektiv, 11,2 min Rechenzeit je Minute Video; danach Teil-Renders für das Review (E05; nach der Wortzeit-Korrektur E42/E43 und E55/E56, 196 Bilder in 1,9 min) |
+| Fassungen | `build/folge-02/folge-02-mit-musik.mp4` (Hauptfassung, 152,3 MB), `folge-02-ohne-musik.mp4` (152,2 MB); Teilen-Fassungen in `build/teilen/` (crf 21, je etwa 55 MB) |
+| Untertitel | 191 Einblendungen, breiteste 807 px; Abstand zum Wortbeginn im MP4: Median 0,00 s, p90 0,027 s, höchstens 0,053 s (Review: zwei Wortzeiten nach Pausen korrigiert, `timing.json` → `korrekturen`) |
+| Effekte | 12 Cues (`effekte.json`); wörtliche Rede: June +2,0, Tess +3,0, Odell −5,5 Halbtöne (Review: vorher −1,5, 200 Hz; jetzt 158 Hz), Mister Hundred −4 mit verschobenen Formanten und kurzem Hall |
+| Musik | r2-eigen (musik-v2, eigene Begleitfiguren, Fingerabdruck kein Treffer); Hook 9,1 LU unter der Stimme, normal 11,4–12,1, voll 10,7, dünn etwa 14; vier Wegfälle von 1,2–1,3 s mit Nachhall, unter −50 LUFS höchstens 0,6 s am Stück |
+| Ton nach AAC | ohne Musik −14,06 LUFS, −1,77 dBTP, LRA 2,8 LU; mit Musik −14,05 LUFS, −1,82 dBTP, LRA 2,5 LU |
 | Dauer | Stimme 85,79 s, Endkarte PART 3 ab 85,933 s (0,143 s nach dem letzten Wort), Video 86,933 s |
-| Bilder | Helligkeit Median 85,6, P10 64,5, dunkelste Einstellung 48,5 (E36); keine Balken, keine schwarzen oder eingefrorenen Bilder; Kantendichte 13,8 % |
-| Hör-Check (Whisper auf dem MP4) | „helper too“ wird als „help or two“ gehört (beide Fassungen, liegt an der Aufnahme: auch ohne Tonhöhenänderung), „lay“ als „laid“ (nur mit Musik); „O'Dell“ und „Mr“ zählen als Schreibweise |
+| Bilder | Helligkeit Median 86,6 ohne Kriechkeller (gesamt 84,9), Keller im Mittel 71,1 mit 36,6 % fast schwarzen Pixeln; Streuung mindestens 14,1 (Leerbild-Tor); keine Balken außerhalb des Kellers, keine eingefrorenen Bilder; Kantendichte 14,9 % |
+| Hör-Check (Whisper auf dem MP4) | 1 Wortfehler je Fassung: „lay“ als „laid“; „helper too“ wird seit Odell −5,5 richtig gehört („to“ zählt als Schreibweise), „O'Dell“ und „Mr“ ebenso |
 | Kompositionsprüfung | 14 von 61 Einstellungen mit der Hauptsache außerhalb des mittleren Drittels (Untersichten im Keller, Beine des Monsters, Laternenzug); nur Warnung |
 
 `timing.json` von Teil 2 ist an einer Stelle korrigiert (`korrekturen`): „She“ lag im Ausklang von „here.“; der Schnitt hätte Junes letztes Wort abgeschnitten.
@@ -753,5 +754,6 @@ python engine/pruefen.py episoden/folge-02 --namen ohne-musik,mit-musik
 Stand 15.11.2026. Eigene Klangbetten im Stil der Referenzvideos, Einzelheiten in `musik/README.md`, Regeln in `musik/GRAMMATIK.md`, Lizenzen in `musik/LIZENZEN.md`.
 
 - Vier Stile (Spieluhr-Arpeggio nach r2, Wiegenlied-Spieluhr nach r5, Klavier-Fläche nach ref0, Sub-Drone nach r1), je eine nahtlose Schleife von 171–184 s in den Varianten dünn, normal, voll; MIDI in `musik/midi/`, WAV in `build/musik/`.
-- Für „Hiding Night“ empfohlen: Wiegenlied-Spieluhr. Die Spannungsfassung (`musik/spannung.py`, Steuerung über `musik/spannung/hiding-night-teil1.json`) kann als `--bett` von `fertigen.py` das bisherige Bett `klangbett-r2-a.wav` in der Vorhör-Fassung ersetzen (noch nicht eingebaut; `mischen.py` normiert dann das ganze Bett auf 12 LU unter der Stimme, `spannung.py --vorhoer` dagegen die Stufe „normal“). Der Upload bleibt ohne Musik.
+- Stand 16.11.2026: In „Hiding Night“ Teil 1 und 2 läuft **r2-eigen** aus `musik-v2/` (Spieluhr wie r2 mit eigenen Begleitfiguren; Werte in `musik-v2/LIZENZEN.md`). `musik/spannung.py` liest es mit `"quelle": "musik-v2"` und setzt an jeden Wegfall einen kurzen Nachhall. Das Wiegenlied unten bleibt als Werkzeug.
+- Früher für „Hiding Night“ empfohlen: Wiegenlied-Spieluhr. Die Spannungsfassung (`musik/spannung.py`, Steuerung über `musik/spannung/hiding-night-teil1.json`) kann als `--bett` von `fertigen.py` das bisherige Bett `klangbett-r2-a.wav` in der Vorhör-Fassung ersetzen (noch nicht eingebaut; `mischen.py` normiert dann das ganze Bett auf 12 LU unter der Stimme, `spannung.py --vorhoer` dagegen die Stufe „normal“). Der Upload bleibt ohne Musik.
 

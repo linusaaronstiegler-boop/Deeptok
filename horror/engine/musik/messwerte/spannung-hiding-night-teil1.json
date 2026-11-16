@@ -1,6 +1,7 @@
 {
  "name": "hiding-night-teil1",
- "stil": "wiegenlied",
+ "stil": "r2-eigen",
+ "quelle": "musik-v2",
  "laenge_s": 87.267,
  "punkte": [
   {
@@ -11,7 +12,7 @@
    "zeit_s": 0.0,
    "anker_s": 0.0,
    "rms_vor_db": null,
-   "rms_nach_db": -20.0
+   "rms_nach_db": -19.4
   },
   {
    "ab_satz": 2,
@@ -19,10 +20,10 @@
    "pegel_db": 0.0,
    "blende_s": 1.5,
    "grund": "danach flach weiter",
-   "zeit_s": 5.106,
+   "zeit_s": 5.371,
    "anker_s": 4.86,
-   "rms_vor_db": -19.6,
-   "rms_nach_db": -22.6
+   "rms_vor_db": -22.1,
+   "rms_nach_db": -22.2
   },
   {
    "ab_wort": 169,
@@ -32,28 +33,28 @@
    "grund": "Wegfall vor dem Wort ready",
    "zeit_s": 50.46,
    "anker_s": 50.46,
-   "rms_vor_db": -23.7,
-   "rms_nach_db": -45.9
+   "rms_vor_db": -25.2,
+   "rms_nach_db": -31.8
   },
   {
    "ab_satz": 20,
    "stufe": "normal",
    "blende_s": 0.3,
    "grund": "Wiedereinsatz auf dem nächsten Schlag nach der Pointe",
-   "zeit_s": 51.702,
+   "zeit_s": 51.557,
    "anker_s": 51.46,
-   "rms_vor_db": -65.3,
-   "rms_nach_db": -22.8
+   "rms_vor_db": -54.9,
+   "rms_nach_db": -22.9
   },
   {
    "ab_satz": 32,
    "stufe": "voll",
    "blende_s": 2.5,
    "grund": "Cliffhanger-Block: Sonnenuntergang, weißer Atem",
-   "zeit_s": 75.957,
+   "zeit_s": 76.262,
    "anker_s": 75.77,
-   "rms_vor_db": -22.7,
-   "rms_nach_db": -22.1
+   "rms_vor_db": -23.1,
+   "rms_nach_db": -21.7
   },
   {
    "ab_satz": 35,
@@ -63,24 +64,24 @@
    "grund": "Wegfall vor der Pointe: It wasn't counting.",
    "zeit_s": 82.81,
    "anker_s": 82.81,
-   "rms_vor_db": -23.0,
-   "rms_nach_db": -40.7
+   "rms_vor_db": -22.5,
+   "rms_nach_db": -45.2
   },
   {
    "ab_satz": 36,
    "versatz_s": -0.1,
    "stufe": "duenn",
-   "pegel_db": 3.2,
+   "pegel_db": 1.2,
    "blende_s": 0.3,
    "einrasten": "aus",
-   "grund": "Wiedereinsatz mit 'It was looking at me' (Wegfall 1,3 s), dünn bis über die Endkarte PART 2",
+   "grund": "Wiedereinsatz mit 'It was looking at me' (dünn: nur die Figur ohne Oberstimme und Verdopplung, +1,2 dB -> etwa 13 LU unter der Stimme)",
    "zeit_s": 84.13,
    "anker_s": 84.13,
-   "rms_vor_db": -67.3,
-   "rms_nach_db": -24.7
+   "rms_vor_db": -57.7,
+   "rms_nach_db": -24.3
   }
  ],
- "lufs": -19.79,
- "spitze_dbfs": -4.87,
+ "lufs": -19.73,
+ "spitze_dbfs": -8.38,
  "datei": "build/musik/spannung-hiding-night-teil1.wav"
 }

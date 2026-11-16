@@ -1,5 +1,5 @@
 {
- "stil": "wiegenlied",
+ "stil": "r2-eigen",
  "folge": "episoden/folge-01",
  "endkarte_s": 1.0,
  "start_in_schleife_s": 0.0,
@@ -50,11 +50,14 @@
    "ab_satz": 36,
    "versatz_s": -0.1,
    "stufe": "duenn",
-   "pegel_db": 3.2,
+   "pegel_db": 1.2,
    "blende_s": 0.3,
    "einrasten": "aus",
-   "grund": "Wiedereinsatz mit 'It was looking at me' (Wegfall 1,3 s), dünn bis über die Endkarte PART 2"
+   "grund": "Wiedereinsatz mit 'It was looking at me' (dünn: nur die Figur ohne Oberstimme und Verdopplung, +1,2 dB -> etwa 13 LU unter der Stimme)"
   }
  ],
- "_hinweis": "Review Teil 2, gleiche Regel für Teil 1: flaches Bett wie r5, Hook 2,5 dB lauter, kurze Wegfälle (≤ 1,3 s), dünn nur mit +3,2 dB (1–2 LU unter normal; +4,2 trieb die Spieldosen-Anschläge am Schluss über das AAC-Tor). Die alte Fassung mit dem gelobten Bett klangbett-r2-a bleibt als folge-01-vorhoer.mp4 zum A/B-Vergleich."
+ "_hinweis": "Linus: 'Musik sehr viel näher an den Vorbildern'. Bett r2-eigen aus engine/musik-v2: Spieluhr mit Akkordfolge, Tempo (111,7 BPM), Verstimmung (+46 Cent), Klang und Hall wie r2, aber eigenen Begleitfiguren in allen Takten und eigener Oberstimme (Fingerabdruck kein Treffer, siehe musik-v2/LIZENZEN.md). Regel aus dem Review Teil 2: flaches Bett, normal 12 LU unter der Stimme, voll etwa 11, dünn etwa 13, Hook +2,5 dB; nur kurze Wegfälle (≤ 1,4 s) vor den Pointen, jeder mit kurzem Nachhall. Satznummern vom Skript, Wortnummern von timing.json. Die alte Fassung mit dem gelobten Bett klangbett-r2-a bleibt als folge-01-vorhoer.mp4 zum A/B-Vergleich.",
+ "quelle": "musik-v2",
+ "nachhall_rt60_s": 1.3,
+ "nachhall_db": -6.0
 }

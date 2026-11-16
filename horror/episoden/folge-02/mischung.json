@@ -19,7 +19,7 @@
     "wer": "Odell",
     "von_s": 35.76,
     "bis_s": 38.55,
-    "halbtoene": -4.5,
+    "halbtoene": -5.5,
     "db": -1.0
    },
    {
@@ -31,7 +31,7 @@
    },
    {
     "wer": "June",
-    "von_s": 58.16,
+    "von_s": 58.46,
     "bis_s": 61.42,
     "halbtoene": 2.0,
     "db": -2.0
@@ -204,39 +204,39 @@
  "upload": {
   "eingang": {
    "lufs": -14.21,
-   "true_peak_dbtp": -2.4,
+   "true_peak_dbtp": -1.54,
    "lra_lu": 2.8
   },
   "verstaerkung_db": 0.21,
   "decke_dbfs": -1.8,
   "runden": 1,
-  "begrenzer_max_db": 0.03,
+  "begrenzer_max_db": 0.46,
   "begrenzer_rahmen_ueber_1db_prozent": 0.0,
   "ausgang": {
-   "lufs": -14.0,
-   "true_peak_dbtp": -2.19,
+   "lufs": -14.01,
+   "true_peak_dbtp": -1.8,
    "lra_lu": 2.8
   }
  },
  "vorhoer": {
   "eingang": {
-   "lufs": -14.09,
-   "true_peak_dbtp": -2.01,
+   "lufs": -14.08,
+   "true_peak_dbtp": -1.59,
    "lra_lu": 2.6
   },
-  "verstaerkung_db": 0.09,
+  "verstaerkung_db": 0.08,
   "decke_dbfs": -1.8,
   "runden": 1,
-  "begrenzer_max_db": 0.04,
+  "begrenzer_max_db": 0.29,
   "begrenzer_rahmen_ueber_1db_prozent": 0.0,
   "ausgang": {
-   "lufs": -13.99,
-   "true_peak_dbtp": -1.92,
+   "lufs": -14.0,
+   "true_peak_dbtp": -1.8,
    "lra_lu": 2.6
   },
   "bett": {
    "datei": "/home/user/Deeptok/horror/build/musik/spannung-hiding-night-teil2.wav",
-   "sha256": "b6ed9529c5107f6689d3e1c83189b8e8487888ca13e7d8cbc866e05fe15d67f5",
+   "sha256": "5d7ff9c78fc2e1e846fd8918a6db7e842e32f7ce6650fac49ae7b5f5c2ac6c2a",
    "lufs_roh": -19.69,
    "bezug_lufs": -20.0,
    "abstand_zur_stimme_lu": 12.0,
@@ -252,14 +252,14 @@
  "nach_aac": {
   "kbit": 192,
   "upload": {
-   "lufs": -14.05,
-   "true_peak_dbtp": -2.34,
+   "lufs": -14.06,
+   "true_peak_dbtp": -1.77,
    "lra_lu": 2.8
   },
   "vorhoer": {
    "lufs": -14.05,
-   "true_peak_dbtp": -1.9,
-   "lra_lu": 2.6
+   "true_peak_dbtp": -1.82,
+   "lra_lu": 2.5
   },
   "decken_dbfs": {
    "upload": -1.8,

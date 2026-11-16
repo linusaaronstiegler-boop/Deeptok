@@ -1993,8 +1993,8 @@
    "satz": 30,
    "text": "\"It",
    "wort": "It",
-   "start": 58.16,
-   "ende": 58.28,
+   "start": 58.52,
+   "ende": 58.6,
    "p": 0.074,
    "quelle": "whisper"
   },
@@ -2003,7 +2003,7 @@
    "satz": 30,
    "text": "never",
    "wort": "never",
-   "start": 58.55,
+   "start": 58.6,
    "ende": 58.84,
    "p": 0.979,
    "quelle": "whisper"
@@ -2524,8 +2524,8 @@
    "satz": 41,
    "text": "No",
    "wort": "No",
-   "start": 75.44,
-   "ende": 75.61,
+   "start": 75.91,
+   "ende": 76.08,
    "p": 0.883,
    "quelle": "whisper"
   },
@@ -2534,7 +2534,7 @@
    "satz": 41,
    "text": "counting",
    "wort": "counting",
-   "start": 75.91,
+   "start": 76.08,
    "ende": 76.4,
    "p": 0.994,
    "quelle": "whisper"
@@ -3055,7 +3055,7 @@
   {
    "nr": 30,
    "text": "\"It never looks in my room, Rabbit.\"",
-   "start": 58.16,
+   "start": 58.52,
    "ende": 60.02,
    "wort_von": 198,
    "wort_bis": 204,
@@ -3154,7 +3154,7 @@
   {
    "nr": 41,
    "text": "No counting came from the square.",
-   "start": 75.44,
+   "start": 75.91,
    "ende": 77.2,
    "wort_von": 251,
    "wort_bis": 256,
@@ -3246,6 +3246,17 @@
     211
    ],
    "grund": "Whisper legte 'She' (Satz 32) in den Ausklang von 'here.' bei 61,26 s. Im Ton endet 'here.' bei 61,34 s, danach 0,3 s Stille (unter -75 dBFS), 'She rolled' beginnt bei 61,68 s. Ohne Korrektur schnitt das Bild Junes letztes Wort ab und 'SHE ROLLED' erschien 0,4 s zu früh."
+  },
+  {
+   "stand": "2026-11-16",
+   "werkzeug": "Review Teil 2 (Energiekurve von build/folge-02/stimme.wav, 10-ms-Fenster)",
+   "woerter": [
+    198,
+    199,
+    251,
+    252
+   ],
+   "grund": "Whisper legte zwei Wortanfänge nach Pausen in die Stille. Junes 'It never looks in here': Stille unter -70 dBFS von 58,24 bis 58,51 s, 'It' beginnt bei 58,52 s (Timing: 58,16). 'No counting came from the square': nach 'midnight.' Stille von 75,61 bis 75,89 s, 'No' beginnt bei 75,91 s (Timing: 75,44). Die Untertitel 'IT NEVER' und 'NO' erschienen dadurch 0,36 bzw. 0,47 s vor dem Wort. pruefen.py fand das nicht, weil es mitten im Satz Whisper misst und Whisper denselben Fehler macht."
   }
  ]
 }

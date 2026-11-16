@@ -1,6 +1,6 @@
 {
- "stand": "2026-11-15",
- "hinweis": "Referenz = Demucs-Musikspur der Vorlage (nicht im Repo). alt = Nachbau v1 (betten.py, Stufe 2). neu = musik-v2.",
+ "stand": "2026-11-16",
+ "hinweis": "Referenz = Demucs-Musikspur der Vorlage (nicht im Repo). alt = Nachbau v1 (betten.py, Stufe 2). neu = musik-v2. r2-eigen = Spieluhr wie r2 mit eigenen Begleitfiguren in allen Takten (Bett der Serie ab Teil 2, 16.11.2026).",
  "stile": {
   "r2": {
    "referenz": {
@@ -521,6 +521,146 @@
      "duenn": "../../build/musik-v2/ref0-v2-duenn.wav",
      "voll": "../../build/musik-v2/ref0-v2-voll.wav"
     }
+   }
+  },
+  "r2-eigen": {
+   "referenz": {
+    "datei": "stem-other.wav",
+    "abschnitt": [
+     0.0,
+     147.0
+    ],
+    "periode_s": 17.183,
+    "bpm": 112.35,
+    "stimmung_cent": 46.0,
+    "st_std_lu": 1.96,
+    "onsets_s": 4.87,
+    "seite_mitte_db": -6.8
+   },
+   "kandidaten": [
+    {
+     "datei": "r2-eigen-v2-schleife.wav",
+     "chroma_korr": 0.765,
+     "chroma_frei": {
+      "wert": 0.765,
+      "dehnung": 1.0,
+      "transp_ht": 0
+     },
+     "periode_s": 17.183,
+     "bpm": 112.35,
+     "stimmung_cent": 47.0,
+     "spektral_db": 5.86,
+     "spektral_kern_db": 5.83,
+     "laut_korr": 0.233,
+     "st_std_lu": 0.42,
+     "onsets_s": 3.6,
+     "seite_mitte_db": -9.4,
+     "art": "eigen"
+    },
+    {
+     "datei": "r2-eigen-v2-duenn.wav",
+     "chroma_korr": 0.767,
+     "chroma_frei": {
+      "wert": 0.767,
+      "dehnung": 1.0,
+      "transp_ht": 0
+     },
+     "periode_s": 17.183,
+     "bpm": 112.35,
+     "stimmung_cent": 48.0,
+     "spektral_db": 5.55,
+     "spektral_kern_db": 6.14,
+     "laut_korr": 0.226,
+     "st_std_lu": 0.49,
+     "onsets_s": 3.6,
+     "seite_mitte_db": -9.3,
+     "art": "eigen"
+    },
+    {
+     "datei": "r2-eigen-v2-voll.wav",
+     "chroma_korr": 0.685,
+     "chroma_frei": {
+      "wert": 0.685,
+      "dehnung": 1.0,
+      "transp_ht": 0
+     },
+     "periode_s": 17.183,
+     "bpm": 112.35,
+     "stimmung_cent": 46.0,
+     "spektral_db": 7.06,
+     "spektral_kern_db": 7.82,
+     "laut_korr": 0.271,
+     "st_std_lu": 0.41,
+     "onsets_s": 3.61,
+     "seite_mitte_db": -8.8,
+     "art": "eigen"
+    }
+   ],
+   "fingerabdruck": {
+    "werkzeug": "analyse/fingerabdruck.py (Treffer = Ähnlichkeit >= 0,78 UND z >= 4,5)",
+    "gegen_r2_schleife": {
+     "r2-eigen-v2-schleife.wav": {
+      "aehnlichkeit": 0.733,
+      "z": 4.1,
+      "urteil": "kein Treffer"
+     },
+     "r2-eigen-v2-duenn.wav": {
+      "aehnlichkeit": 0.724,
+      "z": 3.9,
+      "urteil": "kein Treffer"
+     },
+     "r2-eigen-v2-voll.wav": {
+      "aehnlichkeit": 0.636,
+      "z": 3.3,
+      "urteil": "kein Treffer"
+     },
+     "r2-v2-schleife.wav (Abschrift, nicht verwenden)": {
+      "aehnlichkeit": 0.828,
+      "z": 4.6,
+      "urteil": "TREFFER"
+     }
+    },
+    "gegen_r5_schleife": {
+     "r2-eigen-v2-schleife.wav": {
+      "aehnlichkeit": 0.625,
+      "z": 3.5,
+      "urteil": "kein Treffer"
+     },
+     "r2-eigen-v2-duenn.wav": {
+      "aehnlichkeit": 0.632,
+      "z": 3.5,
+      "urteil": "kein Treffer"
+     }
+    },
+    "stufen_versuch_4_schleifen": {
+     "ganz_fremde_figuren": {
+      "fa": 0.575,
+      "z": 2.77,
+      "chroma_korr": 0.58
+     },
+     "drei_aenderungen_je_takt": {
+      "fa": 0.645,
+      "z": 3.32,
+      "chroma_korr": 0.684
+     },
+     "nur_lage_ohne_neue_reihenfolge": {
+      "fa": 0.831,
+      "z": 4.7,
+      "chroma_korr": 0.866
+     }
+    }
+   },
+   "bau": {
+    "schleife_lufs": -20.0,
+    "duenn_lufs": -22.22,
+    "voll_lufs": -18.82,
+    "schleife_true_peak_db": -8.94,
+    "naht_db": -1.15,
+    "naht_hf_faktor": 6.95,
+    "naht_hf_faktor_1ms": 9.07,
+    "anschlag_hf_faktor_max": 10.9,
+    "naht_sprung": 0.0056,
+    "sprung_typisch": 0.0304
    }
   }
  }

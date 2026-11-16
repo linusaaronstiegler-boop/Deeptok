@@ -7,6 +7,20 @@ Stand 15.11.2026. Linus' Wunsch: „Musik sehr viel näher an den Vorbildern.“
 
 Nur die Oberstimme ist eigen. Rechte, Quellen und Restrisiko stehen in `LIZENZEN.md`, auch die Suche nach freien Originalen (Weg A).
 
+## Für Videos: r2-eigen (Stand 16.11.2026)
+
+Teil 1 und 2 von „Hiding Night“ laufen auf **r2-eigen**: Klang, Tempo, Verstimmung, Hall und Akkordfolge wie r2, aber eigene Begleitfiguren in allen acht Takten und eine eigene Oberstimme (`analyse/eigene_figuren.py`, Noten in `muster/spieluhr-eigen.json`). r2-v2 und r5-v2 folgen der Vorlage Achtel für Achtel und gelten im eigenen Fingerabdruck als „dasselbe Stück“; sie bleiben nur zum Vergleich. Werte und Begründung: `LIZENZEN.md`, Abschnitt r2-eigen.
+
+```bash
+python -I analyse/eigene_figuren.py      # Noten schreiben
+python -I bauen.py r2-eigen              # build/musik-v2/r2-eigen-v2-{schleife,duenn,voll}.wav
+python -I analyse/fingerabdruck.py <r2-ref-schleife.wav> ../../build/musik-v2/r2-eigen-v2-schleife.wav
+```
+
+Die Spannungsfassung je Folge baut `engine/musik/spannung.py` mit `"quelle": "musik-v2"` (Stufen = die drei Dateien, kurzer Nachhall an jedem Wegfall).
+
+Naht: `bauen.py` blendet jetzt die letzten 50 ms jeder Datei in das Ende des Vorlaufs über. Vorher sprang der Pegel an der Naht um einen Abtastwert (Hochton-Energie 30–50-fach in 1-ms-Fenstern, auch bei r2-v2), weil fluidsynth Noten auf Ticks und 64er-Blöcke setzt und Vorlauf und letzte Schleife dadurch leicht verschoben lagen. Die Prüfung misst zusätzlich in 1-ms-Fenstern (`naht_hf_faktor_1ms`, `naht_sprung`).
+
 ## Die drei Stile
 
 | Stil | Vorlage | Tonart, Stimmung | Tempo, Takt | Schleife | Folge |
@@ -79,7 +93,7 @@ Grenzen: Ich kann nicht hören. Alles oben ist gemessen. Vor dem Einsatz bitte d
 
 ## Empfehlung für „Hiding Night“
 
-**r2-v2** als Bett für die Serie, **r5-v2** als ruhigere Alternative für Teil 3 (die Nacht).
+**r2-v2** als Bett für die Serie, **r5-v2** als ruhigere Alternative für Teil 3 (die Nacht). *Stand 16.11.2026: Im Video läuft statt r2-v2 die abgegrenzte Fassung r2-eigen (Abschnitt oben); für Teil 3 bräuchte r5 dieselbe Behandlung (`STILE["r5-eigen"]` mit `muster="spieluhr-eigen"`, grund 61, 93,83 BPM, +55 Cent).*
 
 Begründung:
 - r2 ist genau die Musik, die das Erfolgsvideo im selben Format trägt. @jexario erzählt „In this town, the monsters hear every sound …“ mit 7,3 Mio. Aufrufen, und Hiding Night beginnt ebenfalls mit „In this town …“. Wer das Format kennt, erkennt den Klang sofort.

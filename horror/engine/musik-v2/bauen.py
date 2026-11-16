@@ -1,7 +1,7 @@
 # Musik v2: Klangbetten sehr nah an den Vorbildern (r2, r5, ref0), aus eigenen Noten gebaut.
 #
 # Aufruf (Audio-venv mit numpy, scipy, soundfile, pyloudnorm, mido; fluidsynth im PATH):
-#   python -I bauen.py r2|r5|ref0|alle [--aus ../../build/musik-v2] [--instrument N] [--test]
+#   python -I bauen.py r2|r5|ref0|r2-eigen|alle [--aus ../../build/musik-v2] [--instrument N] [--test]
 #
 # Ablauf je Stil:
 #   1. Muster lesen (muster/spieluhr.json oder muster/klavier.json): Akkordfolge, Achtel-Slots, Bass.
@@ -41,6 +41,13 @@ STILE = {
                instr=dict(haupt=8, doppel=8, glitzer=9, tief=8, flaeche=49),
                hall=dict(rt=2.4, nass=0.42, vor=0.025, breite=0.9, daempf=3800), wow=(6.0, 0.3),
                ziel="r5", haupt_folge=["kern"] * 9),
+    # r2-eigen: Klang, Tempo, Verstimmung, Hall und Akkordfolge wie r2, aber eigene Begleitfiguren in allen
+    # 8 Takten (muster/spieluhr-eigen.json aus analyse/eigene_figuren.py). Das ist das Bett für die Serie:
+    # r2 und r5 folgen der Vorlage Achtel für Achtel und gelten im Fingerabdruck als „dasselbe Stück“.
+    "r2-eigen": dict(muster="spieluhr-eigen", art="spieluhr", grund=64, bpm=111.72, cent=46, schleifen=11, seed=3,
+                     instr=dict(haupt=8, doppel=8, glitzer=9, tief=8, flaeche=49),
+                     hall=dict(rt=1.3, nass=0.30, vor=0.015, breite=0.85, daempf=4500), wow=(5.0, 0.37),
+                     ziel="r2", haupt_folge=["kern"] * 11),
     # ref0: Klavier im 3/4-Takt, 66 BPM, A = 432 Hz (-32 Cent), Schleife 21,8 s;
     # wie die Vorlage: 2 Schleifen nur Klavier, 4 mit Bass und Fläche, dann wieder nur Klavier
     "ref0": dict(muster="klavier", bpm=66.05, cent=-32, schleifen=9, seed=10,
@@ -88,12 +95,15 @@ def noten_spieluhr(st, m, rng, n_schleifen):
             fak = 10 ** (dyn[s["q"]] / 40)
             # Notenlänge 1,2 Achtel: In der Referenz-Klavierrolle klingen die Töne nur etwa eine Achtel
             # deutlich (kurze Punkte), die Celesta würde sonst lange Linien ziehen
-            for rel, v in s["noten"]:
-                aus["haupt"].append((t + jit(), 1.2 * achtel, g + rel, min(1.0, v * fak) * rng.uniform(0.93, 1.0)))
-            for rel, v in s.get("doppel", []):
-                aus["doppel"].append((t + jit(), 1.2 * achtel, g + rel, min(1.0, v * fak) * rng.uniform(0.93, 1.0)))
-            for rel, v in s.get("glitzer", []):
-                aus["glitzer"].append((t, 3 * achtel, g + rel, v))
+            # Eine Note ist [rel, velocity] oder [rel, velocity, Länge in Achteln] (Haltetöne, Oberstimme)
+            for n in s["noten"]:
+                rel, v = n[0], n[1]; d = (n[2] if len(n) > 2 else 1.2) * achtel
+                aus["haupt"].append((t + jit(), d, g + rel, min(1.0, v * fak) * rng.uniform(0.93, 1.0)))
+            for n in s.get("doppel", []):
+                rel, v = n[0], n[1]; d = (n[2] if len(n) > 2 else 1.2) * achtel
+                aus["doppel"].append((t + jit(), d, g + rel, min(1.0, v * fak) * rng.uniform(0.93, 1.0)))
+            for n in s.get("glitzer", []):
+                aus["glitzer"].append((t, 3 * achtel, g + n[0], n[1]))
         # voll: tiefe Spieluhr-Zinke (Grundton eine Oktave unter dem Arpeggio) auf 1 und 3,
         # und eine leise Streicherfläche aus den Akkordtönen (E3–H3-Lage), je Takt neu
         for takt, tone in enumerate(m["akkord_toene_rel"]):
@@ -289,10 +299,11 @@ def stufen_kurve(folge, L, n_vor, schicht, tabelle, n):
 def bauen(name, aus_dir, instrument=None, test=False):
     st = dict(STILE[name], name=name)
     m = lade_muster(st["muster"])
+    art = st.get("art", st["muster"])   # Bauart: spieluhr | klavier (Muster-Datei kann abweichen)
     rng = np.random.default_rng(st["seed"])
     n_vor = 1
     n_ges = st["schleifen"] + n_vor + (0 if not test else -st["schleifen"] + 1)
-    if st["muster"] == "spieluhr":
+    if art == "spieluhr":
         noten, L = noten_spieluhr(st, m, rng, n_ges + 1)
     else:
         noten, L = noten_klavier(st, m, rng, n_ges + 1)
@@ -309,7 +320,7 @@ def bauen(name, aus_dir, instrument=None, test=False):
         schreibe_midi(pfad, nl, prog, st["bpm"], st["cent"], pedal_takt_s=pedal, dauer_s=dauer)
         schichten[schicht] = rendern(pfad, dauer)
     n = len(next(iter(schichten.values())))
-    tabelle = STUFEN[st["muster"]]
+    tabelle = STUFEN[art]
     a = int(round(n_vor * L * SR)); b = int(round((n_vor + st["schleifen"]) * L * SR))
     if test:
         b = a + int(round(L * SR))
@@ -327,20 +338,32 @@ def bauen(name, aus_dir, instrument=None, test=False):
         return x
 
     folgen = {"schleife": st["haupt_folge"], "duenn": ["duenn"] * st["schleifen"], "voll": ["voll"] * st["schleifen"]}
-    if st["muster"] == "spieluhr":
+    if art == "spieluhr":
         folgen["schleife"] = ["kern"] * st["schleifen"]
     info = {"stil": name, "bpm": st["bpm"], "cent": st["cent"], "schleife_s": L, "schleifen": st["schleifen"],
             "dauer_s": (b - a) / SR, "soundfont": os.path.basename(SF2)}
     # EQ einmal bestimmen: Spieluhr am Kern, Klavier an der dünnen Fassung (Klavier allein)
-    if st["muster"] == "spieluhr":
+    if art == "spieluhr":
         roh = mischen(folgen["schleife"])[a:b]
         h, diff = eq_fir(terz_db(roh), m["ziele"][st["ziel"]]["terz_db"])
     else:
         roh = mischen(folgen["duenn"])[a:b]
         h, diff = eq_fir(terz_db(roh), m["ziele"]["duenn"]["terz_db"])
     info["eq_db"] = [round(float(d), 1) for d in diff]
-    fertig = {k: mischen(f, h)[a:b] for k, f in folgen.items()}
-    if st["muster"] == "klavier":
+    def ausschnitt(x):
+        """Genau N Schleifen ab dem Ende des Vorlaufs, mit sauberer Naht: Die letzten 50 ms werden in das
+        Ende des Vorlaufs überblendet (gleiche Noten wie die letzte Schleife). So geht das Dateiende Abtastwert
+        für Abtastwert in den Dateianfang über. Ohne das klickte die Naht: fluidsynth setzt Noten auf 64er-
+        Blöcke und MIDI-Ticks, die Schleifenlänge ist keine ganze Zahl davon, also lagen Vorlauf und letzte
+        Schleife um einige Abtastwerte verschoben (Sprung 0,04–0,08 am Übergang, 30–50x Hochton-Energie)."""
+        y = x[a:b].copy()
+        nb = int(0.05 * SR)
+        w = np.linspace(0.0, 1.0, nb)[:, None]
+        y[-nb:] = y[-nb:] * (1 - w) + x[a - nb:a] * w
+        return y
+
+    fertig = {k: ausschnitt(mischen(f, h)) for k, f in folgen.items()}
+    if art == "klavier":
         # voll: Bass und Fläche gegen das Spektrum des vollen Referenzteils nachregeln (nur deren Summe)
         tief_sig = {k: v for k, v in schichten.items() if k in ("bass", "flaeche")}
         ist = terz_db(fertig["voll"]); ziel = np.array(m["ziele"]["voll"]["terz_db"])
@@ -354,7 +377,7 @@ def bauen(name, aus_dir, instrument=None, test=False):
             x_kl = fir(hall(x_kl, st["hall"], seed=st["seed"]), h)
             x_tf = fir(fir(hall(x_tf, st["hall"], seed=st["seed"] + 1), h), h2)
             x = signal.sosfilt(signal.butter(2, 25, "high", fs=SR, output="sos"), x_kl + x_tf, axis=0)
-            fertig[k] = x[a:b]
+            fertig[k] = ausschnitt(x)
     # Lautheit: Hauptfassung -20 LUFS, die anderen mit derselben Verstärkung
     gain = 10 ** ((-20.0 - lufs(fertig["schleife"])) / 20)
     pfade = {}
@@ -385,6 +408,11 @@ def bauen(name, aus_dir, instrument=None, test=False):
     e = np.array([np.sqrt((h[i:i + w5] ** 2).mean()) for i in range(0, len(h) - w5, w5)])
     info["naht_hf_faktor"] = round(float(e[len(e) // 2 - 1:len(e) // 2 + 1].max() / np.median(e)), 2)
     info["anschlag_hf_faktor_max"] = round(float(np.sort(e)[-3] / np.median(e)), 2)
+    w1 = int(0.001 * SR)
+    e1 = np.array([np.sqrt((h[i:i + w1] ** 2).mean()) for i in range(0, len(h) - w1, w1)])
+    info["naht_hf_faktor_1ms"] = round(float(e1[len(e1) // 2 - 1:len(e1) // 2 + 1].max() / np.median(e1)), 2)
+    info["naht_sprung"] = round(float(np.abs(y[0] - y[-1]).max()), 4)
+    info["sprung_typisch"] = round(float(np.abs(np.diff(y[:SR], axis=0)).max()), 4)
     info["dateien"] = {k: os.path.relpath(p, HIER) for k, p in pfade.items()}
     json.dump(info, open(os.path.join(aus_dir, f"{name}-v2{'-test' if test else ''}.json"), "w"), indent=1)
     return info

@@ -161,27 +161,27 @@
  },
  "vorhoer": {
   "eingang": {
-   "lufs": -13.92,
-   "true_peak_dbtp": -1.35,
+   "lufs": -13.89,
+   "true_peak_dbtp": -1.83,
    "lra_lu": 2.7
   },
-  "verstaerkung_db": -0.08,
+  "verstaerkung_db": -0.11,
   "decke_dbfs": -1.8,
   "runden": 1,
-  "begrenzer_max_db": 0.37,
+  "begrenzer_max_db": 0.02,
   "begrenzer_rahmen_ueber_1db_prozent": 0.0,
   "ausgang": {
    "lufs": -14.0,
-   "true_peak_dbtp": -1.8,
+   "true_peak_dbtp": -1.94,
    "lra_lu": 2.7
   },
   "bett": {
    "datei": "/home/user/Deeptok/horror/build/musik/spannung-hiding-night-teil1.wav",
-   "sha256": "0dc4fdc6c538e5d6225afc205e8e3983b37792a83a72bc5385fc6ca7bc3f81d2",
-   "lufs_roh": -19.86,
+   "sha256": "058074935c3aba08c7a08322930f914abfac8cd76889c22b8d0beebf5e445164",
+   "lufs_roh": -19.82,
    "bezug_lufs": -20.0,
    "abstand_zur_stimme_lu": 12.0,
-   "lufs_im_mix_vor_norm": -25.98
+   "lufs_im_mix_vor_norm": -25.94
   }
  },
  "regel": {
@@ -194,8 +194,8 @@
   "kbit": 192,
   "vorhoer": {
    "lufs": -14.05,
-   "true_peak_dbtp": -1.98,
-   "lra_lu": 2.7
+   "true_peak_dbtp": -1.95,
+   "lra_lu": 2.8
   },
   "decken_dbfs": {
    "upload": -1.8,

@@ -246,6 +246,9 @@ def main() -> None:
     ap.add_argument("ordner", type=Path)
     ap.add_argument("--ohne-whisper", action="store_true")
     ap.add_argument("--namen", default="upload,vorhoer", help="Dateinamen der Fassungen ohne/mit Bett (Teil 2: ohne-musik,mit-musik)")
+    # Teil 1 mit neuer Musik prüfen, ohne den abgenommenen Bericht von Teil 1 zu überschreiben
+    ap.add_argument("--bericht", default="pruefung.json", help="Berichtsdatei im Folgenordner (Std pruefung.json)")
+    ap.add_argument("--bogen", default="render-bogen.jpg", help="Bogen mit 30 Bildern im Folgenordner (Std render-bogen.jpg)")
     a = ap.parse_args()
     ordner = a.ordner.resolve()
     name = ordner.name
@@ -377,7 +380,7 @@ def main() -> None:
         verstoesse.append(f"Bilder: {b['dekodierfehler']}, schwarz {b['schwarz_oder_einfarbig'][:5]}, {b['bilder']} Bilder")
     if b["laengster_stillstand_s"] > 0.33:
         verstoesse.append(f"Stillstand {b['laengster_stillstand_s']} s (bis Bild {b['stillstand_endet_bild']})")
-    erg["bogen_zeiten_s"] = bogen(mp4_von("upload"), ordner / "render-bogen.jpg", bilder_soll / FPS)
+    erg["bogen_zeiten_s"] = bogen(mp4_von("upload"), ordner / a.bogen, bilder_soll / FPS)
 
     # 6. Ton (aus mischung.json, gemessen auf der dekodierten AAC-Spur)
     mi = json.loads((ordner / "mischung.json").read_text(encoding="utf-8"))
@@ -389,7 +392,7 @@ def main() -> None:
 
     erg["verstoesse"] = verstoesse
     erg["ok"] = not verstoesse
-    (ordner / "pruefung.json").write_text(json.dumps(erg, ensure_ascii=False, indent=1), encoding="utf-8")
+    (ordner / a.bericht).write_text(json.dumps(erg, ensure_ascii=False, indent=1), encoding="utf-8")
     print(json.dumps({k: erg[k] for k in ("dauer", "untertitel_sync", "verstoesse", "ok")}, ensure_ascii=False, indent=1))
     sys.exit(0 if erg["ok"] else 1)
 

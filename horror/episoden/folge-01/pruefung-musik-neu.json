@@ -1,0 +1,645 @@
+{
+ "folge": "folge-01",
+ "format": {
+  "upload": {
+   "video": {
+    "codec": "h264",
+    "profil": "High",
+    "breite": 1080,
+    "hoehe": 1920,
+    "fps": "30/1",
+    "bilder": 2618,
+    "pix_fmt": "yuv420p",
+    "farbraum": "bt709",
+    "dauer_s": 87.266667
+   },
+   "audio": {
+    "codec": "aac",
+    "kanaele": 2,
+    "abtastrate": 44100,
+    "dauer_s": 87.266009,
+    "kbit": 192
+   },
+   "megabyte": 154.9
+  },
+  "vorhoer": {
+   "video": {
+    "codec": "h264",
+    "profil": "High",
+    "breite": 1080,
+    "hoehe": 1920,
+    "fps": "30/1",
+    "bilder": 2618,
+    "pix_fmt": "yuv420p",
+    "farbraum": "bt709",
+    "dauer_s": 87.266667
+   },
+   "audio": {
+    "codec": "aac",
+    "kanaele": 2,
+    "abtastrate": 44100,
+    "dauer_s": 87.266009,
+    "kbit": 200
+   },
+   "megabyte": 155.0
+  }
+ },
+ "dauer": {
+  "stimme_s": 86.12,
+  "letztes_wort_ende_s": 86.12,
+  "endkarte_ab_s": 86.267,
+  "endkarte_s": 1.0,
+  "video_s": 87.267,
+  "abstand_letztes_wort_endkarte_s": 0.147
+ },
+ "hoer_check": {
+  "upload": {
+   "wer": 0.0,
+   "fehler": [],
+   "schreibweisen": [],
+   "eingefuegt": [],
+   "n_skript": 290,
+   "n_gehoert": 290,
+   "unsicher": [
+    {
+     "wort": "Mister",
+     "p": 0.44,
+     "zeit_s": 5.36
+    },
+    {
+     "wort": "Nobody",
+     "p": 0.11,
+     "zeit_s": 29.14
+    },
+    {
+     "wort": "can",
+     "p": 0.27,
+     "zeit_s": 29.86
+    },
+    {
+     "wort": "ready.",
+     "p": 0.07,
+     "zeit_s": 50.42
+    },
+    {
+     "wort": "On",
+     "p": 0.37,
+     "zeit_s": 53.08
+    },
+    {
+     "wort": "Six",
+     "p": 0.05,
+     "zeit_s": 57.92
+    },
+    {
+     "wort": "Every",
+     "p": 0.31,
+     "zeit_s": 64.9
+    },
+    {
+     "wort": "Hundred",
+     "p": 0.44,
+     "zeit_s": 80.16
+    }
+   ],
+   "versatz_zu_timing_median_ms": 0.0,
+   "versatz_zu_timing_p90_ms": 30.0
+  },
+  "vorhoer": {
+   "wer": 0.0,
+   "fehler": [],
+   "schreibweisen": [],
+   "eingefuegt": [],
+   "n_skript": 290,
+   "n_gehoert": 290,
+   "unsicher": [
+    {
+     "wort": "Mister",
+     "p": 0.44,
+     "zeit_s": 5.34
+    },
+    {
+     "wort": "Nobody",
+     "p": 0.18,
+     "zeit_s": 29.14
+    },
+    {
+     "wort": "ready.",
+     "p": 0.11,
+     "zeit_s": 50.42
+    },
+    {
+     "wort": "Six",
+     "p": 0.13,
+     "zeit_s": 57.96
+    },
+    {
+     "wort": "Dad",
+     "p": 0.49,
+     "zeit_s": 59.56
+    },
+    {
+     "wort": "\"It",
+     "p": 0.06,
+     "zeit_s": 72.02
+    }
+   ]
+  }
+ },
+ "untertitel_sync": {
+  "einblendungen": 179,
+  "wechsel_gefunden": 538,
+  "einblendung_nicht_auf_plan_bild": [],
+  "wechsel_ausserhalb_plan": [],
+  "abstand_zu_timing_max_s": 0.017,
+  "versatz_mp4_ton_zu_master_ms": 0.0,
+  "gemessen_nach_pause_einsatz": 62,
+  "gemessen_mitten_im_satz_whisper": 117,
+  "abstand_zum_wortbeginn_median_s": 0.0,
+  "abstand_zum_wortbeginn_p90_abs_s": 0.02,
+  "abstand_zum_wortbeginn_max_abs_s": 0.047,
+  "ueber_0_1_s": []
+ },
+ "bilder": {
+  "bilder": 2618,
+  "dekodierfehler": null,
+  "helligkeit_median_ohne_dunkle_orte": 87.9,
+  "dunkle_orte_mittel": null,
+  "dunkle_orte_fast_schwarz_anteil": null,
+  "leerbilder_am_anfang": [],
+  "balken_max_ohne_dunkle_orte": 0.0,
+  "balken_bild_ohne_dunkle_orte": 0,
+  "helligkeit_p10": 65.6,
+  "fast_schwarz_anteil": 0.0,
+  "balken_max": 0.0,
+  "balken_bild": 0,
+  "kantendichte_median": 0.156,
+  "einstellungen": [
+   {
+    "id": "E01",
+    "ort": "hauptstrasse",
+    "mittel": 104.8,
+    "streuung_anfang_min": 67.5,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E02",
+    "ort": "marsh-innen",
+    "mittel": 129.5,
+    "streuung_anfang_min": 42.6,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E03",
+    "ort": "hauptstrasse",
+    "mittel": 124.9,
+    "streuung_anfang_min": 58.8,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E04",
+    "ort": "hauptstrasse",
+    "mittel": 73.1,
+    "streuung_anfang_min": 57.1,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E05",
+    "ort": "hauptstrasse",
+    "mittel": 66.8,
+    "streuung_anfang_min": 45.8,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E06",
+    "ort": "hauptstrasse",
+    "mittel": 66.0,
+    "streuung_anfang_min": 48.4,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E07",
+    "ort": "hauptstrasse",
+    "mittel": 88.2,
+    "streuung_anfang_min": 65.1,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E08",
+    "ort": "hauptstrasse",
+    "mittel": 100.0,
+    "streuung_anfang_min": 46.0,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E09",
+    "ort": "hauptstrasse",
+    "mittel": 122.7,
+    "streuung_anfang_min": 41.4,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E10",
+    "ort": "hauptstrasse",
+    "mittel": 66.6,
+    "streuung_anfang_min": 41.1,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E11",
+    "ort": "hauptstrasse",
+    "mittel": 105.3,
+    "streuung_anfang_min": 62.8,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E12",
+    "ort": "hauptstrasse",
+    "mittel": 67.9,
+    "streuung_anfang_min": 39.0,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E13",
+    "ort": "hauptstrasse",
+    "mittel": 94.1,
+    "streuung_anfang_min": 50.4,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E14",
+    "ort": "hauptstrasse",
+    "mittel": 85.5,
+    "streuung_anfang_min": 47.3,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E15",
+    "ort": "hauptstrasse",
+    "mittel": 89.5,
+    "streuung_anfang_min": 49.1,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E16",
+    "ort": "hauptstrasse",
+    "mittel": 85.3,
+    "streuung_anfang_min": 49.0,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E17",
+    "ort": "hauptstrasse",
+    "mittel": 65.0,
+    "streuung_anfang_min": 38.7,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E18",
+    "ort": "hauptstrasse",
+    "mittel": 65.4,
+    "streuung_anfang_min": 58.2,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E19",
+    "ort": "hauptstrasse",
+    "mittel": 127.1,
+    "streuung_anfang_min": 41.5,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E20",
+    "ort": "hauptstrasse",
+    "mittel": 109.4,
+    "streuung_anfang_min": 58.6,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E21",
+    "ort": "hauptstrasse",
+    "mittel": 122.8,
+    "streuung_anfang_min": 55.5,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E22",
+    "ort": "hauptstrasse",
+    "mittel": 98.5,
+    "streuung_anfang_min": 61.8,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E23",
+    "ort": "hauptstrasse",
+    "mittel": 93.1,
+    "streuung_anfang_min": 46.4,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E24",
+    "ort": "hauptstrasse",
+    "mittel": 105.0,
+    "streuung_anfang_min": 52.1,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E25",
+    "ort": "hauptstrasse",
+    "mittel": 73.1,
+    "streuung_anfang_min": 52.9,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E26",
+    "ort": "hauptstrasse",
+    "mittel": 77.9,
+    "streuung_anfang_min": 43.6,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E27",
+    "ort": "hauptstrasse",
+    "mittel": 99.0,
+    "streuung_anfang_min": 66.5,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E28",
+    "ort": "hauptstrasse",
+    "mittel": 70.0,
+    "streuung_anfang_min": 43.5,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E29",
+    "ort": "hauptstrasse",
+    "mittel": 100.7,
+    "streuung_anfang_min": 54.7,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E30",
+    "ort": "hauptstrasse",
+    "mittel": 97.9,
+    "streuung_anfang_min": 40.4,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E31",
+    "ort": "hauptstrasse",
+    "mittel": 111.3,
+    "streuung_anfang_min": 54.0,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E32",
+    "ort": "hauptstrasse",
+    "mittel": 102.5,
+    "streuung_anfang_min": 54.6,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E33",
+    "ort": "marsh-innen",
+    "mittel": 73.7,
+    "streuung_anfang_min": 45.6,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E34",
+    "ort": "marsh-innen",
+    "mittel": 79.1,
+    "streuung_anfang_min": 46.9,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E35",
+    "ort": "hauptstrasse",
+    "mittel": 82.1,
+    "streuung_anfang_min": 61.2,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E36",
+    "ort": "hauptstrasse",
+    "mittel": 70.2,
+    "streuung_anfang_min": 38.9,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E37",
+    "ort": "marsh-innen",
+    "mittel": 97.9,
+    "streuung_anfang_min": 50.8,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E38",
+    "ort": "marsh-innen",
+    "mittel": 84.8,
+    "streuung_anfang_min": 43.5,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E39",
+    "ort": "hauptstrasse",
+    "mittel": 66.5,
+    "streuung_anfang_min": 37.3,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E40",
+    "ort": "marsh-innen",
+    "mittel": 85.5,
+    "streuung_anfang_min": 39.8,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E41",
+    "ort": "marsh-innen",
+    "mittel": 67.1,
+    "streuung_anfang_min": 26.9,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E42",
+    "ort": "marsh-innen",
+    "mittel": 68.3,
+    "streuung_anfang_min": 37.6,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E43",
+    "ort": "hauptstrasse",
+    "mittel": 92.6,
+    "streuung_anfang_min": 35.7,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E44",
+    "ort": "marsh-innen",
+    "mittel": 154.8,
+    "streuung_anfang_min": 38.3,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E45",
+    "ort": "marsh-innen",
+    "mittel": 155.2,
+    "streuung_anfang_min": 39.9,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E46",
+    "ort": "marsh-innen",
+    "mittel": 95.3,
+    "streuung_anfang_min": 39.5,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E47",
+    "ort": "marsh-innen",
+    "mittel": 110.6,
+    "streuung_anfang_min": 47.2,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E48",
+    "ort": "marsh-innen",
+    "mittel": 95.9,
+    "streuung_anfang_min": 41.6,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E49",
+    "ort": "marsh-innen",
+    "mittel": 67.8,
+    "streuung_anfang_min": 50.0,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E50",
+    "ort": "marsh-innen",
+    "mittel": 89.5,
+    "streuung_anfang_min": 40.7,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E51",
+    "ort": "marsh-innen",
+    "mittel": 73.7,
+    "streuung_anfang_min": 35.6,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E52",
+    "ort": "marsh-innen",
+    "mittel": 66.8,
+    "streuung_anfang_min": 40.6,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E53",
+    "ort": "marsh-innen",
+    "mittel": 61.1,
+    "streuung_anfang_min": 34.7,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E54",
+    "ort": "marsh-innen",
+    "mittel": 76.4,
+    "streuung_anfang_min": 48.8,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E55",
+    "ort": "hauptstrasse",
+    "mittel": 116.5,
+    "streuung_anfang_min": 41.3,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E56",
+    "ort": "marsh-innen",
+    "mittel": 58.9,
+    "streuung_anfang_min": 42.3,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E57",
+    "ort": "hauptstrasse",
+    "mittel": 78.0,
+    "streuung_anfang_min": 49.4,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E58",
+    "ort": "hauptstrasse",
+    "mittel": 111.2,
+    "streuung_anfang_min": 36.6,
+    "balken_max": 0.0
+   }
+  ],
+  "helligkeit_min": 27.6,
+  "helligkeit_median": 87.8,
+  "dunkelstes_bild": 2588,
+  "streuung_min": 26.3,
+  "schwarz_oder_einfarbig": [],
+  "laengster_stillstand_s": 0.0,
+  "stillstand_endet_bild": null,
+  "aenderung_median": 1.61
+ },
+ "bogen_zeiten_s": [
+  1.454,
+  4.363,
+  7.272,
+  10.181,
+  13.09,
+  15.999,
+  18.908,
+  21.817,
+  24.726,
+  27.634,
+  30.543,
+  33.452,
+  36.361,
+  39.27,
+  42.179,
+  45.088,
+  47.997,
+  50.906,
+  53.814,
+  56.723,
+  59.632,
+  62.541,
+  65.45,
+  68.359,
+  71.268,
+  74.177,
+  77.086,
+  79.994,
+  82.903,
+  85.812
+ ],
+ "ton": {
+  "kbit": 192,
+  "upload": {
+   "lufs": -14.05,
+   "true_peak_dbtp": -1.8,
+   "lra_lu": 3.0
+  },
+  "vorhoer": {
+   "lufs": -14.05,
+   "true_peak_dbtp": -1.84,
+   "lra_lu": 2.7
+  },
+  "decken_dbfs": {
+   "upload": -1.8,
+   "vorhoer": -1.8
+  }
+ },
+ "verstoesse": [],
+ "ok": true
+}
