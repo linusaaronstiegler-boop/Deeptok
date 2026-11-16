@@ -33,11 +33,11 @@ Stand 16.11.2026. Grundlage für Schritt 3 („abgeschlossene Geschichten von 2�
    - Für uns taugt Lore als Beigabe in jeder Folge, nicht als Voraussetzung.
 5. **Geteilt wird, wozu man eine Meinung hat oder worin man sich selbst einrechnet.**
    - Shares je 1.000 Aufrufe: 45,0 bei Komik-Regeln, 39,9 bei der 18-Jahre-Schwelle, 12,5 beim Radio mit drei Namen.
-   - Reiner Horror ohne solchen Haken: 1,2–5,6 [D].
-6. **Für unsere Pipeline:**
-   - Sechs der zehn Mechaniken gehen in jede Folge, fast ohne Mehraufwand: Regel-Welt, Suchbild-Fehler, Lore-Krümel, Kultfigur, Streitfrage, Signaturzeile.
-   - Zwei nur mit Aufwand oder als Test: vertraute Form kippt, hoher Takt.
-   - Zwei nicht: Teile-Kette außer beim Hiding-Night-Finale, Trend wird Spiel.
+   - Reiner Horror ohne solchen Haken: 0,6–5,6 [D].
+6. **Für unsere Pipeline** (Abschnitt 3 und 4):
+   - Acht der zehn Mechaniken gehen ganz oder teilweise in jede Folge, fast ohne Mehraufwand: Regel-Welt, Suchbild-Fehler, Lore-Krümel, Kultfigur, Streitfrage, Signaturzeile, persönliche Schwelle, wiedererkennbarer Stil.
+   - Als Test: Abstimmung über die nächste Regel, „Vertrautes kippt“ und ein höherer Takt.
+   - Nicht: die Teile-Kette, außer beim Hiding-Night-Finale.
 
 ---
 
@@ -50,7 +50,7 @@ Gruppen:
 - **D:** Mitmach- und Rätsel-Formate.
 - **E:** Teile-Kette als Gegenprobe.
 
-Die Einträge 1–19 haben eine belegte Reichweite. Bei Nr. 15 (*Greetings From Atomville*) ist keine Zahl auffindbar; der Eintrag steht nur wegen seiner Mechanik in der Liste.
+19 von 20 Einträgen haben eine belegte Reichweite. Nur bei Nr. 15 (*Greetings From Atomville*) ist keine Zahl auffindbar; der Eintrag steht wegen seiner Mechanik in der Liste.
 
 | # | Serie / Format | Kanal, Plattform | Reichweite (Quelle, Datum) | Länge, Form | Gr. |
 |---|---|---|---|---|---|
@@ -113,7 +113,7 @@ Je Eintrag: Format, Hook-Muster, warum es lief und was wir daraus lernen. Was di
 - **Hook:** Erster Satz mit Regel und grausamer Folge, gleich im ersten Bild.
 - **Warum:**
   - Konstante Aufrufe (Median der jungen Videos 155.650) bei sehr hohem Takt [D].
-  - Aber kaum Shares: 1,2–5,1 je 1.000 [D].
+  - Aber kaum Shares: 0,6–5,1 je 1.000 [D].
 - **Lehre:** Stil und Takt tragen Aufrufe. Ohne Streitfrage wird aber kaum geteilt.
 
 **5. @dogeok: Kurztitel-Horror**
@@ -224,7 +224,7 @@ Je Eintrag: Format, Hook-Muster, warum es lief und was wir daraus lernen. Was di
 
 **17. No, I'm Not a Human**
 - **Format:** Besucher, die Menschen nachahmen, klopfen an. Nur Menschen dürfen ins Haus. Die Merkmale gelten nicht immer, und manche Menschen zeigen sie auch [V17].
-- **Warum:** u, Zahlen nur zu Wunschlisten. Ein Bericht nennt die gemeinsame Angst beim Streamen als Treiber [V17].
+- **Warum:** u. Belegt sind nur Wunschlisten und die Spielerspitze [V17].
 - **Lehre:** Unscharfe Regeln erzeugen Streit („War der echt?“). Das ist ein Kommentar-Motor (S).
 
 **18. The Exit 8**
@@ -336,7 +336,7 @@ Jede Mechanik mit Beleg, Wirkung und Umsetzung in unserer Pipeline.
   - Eine Frage in der Bildunterschrift, auf die es mehrere vertretbare Antworten gibt. Nie gesprochen.
   - Als Ausbau: Die Kommentare entscheiden über die nächste Regel.
 - **Belege:**
-  - Shares je 1.000: 45,0 (Komik-Regel), 39,9 (Schwelle) gegen 1,2–5,6 bei reinem Horror [D].
+  - Shares je 1.000: 45,0 (Komik-Regel), 39,9 (Schwelle) gegen 0,6–5,6 bei reinem Horror [D].
   - *Fruit Love Island*: Abstimmung per Formular [V5].
 - **Wirkt auf:** Teilen und Kommentare.
 - **Pipeline:**
@@ -373,7 +373,8 @@ Jede Mechanik mit Beleg, Wirkung und Umsetzung in unserer Pipeline.
 
 - **Was:** Der Auslöser betrifft jeden Zuschauer. Beispiele: ein Lebensalter, ein erster Arbeitstag, eine Auslosung, bei der jeder sich fragt, ob es ihn trifft.
 - **Belege:**
-  - Die drei Schwellen- und Auslosungs-Videos von @lileggy38 haben die höchsten Kommentar- und Share-Quoten des Datensatzes (Kommentare 2,0 und 2,7 je 1.000, Shares 39,9, 11,7 und 12,5) [D].
+  - Die zwei Schwellen-Videos von @lileggy38 haben die höchsten Kommentar-Quoten des Datensatzes: 2,0 und 2,7 je 1.000 Aufrufe; alle anderen Storys über 200.000 Aufrufe liegen bei 0,2–1,5 [D].
+  - Schwellen und Auslosung werden auch viel geteilt: 39,9 und 11,7 (Schwellen), 12,5 (Radio mit drei Namen). Nur die Komik-Regel liegt mit 45,0 höher [D].
 - **Wirkt auf:** Kommentare („Ich werde nächste Woche 18“) und Teilen (S).
 - **Pipeline:** kostet nichts.
 - **Grenzen:**
@@ -469,7 +470,7 @@ Alle Stoffe spielen in **einer** Stadt. Was Hiding Night angelegt hat, bleibt: d
 - **Fremde Plots:** die Spielabläufe von *That's Not My Neighbor*, *No, I'm Not a Human* und *Exit 8*. Wir übernehmen nur die Mechanik „prüfen, ob echt“, nicht den Ablauf, also kein Pförtner, keine Ausweisprüfung, kein Gang.
 - **Echte Nutzernamen** in Videos (Nutter-Butter-Prinzip), auch nicht als Dank.
 - **Streit als Absicht:** keine Wut-Köder wie die KI-Debatte um *Fruit Love Island*.
-- **Kinder in Gefahr**, auch wenn ein Vorbild es tut (z. B. das Fangspiel bei @cannonanimatess). Unsere Fassung jeder Idee hat volljährige Gefährdete.
+- **Kinder in Gefahr oder Eltern als Täter**, auch wenn Vorbilder es tun (im Datensatz „One stole my little sister“ und „WAIT THAT WASN'T MY MOM?!“, beide unter dem Kontomedian [D]). Unsere Fassung jeder Idee hat volljährige Gefährdete.
 
 ---
 
@@ -506,6 +507,7 @@ Abgerufen am 16.11.2026, sofern nicht anders angegeben. Das Datum in Klammern is
 - **[V10]** Variety Australia, „‘Backrooms’ Crosses $100 Million in 6 Days to Become A24’s Biggest Movie at US Box Office“: https://au.variety.com/2026/film/global/backrooms-a24-biggest-movie-domestic-box-office-37270/ (04.06.2026).
 - **[V11]** Yahoo Style UK, „‘Not Your Normal Kids Show’ is TikTok’s new favorite creepypasta series“: https://uk.style.yahoo.com/not-normal-kids-show-tiktok-163245759.html (11.08.2023).
 - **[V12]** The Philadelphia Inquirer, Nutter Butter und „Aidan“: https://www.inquirer.com/news/nation-world/nutter-butter-social-media-aidan-maloney-temple-20241001.html (01.10.2024).
+- **[V13]** AdNews, „OBSESSED: Lore Marketing > Marketing Lore“: https://adnews.com.au/news/obsessed-lore-marketing-marketing-lore (Host in dieser Sitzung nicht erreichbar; nicht als Beleg verwendet).
 - **[V14]** Dread Central, „Checking In on Nutter Butter’s Creepy TikTok …“: https://www.dreadcentral.com/news/589215/checking-in-on-nutter-butters-creepy-tiktok-which-has-somehow-gotten-even-creepier/ (17.09.2026).
 - **[V15]** Looper, „Greetings From Atomville: The Weird AI-Made Horror Series …“: https://looper.com/1643968/greetings-from-atomville-tiktok-horror-series-explained (18.08.2024).
 - **[V16]** Know Your Meme, „That's Not My Neighbor“: https://knowyourmeme.com/memes/subcultures/thats-not-my-neighbor (angelegt 01.05.2024, aktualisiert 10.05.2024).
