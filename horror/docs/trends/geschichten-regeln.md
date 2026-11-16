@@ -136,6 +136,8 @@ Ein Cliffhanger darf zusätzlich kommen, aber nicht statt der Pointe. Jedes Setu
 
 **Bezug zum Plan:** Die Endkarte „PART 2“ (A6) darf bleiben, Teil 1 muss trotzdem allein tragen.
 
+**Nachtrag 16.11.2026 (Review des Finales von „Hiding Night“):** Der Rückblick dauert höchstens 12 s; Satz 1 plus ein Satz reicht. Im Finale dauerte er 15,3 s, das erste neue Ereignis kam erst nach 20,3 s (14,7 % der Länge).
+
 **Beleg:**
 - Im Fenster: 81 Storys von 12 Konten. 80 sind Einzelvideos (Median 17.200), eine ist als „Part 2“ beschriftet (@town.rules, 30.600).
 - Nach einem Treffer (Teil 1 über 500.000) holt Teil 2 nur 0,12 / 0,18 / 0,18 davon. 82–88 % sehen das Ende also nicht.
@@ -256,6 +258,11 @@ In den Entwurf einfügen und ausfüllen, bevor die Stimme bestellt wird.
 
 - Nach dem nächsten Radar-Lauf (geplant 22.11.2026, `horror/tools/trends/README.md`) zuerst die Regeln mit schwachem Beleg prüfen: 2b, 6b, 8 (Stufen) und 9b.
 - Nach den ersten eigenen Zahlen aus TikTok Studio Regel 4 und 5 an den eigenen Videos messen.
+- Lehren aus dem Review von Teil 2 und 3 (16.11.2026, `episoden/folge-03/REVIEW.md`), für die abgeschlossenen Geschichten als Soll:
+  - Jedes Monster hat ein Erkennungsgeräusch, das in jedem Video vorkommt; im Höhepunkt kehrt es wieder (im Finale fehlte die Monsterstimme aus Teil 2 zunächst).
+  - Die Auflösung kommt zuerst als Ton und erst dann als erklärender Satz (die Sonnenglocke lag 1,95 s hinter „she stopped“).
+  - Das Enthüllungsbild braucht einen Gegenstand, der die Größe zeigt; ein bildfüllendes Gesicht hat keinen Maßstab.
+  - Was erzählt wird, muss im Bild zu sehen sein (Seil, Hände, „alone“): je Schlüsselsatz ein Bild, das genau diese Handlung zeigt.
 
 ## Quellen
 

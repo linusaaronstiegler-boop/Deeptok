@@ -610,6 +610,24 @@ Additive Lichtkegel des Finales sind `MeshLambertMaterial` (ohne Glanz): ausgesc
 
 Liegende Figuren (`pose: "liegen"`) schauen nach oben, der Kopf zeigt nach lokal −z. Für Nahaufnahmen den Kopf mit `pose_params.kopf` zur Kamera drehen und die Kamera rollen (`kamera.roll`, Teil 2: −90°; die ersten +70° stellten das Gesicht auf den Kopf), sonst steht das Gesicht quer im Bild. Die Kopf-oben-Regel des Schnellbogens (16.4) misst das nach. Atemdampf liegender Figuren braucht `richtung: [0, 1, 0]`.
 
+### 15.10 Nachbesserungen nach dem Review von Teil 2 und 3 (Stand 16.11.2026)
+
+| Baustein | Datei | Zweck, Schnittstelle |
+|---|---|---|
+| Weicher Lichtkegel | `src/bauteile.js` (`weicherKegel(mat, {exponent})`) | Additive Kegel (Taschenlampe, Keller, Turmlampe) blenden zum Rand und nahe der Linse aus. Vorher schnitten sie als halbtransparente Fläche mit harter Kante durch Gesichter. `lichtPfuetzeMat(…, { ohneGlanz: true })` für Lichtflecken |
+| Fäden im Keller | `sets/kriechkeller.js` | `params.faeden` (Std aus): 4 mm dünne Spinnweb-Fäden lagen nah an der Linse als haarfeine Linien im Bild |
+| Fingerschatten ohne Saum | `sets/kriechkeller.js` | Finger-Ereignis `saum: false`: nur dunkle Finger und glimmende Spitzen; die Säume füllten die Lücken zwischen den Fingern (türkises Gitter) |
+| Glockenseil quer | `sets/hauptstrasse.js` | Ereignis `seil` schwingt quer zur Straße (z-Achse), von vorn ein weiter Ausschlag |
+| Junes gedehntes Gesicht | `src/gesichter.js`, `figuren/mister_hundred.js` | Ausdrücke `gedehnt`, `gedehnt_bricht`, `gedehnt_muede`, `gedehnt_schlaeft`; Mund `riss` (Grinsen über fast die ganze Breite mit Zähnen) und `riss_bricht`; Monster-Gesichter `june_muede`, `june_schlaeft` |
+| Partikel enden mit der Einstellung | `shotliste.mjs` | `haupt.art: 'partikel'` wird auf das Ende der Einstellung gekürzt (der Atem aus E16 lag in E17 als weißer Ball vor der Linse); `ueber_schnitt: true` hebt das auf |
+| Pausen ohne neue Aufnahme | `ton/einschub.py` | `python engine/ton/einschub.py episoden/folge-03 --bei 67.6:0.5 --bei 120.33:0.5 --grund "…"`: fügt Stille (Rauschen der Aufnahme) in `build/<folge>/stimme.wav` ein und verschiebt alle Wortzeiten danach; Protokoll in `stimme.json` → `einschub_bau` |
+| Unterstimme | `ton/mischen.py`, `effekte.json` → `unterstimmen` | `[{von, bis, halbtoene (Std −4,5), formant, hall, db (Std −13)}]`: eine tiefe Kopie der unbearbeiteten Stimme UNTER einem Redeabschnitt (Mister Hundred zählt unter June mit), statt ihn zu ersetzen wie `rede` |
+| Schaben | `ton/effekte.py` | Klang `schaben` {dauer, naeher}: Fingernagel über Erde, kommt näher, reißt am Ende ab |
+| Untertitel weichen aus | `untertitel.py` | Liegt die Hauptsache einer Einstellung im Streifen y 1040–1330 (laut `build/<folge>/komposition.json` aus dem Schnellbogen), stehen ihre Untertitel bei y 1440. Wörtliche Rede hat 11 px Kontur (Junes Gelb auf ihrem senffarbenen Pulli). Den Schnellbogen also vor `fertigen.py` bauen |
+| Leerbild-Tor | `pruefen.py` | zusätzlich: Streuung unter 20 und kaum Kanten (unter 1 % außerhalb des Untertitel-Streifens) in den ersten 0,5 s einer Einstellung; im Keller nur das alte Tor. Untertitel-Messband y 1080–1500 |
+
+Render in Abschnitten, damit ein Neustart des Containers höchstens einen Abschnitt kostet: `node render.mjs <episode.json> --bilder a-b --prozesse 2 --format jpg --qualitaet 0.95 --nur-bilder --kein-bogen` je 600 Bilder, danach `fertigen.py` wie gewohnt (es nimmt alle Einzelbilder in `build/<folge>/bilder/`).
+
 ## 16. Shotliste, Messtor, Kontaktbogen
 
 Stand 15.11.2026. Aus Wortzeiten wird ohne Handarbeit an Sekunden eine renderfertige Episode.
