@@ -16,7 +16,10 @@ Kette (Linus' Vorgabe für Folge 1, ElevenLabs „Adam“):
   4. Wortzeiten mit faster-whisper small (word_timestamps) auf der fertigen Spur,
      gegen den Sprechtext ausgerichtet. Die Schreibweise des Skripts bleibt erhalten.
      Ein kurzes Schlusswort, das Whisper in den Block davor zieht (Folge 2: „Ready?“),
-     kommt in seinen eigenen Sprechblock (schlusswoerter_verschieben).
+     kommt in seinen eigenen Sprechblock (schlusswoerter_verschieben). Das erste Wort
+     nach einem Satzzeichen, das Whisper in den Ausklang des Blocks davor legt (Folge 2,
+     neue Aufnahme: „Then“ im Block von „Ninety-nine.“), kommt in den nächsten Block
+     (phrasenanfaenge_nachziehen).
 
 Befehle:
   python stimme.py bewerten --skript S.txt ROH1.mp3 [ROH2.mp3 …] [--aus bewertung.json]
@@ -551,6 +554,52 @@ def schlusswoerter_verschieben(woerter: list[dict], zuordnung: list[int],
     return len(idx)
 
 
+SATZZEICHEN_ENDE = re.compile(r"[,.;:!?\u2026\u2013\u2014\"']$")   # an diesen Zeichen darf eine Pause liegen
+
+
+def phrasenanfaenge_nachziehen(woerter: list[dict], zuordnung: list[int],
+                               bloecke: list[tuple[float, float]]) -> int:
+    """Erstes Wort eines Satzes oder Teilsatzes aus dem Block davor in den nächsten Block holen.
+
+    Whisper legt Wortanfänge nach einer Pause oft zu früh: Das erste Wort nach einem
+    Satzzeichen landet im Ausklang des Blocks davor (Folge 2, neue Aufnahme: in beiden
+    Takes 9–14 Fälle an Satzgrenzen, z. B. „Then“ im Block von „Ninety-nine.“, dazu
+    Kommas wie „Dad, who“; einzeln gehört enthält der Block nur „99“ bzw. „She'd end
+    up like Dad“). Folge: Das Wort erscheint im Untertitel 0,3–0,5 s zu früh, und ein
+    Schnitt auf dieses Wort käme zu früh.
+    Regel: Endet das Wort davor mit einem Satzzeichen, liegt das Wort im selben Block
+    wie das Wort davor, das Wort danach (im selben Satz) aber in einem späteren Block,
+    dann gehört die Pause vor das Wort (am Satzzeichen, nicht mitten im Teilsatz).
+    Das Wort kommt in den nächsten Block; es teilt sich den Anfang dieses Blocks mit
+    dem folgenden Wort nach Buchstabenzahl. Ein-Wort-Sätze bleiben unberührt.
+    Rückgabe: Zahl der verschobenen Wörter.
+    """
+    n = 0
+    for i in range(1, len(woerter) - 1):
+        w, vor, nach = woerter[i], woerter[i - 1], woerter[i + 1]
+        if not SATZZEICHEN_ENDE.search(vor["text"]) or nach["satz"] != w["satz"]:
+            continue                      # keine Phrasengrenze davor, oder Ein-Wort-Satz
+        if zuordnung[i] != zuordnung[i - 1] or zuordnung[i + 1] <= zuordnung[i]:
+            continue                      # Whisper hat die Grenze schon richtig
+        k = zuordnung[i] + 1              # der Block, in dem die Phrase wirklich beginnt
+        zuordnung[i] = k
+        ba = bloecke[k][0]
+        # Anfang des Blocks bis zum Whisper-Ende des Folgeworts nach Buchstaben teilen
+        bis = max(nach["ende"], ba + 0.06) if zuordnung[i + 1] == k else bloecke[k][1]
+        g1 = max(1, len(re.sub(r"[^\w]", "", w["text"])))
+        g2 = max(1, len(re.sub(r"[^\w]", "", nach["text"]))) if zuordnung[i + 1] == k else 0
+        w["start"] = ba
+        w["ende"] = ba + (bis - ba) * g1 / (g1 + g2)
+        if g2:
+            nach["start"] = w["ende"]
+        w["phrasenanfang_nachgezogen"] = True
+        n += 1
+    if n:
+        print(f"Phrasenanfänge: {n} Wort/Wörter aus dem Block davor in den eigenen Block gelegt",
+              file=sys.stderr)
+    return n
+
+
 def an_kanten_einrasten(woerter: list[dict], x: np.ndarray) -> int:
     """Wortkanten an Pausen auf die Energiekanten setzen.
 
@@ -574,7 +623,8 @@ def an_kanten_einrasten(woerter: list[dict], x: np.ndarray) -> int:
     # Reihenfolge erzwingen: Blocknummern dürfen nicht rückwärts laufen
     for i in range(1, len(zuordnung)):
         zuordnung[i] = max(zuordnung[i], zuordnung[i - 1])
-    n = schlusswoerter_verschieben(woerter, zuordnung, bloecke, x)
+    n = phrasenanfaenge_nachziehen(woerter, zuordnung, bloecke)
+    n += schlusswoerter_verschieben(woerter, zuordnung, bloecke, x)
     for k, (ba, bb) in enumerate(bloecke):
         idx = [i for i, z in enumerate(zuordnung) if z == k]
         if not idx:
@@ -735,7 +785,8 @@ def cmd_fertig(args) -> None:
                      "start": round(w["start"], 3), "ende": round(w["ende"], 3),
                      "p": round(w["p"], 3), "quelle": w["quelle"],
                      **({"erkannt": w["erkannt"]} if w["quelle"] != "whisper" else {}),
-                     **({"schluss_verschoben": True} if w.get("schluss_verschoben") else {})}
+                     **({"schluss_verschoben": True} if w.get("schluss_verschoben") else {}),
+                     **({"phrasenanfang_nachgezogen": True} if w.get("phrasenanfang_nachgezogen") else {})}
                     for i, w in enumerate(woerter)],
         "saetze": st,
         "pruefung": {
