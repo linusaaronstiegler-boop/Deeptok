@@ -1,0 +1,2017 @@
+{
+ "folge": "folge-03",
+ "teil": 3,
+ "serie": "Hiding Night",
+ "quelle": "skript.txt (Satz-Index = Zeilennummer, 1-basiert)",
+ "stand": "2026-11-16 (Endfassung nach der Kritik am Entwurf, 60 Sätze; vertont mit Adam ×1,2, 137,09 s; Einstellungen noch nicht gebaut)",
+ "hinweis": "Grobe Bildideen je Satz als Vorlage für die Shotliste, Format wie folge-02. Hauptbild = erste Einstellung des Satzes; teilbilder = weitere Schnitte im Satz, ab_wort = Wort, auf dessen Beginn geschnitten wird. t_schaetz_s ist die Schätzung aus dem Entwurf (geeicht an Teil 1 und 2); die echten Zeiten stehen in timing.json. Neu gegenüber folge-02: Licht kriechkeller-morgen, Blöcke des Finales, Gesichter june-gedehnt (Monster), june leerer-blick, odell muede.",
+ "vokabular": {
+  "orte": {
+   "hauptstrasse": [
+    "platz",
+    "haeuserzeile",
+    "marsh-aussen",
+    "pike-haus",
+    "strassenende"
+   ],
+   "marsh-innen": [
+    "kueche",
+    "flur",
+    "eli-zimmer",
+    "june-zimmer"
+   ],
+   "kriechkeller": [
+    "kriechkeller"
+   ]
+  },
+  "figuren": [
+   "eli",
+   "june",
+   "dad",
+   "owen",
+   "odell",
+   "tess",
+   "nachbarn",
+   "mister-hundred"
+  ],
+  "licht": [
+   "tag",
+   "morgen",
+   "sonnenaufgang",
+   "daemmerung",
+   "nacht",
+   "innen-nacht",
+   "rueckblende-nacht",
+   "kriechkeller",
+   "kriechkeller-morgen"
+  ],
+  "kamera": [
+   "folgefahrt",
+   "kran-enthuellung",
+   "kranabstieg",
+   "orbit",
+   "pull-out",
+   "push-in",
+   "seitenfahrt",
+   "snap-zoom",
+   "statisch",
+   "sturzfahrt",
+   "whip"
+  ],
+  "groesse": [
+   "detail",
+   "gross",
+   "halbnah",
+   "halbtotale",
+   "nah",
+   "pov",
+   "totale",
+   "ueber-schulter"
+  ]
+ },
+ "licht_kriechkeller": "fast dunkel, Elis Taschenlampe als Kegel, dünne Lichtstreifen durch die Dielen (verdunkeln sich, wenn oben etwas steht), Atemdampf",
+ "licht_kriechkeller_morgen": "rosa Morgenlicht durchs Lüftungsgitter als Hauptquelle, Fugen oben warm-hell, kein Lampenkegel; Untergrenze 22 je Einstellung",
+ "fehlt_im_set": [
+  "kriechkeller: Finger durch die Fuge (Aktion, drei Glieder, dunkler Nagel, kalte Kante), Satz 25–26",
+  "kriechkeller: drei Klopfer an der Luke mit Staub aus dem Lichtspalt, Satz 28",
+  "kriechkeller: Luke von unten öffnen mit kaltem Lichteinfall, Satz 38",
+  "kriechkeller: Baustein P2 – Mister Hundred faltet sich in den Keller, beugt sich herab, Hände öffnen sich wie eine Tür und schließen sich wieder (Satz 39, 46)",
+  "kriechkeller: Lichtpuls der Fugen je Zahl, Fingerspalt 0,3 s auf (Satz 49, 51); Fingerschatten wandern über Elis Gesicht (Satz 2, 46)",
+  "kriechkeller: Requisite Dads alte Taschenlampe im Staub (Satz 55)",
+  "licht: Preset kriechkeller-morgen (rosa durchs Gitter), Himmel im Gitter von Schwarz nach Dunkelblau (Satz 51–55)",
+  "hauptstrasse: Monster-Pose aufrecht neben dem Turm, Kopf an der Schallluke, von hinten; Hände sinken von hinten (Satz 17–18)",
+  "hauptstrasse: Taschenlampe in der Schallluke als Lichtereignis, Glockenseil schwingt sichtbar in der Schallluke (Satz 19–20)",
+  "hauptstrasse: Turm im Sonnenaufgang mit Odell am Seil und Tess' lila High-Tops nebeneinander auf dem Sims (Satz 54)",
+  "hauptstrasse: langer nackter Fuß tritt aus Junes Fenster in den Reif (Satz 15), Vorbeugen vor Junes Fenster im Erdgeschoss (Satz 22)",
+  "marsh-innen: Wandschatten hinter June mit der Raute, 0,5 s zu groß (Satz 6), zusammengerollt (Satz 44)",
+  "marsh-innen: Junes Zimmer und Flur im Morgenlicht, Elis Zimmer nachts mit Eli liegend im Bett (Satz 56–60)",
+  "marsh-innen: Elis leeres Zimmer nachts, Schatten der Raute fällt durchs Fenster aufs Bett (Satz 22)",
+  "marsh-innen (Rückblende): Dad schließt die Luke über der jungen June, seine Taschenlampe fällt in den Staub (Satz 43)",
+  "figuren: Monstergesicht june-gedehnt (Junes Gesicht auf dem Würfelkopf, zu groß, Lächeln zu breit), June mit 18 mit offenen Haaren, June leerer-blick, Odell muede",
+  "effekte: Blitzbild als Überblendung im selben Schnitt (Satz 5), Reif an Fingerspitzen (Satz 44)"
+ ],
+ "summen": {
+  "saetze": 60,
+  "woerter": 470,
+  "einstellungen_geplant": 90,
+  "monster_anteil_einstellungen": 0.222,
+  "laenge_geschaetzt_s": 142.1,
+  "laenge_gemessen_s": 137.09,
+  "einstellungen_pro_minute_geplant": 39.4,
+  "hinweis_bau": "Die Einstellungen sind noch nicht gebaut (regie.mjs fehlt). Der Schnittplan ist gegen die Grenzwerte des Messtors (engine/shotliste.mjs, REGELN) mit den echten Wortzeiten nachgerechnet, siehe schnittplan. Keinen eigenen Schnitt haben die Sätze 26, 29, 35, 48 und 60"
+ },
+ "musik": {
+  "bett": "r2-eigen (engine/musik-v2), Stufen dünn/normal/voll, normal etwa 10–12 LU unter der Stimme, Hook 2,5 dB lauter wie in Teil 1 und 2; jeder Wegfall 1,1–1,3 s mit eigenem Nachhall",
+  "stufen": [
+   {
+    "ab_satz": 1,
+    "stufe": "normal",
+    "pegel_db": 2.5,
+    "grund": "Hook wie in Teil 1 und 2"
+   },
+   {
+    "ab_satz": 2,
+    "stufe": "normal",
+    "grund": "Regel, Versprechen, Zählen"
+   },
+   {
+    "ab_satz": 13,
+    "stufe": "weg",
+    "am": "satzanfang",
+    "dauer_s": 1.2,
+    "grund": "Wegfall vor 'Side by side is all it leaves', danach normal"
+   },
+   {
+    "ab_satz": 19,
+    "ab_wort": "out",
+    "stufe": "weg",
+    "bis_satz": 20,
+    "bis_wort": "sound",
+    "grund": "Taschenlampe aus bis 'without a sound', danach normal"
+   },
+   {
+    "ab_satz": 24,
+    "ab_wort": "groaned",
+    "stufe": "voll",
+    "grund": "Dielen, Finger"
+   },
+   {
+    "ab_satz": 26,
+    "ab_wort": "back",
+    "am": "wortende",
+    "stufe": "weg",
+    "dauer_s": 1.2,
+    "grund": "Finger zieht sich zurück"
+   },
+   {
+    "ab_satz": 27,
+    "stufe": "duenn",
+    "grund": "drei Uhr, Lockruf"
+   },
+   {
+    "ab_satz": 34,
+    "stufe": "duenn",
+    "pegel_db": -3,
+    "grund": "unter dem Zählen der Stimme 3 dB zurück"
+   },
+   {
+    "ab_satz": 38,
+    "ab_wort": "opened",
+    "stufe": "voll",
+    "grund": "Luke, Ritual"
+   },
+   {
+    "ab_satz": 39,
+    "ab_wort": "away",
+    "stufe": "weg",
+    "bis_satz": 40,
+    "bis_wort": "face",
+    "grund": "Wegfall bis 'June's face', Sub-Boom"
+   },
+   {
+    "ab_satz": 41,
+    "stufe": "duenn",
+    "grund": "unter Junes Geständnis"
+   },
+   {
+    "ab_satz": 47,
+    "stufe": "duenn",
+    "nur": "oberstimme",
+    "grund": "Wiegenlied beim Zählen"
+   },
+   {
+    "ab_satz": 54,
+    "stufe": "weg",
+    "am": "satzanfang",
+    "dauer_s": 1.2,
+    "grund": "Wegfall vor der Sonnenglocke; die Glocke klar und laut (Handlung)"
+   },
+   {
+    "ab_satz": 55,
+    "stufe": "normal",
+    "grund": "Morgen"
+   },
+   {
+    "ab_satz": 57,
+    "stufe": "duenn",
+    "grund": "Schuhe, Schluss"
+   },
+   {
+    "ab_satz": 60,
+    "stufe": "weg",
+    "am": "satzanfang",
+    "grund": "Wegfall vor 'It helps.'; still nach dem Schnitt"
+   }
+  ],
+  "hinweis": "Die Sekunden der Anker stehen in stimme.json (timing.musik_anker_s) und timing.json"
+ },
+ "bildunterschrift": "Was June the hero or the monster?",
+ "bildunterschrift_ersatz": "Is Eli the next Mister Hundred?",
+ "titelbild": "HIDING NIGHT – FINALE mit den Händen von Mister Hundred vor dem glatten Kopf; nicht Junes Gesicht (A7.2)",
+ "ende": {
+  "schnitt": "hart, höchstens 0,2 s nach dem letzten Wort ('It helps.')",
+  "endkarte": "keine (Empfehlung der Kritik), höchstens 0,5 s; 'MORE TOWNS' passt nicht zu einer wiederkehrenden Welt mit derselben Stadt. Linus entscheidet",
+  "schleife": "Das Video beginnt wieder mit den Fingerschatten über Eli; ohne Endkarte läuft die Schleife sauber"
+ },
+ "untertitel_farben": {
+  "june": "#F2C14E (Sätze 5, 28–30, 34–36, 42–45, 47–48)",
+  "mister_hundred": "#9FD8D2 kommt im Finale nicht vor: 'READY, RABBIT?' (Satz 36) ganz in Junes Farbe, nicht geteilt",
+  "erzaehlung": "weiß"
+ },
+ "schnittplan": {
+  "einstellungen": 90,
+  "pro_minute": 39.4,
+  "laenge_min_s": 0.79,
+  "laenge_max_s": 2.41,
+  "median_s": 1.5,
+  "monster_anteil": 0.222,
+  "snap_zooms": 3,
+  "statisch": 4,
+  "akzentfahrten": 22,
+  "akzent_mittel_s": 6.2,
+  "akzent_groesste_luecke_s": 9.64,
+  "zu_kurz_unter_0_7": [],
+  "zu_lang_ueber_2_5": []
+ },
+ "saetze": {
+  "1": {
+   "text": "Mister Hundred takes you at eighteen if it finds you, and it called to me in my sister's voice.",
+   "t_schaetz_s": 0.0,
+   "block": "hook",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [
+    "mister-hundred"
+   ],
+   "aktion": "Anschluss an das letzte Bild von Teil 2: vier lange Fingerschatten quer über den Dielenfugen, an den Spitzen glimmt es kalt in den Fugen; die Kamera senkt sich weiter",
+   "schluesselwort": "Hundred",
+   "kamera": "kranabstieg",
+   "groesse": "pov",
+   "monster": true,
+   "sfx": "Sub-Boom auf 'takes'",
+   "hinweis": "Der Name fällt auf dem ersten Bild (Regel 10), 'takes' bei 0,52 s. 'finds you' ist Kanon aus Teil 1. Schleife: Das Video endet mit Eli, der zählt, und beginnt wieder mit den Fingerschatten über ihm. Erste 7 s: Schatten, Staub, Elis Gesicht, nichts Drastisches. Akzentfahrt",
+   "teilbilder": [
+    {
+     "ab_wort": "if",
+     "ort": "kriechkeller",
+     "modul": "kriechkeller",
+     "licht": "kriechkeller",
+     "figuren": [
+      "eli"
+     ],
+     "aktion": "Elis Gesicht von oben, aufrecht im Bild (Kopf oben), die Fingerschatten liegen quer über seinen Augen",
+     "schluesselwort": "finds",
+     "kamera": "push-in",
+     "groesse": "nah",
+     "monster": false,
+     "gesicht": {
+      "eli": "erschrocken"
+     }
+    },
+    {
+     "ab_wort": "called",
+     "ort": "kriechkeller",
+     "modul": "kriechkeller",
+     "licht": "kriechkeller",
+     "figuren": [],
+     "aktion": "Untersicht auf den Lukenrand: ein dünner Lichtspalt um die geschlossene Luke, Staub hängt im Licht",
+     "schluesselwort": "sister's",
+     "kamera": "push-in",
+     "groesse": "detail",
+     "monster": false,
+     "hinweis": "Die Stimme kommt von oben: Aus diesem Spalt kommt später der Lockruf (Satz 28)"
+    }
+   ]
+  },
+  "2": {
+   "text": "Nobody can help you hide.",
+   "t_schaetz_s": 4.6,
+   "block": "neu-pflanzen",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [
+    "eli"
+   ],
+   "aktion": "Eli von vorn, liegend, die Fingerschatten wandern langsam über sein Gesicht, dazwischen die warmen Lichtstreifen der Fugen",
+   "schluesselwort": "help",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "eli": "besorgt"
+   },
+   "hinweis": "Kritik P1: keine entsättigte Rückblende mit Dads Stiefeln. Die Erklärung (Sätze 2–7) läuft über Bilder aus der Gegenwart, das Bild bleibt an der Gefahr aus dem Cliffhanger. Die Schatten sind kein Monster-Bild (M10 zählt nur sichtbare Körperteile)"
+  },
+  "3": {
+   "text": "If they try, it takes them too.",
+   "t_schaetz_s": 6.3,
+   "block": "neu-pflanzen",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [],
+   "aktion": "Detail: Staub rieselt aus einer Fuge in den Lichtstreifen; die Kamera folgt ihm nach unten, die Diele darüber gibt 1 cm nach",
+   "schluesselwort": "takes",
+   "kamera": "kranabstieg",
+   "groesse": "detail",
+   "monster": false,
+   "sfx": "leises Knarzen der Diele auf 'takes'",
+   "effekt": "Staubpartikel im Lichtstreifen",
+   "hinweis": "Akzentfahrt"
+  },
+  "4": {
+   "text": "My sister June hid me anyway, under her room.",
+   "t_schaetz_s": 8.3,
+   "block": "neu-pflanzen",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [
+    "eli"
+   ],
+   "aktion": "Elis Auge von vorn, groß, ein Lichtstreifen fällt quer darüber; es zuckt zur Luke",
+   "schluesselwort": "June",
+   "kamera": "push-in",
+   "groesse": "gross",
+   "monster": false,
+   "gesicht": {
+    "eli": "besorgt"
+   },
+   "hinweis": "Kritik P1: sein Auge von vorn. Lichtstreifen genau auf dem Auge, Kellerwert je Einstellung ≥ 22",
+   "teilbilder": [
+    {
+     "ab_wort": "under",
+     "ort": "kriechkeller",
+     "modul": "kriechkeller",
+     "licht": "kriechkeller",
+     "figuren": [],
+     "aktion": "Untersicht: die geschlossene Luke mit Eisenring, Teppichfransen hängen durch den Spalt",
+     "schluesselwort": "room",
+     "kamera": "push-in",
+     "groesse": "halbnah",
+     "monster": false,
+     "hinweis": "Neue Zuschauer erfahren den Ort: unter Junes Zimmer"
+    }
+   ]
+  },
+  "5": {
+   "text": "\"It never looks in my room, Rabbit.\"",
+   "t_schaetz_s": 11.4,
+   "block": "neu-pflanzen",
+   "dialog": "june",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [
+    "eli"
+   ],
+   "aktion": "Eli von vorn blickt zum Lichtspalt der Luke; Junes Satz kommt als Erinnerung aus dem Off",
+   "schluesselwort": "looks",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "eli": "besorgt"
+   },
+   "effekt": "Blitzbild 0,4 s auf 'looks': das bernsteinfarbene Auge im Fingerspalt (Bild aus Teil 1), offen und groß, keine Sichel, mit kalter Kante; als Überblendung im selben Schnitt, kein eigener Schnitt (M2 ≥ 0,7 s)",
+   "hinweis": "Untertitel Gelb #F2C14E. Hinweis fürs Wiederansehen: das Auge genau auf 'looks' (Paar 1, Payoff Satz 41). Das Blitzbild zählt nicht als eigene Einstellung"
+  },
+  "6": {
+   "text": "Every night, she counts to one hundred before she falls asleep.",
+   "t_schaetz_s": 13.7,
+   "block": "neu-pflanzen",
+   "ort": "marsh-innen",
+   "modul": "june-zimmer",
+   "licht": "innen-nacht",
+   "figuren": [
+    "june"
+   ],
+   "aktion": "Erinnerung, nicht entsättigt: June liegt im Bett und zählt, Augen zu, nah von der Seite, warmes Licht der Nachttischlampe",
+   "schluesselwort": "counts",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "june": "zaehlt"
+   },
+   "hinweis": "Bildecho zu Teil 1, Satz 26, und Teil 2, Satz 33",
+   "teilbilder": [
+    {
+     "ab_wort": "before",
+     "ort": "marsh-innen",
+     "modul": "june-zimmer",
+     "licht": "innen-nacht",
+     "figuren": [
+      "june"
+     ],
+     "aktion": "die Kamera fährt zurück, bis die Wand hinter dem Bett im Bild ist: von 'asleep' an steht Junes Schatten dort 0,5 s viel zu groß, mit spitzen Ellbogen, die Hände vor dem Kopf in der Raute, dann wieder normal",
+     "schluesselwort": "asleep",
+     "kamera": "pull-out",
+     "groesse": "halbtotale",
+     "monster": false,
+     "gesicht": {
+      "june": "zaehlt"
+     },
+     "effekt": "Suchbild (Kritik P1): Wandschatten 0,5 s, ohne Text, ohne Ton, ohne Zoom",
+     "hinweis": "Ein Hinweis in diesem Video selbst (M2, Stoff für 'Habt ihr den Schatten gesehen?'). Lampe von vorn unten, damit der Schatten groß an die Wand fällt. Akzentfahrt (enthüllt den Schatten)"
+    }
+   ]
+  },
+  "7": {
+   "text": "She says it helps.",
+   "t_schaetz_s": 17.1,
+   "block": "neu-pflanzen",
+   "ort": "marsh-innen",
+   "modul": "june-zimmer",
+   "licht": "innen-nacht",
+   "figuren": [
+    "june"
+   ],
+   "aktion": "June nah, sie lächelt im Halbschlaf; hinter ihr ist der Schatten wieder normal",
+   "schluesselwort": "helps",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "june": "verschlafen"
+   },
+   "hinweis": "'She says it helps' (Satz 7) und 'It helps.' (Satz 60) sind die Klammer des Finales"
+  },
+  "8": {
+   "text": "Tonight, something above me finished her count, and asked if I was ready.",
+   "t_schaetz_s": 18.3,
+   "block": "nach-ready",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [],
+   "aktion": "Untersicht: die Kamera fährt an den Fugen entlang; über ihnen verdunkeln lange Sohlen mit vier Zehen das Licht",
+   "schluesselwort": "something",
+   "kamera": "seitenfahrt",
+   "groesse": "pov",
+   "monster": false,
+   "hinweis": "Rückblick auf den Cliffhanger für Neue. Nur Schatten in den Fugen, kein Monster-Bild. Akzentfahrt",
+   "teilbilder": [
+    {
+     "ab_wort": "finished",
+     "ort": "kriechkeller",
+     "modul": "kriechkeller",
+     "licht": "kriechkeller",
+     "figuren": [
+      "eli"
+     ],
+     "aktion": "Eli von vorn, Augen weit, die Schatten der Zehen liegen über seiner Stirn",
+     "schluesselwort": "count",
+     "kamera": "push-in",
+     "groesse": "nah",
+     "monster": false,
+     "gesicht": {
+      "eli": "erschrocken"
+     }
+    },
+    {
+     "ab_wort": "asked",
+     "ort": "kriechkeller",
+     "modul": "kriechkeller",
+     "licht": "kriechkeller",
+     "figuren": [],
+     "aktion": "die vier Fingerschatten legen sich quer über die Fugen und spreizen sich auf 'ready' wie am Ende von Teil 2",
+     "schluesselwort": "ready",
+     "kamera": "push-in",
+     "groesse": "pov",
+     "monster": false
+    }
+   ]
+  },
+  "9": {
+   "text": "I held my breath.",
+   "t_schaetz_s": 22.7,
+   "block": "nach-ready",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [
+    "eli"
+   ],
+   "aktion": "Eli von vorn presst die Hand auf den Mund (mund_zuhalten)",
+   "schluesselwort": "breath",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "eli": "erschrocken"
+   },
+   "hinweis": "Gesicht von vorn an einer Schlüsselstelle (Review-Lehre)"
+  },
+  "10": {
+   "text": "It still came out white.",
+   "t_schaetz_s": 23.9,
+   "block": "nach-ready",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [
+    "eli"
+   ],
+   "aktion": "weißer Atem quillt zwischen seinen Fingern hervor und steigt in den Lichtstreifen",
+   "schluesselwort": "white",
+   "kamera": "push-in",
+   "groesse": "gross",
+   "monster": false,
+   "gesicht": {
+    "eli": "erschrocken"
+   },
+   "effekt": "Atemdampf",
+   "hinweis": "Paar 9 (weißer Atem: es ist nah). Bildecho zu Teil 1, Satz 33, und Teil 2, Satz 41"
+  },
+  "11": {
+   "text": "Then the weight lifted off the boards.",
+   "t_schaetz_s": 25.2,
+   "block": "nach-ready",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [
+    "eli"
+   ],
+   "aktion": "die Kamera fährt von Elis Gesicht zurück, über ihm richten sich die Dielen auf, die Fugen werden wieder hell, Staub rieselt",
+   "schluesselwort": "lifted",
+   "kamera": "pull-out",
+   "groesse": "halbnah",
+   "monster": false,
+   "sfx": "Dielen entlasten (langes Knarzen nach oben) auf 'lifted'",
+   "effekt": "Lichtereignis 1 von 3: Fugen werden in 0,4 s hell",
+   "hinweis": "Akzentfahrt"
+  },
+  "12": {
+   "text": "Through a crack, I saw June's red sneakers by her bed, side by side.",
+   "t_schaetz_s": 26.9,
+   "block": "nach-ready",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [
+    "eli"
+   ],
+   "aktion": "Eli dreht das Auge zu einer breiten Fuge über seiner Schulter, von der Seite",
+   "schluesselwort": "crack",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "eli": "besorgt"
+   },
+   "teilbilder": [
+    {
+     "ab_wort": "June's",
+     "ort": "marsh-innen",
+     "modul": "june-zimmer",
+     "licht": "innen-nacht",
+     "figuren": [],
+     "aktion": "Blick in Junes Zimmer auf Bodenhöhe, die Kamera gleitet über die Dielen auf das Bett zu, davor Junes rote Turnschuhe mit doppelt geknoteten Senkeln",
+     "schluesselwort": "sneakers",
+     "kamera": "seitenfahrt",
+     "groesse": "halbnah",
+     "monster": false,
+     "hinweis": "Kritik P2: Eli sieht unter den Dielen nur, was auf dem Boden steht. Die Fuge höchstens als schmaler dunkler Rand an der Bildkante, nichts vor der Linse. Spiegelt Satz 57. Akzentfahrt"
+    },
+    {
+     "ab_wort": "side",
+     "ort": "marsh-innen",
+     "modul": "june-zimmer",
+     "licht": "innen-nacht",
+     "figuren": [],
+     "aktion": "Detail: die roten Turnschuhe nebeneinander, ganz gerade ausgerichtet",
+     "schluesselwort": "side",
+     "kamera": "snap-zoom",
+     "groesse": "detail",
+     "monster": false,
+     "hinweis": "Snap-Zoom 1 von 3; schuhpaar june, ordnung nebeneinander"
+    }
+   ]
+  },
+  "13": {
+   "text": "Side by side is all it leaves.",
+   "t_schaetz_s": 30.6,
+   "block": "nach-ready",
+   "ort": "marsh-innen",
+   "modul": "june-zimmer",
+   "licht": "innen-nacht",
+   "figuren": [],
+   "aktion": "die Schuhe von der Seite, die Nachttischlampe dahinter flackert einmal",
+   "schluesselwort": "leaves",
+   "kamera": "push-in",
+   "groesse": "detail",
+   "monster": false,
+   "hinweis": "Musik: Wegfall vor diesem Satz (1,1–1,3 s, eigener Nachhall). Die Schuhregel aus Teil 1 für Neue"
+  },
+  "14": {
+   "text": "It took her, I thought, because she helped me.",
+   "t_schaetz_s": 32.3,
+   "block": "nach-ready",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [
+    "eli"
+   ],
+   "aktion": "Eli von vorn, die Augen feucht, er schließt sie kurz",
+   "schluesselwort": "helped",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "eli": "besorgt"
+   },
+   "hinweis": "Rote Spur: Er glaubt, June wurde genommen, weil sie half (Helfer-Regel, Sätze 2–3)"
+  },
+  "15": {
+   "text": "It left through her window.",
+   "t_schaetz_s": 35.2,
+   "block": "nach-ready",
+   "ort": "hauptstrasse",
+   "modul": "marsh-aussen",
+   "licht": "nacht",
+   "figuren": [
+    "mister-hundred"
+   ],
+   "aktion": "außen am Haus, die Kamera senkt sich an Junes Fenster im Erdgeschoss hinab: ein langer kalkweißer Fuß tritt heraus in den Reif, Zehen vom Fenster weg, der ausgefranste Saum streift das Fensterbrett",
+   "schluesselwort": "window",
+   "kamera": "kranabstieg",
+   "groesse": "halbnah",
+   "monster": true,
+   "hinweis": "Spiegel zur Spur in Teil 2 (Paar 14). Fuß mit kalter Kante gegen den dunklen Hausgrund; Reifspur-Set. Akzentfahrt"
+  },
+  "16": {
+   "text": "Through the vent, I saw the bell tower, where Tess Lowry was hiding, higher than any window.",
+   "t_schaetz_s": 36.7,
+   "block": "spiegelszene",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [
+    "eli"
+   ],
+   "aktion": "Eli dreht den Kopf zum Lüftungsgitter, Mondlicht fällt durch die Lamellen auf sein Gesicht",
+   "schluesselwort": "vent",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "eli": "besorgt"
+   },
+   "hinweis": "Gitter am Bildrand, nichts vor der Linse (Review-Lehre); keller.gitter liefert die zweite Lichtquelle",
+   "teilbilder": [
+    {
+     "ab_wort": "bell",
+     "ort": "hauptstrasse",
+     "modul": "platz",
+     "licht": "nacht",
+     "figuren": [],
+     "aktion": "der Kirchturm von außen über die Dächer, Mondlicht von hinten oben links",
+     "schluesselwort": "tower",
+     "kamera": "push-in",
+     "groesse": "totale",
+     "monster": false
+    },
+    {
+     "ab_wort": "where",
+     "ort": "hauptstrasse",
+     "modul": "platz",
+     "licht": "nacht",
+     "figuren": [
+      "tess"
+     ],
+     "aktion": "die offene Schallluke nah: ein Taschenlampenkegel, Tess' weißer Bob blitzt kurz auf",
+     "schluesselwort": "Tess",
+     "kamera": "push-in",
+     "groesse": "halbnah",
+     "monster": false,
+     "gesicht": {
+      "tess": "nervoes"
+     }
+    },
+    {
+     "ab_wort": "higher",
+     "ort": "hauptstrasse",
+     "modul": "platz",
+     "licht": "nacht",
+     "figuren": [],
+     "aktion": "Blick an der Turmwand hinab: die oberen Fenster der Häuser liegen tief unter der Schallluke",
+     "schluesselwort": "higher",
+     "kamera": "push-in",
+     "groesse": "halbtotale",
+     "monster": false,
+     "hinweis": "Paar 18 (Tess, 'higher than any window', Teil 2)"
+    }
+   ]
+  },
+  "17": {
+   "text": "It stood up straight, taller than anyone knew.",
+   "t_schaetz_s": 42.0,
+   "block": "spiegelszene",
+   "ort": "hauptstrasse",
+   "modul": "platz",
+   "licht": "nacht",
+   "figuren": [
+    "mister-hundred"
+   ],
+   "aktion": "einzige Totale: Mister Hundred richtet sich neben dem Turm auf, von hinten, die Kamera steigt mit; Hände vor dem Gesicht, die Ellbogen spitz zur Seite",
+   "schluesselwort": "straight",
+   "kamera": "kran-enthuellung",
+   "groesse": "totale",
+   "monster": true,
+   "hinweis": "Inhaltsregel (Kritik P2): Von hinten muss die Silhouette klar anders aussehen als Slender Man. Pflicht: die Raute aus Händen und spitzen Ellbogen frei gegen den Himmel, der ausgefranste Mantel bis zum Schienbein, nackte kalkweiße Füße. Kein Anzug, keine Krawatte, keine zusätzlichen Gliedmaßen. Kalte Kante an Mantel und Händen. Akzentfahrt",
+   "teilbilder": [
+    {
+     "ab_wort": "taller",
+     "ort": "hauptstrasse",
+     "modul": "platz",
+     "licht": "nacht",
+     "figuren": [
+      "mister-hundred"
+     ],
+     "aktion": "Untersicht vom Turmfuß: sein Kopf in der Raute ist auf Höhe der Schallluke, über allen Dächern",
+     "schluesselwort": "knew",
+     "kamera": "push-in",
+     "groesse": "halbtotale",
+     "monster": true
+    }
+   ]
+  },
+  "18": {
+   "text": "Then it took its hands away from its face.",
+   "t_schaetz_s": 44.5,
+   "block": "spiegelszene",
+   "ort": "hauptstrasse",
+   "modul": "platz",
+   "licht": "nacht",
+   "figuren": [
+    "mister-hundred"
+   ],
+   "aktion": "halbtotale von hinten: die Raute löst sich, die Hände sinken langsam vom Kopf; wir sehen nur Rücken und glatten Hinterkopf",
+   "schluesselwort": "hands",
+   "kamera": "push-in",
+   "groesse": "halbtotale",
+   "monster": true,
+   "hinweis": "Paar 2 (Ritual aus Teil 1, Satz 7). Kein Gesicht im Moment des Findens"
+  },
+  "19": {
+   "text": "Her flashlight went out.",
+   "t_schaetz_s": 46.7,
+   "block": "spiegelszene",
+   "ort": "hauptstrasse",
+   "modul": "platz",
+   "licht": "nacht",
+   "figuren": [],
+   "aktion": "die Schallluke nah: der Taschenlampenkegel geht aus",
+   "schluesselwort": "out",
+   "kamera": "statisch",
+   "groesse": "halbnah",
+   "monster": false,
+   "effekt": "Lichtereignis 2 von 3: Taschenlampe aus in 0,1 s",
+   "hinweis": "Kritik P2: 'Her flashlight' statt 'Tess's flashlight' (Hör-Risiko). Musik: Wegfall ab 'went out'. Statisch 1 von 4"
+  },
+  "20": {
+   "text": "The bell rope swung once, without a sound.",
+   "t_schaetz_s": 48.1,
+   "block": "spiegelszene",
+   "ort": "hauptstrasse",
+   "modul": "platz",
+   "licht": "nacht",
+   "figuren": [],
+   "aktion": "in der dunklen Schallluke schwingt das Glockenseil einmal hin und zurück",
+   "schluesselwort": "swung",
+   "kamera": "push-in",
+   "groesse": "halbnah",
+   "monster": false,
+   "sfx": "keiner: Stille bis 'without a sound' (Handlung)",
+   "teilbilder": [
+    {
+     "ab_wort": "without",
+     "ort": "kriechkeller",
+     "modul": "kriechkeller",
+     "licht": "kriechkeller",
+     "figuren": [
+      "eli"
+     ],
+     "aktion": "Eli von vorn am Gitter, Mondlicht auf dem Gesicht, er hält den Atem an",
+     "schluesselwort": "sound",
+     "kamera": "push-in",
+     "groesse": "nah",
+     "monster": false,
+     "gesicht": {
+      "eli": "erschrocken"
+     },
+     "hinweis": "Gewalt nur angedeutet: Licht aus, Seil ohne Ton, Elis Gesicht"
+    }
+   ]
+  },
+  "21": {
+   "text": "Then it came down Main Street, looking in every upstairs window.",
+   "t_schaetz_s": 50.4,
+   "block": "strasse-finger",
+   "ort": "hauptstrasse",
+   "modul": "haeuserzeile",
+   "licht": "nacht",
+   "figuren": [
+    "mister-hundred"
+   ],
+   "aktion": "Seitenfahrt auf Bodenhöhe: der ausgefranste Saum und lange nackte Füße ziehen an den Veranden vorbei, Bodennebel teilt sich",
+   "schluesselwort": "Main",
+   "kamera": "seitenfahrt",
+   "groesse": "halbtotale",
+   "monster": true,
+   "hinweis": "Akzentfahrt",
+   "teilbilder": [
+    {
+     "ab_wort": "looking",
+     "ort": "hauptstrasse",
+     "modul": "haeuserzeile",
+     "licht": "nacht",
+     "figuren": [],
+     "aktion": "obere Fenster von außen, der Schatten der Raute legt sich nacheinander auf jedes",
+     "schluesselwort": "window",
+     "kamera": "push-in",
+     "groesse": "halbtotale",
+     "monster": false,
+     "hinweis": "Paar 10 ('tall enough to look in upstairs windows', Teil 1); nur Schatten"
+    }
+   ]
+  },
+  "22": {
+   "text": "It stopped at mine, then bent down to June's.",
+   "t_schaetz_s": 54.0,
+   "block": "strasse-finger",
+   "ort": "marsh-innen",
+   "modul": "eli-zimmer",
+   "licht": "innen-nacht",
+   "figuren": [],
+   "aktion": "Elis leeres Zimmer von innen: der Schatten der Raute fällt durchs Fenster auf sein Bett und bleibt stehen",
+   "schluesselwort": "mine",
+   "kamera": "push-in",
+   "groesse": "halbtotale",
+   "monster": false,
+   "teilbilder": [
+    {
+     "ab_wort": "then",
+     "ort": "hauptstrasse",
+     "modul": "marsh-aussen",
+     "licht": "nacht",
+     "figuren": [
+      "mister-hundred"
+     ],
+     "aktion": "außen: es beugt sich 60–70° herab vor Junes Fenster im Erdgeschoss, die Kamera senkt sich mit, die Gardine bewegt sich",
+     "schluesselwort": "bent",
+     "kamera": "kranabstieg",
+     "groesse": "halbtotale",
+     "monster": true,
+     "hinweis": "Kritik P1: Junes Zimmer liegt im Erdgeschoss, darum 'bent down'. Anspielung aufs Ritual. Akzentfahrt"
+    }
+   ]
+  },
+  "23": {
+   "text": "I wanted to run, but Owen Pike ran, and only his shoes came home.",
+   "t_schaetz_s": 56.3,
+   "block": "strasse-finger",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [
+    "eli"
+   ],
+   "aktion": "Eli von vorn stemmt die Hände in den Erdboden, als wolle er zur Luke, und erstarrt",
+   "schluesselwort": "run",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "eli": "entschlossen"
+   },
+   "teilbilder": [
+    {
+     "ab_wort": "Owen",
+     "rueckblende": true,
+     "ort": "hauptstrasse",
+     "modul": "pike-haus",
+     "licht": "sonnenaufgang",
+     "figuren": [],
+     "aktion": "entsättigt: Owens hellblauer Pick-up mit laufendem Motor vor dem Pike-Haus, der Auspuff dampft",
+     "schluesselwort": "ran",
+     "kamera": "push-in",
+     "groesse": "halbtotale",
+     "monster": false,
+     "hinweis": "Asset aus Teil 1; Paar 6 ('You can't run')"
+    },
+    {
+     "ab_wort": "shoes",
+     "rueckblende": true,
+     "ort": "hauptstrasse",
+     "modul": "pike-haus",
+     "licht": "sonnenaufgang",
+     "figuren": [],
+     "aktion": "entsättigt, Detail: Owens schwarze Stiefel mit orangen Senkeln auf dem Sitz, nebeneinander",
+     "schluesselwort": "home",
+     "kamera": "push-in",
+     "groesse": "detail",
+     "monster": false,
+     "hinweis": "'his shoes on his truck seat' (Teil 2)"
+    }
+   ]
+  },
+  "24": {
+   "text": "The boards above me groaned.",
+   "t_schaetz_s": 60.2,
+   "block": "strasse-finger",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [
+    "eli"
+   ],
+   "aktion": "Untersicht: die Dielen über Elis Gesicht biegen sich tief durch, die Fugen verdunkeln sich, Staub fällt in sein Gesicht",
+   "schluesselwort": "groaned",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "sfx": "Dielen ächzen unter großem Gewicht auf 'groaned'",
+   "effekt": "Staubpartikel, Wackeln 0,3 s",
+   "hinweis": "Musik: voll ab 'groaned'"
+  },
+  "25": {
+   "text": "A long white finger slid through the crack and felt along the dirt, inches from my face.",
+   "t_schaetz_s": 61.8,
+   "block": "strasse-finger",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [
+    "mister-hundred"
+   ],
+   "aktion": "ein langer weißer Finger mit drei Gliedern und dunklem Nagel schiebt sich durch die Fuge; die Kamera folgt ihm nach unten",
+   "schluesselwort": "finger",
+   "kamera": "folgefahrt",
+   "groesse": "nah",
+   "monster": true,
+   "hinweis": "Monster mit kalter Kante. Der Finger kommt von oben ins Bild, nicht vor die Linse. Akzentfahrt",
+   "teilbilder": [
+    {
+     "ab_wort": "and felt",
+     "ort": "kriechkeller",
+     "modul": "kriechkeller",
+     "licht": "kriechkeller",
+     "figuren": [
+      "eli"
+     ],
+     "aktion": "Eli von vorn, seine Augen folgen etwas am Boden, das Schaben kommt näher",
+     "schluesselwort": "dirt",
+     "kamera": "push-in",
+     "groesse": "nah",
+     "monster": false,
+     "gesicht": {
+      "eli": "erschrocken"
+     },
+     "sfx": "leises Schaben des Nagels über Erde"
+    },
+    {
+     "ab_wort": "from",
+     "ort": "kriechkeller",
+     "modul": "kriechkeller",
+     "licht": "kriechkeller",
+     "figuren": [
+      "eli",
+      "mister-hundred"
+     ],
+     "aktion": "Snap-Zoom: die Fingerspitze tastet neben Elis Wange; im selben Bild zieht sich der Finger auf 'pulled back' (Satz 26) durch die Fuge zurück, die Lichtstreifen werden frei",
+     "schluesselwort": "face",
+     "kamera": "snap-zoom",
+     "groesse": "gross",
+     "monster": true,
+     "gesicht": {
+      "eli": "erschrocken"
+     },
+     "hinweis": "Snap-Zoom 2 von 3 (Ankunft auf 'face'). Regel 3: der Fehler des Monsters groß im Bild. Gesicht von vorn an einer Schlüsselstelle"
+    }
+   ]
+  },
+  "26": {
+   "text": "Then it pulled back.",
+   "t_schaetz_s": 65.8,
+   "block": "strasse-finger",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [
+    "eli",
+    "mister-hundred"
+   ],
+   "aktion": "kein eigener Schnitt (siehe Satz 25, Teilbild 'from'): der Finger zieht sich zurück",
+   "schluesselwort": "back",
+   "kamera": "snap-zoom",
+   "groesse": "gross",
+   "monster": true,
+   "neuer_schnitt": false,
+   "hinweis": "Musik: Wegfall nach 'pulled back', danach dünn"
+  },
+  "27": {
+   "text": "Nothing, until three in the morning.",
+   "t_schaetz_s": 67.0,
+   "block": "strasse-finger",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [
+    "eli"
+   ],
+   "aktion": "Detail: Elis Armbanduhr im Lichtstreifen, sie springt auf 3:00",
+   "schluesselwort": "three",
+   "kamera": "push-in",
+   "groesse": "detail",
+   "monster": false,
+   "hinweis": "Uhr-Baustein aus Teil 1 und 2"
+  },
+  "28": {
+   "text": "\"Rabbit?\"",
+   "t_schaetz_s": 69.4,
+   "block": "lockruf",
+   "dialog": "june",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [],
+   "aktion": "die Kamera fährt von der Luke zurück: drei langsame Klopfer, bei jedem rieselt Staub aus dem Lichtspalt; dann Junes Stimme",
+   "schluesselwort": "Rabbit",
+   "kamera": "pull-out",
+   "groesse": "halbnah",
+   "monster": false,
+   "sfx": "drei langsame Klopfer an Holz vor 'Rabbit?' (Echo zu Teil 2, Satz 23)",
+   "hinweis": "Die gekürzte Pause vor dem Satz ist 0,28 s lang. Für die Klopfer setzt der Bau etwa 1,2 s Stille vor 'Rabbit?' ein und verschiebt die Wortzeiten danach, oder er legt sie unter das Ende von Satz 27 (Entscheidung beim Bau). Die Einstellung läuft durch Satz 29. Untertitel Gelb #F2C14E. Akzentfahrt"
+  },
+  "29": {
+   "text": "\"You can come out now.\"",
+   "t_schaetz_s": 70.2,
+   "block": "lockruf",
+   "dialog": "june",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [],
+   "aktion": "kein eigener Schnitt (siehe Satz 28)",
+   "schluesselwort": "come",
+   "kamera": "pull-out",
+   "groesse": "halbnah",
+   "monster": false,
+   "neuer_schnitt": false,
+   "hinweis": "'Rabbit?' allein wären 0,70 s (M2-Grenze); darum eine Einstellung für Satz 28–29. Untertitel Gelb"
+  },
+  "30": {
+   "text": "\"It's gone.\"",
+   "t_schaetz_s": 71.6,
+   "block": "lockruf",
+   "dialog": "june",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [
+    "eli"
+   ],
+   "aktion": "Eli von vorn, die Hand noch auf dem Mund, er rührt sich nicht",
+   "schluesselwort": "gone",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "eli": "erschrocken"
+   },
+   "hinweis": "Untertitel Gelb"
+  },
+  "31": {
+   "text": "It was June's voice, three hours before sunrise.",
+   "t_schaetz_s": 72.4,
+   "block": "lockruf",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [
+    "eli"
+   ],
+   "aktion": "Eli von vorn, nah, die Augen weit",
+   "schluesselwort": "voice",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "eli": "besorgt"
+   },
+   "teilbilder": [
+    {
+     "ab_wort": "three",
+     "ort": "kriechkeller",
+     "modul": "kriechkeller",
+     "licht": "kriechkeller",
+     "figuren": [],
+     "aktion": "Blick durchs Lüftungsgitter (Gitter am Bildrand): der Himmel über den Dächern ist noch schwarz, die Turmuhr zeigt drei",
+     "schluesselwort": "sunrise",
+     "kamera": "push-in",
+     "groesse": "halbtotale",
+     "monster": false,
+     "hinweis": "Neue Zuschauer verstehen, warum das nicht stimmen kann: Hiding Night endet erst mit der Sonnenglocke"
+    }
+   ]
+  },
+  "32": {
+   "text": "I didn't answer.",
+   "t_schaetz_s": 74.9,
+   "block": "lockruf",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [
+    "eli"
+   ],
+   "aktion": "Eli von vorn presst die Lippen zusammen",
+   "schluesselwort": "answer",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "eli": "entschlossen"
+   },
+   "hinweis": "Eli spricht in der ganzen Serie nie laut. Wortanfang 'I' nach der Pause an der Energiekante prüfen"
+  },
+  "33": {
+   "text": "Then the voice started counting, like every night.",
+   "t_schaetz_s": 76.1,
+   "block": "lockruf",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [],
+   "aktion": "Untersicht, die Kamera gleitet an den Fugen entlang: eine nach der anderen wird dunkel, etwas legt sich der Länge nach auf die Dielen, wie June jeden Abend",
+   "schluesselwort": "counting",
+   "kamera": "seitenfahrt",
+   "groesse": "pov",
+   "monster": false,
+   "hinweis": "Kritik P2: 'Then' statt 'So'. Hinweis fürs Wiederansehen: 'like every night'. Nur Schatten. Akzentfahrt"
+  },
+  "34": {
+   "text": "\"Ninety-nine.\"",
+   "t_schaetz_s": 78.8,
+   "block": "lockruf",
+   "dialog": "june",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [],
+   "aktion": "die Fugen bleiben dunkel, nur ein Lichtstreifen zittert; auf 'One hundred' (Satz 35) wird auch er dunkel",
+   "schluesselwort": "Ninety-nine",
+   "kamera": "push-in",
+   "groesse": "pov",
+   "monster": false,
+   "sfx": "je Zahl ein dumpfer, leiser Schlag; auf 'One hundred' sehr leise Unterstimme −5 Halbtöne bei etwa −15 dB",
+   "hinweis": "Die Einstellung läuft durch Satz 35. Musik: unter dem Zählen 3 dB zurück. Untertitel Gelb"
+  },
+  "35": {
+   "text": "\"One hundred.\"",
+   "t_schaetz_s": 80.0,
+   "block": "lockruf",
+   "dialog": "june",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [],
+   "aktion": "kein eigener Schnitt (siehe Satz 34)",
+   "schluesselwort": "hundred",
+   "kamera": "push-in",
+   "groesse": "pov",
+   "monster": false,
+   "neuer_schnitt": false,
+   "hinweis": "Untertitel Gelb"
+  },
+  "36": {
+   "text": "\"Ready, Rabbit?\"",
+   "t_schaetz_s": 80.8,
+   "block": "lockruf",
+   "dialog": "june",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [],
+   "aktion": "die vier Fingerschatten legen sich wieder quer über die Fugen und spreizen sich auf 'Ready'",
+   "schluesselwort": "Ready",
+   "kamera": "push-in",
+   "groesse": "gross",
+   "monster": false,
+   "sfx": "Leitgeräusch: Unterstimme wie Satz 35, ein dumpfer Schlag",
+   "hinweis": "Kritik P2: 'READY, RABBIT?' ganz in Junes Farbe #F2C14E, in einer Einblendung, nicht geteilt. In Teil 2 stand 'Ready?' in #9FD8D2; Junes Farbe auf dem Wort des Monsters ist der leise Hinweis fürs zweite Ansehen. Kein Snap-Zoom (die drei liegen in Satz 12, 25 und 57)"
+  },
+  "37": {
+   "text": "I didn't answer.",
+   "t_schaetz_s": 82.3,
+   "block": "wendung",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [
+    "eli"
+   ],
+   "aktion": "Eli von vorn kneift die Augen zu",
+   "schluesselwort": "answer",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "eli": "augen-zu"
+   },
+   "hinweis": "Gesicht von vorn an einer Schlüsselstelle. Wortanfang 'I' an der Energiekante prüfen"
+  },
+  "38": {
+   "text": "The hatch opened anyway.",
+   "t_schaetz_s": 83.5,
+   "block": "wendung",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [
+    "eli"
+   ],
+   "aktion": "die Luke klappt nach oben auf, kaltes blaues Licht fällt schräg in den Keller, eine Staubwolke",
+   "schluesselwort": "opened",
+   "kamera": "statisch",
+   "groesse": "halbtotale",
+   "monster": false,
+   "sfx": "Luke geht auf: Holz und Eisenring",
+   "effekt": "Lichtereignis 3 von 3: Lukenlicht in 0,3 s, Staubwolke",
+   "hinweis": "Musik: voll ab 'opened'. Schweigen verrät ihn nicht, es wusste ohnehin, wo er liegt (Teil 2: 'like it knew where I'd hide'). Statisch 2 von 4"
+  },
+  "39": {
+   "text": "Mister Hundred folded itself into the crawl space, bent down, and took its hands away from its face.",
+   "t_schaetz_s": 85.2,
+   "block": "wendung",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [
+    "mister-hundred"
+   ],
+   "aktion": "Baustein P2: Mister Hundred faltet sich durch die Luke in den Kriechkeller, Gelenk für Gelenk; die Kamera steigt mit den Knien und Ellbogen auf",
+   "schluesselwort": "folded",
+   "kamera": "kran-enthuellung",
+   "groesse": "halbtotale",
+   "monster": true,
+   "hinweis": "Ritual aus Teil 1, Satz 7, fast wörtlich (Paar 2). Kalte Kante an Händen und Mantel; nichts vor der Linse (Saum und Hände am Bildrand). Akzentfahrt. Musik: Wegfall ab 'away from its face' bis 'June's face' (Satz 40)",
+   "teilbilder": [
+    {
+     "ab_wort": "into",
+     "ort": "kriechkeller",
+     "modul": "kriechkeller",
+     "licht": "kriechkeller",
+     "figuren": [
+      "eli"
+     ],
+     "aktion": "Eli von vorn, kaltes Licht und der Schatten des Mantelsaums gleiten über sein Gesicht, sein Atem wird weiß",
+     "schluesselwort": "crawl",
+     "kamera": "push-in",
+     "groesse": "nah",
+     "monster": false,
+     "gesicht": {
+      "eli": "augen-zu"
+     },
+     "effekt": "Atemdampf"
+    },
+    {
+     "ab_wort": "bent",
+     "ort": "kriechkeller",
+     "modul": "kriechkeller",
+     "licht": "kriechkeller",
+     "figuren": [
+      "mister-hundred"
+     ],
+     "aktion": "Untersicht von Elis Platz: die Raute aus Händen und spitzen Ellbogen senkt sich über ihn, die Fingerspitzen glimmen",
+     "schluesselwort": "bent",
+     "kamera": "push-in",
+     "groesse": "nah",
+     "monster": true
+    },
+    {
+     "ab_wort": "took",
+     "ort": "kriechkeller",
+     "modul": "kriechkeller",
+     "licht": "kriechkeller",
+     "figuren": [
+      "mister-hundred"
+     ],
+     "aktion": "die Hände öffnen sich langsam zur Seite wie eine Tür, dahinter noch Dunkel",
+     "schluesselwort": "hands",
+     "kamera": "push-in",
+     "groesse": "gross",
+     "monster": true
+    }
+   ]
+  },
+  "40": {
+   "text": "It had June's face, far too big.",
+   "t_schaetz_s": 90.1,
+   "block": "wendung",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [
+    "mister-hundred"
+   ],
+   "aktion": "Großaufnahme von vorn: Junes Gesicht auf dem glatten Würfelkopf, viel zu groß gedehnt, das Lächeln eine Spur zu breit, bernsteinfarbene Augen, kalte Kante",
+   "schluesselwort": "face",
+   "kamera": "push-in",
+   "groesse": "gross",
+   "monster": true,
+   "gesicht": {
+    "mister-hundred": "june-gedehnt"
+   },
+   "sfx": "Sub-Boom auf 'June's'",
+   "hinweis": "Enthüllung bei 62,8 %. Nicht ins Titelbild (A7.2). Kein Blut, keine Verformung außer der Dehnung"
+  },
+  "41": {
+   "text": "The eye I saw between its fingers was hers.",
+   "t_schaetz_s": 92.2,
+   "block": "wendung",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [
+    "mister-hundred"
+   ],
+   "aktion": "Detail: das bernsteinfarbene Auge in Junes gedehntem Gesicht",
+   "schluesselwort": "eye",
+   "kamera": "push-in",
+   "groesse": "detail",
+   "monster": true,
+   "gesicht": {
+    "mister-hundred": "june-gedehnt"
+   },
+   "effekt": "Blitzbild 0,4 s auf 'saw': das Auge im Fingerspalt aus Teil 1 in gleicher Kadrierung, als Überblendung im selben Schnitt",
+   "hinweis": "Kritik P2: 'The eye I saw' (die Hände sind schon weg). Kein 'peeked' (Whisper: 'peaked'). Paar 1"
+  },
+  "42": {
+   "text": "\"It found me six years ago, Rabbit.\"",
+   "t_schaetz_s": 94.5,
+   "block": "wendung",
+   "dialog": "june",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "rueckblende-nacht",
+   "figuren": [
+    "june"
+   ],
+   "aktion": "entsättigt: June mit 18, Haare offen, liegt im selben Keller, Dads Taschenlampenkegel von oben; die Kamera senkt sich zu ihr",
+   "schluesselwort": "years",
+   "kamera": "kranabstieg",
+   "groesse": "nah",
+   "monster": false,
+   "rueckblende": true,
+   "gesicht": {
+    "june": "besorgt"
+   },
+   "hinweis": "Kritik P2: mit 'Rabbit' wieder warm direkt nach dem Monstergesicht; darum hier Junes eigenes Gesicht von damals. Untertitel Gelb. Akzentfahrt"
+  },
+  "43": {
+   "text": "\"Dad hid me down here, so it took him, and kept me.\"",
+   "t_schaetz_s": 96.7,
+   "block": "wendung",
+   "dialog": "june",
+   "ort": "marsh-innen",
+   "modul": "june-zimmer",
+   "licht": "rueckblende-nacht",
+   "figuren": [
+    "dad"
+   ],
+   "aktion": "entsättigt: Dad kniet über der Luke und schließt sie über der jungen June; auf 'took him' fällt seine Taschenlampe in den Staub, der Lichtkegel kippt weg",
+   "schluesselwort": "Dad",
+   "kamera": "push-in",
+   "groesse": "halbnah",
+   "monster": false,
+   "rueckblende": true,
+   "gesicht": {
+    "dad": "entschlossen"
+   },
+   "hinweis": "Kritik P0: 'so it took him, and kept me' beantwortet Odells 'So why are you still here?' (Paar 15): wer hilft, wird genommen, wer versteckt war, wird behalten. Die Taschenlampe liegt seitdem im Keller (Satz 55, Paar 13). Kein Lichtereignis im Sinne des Messtors. Untertitel Gelb",
+   "teilbilder": [
+    {
+     "ab_wort": "and kept",
+     "rueckblende": true,
+     "ort": "marsh-innen",
+     "modul": "june-zimmer",
+     "licht": "sonnenaufgang",
+     "figuren": [
+      "june",
+      "mister-hundred"
+     ],
+     "aktion": "June steigt bei Sonnenaufgang barfuß aus der Luke, hinter ihr zieht sich eine lange weiße Hand mit kalter Kante zurück in den Schacht, weißer Atem",
+     "schluesselwort": "kept",
+     "kamera": "push-in",
+     "groesse": "halbtotale",
+     "monster": true,
+     "gesicht": {
+      "june": "leerer-blick"
+     },
+     "hinweis": "Dieselbe Kadrierung wie Eli in Satz 56 (Übergabe)"
+    }
+   ]
+  },
+  "44": {
+   "text": "\"When I count, it sleeps.\"",
+   "t_schaetz_s": 99.9,
+   "block": "wendung",
+   "dialog": "june",
+   "ort": "marsh-innen",
+   "modul": "june-zimmer",
+   "licht": "innen-nacht",
+   "figuren": [
+    "june"
+   ],
+   "aktion": "Erinnerung wie Satz 6 (gleiche Kadrierung, nicht entsättigt): June zählt im Bett, an der Wand hinter ihr liegt der riesige Schatten mit der Raute still zusammengerollt; ihre Hände auf der Decke tragen Reif an den Fingerspitzen",
+   "schluesselwort": "sleeps",
+   "kamera": "push-in",
+   "groesse": "halbtotale",
+   "monster": false,
+   "gesicht": {
+    "june": "zaehlt"
+   },
+   "hinweis": "Kritik P0: erklärt, warum Zählen hilft. Payoff des Suchbilds aus Satz 6 und der kalten Hände aus Teil 2 (Paar 9). Nur Schatten. Untertitel Gelb"
+  },
+  "45": {
+   "text": "\"I thought it would never look under its own bed.\"",
+   "t_schaetz_s": 101.6,
+   "block": "wendung",
+   "dialog": "june",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [
+    "mister-hundred"
+   ],
+   "aktion": "Junes gedehntes Gesicht von vorn, das Lächeln bricht, die Brauen sinken",
+   "schluesselwort": "never",
+   "kamera": "push-in",
+   "groesse": "gross",
+   "monster": true,
+   "gesicht": {
+    "mister-hundred": "june-gedehnt"
+   },
+   "hinweis": "Die beste Zeile des Finales bleibt (Kritik). Untertitel Gelb",
+   "teilbilder": [
+    {
+     "ab_wort": "under",
+     "ort": "marsh-innen",
+     "modul": "june-zimmer",
+     "licht": "innen-nacht",
+     "figuren": [],
+     "aktion": "Draufsicht: die Kamera senkt sich auf Junes Bett, das genau über der Luke steht, der Teppich halb zurückgerollt",
+     "schluesselwort": "bed",
+     "kamera": "kranabstieg",
+     "groesse": "halbtotale",
+     "monster": false,
+     "hinweis": "Paar 8 ('It never looks in my room'). Akzentfahrt"
+    }
+   ]
+  },
+  "46": {
+   "text": "Then the huge hands shook, and June pulled them back over her own face.",
+   "t_schaetz_s": 104.2,
+   "block": "hoehepunkt",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [
+    "mister-hundred"
+   ],
+   "aktion": "die riesigen Hände zittern über Eli",
+   "schluesselwort": "shook",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": true,
+   "hinweis": "Monster mit kalter Kante; Junes Rest zwingt es zurück ins Ritual",
+   "teilbilder": [
+    {
+     "ab_wort": "and June",
+     "ort": "kriechkeller",
+     "modul": "kriechkeller",
+     "licht": "kriechkeller",
+     "figuren": [
+      "eli"
+     ],
+     "aktion": "Eli von vorn: der Schatten der Hände legt sich wieder über sein Gesicht, das kalte Licht verschwindet, nur die warmen Fugenstreifen bleiben",
+     "schluesselwort": "pulled",
+     "kamera": "push-in",
+     "groesse": "nah",
+     "monster": false,
+     "gesicht": {
+      "eli": "erschrocken"
+     },
+     "hinweis": "Die Raute schließt sich im Off; nur Schatten"
+    }
+   ]
+  },
+  "47": {
+   "text": "\"Close your eyes, Rabbit.\"",
+   "t_schaetz_s": 107.6,
+   "block": "hoehepunkt",
+   "dialog": "june",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [
+    "eli"
+   ],
+   "aktion": "Eli von vorn schließt langsam die Augen",
+   "schluesselwort": "eyes",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "eli": "augen-zu"
+   },
+   "hinweis": "Die Einstellung läuft durch Satz 48 ('Count with me.' allein 0,85 s). Untertitel Gelb"
+  },
+  "48": {
+   "text": "\"Count with me.\"",
+   "t_schaetz_s": 109.4,
+   "block": "hoehepunkt",
+   "dialog": "june",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [
+    "eli"
+   ],
+   "aktion": "kein eigener Schnitt (siehe Satz 47)",
+   "schluesselwort": "Count",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "eli": "augen-zu"
+   },
+   "neuer_schnitt": false,
+   "hinweis": "Paar 11: das letzte Versteckspiel. Untertitel Gelb"
+  },
+  "49": {
+   "text": "She counted out loud, and it counted with her, slow and deep.",
+   "t_schaetz_s": 110.4,
+   "block": "hoehepunkt",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [
+    "mister-hundred"
+   ],
+   "aktion": "Untersicht: die geschlossene Raute über ihm hebt und senkt sich wie Atem, die Fingerspitzen glimmen schwach",
+   "schluesselwort": "counted",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": true,
+   "hinweis": "Musik: dünn, nur Oberstimme (Wiegenlied)",
+   "teilbilder": [
+    {
+     "ab_wort": "and it",
+     "ort": "kriechkeller",
+     "modul": "kriechkeller",
+     "licht": "kriechkeller",
+     "figuren": [
+      "eli"
+     ],
+     "aktion": "die Kamera gleitet über Eli hinweg: die Lichtstreifen der Fugen pulsieren mit jeder Zahl über seiner Brust und seinem Gesicht",
+     "schluesselwort": "deep",
+     "kamera": "seitenfahrt",
+     "groesse": "halbnah",
+     "monster": false,
+     "effekt": "Lichtpuls je Zahl (etwa alle 0,7 s), kein Lichtereignis im Sinne des Messtors",
+     "hinweis": "Paar 20 ('slow and deep'). Akzentfahrt"
+    }
+   ]
+  },
+  "50": {
+   "text": "I counted without a sound.",
+   "t_schaetz_s": 113.6,
+   "block": "hoehepunkt",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [
+    "eli"
+   ],
+   "aktion": "Eli von vorn, Augen zu, seine Lippen bewegen sich ohne Ton",
+   "schluesselwort": "sound",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "eli": "augen-zu"
+   },
+   "hinweis": "Mundformen ohne Ton (Zahlen)"
+  },
+  "51": {
+   "text": "Every time they reached one hundred, she started over, before it could ask.",
+   "t_schaetz_s": 115.1,
+   "block": "hoehepunkt",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [
+    "mister-hundred"
+   ],
+   "aktion": "bei 'one hundred' öffnet sich zwischen zwei Fingern ein Spalt (0,3 s), dann schließt er sich wieder; kein Auge im Spalt",
+   "schluesselwort": "hundred",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": true,
+   "teilbilder": [
+    {
+     "ab_wort": "she started",
+     "ort": "kriechkeller",
+     "modul": "kriechkeller",
+     "licht": "kriechkeller",
+     "figuren": [],
+     "aktion": "die Kamera fährt vom Gitter zurück: der Himmel über den Dächern wird von Schwarz zu Dunkelblau, die Lichtstreifen pulsieren weiter",
+     "schluesselwort": "over",
+     "kamera": "pull-out",
+     "groesse": "halbtotale",
+     "monster": false,
+     "hinweis": "Zeit vergeht im Bild. Akzentfahrt"
+    }
+   ]
+  },
+  "52": {
+   "text": "Near dawn, her voice grew faint, like she was falling asleep.",
+   "t_schaetz_s": 119.2,
+   "block": "hoehepunkt",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [
+    "mister-hundred"
+   ],
+   "aktion": "auf 'faint' sinken die Hände ein Stück, das Glimmen der Fingerspitzen wird schwächer",
+   "schluesselwort": "faint",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": true,
+   "hinweis": "Kritik P1: die einzige Stelle, an der der Verlust gefühlt wird; spiegelt Satz 6 ('before she falls asleep')",
+   "teilbilder": [
+    {
+     "ab_wort": "like",
+     "ort": "marsh-innen",
+     "modul": "june-zimmer",
+     "licht": "innen-nacht",
+     "figuren": [
+      "june"
+     ],
+     "aktion": "Erinnerung wie Satz 7: June im Bett, ihre Lippen werden langsamer, sie schläft ein, die Nachttischlampe geht aus",
+     "schluesselwort": "asleep",
+     "kamera": "push-in",
+     "groesse": "nah",
+     "monster": false,
+     "gesicht": {
+      "june": "verschlafen"
+     },
+     "hinweis": "Junes Tod als ihr nächtliches Einschlafen, ohne Gewalt"
+    }
+   ]
+  },
+  "53": {
+   "text": "At ninety-nine, she stopped.",
+   "t_schaetz_s": 122.6,
+   "block": "hoehepunkt",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller",
+   "figuren": [
+    "eli"
+   ],
+   "aktion": "Eli von vorn, Augen zu; auf 'stopped' Stille, nur sein Atem",
+   "schluesselwort": "stopped",
+   "kamera": "statisch",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "eli": "augen-zu"
+   },
+   "hinweis": "Echo zu Teil 2, Sätze 36–37 ('Ninety-nine' / 'Then she stopped'). Musik: Wegfall vor Satz 54. Statisch 3 von 4"
+  },
+  "54": {
+   "text": "Instead of one hundred, the sunrise bell rang.",
+   "t_schaetz_s": 124.6,
+   "block": "hoehepunkt",
+   "ort": "hauptstrasse",
+   "modul": "platz",
+   "licht": "sonnenaufgang",
+   "figuren": [],
+   "aktion": "außen: die Kamera steigt am Turm hinauf im rosa Morgenlicht, Nebel über dem Platz",
+   "schluesselwort": "Instead",
+   "kamera": "kran-enthuellung",
+   "groesse": "totale",
+   "monster": false,
+   "hinweis": "Akzentfahrt",
+   "teilbilder": [
+    {
+     "ab_wort": "the",
+     "ort": "hauptstrasse",
+     "modul": "platz",
+     "licht": "sonnenaufgang",
+     "figuren": [
+      "odell"
+     ],
+     "aktion": "die offene Schallluke: Mr. Odell zieht am Seil, die Glocke schwingt; auf dem Sims stehen Tess' lila High-Tops nebeneinander",
+     "schluesselwort": "bell",
+     "kamera": "push-in",
+     "groesse": "halbnah",
+     "monster": false,
+     "gesicht": {
+      "odell": "muede"
+     },
+     "sfx": "Sonnenglocke auf 'rang': klar, laut, mit Nachhall (Handlung, nicht Musik)",
+     "hinweis": "Kritik P2: Tess' Schicksal ohne Text eingelöst. Paar 12 (nur die Sonnenglocke beendet Hiding Night). Musik danach normal"
+    }
+   ]
+  },
+  "55": {
+   "text": "When I opened my eyes, Hiding Night was over, and I was alone.",
+   "t_schaetz_s": 127.1,
+   "block": "schluss",
+   "ort": "kriechkeller",
+   "modul": "kriechkeller",
+   "licht": "kriechkeller-morgen",
+   "figuren": [
+    "eli"
+   ],
+   "aktion": "Eli von vorn öffnet die Augen, rosa Licht durchs Gitter auf seinem Gesicht",
+   "schluesselwort": "opened",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "eli": "besorgt"
+   },
+   "hinweis": "'Hiding Night was over' bleibt: Neue erfahren hier, was die Sonnenglocke bedeutet. Neues Lichtpreset kriechkeller-morgen (Untergrenze 22)",
+   "teilbilder": [
+    {
+     "ab_wort": "Hiding",
+     "ort": "kriechkeller",
+     "modul": "kriechkeller",
+     "licht": "kriechkeller-morgen",
+     "figuren": [
+      "eli"
+     ],
+     "aktion": "die Kamera fährt zurück: der Keller in rosa Licht, vor Eli ist niemand mehr, nur die offene Luke",
+     "schluesselwort": "over",
+     "kamera": "pull-out",
+     "groesse": "halbtotale",
+     "monster": false,
+     "hinweis": "Akzentfahrt"
+    },
+    {
+     "ab_wort": "and I",
+     "ort": "kriechkeller",
+     "modul": "kriechkeller",
+     "licht": "kriechkeller-morgen",
+     "figuren": [],
+     "aktion": "Detail: neben ihm im Staub Dads alte Taschenlampe",
+     "schluesselwort": "alone",
+     "kamera": "push-in",
+     "groesse": "detail",
+     "monster": false,
+     "hinweis": "Paar 13 (Dad versteckte June in der Luke); dieselbe Lampe wie in Satz 43"
+    }
+   ]
+  },
+  "56": {
+   "text": "I climbed out.",
+   "t_schaetz_s": 131.4,
+   "block": "schluss",
+   "ort": "marsh-innen",
+   "modul": "june-zimmer",
+   "licht": "morgen",
+   "figuren": [
+    "eli"
+   ],
+   "aktion": "Eli steigt aus der Luke, dieselbe Kadrierung wie June in Satz 43",
+   "schluesselwort": "climbed",
+   "kamera": "statisch",
+   "groesse": "halbtotale",
+   "monster": false,
+   "gesicht": {
+    "eli": "neutral"
+   },
+   "hinweis": "Bildecho: Übergabe June → Eli. Ob sich hinter ihm etwas in die Luke zurückzieht, bleibt offen (keine Hand im Bild). Statisch 4 von 4"
+  },
+  "57": {
+   "text": "June's red sneakers still stood by her bed, side by side.",
+   "t_schaetz_s": 132.4,
+   "block": "schluss",
+   "ort": "marsh-innen",
+   "modul": "june-zimmer",
+   "licht": "morgen",
+   "figuren": [],
+   "aktion": "die Kamera gleitet durch Junes Zimmer im Morgenlicht: das Bett leer und gemacht, davor die roten Turnschuhe",
+   "schluesselwort": "sneakers",
+   "kamera": "seitenfahrt",
+   "groesse": "halbnah",
+   "monster": false,
+   "hinweis": "Spiegelt Satz 12. Musik: ab hier dünn. Akzentfahrt",
+   "teilbilder": [
+    {
+     "ab_wort": "side",
+     "ort": "marsh-innen",
+     "modul": "june-zimmer",
+     "licht": "morgen",
+     "figuren": [],
+     "aktion": "Detail: die roten Turnschuhe nebeneinander im Sonnenstreifen",
+     "schluesselwort": "side",
+     "kamera": "snap-zoom",
+     "groesse": "detail",
+     "monster": false,
+     "hinweis": "Snap-Zoom 3 von 3"
+    }
+   ]
+  },
+  "58": {
+   "text": "In the hall, my sneakers still stood side by side.",
+   "t_schaetz_s": 135.2,
+   "block": "schluss",
+   "ort": "marsh-innen",
+   "modul": "flur",
+   "licht": "morgen",
+   "figuren": [],
+   "aktion": "der Flur im Morgenlicht, der Schuhhaufen kreuz und quer",
+   "schluesselwort": "hall",
+   "kamera": "push-in",
+   "groesse": "halbtotale",
+   "monster": false,
+   "teilbilder": [
+    {
+     "ab_wort": "sneakers",
+     "ort": "marsh-innen",
+     "modul": "flur",
+     "licht": "morgen",
+     "figuren": [],
+     "aktion": "nur Elis weiße Turnschuhe mit grünen Senkeln stehen gerade nebeneinander",
+     "schluesselwort": "side",
+     "kamera": "push-in",
+     "groesse": "halbnah",
+     "monster": false,
+     "hinweis": "Paar 17: 'still' heißt, June hat sie in Teil 2 so hingestellt, das war ein Zeichen. Gleiche Kadrierung wie Teil 2, Satz 24"
+    }
+   ]
+  },
+  "59": {
+   "text": "Every night since, I count to one hundred before I fall asleep.",
+   "t_schaetz_s": 137.9,
+   "block": "schluss",
+   "ort": "marsh-innen",
+   "modul": "eli-zimmer",
+   "licht": "innen-nacht",
+   "figuren": [
+    "eli"
+   ],
+   "aktion": "Nacht, Elis Zimmer: die Kamera senkt sich auf Eli, der im Bett liegt und zählt, Augen zu, Lampenlicht wie bei June in Satz 6",
+   "schluesselwort": "count",
+   "kamera": "kranabstieg",
+   "groesse": "halbnah",
+   "monster": false,
+   "gesicht": {
+    "eli": "augen-zu"
+   },
+   "hinweis": "Bildecho zu Satz 6 (June) und Teil 1, Satz 26. Kopf-oben-Regel. Akzentfahrt",
+   "teilbilder": [
+    {
+     "ab_wort": "hundred",
+     "ort": "marsh-innen",
+     "modul": "eli-zimmer",
+     "licht": "innen-nacht",
+     "figuren": [
+      "eli"
+     ],
+     "aktion": "Eli von vorn, nah, Augen zu, die Lippen zählen; auf 'helps' (Satz 60) steigt weißer Atem von seinen Lippen auf",
+     "schluesselwort": "asleep",
+     "kamera": "push-in",
+     "groesse": "nah",
+     "monster": false,
+     "gesicht": {
+      "eli": "augen-zu"
+     },
+     "effekt": "Atemdampf auf 'helps'",
+     "hinweis": "Letzte Einstellung bis zum Schnitt (2,3 s)"
+    }
+   ]
+  },
+  "60": {
+   "text": "It helps.",
+   "t_schaetz_s": 141.5,
+   "block": "schluss",
+   "ort": "marsh-innen",
+   "modul": "eli-zimmer",
+   "licht": "innen-nacht",
+   "figuren": [
+    "eli"
+   ],
+   "aktion": "kein eigener Schnitt (siehe Satz 59, Teilbild 'hundred'): weißer Atem auf 'helps'",
+   "schluesselwort": "helps",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "eli": "augen-zu"
+   },
+   "neuer_schnitt": false,
+   "effekt": "Atemdampf",
+   "hinweis": "Kritik: der weiße Atem ist das Zeichen aus Teil 1 ('Your breath turns white when it's close') und lässt 'Ist er es jetzt?' offen. Erst danach, wenn überhaupt, die Raute aus seinen Händen (Linus entscheidet). Musik: Wegfall vor 'It helps.'. Harter Schnitt höchstens 0,2 s nach 'helps'. Kein Monster im Schlussbild: bewusst (Kritik), abweichend von format-spec (Monster im vorletzten Inhaltsbild)"
+  }
+ },
+ "endfassung": {
+  "grundlage": "entwurf.md und die Kritik am Entwurf (Note 7, Änderungen P0–P2)",
+  "satz_entwurf_zu_end": {
+   "1": 1,
+   "2": 2,
+   "3": 3,
+   "4": 4,
+   "5": 5,
+   "6": 6,
+   "7": 7,
+   "8": 8,
+   "9": 9,
+   "10": 10,
+   "11": 11,
+   "12": 12,
+   "13": 12,
+   "14": 13,
+   "15": 14,
+   "16": 15,
+   "17": 16,
+   "18": 17,
+   "19": 18,
+   "20": 19,
+   "21": 20,
+   "22": 21,
+   "23": 22,
+   "24": 23,
+   "25": 24,
+   "26": 25,
+   "27": 26,
+   "28": 27,
+   "29": 28,
+   "30": [
+    29,
+    30
+   ],
+   "31": 31,
+   "32": 32,
+   "33": 33,
+   "34": 34,
+   "35": 35,
+   "36": 36,
+   "37": 37,
+   "38": 38,
+   "39": 39,
+   "40": 40,
+   "41": 41,
+   "42": 42,
+   "43": 43,
+   "44": 44,
+   "45": 45,
+   "46": 46,
+   "47": 47,
+   "48": 48,
+   "49": 49,
+   "50": 50,
+   "51": 51,
+   "52": 52,
+   "53": 53,
+   "54": 54,
+   "55": 55,
+   "56": 56,
+   "57": 57,
+   "58": 58,
+   "59": 59,
+   "60": 60
+  },
+  "geaendert": {
+   "1": "P0: 'if you answer' → 'if it finds you' (Kanon aus Teil 1), 'asked me' → 'called to me'",
+   "12": "P2: Entwurf 12+13 zu einem Satz: Unter den Dielen sieht Eli nur die Schuhe, nicht ob das Bett leer ist",
+   "19": "P2 (Hör-Check): 'Tess's flashlight' → 'Her flashlight'",
+   "22": "P1: 'then at June's' → 'then bent down to June's' (Junes Zimmer im Erdgeschoss)",
+   "29–30": "Entwurf 30 als zwei Zeilen (ein Satz pro Zeile)",
+   "33": "P2: 'So the voice' → 'Then the voice'",
+   "41": "P2: 'The eye between' → 'The eye I saw between'",
+   "42": "P2: ', Rabbit' angehängt",
+   "43": "P0: 'so it took us both' → 'so it took him, and kept me'",
+   "44": "P0: 'In the morning, we climbed out together.' → 'When I count, it sleeps.'",
+   "52": "P1: ', like she was falling asleep' angehängt",
+   "58": "optional übernommen: 'stood side by side too' → 'still stood side by side'"
+  },
+  "nicht_uebernommen": {
+   "Tess ohne Nachnamen (Satz 16)": "Der Nachname bleibt wie in Teil 2. In Teil 2 hörte Whisper 'Tess' allein als 'Test', 'Tess Lowry' kam sicher durch; die Länge liegt ohnehin im Ziel",
+   "S2+S3 zusammenlegen": "Wortlaut aus Teil 1 bleibt (Empfehlung der Kritik)"
+  }
+ }
+}

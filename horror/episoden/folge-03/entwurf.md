@@ -1,6 +1,6 @@
 # Hiding Night, Teil 3 (Finale): Entwurf
 
-Stand 16.11.2026. Entwurf zur Abnahme durch Linus, noch nicht vertont und nicht committet.
+Stand 16.11.2026. Entwurf, überholt: Die Endfassung nach der Kritik steht in `skript.txt` (vertont, `stimme.json`, `timing.json`), die Bildideen in `bildideen.json`. Was sich gegenüber diesem Entwurf geändert hat, steht dort unter `endfassung`.
 
 **Grundlage:**
 - `folge-01/serie.md`: Bogen Teil 3–4, Wendung „June ist zugleich das Monster“, die 20 Paare aus Setup und Payoff, Figuren und Orte.

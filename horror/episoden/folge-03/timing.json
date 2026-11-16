@@ -1,0 +1,5284 @@
+{
+ "quelle": "stimme.wav",
+ "sha256": "88ab9b52afe40aab82c2af9e6bbc66feaac0556210898ce3e141a75343f18863",
+ "dauer_s": 137.09,
+ "abtastrate": 44100,
+ "kanaele": 1,
+ "methode": "faster-whisper small int8, language=en, word_timestamps, beam 5; ausgerichtet auf den Sprechtext (difflib); Wortanfänge/-enden an Pausen auf Energiekanten (-50 dBFS) eingerastet",
+ "woerter": [
+  {
+   "i": 0,
+   "satz": 1,
+   "text": "Mister",
+   "wort": "Mister",
+   "start": 0.0,
+   "ende": 0.32,
+   "p": 0.578,
+   "quelle": "whisper"
+  },
+  {
+   "i": 1,
+   "satz": 1,
+   "text": "Hundred",
+   "wort": "Hundred",
+   "start": 0.32,
+   "ende": 0.52,
+   "p": 0.403,
+   "quelle": "whisper"
+  },
+  {
+   "i": 2,
+   "satz": 1,
+   "text": "takes",
+   "wort": "takes",
+   "start": 0.52,
+   "ende": 0.82,
+   "p": 0.982,
+   "quelle": "whisper"
+  },
+  {
+   "i": 3,
+   "satz": 1,
+   "text": "you",
+   "wort": "you",
+   "start": 0.82,
+   "ende": 0.96,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 4,
+   "satz": 1,
+   "text": "at",
+   "wort": "at",
+   "start": 0.96,
+   "ende": 1.04,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 5,
+   "satz": 1,
+   "text": "eighteen",
+   "wort": "eighteen",
+   "start": 1.04,
+   "ende": 1.46,
+   "p": 0.893,
+   "quelle": "whisper"
+  },
+  {
+   "i": 6,
+   "satz": 1,
+   "text": "if",
+   "wort": "if",
+   "start": 1.46,
+   "ende": 1.68,
+   "p": 0.753,
+   "quelle": "whisper"
+  },
+  {
+   "i": 7,
+   "satz": 1,
+   "text": "it",
+   "wort": "it",
+   "start": 1.68,
+   "ende": 1.78,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 8,
+   "satz": 1,
+   "text": "finds",
+   "wort": "finds",
+   "start": 1.78,
+   "ende": 2.0,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 9,
+   "satz": 1,
+   "text": "you,",
+   "wort": "you",
+   "start": 2.0,
+   "ende": 2.3,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 10,
+   "satz": 1,
+   "text": "and",
+   "wort": "and",
+   "start": 2.6,
+   "ende": 2.68,
+   "p": 0.986,
+   "quelle": "whisper"
+  },
+  {
+   "i": 11,
+   "satz": 1,
+   "text": "it",
+   "wort": "it",
+   "start": 2.68,
+   "ende": 2.78,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 12,
+   "satz": 1,
+   "text": "called",
+   "wort": "called",
+   "start": 2.78,
+   "ende": 3.02,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 13,
+   "satz": 1,
+   "text": "to",
+   "wort": "to",
+   "start": 3.02,
+   "ende": 3.22,
+   "p": 0.987,
+   "quelle": "whisper"
+  },
+  {
+   "i": 14,
+   "satz": 1,
+   "text": "me",
+   "wort": "me",
+   "start": 3.22,
+   "ende": 3.32,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 15,
+   "satz": 1,
+   "text": "in",
+   "wort": "in",
+   "start": 3.32,
+   "ende": 3.42,
+   "p": 0.994,
+   "quelle": "whisper"
+  },
+  {
+   "i": 16,
+   "satz": 1,
+   "text": "my",
+   "wort": "my",
+   "start": 3.42,
+   "ende": 3.58,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 17,
+   "satz": 1,
+   "text": "sister's",
+   "wort": "sister's",
+   "start": 3.58,
+   "ende": 3.94,
+   "p": 0.974,
+   "quelle": "whisper"
+  },
+  {
+   "i": 18,
+   "satz": 1,
+   "text": "voice.",
+   "wort": "voice",
+   "start": 3.94,
+   "ende": 4.35,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 19,
+   "satz": 2,
+   "text": "Nobody",
+   "wort": "Nobody",
+   "start": 4.66,
+   "ende": 4.92,
+   "p": 0.908,
+   "quelle": "whisper"
+  },
+  {
+   "i": 20,
+   "satz": 2,
+   "text": "can",
+   "wort": "can",
+   "start": 4.92,
+   "ende": 5.18,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 21,
+   "satz": 2,
+   "text": "help",
+   "wort": "help",
+   "start": 5.18,
+   "ende": 5.34,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 22,
+   "satz": 2,
+   "text": "you",
+   "wort": "you",
+   "start": 5.34,
+   "ende": 5.48,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 23,
+   "satz": 2,
+   "text": "hide.",
+   "wort": "hide",
+   "start": 5.48,
+   "ende": 5.87,
+   "p": 0.995,
+   "quelle": "whisper"
+  },
+  {
+   "i": 24,
+   "satz": 3,
+   "text": "If",
+   "wort": "If",
+   "start": 6.2,
+   "ende": 6.28,
+   "p": 0.994,
+   "quelle": "whisper"
+  },
+  {
+   "i": 25,
+   "satz": 3,
+   "text": "they",
+   "wort": "they",
+   "start": 6.28,
+   "ende": 6.38,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 26,
+   "satz": 3,
+   "text": "try,",
+   "wort": "try",
+   "start": 6.38,
+   "ende": 6.81,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 27,
+   "satz": 3,
+   "text": "it",
+   "wort": "it",
+   "start": 7.06,
+   "ende": 7.14,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 28,
+   "satz": 3,
+   "text": "takes",
+   "wort": "takes",
+   "start": 7.14,
+   "ende": 7.36,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 29,
+   "satz": 3,
+   "text": "them",
+   "wort": "them",
+   "start": 7.36,
+   "ende": 7.54,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 30,
+   "satz": 3,
+   "text": "too.",
+   "wort": "too",
+   "start": 7.54,
+   "ende": 7.88,
+   "p": 0.791,
+   "quelle": "whisper"
+  },
+  {
+   "i": 31,
+   "satz": 4,
+   "text": "My",
+   "wort": "My",
+   "start": 8.17,
+   "ende": 8.28,
+   "p": 0.972,
+   "quelle": "whisper"
+  },
+  {
+   "i": 32,
+   "satz": 4,
+   "text": "sister",
+   "wort": "sister",
+   "start": 8.28,
+   "ende": 8.5,
+   "p": 0.949,
+   "quelle": "whisper"
+  },
+  {
+   "i": 33,
+   "satz": 4,
+   "text": "June",
+   "wort": "June",
+   "start": 8.5,
+   "ende": 8.82,
+   "p": 0.365,
+   "quelle": "whisper"
+  },
+  {
+   "i": 34,
+   "satz": 4,
+   "text": "hid",
+   "wort": "hid",
+   "start": 8.82,
+   "ende": 9.04,
+   "p": 0.992,
+   "quelle": "whisper"
+  },
+  {
+   "i": 35,
+   "satz": 4,
+   "text": "me",
+   "wort": "me",
+   "start": 9.04,
+   "ende": 9.18,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 36,
+   "satz": 4,
+   "text": "anyway,",
+   "wort": "anyway",
+   "start": 9.18,
+   "ende": 9.66,
+   "p": 0.947,
+   "quelle": "whisper"
+  },
+  {
+   "i": 37,
+   "satz": 4,
+   "text": "under",
+   "wort": "under",
+   "start": 9.79,
+   "ende": 9.94,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 38,
+   "satz": 4,
+   "text": "her",
+   "wort": "her",
+   "start": 9.94,
+   "ende": 10.1,
+   "p": 1.0,
+   "quelle": "whisper"
+  },
+  {
+   "i": 39,
+   "satz": 4,
+   "text": "room.",
+   "wort": "room",
+   "start": 10.1,
+   "ende": 10.48,
+   "p": 0.993,
+   "quelle": "whisper"
+  },
+  {
+   "i": 40,
+   "satz": 5,
+   "text": "\"It",
+   "wort": "It",
+   "start": 10.76,
+   "ende": 10.86,
+   "p": 0.621,
+   "quelle": "whisper"
+  },
+  {
+   "i": 41,
+   "satz": 5,
+   "text": "never",
+   "wort": "never",
+   "start": 10.86,
+   "ende": 11.1,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 42,
+   "satz": 5,
+   "text": "looks",
+   "wort": "looks",
+   "start": 11.1,
+   "ende": 11.3,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 43,
+   "satz": 5,
+   "text": "in",
+   "wort": "in",
+   "start": 11.3,
+   "ende": 11.46,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 44,
+   "satz": 5,
+   "text": "my",
+   "wort": "my",
+   "start": 11.46,
+   "ende": 11.6,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 45,
+   "satz": 5,
+   "text": "room,",
+   "wort": "room",
+   "start": 11.6,
+   "ende": 11.92,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 46,
+   "satz": 5,
+   "text": "Rabbit.\"",
+   "wort": "Rabbit",
+   "start": 11.92,
+   "ende": 12.27,
+   "p": 0.567,
+   "quelle": "whisper"
+  },
+  {
+   "i": 47,
+   "satz": 6,
+   "text": "Every",
+   "wort": "Every",
+   "start": 12.57,
+   "ende": 12.74,
+   "p": 0.995,
+   "quelle": "whisper"
+  },
+  {
+   "i": 48,
+   "satz": 6,
+   "text": "night,",
+   "wort": "night",
+   "start": 12.74,
+   "ende": 12.94,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 49,
+   "satz": 6,
+   "text": "she",
+   "wort": "she",
+   "start": 12.94,
+   "ende": 13.12,
+   "p": 0.668,
+   "quelle": "whisper"
+  },
+  {
+   "i": 50,
+   "satz": 6,
+   "text": "counts",
+   "wort": "counts",
+   "start": 13.12,
+   "ende": 13.34,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 51,
+   "satz": 6,
+   "text": "to",
+   "wort": "to",
+   "start": 13.34,
+   "ende": 13.52,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 52,
+   "satz": 6,
+   "text": "one",
+   "wort": "one",
+   "start": 13.52,
+   "ende": 13.7,
+   "p": 0.924,
+   "quelle": "whisper"
+  },
+  {
+   "i": 53,
+   "satz": 6,
+   "text": "hundred",
+   "wort": "hundred",
+   "start": 13.7,
+   "ende": 13.88,
+   "p": 0.924,
+   "quelle": "whisper"
+  },
+  {
+   "i": 54,
+   "satz": 6,
+   "text": "before",
+   "wort": "before",
+   "start": 13.88,
+   "ende": 14.2,
+   "p": 0.988,
+   "quelle": "whisper"
+  },
+  {
+   "i": 55,
+   "satz": 6,
+   "text": "she",
+   "wort": "she",
+   "start": 14.2,
+   "ende": 14.38,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 56,
+   "satz": 6,
+   "text": "falls",
+   "wort": "falls",
+   "start": 14.38,
+   "ende": 14.58,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 57,
+   "satz": 6,
+   "text": "asleep.",
+   "wort": "asleep",
+   "start": 14.58,
+   "ende": 15.06,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 58,
+   "satz": 7,
+   "text": "She",
+   "wort": "She",
+   "start": 15.36,
+   "ende": 15.46,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 59,
+   "satz": 7,
+   "text": "says",
+   "wort": "says",
+   "start": 15.46,
+   "ende": 15.62,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 60,
+   "satz": 7,
+   "text": "it",
+   "wort": "it",
+   "start": 15.62,
+   "ende": 15.74,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 61,
+   "satz": 7,
+   "text": "helps.",
+   "wort": "helps",
+   "start": 15.74,
+   "ende": 16.16,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 62,
+   "satz": 8,
+   "text": "Tonight,",
+   "wort": "Tonight",
+   "start": 16.46,
+   "ende": 16.8,
+   "p": 0.397,
+   "quelle": "whisper"
+  },
+  {
+   "i": 63,
+   "satz": 8,
+   "text": "something",
+   "wort": "something",
+   "start": 17.1,
+   "ende": 17.36,
+   "p": 0.994,
+   "quelle": "whisper"
+  },
+  {
+   "i": 64,
+   "satz": 8,
+   "text": "above",
+   "wort": "above",
+   "start": 17.36,
+   "ende": 17.64,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 65,
+   "satz": 8,
+   "text": "me",
+   "wort": "me",
+   "start": 17.64,
+   "ende": 17.84,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 66,
+   "satz": 8,
+   "text": "finished",
+   "wort": "finished",
+   "start": 17.84,
+   "ende": 18.06,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 67,
+   "satz": 8,
+   "text": "her",
+   "wort": "her",
+   "start": 18.06,
+   "ende": 18.3,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 68,
+   "satz": 8,
+   "text": "count,",
+   "wort": "count",
+   "start": 18.3,
+   "ende": 18.65,
+   "p": 0.995,
+   "quelle": "whisper"
+  },
+  {
+   "i": 69,
+   "satz": 8,
+   "text": "and",
+   "wort": "and",
+   "start": 18.92,
+   "ende": 19.0,
+   "p": 0.593,
+   "quelle": "whisper"
+  },
+  {
+   "i": 70,
+   "satz": 8,
+   "text": "asked",
+   "wort": "asked",
+   "start": 19.0,
+   "ende": 19.24,
+   "p": 0.994,
+   "quelle": "whisper"
+  },
+  {
+   "i": 71,
+   "satz": 8,
+   "text": "if",
+   "wort": "if",
+   "start": 19.24,
+   "ende": 19.38,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 72,
+   "satz": 8,
+   "text": "I",
+   "wort": "I",
+   "start": 19.38,
+   "ende": 19.5,
+   "p": 0.991,
+   "quelle": "whisper"
+  },
+  {
+   "i": 73,
+   "satz": 8,
+   "text": "was",
+   "wort": "was",
+   "start": 19.5,
+   "ende": 19.62,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 74,
+   "satz": 8,
+   "text": "ready.",
+   "wort": "ready",
+   "start": 19.62,
+   "ende": 19.97,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 75,
+   "satz": 9,
+   "text": "I",
+   "wort": "I",
+   "start": 20.26,
+   "ende": 20.36,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 76,
+   "satz": 9,
+   "text": "held",
+   "wort": "held",
+   "start": 20.36,
+   "ende": 20.52,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 77,
+   "satz": 9,
+   "text": "my",
+   "wort": "my",
+   "start": 20.52,
+   "ende": 20.68,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 78,
+   "satz": 9,
+   "text": "breath.",
+   "wort": "breath",
+   "start": 20.68,
+   "ende": 21.05,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 79,
+   "satz": 10,
+   "text": "It",
+   "wort": "It",
+   "start": 21.36,
+   "ende": 21.44,
+   "p": 0.995,
+   "quelle": "whisper"
+  },
+  {
+   "i": 80,
+   "satz": 10,
+   "text": "still",
+   "wort": "still",
+   "start": 21.44,
+   "ende": 21.66,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 81,
+   "satz": 10,
+   "text": "came",
+   "wort": "came",
+   "start": 21.66,
+   "ende": 21.86,
+   "p": 1.0,
+   "quelle": "whisper"
+  },
+  {
+   "i": 82,
+   "satz": 10,
+   "text": "out",
+   "wort": "out",
+   "start": 21.86,
+   "ende": 22.0,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 83,
+   "satz": 10,
+   "text": "white.",
+   "wort": "white",
+   "start": 22.0,
+   "ende": 22.38,
+   "p": 0.99,
+   "quelle": "whisper"
+  },
+  {
+   "i": 84,
+   "satz": 11,
+   "text": "Then",
+   "wort": "Then",
+   "start": 22.68,
+   "ende": 22.86,
+   "p": 0.995,
+   "quelle": "whisper"
+  },
+  {
+   "i": 85,
+   "satz": 11,
+   "text": "the",
+   "wort": "the",
+   "start": 22.86,
+   "ende": 23.0,
+   "p": 0.974,
+   "quelle": "whisper"
+  },
+  {
+   "i": 86,
+   "satz": 11,
+   "text": "weight",
+   "wort": "weight",
+   "start": 23.0,
+   "ende": 23.24,
+   "p": 0.902,
+   "quelle": "whisper"
+  },
+  {
+   "i": 87,
+   "satz": 11,
+   "text": "lifted",
+   "wort": "lifted",
+   "start": 23.24,
+   "ende": 23.62,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 88,
+   "satz": 11,
+   "text": "off",
+   "wort": "off",
+   "start": 23.62,
+   "ende": 23.78,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 89,
+   "satz": 11,
+   "text": "the",
+   "wort": "the",
+   "start": 23.78,
+   "ende": 23.92,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 90,
+   "satz": 11,
+   "text": "boards.",
+   "wort": "boards",
+   "start": 23.92,
+   "ende": 24.39,
+   "p": 0.969,
+   "quelle": "whisper"
+  },
+  {
+   "i": 91,
+   "satz": 12,
+   "text": "Through",
+   "wort": "Through",
+   "start": 24.69,
+   "ende": 24.82,
+   "p": 0.979,
+   "quelle": "whisper"
+  },
+  {
+   "i": 92,
+   "satz": 12,
+   "text": "a",
+   "wort": "a",
+   "start": 24.82,
+   "ende": 24.94,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 93,
+   "satz": 12,
+   "text": "crack,",
+   "wort": "crack",
+   "start": 24.94,
+   "ende": 25.31,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 94,
+   "satz": 12,
+   "text": "I",
+   "wort": "I",
+   "start": 25.51,
+   "ende": 25.6,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 95,
+   "satz": 12,
+   "text": "saw",
+   "wort": "saw",
+   "start": 25.6,
+   "ende": 25.76,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 96,
+   "satz": 12,
+   "text": "June's",
+   "wort": "June's",
+   "start": 25.76,
+   "ende": 26.18,
+   "p": 0.982,
+   "quelle": "whisper"
+  },
+  {
+   "i": 97,
+   "satz": 12,
+   "text": "red",
+   "wort": "red",
+   "start": 26.18,
+   "ende": 26.34,
+   "p": 0.905,
+   "quelle": "whisper"
+  },
+  {
+   "i": 98,
+   "satz": 12,
+   "text": "sneakers",
+   "wort": "sneakers",
+   "start": 26.34,
+   "ende": 26.68,
+   "p": 0.995,
+   "quelle": "whisper"
+  },
+  {
+   "i": 99,
+   "satz": 12,
+   "text": "by",
+   "wort": "by",
+   "start": 26.68,
+   "ende": 27.0,
+   "p": 0.985,
+   "quelle": "whisper"
+  },
+  {
+   "i": 100,
+   "satz": 12,
+   "text": "her",
+   "wort": "her",
+   "start": 27.0,
+   "ende": 27.16,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 101,
+   "satz": 12,
+   "text": "bed,",
+   "wort": "bed",
+   "start": 27.16,
+   "ende": 27.49,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 102,
+   "satz": 12,
+   "text": "side",
+   "wort": "side",
+   "start": 27.66,
+   "ende": 27.9,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 103,
+   "satz": 12,
+   "text": "by",
+   "wort": "by",
+   "start": 27.9,
+   "ende": 28.1,
+   "p": 0.884,
+   "quelle": "whisper"
+  },
+  {
+   "i": 104,
+   "satz": 12,
+   "text": "side.",
+   "wort": "side",
+   "start": 28.1,
+   "ende": 28.57,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 105,
+   "satz": 13,
+   "text": "Side",
+   "wort": "Side",
+   "start": 28.86,
+   "ende": 29.12,
+   "p": 0.131,
+   "quelle": "whisper"
+  },
+  {
+   "i": 106,
+   "satz": 13,
+   "text": "by",
+   "wort": "by",
+   "start": 29.12,
+   "ende": 29.28,
+   "p": 0.831,
+   "quelle": "whisper"
+  },
+  {
+   "i": 107,
+   "satz": 13,
+   "text": "side",
+   "wort": "side",
+   "start": 29.28,
+   "ende": 29.62,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 108,
+   "satz": 13,
+   "text": "is",
+   "wort": "is",
+   "start": 29.62,
+   "ende": 29.76,
+   "p": 0.659,
+   "quelle": "whisper"
+  },
+  {
+   "i": 109,
+   "satz": 13,
+   "text": "all",
+   "wort": "all",
+   "start": 29.76,
+   "ende": 29.92,
+   "p": 0.984,
+   "quelle": "whisper"
+  },
+  {
+   "i": 110,
+   "satz": 13,
+   "text": "it",
+   "wort": "it",
+   "start": 29.92,
+   "ende": 30.04,
+   "p": 0.922,
+   "quelle": "whisper"
+  },
+  {
+   "i": 111,
+   "satz": 13,
+   "text": "leaves.",
+   "wort": "leaves",
+   "start": 30.04,
+   "ende": 30.48,
+   "p": 0.989,
+   "quelle": "whisper"
+  },
+  {
+   "i": 112,
+   "satz": 14,
+   "text": "It",
+   "wort": "It",
+   "start": 30.78,
+   "ende": 30.86,
+   "p": 0.935,
+   "quelle": "whisper"
+  },
+  {
+   "i": 113,
+   "satz": 14,
+   "text": "took",
+   "wort": "took",
+   "start": 30.86,
+   "ende": 31.08,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 114,
+   "satz": 14,
+   "text": "her,",
+   "wort": "her",
+   "start": 31.08,
+   "ende": 31.28,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 115,
+   "satz": 14,
+   "text": "I",
+   "wort": "I",
+   "start": 31.38,
+   "ende": 31.48,
+   "p": 0.985,
+   "quelle": "whisper"
+  },
+  {
+   "i": 116,
+   "satz": 14,
+   "text": "thought,",
+   "wort": "thought",
+   "start": 31.48,
+   "ende": 31.76,
+   "p": 0.99,
+   "quelle": "whisper"
+  },
+  {
+   "i": 117,
+   "satz": 14,
+   "text": "because",
+   "wort": "because",
+   "start": 32.03,
+   "ende": 32.16,
+   "p": 0.993,
+   "quelle": "whisper"
+  },
+  {
+   "i": 118,
+   "satz": 14,
+   "text": "she",
+   "wort": "she",
+   "start": 32.16,
+   "ende": 32.34,
+   "p": 0.994,
+   "quelle": "whisper"
+  },
+  {
+   "i": 119,
+   "satz": 14,
+   "text": "helped",
+   "wort": "helped",
+   "start": 32.34,
+   "ende": 32.56,
+   "p": 0.993,
+   "quelle": "whisper"
+  },
+  {
+   "i": 120,
+   "satz": 14,
+   "text": "me.",
+   "wort": "me",
+   "start": 32.56,
+   "ende": 32.82,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 121,
+   "satz": 15,
+   "text": "It",
+   "wort": "It",
+   "start": 33.12,
+   "ende": 33.22,
+   "p": 0.98,
+   "quelle": "whisper"
+  },
+  {
+   "i": 122,
+   "satz": 15,
+   "text": "left",
+   "wort": "left",
+   "start": 33.22,
+   "ende": 33.46,
+   "p": 0.989,
+   "quelle": "whisper"
+  },
+  {
+   "i": 123,
+   "satz": 15,
+   "text": "through",
+   "wort": "through",
+   "start": 33.46,
+   "ende": 33.74,
+   "p": 0.992,
+   "quelle": "whisper"
+  },
+  {
+   "i": 124,
+   "satz": 15,
+   "text": "her",
+   "wort": "her",
+   "start": 33.74,
+   "ende": 33.88,
+   "p": 0.99,
+   "quelle": "whisper"
+  },
+  {
+   "i": 125,
+   "satz": 15,
+   "text": "window.",
+   "wort": "window",
+   "start": 33.88,
+   "ende": 34.32,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 126,
+   "satz": 16,
+   "text": "Through",
+   "wort": "Through",
+   "start": 34.62,
+   "ende": 34.76,
+   "p": 0.974,
+   "quelle": "whisper"
+  },
+  {
+   "i": 127,
+   "satz": 16,
+   "text": "the",
+   "wort": "the",
+   "start": 34.76,
+   "ende": 34.88,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 128,
+   "satz": 16,
+   "text": "vent,",
+   "wort": "vent",
+   "start": 34.88,
+   "ende": 35.2,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 129,
+   "satz": 16,
+   "text": "I",
+   "wort": "I",
+   "start": 35.38,
+   "ende": 35.48,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 130,
+   "satz": 16,
+   "text": "saw",
+   "wort": "saw",
+   "start": 35.48,
+   "ende": 35.62,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 131,
+   "satz": 16,
+   "text": "the",
+   "wort": "the",
+   "start": 35.62,
+   "ende": 35.74,
+   "p": 0.988,
+   "quelle": "whisper"
+  },
+  {
+   "i": 132,
+   "satz": 16,
+   "text": "bell",
+   "wort": "bell",
+   "start": 35.74,
+   "ende": 35.94,
+   "p": 0.872,
+   "quelle": "whisper"
+  },
+  {
+   "i": 133,
+   "satz": 16,
+   "text": "tower,",
+   "wort": "tower",
+   "start": 35.94,
+   "ende": 36.36,
+   "p": 0.99,
+   "quelle": "whisper"
+  },
+  {
+   "i": 134,
+   "satz": 16,
+   "text": "where",
+   "wort": "where",
+   "start": 36.53,
+   "ende": 36.62,
+   "p": 0.994,
+   "quelle": "whisper"
+  },
+  {
+   "i": 135,
+   "satz": 16,
+   "text": "Tess",
+   "wort": "Tess",
+   "start": 36.62,
+   "ende": 36.88,
+   "p": 0.963,
+   "quelle": "whisper"
+  },
+  {
+   "i": 136,
+   "satz": 16,
+   "text": "Lowry",
+   "wort": "Lowry",
+   "start": 36.88,
+   "ende": 37.24,
+   "p": 0.795,
+   "quelle": "whisper"
+  },
+  {
+   "i": 137,
+   "satz": 16,
+   "text": "was",
+   "wort": "was",
+   "start": 37.24,
+   "ende": 37.4,
+   "p": 0.995,
+   "quelle": "whisper"
+  },
+  {
+   "i": 138,
+   "satz": 16,
+   "text": "hiding,",
+   "wort": "hiding",
+   "start": 37.4,
+   "ende": 37.86,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 139,
+   "satz": 16,
+   "text": "higher",
+   "wort": "higher",
+   "start": 38.03,
+   "ende": 38.28,
+   "p": 0.988,
+   "quelle": "whisper"
+  },
+  {
+   "i": 140,
+   "satz": 16,
+   "text": "than",
+   "wort": "than",
+   "start": 38.28,
+   "ende": 38.5,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 141,
+   "satz": 16,
+   "text": "any",
+   "wort": "any",
+   "start": 38.5,
+   "ende": 38.74,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 142,
+   "satz": 16,
+   "text": "window.",
+   "wort": "window",
+   "start": 38.74,
+   "ende": 39.18,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 143,
+   "satz": 17,
+   "text": "It",
+   "wort": "It",
+   "start": 39.48,
+   "ende": 39.58,
+   "p": 0.994,
+   "quelle": "whisper"
+  },
+  {
+   "i": 144,
+   "satz": 17,
+   "text": "stood",
+   "wort": "stood",
+   "start": 39.58,
+   "ende": 39.76,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 145,
+   "satz": 17,
+   "text": "up",
+   "wort": "up",
+   "start": 39.76,
+   "ende": 39.9,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 146,
+   "satz": 17,
+   "text": "straight,",
+   "wort": "straight",
+   "start": 39.9,
+   "ende": 40.35,
+   "p": 0.995,
+   "quelle": "whisper"
+  },
+  {
+   "i": 147,
+   "satz": 17,
+   "text": "taller",
+   "wort": "taller",
+   "start": 40.55,
+   "ende": 40.8,
+   "p": 0.992,
+   "quelle": "whisper"
+  },
+  {
+   "i": 148,
+   "satz": 17,
+   "text": "than",
+   "wort": "than",
+   "start": 40.8,
+   "ende": 40.98,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 149,
+   "satz": 17,
+   "text": "anyone",
+   "wort": "anyone",
+   "start": 40.98,
+   "ende": 41.36,
+   "p": 0.959,
+   "quelle": "whisper"
+  },
+  {
+   "i": 150,
+   "satz": 17,
+   "text": "knew.",
+   "wort": "knew",
+   "start": 41.36,
+   "ende": 41.74,
+   "p": 0.91,
+   "quelle": "whisper"
+  },
+  {
+   "i": 151,
+   "satz": 18,
+   "text": "Then",
+   "wort": "Then",
+   "start": 42.05,
+   "ende": 42.16,
+   "p": 0.995,
+   "quelle": "whisper"
+  },
+  {
+   "i": 152,
+   "satz": 18,
+   "text": "it",
+   "wort": "it",
+   "start": 42.16,
+   "ende": 42.28,
+   "p": 0.977,
+   "quelle": "whisper"
+  },
+  {
+   "i": 153,
+   "satz": 18,
+   "text": "took",
+   "wort": "took",
+   "start": 42.28,
+   "ende": 42.38,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 154,
+   "satz": 18,
+   "text": "its",
+   "wort": "its",
+   "start": 42.38,
+   "ende": 42.52,
+   "p": 0.958,
+   "quelle": "whisper"
+  },
+  {
+   "i": 155,
+   "satz": 18,
+   "text": "hands",
+   "wort": "hands",
+   "start": 42.52,
+   "ende": 42.82,
+   "p": 0.99,
+   "quelle": "whisper"
+  },
+  {
+   "i": 156,
+   "satz": 18,
+   "text": "away",
+   "wort": "away",
+   "start": 42.82,
+   "ende": 43.06,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 157,
+   "satz": 18,
+   "text": "from",
+   "wort": "from",
+   "start": 43.06,
+   "ende": 43.2,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 158,
+   "satz": 18,
+   "text": "its",
+   "wort": "its",
+   "start": 43.2,
+   "ende": 43.36,
+   "p": 0.984,
+   "quelle": "whisper"
+  },
+  {
+   "i": 159,
+   "satz": 18,
+   "text": "face.",
+   "wort": "face",
+   "start": 43.36,
+   "ende": 43.77,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 160,
+   "satz": 19,
+   "text": "Her",
+   "wort": "Her",
+   "start": 44.06,
+   "ende": 44.16,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 161,
+   "satz": 19,
+   "text": "flashlight",
+   "wort": "flashlight",
+   "start": 44.16,
+   "ende": 44.5,
+   "p": 0.995,
+   "quelle": "whisper"
+  },
+  {
+   "i": 162,
+   "satz": 19,
+   "text": "went",
+   "wort": "went",
+   "start": 44.5,
+   "ende": 44.78,
+   "p": 0.995,
+   "quelle": "whisper"
+  },
+  {
+   "i": 163,
+   "satz": 19,
+   "text": "out.",
+   "wort": "out",
+   "start": 44.78,
+   "ende": 45.06,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 164,
+   "satz": 20,
+   "text": "The",
+   "wort": "The",
+   "start": 45.39,
+   "ende": 45.48,
+   "p": 0.994,
+   "quelle": "whisper"
+  },
+  {
+   "i": 165,
+   "satz": 20,
+   "text": "bell",
+   "wort": "bell",
+   "start": 45.48,
+   "ende": 45.7,
+   "p": 0.99,
+   "quelle": "whisper"
+  },
+  {
+   "i": 166,
+   "satz": 20,
+   "text": "rope",
+   "wort": "rope",
+   "start": 45.7,
+   "ende": 45.88,
+   "p": 0.725,
+   "quelle": "whisper"
+  },
+  {
+   "i": 167,
+   "satz": 20,
+   "text": "swung",
+   "wort": "swung",
+   "start": 45.88,
+   "ende": 46.28,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 168,
+   "satz": 20,
+   "text": "once,",
+   "wort": "once",
+   "start": 46.28,
+   "ende": 46.6,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 169,
+   "satz": 20,
+   "text": "without",
+   "wort": "without",
+   "start": 46.9,
+   "ende": 47.08,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 170,
+   "satz": 20,
+   "text": "a",
+   "wort": "a",
+   "start": 47.08,
+   "ende": 47.26,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 171,
+   "satz": 20,
+   "text": "sound.",
+   "wort": "sound",
+   "start": 47.26,
+   "ende": 47.68,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 172,
+   "satz": 21,
+   "text": "Then",
+   "wort": "Then",
+   "start": 47.98,
+   "ende": 48.1,
+   "p": 0.995,
+   "quelle": "whisper"
+  },
+  {
+   "i": 173,
+   "satz": 21,
+   "text": "it",
+   "wort": "it",
+   "start": 48.1,
+   "ende": 48.18,
+   "p": 0.994,
+   "quelle": "whisper"
+  },
+  {
+   "i": 174,
+   "satz": 21,
+   "text": "came",
+   "wort": "came",
+   "start": 48.18,
+   "ende": 48.36,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 175,
+   "satz": 21,
+   "text": "down",
+   "wort": "down",
+   "start": 48.36,
+   "ende": 48.6,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 176,
+   "satz": 21,
+   "text": "Main",
+   "wort": "Main",
+   "start": 48.6,
+   "ende": 48.82,
+   "p": 0.915,
+   "quelle": "whisper"
+  },
+  {
+   "i": 177,
+   "satz": 21,
+   "text": "Street,",
+   "wort": "Street",
+   "start": 48.82,
+   "ende": 49.22,
+   "p": 0.931,
+   "quelle": "whisper"
+  },
+  {
+   "i": 178,
+   "satz": 21,
+   "text": "looking",
+   "wort": "looking",
+   "start": 49.39,
+   "ende": 49.56,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 179,
+   "satz": 21,
+   "text": "in",
+   "wort": "in",
+   "start": 49.56,
+   "ende": 49.76,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 180,
+   "satz": 21,
+   "text": "every",
+   "wort": "every",
+   "start": 49.76,
+   "ende": 50.08,
+   "p": 0.995,
+   "quelle": "whisper"
+  },
+  {
+   "i": 181,
+   "satz": 21,
+   "text": "upstairs",
+   "wort": "upstairs",
+   "start": 50.08,
+   "ende": 50.46,
+   "p": 0.984,
+   "quelle": "whisper"
+  },
+  {
+   "i": 182,
+   "satz": 21,
+   "text": "window.",
+   "wort": "window",
+   "start": 50.46,
+   "ende": 51.03,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 183,
+   "satz": 22,
+   "text": "It",
+   "wort": "It",
+   "start": 51.33,
+   "ende": 51.42,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 184,
+   "satz": 22,
+   "text": "stopped",
+   "wort": "stopped",
+   "start": 51.42,
+   "ende": 51.62,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 185,
+   "satz": 22,
+   "text": "at",
+   "wort": "at",
+   "start": 51.62,
+   "ende": 51.82,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 186,
+   "satz": 22,
+   "text": "mine,",
+   "wort": "mine",
+   "start": 51.82,
+   "ende": 52.23,
+   "p": 0.988,
+   "quelle": "whisper"
+  },
+  {
+   "i": 187,
+   "satz": 22,
+   "text": "then",
+   "wort": "then",
+   "start": 52.41,
+   "ende": 52.52,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 188,
+   "satz": 22,
+   "text": "bent",
+   "wort": "bent",
+   "start": 52.52,
+   "ende": 52.72,
+   "p": 0.994,
+   "quelle": "whisper"
+  },
+  {
+   "i": 189,
+   "satz": 22,
+   "text": "down",
+   "wort": "down",
+   "start": 52.72,
+   "ende": 52.96,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 190,
+   "satz": 22,
+   "text": "to",
+   "wort": "to",
+   "start": 52.96,
+   "ende": 53.12,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 191,
+   "satz": 22,
+   "text": "June's.",
+   "wort": "June's",
+   "start": 53.12,
+   "ende": 53.62,
+   "p": 0.762,
+   "quelle": "whisper"
+  },
+  {
+   "i": 192,
+   "satz": 23,
+   "text": "I",
+   "wort": "I",
+   "start": 53.92,
+   "ende": 54.02,
+   "p": 0.994,
+   "quelle": "whisper"
+  },
+  {
+   "i": 193,
+   "satz": 23,
+   "text": "wanted",
+   "wort": "wanted",
+   "start": 54.02,
+   "ende": 54.2,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 194,
+   "satz": 23,
+   "text": "to",
+   "wort": "to",
+   "start": 54.2,
+   "ende": 54.36,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 195,
+   "satz": 23,
+   "text": "run,",
+   "wort": "run",
+   "start": 54.36,
+   "ende": 54.71,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 196,
+   "satz": 23,
+   "text": "but",
+   "wort": "but",
+   "start": 54.89,
+   "ende": 54.98,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 197,
+   "satz": 23,
+   "text": "Owen",
+   "wort": "Owen",
+   "start": 54.98,
+   "ende": 55.18,
+   "p": 0.901,
+   "quelle": "whisper"
+  },
+  {
+   "i": 198,
+   "satz": 23,
+   "text": "Pike",
+   "wort": "Pike",
+   "start": 55.18,
+   "ende": 55.42,
+   "p": 0.929,
+   "quelle": "whisper"
+  },
+  {
+   "i": 199,
+   "satz": 23,
+   "text": "ran,",
+   "wort": "ran",
+   "start": 55.42,
+   "ende": 55.91,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 200,
+   "satz": 23,
+   "text": "and",
+   "wort": "and",
+   "start": 56.06,
+   "ende": 56.16,
+   "p": 0.393,
+   "quelle": "whisper"
+  },
+  {
+   "i": 201,
+   "satz": 23,
+   "text": "only",
+   "wort": "only",
+   "start": 56.16,
+   "ende": 56.42,
+   "p": 0.969,
+   "quelle": "whisper"
+  },
+  {
+   "i": 202,
+   "satz": 23,
+   "text": "his",
+   "wort": "his",
+   "start": 56.42,
+   "ende": 56.6,
+   "p": 0.994,
+   "quelle": "whisper"
+  },
+  {
+   "i": 203,
+   "satz": 23,
+   "text": "shoes",
+   "wort": "shoes",
+   "start": 56.6,
+   "ende": 56.92,
+   "p": 0.994,
+   "quelle": "whisper"
+  },
+  {
+   "i": 204,
+   "satz": 23,
+   "text": "came",
+   "wort": "came",
+   "start": 56.92,
+   "ende": 57.16,
+   "p": 0.995,
+   "quelle": "whisper"
+  },
+  {
+   "i": 205,
+   "satz": 23,
+   "text": "home.",
+   "wort": "home",
+   "start": 57.16,
+   "ende": 57.61,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 206,
+   "satz": 24,
+   "text": "The",
+   "wort": "The",
+   "start": 57.91,
+   "ende": 58.0,
+   "p": 0.682,
+   "quelle": "whisper"
+  },
+  {
+   "i": 207,
+   "satz": 24,
+   "text": "boards",
+   "wort": "boards",
+   "start": 58.0,
+   "ende": 58.26,
+   "p": 0.786,
+   "quelle": "whisper"
+  },
+  {
+   "i": 208,
+   "satz": 24,
+   "text": "above",
+   "wort": "above",
+   "start": 58.26,
+   "ende": 58.5,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 209,
+   "satz": 24,
+   "text": "me",
+   "wort": "me",
+   "start": 58.5,
+   "ende": 58.7,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 210,
+   "satz": 24,
+   "text": "groaned.",
+   "wort": "groaned",
+   "start": 58.7,
+   "ende": 59.27,
+   "p": 0.982,
+   "quelle": "whisper"
+  },
+  {
+   "i": 211,
+   "satz": 25,
+   "text": "A",
+   "wort": "A",
+   "start": 59.59,
+   "ende": 59.72,
+   "p": 0.978,
+   "quelle": "whisper"
+  },
+  {
+   "i": 212,
+   "satz": 25,
+   "text": "long",
+   "wort": "long",
+   "start": 59.72,
+   "ende": 59.94,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 213,
+   "satz": 25,
+   "text": "white",
+   "wort": "white",
+   "start": 59.94,
+   "ende": 60.18,
+   "p": 0.619,
+   "quelle": "whisper"
+  },
+  {
+   "i": 214,
+   "satz": 25,
+   "text": "finger",
+   "wort": "finger",
+   "start": 60.18,
+   "ende": 60.58,
+   "p": 0.987,
+   "quelle": "whisper"
+  },
+  {
+   "i": 215,
+   "satz": 25,
+   "text": "slid",
+   "wort": "slid",
+   "start": 60.58,
+   "ende": 60.92,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 216,
+   "satz": 25,
+   "text": "through",
+   "wort": "through",
+   "start": 60.92,
+   "ende": 61.1,
+   "p": 0.991,
+   "quelle": "whisper"
+  },
+  {
+   "i": 217,
+   "satz": 25,
+   "text": "the",
+   "wort": "the",
+   "start": 61.1,
+   "ende": 61.22,
+   "p": 0.995,
+   "quelle": "whisper"
+  },
+  {
+   "i": 218,
+   "satz": 25,
+   "text": "crack",
+   "wort": "crack",
+   "start": 61.22,
+   "ende": 61.5,
+   "p": 0.992,
+   "quelle": "whisper"
+  },
+  {
+   "i": 219,
+   "satz": 25,
+   "text": "and",
+   "wort": "and",
+   "start": 61.5,
+   "ende": 61.68,
+   "p": 0.96,
+   "quelle": "whisper"
+  },
+  {
+   "i": 220,
+   "satz": 25,
+   "text": "felt",
+   "wort": "felt",
+   "start": 61.68,
+   "ende": 61.88,
+   "p": 0.927,
+   "quelle": "whisper"
+  },
+  {
+   "i": 221,
+   "satz": 25,
+   "text": "along",
+   "wort": "along",
+   "start": 61.88,
+   "ende": 62.12,
+   "p": 0.986,
+   "quelle": "whisper"
+  },
+  {
+   "i": 222,
+   "satz": 25,
+   "text": "the",
+   "wort": "the",
+   "start": 62.12,
+   "ende": 62.28,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 223,
+   "satz": 25,
+   "text": "dirt,",
+   "wort": "dirt",
+   "start": 62.28,
+   "ende": 62.6,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 224,
+   "satz": 25,
+   "text": "inches",
+   "wort": "inches",
+   "start": 62.8,
+   "ende": 63.0,
+   "p": 0.995,
+   "quelle": "whisper"
+  },
+  {
+   "i": 225,
+   "satz": 25,
+   "text": "from",
+   "wort": "from",
+   "start": 63.0,
+   "ende": 63.26,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 226,
+   "satz": 25,
+   "text": "my",
+   "wort": "my",
+   "start": 63.26,
+   "ende": 63.44,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 227,
+   "satz": 25,
+   "text": "face.",
+   "wort": "face",
+   "start": 63.44,
+   "ende": 63.85,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 228,
+   "satz": 26,
+   "text": "Then",
+   "wort": "Then",
+   "start": 64.16,
+   "ende": 64.28,
+   "p": 0.995,
+   "quelle": "whisper"
+  },
+  {
+   "i": 229,
+   "satz": 26,
+   "text": "it",
+   "wort": "it",
+   "start": 64.28,
+   "ende": 64.36,
+   "p": 0.988,
+   "quelle": "whisper"
+  },
+  {
+   "i": 230,
+   "satz": 26,
+   "text": "pulled",
+   "wort": "pulled",
+   "start": 64.36,
+   "ende": 64.56,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 231,
+   "satz": 26,
+   "text": "back.",
+   "wort": "back",
+   "start": 64.56,
+   "ende": 64.98,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 232,
+   "satz": 27,
+   "text": "Nothing,",
+   "wort": "Nothing",
+   "start": 65.29,
+   "ende": 65.67,
+   "p": 0.986,
+   "quelle": "whisper"
+  },
+  {
+   "i": 233,
+   "satz": 27,
+   "text": "until",
+   "wort": "until",
+   "start": 65.97,
+   "ende": 66.14,
+   "p": 0.991,
+   "quelle": "whisper"
+  },
+  {
+   "i": 234,
+   "satz": 27,
+   "text": "three",
+   "wort": "three",
+   "start": 66.14,
+   "ende": 66.42,
+   "p": 0.786,
+   "quelle": "whisper"
+  },
+  {
+   "i": 235,
+   "satz": 27,
+   "text": "in",
+   "wort": "in",
+   "start": 66.42,
+   "ende": 66.54,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 236,
+   "satz": 27,
+   "text": "the",
+   "wort": "the",
+   "start": 66.54,
+   "ende": 66.6,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 237,
+   "satz": 27,
+   "text": "morning.",
+   "wort": "morning",
+   "start": 66.6,
+   "ende": 66.96,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 238,
+   "satz": 28,
+   "text": "\"Rabbit?\"",
+   "wort": "Rabbit",
+   "start": 67.24,
+   "ende": 67.65,
+   "p": 0.204,
+   "quelle": "whisper"
+  },
+  {
+   "i": 239,
+   "satz": 29,
+   "text": "\"You",
+   "wort": "You",
+   "start": 67.94,
+   "ende": 68.0,
+   "p": 0.987,
+   "quelle": "whisper"
+  },
+  {
+   "i": 240,
+   "satz": 29,
+   "text": "can",
+   "wort": "can",
+   "start": 68.0,
+   "ende": 68.12,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 241,
+   "satz": 29,
+   "text": "come",
+   "wort": "come",
+   "start": 68.12,
+   "ende": 68.26,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 242,
+   "satz": 29,
+   "text": "out",
+   "wort": "out",
+   "start": 68.26,
+   "ende": 68.4,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 243,
+   "satz": 29,
+   "text": "now.\"",
+   "wort": "now",
+   "start": 68.4,
+   "ende": 68.7,
+   "p": 0.986,
+   "quelle": "whisper"
+  },
+  {
+   "i": 244,
+   "satz": 30,
+   "text": "\"It's",
+   "wort": "It's",
+   "start": 69.0,
+   "ende": 69.14,
+   "p": 0.989,
+   "quelle": "whisper"
+  },
+  {
+   "i": 245,
+   "satz": 30,
+   "text": "gone.\"",
+   "wort": "gone",
+   "start": 69.14,
+   "ende": 69.53,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 246,
+   "satz": 31,
+   "text": "It",
+   "wort": "It",
+   "start": 69.83,
+   "ende": 69.92,
+   "p": 0.99,
+   "quelle": "whisper"
+  },
+  {
+   "i": 247,
+   "satz": 31,
+   "text": "was",
+   "wort": "was",
+   "start": 69.92,
+   "ende": 70.04,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 248,
+   "satz": 31,
+   "text": "June's",
+   "wort": "June's",
+   "start": 70.04,
+   "ende": 70.42,
+   "p": 0.866,
+   "quelle": "whisper"
+  },
+  {
+   "i": 249,
+   "satz": 31,
+   "text": "voice,",
+   "wort": "voice",
+   "start": 70.42,
+   "ende": 70.79,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 250,
+   "satz": 31,
+   "text": "three",
+   "wort": "three",
+   "start": 70.93,
+   "ende": 71.08,
+   "p": 0.975,
+   "quelle": "whisper"
+  },
+  {
+   "i": 251,
+   "satz": 31,
+   "text": "hours",
+   "wort": "hours",
+   "start": 71.08,
+   "ende": 71.36,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 252,
+   "satz": 31,
+   "text": "before",
+   "wort": "before",
+   "start": 71.36,
+   "ende": 71.62,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 253,
+   "satz": 31,
+   "text": "sunrise.",
+   "wort": "sunrise",
+   "start": 71.62,
+   "ende": 72.29,
+   "p": 0.995,
+   "quelle": "whisper"
+  },
+  {
+   "i": 254,
+   "satz": 32,
+   "text": "I",
+   "wort": "I",
+   "start": 72.6,
+   "ende": 72.68,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 255,
+   "satz": 32,
+   "text": "didn't",
+   "wort": "didn't",
+   "start": 72.68,
+   "ende": 72.88,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 256,
+   "satz": 32,
+   "text": "answer.",
+   "wort": "answer",
+   "start": 72.88,
+   "ende": 73.26,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 257,
+   "satz": 33,
+   "text": "Then",
+   "wort": "Then",
+   "start": 73.57,
+   "ende": 73.7,
+   "p": 0.993,
+   "quelle": "whisper"
+  },
+  {
+   "i": 258,
+   "satz": 33,
+   "text": "the",
+   "wort": "the",
+   "start": 73.7,
+   "ende": 73.8,
+   "p": 0.975,
+   "quelle": "whisper"
+  },
+  {
+   "i": 259,
+   "satz": 33,
+   "text": "voice",
+   "wort": "voice",
+   "start": 73.8,
+   "ende": 74.02,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 260,
+   "satz": 33,
+   "text": "started",
+   "wort": "started",
+   "start": 74.02,
+   "ende": 74.3,
+   "p": 0.995,
+   "quelle": "whisper"
+  },
+  {
+   "i": 261,
+   "satz": 33,
+   "text": "counting,",
+   "wort": "counting",
+   "start": 74.3,
+   "ende": 74.8,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 262,
+   "satz": 33,
+   "text": "like",
+   "wort": "like",
+   "start": 74.92,
+   "ende": 75.08,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 263,
+   "satz": 33,
+   "text": "every",
+   "wort": "every",
+   "start": 75.08,
+   "ende": 75.34,
+   "p": 0.95,
+   "quelle": "whisper"
+  },
+  {
+   "i": 264,
+   "satz": 33,
+   "text": "night.",
+   "wort": "night",
+   "start": 75.34,
+   "ende": 75.67,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 265,
+   "satz": 34,
+   "text": "\"Ninety-nine.\"",
+   "wort": "Ninety-nine",
+   "start": 75.97,
+   "ende": 76.81,
+   "p": 0.732,
+   "quelle": "whisper"
+  },
+  {
+   "i": 266,
+   "satz": 35,
+   "text": "\"One",
+   "wort": "One",
+   "start": 77.11,
+   "ende": 77.22,
+   "p": 0.916,
+   "quelle": "whisper"
+  },
+  {
+   "i": 267,
+   "satz": 35,
+   "text": "hundred.\"",
+   "wort": "hundred",
+   "start": 77.22,
+   "ende": 77.65,
+   "p": 0.859,
+   "quelle": "whisper"
+  },
+  {
+   "i": 268,
+   "satz": 36,
+   "text": "\"Ready,",
+   "wort": "Ready",
+   "start": 77.96,
+   "ende": 78.18,
+   "p": 0.994,
+   "quelle": "whisper"
+  },
+  {
+   "i": 269,
+   "satz": 36,
+   "text": "Rabbit?\"",
+   "wort": "Rabbit",
+   "start": 78.18,
+   "ende": 78.56,
+   "p": 0.855,
+   "quelle": "whisper"
+  },
+  {
+   "i": 270,
+   "satz": 37,
+   "text": "I",
+   "wort": "I",
+   "start": 78.86,
+   "ende": 78.94,
+   "p": 0.995,
+   "quelle": "whisper"
+  },
+  {
+   "i": 271,
+   "satz": 37,
+   "text": "didn't",
+   "wort": "didn't",
+   "start": 78.94,
+   "ende": 79.12,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 272,
+   "satz": 37,
+   "text": "answer.",
+   "wort": "answer",
+   "start": 79.12,
+   "ende": 79.53,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 273,
+   "satz": 38,
+   "text": "The",
+   "wort": "The",
+   "start": 79.83,
+   "ende": 79.92,
+   "p": 0.994,
+   "quelle": "whisper"
+  },
+  {
+   "i": 274,
+   "satz": 38,
+   "text": "hatch",
+   "wort": "hatch",
+   "start": 79.92,
+   "ende": 80.06,
+   "p": 0.989,
+   "quelle": "whisper"
+  },
+  {
+   "i": 275,
+   "satz": 38,
+   "text": "opened",
+   "wort": "opened",
+   "start": 80.06,
+   "ende": 80.36,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 276,
+   "satz": 38,
+   "text": "anyway.",
+   "wort": "anyway",
+   "start": 80.36,
+   "ende": 80.85,
+   "p": 0.941,
+   "quelle": "whisper"
+  },
+  {
+   "i": 277,
+   "satz": 39,
+   "text": "Mister",
+   "wort": "Mister",
+   "start": 81.15,
+   "ende": 81.42,
+   "p": 0.915,
+   "quelle": "whisper"
+  },
+  {
+   "i": 278,
+   "satz": 39,
+   "text": "Hundred",
+   "wort": "Hundred",
+   "start": 81.42,
+   "ende": 81.58,
+   "p": 0.819,
+   "quelle": "whisper"
+  },
+  {
+   "i": 279,
+   "satz": 39,
+   "text": "folded",
+   "wort": "folded",
+   "start": 81.58,
+   "ende": 81.92,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 280,
+   "satz": 39,
+   "text": "itself",
+   "wort": "itself",
+   "start": 81.92,
+   "ende": 82.28,
+   "p": 0.99,
+   "quelle": "whisper"
+  },
+  {
+   "i": 281,
+   "satz": 39,
+   "text": "into",
+   "wort": "into",
+   "start": 82.28,
+   "ende": 82.5,
+   "p": 0.987,
+   "quelle": "whisper"
+  },
+  {
+   "i": 282,
+   "satz": 39,
+   "text": "the",
+   "wort": "the",
+   "start": 82.5,
+   "ende": 82.66,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 283,
+   "satz": 39,
+   "text": "crawl",
+   "wort": "crawl",
+   "start": 82.66,
+   "ende": 82.84,
+   "p": 0.984,
+   "quelle": "whisper"
+  },
+  {
+   "i": 284,
+   "satz": 39,
+   "text": "space,",
+   "wort": "space",
+   "start": 82.84,
+   "ende": 83.31,
+   "p": 0.744,
+   "quelle": "whisper"
+  },
+  {
+   "i": 285,
+   "satz": 39,
+   "text": "bent",
+   "wort": "bent",
+   "start": 83.48,
+   "ende": 83.62,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 286,
+   "satz": 39,
+   "text": "down,",
+   "wort": "down",
+   "start": 83.62,
+   "ende": 84.08,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 287,
+   "satz": 39,
+   "text": "and",
+   "wort": "and",
+   "start": 84.25,
+   "ende": 84.34,
+   "p": 0.992,
+   "quelle": "whisper"
+  },
+  {
+   "i": 288,
+   "satz": 39,
+   "text": "took",
+   "wort": "took",
+   "start": 84.34,
+   "ende": 84.46,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 289,
+   "satz": 39,
+   "text": "its",
+   "wort": "its",
+   "start": 84.46,
+   "ende": 84.6,
+   "p": 0.952,
+   "quelle": "whisper"
+  },
+  {
+   "i": 290,
+   "satz": 39,
+   "text": "hands",
+   "wort": "hands",
+   "start": 84.6,
+   "ende": 84.86,
+   "p": 0.992,
+   "quelle": "whisper"
+  },
+  {
+   "i": 291,
+   "satz": 39,
+   "text": "away",
+   "wort": "away",
+   "start": 84.86,
+   "ende": 85.08,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 292,
+   "satz": 39,
+   "text": "from",
+   "wort": "from",
+   "start": 85.08,
+   "ende": 85.24,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 293,
+   "satz": 39,
+   "text": "its",
+   "wort": "its",
+   "start": 85.24,
+   "ende": 85.38,
+   "p": 0.99,
+   "quelle": "whisper"
+  },
+  {
+   "i": 294,
+   "satz": 39,
+   "text": "face.",
+   "wort": "face",
+   "start": 85.38,
+   "ende": 85.8,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 295,
+   "satz": 40,
+   "text": "It",
+   "wort": "It",
+   "start": 86.12,
+   "ende": 86.176,
+   "p": 0.558,
+   "quelle": "whisper",
+   "phrasenanfang_nachgezogen": true
+  },
+  {
+   "i": 296,
+   "satz": 40,
+   "text": "had",
+   "wort": "had",
+   "start": 86.176,
+   "ende": 86.26,
+   "p": 0.026,
+   "quelle": "whisper"
+  },
+  {
+   "i": 297,
+   "satz": 40,
+   "text": "June's",
+   "wort": "June's",
+   "start": 86.26,
+   "ende": 86.76,
+   "p": 0.832,
+   "quelle": "whisper"
+  },
+  {
+   "i": 298,
+   "satz": 40,
+   "text": "face,",
+   "wort": "face",
+   "start": 86.76,
+   "ende": 87.11,
+   "p": 0.994,
+   "quelle": "whisper"
+  },
+  {
+   "i": 299,
+   "satz": 40,
+   "text": "far",
+   "wort": "far",
+   "start": 87.24,
+   "ende": 87.5,
+   "p": 0.983,
+   "quelle": "whisper"
+  },
+  {
+   "i": 300,
+   "satz": 40,
+   "text": "too",
+   "wort": "too",
+   "start": 87.5,
+   "ende": 87.68,
+   "p": 0.974,
+   "quelle": "whisper"
+  },
+  {
+   "i": 301,
+   "satz": 40,
+   "text": "big.",
+   "wort": "big",
+   "start": 87.68,
+   "ende": 88.05,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 302,
+   "satz": 41,
+   "text": "The",
+   "wort": "The",
+   "start": 88.39,
+   "ende": 88.46,
+   "p": 0.986,
+   "quelle": "whisper"
+  },
+  {
+   "i": 303,
+   "satz": 41,
+   "text": "eye",
+   "wort": "eye",
+   "start": 88.46,
+   "ende": 88.74,
+   "p": 0.965,
+   "quelle": "whisper"
+  },
+  {
+   "i": 304,
+   "satz": 41,
+   "text": "I",
+   "wort": "I",
+   "start": 88.74,
+   "ende": 88.84,
+   "p": 0.98,
+   "quelle": "whisper"
+  },
+  {
+   "i": 305,
+   "satz": 41,
+   "text": "saw",
+   "wort": "saw",
+   "start": 88.84,
+   "ende": 89.04,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 306,
+   "satz": 41,
+   "text": "between",
+   "wort": "between",
+   "start": 89.04,
+   "ende": 89.3,
+   "p": 0.993,
+   "quelle": "whisper"
+  },
+  {
+   "i": 307,
+   "satz": 41,
+   "text": "its",
+   "wort": "its",
+   "start": 89.3,
+   "ende": 89.48,
+   "p": 0.938,
+   "quelle": "whisper"
+  },
+  {
+   "i": 308,
+   "satz": 41,
+   "text": "fingers",
+   "wort": "fingers",
+   "start": 89.48,
+   "ende": 89.8,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 309,
+   "satz": 41,
+   "text": "was",
+   "wort": "was",
+   "start": 89.8,
+   "ende": 90.02,
+   "p": 0.988,
+   "quelle": "whisper"
+  },
+  {
+   "i": 310,
+   "satz": 41,
+   "text": "hers.",
+   "wort": "hers",
+   "start": 90.02,
+   "ende": 90.49,
+   "p": 0.995,
+   "quelle": "whisper"
+  },
+  {
+   "i": 311,
+   "satz": 42,
+   "text": "\"It",
+   "wort": "It",
+   "start": 90.79,
+   "ende": 90.86,
+   "p": 0.533,
+   "quelle": "whisper"
+  },
+  {
+   "i": 312,
+   "satz": 42,
+   "text": "found",
+   "wort": "found",
+   "start": 90.86,
+   "ende": 91.08,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 313,
+   "satz": 42,
+   "text": "me",
+   "wort": "me",
+   "start": 91.08,
+   "ende": 91.26,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 314,
+   "satz": 42,
+   "text": "six",
+   "wort": "six",
+   "start": 91.26,
+   "ende": 91.5,
+   "p": 0.915,
+   "quelle": "whisper"
+  },
+  {
+   "i": 315,
+   "satz": 42,
+   "text": "years",
+   "wort": "years",
+   "start": 91.5,
+   "ende": 91.74,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 316,
+   "satz": 42,
+   "text": "ago,",
+   "wort": "ago",
+   "start": 91.74,
+   "ende": 92.08,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 317,
+   "satz": 42,
+   "text": "Rabbit.\"",
+   "wort": "Rabbit",
+   "start": 92.08,
+   "ende": 92.44,
+   "p": 0.851,
+   "quelle": "whisper"
+  },
+  {
+   "i": 318,
+   "satz": 43,
+   "text": "\"Dad",
+   "wort": "Dad",
+   "start": 92.72,
+   "ende": 92.9,
+   "p": 0.923,
+   "quelle": "whisper"
+  },
+  {
+   "i": 319,
+   "satz": 43,
+   "text": "hid",
+   "wort": "hid",
+   "start": 92.9,
+   "ende": 93.06,
+   "p": 0.844,
+   "quelle": "whisper"
+  },
+  {
+   "i": 320,
+   "satz": 43,
+   "text": "me",
+   "wort": "me",
+   "start": 93.06,
+   "ende": 93.18,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 321,
+   "satz": 43,
+   "text": "down",
+   "wort": "down",
+   "start": 93.18,
+   "ende": 93.38,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 322,
+   "satz": 43,
+   "text": "here,",
+   "wort": "here",
+   "start": 93.38,
+   "ende": 93.68,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 323,
+   "satz": 43,
+   "text": "so",
+   "wort": "so",
+   "start": 93.84,
+   "ende": 93.96,
+   "p": 0.989,
+   "quelle": "whisper"
+  },
+  {
+   "i": 324,
+   "satz": 43,
+   "text": "it",
+   "wort": "it",
+   "start": 93.96,
+   "ende": 94.08,
+   "p": 0.995,
+   "quelle": "whisper"
+  },
+  {
+   "i": 325,
+   "satz": 43,
+   "text": "took",
+   "wort": "took",
+   "start": 94.08,
+   "ende": 94.2,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 326,
+   "satz": 43,
+   "text": "him,",
+   "wort": "him",
+   "start": 94.2,
+   "ende": 94.57,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 327,
+   "satz": 43,
+   "text": "and",
+   "wort": "and",
+   "start": 94.69,
+   "ende": 94.814,
+   "p": 0.821,
+   "quelle": "whisper",
+   "phrasenanfang_nachgezogen": true
+  },
+  {
+   "i": 328,
+   "satz": 43,
+   "text": "kept",
+   "wort": "kept",
+   "start": 94.814,
+   "ende": 94.98,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 329,
+   "satz": 43,
+   "text": "me.\"",
+   "wort": "me",
+   "start": 94.98,
+   "ende": 95.24,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 330,
+   "satz": 44,
+   "text": "\"When",
+   "wort": "When",
+   "start": 95.54,
+   "ende": 95.64,
+   "p": 0.984,
+   "quelle": "whisper"
+  },
+  {
+   "i": 331,
+   "satz": 44,
+   "text": "I",
+   "wort": "I",
+   "start": 95.64,
+   "ende": 95.76,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 332,
+   "satz": 44,
+   "text": "count,",
+   "wort": "count",
+   "start": 95.76,
+   "ende": 96.22,
+   "p": 0.995,
+   "quelle": "whisper"
+  },
+  {
+   "i": 333,
+   "satz": 44,
+   "text": "it",
+   "wort": "it",
+   "start": 96.45,
+   "ende": 96.56,
+   "p": 0.993,
+   "quelle": "whisper"
+  },
+  {
+   "i": 334,
+   "satz": 44,
+   "text": "sleeps.\"",
+   "wort": "sleeps",
+   "start": 96.56,
+   "ende": 97.11,
+   "p": 0.991,
+   "quelle": "whisper"
+  },
+  {
+   "i": 335,
+   "satz": 45,
+   "text": "\"I",
+   "wort": "I",
+   "start": 97.41,
+   "ende": 97.5,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 336,
+   "satz": 45,
+   "text": "thought",
+   "wort": "thought",
+   "start": 97.5,
+   "ende": 97.64,
+   "p": 0.992,
+   "quelle": "whisper"
+  },
+  {
+   "i": 337,
+   "satz": 45,
+   "text": "it",
+   "wort": "it",
+   "start": 97.64,
+   "ende": 97.76,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 338,
+   "satz": 45,
+   "text": "would",
+   "wort": "would",
+   "start": 97.76,
+   "ende": 97.82,
+   "p": 0.993,
+   "quelle": "whisper"
+  },
+  {
+   "i": 339,
+   "satz": 45,
+   "text": "never",
+   "wort": "never",
+   "start": 97.82,
+   "ende": 98.08,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 340,
+   "satz": 45,
+   "text": "look",
+   "wort": "look",
+   "start": 98.08,
+   "ende": 98.3,
+   "p": 0.995,
+   "quelle": "whisper"
+  },
+  {
+   "i": 341,
+   "satz": 45,
+   "text": "under",
+   "wort": "under",
+   "start": 98.3,
+   "ende": 98.48,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 342,
+   "satz": 45,
+   "text": "its",
+   "wort": "its",
+   "start": 98.48,
+   "ende": 98.64,
+   "p": 0.987,
+   "quelle": "whisper"
+  },
+  {
+   "i": 343,
+   "satz": 45,
+   "text": "own",
+   "wort": "own",
+   "start": 98.64,
+   "ende": 98.8,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 344,
+   "satz": 45,
+   "text": "bed.\"",
+   "wort": "bed",
+   "start": 98.8,
+   "ende": 99.21,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 345,
+   "satz": 46,
+   "text": "Then",
+   "wort": "Then",
+   "start": 99.51,
+   "ende": 99.64,
+   "p": 0.995,
+   "quelle": "whisper"
+  },
+  {
+   "i": 346,
+   "satz": 46,
+   "text": "the",
+   "wort": "the",
+   "start": 99.64,
+   "ende": 99.74,
+   "p": 0.957,
+   "quelle": "whisper"
+  },
+  {
+   "i": 347,
+   "satz": 46,
+   "text": "huge",
+   "wort": "huge",
+   "start": 99.74,
+   "ende": 100.0,
+   "p": 0.993,
+   "quelle": "whisper"
+  },
+  {
+   "i": 348,
+   "satz": 46,
+   "text": "hands",
+   "wort": "hands",
+   "start": 100.0,
+   "ende": 100.38,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 349,
+   "satz": 46,
+   "text": "shook,",
+   "wort": "shook",
+   "start": 100.38,
+   "ende": 100.82,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 350,
+   "satz": 46,
+   "text": "and",
+   "wort": "and",
+   "start": 101.03,
+   "ende": 101.14,
+   "p": 0.994,
+   "quelle": "whisper"
+  },
+  {
+   "i": 351,
+   "satz": 46,
+   "text": "June",
+   "wort": "June",
+   "start": 101.14,
+   "ende": 101.38,
+   "p": 0.991,
+   "quelle": "whisper"
+  },
+  {
+   "i": 352,
+   "satz": 46,
+   "text": "pulled",
+   "wort": "pulled",
+   "start": 101.38,
+   "ende": 101.64,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 353,
+   "satz": 46,
+   "text": "them",
+   "wort": "them",
+   "start": 101.64,
+   "ende": 101.82,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 354,
+   "satz": 46,
+   "text": "back",
+   "wort": "back",
+   "start": 101.82,
+   "ende": 102.04,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 355,
+   "satz": 46,
+   "text": "over",
+   "wort": "over",
+   "start": 102.04,
+   "ende": 102.22,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 356,
+   "satz": 46,
+   "text": "her",
+   "wort": "her",
+   "start": 102.22,
+   "ende": 102.4,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 357,
+   "satz": 46,
+   "text": "own",
+   "wort": "own",
+   "start": 102.4,
+   "ende": 102.56,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 358,
+   "satz": 46,
+   "text": "face.",
+   "wort": "face",
+   "start": 102.56,
+   "ende": 103.03,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 359,
+   "satz": 47,
+   "text": "\"Close",
+   "wort": "Close",
+   "start": 103.33,
+   "ende": 103.48,
+   "p": 0.826,
+   "quelle": "whisper"
+  },
+  {
+   "i": 360,
+   "satz": 47,
+   "text": "your",
+   "wort": "your",
+   "start": 103.48,
+   "ende": 103.64,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 361,
+   "satz": 47,
+   "text": "eyes,",
+   "wort": "eyes",
+   "start": 103.64,
+   "ende": 103.92,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 362,
+   "satz": 47,
+   "text": "Rabbit.\"",
+   "wort": "Rabbit",
+   "start": 103.92,
+   "ende": 104.26,
+   "p": 0.985,
+   "quelle": "whisper"
+  },
+  {
+   "i": 363,
+   "satz": 48,
+   "text": "\"Count",
+   "wort": "Count",
+   "start": 104.57,
+   "ende": 104.7,
+   "p": 0.995,
+   "quelle": "whisper"
+  },
+  {
+   "i": 364,
+   "satz": 48,
+   "text": "with",
+   "wort": "with",
+   "start": 104.7,
+   "ende": 104.88,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 365,
+   "satz": 48,
+   "text": "me.\"",
+   "wort": "me",
+   "start": 104.88,
+   "ende": 105.11,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 366,
+   "satz": 49,
+   "text": "She",
+   "wort": "She",
+   "start": 105.42,
+   "ende": 105.52,
+   "p": 0.993,
+   "quelle": "whisper"
+  },
+  {
+   "i": 367,
+   "satz": 49,
+   "text": "counted",
+   "wort": "counted",
+   "start": 105.52,
+   "ende": 105.78,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 368,
+   "satz": 49,
+   "text": "out",
+   "wort": "out",
+   "start": 105.78,
+   "ende": 105.96,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 369,
+   "satz": 49,
+   "text": "loud,",
+   "wort": "loud",
+   "start": 105.96,
+   "ende": 106.4,
+   "p": 0.99,
+   "quelle": "whisper"
+  },
+  {
+   "i": 370,
+   "satz": 49,
+   "text": "and",
+   "wort": "and",
+   "start": 106.58,
+   "ende": 106.66,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 371,
+   "satz": 49,
+   "text": "it",
+   "wort": "it",
+   "start": 106.66,
+   "ende": 106.74,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 372,
+   "satz": 49,
+   "text": "counted",
+   "wort": "counted",
+   "start": 106.74,
+   "ende": 107.0,
+   "p": 0.995,
+   "quelle": "whisper"
+  },
+  {
+   "i": 373,
+   "satz": 49,
+   "text": "with",
+   "wort": "with",
+   "start": 107.0,
+   "ende": 107.24,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 374,
+   "satz": 49,
+   "text": "her,",
+   "wort": "her",
+   "start": 107.24,
+   "ende": 107.46,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 375,
+   "satz": 49,
+   "text": "slow",
+   "wort": "slow",
+   "start": 107.64,
+   "ende": 107.94,
+   "p": 0.988,
+   "quelle": "whisper"
+  },
+  {
+   "i": 376,
+   "satz": 49,
+   "text": "and",
+   "wort": "and",
+   "start": 107.94,
+   "ende": 108.2,
+   "p": 0.973,
+   "quelle": "whisper"
+  },
+  {
+   "i": 377,
+   "satz": 49,
+   "text": "deep.",
+   "wort": "deep",
+   "start": 108.2,
+   "ende": 108.56,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 378,
+   "satz": 50,
+   "text": "I",
+   "wort": "I",
+   "start": 108.86,
+   "ende": 109.0,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 379,
+   "satz": 50,
+   "text": "counted",
+   "wort": "counted",
+   "start": 109.0,
+   "ende": 109.28,
+   "p": 0.993,
+   "quelle": "whisper"
+  },
+  {
+   "i": 380,
+   "satz": 50,
+   "text": "without",
+   "wort": "without",
+   "start": 109.28,
+   "ende": 109.52,
+   "p": 0.994,
+   "quelle": "whisper"
+  },
+  {
+   "i": 381,
+   "satz": 50,
+   "text": "a",
+   "wort": "a",
+   "start": 109.52,
+   "ende": 109.68,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 382,
+   "satz": 50,
+   "text": "sound.",
+   "wort": "sound",
+   "start": 109.68,
+   "ende": 110.12,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 383,
+   "satz": 51,
+   "text": "Every",
+   "wort": "Every",
+   "start": 110.42,
+   "ende": 110.62,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 384,
+   "satz": 51,
+   "text": "time",
+   "wort": "time",
+   "start": 110.62,
+   "ende": 110.88,
+   "p": 0.994,
+   "quelle": "whisper"
+  },
+  {
+   "i": 385,
+   "satz": 51,
+   "text": "they",
+   "wort": "they",
+   "start": 110.88,
+   "ende": 111.06,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 386,
+   "satz": 51,
+   "text": "reached",
+   "wort": "reached",
+   "start": 111.06,
+   "ende": 111.28,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 387,
+   "satz": 51,
+   "text": "one",
+   "wort": "one",
+   "start": 111.28,
+   "ende": 111.48,
+   "p": 0.872,
+   "quelle": "whisper"
+  },
+  {
+   "i": 388,
+   "satz": 51,
+   "text": "hundred,",
+   "wort": "hundred",
+   "start": 111.48,
+   "ende": 111.9,
+   "p": 0.872,
+   "quelle": "whisper"
+  },
+  {
+   "i": 389,
+   "satz": 51,
+   "text": "she",
+   "wort": "she",
+   "start": 112.07,
+   "ende": 112.18,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 390,
+   "satz": 51,
+   "text": "started",
+   "wort": "started",
+   "start": 112.18,
+   "ende": 112.46,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 391,
+   "satz": 51,
+   "text": "over,",
+   "wort": "over",
+   "start": 112.46,
+   "ende": 112.85,
+   "p": 1.0,
+   "quelle": "whisper"
+  },
+  {
+   "i": 392,
+   "satz": 51,
+   "text": "before",
+   "wort": "before",
+   "start": 113.04,
+   "ende": 113.18,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 393,
+   "satz": 51,
+   "text": "it",
+   "wort": "it",
+   "start": 113.18,
+   "ende": 113.38,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 394,
+   "satz": 51,
+   "text": "could",
+   "wort": "could",
+   "start": 113.38,
+   "ende": 113.46,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 395,
+   "satz": 51,
+   "text": "ask.",
+   "wort": "ask",
+   "start": 113.46,
+   "ende": 113.9,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 396,
+   "satz": 52,
+   "text": "Near",
+   "wort": "Near",
+   "start": 114.21,
+   "ende": 114.455,
+   "p": 0.151,
+   "quelle": "whisper",
+   "phrasenanfang_nachgezogen": true
+  },
+  {
+   "i": 397,
+   "satz": 52,
+   "text": "dawn,",
+   "wort": "dawn",
+   "start": 114.455,
+   "ende": 114.83,
+   "p": 0.778,
+   "quelle": "whisper"
+  },
+  {
+   "i": 398,
+   "satz": 52,
+   "text": "her",
+   "wort": "her",
+   "start": 114.99,
+   "ende": 115.114,
+   "p": 0.757,
+   "quelle": "whisper",
+   "phrasenanfang_nachgezogen": true
+  },
+  {
+   "i": 399,
+   "satz": 52,
+   "text": "voice",
+   "wort": "voice",
+   "start": 115.114,
+   "ende": 115.32,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 400,
+   "satz": 52,
+   "text": "grew",
+   "wort": "grew",
+   "start": 115.32,
+   "ende": 115.52,
+   "p": 0.995,
+   "quelle": "whisper"
+  },
+  {
+   "i": 401,
+   "satz": 52,
+   "text": "faint,",
+   "wort": "faint",
+   "start": 115.52,
+   "ende": 115.96,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 402,
+   "satz": 52,
+   "text": "like",
+   "wort": "like",
+   "start": 116.14,
+   "ende": 116.266,
+   "p": 0.929,
+   "quelle": "whisper",
+   "phrasenanfang_nachgezogen": true
+  },
+  {
+   "i": 403,
+   "satz": 52,
+   "text": "she",
+   "wort": "she",
+   "start": 116.266,
+   "ende": 116.36,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 404,
+   "satz": 52,
+   "text": "was",
+   "wort": "was",
+   "start": 116.36,
+   "ende": 116.48,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 405,
+   "satz": 52,
+   "text": "falling",
+   "wort": "falling",
+   "start": 116.48,
+   "ende": 116.74,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 406,
+   "satz": 52,
+   "text": "asleep.",
+   "wort": "asleep",
+   "start": 116.74,
+   "ende": 117.22,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 407,
+   "satz": 53,
+   "text": "At",
+   "wort": "At",
+   "start": 117.52,
+   "ende": 117.613,
+   "p": 0.683,
+   "quelle": "whisper",
+   "phrasenanfang_nachgezogen": true
+  },
+  {
+   "i": 408,
+   "satz": 53,
+   "text": "ninety-nine,",
+   "wort": "ninety-nine",
+   "start": 117.613,
+   "ende": 118.36,
+   "p": 0.856,
+   "quelle": "whisper"
+  },
+  {
+   "i": 409,
+   "satz": 53,
+   "text": "she",
+   "wort": "she",
+   "start": 118.49,
+   "ende": 118.643,
+   "p": 0.773,
+   "quelle": "whisper",
+   "phrasenanfang_nachgezogen": true
+  },
+  {
+   "i": 410,
+   "satz": 53,
+   "text": "stopped.",
+   "wort": "stopped",
+   "start": 118.643,
+   "ende": 119.08,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 411,
+   "satz": 54,
+   "text": "Instead",
+   "wort": "Instead",
+   "start": 119.38,
+   "ende": 119.56,
+   "p": 0.956,
+   "quelle": "whisper"
+  },
+  {
+   "i": 412,
+   "satz": 54,
+   "text": "of",
+   "wort": "of",
+   "start": 119.56,
+   "ende": 119.74,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 413,
+   "satz": 54,
+   "text": "one",
+   "wort": "one",
+   "start": 119.74,
+   "ende": 119.95,
+   "p": 0.98,
+   "quelle": "whisper"
+  },
+  {
+   "i": 414,
+   "satz": 54,
+   "text": "hundred,",
+   "wort": "hundred",
+   "start": 119.95,
+   "ende": 120.32,
+   "p": 0.98,
+   "quelle": "whisper"
+  },
+  {
+   "i": 415,
+   "satz": 54,
+   "text": "the",
+   "wort": "the",
+   "start": 120.55,
+   "ende": 120.655,
+   "p": 0.966,
+   "quelle": "whisper",
+   "phrasenanfang_nachgezogen": true
+  },
+  {
+   "i": 416,
+   "satz": 54,
+   "text": "sunrise",
+   "wort": "sunrise",
+   "start": 120.655,
+   "ende": 120.9,
+   "p": 0.905,
+   "quelle": "whisper"
+  },
+  {
+   "i": 417,
+   "satz": 54,
+   "text": "bell",
+   "wort": "bell",
+   "start": 120.9,
+   "ende": 121.28,
+   "p": 0.897,
+   "quelle": "whisper"
+  },
+  {
+   "i": 418,
+   "satz": 54,
+   "text": "rang.",
+   "wort": "rang",
+   "start": 121.28,
+   "ende": 121.75,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 419,
+   "satz": 55,
+   "text": "When",
+   "wort": "When",
+   "start": 122.05,
+   "ende": 122.218,
+   "p": 0.967,
+   "quelle": "whisper",
+   "phrasenanfang_nachgezogen": true
+  },
+  {
+   "i": 420,
+   "satz": 55,
+   "text": "I",
+   "wort": "I",
+   "start": 122.218,
+   "ende": 122.26,
+   "p": 0.935,
+   "quelle": "whisper"
+  },
+  {
+   "i": 421,
+   "satz": 55,
+   "text": "opened",
+   "wort": "opened",
+   "start": 122.26,
+   "ende": 122.42,
+   "p": 0.983,
+   "quelle": "whisper"
+  },
+  {
+   "i": 422,
+   "satz": 55,
+   "text": "my",
+   "wort": "my",
+   "start": 122.42,
+   "ende": 122.64,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 423,
+   "satz": 55,
+   "text": "eyes,",
+   "wort": "eyes",
+   "start": 122.64,
+   "ende": 123.06,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 424,
+   "satz": 55,
+   "text": "Hiding",
+   "wort": "Hiding",
+   "start": 123.24,
+   "ende": 123.46,
+   "p": 0.91,
+   "quelle": "whisper"
+  },
+  {
+   "i": 425,
+   "satz": 55,
+   "text": "Night",
+   "wort": "Night",
+   "start": 123.46,
+   "ende": 123.72,
+   "p": 0.893,
+   "quelle": "whisper"
+  },
+  {
+   "i": 426,
+   "satz": 55,
+   "text": "was",
+   "wort": "was",
+   "start": 123.72,
+   "ende": 123.9,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 427,
+   "satz": 55,
+   "text": "over,",
+   "wort": "over",
+   "start": 123.9,
+   "ende": 124.26,
+   "p": 1.0,
+   "quelle": "whisper"
+  },
+  {
+   "i": 428,
+   "satz": 55,
+   "text": "and",
+   "wort": "and",
+   "start": 124.43,
+   "ende": 124.588,
+   "p": 0.99,
+   "quelle": "whisper",
+   "phrasenanfang_nachgezogen": true
+  },
+  {
+   "i": 429,
+   "satz": 55,
+   "text": "I",
+   "wort": "I",
+   "start": 124.588,
+   "ende": 124.64,
+   "p": 0.995,
+   "quelle": "whisper"
+  },
+  {
+   "i": 430,
+   "satz": 55,
+   "text": "was",
+   "wort": "was",
+   "start": 124.64,
+   "ende": 124.74,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 431,
+   "satz": 55,
+   "text": "alone.",
+   "wort": "alone",
+   "start": 124.74,
+   "ende": 125.2,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 432,
+   "satz": 56,
+   "text": "I",
+   "wort": "I",
+   "start": 125.5,
+   "ende": 125.538,
+   "p": 0.961,
+   "quelle": "whisper",
+   "phrasenanfang_nachgezogen": true
+  },
+  {
+   "i": 433,
+   "satz": 56,
+   "text": "climbed",
+   "wort": "climbed",
+   "start": 125.538,
+   "ende": 125.8,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 434,
+   "satz": 56,
+   "text": "out.",
+   "wort": "out",
+   "start": 125.8,
+   "ende": 126.18,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 435,
+   "satz": 57,
+   "text": "June's",
+   "wort": "June's",
+   "start": 126.48,
+   "ende": 126.84,
+   "p": 0.679,
+   "quelle": "whisper"
+  },
+  {
+   "i": 436,
+   "satz": 57,
+   "text": "red",
+   "wort": "red",
+   "start": 126.84,
+   "ende": 127.02,
+   "p": 0.893,
+   "quelle": "whisper"
+  },
+  {
+   "i": 437,
+   "satz": 57,
+   "text": "sneakers",
+   "wort": "sneakers",
+   "start": 127.02,
+   "ende": 127.4,
+   "p": 0.99,
+   "quelle": "whisper"
+  },
+  {
+   "i": 438,
+   "satz": 57,
+   "text": "still",
+   "wort": "still",
+   "start": 127.4,
+   "ende": 127.74,
+   "p": 0.995,
+   "quelle": "whisper"
+  },
+  {
+   "i": 439,
+   "satz": 57,
+   "text": "stood",
+   "wort": "stood",
+   "start": 127.74,
+   "ende": 127.96,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 440,
+   "satz": 57,
+   "text": "by",
+   "wort": "by",
+   "start": 127.96,
+   "ende": 128.18,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 441,
+   "satz": 57,
+   "text": "her",
+   "wort": "her",
+   "start": 128.18,
+   "ende": 128.32,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 442,
+   "satz": 57,
+   "text": "bed,",
+   "wort": "bed",
+   "start": 128.32,
+   "ende": 128.67,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 443,
+   "satz": 57,
+   "text": "side",
+   "wort": "side",
+   "start": 128.89,
+   "ende": 129.14,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 444,
+   "satz": 57,
+   "text": "by",
+   "wort": "by",
+   "start": 129.14,
+   "ende": 129.32,
+   "p": 0.774,
+   "quelle": "whisper"
+  },
+  {
+   "i": 445,
+   "satz": 57,
+   "text": "side.",
+   "wort": "side",
+   "start": 129.32,
+   "ende": 129.82,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 446,
+   "satz": 58,
+   "text": "In",
+   "wort": "In",
+   "start": 129.97,
+   "ende": 130.06,
+   "p": 0.979,
+   "quelle": "whisper"
+  },
+  {
+   "i": 447,
+   "satz": 58,
+   "text": "the",
+   "wort": "the",
+   "start": 130.06,
+   "ende": 130.16,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 448,
+   "satz": 58,
+   "text": "hall,",
+   "wort": "hall",
+   "start": 130.16,
+   "ende": 130.44,
+   "p": 0.864,
+   "quelle": "whisper"
+  },
+  {
+   "i": 449,
+   "satz": 58,
+   "text": "my",
+   "wort": "my",
+   "start": 130.44,
+   "ende": 130.9,
+   "p": 0.984,
+   "quelle": "whisper"
+  },
+  {
+   "i": 450,
+   "satz": 58,
+   "text": "sneakers",
+   "wort": "sneakers",
+   "start": 130.9,
+   "ende": 131.2,
+   "p": 0.993,
+   "quelle": "whisper"
+  },
+  {
+   "i": 451,
+   "satz": 58,
+   "text": "still",
+   "wort": "still",
+   "start": 131.2,
+   "ende": 131.58,
+   "p": 0.992,
+   "quelle": "whisper"
+  },
+  {
+   "i": 452,
+   "satz": 58,
+   "text": "stood",
+   "wort": "stood",
+   "start": 131.58,
+   "ende": 131.86,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 453,
+   "satz": 58,
+   "text": "side",
+   "wort": "side",
+   "start": 131.86,
+   "ende": 132.16,
+   "p": 0.998,
+   "quelle": "whisper"
+  },
+  {
+   "i": 454,
+   "satz": 58,
+   "text": "by",
+   "wort": "by",
+   "start": 132.16,
+   "ende": 132.34,
+   "p": 0.958,
+   "quelle": "whisper"
+  },
+  {
+   "i": 455,
+   "satz": 58,
+   "text": "side.",
+   "wort": "side",
+   "start": 132.34,
+   "ende": 132.81,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 456,
+   "satz": 59,
+   "text": "Every",
+   "wort": "Every",
+   "start": 133.13,
+   "ende": 133.32,
+   "p": 0.988,
+   "quelle": "whisper"
+  },
+  {
+   "i": 457,
+   "satz": 59,
+   "text": "night",
+   "wort": "night",
+   "start": 133.32,
+   "ende": 133.5,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 458,
+   "satz": 59,
+   "text": "since,",
+   "wort": "since",
+   "start": 133.5,
+   "ende": 134.0,
+   "p": 0.991,
+   "quelle": "whisper"
+  },
+  {
+   "i": 459,
+   "satz": 59,
+   "text": "I",
+   "wort": "I",
+   "start": 134.14,
+   "ende": 134.187,
+   "p": 0.967,
+   "quelle": "whisper",
+   "phrasenanfang_nachgezogen": true
+  },
+  {
+   "i": 460,
+   "satz": 59,
+   "text": "count",
+   "wort": "count",
+   "start": 134.187,
+   "ende": 134.42,
+   "p": 0.989,
+   "quelle": "whisper"
+  },
+  {
+   "i": 461,
+   "satz": 59,
+   "text": "to",
+   "wort": "to",
+   "start": 134.42,
+   "ende": 134.56,
+   "p": 0.989,
+   "quelle": "whisper"
+  },
+  {
+   "i": 462,
+   "satz": 59,
+   "text": "one",
+   "wort": "one",
+   "start": 134.56,
+   "ende": 134.78,
+   "p": 0.964,
+   "quelle": "whisper"
+  },
+  {
+   "i": 463,
+   "satz": 59,
+   "text": "hundred",
+   "wort": "hundred",
+   "start": 134.78,
+   "ende": 135.0,
+   "p": 0.964,
+   "quelle": "whisper"
+  },
+  {
+   "i": 464,
+   "satz": 59,
+   "text": "before",
+   "wort": "before",
+   "start": 135.0,
+   "ende": 135.4,
+   "p": 0.996,
+   "quelle": "whisper"
+  },
+  {
+   "i": 465,
+   "satz": 59,
+   "text": "I",
+   "wort": "I",
+   "start": 135.4,
+   "ende": 135.56,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 466,
+   "satz": 59,
+   "text": "fall",
+   "wort": "fall",
+   "start": 135.56,
+   "ende": 135.72,
+   "p": 0.997,
+   "quelle": "whisper"
+  },
+  {
+   "i": 467,
+   "satz": 59,
+   "text": "asleep.",
+   "wort": "asleep",
+   "start": 135.72,
+   "ende": 136.17,
+   "p": 0.999,
+   "quelle": "whisper"
+  },
+  {
+   "i": 468,
+   "satz": 60,
+   "text": "It",
+   "wort": "It",
+   "start": 136.46,
+   "ende": 136.551,
+   "p": 0.964,
+   "quelle": "whisper",
+   "phrasenanfang_nachgezogen": true
+  },
+  {
+   "i": 469,
+   "satz": 60,
+   "text": "helps.",
+   "wort": "helps",
+   "start": 136.551,
+   "ende": 136.95,
+   "p": 0.998,
+   "quelle": "whisper"
+  }
+ ],
+ "saetze": [
+  {
+   "nr": 1,
+   "text": "Mister Hundred takes you at eighteen if it finds you, and it called to me in my sister's voice.",
+   "start": 0.0,
+   "ende": 4.35,
+   "wort_von": 0,
+   "wort_bis": 18,
+   "block": "hook"
+  },
+  {
+   "nr": 2,
+   "text": "Nobody can help you hide.",
+   "start": 4.66,
+   "ende": 5.87,
+   "wort_von": 19,
+   "wort_bis": 23,
+   "block": "neu-pflanzen"
+  },
+  {
+   "nr": 3,
+   "text": "If they try, it takes them too.",
+   "start": 6.2,
+   "ende": 7.88,
+   "wort_von": 24,
+   "wort_bis": 30,
+   "block": "neu-pflanzen"
+  },
+  {
+   "nr": 4,
+   "text": "My sister June hid me anyway, under her room.",
+   "start": 8.17,
+   "ende": 10.48,
+   "wort_von": 31,
+   "wort_bis": 39,
+   "block": "neu-pflanzen"
+  },
+  {
+   "nr": 5,
+   "text": "\"It never looks in my room, Rabbit.\"",
+   "start": 10.76,
+   "ende": 12.27,
+   "wort_von": 40,
+   "wort_bis": 46,
+   "block": "neu-pflanzen"
+  },
+  {
+   "nr": 6,
+   "text": "Every night, she counts to one hundred before she falls asleep.",
+   "start": 12.57,
+   "ende": 15.06,
+   "wort_von": 47,
+   "wort_bis": 57,
+   "block": "neu-pflanzen"
+  },
+  {
+   "nr": 7,
+   "text": "She says it helps.",
+   "start": 15.36,
+   "ende": 16.16,
+   "wort_von": 58,
+   "wort_bis": 61,
+   "block": "neu-pflanzen"
+  },
+  {
+   "nr": 8,
+   "text": "Tonight, something above me finished her count, and asked if I was ready.",
+   "start": 16.46,
+   "ende": 19.97,
+   "wort_von": 62,
+   "wort_bis": 74,
+   "block": "nach-ready"
+  },
+  {
+   "nr": 9,
+   "text": "I held my breath.",
+   "start": 20.26,
+   "ende": 21.05,
+   "wort_von": 75,
+   "wort_bis": 78,
+   "block": "nach-ready"
+  },
+  {
+   "nr": 10,
+   "text": "It still came out white.",
+   "start": 21.36,
+   "ende": 22.38,
+   "wort_von": 79,
+   "wort_bis": 83,
+   "block": "nach-ready"
+  },
+  {
+   "nr": 11,
+   "text": "Then the weight lifted off the boards.",
+   "start": 22.68,
+   "ende": 24.39,
+   "wort_von": 84,
+   "wort_bis": 90,
+   "block": "nach-ready"
+  },
+  {
+   "nr": 12,
+   "text": "Through a crack, I saw June's red sneakers by her bed, side by side.",
+   "start": 24.69,
+   "ende": 28.57,
+   "wort_von": 91,
+   "wort_bis": 104,
+   "block": "nach-ready"
+  },
+  {
+   "nr": 13,
+   "text": "Side by side is all it leaves.",
+   "start": 28.86,
+   "ende": 30.48,
+   "wort_von": 105,
+   "wort_bis": 111,
+   "block": "nach-ready"
+  },
+  {
+   "nr": 14,
+   "text": "It took her, I thought, because she helped me.",
+   "start": 30.78,
+   "ende": 32.82,
+   "wort_von": 112,
+   "wort_bis": 120,
+   "block": "nach-ready"
+  },
+  {
+   "nr": 15,
+   "text": "It left through her window.",
+   "start": 33.12,
+   "ende": 34.32,
+   "wort_von": 121,
+   "wort_bis": 125,
+   "block": "nach-ready"
+  },
+  {
+   "nr": 16,
+   "text": "Through the vent, I saw the bell tower, where Tess Lowry was hiding, higher than any window.",
+   "start": 34.62,
+   "ende": 39.18,
+   "wort_von": 126,
+   "wort_bis": 142,
+   "block": "spiegelszene"
+  },
+  {
+   "nr": 17,
+   "text": "It stood up straight, taller than anyone knew.",
+   "start": 39.48,
+   "ende": 41.74,
+   "wort_von": 143,
+   "wort_bis": 150,
+   "block": "spiegelszene"
+  },
+  {
+   "nr": 18,
+   "text": "Then it took its hands away from its face.",
+   "start": 42.05,
+   "ende": 43.77,
+   "wort_von": 151,
+   "wort_bis": 159,
+   "block": "spiegelszene"
+  },
+  {
+   "nr": 19,
+   "text": "Her flashlight went out.",
+   "start": 44.06,
+   "ende": 45.06,
+   "wort_von": 160,
+   "wort_bis": 163,
+   "block": "spiegelszene"
+  },
+  {
+   "nr": 20,
+   "text": "The bell rope swung once, without a sound.",
+   "start": 45.39,
+   "ende": 47.68,
+   "wort_von": 164,
+   "wort_bis": 171,
+   "block": "spiegelszene"
+  },
+  {
+   "nr": 21,
+   "text": "Then it came down Main Street, looking in every upstairs window.",
+   "start": 47.98,
+   "ende": 51.03,
+   "wort_von": 172,
+   "wort_bis": 182,
+   "block": "strasse-finger"
+  },
+  {
+   "nr": 22,
+   "text": "It stopped at mine, then bent down to June's.",
+   "start": 51.33,
+   "ende": 53.62,
+   "wort_von": 183,
+   "wort_bis": 191,
+   "block": "strasse-finger"
+  },
+  {
+   "nr": 23,
+   "text": "I wanted to run, but Owen Pike ran, and only his shoes came home.",
+   "start": 53.92,
+   "ende": 57.61,
+   "wort_von": 192,
+   "wort_bis": 205,
+   "block": "strasse-finger"
+  },
+  {
+   "nr": 24,
+   "text": "The boards above me groaned.",
+   "start": 57.91,
+   "ende": 59.27,
+   "wort_von": 206,
+   "wort_bis": 210,
+   "block": "strasse-finger"
+  },
+  {
+   "nr": 25,
+   "text": "A long white finger slid through the crack and felt along the dirt, inches from my face.",
+   "start": 59.59,
+   "ende": 63.85,
+   "wort_von": 211,
+   "wort_bis": 227,
+   "block": "strasse-finger"
+  },
+  {
+   "nr": 26,
+   "text": "Then it pulled back.",
+   "start": 64.16,
+   "ende": 64.98,
+   "wort_von": 228,
+   "wort_bis": 231,
+   "block": "strasse-finger"
+  },
+  {
+   "nr": 27,
+   "text": "Nothing, until three in the morning.",
+   "start": 65.29,
+   "ende": 66.96,
+   "wort_von": 232,
+   "wort_bis": 237,
+   "block": "strasse-finger"
+  },
+  {
+   "nr": 28,
+   "text": "\"Rabbit?\"",
+   "start": 67.24,
+   "ende": 67.65,
+   "wort_von": 238,
+   "wort_bis": 238,
+   "block": "lockruf"
+  },
+  {
+   "nr": 29,
+   "text": "\"You can come out now.\"",
+   "start": 67.94,
+   "ende": 68.7,
+   "wort_von": 239,
+   "wort_bis": 243,
+   "block": "lockruf"
+  },
+  {
+   "nr": 30,
+   "text": "\"It's gone.\"",
+   "start": 69.0,
+   "ende": 69.53,
+   "wort_von": 244,
+   "wort_bis": 245,
+   "block": "lockruf"
+  },
+  {
+   "nr": 31,
+   "text": "It was June's voice, three hours before sunrise.",
+   "start": 69.83,
+   "ende": 72.29,
+   "wort_von": 246,
+   "wort_bis": 253,
+   "block": "lockruf"
+  },
+  {
+   "nr": 32,
+   "text": "I didn't answer.",
+   "start": 72.6,
+   "ende": 73.26,
+   "wort_von": 254,
+   "wort_bis": 256,
+   "block": "lockruf"
+  },
+  {
+   "nr": 33,
+   "text": "Then the voice started counting, like every night.",
+   "start": 73.57,
+   "ende": 75.67,
+   "wort_von": 257,
+   "wort_bis": 264,
+   "block": "lockruf"
+  },
+  {
+   "nr": 34,
+   "text": "\"Ninety-nine.\"",
+   "start": 75.97,
+   "ende": 76.81,
+   "wort_von": 265,
+   "wort_bis": 265,
+   "block": "lockruf"
+  },
+  {
+   "nr": 35,
+   "text": "\"One hundred.\"",
+   "start": 77.11,
+   "ende": 77.65,
+   "wort_von": 266,
+   "wort_bis": 267,
+   "block": "lockruf"
+  },
+  {
+   "nr": 36,
+   "text": "\"Ready, Rabbit?\"",
+   "start": 77.96,
+   "ende": 78.56,
+   "wort_von": 268,
+   "wort_bis": 269,
+   "block": "lockruf"
+  },
+  {
+   "nr": 37,
+   "text": "I didn't answer.",
+   "start": 78.86,
+   "ende": 79.53,
+   "wort_von": 270,
+   "wort_bis": 272,
+   "block": "wendung"
+  },
+  {
+   "nr": 38,
+   "text": "The hatch opened anyway.",
+   "start": 79.83,
+   "ende": 80.85,
+   "wort_von": 273,
+   "wort_bis": 276,
+   "block": "wendung"
+  },
+  {
+   "nr": 39,
+   "text": "Mister Hundred folded itself into the crawl space, bent down, and took its hands away from its face.",
+   "start": 81.15,
+   "ende": 85.8,
+   "wort_von": 277,
+   "wort_bis": 294,
+   "block": "wendung"
+  },
+  {
+   "nr": 40,
+   "text": "It had June's face, far too big.",
+   "start": 86.12,
+   "ende": 88.05,
+   "wort_von": 295,
+   "wort_bis": 301,
+   "block": "wendung"
+  },
+  {
+   "nr": 41,
+   "text": "The eye I saw between its fingers was hers.",
+   "start": 88.39,
+   "ende": 90.49,
+   "wort_von": 302,
+   "wort_bis": 310,
+   "block": "wendung"
+  },
+  {
+   "nr": 42,
+   "text": "\"It found me six years ago, Rabbit.\"",
+   "start": 90.79,
+   "ende": 92.44,
+   "wort_von": 311,
+   "wort_bis": 317,
+   "block": "wendung"
+  },
+  {
+   "nr": 43,
+   "text": "\"Dad hid me down here, so it took him, and kept me.\"",
+   "start": 92.72,
+   "ende": 95.24,
+   "wort_von": 318,
+   "wort_bis": 329,
+   "block": "wendung"
+  },
+  {
+   "nr": 44,
+   "text": "\"When I count, it sleeps.\"",
+   "start": 95.54,
+   "ende": 97.11,
+   "wort_von": 330,
+   "wort_bis": 334,
+   "block": "wendung"
+  },
+  {
+   "nr": 45,
+   "text": "\"I thought it would never look under its own bed.\"",
+   "start": 97.41,
+   "ende": 99.21,
+   "wort_von": 335,
+   "wort_bis": 344,
+   "block": "wendung"
+  },
+  {
+   "nr": 46,
+   "text": "Then the huge hands shook, and June pulled them back over her own face.",
+   "start": 99.51,
+   "ende": 103.03,
+   "wort_von": 345,
+   "wort_bis": 358,
+   "block": "hoehepunkt"
+  },
+  {
+   "nr": 47,
+   "text": "\"Close your eyes, Rabbit.\"",
+   "start": 103.33,
+   "ende": 104.26,
+   "wort_von": 359,
+   "wort_bis": 362,
+   "block": "hoehepunkt"
+  },
+  {
+   "nr": 48,
+   "text": "\"Count with me.\"",
+   "start": 104.57,
+   "ende": 105.11,
+   "wort_von": 363,
+   "wort_bis": 365,
+   "block": "hoehepunkt"
+  },
+  {
+   "nr": 49,
+   "text": "She counted out loud, and it counted with her, slow and deep.",
+   "start": 105.42,
+   "ende": 108.56,
+   "wort_von": 366,
+   "wort_bis": 377,
+   "block": "hoehepunkt"
+  },
+  {
+   "nr": 50,
+   "text": "I counted without a sound.",
+   "start": 108.86,
+   "ende": 110.12,
+   "wort_von": 378,
+   "wort_bis": 382,
+   "block": "hoehepunkt"
+  },
+  {
+   "nr": 51,
+   "text": "Every time they reached one hundred, she started over, before it could ask.",
+   "start": 110.42,
+   "ende": 113.9,
+   "wort_von": 383,
+   "wort_bis": 395,
+   "block": "hoehepunkt"
+  },
+  {
+   "nr": 52,
+   "text": "Near dawn, her voice grew faint, like she was falling asleep.",
+   "start": 114.21,
+   "ende": 117.22,
+   "wort_von": 396,
+   "wort_bis": 406,
+   "block": "hoehepunkt"
+  },
+  {
+   "nr": 53,
+   "text": "At ninety-nine, she stopped.",
+   "start": 117.52,
+   "ende": 119.08,
+   "wort_von": 407,
+   "wort_bis": 410,
+   "block": "hoehepunkt"
+  },
+  {
+   "nr": 54,
+   "text": "Instead of one hundred, the sunrise bell rang.",
+   "start": 119.38,
+   "ende": 121.75,
+   "wort_von": 411,
+   "wort_bis": 418,
+   "block": "hoehepunkt"
+  },
+  {
+   "nr": 55,
+   "text": "When I opened my eyes, Hiding Night was over, and I was alone.",
+   "start": 122.05,
+   "ende": 125.2,
+   "wort_von": 419,
+   "wort_bis": 431,
+   "block": "schluss"
+  },
+  {
+   "nr": 56,
+   "text": "I climbed out.",
+   "start": 125.5,
+   "ende": 126.18,
+   "wort_von": 432,
+   "wort_bis": 434,
+   "block": "schluss"
+  },
+  {
+   "nr": 57,
+   "text": "June's red sneakers still stood by her bed, side by side.",
+   "start": 126.48,
+   "ende": 129.82,
+   "wort_von": 435,
+   "wort_bis": 445,
+   "block": "schluss"
+  },
+  {
+   "nr": 58,
+   "text": "In the hall, my sneakers still stood side by side.",
+   "start": 129.97,
+   "ende": 132.81,
+   "wort_von": 446,
+   "wort_bis": 455,
+   "block": "schluss"
+  },
+  {
+   "nr": 59,
+   "text": "Every night since, I count to one hundred before I fall asleep.",
+   "start": 133.13,
+   "ende": 136.17,
+   "wort_von": 456,
+   "wort_bis": 467,
+   "block": "schluss"
+  },
+  {
+   "nr": 60,
+   "text": "It helps.",
+   "start": 136.46,
+   "ende": 136.95,
+   "wort_von": 468,
+   "wort_bis": 469,
+   "block": "schluss"
+  }
+ ],
+ "pruefung": {
+  "wer": 0.0021,
+  "fehler": [],
+  "eingefuegt": [
+   {
+    "gehoert": "and",
+    "zeit_s": 56.04
+   }
+  ],
+  "erstes_wort_s": 0.0,
+  "nach_letztem_wort_s": 0.14,
+  "sprache_nach_letztem_wort_s": 0,
+  "laengste_stille_s": 0.34,
+  "laengste_leise_strecke_unter_35db_s": 0.37,
+  "laengste_wortluecke_s": 0.34,
+  "wortluecken_ueber_0_35": 0,
+  "eingerastet": 199,
+  "dauer_im_ziel_70_90": false
+ }
+}

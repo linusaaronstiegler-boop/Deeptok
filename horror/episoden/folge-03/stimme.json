@@ -1,0 +1,533 @@
+{
+ "folge": "folge-03",
+ "serie": "Hiding Night",
+ "teil": 3,
+ "erstellt": "2026-11-16",
+ "anbieter": "ElevenLabs-Connector (Creative Flows)",
+ "fassung": "Erstaufnahme der Endfassung des Finales (skript.txt, 60 Sätze, 470 Wörter)",
+ "flow": {
+  "flow_id": "l7zQZwwTVH7gafLtHLe7",
+  "name": "Hiding Night – Teil 3 (Finale) – Stimme Adam",
+  "node_id": "JmEYFjOf9HrgMbRKDJJC",
+  "hinweis": "Eigener Flow für das Finale. Ein Aufruf für den ganzen Text mit 2 Takes, keine Kostenschätzung vorab (Kosten = Zeichenzahl je Take)."
+ },
+ "stimme": {
+  "name": "Adam - Dominant, Firm",
+  "voice_id": "pNInz6obpgDQGcFmaJgB",
+  "kategorie": "premade",
+  "modell": "eleven_v4",
+  "generations_count": 2,
+  "bestaetigt_mit": "creative_list_voices (Suche „Adam“, 16.11.2026)"
+ },
+ "eingabe": {
+  "text": "Mister Hundred takes you at eighteen if it finds you, and it called to me in my sister's voice. Nobody can help you hide. If they try, it takes them too. My sister June hid me anyway, under her room.\n\n[softly] \"It never looks in my room, Rabbit.\"\n\nEvery night, she counts to one hundred before she falls asleep. She says it helps.\n\n[nervous] Tonight, something above me finished her count, and asked if I was ready. I held my breath. It still came out white. Then the weight lifted off the boards. Through a crack, I saw June's red sneakers by her bed, side by side. Side by side is all it leaves. It took her, I thought, because she helped me. It left through her window.\n\nThrough the vent, I saw the bell tower, where Tess Lowry was hiding, higher than any window. It stood up straight, taller than anyone knew. Then it took its hands away from its face. Her flashlight went out. The bell rope swung once, without a sound.\n\nThen it came down Main Street, looking in every upstairs window. It stopped at mine, then bent down to June's. I wanted to run, but Owen Pike ran, and only his shoes came home.\n\n[nervous] The boards above me groaned. A long white finger slid through the crack and felt along the dirt, inches from my face. Then it pulled back. Nothing, until three in the morning.\n\n[softly] \"Rabbit?\" \"You can come out now.\" \"It's gone.\"\n\nIt was June's voice, three hours before sunrise. I didn't answer. Then the voice started counting, like every night.\n\n[softly] \"Ninety-nine.\" \"One hundred.\" \"Ready, Rabbit?\"\n\n[nervous] I didn't answer. The hatch opened anyway. Mister Hundred folded itself into the crawl space, bent down, and took its hands away from its face. It had June's face, far too big. The eye I saw between its fingers was hers.\n\n[softly] \"It found me six years ago, Rabbit.\" \"Dad hid me down here, so it took him, and kept me.\" \"When I count, it sleeps.\" \"I thought it would never look under its own bed.\"\n\nThen the huge hands shook, and June pulled them back over her own face.\n\n[softly] \"Close your eyes, Rabbit.\" \"Count with me.\"\n\nShe counted out loud, and it counted with her, slow and deep. I counted without a sound. Every time they reached one hundred, she started over, before it could ask. Near dawn, her voice grew faint, like she was falling asleep. At ninety-nine, she stopped. Instead of one hundred, the sunrise bell rang.\n\nWhen I opened my eyes, Hiding Night was over, and I was alone. I climbed out. June's red sneakers still stood by her bed, side by side. In the hall, my sneakers still stood side by side.\n\nEvery night since, I count to one hundred before I fall asleep. It helps.",
+  "zeichen": 2624,
+  "sha256": "3db968bfc47ecf789ac493737ac62d1ec58700eae6b2befbd3ce4b5273feae20",
+  "generierungen": 1,
+  "abweichungen_vom_skript": [
+   "Absätze an den Blockgrenzen (Sätze 1–4, 5, 6–7, 8–15, 16–20, 21–23, 24–27, 28–30, 31–33, 34–36, 37–41, 42–45, 46, 47–48, 49–54, 55–58, 59–60), Sätze innerhalb eines Absatzes durch Leerzeichen getrennt",
+   "Ton-Tag [softly] vor Junes Zeilen: Satz 5, Lockruf 28–30, Zählen 34–36, Geständnis 42–45, 47–48",
+   "Ton-Tag [nervous] vor den Sätzen 8, 24 und 37 (Nacht, Finger, Luke); die Absätze ohne Tag liegen im Satzpegel am Median, kein Erzählsatz musste angehoben werden",
+   "Text ohne Tags und Absätze ist zeichengleich mit skript.txt (geprüft)"
+  ]
+ },
+ "credits": {
+  "schaetzung": 5248,
+  "verbraucht": 5248,
+  "je_take": 2624,
+  "budget": 6000,
+  "quelle": "credit_costs der Antwort von creative_generate_speech (je Take 2624)",
+  "kontostand": "nicht abgefragt (account_get_usage verlangte beim Connector schon in Teil 1 und 2 zusätzliche Rechte)"
+ },
+ "takes": [
+  {
+   "take": 1,
+   "generation_id": "tUNgHsNBKNBkAA9wG19C",
+   "session_id": "KRl6U0Ye4pv8qYrmVCnu",
+   "credits": 2624,
+   "gewaehlt": true,
+   "roh_datei": "build/folge-03/roh/take1-tUNgHsNBKNBkAA9wG19C.mp3",
+   "roh_sha256": "a2117d7940572b5fadb567e749b27e4a0fc8f3e4cfc485a95cfa4b6729cbac7f",
+   "format_roh": "mp3 44,1 kHz mono 128 kbit/s",
+   "dauer_roh_s": 171.76,
+   "dauer_x1_2_s": 143.13,
+   "dauer_nach_pausen_s": 137.09,
+   "whisper_vor_kette": {
+    "wer": 0.0042,
+    "fehler": [],
+    "eingefuegt": [
+     {
+      "gehoert": "one",
+      "zeit_s": 0.32
+     },
+     {
+      "gehoert": "stairs",
+      "zeit_s": 53.12
+     }
+    ],
+    "unsicher_p_unter_0_5": [
+     "Mister",
+     "Hundred",
+     "Through",
+     "I",
+     "and",
+     "\"Rabbit?\"",
+     "\"Ninety-nine.\"",
+     "\"Close",
+     "Rabbit.\""
+    ]
+   },
+   "uebersteuert": 0,
+   "knackser": 0,
+   "lautheit_roh": {
+    "lufs": -19.3,
+    "true_peak_dbtp": -0.38,
+    "lra_lu": 4.4
+   },
+   "hook_satz1": {
+    "dauer_s": 4.24,
+    "pegel_db": -20.3,
+    "f0_median_hz": 143.4,
+    "f0_spanne_ht": 11.4
+   },
+   "whisper_nach_kette": {
+    "wer": 0.0021,
+    "fehler": [],
+    "eingefuegt": [
+     {
+      "gehoert": "and",
+      "zeit_s": 56.04
+     }
+    ]
+   },
+   "hook_fertig_s": 4.35,
+   "satzpegel_angehoben": [
+    [
+     5,
+     8.3
+    ],
+    [
+     34,
+     1.9
+    ],
+    [
+     42,
+     2.2
+    ],
+    [
+     44,
+     1.2
+    ],
+    [
+     47,
+     2.0
+    ]
+   ],
+   "begrenzer_rahmen_ueber_1db_prozent": 13.36,
+   "grundton_rollen_fertig_hz": {
+    "erzaehler_median": 146.8,
+    "hook_1": 143.4,
+    "june_5": 135.3,
+    "lockruf_28_rabbit": 191.3,
+    "lockruf_29": 138.3,
+    "lockruf_30": 204.2,
+    "zaehlen_34_ninety_nine": 152.6,
+    "zaehlen_35_one_hundred": 190.1,
+    "zaehlen_36_ready_rabbit": 228.5,
+    "june_42": 142.5,
+    "june_43": 138.0,
+    "june_44": 156.1,
+    "june_45": 153.1,
+    "june_47": 153.1,
+    "june_48": 139.6
+   },
+   "einzeln_gehoert": {
+    "1-1": "Mr. Hundred takes you at 18 if it finds you, and it called to me in my sister's voice.",
+    "5-5": "It never looks in my room, Rabbit.",
+    "13-13": "Side by side is all it leaves.",
+    "16-16": "Through the vent, I saw the bell tower, where Tess Lowry was hiding, higher than any window.",
+    "19-19": "Her flashlight went out.",
+    "23-23": "I wanted to run, but Owen Pike ran, and only his shoes came home.",
+    "28-30": "Rabbit? You can come out now. It's gone.",
+    "34-36": "99. 100. Ready, Rabbit?",
+    "39-39": "Mr. Hundred folded itself into the crawl space, bent down, and took its hands away from its face.",
+    "40-41": "It had June's face, far too big. The eye I saw between its fingers was hers.",
+    "42-42": "It found me six years ago, Rabbit.",
+    "43-44": "Dad hid me down here, so it took him and kept me. When I count, it sleeps.",
+    "47-48": "Close your eyes, Rabbit. Count with me.",
+    "52-52": "Near dawn, her voice grew faint, like she was falling asleep.",
+    "53-54": "At 99, she stopped. Instead of 100, the sunrise bell rang.",
+    "58-58": "In the hall, my sneakers still stood side by side.",
+    "59-60": "Every night since I count to 100 before I fall asleep. It helps"
+   }
+  },
+  {
+   "take": 2,
+   "generation_id": "4Tn5nxTOhnmdMibeZ8Q1",
+   "session_id": "IGPLkcjWl1A9N75MwKG3",
+   "credits": 2624,
+   "gewaehlt": false,
+   "roh_datei": "build/folge-03/roh/take2-4Tn5nxTOhnmdMibeZ8Q1.mp3",
+   "roh_sha256": "f935f6dd283c3b24b0811eb096867ed99378b474aa11674e43af27de0d65bc84",
+   "format_roh": "mp3 44,1 kHz mono 128 kbit/s",
+   "dauer_roh_s": 174.0,
+   "dauer_x1_2_s": 145.0,
+   "dauer_nach_pausen_s": 137.45,
+   "whisper_vor_kette": {
+    "wer": 0.0275,
+    "fehler": [
+     {
+      "skript": "hall my sneakers still stood side by side",
+      "gehoert": "",
+      "zeit_s": null
+     }
+    ],
+    "eingefuegt": [
+     {
+      "gehoert": "one",
+      "zeit_s": 0.32
+     },
+     {
+      "gehoert": "video",
+      "zeit_s": 53.4
+     },
+     {
+      "gehoert": "one hundred",
+      "zeit_s": 81.58
+     },
+     {
+      "gehoert": "it",
+      "zeit_s": 110.82
+     }
+    ],
+    "unsicher_p_unter_0_5": [
+     "Hundred",
+     "Rabbit.\"",
+     "she",
+     "Through",
+     "I",
+     "white",
+     "\"Rabbit?\"",
+     "\"Ninety-nine.\"",
+     "\"One",
+     "hundred.\"",
+     "Hundred",
+     "hall,",
+     "my",
+     "sneakers",
+     "still",
+     "stood",
+     "side",
+     "by",
+     "side."
+    ]
+   },
+   "uebersteuert": 0,
+   "knackser": 0,
+   "lautheit_roh": {
+    "lufs": -20.19,
+    "true_peak_dbtp": -0.72,
+    "lra_lu": 4.7
+   },
+   "hook_satz1": {
+    "dauer_s": 4.16,
+    "pegel_db": -20.3,
+    "f0_median_hz": 140.9,
+    "f0_spanne_ht": 9.6
+   },
+   "einzeln_gehoert": {
+    "49,8–56,3 s (×1,2, ungekürzt)": "Then it came down Main Street, looking in every upstairs window. | It stopped at mine, then bent down to June's.",
+    "132,0–145,0 s (×1,2, ungekürzt)": "I was alone. I climbed out. June's red sneakers still stood by her bed, side by side. In the hall, my sneakers still stood side by side. Every night since, I count to 100 before I fall asleep. It helps."
+   },
+   "befund": "Satz 58 ist gesprochen, aber der Ganzdatei-Lauf von Whisper überspringt ihn (alle acht Wörter p = 0 bei 140,8 s); 'upstairs' hört er dort als 'video'. Einzeln ist beides richtig. Die Kette wurde für Take 2 nicht gerechnet",
+   "roh_im_build": "build/folge-03/roh/take2-4Tn5nxTOhnmdMibeZ8Q1.mp3"
+  }
+ ],
+ "gewaehlt": {
+  "take": 1,
+  "generation_id": "tUNgHsNBKNBkAA9wG19C",
+  "gruende": [
+   "Wortzeiten: Im Ganzdatei-Lauf, aus dem timing.json entsteht, erkennt Whisper in Take 1 jedes Wort (vor der Kette 0,42 % Wortfehler, nach der Kette 0,21 %). In Take 2 überspringt er Satz 58 ganz (2,75 %); die Wortzeiten dort wären geschätzt, Untertitel und Schnitte der Schuh-Pointe säßen falsch",
+   "Junes Zeilen in Take 1 langsamer und zarter (Satzgrenzen der Bewertung): 'Close your eyes, Rabbit.' 1,34 s gegen 0,92 s, 'Count with me.' 1,04 s gegen 0,58 s (Spur ×1,2 vor dem Kürzen)",
+   "Lockruf in Take 1 klar höher als die Erzählung ('Ready, Rabbit?' 228 Hz, 'It's gone.' 204 Hz, Erzähler 147 Hz): Mit der Unterstimme im Mix bleibt June hörbar die Stimme von oben. In Take 2 misst die Bewertung 'One hundred' nur 0,18 s bei 122 Hz (dort legte Whisper aber auch ein zusätzliches 'one hundred' ein, die Grenze ist unsicher)",
+   "Hook 4,35 s (Ziel ≤ 4,5 s), Grundton 143 Hz wie Teil 1 (147 Hz) und Teil 2 (149 Hz); Spanne 11,4 Halbtöne gegen 9,6 in Take 2",
+   "Beide ohne Übersteuerung, Knackser oder gesprochene Tags. Linus' Ohr entscheidet zuletzt, Take 2 liegt unter build/folge-03/roh/"
+  ]
+ },
+ "kette": [
+  {
+   "schritt": "Resample ×1,2",
+   "ffmpeg": "aresample=44100,asetrate=52920,aresample=44100",
+   "dauer_s": 143.133
+  },
+  {
+   "schritt": "Pausen kürzen",
+   "regel": "Stille < −50 dBFS (Rahmen 10 ms), länger als 0,35 s → aus der Mitte geschnitten; es bleiben 0,14 s nach dem Wortende und 0,19 s vor dem nächsten Wort, Überblendung 10 ms; vorn 0,03 s, hinten 0,15 s",
+   "gekuerzt": 54,
+   "dauer_s": 137.09
+  },
+  {
+   "schritt": "Satzpegel angleichen",
+   "regel": "Sätze > 5 dB unter dem Satz-Median auf Median − 4 dB, Rampen 30 ms in den Pausen",
+   "angehoben": [
+    {
+     "satz": 5,
+     "pegel_db": -30.9,
+     "median_db": -18.6,
+     "anhebung_db": 8.3
+    },
+    {
+     "satz": 34,
+     "pegel_db": -24.4,
+     "median_db": -18.6,
+     "anhebung_db": 1.9
+    },
+    {
+     "satz": 42,
+     "pegel_db": -24.8,
+     "median_db": -18.6,
+     "anhebung_db": 2.2
+    },
+    {
+     "satz": 44,
+     "pegel_db": -23.8,
+     "median_db": -18.6,
+     "anhebung_db": 1.2
+    },
+    {
+     "satz": 47,
+     "pegel_db": -24.6,
+     "median_db": -18.6,
+     "anhebung_db": 2.0
+    }
+   ],
+   "hinweis": "Angehoben wurden nur Junes Zeilen mit [softly] (Sätze 5, 34, 42, 44, 47); Satz 5 am stärksten (+8,3 dB), wie Junes erste Zeile in Teil 2 (+7,5 dB)"
+  },
+  {
+   "schritt": "Kompressor",
+   "ffmpeg": "acompressor=threshold=0.19953:ratio=4:attack=0.5:release=50:knee=4:detection=peak",
+   "lautheit_danach": {
+    "lufs": -23.05,
+    "true_peak_dbtp": -6.51,
+    "lra_lu": 2.3
+   }
+  },
+  {
+   "schritt": "Lautheit und True Peak",
+   "ffmpeg": "volume=9.55dB,aresample=176400,alimiter=limit=0.83176:attack=2:release=60:level=false:latency=true,aresample=44100",
+   "runden": 3,
+   "begrenzer_rahmen_ueber_1db_prozent": 13.36,
+   "begrenzer_rahmen_ueber_3db_prozent": 0.2,
+   "begrenzer_max_abregelung_db": 4.63,
+   "ergebnis": {
+    "lufs": -14.06,
+    "true_peak_dbtp": -1.51,
+    "lra_lu": 2.1
+   },
+   "hinweis": "Der Begrenzer greift etwa wie in Teil 1 (13,9 %) und Teil 2 (15,7 %); höchste Abregelung 4,63 dB"
+  },
+  {
+   "schritt": "Wortzeiten",
+   "werkzeug": "faster-whisper small int8, language=en, word_timestamps, beam 5; Ausrichtung auf skript.txt; Kanten an Pausen auf Pegelkanten (199 Wörter eingerastet); Phrasenanfänge nach Satzzeichen aus dem Block davor nachgezogen (13 Wörter); Schlusswörter ohne eigenen Block in ihren Block gelegt (keine)"
+  }
+ ],
+ "ergebnis": {
+  "wav": {
+   "datei": "build/folge-03/stimme.wav",
+   "format": "WAV PCM 16 bit, 44,1 kHz, mono",
+   "sha256": "88ab9b52afe40aab82c2af9e6bbc66feaac0556210898ce3e141a75343f18863",
+   "dauer_s": 137.09,
+   "lufs": -14.06,
+   "true_peak_dbtp": -1.51,
+   "lra_lu": 2.1
+  },
+  "m4a": {
+   "datei": "build/folge-03/stimme.m4a",
+   "im_repo": false,
+   "format": "AAC-LC mono 44,1 kHz, +faststart",
+   "sha256": "b58c73dbd5a8e3dea5fbeb1494b1ec9e0b5950744b437fcd25394d837c41b5bd",
+   "bytes": 1761805,
+   "kbit_nenn": 96,
+   "stream_bit_rate": 101368,
+   "dekodiert": {
+    "lufs": -14.13,
+    "true_peak_dbtp": 0.27,
+    "lra_lu": 2.2
+   },
+   "hinweis": "Nicht im Repo: Bei 137 s passt keine Rate ≥ 64 kbit/s unter 1 MB (64 kbit/s ergaben 1.154.641 Bytes, ffmpegs AAC liegt etwa 5 % über der Nennrate; HE-AAC kann dieses ffmpeg nicht). Die m4a liegt nur im Build-Ordner. AAC hebt die Spitzen an: für Renders und Mischung die WAV nehmen."
+  }
+ },
+ "timing": {
+  "datei": "episoden/folge-03/timing.json",
+  "sha256": "98872c82b4c8bf4b94bc114beb172f7f59bce7e5dad2410ed3b8b20a85552639",
+  "woerter": 470,
+  "saetze": 60,
+  "dauer_s": 137.09,
+  "dauer_mm_ss": "2:17",
+  "dauer_im_ziel_125_155": true,
+  "dauer_hinweis": "Das Feld dauer_im_ziel_70_90 in timing.json (false) ist das Tor für Teil 1 und 2; für das Finale gilt 2:05–2:35, also 125–155 s",
+  "hook_ende_s": 4.35,
+  "letztes_wort_ende_s": 136.95,
+  "wer": 0.0021,
+  "wer_hinweis": "Ein eingefügtes 'and' bei 56,04 s (Satz 23, einzeln gehört ohne Doppelung: 'Owen Pike ran, and only his shoes came home')",
+  "laengste_stille_s": 0.34,
+  "laengste_wortluecke_s": 0.34,
+  "laengste_leise_strecke_unter_35db_s": 0.37,
+  "sprache_nach_letztem_wort_s": 0,
+  "abschnitte_s": {
+   "hook": [
+    0.0,
+    4.35
+   ],
+   "neu-pflanzen": [
+    4.66,
+    16.16
+   ],
+   "nach-ready": [
+    16.46,
+    34.32
+   ],
+   "spiegelszene": [
+    34.62,
+    47.68
+   ],
+   "strasse-finger": [
+    47.98,
+    66.96
+   ],
+   "lockruf": [
+    67.24,
+    78.56
+   ],
+   "wendung": [
+    78.86,
+    99.21
+   ],
+   "hoehepunkt": [
+    99.51,
+    121.75
+   ],
+   "schluss": [
+    122.05,
+    136.95
+   ]
+  },
+  "musik_anker_s": {
+   "hook_ende": 4.35,
+   "wegfall_vor_satz_13": [
+    28.57,
+    28.86
+   ],
+   "wegfall_out_bis_sound": [
+    44.78,
+    47.68
+   ],
+   "voll_ab_groaned": 58.7,
+   "wegfall_nach_back": 64.98,
+   "duenn_ab_satz_27": 65.29,
+   "klopfer_vor_satz_28": [
+    66.96,
+    67.24
+   ],
+   "zaehlen_34_36": [
+    75.97,
+    78.56
+   ],
+   "voll_ab_opened": 80.06,
+   "wegfall_away_bis_face": [
+    84.86,
+    87.11
+   ],
+   "june_face_start": 86.26,
+   "duenn_ab_satz_41": 88.39,
+   "oberstimme_ab_satz_47": 103.33,
+   "stopped_satz_53": 118.643,
+   "wegfall_vor_glocke_satz_54": [
+    119.08,
+    119.38
+   ],
+   "glocke_rang": 121.28,
+   "normal_ab_satz_55": 122.05,
+   "duenn_ab_satz_57": 126.48,
+   "wegfall_vor_it_helps": [
+    136.17,
+    136.46
+   ],
+   "helps_ende": 136.95,
+   "anteil_luke_satz_38": 0.582,
+   "anteil_ritual_satz_39": 0.592,
+   "anteil_june_face_satz_40": 0.628
+  },
+  "wendung": {
+   "luke_satz_38_s": 79.83,
+   "ritual_satz_39_s": 81.15,
+   "june_face_satz_40_s": 86.12,
+   "anteil": 0.628,
+   "hinweis": "Ziel 60–70 %: Luke 58,2 %, Ritual 59,2 %, 'It had June's face' 62,8 %"
+  },
+  "laenge_mit_endkarte": "ohne Endkarte 137,1 s; mit 0,5 s Karte 137,6 s (Empfehlung der Kritik: keine)"
+ },
+ "hoer_check": {
+  "wortfehler": 0.0021,
+  "unsicher_p_unter_0_5": [
+   {
+    "wort": "Hundred",
+    "satz": 1,
+    "start": 0.32,
+    "p": 0.403
+   },
+   {
+    "wort": "June",
+    "satz": 4,
+    "start": 8.5,
+    "p": 0.365
+   },
+   {
+    "wort": "Tonight,",
+    "satz": 8,
+    "start": 16.46,
+    "p": 0.397
+   },
+   {
+    "wort": "Side",
+    "satz": 13,
+    "start": 28.86,
+    "p": 0.131
+   },
+   {
+    "wort": "and",
+    "satz": 23,
+    "start": 56.06,
+    "p": 0.393
+   },
+   {
+    "wort": "\"Rabbit?\"",
+    "satz": 28,
+    "start": 67.24,
+    "p": 0.204
+   },
+   {
+    "wort": "had",
+    "satz": 40,
+    "start": 86.176,
+    "p": 0.026
+   },
+   {
+    "wort": "Near",
+    "satz": 52,
+    "start": 114.21,
+    "p": 0.151
+   }
+  ],
+  "einzeln_gehoert": "siehe takes[0].einzeln_gehoert: alle 17 Risikostellen kommen einzeln wörtlich an (Zahlen als Ziffern, 'Mister' als 'Mr.')",
+  "risiken_aus_dem_entwurf": {
+   "Tess's": "entfällt, Satz 19 heißt jetzt 'Her flashlight went out.' (einzeln richtig)",
+   "crawl space": "einzeln als 'crawl space' erkannt",
+   "Ninety-nine / One hundred": "einzeln als '99. 100.' erkannt, beide in eigenen Blöcken",
+   "It had June's face": "im Ganzlauf 'had' mit p 0,03, einzeln wörtlich richtig",
+   "Wortanfänge nach Pausen": "13 Phrasenanfänge aus dem Block davor nachgezogen (u. a. 'It' Satz 40, 'Near' Satz 52, 'When' Satz 55, 'It' Satz 60); beim Bau der Untertitel an der Energiekante gegenprüfen"
+  },
+  "hinweis": "Beim Anhören prüfen: ob [softly] in Satz 5 nach +8,3 dB natürlich klingt; ob der Lockruf (Sätze 28–36) mit Unterstimme als 'es spricht mit Junes Stimme' trägt; ob 'Count with me.' warm genug ist; Pause vor 'It helps.' (0,29 s) ausreichend oder im Bau gedehnt"
+ },
+ "werkzeug": "python engine/ton/stimme.py bewerten --skript episoden/folge-03/skript.txt --arbeit build/folge-03/arbeit --aus build/folge-03/arbeit/bewertung.json build/folge-03/roh/*.mp3; python engine/ton/stimme.py fertig --skript episoden/folge-03/skript.txt --roh build/folge-03/roh/take1-tUNgHsNBKNBkAA9wG19C.mp3 --wav build/folge-03/stimme.wav --m4a build/folge-03/stimme.m4a --max-bytes 0 --timing episoden/folge-03/timing.json --bloecke episoden/folge-03/bildideen.json --bericht build/folge-03/arbeit/bericht.json --arbeit build/folge-03/arbeit (aus horror/)"
+}
