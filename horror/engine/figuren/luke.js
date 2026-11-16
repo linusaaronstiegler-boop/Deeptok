@@ -4,7 +4,7 @@
 // mit "luke_als_figur": true lässt es den festen Deckel weg (Anker "luke" = Mitte der Öffnung).
 // Ursprung = Mitte der Angelkante (hinten, −z), Deckel liegt in +z, Oberseite bei y = 0.
 // params: teppich (Std false), groesse ([0.9, 0.9])
-// Animationen: oeffnen { winkel (Std 105) }, schliessen; Anker: ring, mitte, schacht
+// Animationen: oeffnen { winkel (Std 105) }, schliessen, teppich_rollen { rest }; Anker: ring, mitte, schacht
 export default async function baue(ctx, params = {}) {
   const T = ctx.THREE;
   const [b, t] = params.groesse ?? [0.9, 0.9];
@@ -31,7 +31,7 @@ export default async function baue(ctx, params = {}) {
   deckel.add(ring);
   const ringAnker = new T.Object3D(); ringAnker.position.copy(ring.position); deckel.add(ringAnker);
   // Teppich: liegt über der geschlossenen Luke, der Ring drückt sich als Wulst ab
-  let teppich = null;
+  let teppich = null, rolle = null, teppichFern = 0;
   if (params.teppich) {
     teppich = new T.Group();
     gruppe.add(teppich);
@@ -43,20 +43,33 @@ export default async function baue(ctx, params = {}) {
       for (let i = 0; i < 5; i++) { g.save(); g.translate(w / 2, h / 2); g.rotate(Math.PI / 4); g.fillRect(-w * 0.04 * (5 - i), -w * 0.04 * (5 - i), w * 0.08 * (5 - i), w * 0.08 * (5 - i)); g.restore(); g.fillStyle = i % 2 ? '#d8b46a' : '#7a3b36'; }
     }, 256, 256);
     const tmat = ctx.mat('#ffffff', { rauheit: 1, karte: tex });
+    // Drehpunkt an der fernen Kante (+z), damit sich der Teppich dorthin aufrollen lässt (Teil 2, Satz 32)
+    const fern = t / 2 + 1.25 / 2;
+    teppich.position.z = fern;
     const flaeche = ctx.kiste(1.7, 0.012, 1.25, tmat, { schatten: false });
-    flaeche.position.set(0, 0.006, t / 2);
+    flaeche.position.set(0, 0.006, t / 2 - fern);
     teppich.add(flaeche);
     const wulst = new T.Mesh(new T.TorusGeometry(0.07, 0.014, 6, 18), ctx.mat('#6e3530', { rauheit: 1 }));
     wulst.rotation.x = Math.PI / 2;
     wulst.scale.set(1, 1, 0.6);
-    wulst.position.set(0, 0.014, t * 0.78);
+    wulst.position.set(0, 0.014, t * 0.78 - fern);
     teppich.add(wulst);
+    // Rolle an der wandernden Kante (wächst beim Aufrollen)
+    rolle = new T.Mesh(new T.CylinderGeometry(1, 1, 1.7, 14), tmat);
+    rolle.rotation.z = Math.PI / 2;
+    rolle.castShadow = true;
+    rolle.visible = false;
+    gruppe.add(rolle);
+    teppichFern = fern;
   }
   const mitte = new T.Object3D(); mitte.position.set(0, 0, t / 2); gruppe.add(mitte);
   const schacht = new T.Object3D(); schacht.position.set(0, -0.6, t / 2); gruppe.add(schacht);
   return {
     gruppe, gelenke: { deckel },
-    grundpose() { deckel.rotation.set(0, 0, 0); },
+    grundpose() {
+      deckel.rotation.set(0, 0, 0);
+      if (teppich) { teppich.scale.set(1, 1, 1); rolle.visible = false; }
+    },
     anker: { ring: ringAnker, mitte, schacht },
     hoehe: 0.05,
     animationen: {
@@ -67,6 +80,19 @@ export default async function baue(ctx, params = {}) {
       schliessen: {
         dauer: 0.35, ease: 'ease_in',
         anwenden(f, p, prm, c) { deckel.rotation.x = c.mischen(deckel.rotation.x, 0, p); },
+      },
+      // Teppich zur fernen Kante aufrollen (Teil 2, Satz 32: „She rolled back the rug“); rest = Anteil, der liegen bleibt
+      teppich_rollen: {
+        dauer: 0.8, ease: 'ease_in_out',
+        anwenden(f, p, prm, c) {
+          if (!teppich) return;
+          const sz = c.mischen(teppich.scale.z, prm.rest ?? 0.08, p);
+          teppich.scale.z = sz;
+          const r = 0.02 + 0.07 * (1 - sz);
+          rolle.visible = sz < 0.985;
+          rolle.scale.set(r, 1, r);
+          rolle.position.set(0, r, teppichFern - 1.25 * sz);
+        },
       },
     },
   };

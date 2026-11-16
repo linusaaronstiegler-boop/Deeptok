@@ -1,0 +1,131 @@
+{
+ "_hinweis": "Vorgaben für engine/untertitel.py (Teil 2). Wortbezüge sind Indizes in timing.json; 'text' wird beim Bauen gegen timing.json geprüft.",
+ "akzent_farbe": "#9FD8D2",
+ "akzent_grund": "Kaltes Leuchten von Mister Hundred (serie.md): Monstername, Name der Nacht, das Zählen, die Zählung des Monsters und 'Ready?'.",
+ "akzent": [
+  {
+   "von": 0,
+   "bis": 1,
+   "text": "Mister Hundred"
+  },
+  {
+   "von": 104,
+   "bis": 104,
+   "text": "counting."
+  },
+  {
+   "von": 110,
+   "bis": 111,
+   "text": "Hiding Night."
+  },
+  {
+   "von": 252,
+   "bis": 252,
+   "text": "counting"
+  }
+ ],
+ "rede": [
+  {
+   "wer": "June",
+   "farbe": "#F2C14E",
+   "von": 62,
+   "bis": 67,
+   "text": "\"It can't touch you before midnight.\""
+  },
+  {
+   "wer": "Odell",
+   "farbe": "#8EC3F4",
+   "von": 117,
+   "bis": 127,
+   "text": "\"It takes the helper too.\" \"So why are you still here?\""
+  },
+  {
+   "wer": "Tess",
+   "farbe": "#C9A3F2",
+   "von": 133,
+   "bis": 139,
+   "text": "\"Last game of hide and seek, huh?\""
+  },
+  {
+   "wer": "June",
+   "farbe": "#F2C14E",
+   "von": 198,
+   "bis": 209,
+   "text": "\"It never looks in my room, Rabbit.\" \"That's why I'm still here.\""
+  },
+  {
+   "wer": "June",
+   "farbe": "#F2C14E",
+   "von": 241,
+   "bis": 243,
+   "text": "\"Ninety-seven.\" \"Ninety-eight.\" \"Ninety-nine.\""
+  },
+  {
+   "wer": "Mister Hundred",
+   "farbe": "#9FD8D2",
+   "von": 275,
+   "bis": 277,
+   "text": "\"One hundred.\" \"Ready?\""
+  }
+ ],
+ "allein": [
+  {
+   "i": 176,
+   "text": "side.",
+   "grund": "Snap-Zoom, das Omen"
+  },
+  {
+   "i": 241,
+   "text": "\"Ninety-seven.\"",
+   "grund": "June zählt"
+  },
+  {
+   "i": 242,
+   "text": "\"Ninety-eight.\"",
+   "grund": "June zählt"
+  },
+  {
+   "i": 243,
+   "text": "\"Ninety-nine.\"",
+   "grund": "June zählt, danach Stille"
+  },
+  {
+   "i": 246,
+   "text": "stopped.",
+   "grund": "Abbruch"
+  },
+  {
+   "i": 277,
+   "text": "\"Ready?\"",
+   "grund": "Cliffhanger, letztes Wort"
+  }
+ ],
+ "paare": [
+  {
+   "von": 0,
+   "bis": 1,
+   "text": "Mister Hundred"
+  },
+  {
+   "von": 75,
+   "bis": 76,
+   "text": "Tess Lowry"
+  },
+  {
+   "von": 95,
+   "bis": 96,
+   "text": "Mr. Odell"
+  },
+  {
+   "von": 110,
+   "bis": 111,
+   "text": "Hiding Night."
+  },
+  {
+   "von": 112,
+   "bis": 113,
+   "text": "Mr. Odell"
+  }
+ ],
+ "ziffern_nicht": []
+}

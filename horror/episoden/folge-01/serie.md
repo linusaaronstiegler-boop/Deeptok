@@ -93,6 +93,12 @@ Mindestens 6 Paare sind Pflicht (A3), hier sind es 20. Alle Setups stehen in Tei
 - Die Zehen der Spur in Teil 2 zeigen vom Fenster weg; der Erzähler sagt nur „stopped at“.
 - Als Elis Turnschuhe nebeneinander stehen, ist Junes Tür im Hintergrund einen Spalt offen.
 - Ihre Turnschuhe stehen in Teil 3 schon nebeneinander, bevor das Ding die Straße hinunterkommt.
+- Bau Teil 2: Als June bei „Ninety-nine“ aufhört, steigt weißer Atem von ihren Lippen auf (kalt: es ist nah, oder es ist sie).
+
+**Bilder aus dem Bau von Teil 2, auf die Teil 3 Rücksicht nehmen muss:**
+- Auf „slow and deep“ stehen zwei lange kalkweiße Füße auf dem Teppich über der Luke in Junes Zimmer, darüber der ausgefranste Saum. Junes Bett war dabei nicht im Bild.
+- Von unten verdunkeln die Sohlen die Lichtfugen über Elis Gesicht; auf „Ready?“ kriechen vier dunkle Fingerschatten mit kalt glimmenden Spitzen über die Fugen. Kein Finger kam durch einen Spalt (das bleibt für Teil 3).
+- Elis Taschenlampe ist aus (er hat sie auf „Something“ ausgeknipst). Tess ist auf dem Weg in den Glockenturm zuletzt gesehen worden.
 
 **Dialog:** Ziel 5–8 % der Wörter über die Serie (A3 nennt 4–7 Zeilen bei drei Teilen). Teil 1 liegt bei 4,5 %. Teil 2 hat mehr, nämlich 15 % samt Junes Zählen (June 6 Zeilen, Odell 2, Tess 1, Mister Hundred 2), weil indirekte Rede an den Schlüsselstellen tot wirkte. Über die Serie sind es mit den geplanten Zeilen von Teil 3 und 4 etwa 7–8 %. Eli spricht nie laut; das ist Teil der Figur und bindet die Regel „nie antworten“.
 

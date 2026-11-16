@@ -17,7 +17,7 @@
 //   - Jede Einstellung hat eine laufende Kamera (Standard: Push-in 7 %/s linear) und genau eine Hauptaktion,
 //     die auf ihrem Schlüsselwort beginnt (lange Aktionen enden dort). Alles andere läuft "nebenbei".
 //   - Gesichter tauschen auf Reaktionswörtern, Lichtereignisse liegen auf Verben.
-//   - Nach dem letzten Wort harter Schnitt (≤ 0,2 s), dann 1,0 s Endkarte „PART 2“ ohne Ton.
+//   - Nach dem letzten Wort harter Schnitt (≤ 0,2 s), dann 1,0 s Endkarte („PART 2“, „PART 3“ …) ohne Ton.
 // Das Messtor am Ende prüft diese Regeln an der fertigen Episode und bricht bei Verstößen ab.
 
 import fs from 'node:fs';
@@ -69,6 +69,7 @@ const DAUER = {
   haende_weg: 0.6, haende_vor: 0.6, stapfen: 3.6,
   // Requisiten
   fahren: 2.0, tuer_auf: 0.5, tuer_zu: 0.3, oeffnen: 0.5, schliessen: 0.35,
+  zuziehen: 0.25, aufziehen: 0.6, teppich_rollen: 0.8, leuchten: 0.4,
 };
 
 // Licht aus den Bildideen -> Preset der Engine, Anpassung und ob Lampen/Fenster leuchten.
@@ -77,8 +78,20 @@ const SONNENAUFGANG = {
   himmel: { zenit: '#3b4f8a', horizont: '#f6b27a', scheibe: { richtung: [0.08, 0.07, 0.99], farbe: '#ffd29a', groesse: 2.6, staerke: 6, glanz: 0.7 } },
   haupt: { richtung: [0.1, 0.25, 0.96], farbe: '#ffc08a', staerke: 2.3 }, nebel: { farbe: '#c9a49a', dichte: 0.014 },
 };
+// Kriechkeller (Teil 2): fast dunkel, Junes Lampenlicht kommt nur durch die Dielenfugen (Set-Lichtgruppen),
+// dazu Elis Taschenlampe. Ein schwaches kühles Füll-Licht hält das Bild über dem Helligkeits-Tor (≥ 35).
+const KELLER_LICHT = {
+  himmel: { zenit: '#120e0c', horizont: '#1c1612' },
+  nebel: { farbe: '#16110e', dichte: 0.03 },
+  hemi: { himmel: '#9aa6c8', boden: '#6a5244', staerke: 2.4 },
+  haupt: { farbe: '#ffd2a0', staerke: 0.3, richtung: [0.2, 0.95, 0.2] },
+  kante: { farbe: '#9FD8D2', staerke: 0.35, richtung: [-0.4, 0.5, 0.75] },
+  belichtung: 1.25,
+  grade: { saettigung: 1.0, kontrast: 1.06, faerbung: [1.02, 1.0, 0.97] },
+};
 export const LICHT = {
   tag: { preset: 'tag', lampen: false },
+  kriechkeller: { preset: 'innen_warm', anpassung: KELLER_LICHT, lampen: false },
   morgen: { preset: 'tag', anpassung: MORGEN, lampen: false },
   sonnenaufgang: { preset: 'daemmerung', anpassung: SONNENAUFGANG, lampen: false },
   daemmerung: { preset: 'daemmerung', lampen: true },
@@ -91,7 +104,7 @@ const RUECKBLENDE = { grade: { saettigung: 0.62, kontrast: 1.04 } };
 // Lampen, die der Compiler je Einstellung an- oder ausschaltet (Kerzen nicht: die bläst Eli aus).
 const LAMPEN = ['strasse.*', 'marsh.*', 'haus.kueche_lampe', 'haus.june_lampe', 'haus.eli_lampe', 'haus.flur_lampe'];
 // Orte der Bildideen -> sichtbare Sets (README 15.5)
-const ORTE = { hauptstrasse: ['strasse', 'marsh'], 'marsh-innen': ['strasse', 'haus'] };
+const ORTE = { hauptstrasse: ['strasse', 'marsh'], 'marsh-innen': ['strasse', 'haus'], kriechkeller: ['keller'] };
 // Tiefenunschärfe in Nah- und Detailaufnahmen (BEW 1.6)
 const TIEFE_GROESSEN = new Set(['nah', 'gross', 'detail', 'ueber-schulter']);
 
@@ -172,6 +185,8 @@ export async function kompiliere(ordner) {
 
   const sets = JSON.parse(JSON.stringify(regie.sets));
   const setParams = (id) => { const s = sets.find((x) => x.id === id); if (!s) fehler(`Set "${id}" fehlt in regie.sets`); return (s.params ??= {}); };
+  // Ereignis an ein Set geben (params.ereignisse; das Set rechnet daraus in aktualisiere(t))
+  const setEreignis = (id, ev) => { (setParams(id).ereignisse ??= []).push(ev); };
   const figuren = regie.figuren.map((f) => ({ position: [0, -40, 0], blick: 0, sichtbar: false, ...f }));
   const einstellungen = [];
   const lichtGlobal = [];
@@ -251,11 +266,18 @@ export async function kompiliere(ordner) {
       if (ev.versatz_ziele !== undefined) { ev.versatz = ev.versatz_ziele; delete ev.versatz_ziele; }
       lichtEreignisse.push(ev);
     } else if (art === 'set') {
-      // Set-Ereignis, z. B. die Zeiger der Turmuhr springen (hauptstrasse params.uhr.spruenge)
-      if (h.was !== 'uhr') fehler(`regie "${e.key}": Set-Ereignis "${h.was}" unbekannt (uhr)`);
-      const p = setParams(h.set ?? 'strasse');
-      p.uhr ??= { zeit: h.von ?? '11:58', spruenge: [] };
-      p.uhr.spruenge.push({ start: tw, zeit: h.zeit });
+      // Set-Ereignis: die Zeiger der Turmuhr springen (hauptstrasse params.uhr.spruenge) oder ein
+      // Ereignis eines Sets mit params.ereignisse (kriechkeller: biegen, finger, glut). Anker "ende" wie bei Aktionen.
+      if (h.was === 'uhr') {
+        const p = setParams(h.set ?? 'strasse');
+        p.uhr ??= { zeit: h.von ?? '11:58', spruenge: [] };
+        p.uhr.spruenge.push({ start: tw, zeit: h.zeit });
+      } else {
+        const dauer = h.dauer ?? 0.6;
+        hStart = h.anker === 'ende' ? r4(tw - dauer) : tw;
+        hEnde = r4(hStart + dauer);
+        setEreignis(h.set ?? fehler(`regie "${e.key}": Set-Ereignis "${h.was}" braucht "set"`), { was: h.was, start: hStart, dauer, ...(h.params ?? {}) });
+      }
     } else if (art === 'partikel') {
       const { art: _a, wort: _w, versatz: _v, vorlauf = 0, partikel_art: pa, ...rest } = h;
       hStart = r4(tw - vorlauf);
@@ -275,6 +297,13 @@ export async function kompiliere(ordner) {
       const st = n.anker === 'ende' && dauer ? r4(s0 - dauer) : r4(s0 + (n.ab === 'start' ? n.versatz ?? 0 : 0));
       const { wort: _w, versatz: _v, ab: _ab, anker: _an, zeit: _z, ...rest } = n;
       aktionen.push({ ...rest, start: st, ...(dauer !== undefined && !['gesicht', 'sichtbar'].includes(n.was) ? { dauer } : {}), nebenbei: true });
+    }
+
+    // --- weitere Set-Ereignisse (nebenbei, z. B. Glut der Fingerschatten, Dielen biegen weiter) ---
+    for (const s of r.set_ereignisse ?? []) {
+      const { set: sid, wort, versatz = 0, anker: an, dauer = 0.6, ...rest } = s;
+      const t0 = wort !== undefined ? zeit(wort, versatz) : r4(start + versatz);
+      setEreignis(sid, { ...rest, start: an === 'ende' ? r4(t0 - dauer) : t0, dauer });
     }
 
     // --- Reaktionsgesichter auf ihren Wörtern ---
@@ -379,7 +408,7 @@ export async function kompiliere(ordner) {
       ...(partikel.length ? { partikel } : {}),
       ...(tiefe ? { tiefenunschaerfe: tiefe } : {}),
       ...(r.bewegungsunschaerfe ? { bewegungsunschaerfe: r.bewegungsunschaerfe } : {}),
-      schatten_bereich: r.schatten_bereich ?? (einst[i].idee.ort === 'marsh-innen' ? 16 : 24),
+      schatten_bereich: r.schatten_bereich ?? ({ 'marsh-innen': 16, kriechkeller: 10 }[einst[i].idee.ort] ?? 24),
       ...(r.schatten_mitte ? { schatten_mitte: r.schatten_mitte } : {}),
       text,
       plan,
@@ -387,7 +416,7 @@ export async function kompiliere(ordner) {
     einstellungen.push(einstellung);
   }
 
-  // --- Endkarte „PART 2“: harter Schnitt nach dem letzten Wort, 1,0 s, ohne Ton ---
+  // --- Endkarte „PART n“ (Text aus regie.endkarte): harter Schnitt nach dem letzten Wort, 1,0 s, ohne Ton ---
   const ek = regie.endkarte ?? {};
   const ekStellung = {};
   for (const id of sichtbarVorher) ekStellung[id] = { sichtbar: false };

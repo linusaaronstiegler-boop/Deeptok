@@ -1,21 +1,74 @@
 {
  "stil": "wiegenlied",
  "folge": "episoden/folge-02",
+ "dauer_s": 87.0,
  "endkarte_s": 1.0,
  "start_in_schleife_s": 20.425,
  "uebergang_s": 1.5,
  "einrasten": "schlag",
  "ausblenden_s": 0.5,
+ "_hinweis": "Endfassung (Bau Teil 2): Satznummern von skript-teil2.txt, Wortnummern von timing.json. Stufen nach bildideen.json 'musik' (dünn bis Junes Mitternachtssatz, voll ab dem Laternenzug, dünn ab Junes Zählen, Abriss am Ende von 'Ninety-nine') und zwei Wegfällen vor Pointen.",
  "stufen": [
-  {"ab_s": 0.0, "stufe": "normal", "grund": "Anschluss an Teil 1: die Spieldose läuft weiter (zweite Schleifenrunde, damit es nicht wie ein Neustart klingt)"},
-  {"ab_satz": 8, "stufe": "duenn", "blende_s": 2.0, "grund": "June kommt barfuß aus dem Zimmer, eiskalte Hände"},
-  {"ab_satz": 12, "stufe": "normal", "grund": "um elf auf den Platz, Tess, Mr. Odell"},
-  {"ab_satz": 24, "versatz_s": -0.25, "stufe": "weg", "blende_s": 0.2, "grund": "Wegfall vor: I hadn't put them there."},
-  {"ab_satz": 25, "stufe": "duenn", "blende_s": 0.4, "grund": "Eli packt, Dreierreihe der Entscheidung"},
-  {"ab_satz": 31, "stufe": "normal", "grund": "Teppich zurück, Luke auf"},
-  {"ab_satz": 33, "stufe": "duenn", "blende_s": 2.0, "grund": "June zählt leise wie jede Nacht: die Spieldose wird ihr Zählen"},
-  {"ab_satz": 35, "versatz_s": 1.2, "stufe": "weg", "blende_s": 0.15, "grund": "June hört bei neunundneunzig auf, die Musik mit ihr (Versatz nach dem Vertonen auf das Wort legen: ab_wort)"},
-  {"ab_satz": 38, "stufe": "voll", "blende_s": 1.0, "einrasten": "aus", "grund": "die Dielen biegen sich: voll, ohne auf den Takt zu warten"},
-  {"ab_satz": 41, "versatz_s": -0.3, "stufe": "weg", "blende_s": 0.2, "grund": "Wegfall vor der Pointe: One hundred. Ready? Bleibt bis über die Endkarte PART 3 stumm"}
+  {
+   "ab_s": 0.0,
+   "stufe": "normal",
+   "grund": "Hook: Anschluss an Teil 1, die Spieldose läuft weiter (zweite Schleifenrunde)"
+  },
+  {
+   "ab_satz": 2,
+   "stufe": "duenn",
+   "blende_s": 1.2,
+   "grund": "Vorhang, leerer Garten, Spur im Reif, June barfuß: leise, jedes Detail soll sitzen"
+  },
+  {
+   "ab_satz": 11,
+   "stufe": "voll",
+   "blende_s": 1.5,
+   "grund": "um elf auf den Platz (Laternenzug), Odell, die Regeln, Tess"
+  },
+  {
+   "ab_satz": 24,
+   "stufe": "normal",
+   "blende_s": 1.5,
+   "grund": "zu Hause: Turnschuhe auseinander, packen"
+  },
+  {
+   "ab_wort": 174,
+   "versatz_s": -0.25,
+   "stufe": "weg",
+   "blende_s": 0.2,
+   "grund": "Wegfall vor dem Omen: 'side by side' fällt in die Stille (Klopfen der Schuhe)"
+  },
+  {
+   "ab_satz": 27,
+   "stufe": "duenn",
+   "blende_s": 0.6,
+   "grund": "Entscheidung: Owen, Dad"
+  },
+  {
+   "ab_satz": 29,
+   "stufe": "normal",
+   "blende_s": 1.0,
+   "grund": "June nimmt den Rucksack, ihr Versprechen"
+  },
+  {
+   "ab_satz": 32,
+   "stufe": "voll",
+   "blende_s": 1.5,
+   "grund": "Teppich, Luke, Eli steigt hinab"
+  },
+  {
+   "ab_satz": 35,
+   "stufe": "duenn",
+   "blende_s": 1.5,
+   "grund": "June zählt leise wie jede Nacht: die Spieldose wird ihr Zählen"
+  },
+  {
+   "ab_wort": 244,
+   "versatz_s": 0.0,
+   "stufe": "weg",
+   "blende_s": 0.15,
+   "grund": "Abriss am Ende von 'Ninety-nine': danach nur Glocke, Dielen und das Leitgeräusch, stumm bis über die Endkarte PART 3"
+  }
  ]
 }

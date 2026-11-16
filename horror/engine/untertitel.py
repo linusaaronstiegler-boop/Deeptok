@@ -60,7 +60,8 @@ OBJEKT = set("it you them me her him us".split())
 PRAEP = set("in on at to of for from by over under with into through".split())
 MIN_BILDER = 3          # kürzere Einblendungen blitzen nur auf (Pop braucht 3 Bilder)
 
-ZAHLWOERTER = {"eighteen": "18", "eighteenth": "18TH", "six": "6"}
+ZAHLWOERTER = {"eighteen": "18", "eighteenth": "18TH", "six": "6", "eleven": "11",
+               "ninety-seven": "97", "ninety-eight": "98", "ninety-nine": "99"}   # Teil 2: Junes Zählen
 
 
 # ---------------------------------------------------------------- Einheiten

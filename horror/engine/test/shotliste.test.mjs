@@ -86,3 +86,32 @@ test('Messtor erkennt ein Wisch-Objekt direkt vor der Linse (M13)', opt, async (
   delete e.kamera.vordergrund;                                  // ohne Angabe stellt truck_side 0,9 m vor die Linse
   assert.ok(hat(messtor(erg), 'M13'));
 });
+
+// ---------- Teil 2: Set-Ereignisse, Endkarte PART 3 ----------
+const ORDNER2 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../episoden/folge-02');
+const da2 = ['timing.json', 'bildideen.json', 'regie.mjs'].every((n) => fs.existsSync(path.join(ORDNER2, n)));
+const opt2 = { skip: da2 ? false : 'Folge 2 fehlt (timing.json, bildideen.json, regie.mjs)' };
+
+test('Folge 2 besteht das Messtor, Endkarte PART 3', opt2, async () => {
+  const erg = await kompiliere(ORDNER2);
+  const tor = messtor(erg);
+  assert.deepEqual(tor.verstoesse, []);
+  const ek = erg.episode.einstellungen.at(-1);
+  assert.equal(ek.text, 'PART 3');
+  assert.equal(erg.episode.sets.find((s) => s.id === 'karte').params.zahl, '3');
+  assert.ok(tor.kennzahlen.monster_anteil >= 0.15 && tor.kennzahlen.monster_anteil <= 0.25);
+});
+
+test('Set-Ereignisse landen mit Wortzeit in params.ereignisse (Kriechkeller, Glocke)', opt2, async () => {
+  const { episode, timing } = await kompiliere(ORDNER2);
+  const W = timing.woerter;
+  const keller = episode.sets.find((s) => s.id === 'keller').params.ereignisse;
+  const biegen = keller.find((e) => e.was === 'biegen');
+  const wBent = W.find((w) => w.wort === 'bent');
+  assert.ok(Math.abs(biegen.start - wBent.start) < 1e-3, 'Dielen biegen sich auf "bent"');
+  const finger = keller.find((e) => e.was === 'finger');
+  const wReady = W.find((w) => w.wort === 'Ready');
+  assert.ok(Math.abs(finger.start - wReady.start) < 1e-3, 'Fingerschatten auf "Ready"');
+  const glocke = episode.sets.find((s) => s.id === 'strasse').params.ereignisse.filter((e) => e.was === 'glocke');
+  assert.ok(glocke.length >= 2, 'Glocke schwingt mehrmals');
+});

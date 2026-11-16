@@ -9,6 +9,7 @@
 // params: verandalicht (Std true: echtes Punktlicht an der Veranda), tuer_als_figur (Std false: Türblatt
 //         weglassen, Requisite "tuer" an Anker "tuer_angel" mit blick 90 stellen)
 // Lichtgruppen: marsh.veranda (Lampe + Punktlicht), marsh.eli_fenster, marsh.kueche_fenster, marsh.fenster
+// Anker u. a. june_fenster (Junes Seitenfenster außen, Teil 2)
 import * as THREE from 'three';
 import { k, verschmelze, baueHaus, fensterLichtMat, MARSH, marshWelt, tmat, busch } from '../src/bauteile.js';
 
@@ -97,6 +98,8 @@ export default async function baue(ctx, params = {}) {
       eli_fenster: W(F.eli.x, so + MARSH.eg + MARSH.decke + F.eli.unten + F.eli.h / 2, 0.1),
       kueche_fenster: W(F.kueche.x, so + F.kueche.unten + F.kueche.h / 2, 0.1),
       garten: W(-1.6, 0, 3.8),            // Vorgarten: Platz für Mister Hundred (Satz 34, 36)
+      // Junes Seitenfenster außen (Erdgeschoss, Hauswand links): Teil 2, Sätze 1 und 5 (Reif-Spur endet hier)
+      june_fenster: W(-MARSH.breite / 2 - 0.1, so + F.june_seite.unten + F.june_seite.h / 2, F.june_seite.z),
       dachfirst: W(0, 9.2, -MARSH.tiefe / 2),
     },
     kamerapunkte: {

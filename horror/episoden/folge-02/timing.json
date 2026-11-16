@@ -2104,29 +2104,29 @@
    "text": "here.\"",
    "wort": "here",
    "start": 60.98,
-   "ende": 61.26,
+   "ende": 61.34,
    "p": 0.99,
-   "quelle": "whisper"
+   "quelle": "korrigiert"
   },
   {
    "i": 210,
    "satz": 32,
    "text": "She",
    "wort": "She",
-   "start": 61.26,
-   "ende": 61.38,
+   "start": 61.68,
+   "ende": 61.79,
    "p": 0.728,
-   "quelle": "whisper"
+   "quelle": "korrigiert"
   },
   {
    "i": 211,
    "satz": 32,
    "text": "rolled",
    "wort": "rolled",
-   "start": 61.69,
+   "start": 61.79,
    "ende": 62.0,
    "p": 0.991,
-   "quelle": "whisper"
+   "quelle": "korrigiert"
   },
   {
    "i": 212,
@@ -3065,7 +3065,7 @@
    "nr": 31,
    "text": "\"That's why I'm still here.\"",
    "start": 60.31,
-   "ende": 61.26,
+   "ende": 61.34,
    "wort_von": 205,
    "wort_bis": 209,
    "block": "entscheidung"
@@ -3073,7 +3073,7 @@
   {
    "nr": 32,
    "text": "She rolled back the rug and opened the hatch.",
-   "start": 61.26,
+   "start": 61.68,
    "ende": 63.4,
    "wort_von": 210,
    "wort_bis": 218,
@@ -3235,5 +3235,17 @@
   "wortluecken_ueber_0_35": 0,
   "eingerastet": 117,
   "dauer_im_ziel_70_90": true
- }
+ },
+ "korrekturen": [
+  {
+   "stand": "2026-11-15",
+   "werkzeug": "Bau Teil 2 (Pegelmessung, engine/pruefen.py Untertitel-Sync)",
+   "woerter": [
+    209,
+    210,
+    211
+   ],
+   "grund": "Whisper legte 'She' (Satz 32) in den Ausklang von 'here.' bei 61,26 s. Im Ton endet 'here.' bei 61,34 s, danach 0,3 s Stille (unter -75 dBFS), 'She rolled' beginnt bei 61,68 s. Ohne Korrektur schnitt das Bild Junes letztes Wort ab und 'SHE ROLLED' erschien 0,4 s zu früh."
+  }
+ ]
 }

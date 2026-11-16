@@ -575,6 +575,21 @@ Gemessen am 15.11.2026 mit den Beleg-Episoden (2 Prozesse). Achtung: In den Bele
 
 Gegenüber der Testszene (0,29 s/Bild) kosten die echten Sets etwa das 1,4- bis 1,8-Fache. Ein Teil von 80 s braucht damit grob 16–21 min Rechenzeit in voller Auflösung.
 
+### 15.8 Bausteine für Teil 2 (Stand 15.11.2026)
+
+| Baustein | Datei | Zweck, Schnittstelle |
+|---|---|---|
+| Set `kriechkeller` | `sets/kriechkeller.js` | Kriechkeller unter Junes Zimmer als eigener Raum (in Teil 2 bei `position [300, 0, 0]`, allein gezeigt). Erdboden, Grundmauern mit Lüftungsgitter, Balken, Ziegelpfeiler, schmale Dielen (8,5 cm) mit 3-cm-Fugen, biegsam. Über den Dielen leuchtet eine Fläche (Junes Zimmer); die Lichtstreifen entstehen, weil man durch die Fugen wirklich auf diese Fläche sieht. Was oben steht, verdeckt sie: Sohlenschatten unter Mister Hundred (die echte Figur steht bei Dielen-Oberkante + 1,6 cm) und eine flache Hand mit kaltem Saum und glimmenden Spitzen. Ereignisse über `params.ereignisse`: `biegen` {tiefe, mitte, radius}, `fuesse` {mitte}, `finger` {von, nach, drehung, spreizen}, `glut`. Lichtgruppen `keller.oben`, `keller.lukenrand`, `keller.lampe` (Taschenlampe: Punktlicht, Kegel, Lichtfleck), `keller.gitter`. Anker `luke_angel` (Requisite `luke` mit `groesse [0.8, 0.8]`), `dielen_mitte`, `fuesse`, `lampe`. Kamerapunkte `pov` (fast senkrecht nach oben, sonst verdeckt die Brettkante die Fugen), `luke_unten`, `totale`, `halbnah` |
+| Set `reifspur` | `sets/reifspur.js` | Reif auf dem Rasen der Marshs mit der Spur von Mister Hundred: von Junes Seitenfenster an der Hauswand entlang in den Vorgarten, Zehen VOM Fenster WEG (Hinweis fürs Wiederansehen). Eine Leinwand-Textur auf einer Fläche, Abdrücke 0,95 m mit vier Zehen. Anker `spur_fenster`, `spur_ecke`, `spur_garten`, `june_fenster`, `abdruck_<n>`; Kamerapunkte `draufsicht`, `entlang`, `fenster` |
+| Requisite `vorhang` | `figuren/vorhang.js` | Elis Vorhang: zwei Stoffbahnen mit Falten. Animationen `zuziehen` (0,25 s, ein Ruck), `aufziehen` {spalt, seite}. Anker `griff_r/l` (wandern mit der Bahn, die Hand folgt per IK), `mitte`. Mit `marsh_innen` `vorhang_als_figur: true` an Anker `haus.vorhang_stange`, `blick −90` |
+| `marsh_innen` | `sets/marsh_innen.js` | `vorhang_als_figur`, `tueren_als_figur: ["june"]` (Junes Tür als Requisite `tuer` an `haus.june_tuer_angel`, `blick 180`; negativer Winkel öffnet in Junes Zimmer). Achtung: Neben Junes Tür steht im Flur eine Konsole mit Lampe; Kameras dort mit `lampen_einzeln: { "haus.flur_lampe": false }` |
+| `marsh_haus` | `sets/marsh_haus.js` | Anker `june_fenster` (Junes Seitenfenster außen) |
+| `hauptstrasse` | `sets/hauptstrasse.js` | Die Glocke hängt an einem Drehpunkt und pendelt gedämpft nach jedem Schlag: `params.glocke.schlaege` oder Set-Ereignis `glocke` |
+| `luke` | `figuren/luke.js` | Animation `teppich_rollen` {rest}: der Teppich rollt sich zur fernen Kante auf |
+| `eli` | `figuren/eli.js` | `params.rucksack`: Rucksack auf dem Rücken, Anker `rucksack` am rechten Träger |
+
+Liegende Figuren (`pose: "liegen"`) schauen nach oben, der Kopf zeigt nach lokal −z. Für Nahaufnahmen den Kopf mit `pose_params.kopf` zur Kamera drehen und die Kamera rollen (`kamera.roll`, Teil 2: 70°), sonst steht das Gesicht quer im Bild. Atemdampf liegender Figuren braucht `richtung: [0, 1, 0]`.
+
 ## 16. Shotliste, Messtor, Kontaktbogen
 
 Stand 15.11.2026. Aus Wortzeiten wird ohne Handarbeit an Sekunden eine renderfertige Episode.
@@ -633,6 +648,13 @@ Danach prüft der Compiler die Datei gegen `episode.schema.json` (Python-jsonsch
 ### 16.5 Folge 1 in Zahlen (Messtor)
 
 Nach dem Review (REVIEW.md im Episoden-Ordner): 58 Einstellungen plus Endkarte, 87,27 s. Median 1,40 s, 40,3 Einstellungen/min, kürzeste 0,77 s, längste 2,50 s. 14 Akzentfahrten (im Mittel alle 6,2 s, größte Lücke 8,9 s), 3 Snap-Zooms, 2-mal Wackeln, 3 Lichtereignisse, Monster in 24,1 % der Einstellungen, Körperaktion in 64 % (Spec 35–55 %: etwas viel, kein Abbruch). Endkarte 0,147 s nach dem letzten Wort. Kompositionsprüfung: 57 von 57 Einstellungen ohne Verstoß.
+
+### 16.6 Erweiterungen für Teil 2
+
+- **Set-Ereignisse:** `haupt: { art: "set", set: "keller", was: "biegen", wort, dauer, params }` (Anker `ende` wie bei Aktionen) und `set_ereignisse: [{ set, was, wort, versatz, dauer, … }]` für Nebenbei-Ereignisse. Der Compiler legt sie mit Sekunden nach `sets[].params.ereignisse`; das Set rechnet daraus in `aktualisiere(t)`. `was: "uhr"` bleibt wie bisher.
+- **Ort `kriechkeller`** → Set `keller`; **Licht `kriechkeller`** = `innen_warm` mit schwachem kühlem Füll-Licht (Hemisphäre 2,4), Lampen der anderen Sets aus, Schattenbereich 10 m.
+- Endkarte: Text aus `regie.endkarte.text` („PART 3“), Zahl als Set-Parameter `karte.params.zahl`.
+- Folge 2 in Zahlen (Messtor): 61 Einstellungen plus Endkarte, 86,93 s. Median 1,40 s, 42,6 je Minute, kürzeste 0,83 s, längste 2,13 s. 14 Akzentfahrten (im Mittel alle 6,1 s, größte Lücke 8,0 s), 2 Snap-Zooms, 3-mal Wackeln, 3 Lichtereignisse, Monster in 16,4 % der Einstellungen, Endkarte 0,143 s nach dem letzten Wort. Vier Sätze laufen ohne eigenen Schnitt oder wurden geteilt, damit keine Einstellung unter 0,7 s oder über 2,5 s liegt (`bildideen.json`, Hinweise „Bau Teil 2“).
 
 ## 17. Untertitel, Effekte, Mischung, fertige MP4
 
@@ -696,6 +718,30 @@ Stand nach dem Review (Einzelheiten und Vorher-Werte: `episoden/folge-01/REVIEW.
 | Hör-Check Whisper auf dem MP4 | Upload und Vorhör je 0 Wortfehler, 0 Einschübe |
 | Dauer | Stimme 86,12 s, Endkarte ab 86,267 s (0,147 s nach dem letzten Wort), Video 87,267 s |
 | Bilder | Helligkeit Median 87,8, P10 65,6, kein Bild unter 30, dunkelste Einstellung 58,9; keine Balken; Kantendichte 15,6 %; keine schwarzen, einfarbigen oder eingefrorenen Bilder |
+
+### 17.6 Folge 2 in Zahlen
+
+Stand 16.11.2026. Aufrufe:
+
+```bash
+python engine/fertigen.py episoden/folge-02 --bett build/musik/spannung-hiding-night-teil2.wav --bett-bezug -20 --abstand 11 --namen ohne-musik,mit-musik
+python engine/pruefen.py episoden/folge-02 --namen ohne-musik,mit-musik
+```
+
+| | Wert |
+|---|---|
+| Render 1080 × 1920, 2 Prozesse, JPEG 0,95 | 2.608 Bilder in 973,6 s (16,2 min), 0,373 s/Bild effektiv, 11,2 min Rechenzeit je Minute Video; danach drei Teil-Renders (45, 34 und 625 Bilder, zusammen 4,3 min) |
+| Fassungen | `build/folge-02/folge-02-mit-musik.mp4` (Hauptfassung, 153,8 MB), `folge-02-ohne-musik.mp4` (153,7 MB) |
+| Untertitel | 191 Einblendungen, 86 mit zwei Wörtern, breiteste 807 px; Abstand zum Wortbeginn im MP4: Median 0,00 s, p90 0,027 s, höchstens 0,093 s |
+| Effekte | 12 Cues (`effekte.json`); wörtliche Rede: June +2,0, Tess +3,0, Odell −1,5 Halbtöne, Mister Hundred −4 mit verschobenen Formanten und kurzem Hall |
+| Musik | Wiegenlied-Spannungsfassung; Stufe normal 11,0–11,5 LU unter der Stimme, dünn 15,0–15,4 LU, voll 10,2 LU; Wegfälle bei 51,33 s und ab 72,90 s |
+| Ton nach AAC | ohne Musik −14,05 LUFS, −1,62 dBTP, LRA 2,8 LU; mit Musik −14,06 LUFS, −1,76 dBTP, LRA 2,9 LU |
+| Dauer | Stimme 85,79 s, Endkarte PART 3 ab 85,933 s (0,143 s nach dem letzten Wort), Video 86,933 s |
+| Bilder | Helligkeit Median 85,6, P10 64,5, dunkelste Einstellung 48,5 (E36); keine Balken, keine schwarzen oder eingefrorenen Bilder; Kantendichte 13,8 % |
+| Hör-Check (Whisper auf dem MP4) | „helper too“ wird als „help or two“ gehört (beide Fassungen, liegt an der Aufnahme: auch ohne Tonhöhenänderung), „lay“ als „laid“ (nur mit Musik); „O'Dell“ und „Mr“ zählen als Schreibweise |
+| Kompositionsprüfung | 14 von 61 Einstellungen mit der Hauptsache außerhalb des mittleren Drittels (Untersichten im Keller, Beine des Monsters, Laternenzug); nur Warnung |
+
+`timing.json` von Teil 2 ist an einer Stelle korrigiert (`korrekturen`): „She“ lag im Ausklang von „here.“; der Schnitt hätte Junes letztes Wort abgeschnitten.
 
 ## 18. Musik-Werkstatt
 

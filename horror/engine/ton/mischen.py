@@ -10,7 +10,8 @@ und episoden/<folge>/mischung.json (Messwerte, klein, im Repo).
 
 Regeln (anhang-b B4, format-spec §11, Aufgabe Render/Zusammenschnitt):
   - Upload = Stimme + Effekte, ohne Musik: Den Hintergrundsound wählt Linus in der TikTok-App.
-  - Vorhör = zusätzlich ein eigenes Klangbett, 12 LU unter der Stimme (wie r2/r5).
+  - Vorhör / mit Musik = zusätzlich ein eigenes Klangbett, 12 LU unter der Stimme (wie r2/r5); bei einer
+    Spannungsfassung bezieht sich der Abstand auf die Stufe „normal“ (bett_bezug_lufs).
   - Beide Fassungen −14 LUFS integriert, True Peak ≤ −1 dBTP (Begrenzer 4× überabgetastet,
     Decke etwas tiefer, weil AAC beim Kodieren Spitzen um einige Zehntel dB anhebt).
   - Effekte liegen unter der Stimme: Gemessen wird je Cue die lauteste Momentan-Lautheit (400 ms)
@@ -163,11 +164,22 @@ def rede_bearbeiten(stimme: np.ndarray, ordner: Path, woerter: list, cfg: dict) 
         if not c:
             continue
         a, b = woerter[r["von"]]["start"] - 0.06, woerter[r["bis"]]["ende"] + 0.08
+        # nicht in das Nachbarwort hinein (Teil 2: "Ninety-nine." und "Then" liegen ohne Pause aneinander)
+        if r["von"] > 0:
+            a = max(a, woerter[r["von"] - 1]["ende"])
+        if r["bis"] + 1 < len(woerter):
+            b = min(b, woerter[r["bis"] + 1]["start"])
         i, j = int(a * SR), int(b * SR)
         rand = int(0.25 * SR)              # Kontext, damit der Filter an den Rändern eingeschwungen ist
         i0, j0 = max(0, i - rand), min(len(stimme), j + rand)
         faktor = 2 ** (c.get("halbtoene", 0.0) / 12)
-        y = ffmpeg_filter(stimme[i0:j0], f"rubberband=pitch={faktor:.5f}:formant=preserved:pitchq=quality")
+        # formant "preserved" (Std): klingt wie dieselbe Kehle höher/tiefer (June, Tess, Odell);
+        # "shifted": Formanten wandern mit, die Stimme wird größer und fremd (Mister Hundred, Teil 2).
+        # hall: kurzer Raum aus zwei Echos (Leitgeräusch, serie.md)
+        filt = f"rubberband=pitch={faktor:.5f}:formant={c.get('formant', 'preserved')}:pitchq=quality"
+        if c.get("hall"):
+            filt += ",aecho=0.85:0.6:38|83:0.32|0.18"
+        y = ffmpeg_filter(stimme[i0:j0], filt)
         y = np.pad(y, ((0, max(0, (j0 - i0) - len(y))), (0, 0)))[: j0 - i0]
         neu = y[i - i0: j - i0]
         # rubberband ändert den Pegel etwas; erst auf die alte Lautheit zurück, dann c["db"] darauf
@@ -181,7 +193,8 @@ def rede_bearbeiten(stimme: np.ndarray, ordner: Path, woerter: list, cfg: dict) 
         neu[-k:] = neu[-k:] * (1 - rampe) + alt[-k:] * rampe
         stimme[i:j] = neu
         protokoll.append({"wer": r["wer"], "von_s": round(a, 3), "bis_s": round(b, 3),
-                          "halbtoene": c.get("halbtoene", 0.0), "db": c.get("db", 0.0)})
+                          "halbtoene": c.get("halbtoene", 0.0), "db": c.get("db", 0.0),
+                          **({"formant": c["formant"]} if c.get("formant") else {}), **({"hall": True} if c.get("hall") else {})})
     return protokoll
 
 
@@ -193,10 +206,17 @@ def setze_cue(spur: np.ndarray, klang: np.ndarray, t: float, db: float) -> None:
     spur[i:j] += klang[: j - i] * 10 ** (db / 20)
 
 
-def mische(ordner: Path, bett_pfad: Path | None, decke_db: float, decke_vh: float | None = None) -> dict:
+def mische(ordner: Path, bett_pfad: Path | None, decke_db: float, decke_vh: float | None = None,
+           bett_bezug_lufs: float | None = None, bett_abstand_lu: float = BETT_ABSTAND_LU,
+           bericht_datei: str = "mischung.json") -> dict:
     """decke_db: Begrenzer-Decke des Uploads; decke_vh: eigene Decke der Vorhör-Fassung (Std gleich).
     Getrennt, weil die Spieluhr-Anschläge des Klangbetts bei AAC stärker überschwingen und sonst den
-    Upload unnötig mit herunterziehen (Render-Bericht Folge 1)."""
+    Upload unnötig mit herunterziehen (Render-Bericht Folge 1).
+
+    bett_bezug_lufs: Lautheit, die im Bett als Bezug gilt. Ohne Angabe wird das ganze Bett gemessen
+    (gut für ein gleichmäßiges Bett). Eine Spannungsfassung (engine/musik/spannung.py) hat leise
+    Stufen und Wegfälle; ihr Bezug ist die Stufe „normal“ (bauen.ZIEL_LUFS = −20). Dann liegt
+    „normal“ genau bett_abstand_lu unter der Stimme, „dünn“ darunter, „voll“ knapp darüber."""
     decke_vh = decke_db if decke_vh is None else decke_vh
     name = ordner.name
     build = ordner.parent.parent / "build" / name
@@ -265,13 +285,14 @@ def mische(ordner: Path, bett_pfad: Path | None, decke_db: float, decke_vh: floa
             sys.exit("Klangbett ist kürzer als die Folge")
         bett = bett_roh[:n].copy()
         b_lufs = lautheit(bett)["lufs"]
-        bett *= 10 ** ((st_lufs - BETT_ABSTAND_LU - b_lufs) / 20)
+        bezug = b_lufs if bett_bezug_lufs is None else bett_bezug_lufs
+        bett *= 10 ** ((st_lufs - bett_abstand_lu - bezug) / 20)
         # über die Endkarte weiter, in den letzten 0,5 s ausblenden (in der App liefe der Sound weiter)
         k = int(0.5 * SR)
         bett[-k:] *= np.linspace(1, 0, k)[:, None]
         vorhoer, info_vh = begrenzen(upload_roh + bett, decke_vh)
         info_vh["bett"] = {"datei": str(bett_pfad), "sha256": hashlib.sha256(bett_pfad.read_bytes()).hexdigest(),
-                           "lufs_roh": b_lufs, "abstand_zur_stimme_lu": BETT_ABSTAND_LU,
+                           "lufs_roh": b_lufs, "bezug_lufs": bezug, "abstand_zur_stimme_lu": bett_abstand_lu,
                            "lufs_im_mix_vor_norm": round(lautheit(bett)["lufs"], 2)}
         schreibe_wav(ton / "mix-vorhoer.wav", vorhoer)
         schreibe_wav(ton / "bett.wav", bett)
@@ -291,7 +312,7 @@ def mische(ordner: Path, bett_pfad: Path | None, decke_db: float, decke_vh: floa
         "vorhoer": info_vh,
         "regel": {"ziel_lufs": ZIEL_LUFS, "max_tp_dbtp": MAX_TP, "decke_dbfs": decke_db, "decke_vorhoer_dbfs": decke_vh},
     }
-    (ordner / "mischung.json").write_text(json.dumps(bericht, ensure_ascii=False, indent=1), encoding="utf-8")
+    (ordner / bericht_datei).write_text(json.dumps(bericht, ensure_ascii=False, indent=1), encoding="utf-8")
     return bericht
 
 

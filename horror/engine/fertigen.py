@@ -2,6 +2,15 @@
 """Fertige MP4 einer Folge bauen: gerenderte Einzelbilder + Untertitel (ASS) + Tonmischungen.
 
     python engine/fertigen.py episoden/folge-01 [--nur-ton] [--bett PFAD.wav]
+    python engine/fertigen.py episoden/folge-02 --bett build/musik/spannung-hiding-night-teil2.wav \
+        --bett-bezug -20 --abstand 11 --namen ohne-musik,mit-musik
+    python engine/fertigen.py episoden/folge-01 --nur-ton --bett build/musik/spannung-hiding-night-teil1.wav \
+        --bett-bezug -20 --abstand 11 --namen upload,mit-musik-neu --nur vorhoer --bericht mischung-musik-neu.json
+
+Teil 2 (Musik-Schritt): Die Spannungsfassung aus engine/musik/spannung.py hat leise Stufen und Wegfälle.
+Mit --bett-bezug -20 bezieht sich --abstand auf ihre Stufe „normal“ (bauen.ZIEL_LUFS), nicht auf das
+ganze Bett. --namen benennt die zwei Fassungen um (upload, vorhoer); --nur baut nur eine davon (Teil 1
+neu mischen, ohne den alten Upload zu überschreiben); --bericht schreibt die Messwerte in eine eigene Datei.
 
 Ablauf:
   1. engine/untertitel.py   -> episoden/<folge>/untertitel.ass
@@ -83,7 +92,13 @@ def main() -> None:
     ap.add_argument("ordner", type=Path)
     ap.add_argument("--nur-ton", action="store_true", help="Bild-MP4 nicht neu kodieren (nur Ton neu mischen)")
     ap.add_argument("--bett", type=Path, help=f"Klangbett für die Vorhör-Fassung (Std build/<folge>/{STD_BETT})")
+    ap.add_argument("--bett-bezug", type=float, help="Bezugslautheit im Bett (Spannungsfassung: Stufe normal = -20 LUFS)")
+    ap.add_argument("--abstand", type=float, default=mischen.BETT_ABSTAND_LU, help="Bett so viele LU unter der Stimme (Std 12)")
+    ap.add_argument("--namen", default="upload,vorhoer", help="Dateinamen der Fassungen ohne/mit Bett (Std upload,vorhoer)")
+    ap.add_argument("--nur", choices=["upload", "vorhoer"], help="nur diese Fassung als MP4 bauen")
+    ap.add_argument("--bericht", default="mischung.json", help="Messwerte in diese Datei im Folgenordner (Std mischung.json)")
     a = ap.parse_args()
+    namen = dict(zip(["upload", "vorhoer"], a.namen.split(",")))
     ordner = a.ordner.resolve()
     name = ordner.name
     build = ordner.parent.parent / "build" / name
@@ -105,14 +120,17 @@ def main() -> None:
     decken = {"upload": mischen.DECKE_DB, "vorhoer": mischen.DECKE_DB}
     for runde in range(4):
         print(f"3/4 Ton mischen (Begrenzer-Decken {decken} dBFS)")
-        bericht = mischen.mische(ordner, bett if bett.exists() else None, decken["upload"], decken["vorhoer"])
+        bericht = mischen.mische(ordner, bett if bett.exists() else None, decken["upload"], decken["vorhoer"],
+                                 bett_bezug_lufs=a.bett_bezug, bett_abstand_lu=a.abstand, bericht_datei=a.bericht)
         print("4/4 Fassungen bauen")
         fassungen = {"upload": build / "ton" / "mix-upload.wav"}
         if bericht["vorhoer"]:
             fassungen["vorhoer"] = build / "ton" / "mix-vorhoer.wav"
+        if a.nur:
+            fassungen = {k: v for k, v in fassungen.items() if k == a.nur}
         messung = {}
         for art, wav in fassungen.items():
-            ziel = build / f"{name}-{art}.mp4"
+            ziel = build / f"{name}-{namen[art]}.mp4"
             muxe(bild, wav, ziel)
             messung[art] = true_peak_mp4(ziel)
             print(f"    {ziel.name}: {messung[art]}")
@@ -123,7 +141,8 @@ def main() -> None:
             if m["true_peak_dbtp"] > mischen.MAX_TP:
                 decken[art] = round(decken[art] - (m["true_peak_dbtp"] - mischen.MAX_TP + 0.2), 2)
     bericht["nach_aac"] = {"kbit": AAC_KBIT, **messung, "decken_dbfs": decken}
-    (ordner / "mischung.json").write_text(json.dumps(bericht, ensure_ascii=False, indent=1), encoding="utf-8")
+    bericht["dateien"] = {art: f"build/{name}/{name}-{namen[art]}.mp4" for art in messung}
+    (ordner / a.bericht).write_text(json.dumps(bericht, ensure_ascii=False, indent=1), encoding="utf-8")
     if schlimmste > mischen.MAX_TP:
         sys.exit(f"True Peak nach AAC {schlimmste} dBTP liegt über {mischen.MAX_TP}")
     print("fertig")

@@ -3,7 +3,8 @@
 
     python engine/pruefen.py episoden/folge-01
 
-Prüft build/<folge>/<folge>-upload.mp4 (und -vorhoer.mp4) und schreibt
+Prüft build/<folge>/<folge>-upload.mp4 (und -vorhoer.mp4; andere Namen mit --namen, Teil 2:
+--namen ohne-musik,mit-musik) und schreibt
 episoden/<folge>/pruefung.json sowie episoden/<folge>/render-bogen.jpg (30 Bilder, klein).
 Exit 1, wenn eine harte Regel verletzt ist.
 
@@ -33,6 +34,7 @@ Regeln:
 from __future__ import annotations
 
 import argparse
+import re
 import json
 import subprocess
 import sys
@@ -80,7 +82,14 @@ def hoer_check(mp4: Path, skript: Path) -> dict:
         woerter = stimme.whisper_woerter(wav)
     tokens, _ = stimme.skript_tokens(skript)
     erg = stimme.ausrichten(tokens, woerter)
-    return {"wer": round(erg["wer"], 4), "fehler": erg["fehler"], "eingefuegt": erg["eingefuegt"],
+    # Reine Schreibweisen sind keine Hörfehler (Teil 2: Whisper schreibt „O'Dell“ und „Mr“ statt
+    # „Odell“ und „Mister“): ohne Apostrophe und Leerzeichen, mr = mister, gleich -> eigene Liste
+    def schreibweise(f: dict) -> bool:
+        norm = lambda t: re.sub(r"[\s'’.]", "", re.sub(r"\bmr\b", "mister", t.lower()))  # noqa: E731
+        return norm(f["skript"]) == norm(f["gehoert"])
+    schreib = [f for f in erg["fehler"] if schreibweise(f)]
+    erg["fehler"] = [f for f in erg["fehler"] if not schreibweise(f)]
+    return {"wer": round(erg["wer"], 4), "fehler": erg["fehler"], "schreibweisen": schreib, "eingefuegt": erg["eingefuegt"],
             "n_skript": erg["n_skript"], "n_gehoert": erg["n_gehoert"],
             "unsicher": [{"wort": w["text"], "p": round(w["p"], 2), "zeit_s": round(w["start"], 2)}
                          for w in erg["woerter"] if w["p"] < 0.5],
@@ -205,9 +214,14 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("ordner", type=Path)
     ap.add_argument("--ohne-whisper", action="store_true")
+    ap.add_argument("--namen", default="upload,vorhoer", help="Dateinamen der Fassungen ohne/mit Bett (Teil 2: ohne-musik,mit-musik)")
     a = ap.parse_args()
     ordner = a.ordner.resolve()
     name = ordner.name
+    namen = dict(zip(["upload", "vorhoer"], a.namen.split(",")))
+    mp4_von = lambda art: build / f"{name}-{namen[art]}.mp4"   # noqa: E731
+    # Skript der Folge (skript-teil1.txt, skript-teil2.txt, …)
+    skript = sorted(ordner.glob("skript-teil*.txt"))[0]
     build = ordner.parent.parent / "build" / name
     episode = json.loads((ordner / "episode.json").read_text(encoding="utf-8"))
     timing = json.loads((ordner / "timing.json").read_text(encoding="utf-8"))
@@ -220,7 +234,7 @@ def main() -> None:
     # 1. Format
     fassungen = {}
     for art in ("upload", "vorhoer"):
-        mp4 = build / f"{name}-{art}.mp4"
+        mp4 = mp4_von(art)
         if mp4.exists():
             fassungen[art] = probe(mp4)
     erg["format"] = fassungen
@@ -248,7 +262,7 @@ def main() -> None:
     if not a.ohne_whisper:
         erg["hoer_check"] = {}
         for art in fassungen:
-            hc = hoer_check(build / f"{name}-{art}.mp4", ordner / "skript-teil1.txt")
+            hc = hoer_check(mp4_von(art), skript)
             woerter = hc.pop("_woerter")
             if art == "upload":
                 whisper_start = [w["start"] for w in woerter]
@@ -279,7 +293,7 @@ def main() -> None:
             "abstand_zu_timing_max_s": round(max(abw_plan), 3)}
     # Wortbeginn im MP4: nach Pausen akustischer Einsatz, sonst Whisper (siehe Regel 4)
     wav = build / "stimme.wav"
-    versatz = versatz_mp4_zu_wav(build / f"{name}-upload.mp4", wav)
+    versatz = versatz_mp4_zu_wav(mp4_von("upload"), wav)
     sync["versatz_mp4_ton_zu_master_ms"] = round(versatz * 1000, 2)
     ein = einsaetze(wav) + versatz
     woerter_t = timing["woerter"]
@@ -314,7 +328,7 @@ def main() -> None:
 
     # 5. Bilder
     grenzen = [(e["id"], round(e["start"] * FPS), round(e["ende"] * FPS) - 1) for e in episode["einstellungen"]]
-    erg["bilder"] = bilder_pruefen(build / f"{name}-upload.mp4", karte_bild, grenzen)
+    erg["bilder"] = bilder_pruefen(mp4_von("upload"), karte_bild, grenzen)
     b = erg["bilder"]
     if b["helligkeit_median"] < HELL_MEDIAN_MIN:
         verstoesse.append(f"Bilder zu dunkel: Median {b['helligkeit_median']} < {HELL_MEDIAN_MIN}")
@@ -327,7 +341,7 @@ def main() -> None:
         verstoesse.append(f"Bilder: {b['dekodierfehler']}, schwarz {b['schwarz_oder_einfarbig'][:5]}, {b['bilder']} Bilder")
     if b["laengster_stillstand_s"] > 0.33:
         verstoesse.append(f"Stillstand {b['laengster_stillstand_s']} s (bis Bild {b['stillstand_endet_bild']})")
-    erg["bogen_zeiten_s"] = bogen(build / f"{name}-upload.mp4", ordner / "render-bogen.jpg", bilder_soll / FPS)
+    erg["bogen_zeiten_s"] = bogen(mp4_von("upload"), ordner / "render-bogen.jpg", bilder_soll / FPS)
 
     # 6. Ton (aus mischung.json, gemessen auf der dekodierten AAC-Spur)
     mi = json.loads((ordner / "mischung.json").read_text(encoding="utf-8"))

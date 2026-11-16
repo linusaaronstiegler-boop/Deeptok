@@ -3,7 +3,7 @@
  "teil": 2,
  "serie": "Hiding Night",
  "quelle": "skript-teil2.txt (Satz-Index = Zeilennummer, 1-basiert)",
- "stand": "2026-11-15 (Endfassung nach der Kritik; noch ohne Shotliste)",
+ "stand": "2026-11-16 (Endfassung; im Bau von Teil 2 nachgebessert: Schnitte nach Messtor, Monster-Anteil, Akzentfahrten; gerendert)",
  "hinweis": "Grobe Bildideen je Satz als Vorlage für die Shotliste. Hauptbild = erste Einstellung des Satzes; teilbilder = weitere Schnitte im Satz, ab_wort = Wort, auf dessen Beginn geschnitten wird. t_schaetz_s ist eine Schätzung bei 219 Wörtern/min ohne Pausen; die echten Zeiten kommen aus timing.json. Neu gegenüber folge-01: Ort kriechkeller, Licht kriechkeller, Figur tess, Abschnitte musik und bildunterschrift.",
  "vokabular": {
   "orte": {
@@ -69,17 +69,13 @@
   ]
  },
  "licht_kriechkeller": "fast dunkel, Elis Taschenlampe als Kegel, dünne Lichtstreifen durch die Dielen (verdunkeln sich, wenn oben etwas steht), Atemdampf",
- "fehlt_im_set": [
-  "kriechkeller: Balken, Erdboden, Dielen mit Lichtspalten, die sich zur Kamera wölben können (Satz 42), Lichtspalten einzeln abdunkelbar (Satz 45), Fingerschatten durch die Spalten (Satz 46)",
-  "hauptstrasse: Reif-Fußspuren als Bodenaufkleber mit Zehen vom Fenster weg (Sätze 4–5); Anker june_seite an Junes Seitenfenster außen (Sätze 1, 5); Turmuhr 11:00 und 12:00 (Sätze 11, 40)",
-  "marsh-innen: Vorhang an Elis Fenster prüfen (Sätze 2–3)"
- ],
+ "fehlt_im_set": [],
  "summen": {
   "saetze": 46,
   "woerter": 278,
-  "einstellungen": 63,
+  "einstellungen": 61,
   "einstellungen_pro_minute_geschaetzt": 49.6,
-  "monster_anteil": 0.063,
+  "monster_anteil": 0.164,
   "laenge_geschaetzt_s": 76.2
  },
  "musik": {
@@ -108,7 +104,8 @@
     "stufe": "weg",
     "grund": "Abriss in die Stille, wenn June aufhört; danach nur die Glocke (Satz 40, gehört zur Handlung) und das Leitgeräusch (Sätze 45–46), stumm bis über die Endkarte"
    }
-  ]
+  ],
+  "umgesetzt": "Bau Teil 2: engine/musik/spannung/hiding-night-teil2.json (Wiegenlied-Spieluhr, eigene Komposition im Stil der Vorbilder). Stufen wie oben, dazu normal im Hook, normal zu Hause, ein Wegfall vor 'side by side' (Omen) und dünn/normal in der Entscheidung; Abriss am Ende von 'Ninety-nine' (72,90 s). In der Mischung liegt die Stufe 'normal' 11 LU unter der Stimme."
  },
  "bildunterschrift": "Would you hide under June's room?",
  "ende": {
@@ -166,13 +163,15 @@
      "ort": "hauptstrasse",
      "modul": "marsh-aussen",
      "licht": "daemmerung",
-     "figuren": [],
-     "aktion": "die Kamera gleitet an der Hausfassade nach unten bis zu Junes dunklem Seitenfenster im Erdgeschoss",
+     "figuren": [
+      "mister-hundred"
+     ],
+     "aktion": "Untersicht vom Vorgarten: der Kopf hinter den Händen dreht sich langsam zur Hausecke, hinter der Junes Seitenfenster liegt",
      "schluesselwort": "hide",
-     "kamera": "kranabstieg",
-     "groesse": "halbnah",
-     "monster": false,
-     "hinweis": "Ankunft am Fenster genau auf 'hide'; Anker june_seite fehlt im Set (Erdgeschoss links)"
+     "kamera": "push-in",
+     "groesse": "halbtotale",
+     "monster": true,
+     "hinweis": "Bau Teil 2: statt Kranabstieg ohne Figur (Monster-Anteil 15–25 %, Akzentfahrten höchstens alle 6 s)"
     }
    ]
   },
@@ -184,18 +183,19 @@
    "modul": "eli-zimmer",
    "licht": "daemmerung",
    "figuren": [
-    "eli"
+    "eli",
+    "mister-hundred"
    ],
-   "aktion": "Eli reißt den Vorhang zu",
+   "aktion": "Eli im Profil am Fenster, draußen hinter dem Glas die Hände des Riesen; Eli reißt den Vorhang zu",
    "schluesselwort": "yanked",
-   "kamera": "statisch",
+   "kamera": "push-in",
    "groesse": "nah",
-   "monster": false,
+   "monster": true,
    "gesicht": {
     "eli": "erschrocken"
    },
    "sfx": "Vorhangringe ratschen auf 'yanked'",
-   "hinweis": "Vorhang an Elis Fenster (im Set für Teil 2 vorbereitet)"
+   "hinweis": "Requisite vorhang (zuziehen 0,25 s), Wackeln auf 'yanked'"
   },
   "3": {
    "text": "When I looked again, the yard was empty.",
@@ -207,7 +207,7 @@
    "figuren": [
     "eli"
    ],
-   "aktion": "Eli zieht den Vorhang langsam einen Spalt auf",
+   "aktion": "Eli zieht den Vorhang einen Spalt auf, Dreiviertel von vorn",
    "schluesselwort": "looked",
    "kamera": "push-in",
    "groesse": "nah",
@@ -339,7 +339,7 @@
      ],
      "aktion": "Detail: Junes nackte Füße auf den Dielen",
      "schluesselwort": "barefoot",
-     "kamera": "statisch",
+     "kamera": "push-in",
      "groesse": "detail",
      "monster": false,
      "hinweis": "June mit Option barfuss; Kamera auf Bodenhöhe"
@@ -416,24 +416,12 @@
      "figuren": [
       "tess"
      ],
-     "aktion": "Tess im Zug: weißer Bob, lila Bomberjacke, sie geht betont locker",
+     "aktion": "Tess im Zug: weißer Bob, lila Bomberjacke, sie geht betont locker und schaut zu Eli; hinten der Kirchturm, die Uhr zeigt elf",
      "schluesselwort": "Tess",
-     "kamera": "folgefahrt",
-     "groesse": "halbnah",
-     "monster": false
-    },
-    {
-     "ab_wort": "to the square",
-     "ort": "hauptstrasse",
-     "modul": "platz",
-     "licht": "nacht",
-     "figuren": [],
-     "aktion": "die Turmuhr zeigt elf",
-     "schluesselwort": "square",
      "kamera": "push-in",
-     "groesse": "detail",
+     "groesse": "halbnah",
      "monster": false,
-     "hinweis": "Turmuhr 11:00 fehlt im Set (Zeiger stellen)"
+     "hinweis": "Bau Teil 2: 'to the square' wäre 0,6 s (Messtor M2 ≥ 0,7 s), deshalb im Tess-Bild; Turmuhr 11:00 im Hintergrund"
     }
    ]
   },
@@ -445,12 +433,27 @@
    "modul": "haeuserzeile",
    "licht": "nacht",
    "figuren": [],
-   "aktion": "Verandaböden der Reihe nach: überall liegen die Schuhe kreuz und quer",
-   "schluesselwort": "apart",
+   "aktion": "Seitenfahrt an den Veranden entlang: auf jeder liegen Schuhe kreuz und quer",
+   "schluesselwort": "porch",
    "kamera": "seitenfahrt",
-   "groesse": "detail",
+   "groesse": "halbtotale",
    "monster": false,
-   "hinweis": "Kamerapunkt haeuser_detail; zwei bis drei Veranden in einer Fahrt"
+   "hinweis": "Kamerapunkt haeuser_detail; zwei bis drei Veranden in einer Fahrt",
+   "teilbilder": [
+    {
+     "ab_wort": "the shoes",
+     "ort": "hauptstrasse",
+     "modul": "haeuserzeile",
+     "licht": "nacht",
+     "figuren": [],
+     "aktion": "Detail: ein Paar liegt auseinandergetreten auf dem Verandaboden",
+     "schluesselwort": "apart",
+     "kamera": "push-in",
+     "groesse": "detail",
+     "monster": false,
+     "hinweis": "Bau Teil 2: Satz wäre 2,53 s (Messtor M2 ≤ 2,5 s)"
+    }
+   ]
   },
   "13": {
    "text": "Side by side is all it leaves.",
@@ -478,7 +481,7 @@
    "figuren": [
     "odell"
    ],
-   "aktion": "Mr. Odell steht mit einer Laterne auf den Kirchenstufen",
+   "aktion": "Mr. Odell vor den Kirchenstufen schaut zum Turm hinauf; auf 'bell' schwingt oben die Glocke",
    "schluesselwort": "Odell",
    "kamera": "push-in",
    "groesse": "halbnah",
@@ -486,32 +489,22 @@
    "gesicht": {
     "odell": "streng"
    },
-   "hinweis": "Setup für den Cliffhanger im selben Video (Regel 5): um Mitternacht beginnt das Zählen",
+   "hinweis": "Setup für den Cliffhanger im selben Video (Regel 5): um Mitternacht beginnt das Zählen. Bau Teil 2: Glocken-Teilbild wäre 0,63 s lang",
    "teilbilder": [
-    {
-     "ab_wort": "midnight",
-     "ort": "hauptstrasse",
-     "modul": "platz",
-     "licht": "nacht",
-     "figuren": [],
-     "aktion": "Untersicht: die Glocke im Turm",
-     "schluesselwort": "bell",
-     "kamera": "push-in",
-     "groesse": "nah",
-     "monster": false
-    },
     {
      "ab_wort": "and it starts",
      "ort": "hauptstrasse",
      "modul": "platz",
      "licht": "nacht",
-     "figuren": [],
-     "aktion": "der leere Fleck am Platzende im Nebel, wo es jede Hiding Night steht und zählt",
+     "figuren": [
+      "mister-hundred"
+     ],
+     "aktion": "Rückgriff auf Teil 1: am Platzende im Nebel steht es und zählt, kaltes Licht pulst durch die Fingerspalten",
      "schluesselwort": "counting",
      "kamera": "push-in",
-     "groesse": "totale",
-     "monster": false,
-     "hinweis": "Anker monster_platz, ohne Figur; Monster nicht zeigen"
+     "groesse": "halbtotale",
+     "monster": true,
+     "hinweis": "zeigt Neuen, wo es sonst zählt; der leere Fleck in Satz 41 wird dadurch lesbar (Setup/Payoff 19)"
     }
    ]
   },
@@ -521,14 +514,31 @@
    "block": "stadt",
    "ort": "hauptstrasse",
    "modul": "platz",
-   "licht": "nacht",
+   "licht": "sonnenaufgang",
    "figuren": [],
-   "aktion": "Kranfahrt am Kirchturm hoch bis zur Glocke, der Mond dahinter",
-   "schluesselwort": "sunrise",
+   "aktion": "Tilt am Kirchturm hoch bis zur Glocke im ersten Morgenlicht",
+   "schluesselwort": "bell",
    "kamera": "kran-enthuellung",
    "groesse": "totale",
    "monster": false,
-   "hinweis": "'Hiding Night' in der Akzentfarbe im Untertitel"
+   "hinweis": "Bau Teil 2: Satz wäre 2,67 s (M2), deshalb zwei Bilder; Ankunft auf 'bell'",
+   "teilbilder": [
+    {
+     "ab_wort": "ends",
+     "ort": "hauptstrasse",
+     "modul": "strassenende",
+     "licht": "sonnenaufgang",
+     "figuren": [
+      "mister-hundred"
+     ],
+     "aktion": "von hinten: der Riese stapft in den Nebel am Straßenende, gegen die aufgehende Sonne",
+     "schluesselwort": "ends",
+     "kamera": "push-in",
+     "groesse": "totale",
+     "monster": true,
+     "hinweis": "'Hiding Night' in der Akzentfarbe im Untertitel"
+    }
+   ]
   },
   "16": {
    "text": "Mr. Odell turned to June.",
@@ -585,7 +595,7 @@
    ],
    "aktion": "über Odells Schulter auf June",
    "schluesselwort": "still",
-   "kamera": "push-in",
+   "kamera": "orbit",
    "groesse": "ueber-schulter",
    "monster": false,
    "gesicht": {
@@ -719,7 +729,22 @@
    "kamera": "push-in",
    "groesse": "halbnah",
    "monster": false,
-   "hinweis": "Kamera auf Bodenhöhe; Bildecho zu Teil 1, Satz 18 (Animation kicken)"
+   "hinweis": "Kamera auf Bodenhöhe; Bildecho zu Teil 1, Satz 18 (Animation kicken)",
+   "teilbilder": [
+    {
+     "ab_wort": "sneakers",
+     "ort": "marsh-innen",
+     "modul": "flur",
+     "licht": "innen-nacht",
+     "figuren": [],
+     "aktion": "Detail: Elis weiße Turnschuhe liegen auseinander zwischen den anderen Schuhen",
+     "schluesselwort": "apart",
+     "kamera": "push-in",
+     "groesse": "detail",
+     "monster": false,
+     "hinweis": "Bau Teil 2: Satz wäre 2,57 s (M2)"
+    }
+   ]
   },
   "25": {
    "text": "I packed for the woods.",
@@ -731,7 +756,7 @@
    "figuren": [
     "eli"
    ],
-   "aktion": "Eli stopft Taschenlampe und Jacke in den Rucksack",
+   "aktion": "Eli stopft die Taschenlampe in den Rucksack auf seinem Bett",
    "schluesselwort": "woods",
    "kamera": "push-in",
    "groesse": "nah",
@@ -751,7 +776,7 @@
     "eli"
    ],
    "aktion": "Eli kommt mit dem Rucksack die Treppe herunter",
-   "schluesselwort": "down",
+   "schluesselwort": "came",
    "kamera": "folgefahrt",
    "groesse": "halbtotale",
    "monster": false,
@@ -815,9 +840,9 @@
     "june",
     "eli"
    ],
-   "aktion": "June nimmt Eli den Rucksack von der Schulter und hält ihn fest",
+   "aktion": "June greift nach dem Träger von Elis Rucksack und hält ihn fest",
    "schluesselwort": "bag",
-   "kamera": "push-in",
+   "kamera": "orbit",
    "groesse": "halbnah",
    "monster": false,
    "gesicht": {
@@ -858,7 +883,7 @@
    ],
    "aktion": "June lächelt, die Kamera hält eine Spur zu lang auf ihrem Gesicht",
    "schluesselwort": "still",
-   "kamera": "statisch",
+   "kamera": "push-in",
    "groesse": "nah",
    "monster": false,
    "gesicht": {
@@ -876,24 +901,26 @@
    "figuren": [
     "june"
    ],
-   "aktion": "June rollt den Teppich zurück, der Eisenring kommt zum Vorschein",
-   "schluesselwort": "rug",
-   "kamera": "push-in",
-   "groesse": "detail",
+   "aktion": "von oben: June kniet am Teppich und rollt ihn zurück, der Lukendeckel mit dem Eisenring kommt zum Vorschein",
+   "schluesselwort": "rolled",
+   "kamera": "kranabstieg",
+   "groesse": "halbtotale",
    "monster": false,
    "teilbilder": [
     {
-     "ab_wort": "opened",
+     "ab_wort": "rug",
      "ort": "marsh-innen",
      "modul": "june-zimmer",
      "licht": "innen-nacht",
-     "figuren": [],
+     "figuren": [
+      "june"
+     ],
      "aktion": "die Luke klappt auf, darunter ein schwarzer Schacht",
-     "schluesselwort": "hatch",
-     "kamera": "statisch",
+     "schluesselwort": "opened",
+     "kamera": "push-in",
      "groesse": "halbnah",
      "monster": false,
-     "hinweis": "Requisite luke: oeffnen, winkel 105"
+     "hinweis": "Requisite luke: oeffnen, winkel 105. Bau Teil 2: ab 'opened' wären es 0,63 s"
     }
    ]
   },
@@ -907,15 +934,15 @@
    "figuren": [
     "eli"
    ],
-   "aktion": "aus dem Schacht nach oben: Eli steigt in die Luke hinab",
+   "aktion": "Eli steigt in die Luke hinab, von vorn und flach über dem Boden, hinter ihm steht June",
    "schluesselwort": "climbed",
-   "kamera": "statisch",
+   "kamera": "push-in",
    "groesse": "halbnah",
    "monster": false,
    "gesicht": {
     "eli": "entschlossen"
    },
-   "hinweis": "Animation klettern; dramatische Ironie: der Zuschauer will 'nicht!' rufen"
+   "hinweis": "Gesicht an der Schlüsselstelle von vorn (Review Folge 1); dramatische Ironie"
   },
   "34": {
    "text": "The hatch closed over me, then the rug.",
@@ -924,12 +951,10 @@
    "ort": "kriechkeller",
    "modul": "kriechkeller",
    "licht": "kriechkeller",
-   "figuren": [
-    "eli"
-   ],
+   "figuren": [],
    "aktion": "Untersicht aus dem Kriechkeller: die Luke schließt sich über der Kamera, dann nur Elis Taschenlampe",
    "schluesselwort": "closed",
-   "kamera": "statisch",
+   "kamera": "push-in",
    "groesse": "pov",
    "monster": false,
    "hinweis": "neuer Ort kriechkeller (fehlt: Balken, Erdboden, Dielen mit Lichtspalten); Musik: Ende der vollen Stufe",
@@ -942,7 +967,7 @@
      "figuren": [],
      "aktion": "die Lichtspalten am Lukenrand verschwinden, als der Teppich darüberfällt",
      "schluesselwort": "rug",
-     "kamera": "statisch",
+     "kamera": "push-in",
      "groesse": "detail",
      "monster": false
     }
@@ -1046,7 +1071,7 @@
    "gesicht": {
     "june": "zaehlt"
    },
-   "hinweis": "Musik reißt am Wortende von 'Ninety-nine' ab, danach Stille. Letztes Bild von June in Teil 2: nach dem Abbruch nicht mehr zeigen, damit offen bleibt, was mit ihr passiert"
+   "hinweis": "Musik reißt am Wortende von Ninety-nine ab. Die Einstellung läuft durch Satz 39 (Then she stopped) und ist das letzte Bild von June in Teil 2"
   },
   "39": {
    "text": "Then she stopped.",
@@ -1058,7 +1083,7 @@
    "figuren": [
     "eli"
    ],
-   "aktion": "Eli starrt nach oben zu den Dielen, nichts bewegt sich",
+   "aktion": "kein eigener Schnitt: die Einstellung von Satz 38 hält Junes Gesicht; die Lippen stehen still, auf 'stopped' steigt weißer Atem auf",
    "schluesselwort": "stopped",
    "kamera": "statisch",
    "groesse": "nah",
@@ -1066,7 +1091,8 @@
    "gesicht": {
     "eli": "nervoes"
    },
-   "hinweis": "Stille, kein Bett, kein Effekt"
+   "hinweis": "Bau Teil 2: 'Ninety-nine' allein wäre 0,39 s lang (M2 ≥ 0,7 s). Kein Effekt, die Musik ist schon weg",
+   "neuer_schnitt": false
   },
   "40": {
    "text": "The bell struck midnight.",
@@ -1076,7 +1102,7 @@
    "modul": "platz",
    "licht": "nacht",
    "figuren": [],
-   "aktion": "die Turmuhr springt auf zwölf, die Glocke schwingt",
+   "aktion": "Turmuhr und Glocke: die Zeiger springen auf zwölf, die Glocke schwingt",
    "schluesselwort": "midnight",
    "kamera": "push-in",
    "groesse": "detail",
@@ -1110,13 +1136,14 @@
    "modul": "kriechkeller",
    "licht": "kriechkeller",
    "figuren": [
-    "eli"
+    "eli",
+    "mister-hundred"
    ],
-   "aktion": "Untersicht: die Dielen wölben sich zur Kamera, Staub rieselt in den Lampenkegel",
+   "aktion": "Untersicht: die Dielen biegen sich zur Kamera, in den Fugen die Umrisse großer nackter Füße, Staub rieselt in den Lampenkegel",
    "schluesselwort": "bent",
    "kamera": "push-in",
    "groesse": "nah",
-   "monster": false,
+   "monster": true,
    "sfx": "Dielen ächzen unter großem Gewicht auf 'bent'",
    "effekt": "Staubpartikel, Wackeln 0,3 s",
    "hinweis": "eigener Baustein: Dielen wölben sich, Hauptbewegung auf 'bent'"
@@ -1129,13 +1156,14 @@
    "modul": "kriechkeller",
    "licht": "kriechkeller",
    "figuren": [
-    "eli"
+    "eli",
+    "mister-hundred"
    ],
-   "aktion": "Elis Atem wird zu weißem Dampf im Lampenkegel",
+   "aktion": "Elis Atem wird weiß im Lampenkegel, er presst die Hand auf den Mund; über ihm verdunkeln die Füße die Fugen",
    "schluesselwort": "white",
    "kamera": "push-in",
    "groesse": "nah",
-   "monster": false,
+   "monster": true,
    "gesicht": {
     "eli": "erschrocken"
    },
@@ -1163,15 +1191,18 @@
    "teilbilder": [
     {
      "ab_wort": "slow",
-     "ort": "kriechkeller",
-     "modul": "kriechkeller",
-     "licht": "kriechkeller",
-     "figuren": [],
-     "aktion": "die Kamera dreht langsam nach oben zu den Dielen",
+     "ort": "marsh-innen",
+     "modul": "june-zimmer",
+     "licht": "innen-nacht",
+     "figuren": [
+      "mister-hundred"
+     ],
+     "aktion": "Junes Zimmer auf Bodenhöhe: zwei lange, kalkweiße, nackte Füße auf dem Teppich über der Luke, darüber der ausgefranste Mantelsaum; Tilt von den Zehen zum Saum",
      "schluesselwort": "deep",
-     "kamera": "push-in",
-     "groesse": "pov",
-     "monster": false
+     "kamera": "kran-enthuellung",
+     "groesse": "detail",
+     "monster": true,
+     "hinweis": "Payoff der Reif-Spur (Satz 4): dieselben Füße. Junes Bett bleibt außerhalb des Bildes (Satz 38: letztes Bild von June)"
     }
    ]
   },
@@ -1183,33 +1214,17 @@
    "ort": "kriechkeller",
    "modul": "kriechkeller",
    "licht": "kriechkeller",
-   "figuren": [],
-   "aktion": "Untersicht auf die Dielen: die Lichtspalten verdunkeln sich, etwas Großes steht darauf",
+   "figuren": [
+    "mister-hundred"
+   ],
+   "aktion": "Untersicht auf die Dielen: die Lichtspalten verdunkeln sich, etwas Großes steht darauf; auf 'Ready?' fallen die Schatten von vier langen Fingern durch die Fugen und spreizen sich",
    "schluesselwort": "One",
-   "kamera": "statisch",
+   "kamera": "push-in",
    "groesse": "pov",
    "monster": true,
    "effekt": "Lichtereignis: Lichtspalten werden in 0,3 s dunkel",
    "sfx": "Leitgeräusch: Stimme −5 Halbtöne, kurzer Hall, je Zahl ein dumpfer Schlag",
-   "hinweis": "Untertitel Türkis #9FD8D2",
-   "teilbilder": [
-    {
-     "ab_wort": "hundred",
-     "ort": "kriechkeller",
-     "modul": "kriechkeller",
-     "licht": "kriechkeller",
-     "figuren": [
-      "eli"
-     ],
-     "aktion": "Eli presst sich die Hand auf den Mund, der Atemdampf quillt durch die Finger",
-     "schluesselwort": "hundred",
-     "kamera": "snap-zoom",
-     "groesse": "gross",
-     "monster": false,
-     "effekt": "Atemdampf",
-     "hinweis": "Animation mund_zuhalten"
-    }
-   ]
+   "hinweis": "Untertitel Türkis #9FD8D2. Bau Teil 2: 'One' allein wäre 0,31 s und 'Ready?' 0,5 s (M2 ≥ 0,7 s), deshalb eine Einstellung bis zur Endkarte; Snap-Zoom auf 'Ready'"
   },
   "46": {
    "text": "\"Ready?\"",
@@ -1220,13 +1235,24 @@
    "modul": "kriechkeller",
    "licht": "kriechkeller",
    "figuren": [],
-   "aktion": "die Schatten von vier langen Fingern fallen durch die Dielenspalten und spreizen sich (0,3 s)",
+   "aktion": "kein eigener Schnitt (siehe Satz 45): die Fingerschatten spreizen sich, Snap-Zoom",
    "schluesselwort": "Ready",
    "kamera": "statisch",
    "groesse": "gross",
    "monster": true,
    "sfx": "Leitgeräusch",
-   "hinweis": "Regel 3: der Fehler des Monsters (die Hände) groß im Bild. Kein Auge im Spalt, sonst wäre Eli schon gefunden. Harter Schnitt höchstens 0,2 s nach 'Ready?', dann 1,0 s Endkarte PART 3 ohne Ton"
+   "hinweis": "Regel 3: der Fehler des Monsters (die Hände) groß im Bild. Kein Auge im Spalt. Harter Schnitt höchstens 0,2 s nach 'Ready?', dann 1,0 s Endkarte PART 3 ohne Ton",
+   "neuer_schnitt": false
   }
- }
+ },
+ "gebaut_fuer_teil2": [
+  "Set kriechkeller (Dielen mit Fugen, biegsam, Fingerschatten, Taschenlampe, Lukenrand, Lüftungsgitter)",
+  "Set reifspur (Reif mit Abdrücken, Zehen vom Fenster weg)",
+  "Requisite vorhang (zuziehen, aufziehen)",
+  "marsh_haus Anker june_fenster",
+  "marsh_innen: vorhang_als_figur, Junes Tür als Requisite",
+  "hauptstrasse: Glocke schwingt (params.glocke / Ereignis glocke)",
+  "luke: teppich_rollen",
+  "eli: params.rucksack"
+ ]
 }

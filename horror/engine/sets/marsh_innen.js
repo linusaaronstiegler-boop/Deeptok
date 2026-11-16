@@ -12,7 +12,8 @@
 // params:
 //   kuchen (Std false), taschenlampe (Std true: liegt auf Elis Bett), luke ('teppich' | 'zu' | 'offen' | 'figur';
 //   Std 'teppich'; 'figur' = Deckel weglassen, Requisite "luke" an Anker "luke_angel" mit blick 90),
-//   tueren_als_figur (Liste, z. B. ["haustuer"]: Türblatt weglassen)
+//   tueren_als_figur (Liste, z. B. ["haustuer", "june"]: Türblatt weglassen), vorhang_als_figur (Std false:
+//   Elis Vorhang als Requisite "vorhang", Teil 2)
 // Lichtgruppen: haus.kueche_lampe (Punktlicht), haus.june_lampe (Punktlicht), haus.eli_lampe, haus.flur_lampe, haus.kerzen
 import * as THREE from 'three';
 import { k, flaeche, zyl, verschmelze, tmat, wand, innenFenster, MARSH, marshWelt, textur } from '../src/bauteile.js';
@@ -147,10 +148,14 @@ export default async function baue(ctx, params = {}) {
   };
   heizung(F.kueche.x, so, -D - 0.12);
   heizung(F.eli.x, y1, -D - 0.12);
-  // Vorhänge an Elis Fenster (Satz 33–35, Teil 2 reißt Eli ihn zu)
-  const stoff = tmat(ctx, '#5a6e8a', 'tapete', { rauheit: 1 });
-  for (const sx of [-1, 1]) k(statisch, 0.32, F.eli.h + 0.5, 0.06, stoff, F.eli.x + sx * (F.eli.b / 2 + 0.2), y1 + F.eli.unten + F.eli.h / 2 + 0.1, -D - 0.08, { rund: 0.02 });
-  k(statisch, F.eli.b + 1.0, 0.04, 0.04, ctx.mat('#2a2a2a'), F.eli.x, y1 + F.eli.unten + F.eli.h + 0.38, -D - 0.08);
+  // Vorhänge an Elis Fenster (Satz 33–35, Teil 2 reißt Eli ihn zu). Mit params.vorhang_als_figur
+  // fehlen Bahnen und Stange: dann stellt die Episode die Requisite "vorhang" an Anker "vorhang_stange"
+  // (blick −90), die sich zuziehen und einen Spalt aufziehen lässt.
+  if (!params.vorhang_als_figur) {
+    const stoff = tmat(ctx, '#5a6e8a', 'tapete', { rauheit: 1 });
+    for (const sx of [-1, 1]) k(statisch, 0.32, F.eli.h + 0.5, 0.06, stoff, F.eli.x + sx * (F.eli.b / 2 + 0.2), y1 + F.eli.unten + F.eli.h / 2 + 0.1, -D - 0.08, { rund: 0.02 });
+    k(statisch, F.eli.b + 1.0, 0.04, 0.04, ctx.mat('#2a2a2a'), F.eli.x, y1 + F.eli.unten + F.eli.h + 0.38, -D - 0.08);
+  }
   for (const sx of [-1, 1]) k(statisch, 0.26, F.kueche.h * 0.5, 0.05, tmat(ctx, '#c0583e', 'tapete'), F.kueche.x + sx * (F.kueche.b / 2 - 0.05), so + F.kueche.unten + F.kueche.h * 0.75, -D - 0.06);
   k(statisch, F.kueche.b + 0.2, 0.25, 0.05, tmat(ctx, '#c0583e', 'tapete'), F.kueche.x, so + F.kueche.unten + F.kueche.h - 0.1, -D - 0.06);
 
@@ -277,7 +282,9 @@ export default async function baue(ctx, params = {}) {
   const tuerBlatt = (x, yy, zz, drehY, farbe = '#ece6da') => { const g = new T.Group(); g.position.set(x, yy, zz); g.rotation.y = drehY; statisch.add(g); k(g, 0.9, 2.12, 0.05, ctx.mat(farbe, { rauheit: 0.6 }), 0.45, 1.06, 0); k(g, 0.05, 0.05, 0.06, ctx.mat('#C9A85A', { metall: 0.8 }), 0.8, 1.0, 0.05, { rund: 0.02 }); };
   tuerBlatt(0.55, so, -6.2, 0);
   tuerBlatt(-0.02, y1, -6.95, -Math.PI / 2);
-  tuerBlatt(0, so, -5.6 + 0.47, Math.PI / 2 + 1.25);
+  // Junes Tür: mit tueren_als_figur ["june"] stellt die Episode die Requisite "tuer" an Anker
+  // "june_tuer_angel" (blick 180, anschlag links; oeffnen mit positivem Winkel = in Junes Zimmer)
+  if (!tueren.has('june')) tuerBlatt(0, so, -5.6 + 0.47, Math.PI / 2 + 1.25);
   tuerBlatt(0, y1, -3.6 + 0.47, Math.PI / 2 + 1.3);
 
   // ---------- Elis Zimmer (oben) ----------
@@ -373,6 +380,8 @@ export default async function baue(ctx, params = {}) {
       luke: W(-2.0, so, -6.8),
       luke_angel: W(-2.0, so, lz1),                // Requisite "luke": position hier, blick 90
       june_tuer: W(0, so + 1.1, -5.6),
+      june_tuer_angel: W(0, so, -5.125),           // Requisite "tuer" (Junes Tür): position hier, blick 180
+      vorhang_stange: W(F.eli.x, y1 + F.eli.unten + F.eli.h + 0.38, -D - 0.08),  // Requisite "vorhang", blick −90
       eli_tuer: W(0, y1 + 1.1, -3.6),
     },
     kamerapunkte: {

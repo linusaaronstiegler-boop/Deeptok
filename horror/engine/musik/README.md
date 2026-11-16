@@ -110,6 +110,25 @@ Gemessen (RMS 0,6 s vor/nach dem Punkt): dünn liegt 2–6 dB unter normal, „w
 
 **JSON-Regeln** (vollständig im Docstring von `spannung.py`): Anker `ab_s`, `ab_satz` oder `ab_wort` plus `versatz_s`; `stufe` = `duenn | normal | voll | weg`; `blende_s` je Punkt; Wechsel rasten auf den nächsten Schlag ein (`einrasten`: `schlag`, `takt` oder `aus`), ein „weg“ sitzt immer genau am Wort. `start_in_schleife_s` wählt die Stelle in der 3-min-Schleife (Teil 2 beginnt in der zweiten Runde, damit es nach Fortsetzung klingt).
 
+### Spannungsfassung Teil 2 und Teil 1 neu gemischt (Bau Teil 2)
+
+`spannung/hiding-night-teil2.json` folgt den Musikstufen aus `episoden/folge-02/bildideen.json` und legt zwei Wegfälle auf die Pointen. Aufgelöst in `messwerte/spannung-hiding-night-teil2.json`:
+
+| Zeit | Stufe | Grund |
+|---|---|---|
+| 0,00 s | normal | Hook, Anschluss an Teil 1 (zweite Schleifenrunde) |
+| 5,11 s | dünn | Vorhang, leerer Garten, Spur im Reif, June barfuß |
+| 21,06 s | voll | Laternenzug, Platz, Odell, Tess |
+| 46,60 s | normal | zu Hause, Turnschuhe, packen |
+| 51,33 s | **weg** | 0,25 s vor „side by side“: das Omen fällt mit dem Klopfen der Schuhe in die Stille |
+| 52,98 s | dünn | Entscheidung (Owen, Dad) |
+| 57,45 s | normal | June nimmt den Rucksack |
+| 61,28 s | voll | Teppich, Luke, Eli steigt hinab |
+| 67,66 s | dünn | June zählt wie jede Nacht |
+| 72,90 s | **weg** | Abriss am Ende von „Ninety-nine“; danach nur Glocke, Dielen und Leitgeräusch, stumm bis über die Endkarte PART 3 |
+
+Gemischt wird mit `fertigen.py --bett-bezug -20 --abstand 11`: Bezug ist die Stufe „normal“ (−20 LUFS), sie liegt 11 LU unter der Stimme (Vorgabe 10–12 LU), dünn etwa 4–6 LU tiefer, voll etwa 1 LU höher. Teil 1 ist mit derselben Musik und derselben Regel neu gemischt (`episoden/folge-01/mischung-musik-neu.json`, `build/folge-01/folge-01-mit-musik-neu.mp4`), damit die Serie gleich klingt; Bild und Untertitel von Teil 1 sind unverändert.
+
 ## Offen
 
 - `mido` und `fluidsynth` + `fluid-soundfont-gm` fehlen im Setup-Skript (`tools/setup-umgebung.sh`, danach `SETUP_VERSION` hochzählen). Ohne FluidSynth lässt sich nur Stil 3 nicht bauen.

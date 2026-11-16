@@ -13,6 +13,8 @@
 //
 // params:
 //   uhr: { zeit: "11:58", spruenge: [{ start: s, zeit: "12:00" }] }   Turmuhr (Zeiger springen zur Zeit)
+//   glocke: { schlaege: [s, …] }   die Glocke schwingt nach jedem Schlag (Teil 2); ebenso
+//   ereignisse: [{ was: "glocke", start }] aus regie.mjs (set_ereignisse)
 //   licht_an: Anteil erleuchteter Fenster (Std 0.55)
 //   punktlichter: Std true (2 echte Punktlichter: Laterne am Marsh-Garten, Laterne an den Kirchenstufen)
 // Lichtgruppen (Ereignisse "strasse.<name>", alle: "strasse.*"):
@@ -180,8 +182,13 @@ export default async function baue(ctx, params = {}) {
     for (let i = 0; i < 6; i++) k(g, 1.6, 0.08, 0.3, lamelle, 0, 12.9 + i * 0.32, 2.15, { dreh: [0.5, 0, 0], schatten: false });
     k(g, 0.3, 2.3, 0.3, zier, -1.0, 13.7, 2.2); k(g, 0.3, 2.3, 0.3, zier, 1.0, 13.7, 2.2);
   }
-  const glocke = zyl(P, 0.45, 0.85, 1.1, ctx.mat('#7a5a2a', { metall: 0.7, rauheit: 0.35 }), 0, 13.5, tz, { segmente: 14 });
-  void glocke;
+  // Glocke an einem Drehpunkt unter dem Joch (eigenes Objekt, nicht verschmolzen): schwingt nach jedem
+  // Schlag aus params.glocke.schlaege (Teil 2, Satz 40 „The bell struck midnight“)
+  const glockeDreh = new T.Group(); glockeDreh.position.set(0, 14.15, tz); glockeDreh.userData.einzeln = true; P.add(glockeDreh);
+  const glocke = zyl(glockeDreh, 0.45, 0.85, 1.1, ctx.mat('#7a5a2a', { metall: 0.7, rauheit: 0.35 }), 0, -0.65, 0, { segmente: 14 });
+  glocke.userData.einzeln = true;
+  const kloeppel = zyl(glockeDreh, 0.08, 0.08, 0.9, ctx.mat('#3a3a3c', { metall: 0.7, rauheit: 0.4 }), 0, -0.85, 0, { segmente: 8 });
+  kloeppel.userData.einzeln = true;
   k(P, 5, 0.3, 5, zier, 0, 15.05, tz);
   const spitze = new T.Mesh(new T.ConeGeometry(3.3, 8, 4), kirchenDach);
   spitze.rotation.y = Math.PI / 4; spitze.position.set(0, 19.2, tz); spitze.castShadow = true; P.add(spitze);
@@ -371,6 +378,8 @@ export default async function baue(ctx, params = {}) {
   });
 
   let uhrAlt = null;
+  // Glockenschläge: params.glocke.schlaege oder Set-Ereignisse { was: "glocke", start } des Shotlisten-Compilers
+  const glockenSchlaege = [...(params.glocke?.schlaege ?? []), ...(params.ereignisse ?? []).filter((e) => e.was === 'glocke').map((e) => e.start)];
   return {
     gruppe, anker, lichter, kamerapunkte,
     vordergrund: {
@@ -379,11 +388,18 @@ export default async function baue(ctx, params = {}) {
     },
     // Turmuhr: Zeiger springen zu den Zeiten aus params.uhr.spruenge (nur von t abhängig)
     aktualisiere(t) {
+      // Glocke: gedämpftes Pendeln nach jedem Schlag (nur aus t gerechnet)
+      let w = 0;
+      for (const s0 of glockenSchlaege) {
+        const d = t - s0;
+        if (d >= 0) w += 0.42 * Math.sin(d * 2 * Math.PI * 0.55) * Math.exp(-d * 0.45) * Math.min(1, d / 0.12);
+      }
+      glockeDreh.rotation.x = w;
       let zeit = uhrSpec.zeit ?? '11:58';
       for (const s of uhrSpec.spruenge ?? []) if (t >= s.start) zeit = s.zeit;
       if (zeit === uhrAlt) return;
-      const w = zeitZuWinkel(zeit);
-      minute.rotation.z = w.m; stunde.rotation.z = w.h;
+      const zw = zeitZuWinkel(zeit);
+      minute.rotation.z = zw.m; stunde.rotation.z = zw.h;
       uhrAlt = zeit;
     },
   };

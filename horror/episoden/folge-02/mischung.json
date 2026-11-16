@@ -1,0 +1,263 @@
+{
+ "folge": "folge-02",
+ "laenge_s": 86.933,
+ "bilder": 2608,
+ "endkarte_ab_s": 85.933,
+ "stimme": {
+  "datei": "build/folge-02/stimme.wav",
+  "lufs_stereo": -14.25,
+  "sha256": "2919a9ed52166c51c210144347d890146763021a7399113063a7c0c4c09b2700",
+  "rede": [
+   {
+    "wer": "June",
+    "von_s": 18.71,
+    "bis_s": 20.38,
+    "halbtoene": 2.0,
+    "db": -2.0
+   },
+   {
+    "wer": "Odell",
+    "von_s": 35.76,
+    "bis_s": 38.55,
+    "halbtoene": -1.5,
+    "db": -1.0
+   },
+   {
+    "wer": "Tess",
+    "von_s": 40.8,
+    "bis_s": 42.3,
+    "halbtoene": 3.0,
+    "db": -2.0
+   },
+   {
+    "wer": "June",
+    "von_s": 58.16,
+    "bis_s": 61.42,
+    "halbtoene": 2.0,
+    "db": -2.0
+   },
+   {
+    "wer": "June",
+    "von_s": 70.48,
+    "bis_s": 72.9,
+    "halbtoene": 2.0,
+    "db": -2.0
+   },
+   {
+    "wer": "Mister Hundred",
+    "von_s": 83.78,
+    "bis_s": 85.87,
+    "halbtoene": -4.0,
+    "db": 0.0,
+    "formant": "shifted",
+    "hall": true
+   }
+  ]
+ },
+ "effekte": {
+  "klaenge": [
+   "glocke",
+   "klopfen",
+   "knarzen",
+   "riegel",
+   "sub_boom",
+   "whoosh",
+   "zaehlschlag"
+  ],
+  "cues": 12,
+  "abstand_min_lu": 7.6,
+  "abstand_median_lu": 10.1,
+  "lufs_integriert_allein": -27.49,
+  "liste": [
+   {
+    "nr": 0,
+    "klang": "sub_boom",
+    "wort": "takes",
+    "zeit_s": 0.49,
+    "db": -13,
+    "fx_max_lufs": -26.1,
+    "abstand_zur_stimme_lu": 11.9,
+    "stimme_dort_lufs": -12.8
+   },
+   {
+    "nr": 1,
+    "klang": "whoosh",
+    "wort": "yanked",
+    "zeit_s": 4.72,
+    "db": -12,
+    "fx_max_lufs": -24.8,
+    "abstand_zur_stimme_lu": 10.6,
+    "stimme_dort_lufs": -11.4
+   },
+   {
+    "nr": 2,
+    "klang": "sub_boom",
+    "wort": "window.",
+    "zeit_s": 11.6,
+    "db": -13,
+    "fx_max_lufs": -25.1,
+    "abstand_zur_stimme_lu": 10.9,
+    "stimme_dort_lufs": -10.8
+   },
+   {
+    "nr": 3,
+    "klang": "glocke",
+    "wort": "bell,",
+    "zeit_s": 29.66,
+    "db": -17,
+    "fx_max_lufs": -21.9,
+    "abstand_zur_stimme_lu": 7.6,
+    "stimme_dort_lufs": -13.6
+   },
+   {
+    "nr": 4,
+    "klang": "zaehlschlag",
+    "wort": "counting.",
+    "zeit_s": 30.64,
+    "db": -12,
+    "fx_max_lufs": -21.9,
+    "abstand_zur_stimme_lu": 7.6,
+    "stimme_dort_lufs": -10.1
+   },
+   {
+    "nr": 5,
+    "klang": "klopfen",
+    "wort": "side",
+    "zeit_s": 51.58,
+    "db": -9,
+    "fx_max_lufs": -25.8,
+    "abstand_zur_stimme_lu": 11.6,
+    "stimme_dort_lufs": -11.3
+   },
+   {
+    "nr": 6,
+    "klang": "klopfen",
+    "wort": "side.",
+    "zeit_s": 52.04,
+    "db": -9,
+    "fx_max_lufs": -25.8,
+    "abstand_zur_stimme_lu": 11.6,
+    "stimme_dort_lufs": -11.3
+   },
+   {
+    "nr": 7,
+    "klang": "riegel",
+    "wort": "closed",
+    "zeit_s": 65.45,
+    "db": -12,
+    "fx_max_lufs": -27.5,
+    "abstand_zur_stimme_lu": 13.2,
+    "stimme_dort_lufs": -11.2
+   },
+   {
+    "nr": 8,
+    "klang": "glocke",
+    "wort": "struck",
+    "zeit_s": 74.8,
+    "db": -14,
+    "fx_max_lufs": -23.4,
+    "abstand_zur_stimme_lu": 9.1,
+    "stimme_dort_lufs": -12.1
+   },
+   {
+    "nr": 9,
+    "klang": "knarzen",
+    "wort": "bent",
+    "zeit_s": 78.65,
+    "db": -10,
+    "fx_max_lufs": -21.8,
+    "abstand_zur_stimme_lu": 7.6,
+    "stimme_dort_lufs": -13.6
+   },
+   {
+    "nr": 10,
+    "klang": "zaehlschlag",
+    "wort": "hundred.\"",
+    "zeit_s": 84.15,
+    "db": -11,
+    "fx_max_lufs": -22.9,
+    "abstand_zur_stimme_lu": 8.6,
+    "stimme_dort_lufs": -12.7
+   },
+   {
+    "nr": 11,
+    "klang": "sub_boom",
+    "wort": "\"Ready?\"",
+    "zeit_s": 85.45,
+    "db": -11,
+    "fx_max_lufs": -23.8,
+    "abstand_zur_stimme_lu": 9.6,
+    "stimme_dort_lufs": -13.7
+   }
+  ]
+ },
+ "upload": {
+  "eingang": {
+   "lufs": -14.21,
+   "true_peak_dbtp": -1.88,
+   "lra_lu": 2.8
+  },
+  "verstaerkung_db": 0.21,
+  "decke_dbfs": -1.8,
+  "runden": 1,
+  "begrenzer_max_db": 0.12,
+  "begrenzer_rahmen_ueber_1db_prozent": 0.0,
+  "ausgang": {
+   "lufs": -14.0,
+   "true_peak_dbtp": -1.8,
+   "lra_lu": 2.8
+  }
+ },
+ "vorhoer": {
+  "eingang": {
+   "lufs": -14.07,
+   "true_peak_dbtp": -1.89,
+   "lra_lu": 3.0
+  },
+  "verstaerkung_db": 0.07,
+  "decke_dbfs": -1.8,
+  "runden": 1,
+  "begrenzer_max_db": 0.03,
+  "begrenzer_rahmen_ueber_1db_prozent": 0.0,
+  "ausgang": {
+   "lufs": -14.0,
+   "true_peak_dbtp": -1.82,
+   "lra_lu": 2.9
+  },
+  "bett": {
+   "datei": "/home/user/Deeptok/horror/build/musik/spannung-hiding-night-teil2.wav",
+   "sha256": "bd27b800e33d8dafe1191d6d9ced6595f6218ff0d10e00fcc55a2dd9ace8248a",
+   "lufs_roh": -20.58,
+   "bezug_lufs": -20.0,
+   "abstand_zur_stimme_lu": 11.0,
+   "lufs_im_mix_vor_norm": -25.84
+  }
+ },
+ "regel": {
+  "ziel_lufs": -14.0,
+  "max_tp_dbtp": -1.0,
+  "decke_dbfs": -1.8,
+  "decke_vorhoer_dbfs": -1.8
+ },
+ "nach_aac": {
+  "kbit": 192,
+  "upload": {
+   "lufs": -14.05,
+   "true_peak_dbtp": -1.62,
+   "lra_lu": 2.8
+  },
+  "vorhoer": {
+   "lufs": -14.06,
+   "true_peak_dbtp": -1.76,
+   "lra_lu": 2.9
+  },
+  "decken_dbfs": {
+   "upload": -1.8,
+   "vorhoer": -1.8
+  }
+ },
+ "dateien": {
+  "upload": "build/folge-02/folge-02-ohne-musik.mp4",
+  "vorhoer": "build/folge-02/folge-02-mit-musik.mp4"
+ }
+}

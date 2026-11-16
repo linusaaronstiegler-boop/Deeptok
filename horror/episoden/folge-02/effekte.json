@@ -1,0 +1,147 @@
+{
+ "_hinweis": "Cue-Liste für engine/ton/mischen.py (Teil 2). 'wort' = Index in timing.json, 'text' wird geprüft. Wie Teil 1 nach dem Review: wenige Akzente (12 Cues), nicht jede Bewegung. Ab dem Musik-Abriss nach 'Ninety-nine' nur noch Glocke (Handlung), Dielen und das Leitgeräusch.",
+ "endkarte_stumm": true,
+ "rede": {
+  "_hinweis": "Wörtliche Rede formant-erhaltend höher/tiefer (ffmpeg rubberband), wie in Teil 1. Mister Hundred: tiefer, Formanten mit verschoben, kurzer Hall (serie.md: Leitgeräusch −5 Halbtöne mit kurzem Hall; −4, damit 'Ready' verständlich bleibt). June in Teil 2 +2,0 statt +2,5 Halbtöne: mit +2,5 hörte Whisper im Zusammenhang 'He can't touch you' statt 'It can't …' (Bau Teil 2, gemessen).",
+  "june": {
+   "halbtoene": 2.0,
+   "db": -2.0
+  },
+  "tess": {
+   "halbtoene": 3.0,
+   "db": -2.0
+  },
+  "odell": {
+   "halbtoene": -1.5,
+   "db": -1.0
+  },
+  "mister hundred": {
+   "halbtoene": -4.0,
+   "db": 0.0,
+   "formant": "shifted",
+   "hall": true
+  }
+ },
+ "cues": [
+  {
+   "klang": "sub_boom",
+   "wort": 2,
+   "text": "takes",
+   "versatz": -0.03,
+   "db": -13,
+   "params": {
+    "f_start": 60.0,
+    "f_ende": 34.0,
+    "dauer": 1.8
+   },
+   "grund": "Hook-Impact auf dem Preis ('takes'), A2.4"
+  },
+  {
+   "klang": "whoosh",
+   "wort": 17,
+   "text": "yanked",
+   "versatz": 0.0,
+   "db": -12,
+   "grund": "Vorhang fliegt zu (Wackeln)"
+  },
+  {
+   "klang": "sub_boom",
+   "wort": 41,
+   "text": "window.",
+   "versatz": -0.02,
+   "db": -13,
+   "params": {
+    "f_start": 50.0,
+    "f_ende": 30.0,
+    "dauer": 1.4
+   },
+   "grund": "die Spur endet unter Junes Fenster"
+  },
+  {
+   "klang": "glocke",
+   "wort": 100,
+   "text": "bell,",
+   "versatz": 0.0,
+   "db": -17,
+   "grund": "die Mitternachtsglocke (Regel), die Glocke schwingt im Bild"
+  },
+  {
+   "klang": "zaehlschlag",
+   "wort": 104,
+   "text": "counting.",
+   "versatz": 0.0,
+   "db": -12,
+   "params": {
+    "f": 58.0
+   },
+   "grund": "Leitgeräusch: es zählt (Rückgriff Teil 1)"
+  },
+  {
+   "klang": "klopfen",
+   "wort": 174,
+   "text": "side",
+   "versatz": 0.0,
+   "db": -9,
+   "grund": "das Omen: erster Schuh (Motiv aus Teil 1)"
+  },
+  {
+   "klang": "klopfen",
+   "wort": 176,
+   "text": "side.",
+   "versatz": 0.0,
+   "db": -9,
+   "params": {
+    "tonhoehe": 0.93
+   },
+   "grund": "zweiter Schuh, Snap-Zoom"
+  },
+  {
+   "klang": "riegel",
+   "wort": 225,
+   "text": "closed",
+   "versatz": 0.05,
+   "db": -12,
+   "grund": "die Luke schlägt über Eli zu"
+  },
+  {
+   "klang": "glocke",
+   "wort": 249,
+   "text": "struck",
+   "versatz": 0.0,
+   "db": -14,
+   "grund": "Mitternacht (Handlung); einziger Ton neben der Stimme nach dem Abriss"
+  },
+  {
+   "klang": "knarzen",
+   "wort": 262,
+   "text": "bent",
+   "versatz": -0.05,
+   "db": -10,
+   "grund": "Dielen ächzen unter großem Gewicht (Wackeln)"
+  },
+  {
+   "klang": "zaehlschlag",
+   "wort": 276,
+   "text": "hundred.\"",
+   "versatz": 0.0,
+   "db": -11,
+   "params": {
+    "f": 52.0,
+    "schimmer": 1.4
+   },
+   "grund": "Leitgeräusch: es beendet Junes Zählung"
+  },
+  {
+   "klang": "sub_boom",
+   "wort": 277,
+   "text": "\"Ready?\"",
+   "versatz": 0.0,
+   "db": -11,
+   "params": {
+    "f_start": 48.0,
+    "f_ende": 27.0
+   },
+   "grund": "Cliffhanger, bricht mit der Endkarte ab"
+  }
+ ]
+}

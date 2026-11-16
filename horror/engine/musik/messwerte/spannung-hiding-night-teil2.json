@@ -1,0 +1,111 @@
+{
+ "name": "hiding-night-teil2",
+ "stil": "wiegenlied",
+ "laenge_s": 87.0,
+ "punkte": [
+  {
+   "ab_s": 0.0,
+   "stufe": "normal",
+   "grund": "Hook: Anschluss an Teil 1, die Spieldose läuft weiter (zweite Schleifenrunde)",
+   "zeit_s": 0.0,
+   "anker_s": 0.0,
+   "rms_vor_db": null,
+   "rms_nach_db": -22.8
+  },
+  {
+   "ab_satz": 2,
+   "stufe": "duenn",
+   "blende_s": 1.2,
+   "grund": "Vorhang, leerer Garten, Spur im Reif, June barfuß: leise, jedes Detail soll sitzen",
+   "zeit_s": 5.107,
+   "anker_s": 4.62,
+   "rms_vor_db": -23.2,
+   "rms_nach_db": -29.0
+  },
+  {
+   "ab_satz": 11,
+   "stufe": "voll",
+   "blende_s": 1.5,
+   "grund": "um elf auf den Platz (Laternenzug), Odell, die Regeln, Tess",
+   "zeit_s": 21.064,
+   "anker_s": 20.59,
+   "rms_vor_db": -25.0,
+   "rms_nach_db": -21.4
+  },
+  {
+   "ab_satz": 24,
+   "stufe": "normal",
+   "blende_s": 1.5,
+   "grund": "zu Hause: Turnschuhe auseinander, packen",
+   "zeit_s": 46.596,
+   "anker_s": 46.39,
+   "rms_vor_db": -21.3,
+   "rms_nach_db": -25.6
+  },
+  {
+   "ab_wort": 174,
+   "versatz_s": -0.25,
+   "stufe": "weg",
+   "blende_s": 0.2,
+   "grund": "Wegfall vor dem Omen: 'side by side' fällt in die Stille (Klopfen der Schuhe)",
+   "zeit_s": 51.33,
+   "anker_s": 51.33,
+   "rms_vor_db": -22.9,
+   "rms_nach_db": -72.5
+  },
+  {
+   "ab_satz": 27,
+   "stufe": "duenn",
+   "blende_s": 0.6,
+   "grund": "Entscheidung: Owen, Dad",
+   "zeit_s": 52.979,
+   "anker_s": 52.83,
+   "rms_vor_db": -86.4,
+   "rms_nach_db": -27.9
+  },
+  {
+   "ab_satz": 29,
+   "stufe": "normal",
+   "blende_s": 1.0,
+   "grund": "June nimmt den Rucksack, ihr Versprechen",
+   "zeit_s": 57.447,
+   "anker_s": 56.86,
+   "rms_vor_db": -27.4,
+   "rms_nach_db": -26.7
+  },
+  {
+   "ab_satz": 32,
+   "stufe": "voll",
+   "blende_s": 1.5,
+   "grund": "Teppich, Luke, Eli steigt hinab",
+   "zeit_s": 61.915,
+   "anker_s": 61.68,
+   "rms_vor_db": -22.6,
+   "rms_nach_db": -21.9
+  },
+  {
+   "ab_satz": 35,
+   "stufe": "duenn",
+   "blende_s": 1.5,
+   "grund": "June zählt leise wie jede Nacht: die Spieldose wird ihr Zählen",
+   "zeit_s": 67.66,
+   "anker_s": 67.33,
+   "rms_vor_db": -22.3,
+   "rms_nach_db": -27.2
+  },
+  {
+   "ab_wort": 244,
+   "versatz_s": 0.0,
+   "stufe": "weg",
+   "blende_s": 0.15,
+   "grund": "Abriss am Ende von 'Ninety-nine': danach nur Glocke, Dielen und das Leitgeräusch, stumm bis über die Endkarte PART 3",
+   "zeit_s": 72.9,
+   "anker_s": 72.9,
+   "rms_vor_db": -27.9,
+   "rms_nach_db": -89.1
+  }
+ ],
+ "lufs": -20.55,
+ "spitze_dbfs": -4.97,
+ "datei": "build/musik/spannung-hiding-night-teil2.wav"
+}

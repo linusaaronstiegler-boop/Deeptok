@@ -1,0 +1,208 @@
+{
+ "folge": "folge-01",
+ "laenge_s": 87.267,
+ "bilder": 2618,
+ "endkarte_ab_s": 86.267,
+ "stimme": {
+  "datei": "build/folge-01/stimme.wav",
+  "lufs_stereo": -14.12,
+  "sha256": "21f6c5778c82fa0d1832119d0e8ed937554cf0371bc42084e48c47d0ec6ab28b",
+  "rede": [
+   {
+    "wer": "June",
+    "von_s": 71.99,
+    "bis_s": 75.55,
+    "halbtoene": 2.5,
+    "db": -2.0
+   }
+  ]
+ },
+ "effekte": {
+  "klaenge": [
+   "glocke",
+   "klopfen",
+   "sub_boom",
+   "whoosh",
+   "zaehlschlag"
+  ],
+  "cues": 11,
+  "abstand_min_lu": 8.6,
+  "abstand_median_lu": 11.0,
+  "lufs_integriert_allein": -28.42,
+  "liste": [
+   {
+    "nr": 0,
+    "klang": "sub_boom",
+    "wort": "eighteen,",
+    "zeit_s": 1.27,
+    "db": -13,
+    "fx_max_lufs": -26.1,
+    "abstand_zur_stimme_lu": 12.0,
+    "stimme_dort_lufs": -11.8
+   },
+   {
+    "nr": 1,
+    "klang": "sub_boom",
+    "wort": "Hundred.",
+    "zeit_s": 5.88,
+    "db": -12,
+    "fx_max_lufs": -26.4,
+    "abstand_zur_stimme_lu": 12.3,
+    "stimme_dort_lufs": -11.2
+   },
+   {
+    "nr": 2,
+    "klang": "whoosh",
+    "wort": "peeks.",
+    "zeit_s": 11.22,
+    "db": -12,
+    "fx_max_lufs": -24.4,
+    "abstand_zur_stimme_lu": 10.3,
+    "stimme_dort_lufs": -12.2
+   },
+   {
+    "nr": 3,
+    "klang": "glocke",
+    "wort": "midnight,",
+    "zeit_s": 12.18,
+    "db": -16,
+    "fx_max_lufs": -22.7,
+    "abstand_zur_stimme_lu": 8.6,
+    "stimme_dort_lufs": -12.2
+   },
+   {
+    "nr": 4,
+    "klang": "zaehlschlag",
+    "wort": "hundred,",
+    "zeit_s": 13.56,
+    "db": -12,
+    "fx_max_lufs": -22.7,
+    "abstand_zur_stimme_lu": 8.6,
+    "stimme_dort_lufs": -10.9
+   },
+   {
+    "nr": 5,
+    "klang": "klopfen",
+    "wort": "side",
+    "zeit_s": 25.13,
+    "db": -9,
+    "fx_max_lufs": -25.8,
+    "abstand_zur_stimme_lu": 11.7,
+    "stimme_dort_lufs": -11.9
+   },
+   {
+    "nr": 6,
+    "klang": "klopfen",
+    "wort": "side.",
+    "zeit_s": 25.54,
+    "db": -9,
+    "fx_max_lufs": -25.8,
+    "abstand_zur_stimme_lu": 11.7,
+    "stimme_dort_lufs": -11.9
+   },
+   {
+    "nr": 7,
+    "klang": "zaehlschlag",
+    "wort": "ready.",
+    "zeit_s": 50.71,
+    "db": -11,
+    "fx_max_lufs": -23.6,
+    "abstand_zur_stimme_lu": 9.5,
+    "stimme_dort_lufs": -12.5
+   },
+   {
+    "nr": 8,
+    "klang": "klopfen",
+    "wort": "shoes",
+    "zeit_s": 63.96,
+    "db": -10,
+    "fx_max_lufs": -27.7,
+    "abstand_zur_stimme_lu": 13.6,
+    "stimme_dort_lufs": -11.6
+   },
+   {
+    "nr": 9,
+    "klang": "sub_boom",
+    "wort": "Hundred",
+    "zeit_s": 80.16,
+    "db": -12,
+    "fx_max_lufs": -25.1,
+    "abstand_zur_stimme_lu": 11.0,
+    "stimme_dort_lufs": -11.4
+   },
+   {
+    "nr": 10,
+    "klang": "sub_boom",
+    "wort": "fingers.",
+    "zeit_s": 85.56,
+    "db": -11,
+    "fx_max_lufs": -24.5,
+    "abstand_zur_stimme_lu": 10.4,
+    "stimme_dort_lufs": -12.4
+   }
+  ]
+ },
+ "upload": {
+  "eingang": {
+   "lufs": -14.09,
+   "true_peak_dbtp": -1.54,
+   "lra_lu": 3.0
+  },
+  "verstaerkung_db": 0.09,
+  "decke_dbfs": -1.8,
+  "runden": 1,
+  "begrenzer_max_db": 0.35,
+  "begrenzer_rahmen_ueber_1db_prozent": 0.0,
+  "ausgang": {
+   "lufs": -14.0,
+   "true_peak_dbtp": -1.8,
+   "lra_lu": 3.0
+  }
+ },
+ "vorhoer": {
+  "eingang": {
+   "lufs": -13.97,
+   "true_peak_dbtp": -1.31,
+   "lra_lu": 2.9
+  },
+  "verstaerkung_db": -0.03,
+  "decke_dbfs": -1.8,
+  "runden": 1,
+  "begrenzer_max_db": 0.46,
+  "begrenzer_rahmen_ueber_1db_prozent": 0.0,
+  "ausgang": {
+   "lufs": -14.0,
+   "true_peak_dbtp": -1.8,
+   "lra_lu": 2.9
+  },
+  "bett": {
+   "datei": "/home/user/Deeptok/horror/build/musik/spannung-hiding-night-teil1.wav",
+   "sha256": "2e1dbdd9766b96e620ab1862790be8367dd352a7387c5e5a83a548f9a7aa58d6",
+   "lufs_roh": -21.47,
+   "bezug_lufs": -20.0,
+   "abstand_zur_stimme_lu": 11.0,
+   "lufs_im_mix_vor_norm": -26.59
+  }
+ },
+ "regel": {
+  "ziel_lufs": -14.0,
+  "max_tp_dbtp": -1.0,
+  "decke_dbfs": -1.8,
+  "decke_vorhoer_dbfs": -1.8
+ },
+ "nach_aac": {
+  "kbit": 192,
+  "vorhoer": {
+   "lufs": -14.04,
+   "true_peak_dbtp": -1.75,
+   "lra_lu": 2.9
+  },
+  "decken_dbfs": {
+   "upload": -1.8,
+   "vorhoer": -1.8
+  }
+ },
+ "dateien": {
+  "vorhoer": "build/folge-01/folge-01-mit-musik-neu.mp4"
+ }
+}
