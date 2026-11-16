@@ -1,0 +1,983 @@
+{
+ "folge": "folge-03",
+ "format": {
+  "upload": {
+   "video": {
+    "codec": "h264",
+    "profil": "High",
+    "breite": 1080,
+    "hoehe": 1920,
+    "fps": "30/1",
+    "bilder": 4146,
+    "pix_fmt": "yuv420p",
+    "farbraum": "bt709",
+    "dauer_s": 138.2
+   },
+   "audio": {
+    "codec": "aac",
+    "kanaele": 2,
+    "abtastrate": 44100,
+    "dauer_s": 138.2,
+    "kbit": 194
+   },
+   "megabyte": 242.0
+  },
+  "vorhoer": {
+   "video": {
+    "codec": "h264",
+    "profil": "High",
+    "breite": 1080,
+    "hoehe": 1920,
+    "fps": "30/1",
+    "bilder": 4146,
+    "pix_fmt": "yuv420p",
+    "farbraum": "bt709",
+    "dauer_s": 138.2
+   },
+   "audio": {
+    "codec": "aac",
+    "kanaele": 2,
+    "abtastrate": 44100,
+    "dauer_s": 138.2,
+    "kbit": 198
+   },
+   "megabyte": 242.1
+  }
+ },
+ "dauer": {
+  "stimme_s": 138.05,
+  "letztes_wort_ende_s": 138.05,
+  "endkarte_ab_s": 138.2,
+  "endkarte_s": 0.0,
+  "video_s": 138.2,
+  "abstand_letztes_wort_endkarte_s": 0.15,
+  "endkarte": "keine"
+ },
+ "hoer_check": {
+  "upload": {
+   "wer": 0.0,
+   "fehler": [],
+   "schreibweisen": [],
+   "eingefuegt": [],
+   "n_skript": 472,
+   "n_gehoert": 472,
+   "unsicher": [
+    {
+     "wort": "Mister",
+     "p": 0.37,
+     "zeit_s": 0.0
+    },
+    {
+     "wort": "Hundred",
+     "p": 0.38,
+     "zeit_s": 0.32
+    },
+    {
+     "wort": "June",
+     "p": 0.48,
+     "zeit_s": 8.5
+    },
+    {
+     "wort": "\"It",
+     "p": 0.49,
+     "zeit_s": 10.7
+    },
+    {
+     "wort": "Rabbit.\"",
+     "p": 0.46,
+     "zeit_s": 11.92
+    },
+    {
+     "wort": "Tonight,",
+     "p": 0.35,
+     "zeit_s": 16.42
+    },
+    {
+     "wort": "Side",
+     "p": 0.24,
+     "zeit_s": 28.46
+    },
+    {
+     "wort": "without",
+     "p": 0.31,
+     "zeit_s": 46.6
+    },
+    {
+     "wort": "and",
+     "p": 0.15,
+     "zeit_s": 55.78
+    },
+    {
+     "wort": "The",
+     "p": 0.32,
+     "zeit_s": 57.46
+    },
+    {
+     "wort": "boards",
+     "p": 0.44,
+     "zeit_s": 57.98
+    },
+    {
+     "wort": "A",
+     "p": 0.01,
+     "zeit_s": 59.26
+    },
+    {
+     "wort": "Mister",
+     "p": 0.49,
+     "zeit_s": 81.8
+    },
+    {
+     "wort": "Hundred",
+     "p": 0.43,
+     "zeit_s": 82.48
+    },
+    {
+     "wort": "had",
+     "p": 0.03,
+     "zeit_s": 87.28
+    },
+    {
+     "wort": "\"It",
+     "p": 0.37,
+     "zeit_s": 91.82
+    },
+    {
+     "wort": "she",
+     "p": 0.14,
+     "zeit_s": 112.78
+    },
+    {
+     "wort": "my",
+     "p": 0.42,
+     "zeit_s": 131.54
+    }
+   ],
+   "versatz_zu_timing_median_ms": 0.0,
+   "versatz_zu_timing_p90_ms": 50.0
+  },
+  "vorhoer": {
+   "wer": 0.0021,
+   "fehler": [],
+   "schreibweisen": [
+    {
+     "skript": "mister",
+     "gehoert": "mr",
+     "zeit_s": 81.8
+    }
+   ],
+   "eingefuegt": [],
+   "n_skript": 472,
+   "n_gehoert": 472,
+   "unsicher": [
+    {
+     "wort": "Mister",
+     "p": 0.37,
+     "zeit_s": 0.0
+    },
+    {
+     "wort": "Hundred",
+     "p": 0.37,
+     "zeit_s": 0.32
+    },
+    {
+     "wort": "\"It",
+     "p": 0.43,
+     "zeit_s": 10.72
+    },
+    {
+     "wort": "Rabbit.\"",
+     "p": 0.22,
+     "zeit_s": 11.92
+    },
+    {
+     "wort": "Tonight,",
+     "p": 0.46,
+     "zeit_s": 16.42
+    },
+    {
+     "wort": "Side",
+     "p": 0.24,
+     "zeit_s": 28.44
+    },
+    {
+     "wort": "The",
+     "p": 0.4,
+     "zeit_s": 57.44
+    },
+    {
+     "wort": "boards",
+     "p": 0.48,
+     "zeit_s": 57.98
+    },
+    {
+     "wort": "A",
+     "p": 0.28,
+     "zeit_s": 59.66
+    },
+    {
+     "wort": "inches",
+     "p": 0.3,
+     "zeit_s": 62.54
+    },
+    {
+     "wort": "Then",
+     "p": 0.06,
+     "zeit_s": 63.74
+    },
+    {
+     "wort": "Nothing,",
+     "p": 0.47,
+     "zeit_s": 64.88
+    },
+    {
+     "wort": "\"Rabbit?\"",
+     "p": 0.34,
+     "zeit_s": 68.06
+    },
+    {
+     "wort": "had",
+     "p": 0.03,
+     "zeit_s": 87.28
+    },
+    {
+     "wort": "\"It",
+     "p": 0.17,
+     "zeit_s": 91.88
+    },
+    {
+     "wort": "Near",
+     "p": 0.13,
+     "zeit_s": 114.86
+    }
+   ]
+  }
+ },
+ "untertitel_sync": {
+  "einblendungen": 313,
+  "wechsel_gefunden": 938,
+  "einblendung_nicht_auf_plan_bild": [],
+  "wechsel_ausserhalb_plan": [],
+  "abstand_zu_timing_max_s": 0.017,
+  "versatz_mp4_ton_zu_master_ms": 0.0,
+  "gemessen_nach_pause_einsatz": 100,
+  "gemessen_mitten_im_satz_whisper": 213,
+  "abstand_zum_wortbeginn_median_s": 0.0,
+  "abstand_zum_wortbeginn_p90_abs_s": 0.02,
+  "abstand_zum_wortbeginn_max_abs_s": 0.087,
+  "ueber_0_1_s": []
+ },
+ "bilder": {
+  "bilder": 4146,
+  "dekodierfehler": null,
+  "helligkeit_median_ohne_dunkle_orte": 96.0,
+  "dunkle_orte_mittel": 89.6,
+  "dunkle_orte_fast_schwarz_anteil": 0.246,
+  "leerbilder_am_anfang": [],
+  "balken_max_ohne_dunkle_orte": 0.0,
+  "balken_bild_ohne_dunkle_orte": 376,
+  "helligkeit_p10": 51.3,
+  "fast_schwarz_anteil": 0.03,
+  "balken_max": 0.407,
+  "balken_bild": 1782,
+  "kantendichte_median": 0.152,
+  "einstellungen": [
+   {
+    "id": "E01",
+    "ort": "kriechkeller",
+    "mittel": 65.4,
+    "streuung_anfang_min": 58.5,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E02",
+    "ort": "kriechkeller",
+    "mittel": 57.0,
+    "streuung_anfang_min": 68.0,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E03",
+    "ort": "kriechkeller",
+    "mittel": 121.7,
+    "streuung_anfang_min": 48.3,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E04",
+    "ort": "kriechkeller",
+    "mittel": 64.5,
+    "streuung_anfang_min": 61.6,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E05",
+    "ort": "kriechkeller",
+    "mittel": 30.3,
+    "streuung_anfang_min": 27.6,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E06",
+    "ort": "kriechkeller",
+    "mittel": 33.2,
+    "streuung_anfang_min": 52.9,
+    "balken_max": 0.296
+   },
+   {
+    "id": "E07",
+    "ort": "kriechkeller",
+    "mittel": 138.7,
+    "streuung_anfang_min": 41.9,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E08",
+    "ort": "kriechkeller",
+    "mittel": 52.8,
+    "streuung_anfang_min": 57.4,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E09",
+    "ort": "marsh-innen",
+    "mittel": 120.6,
+    "streuung_anfang_min": 40.0,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E10",
+    "ort": "marsh-innen",
+    "mittel": 126.6,
+    "streuung_anfang_min": 44.3,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E11",
+    "ort": "marsh-innen",
+    "mittel": 117.9,
+    "streuung_anfang_min": 45.9,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E12",
+    "ort": "kriechkeller",
+    "mittel": 163.8,
+    "streuung_anfang_min": 33.2,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E13",
+    "ort": "kriechkeller",
+    "mittel": 64.7,
+    "streuung_anfang_min": 63.7,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E14",
+    "ort": "kriechkeller",
+    "mittel": 53.6,
+    "streuung_anfang_min": 60.4,
+    "balken_max": 0.056
+   },
+   {
+    "id": "E15",
+    "ort": "kriechkeller",
+    "mittel": 62.4,
+    "streuung_anfang_min": 59.7,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E16",
+    "ort": "kriechkeller",
+    "mittel": 60.6,
+    "streuung_anfang_min": 57.7,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E17",
+    "ort": "kriechkeller",
+    "mittel": 77.6,
+    "streuung_anfang_min": 70.4,
+    "balken_max": 0.009
+   },
+   {
+    "id": "E18",
+    "ort": "kriechkeller",
+    "mittel": 60.0,
+    "streuung_anfang_min": 62.8,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E19",
+    "ort": "marsh-innen",
+    "mittel": 96.6,
+    "streuung_anfang_min": 43.9,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E20",
+    "ort": "marsh-innen",
+    "mittel": 95.5,
+    "streuung_anfang_min": 44.2,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E21",
+    "ort": "marsh-innen",
+    "mittel": 122.0,
+    "streuung_anfang_min": 64.8,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E22",
+    "ort": "kriechkeller",
+    "mittel": 76.0,
+    "streuung_anfang_min": 66.0,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E23",
+    "ort": "hauptstrasse",
+    "mittel": 129.1,
+    "streuung_anfang_min": 49.8,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E24",
+    "ort": "kriechkeller",
+    "mittel": 62.1,
+    "streuung_anfang_min": 63.9,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E25",
+    "ort": "hauptstrasse",
+    "mittel": 63.0,
+    "streuung_anfang_min": 26.8,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E26",
+    "ort": "hauptstrasse",
+    "mittel": 110.5,
+    "streuung_anfang_min": 56.4,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E27",
+    "ort": "hauptstrasse",
+    "mittel": 81.8,
+    "streuung_anfang_min": 31.7,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E28",
+    "ort": "hauptstrasse",
+    "mittel": 71.5,
+    "streuung_anfang_min": 46.6,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E29",
+    "ort": "hauptstrasse",
+    "mittel": 63.9,
+    "streuung_anfang_min": 71.2,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E30",
+    "ort": "hauptstrasse",
+    "mittel": 71.2,
+    "streuung_anfang_min": 49.8,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E31",
+    "ort": "hauptstrasse",
+    "mittel": 105.7,
+    "streuung_anfang_min": 65.5,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E32",
+    "ort": "hauptstrasse",
+    "mittel": 103.8,
+    "streuung_anfang_min": 57.3,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E33",
+    "ort": "kriechkeller",
+    "mittel": 67.9,
+    "streuung_anfang_min": 65.9,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E34",
+    "ort": "hauptstrasse",
+    "mittel": 69.1,
+    "streuung_anfang_min": 52.0,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E35",
+    "ort": "hauptstrasse",
+    "mittel": 96.5,
+    "streuung_anfang_min": 40.6,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E36",
+    "ort": "marsh-innen",
+    "mittel": 80.2,
+    "streuung_anfang_min": 35.1,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E37",
+    "ort": "hauptstrasse",
+    "mittel": 85.1,
+    "streuung_anfang_min": 39.5,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E38",
+    "ort": "kriechkeller",
+    "mittel": 70.3,
+    "streuung_anfang_min": 65.3,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E39",
+    "ort": "hauptstrasse",
+    "mittel": 72.5,
+    "streuung_anfang_min": 36.2,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E40",
+    "ort": "hauptstrasse",
+    "mittel": 96.1,
+    "streuung_anfang_min": 42.5,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E41",
+    "ort": "kriechkeller",
+    "mittel": 69.5,
+    "streuung_anfang_min": 50.4,
+    "balken_max": 0.407
+   },
+   {
+    "id": "E42",
+    "ort": "kriechkeller",
+    "mittel": 23.9,
+    "streuung_anfang_min": 25.6,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E43",
+    "ort": "kriechkeller",
+    "mittel": 53.8,
+    "streuung_anfang_min": 61.7,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E44",
+    "ort": "kriechkeller",
+    "mittel": 33.8,
+    "streuung_anfang_min": 49.1,
+    "balken_max": 0.009
+   },
+   {
+    "id": "E45",
+    "ort": "kriechkeller",
+    "mittel": 71.4,
+    "streuung_anfang_min": 55.1,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E46",
+    "ort": "kriechkeller",
+    "mittel": 93.9,
+    "streuung_anfang_min": 55.3,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E47",
+    "ort": "kriechkeller",
+    "mittel": 112.8,
+    "streuung_anfang_min": 66.6,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E48",
+    "ort": "kriechkeller",
+    "mittel": 73.8,
+    "streuung_anfang_min": 63.4,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E49",
+    "ort": "kriechkeller",
+    "mittel": 80.1,
+    "streuung_anfang_min": 65.5,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E50",
+    "ort": "kriechkeller",
+    "mittel": 58.3,
+    "streuung_anfang_min": 29.7,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E51",
+    "ort": "kriechkeller",
+    "mittel": 79.9,
+    "streuung_anfang_min": 65.8,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E52",
+    "ort": "kriechkeller",
+    "mittel": 143.6,
+    "streuung_anfang_min": 40.1,
+    "balken_max": 0.139
+   },
+   {
+    "id": "E53",
+    "ort": "kriechkeller",
+    "mittel": 74.2,
+    "streuung_anfang_min": 55.1,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E54",
+    "ort": "kriechkeller",
+    "mittel": 103.8,
+    "streuung_anfang_min": 58.1,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E55",
+    "ort": "kriechkeller",
+    "mittel": 82.8,
+    "streuung_anfang_min": 64.5,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E56",
+    "ort": "kriechkeller",
+    "mittel": 48.5,
+    "streuung_anfang_min": 49.1,
+    "balken_max": 0.102
+   },
+   {
+    "id": "E57",
+    "ort": "kriechkeller",
+    "mittel": 110.7,
+    "streuung_anfang_min": 69.7,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E58",
+    "ort": "kriechkeller",
+    "mittel": 109.0,
+    "streuung_anfang_min": 69.3,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E59",
+    "ort": "kriechkeller",
+    "mittel": 129.7,
+    "streuung_anfang_min": 73.4,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E60",
+    "ort": "kriechkeller",
+    "mittel": 175.5,
+    "streuung_anfang_min": 28.6,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E61",
+    "ort": "kriechkeller",
+    "mittel": 139.5,
+    "streuung_anfang_min": 30.9,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E62",
+    "ort": "kriechkeller",
+    "mittel": 142.0,
+    "streuung_anfang_min": 38.6,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E63",
+    "ort": "kriechkeller",
+    "mittel": 112.1,
+    "streuung_anfang_min": 76.1,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E64",
+    "ort": "marsh-innen",
+    "mittel": 111.2,
+    "streuung_anfang_min": 63.9,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E65",
+    "ort": "marsh-innen",
+    "mittel": 83.8,
+    "streuung_anfang_min": 42.9,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E66",
+    "ort": "marsh-innen",
+    "mittel": 118.7,
+    "streuung_anfang_min": 45.3,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E67",
+    "ort": "kriechkeller",
+    "mittel": 146.2,
+    "streuung_anfang_min": 31.9,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E68",
+    "ort": "marsh-innen",
+    "mittel": 71.5,
+    "streuung_anfang_min": 30.0,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E69",
+    "ort": "kriechkeller",
+    "mittel": 81.2,
+    "streuung_anfang_min": 80.9,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E70",
+    "ort": "kriechkeller",
+    "mittel": 108.1,
+    "streuung_anfang_min": 70.1,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E71",
+    "ort": "kriechkeller",
+    "mittel": 111.0,
+    "streuung_anfang_min": 69.8,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E72",
+    "ort": "kriechkeller",
+    "mittel": 167.7,
+    "streuung_anfang_min": 44.8,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E73",
+    "ort": "kriechkeller",
+    "mittel": 96.1,
+    "streuung_anfang_min": 72.5,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E74",
+    "ort": "kriechkeller",
+    "mittel": 109.9,
+    "streuung_anfang_min": 69.2,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E75",
+    "ort": "kriechkeller",
+    "mittel": 167.9,
+    "streuung_anfang_min": 45.0,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E76",
+    "ort": "kriechkeller",
+    "mittel": 43.4,
+    "streuung_anfang_min": 62.4,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E77",
+    "ort": "kriechkeller",
+    "mittel": 169.7,
+    "streuung_anfang_min": 41.2,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E78",
+    "ort": "marsh-innen",
+    "mittel": 111.9,
+    "streuung_anfang_min": 40.8,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E79",
+    "ort": "kriechkeller",
+    "mittel": 111.2,
+    "streuung_anfang_min": 68.4,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E80",
+    "ort": "hauptstrasse",
+    "mittel": 147.5,
+    "streuung_anfang_min": 41.5,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E81",
+    "ort": "hauptstrasse",
+    "mittel": 105.1,
+    "streuung_anfang_min": 74.2,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E82",
+    "ort": "kriechkeller",
+    "mittel": 61.0,
+    "streuung_anfang_min": 50.6,
+    "balken_max": 0.019
+   },
+   {
+    "id": "E83",
+    "ort": "kriechkeller",
+    "mittel": 37.4,
+    "streuung_anfang_min": 42.1,
+    "balken_max": 0.12
+   },
+   {
+    "id": "E84",
+    "ort": "kriechkeller",
+    "mittel": 33.3,
+    "streuung_anfang_min": 18.0,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E85",
+    "ort": "marsh-innen",
+    "mittel": 74.6,
+    "streuung_anfang_min": 46.8,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E86",
+    "ort": "marsh-innen",
+    "mittel": 82.0,
+    "streuung_anfang_min": 40.6,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E87",
+    "ort": "marsh-innen",
+    "mittel": 90.5,
+    "streuung_anfang_min": 49.9,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E88",
+    "ort": "marsh-innen",
+    "mittel": 75.0,
+    "streuung_anfang_min": 47.7,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E89",
+    "ort": "marsh-innen",
+    "mittel": 94.7,
+    "streuung_anfang_min": 46.3,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E90",
+    "ort": "marsh-innen",
+    "mittel": 79.0,
+    "streuung_anfang_min": 41.2,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E91",
+    "ort": "marsh-innen",
+    "mittel": 105.5,
+    "streuung_anfang_min": 44.9,
+    "balken_max": 0.0
+   }
+  ],
+  "helligkeit_min": 16.8,
+  "helligkeit_median": 86.9,
+  "dunkelstes_bild": 1801,
+  "streuung_min": 18.0,
+  "schwarz_oder_einfarbig": [],
+  "laengster_stillstand_s": 0.1,
+  "stillstand_endet_bild": 2434,
+  "aenderung_median": 1.36
+ },
+ "bogen_zeiten_s": [
+  2.303,
+  6.91,
+  11.517,
+  16.123,
+  20.73,
+  25.337,
+  29.943,
+  34.55,
+  39.157,
+  43.763,
+  48.37,
+  52.977,
+  57.583,
+  62.19,
+  66.797,
+  71.403,
+  76.01,
+  80.617,
+  85.223,
+  89.83,
+  94.437,
+  99.043,
+  103.65,
+  108.257,
+  112.863,
+  117.47,
+  122.077,
+  126.683,
+  131.29,
+  135.897
+ ],
+ "ton": {
+  "kbit": 192,
+  "upload": {
+   "lufs": -14.05,
+   "true_peak_dbtp": -2.25,
+   "lra_lu": 2.7
+  },
+  "vorhoer": {
+   "lufs": -14.06,
+   "true_peak_dbtp": -2.28,
+   "lra_lu": 2.7
+  },
+  "decken_dbfs": {
+   "upload": -1.8,
+   "vorhoer": -1.8
+  }
+ },
+ "verstoesse": [],
+ "ok": true
+}

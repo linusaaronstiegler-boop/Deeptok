@@ -172,7 +172,13 @@ def rede_bearbeiten(stimme: np.ndarray, ordner: Path, woerter: list, cfg: dict) 
         i, j = int(a * SR), int(b * SR)
         rand = int(0.25 * SR)              # Kontext, damit der Filter an den Rändern eingeschwungen ist
         i0, j0 = max(0, i - rand), min(len(stimme), j + rand)
-        faktor = 2 ** (c.get("halbtoene", 0.0) / 12)
+        # Teil 3: "ausnahmen" [{von, bis, halbtoene}] – eigene Tonhöhe für einen Redeabschnitt, der ganz darin
+        # liegt (mit +2,0 hörte Whisper in Junes "Dad hid me" ein "Dad hit me"; +1,5 ist eindeutig)
+        halbtoene = c.get("halbtoene", 0.0)
+        for x in c.get("ausnahmen", []):
+            if x["von"] <= r["von"] and r["bis"] <= x["bis"]:
+                halbtoene = x.get("halbtoene", halbtoene)
+        faktor = 2 ** (halbtoene / 12)
         # formant "preserved" (Std): klingt wie dieselbe Kehle höher/tiefer (June, Tess, Odell);
         # "shifted": Formanten wandern mit, die Stimme wird größer und fremd (Mister Hundred, Teil 2).
         # hall: kurzer Raum aus zwei Echos (Leitgeräusch, serie.md)
@@ -193,7 +199,7 @@ def rede_bearbeiten(stimme: np.ndarray, ordner: Path, woerter: list, cfg: dict) 
         neu[-k:] = neu[-k:] * (1 - rampe) + alt[-k:] * rampe
         stimme[i:j] = neu
         protokoll.append({"wer": r["wer"], "von_s": round(a, 3), "bis_s": round(b, 3),
-                          "halbtoene": c.get("halbtoene", 0.0), "db": c.get("db", 0.0),
+                          "halbtoene": halbtoene, "db": c.get("db", 0.0),
                           **({"formant": c["formant"]} if c.get("formant") else {}), **({"hall": True} if c.get("hall") else {})})
     return protokoll
 

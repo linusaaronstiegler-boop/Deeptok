@@ -1156,6 +1156,12 @@
     "keller"
    ],
    "licht": "kriechkeller",
+   "licht_anpassung": {
+    "hemi": {
+     "staerke": 1
+    },
+    "belichtung": 1.45
+   },
    "kamera": {
     "baustein": "crane_down_tilt",
     "ziel": [
@@ -4635,6 +4641,12 @@
     "keller"
    ],
    "licht": "kriechkeller",
+   "licht_anpassung": {
+    "hemi": {
+     "staerke": 1
+    },
+    "belichtung": 1.45
+   },
    "kamera": {
     "baustein": "push_in",
     "ziel": {
@@ -4937,6 +4949,12 @@
     "keller"
    ],
    "licht": "kriechkeller",
+   "licht_anpassung": {
+    "hemi": {
+     "staerke": 1.4
+    },
+    "belichtung": 1.9
+   },
    "kamera": {
     "baustein": "snap_zoom",
     "ziel": [

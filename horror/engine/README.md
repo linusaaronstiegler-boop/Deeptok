@@ -766,6 +766,27 @@ python engine/pruefen.py episoden/folge-02 --namen ohne-musik,mit-musik
 | Hör-Check (Whisper auf dem MP4) | ohne Musik 1 Fehler („lay“ als „laid“), mit Musik „It“ als „he“ und „Ninety-seven, Ninety-eight“ ausgelassen; abschnittsweise nachgehört sind alle richtig (Whisper-Fenster, siehe REVIEW.md) |
 | Kompositionsprüfung | 17 von 62 Einstellungen mit der Hauptsache außerhalb des mittleren Drittels (Untersichten im Keller, Beine des Monsters, Laternenzug; nur Warnung); Mund im Untertitel-Streifen in E43 (June sinkt in der Rückblende in die Luke, letzte 0,4 s) und E59 (wie bisher); Kopf-oben-Regel: alle Gesichter höchstens 30° geneigt |
 
+### 17.7 Folge 3 (Finale) in Zahlen
+
+Stand 16.11.2026. Aufrufe:
+
+```bash
+python engine/musik/spannung.py engine/musik/spannung/hiding-night-teil3.json
+python engine/fertigen.py episoden/folge-03 --bett build/musik/spannung-hiding-night-teil3.wav --bett-bezug -20 --abstand 12 --namen ohne-musik,mit-musik
+python engine/pruefen.py episoden/folge-03 --namen ohne-musik,mit-musik --dauer 125,155
+```
+
+| | Wert |
+|---|---|
+| Messtor | 91 Einstellungen, ohne Endkarte, 138,2 s; Median 1,50 s, 39,5 je Minute, 0,80–2,43 s; 22 Akzentfahrten (im Mittel alle 6,3 s, größte Lücke 9,6 s), 3 Snap-Zooms, 1-mal Wackeln, 3 Lichtereignisse, Monster in 22 % der Einstellungen; Ende 0,15 s nach dem letzten Wort |
+| Render 1080 × 1920, 2 Prozesse, JPEG 0,95 | 4.146 Bilder in 1.782 s (29,7 min), 0,43 s/Bild effektiv, 12,9 min Rechenzeit je Minute Video; danach drei Einstellungen heller neu (179 Bilder, 1,5 min) |
+| Fassungen | `build/folge-03/folge-03-mit-musik.mp4` (Hauptfassung, 242 MB), `folge-03-ohne-musik.mp4` (242 MB) |
+| Stimme | 1,1 s Pause vor „Rabbit?“ eingefügt (drei Klopfer), 138,19 s; Junes Rede +2,0 Halbtöne, Satz 43 +1,5 (mit +2,0 hörte Whisper „Dad hit me“ statt „Dad hid me“, `effekte.json` → `rede.june.ausnahmen`) |
+| Ton nach AAC | ohne Musik −14,05 LUFS, −2,25 dBTP, LRA 2,7 LU; mit Musik −14,06 LUFS, −2,28 dBTP, LRA 2,7 LU; 14 Cues |
+| Untertitel | 313 Einblendungen, breiteste 808 px; Abstand zum Wortbeginn im MP4: Median 0,00 s, p90 0,02 s, höchstens 0,087 s |
+| Hör-Check (Whisper auf dem MP4) | ohne Musik 0 Wortfehler, mit Musik 0 Wortfehler |
+| Bilder | Helligkeit Median 96,0 ohne Kriechkeller, Keller im Mittel 89,6; dunkelste Kellereinstellung 23,9 (Grenze 22); keine Leerbilder, keine Balken außerhalb des Kellers; Kantendichte 15,2 % |
+
 ## 18. Musik-Werkstatt
 
 Stand 15.11.2026. Eigene Klangbetten im Stil der Referenzvideos, Einzelheiten in `musik/README.md`, Regeln in `musik/GRAMMATIK.md`, Lizenzen in `musik/LIZENZEN.md`.

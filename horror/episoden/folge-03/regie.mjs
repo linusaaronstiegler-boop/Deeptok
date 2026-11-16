@@ -156,6 +156,7 @@ export const einstellungen = {
   // "If they try, it takes them too." – Staub rieselt aus einer Fuge, die Diele gibt 1 cm nach
   '3': {
     kamera: { baustein: 'crane_down_tilt', ziel: kw(-0.6, 0.55, 0.0), blick: { azimut: 160, hoehe: 12, abstand: 1.3 }, hoehe: 0.35, rueck: 0.1, ankunft_wort: 'takes', fov: 52 },
+    licht_anpassung: { hemi: { staerke: 1.0 }, belichtung: 1.45 },
     haupt: { art: 'set', set: 'keller', was: 'biegen', wort: 'takes', dauer: 0.3, params: { tiefe: 0.065, mitte: [-0.45, -0.1], radius: 0.75 } },
     partikel: [{ art: 'staub', ort: kw(-0.55, 0.9, 0.0), wort: 'takes', farbe: '#e8dcc8', anzahl: 140, groesse: 0.0045, bereich: [0.3, 0.25, 0.3], deckkraft: 0.75, dauer: 1.6 }],
     hauptsache: kw(-0.55, 0.6, 0.0),
@@ -463,6 +464,7 @@ export const einstellungen = {
   '24': {
     figuren: ELI_K('angst', 34),
     kamera: { ziel: { anker: 'eli.kopf', versatz: [0.15, 0.35, 0] }, blick: { azimut: 176, hoehe: 30, abstand: 1.15 }, fov: 58, roll: ROLL_LIEGEN, rate: 0.07, zusaetze: [{ baustein: 'shake', wort: 'groaned', staerke: 0.9, dauer: 0.3 }] },
+    licht_anpassung: { hemi: { staerke: 1.0 }, belichtung: 1.45 },
     set_ereignisse: [{ set: 'keller', was: 'fuesse', versatz: 0, dauer: 0.01, mitte: [-0.45, -0.45], drehung: 0 }],
     haupt: { art: 'set', set: 'keller', was: 'biegen', wort: 'groaned', dauer: 0.4, params: { tiefe: 0.1, mitte: [-0.45, -0.1], radius: 0.75 } },
     partikel: [{ art: 'staub', ort: kw(-0.5, 0.85, -0.25), wort: 'groaned', farbe: '#e8dcc8', anzahl: 170, groesse: 0.0045, bereich: [0.35, 0.3, 0.3], deckkraft: 0.75, dauer: 1.4 }],
@@ -487,6 +489,8 @@ export const einstellungen = {
   '25:from': {
     figuren: { ...ELI_K('angst', 30), ...MH_OBEN },
     kamera: { baustein: 'snap_zoom', ziel: kw(-0.68, 0.3, -0.45), pos: kw(-0.45, 0.62, 0.35), fov: 52, zeit_wort: 'face', faktor: 1.18, bilder: 2, roll: 0 },
+    // Prüfung: im Mittel 17,6 von 255 (dunkle Orte ≥ 22) – mehr Füll-Licht und Belichtung
+    licht_anpassung: { hemi: { staerke: 1.4 }, belichtung: 1.9 },
     set_ereignisse: [
       { set: 'keller', was: 'finger_zurueck', wort: 'pulled', dauer: 0.45 },
       { set: 'keller', was: 'biegen', wort: 'pulled', dauer: 0.4, tiefe: 0, mitte: [-0.45, -0.1], radius: 0.75 },
