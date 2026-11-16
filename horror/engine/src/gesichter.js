@@ -29,6 +29,12 @@ export const AUSDRUECKE = {
   blick_gesenkt: { augen: 'unten', brauen: 'sorge', mund: 'linie' },
   leer: { augen: 'leer', brauen: 'keine', mund: 'linie' },
   zu_breit: { augen: 'leer', brauen: 'keine', mund: 'zu_breit' },
+  // Teil 3 (Review): Junes gedehntes Gesicht auf dem Monster. Ihre Brauen (ruhig), aber leere Augen ohne
+  // Lichtpunkt und ein Grinsen, das zu breit ist und Zähne zeigt – unheimlich statt freundlich.
+  gedehnt: { augen: 'leer', brauen: 'ruhig', mund: 'riss' },
+  gedehnt_bricht: { augen: 'leer', brauen: 'sorge', mund: 'riss_bricht' },
+  gedehnt_muede: { augen: 'halb', brauen: 'muede', mund: 'linie' },
+  gedehnt_schlaeft: { augen: 'zu', brauen: 'muede', mund: 'linie' },
   zaehlt_a: { augen: 'zu', brauen: 'ruhig', mund: 'reden_a' },
   zaehlt_b: { augen: 'zu', brauen: 'ruhig', mund: 'reden_b' },
   zaehlt_c: { augen: 'zu', brauen: 'ruhig', mund: 'reden_c' },
@@ -50,7 +56,7 @@ export const ALIAS = {
 };
 
 export const PFLICHT = ['neutral', 'angst', 'schock', 'laecheln', 'ernst', 'augen_zu', 'blinzeln'];
-const MUENDER = new Set(['linie', 'klein', 'fest', 'welle', 'laecheln', 'grinsen', 'zu_breit', 'klein_offen', 'o', 'schrei', 'warn', 'zickzack', 'reden_a', 'reden_b', 'reden_c']);
+const MUENDER = new Set(['linie', 'klein', 'fest', 'welle', 'laecheln', 'grinsen', 'zu_breit', 'riss', 'riss_bricht', 'klein_offen', 'o', 'schrei', 'warn', 'zickzack', 'reden_a', 'reden_b', 'reden_c']);
 
 // "laecheln/reden_b" -> { augen, brauen, mund, blick }. Unbekannte Namen: Fehler mit Liste.
 export function ausdruck(name) {
@@ -222,6 +228,28 @@ export function zeichneGesicht(g, W, H, name, stil = {}, zu = false) {
       g.lineWidth = W * 0.012;
       g.beginPath(); g.moveTo(mx - mw * 2.4, my - H * 0.045); g.quadraticCurveTo(mx, my + H * 0.07, mx + mw * 2.4, my - H * 0.045); g.stroke();
       break;
+    case 'riss':
+    case 'riss_bricht': {
+      // Grinsen fast über die ganze Breite: dunkler Spalt mit einer Reihe kleiner Zähne, Mundwinkel hoch
+      // gezogen. riss_bricht: die Mundwinkel sacken, eine Seite tiefer (das Lächeln bricht).
+      const b = mw * 2.6, hoch = e.mund === 'riss' ? H * 0.075 : H * 0.005, schief = e.mund === 'riss' ? 0 : H * 0.035;
+      const pfad = () => {
+        g.beginPath();
+        g.moveTo(mx - b, my - hoch);
+        g.quadraticCurveTo(mx, my + H * 0.13, mx + b, my - hoch + schief);
+        g.quadraticCurveTo(mx, my + H * 0.01, mx - b, my - hoch);
+        g.closePath();
+      };
+      g.save(); pfad(); g.fillStyle = dunkel; g.fill(); g.clip();
+      g.fillStyle = zaehne;
+      for (let i = -11; i <= 11; i++) {
+        const x = mx + (i / 11.5) * b;
+        g.fillRect(x - W * 0.009, my - H * 0.08, W * 0.017, H * 0.115);
+      }
+      g.restore();
+      g.lineWidth = W * 0.01; g.strokeStyle = s.tinte; pfad(); g.stroke();
+      break;
+    }
     case 'klein_offen': oval(mw * 0.36, H * 0.026, false, false); break;
     case 'o': oval(mw * 0.46, H * 0.05, true, false); break;
     case 'schrei': oval(mw * 0.85, H * 0.09, true, true); break;

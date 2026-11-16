@@ -338,7 +338,36 @@ def klang_auspusten(rng, dauer=0.9):
     return normieren(ausblenden(y))
 
 
+def klang_schaben(rng, dauer=2.8, naeher=1.0):
+    """Review Teil 3 (Satz 25): ein Fingernagel schabt über Erde. Körniges Rauschen (500–4000 Hz) in kurzen,
+    unregelmäßigen Zügen; es kommt näher (lauter, von der Seite zur Mitte) und reißt am Ende ab."""
+    n = sek(dauer)
+    t = zeit(dauer)
+    korn = filter_fft(rng.standard_normal(n), tief=500, hoch=4000, ordnung=2)
+    # Züge: 3–4 Bewegungen je Sekunde, jede mit eigener Hüllkurve, dazwischen fast Stille
+    zuege = np.zeros(n)
+    pos = 0.05
+    while pos < dauer - 0.15:
+        lang = rng.uniform(0.16, 0.3)
+        a, b = sek(pos), min(n, sek(pos + lang))
+        zuege[a:b] = np.sin(np.linspace(0, np.pi, b - a)) ** 1.5 * rng.uniform(0.7, 1.0)
+        pos += lang + rng.uniform(0.04, 0.12)
+    # Körnung: kleine Klicks (Steinchen) auf den Zügen
+    klicks = (rng.random(n) < 0.004) * rng.standard_normal(n) * 3.0
+    x = (korn + filter_fft(klicks, tief=1500, ordnung=2)) * zuege
+    lauter = 0.35 + 0.65 * (t / dauer) ** 1.3 * naeher
+    x = x * lauter
+    # von links zur Mitte
+    pan = 0.7 * (1 - t / dauer)
+    y = np.stack([x * np.sqrt(0.5 * (1 + pan)), x * np.sqrt(0.5 * (1 - pan))], 1)
+    y = hall(y, 0.4, 0.15, rng, dunkel=5000)
+    # harter Abriss am Ende (der Finger zieht sich zurück)
+    y[-sek(0.02):] *= np.linspace(1, 0, sek(0.02))[:, None]
+    return normieren(y)
+
+
 KLAENGE = {
+    "schaben": klang_schaben,
     "sub_boom": klang_sub_boom,
     "zaehlschlag": klang_zaehlschlag,
     "frost": klang_frost,

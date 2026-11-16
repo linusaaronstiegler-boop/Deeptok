@@ -135,6 +135,18 @@
    "params": {
     "ereignisse": [
      {
+      "was": "liegen",
+      "mitte": [
+       -0.7,
+       0.15
+      ],
+      "laenge": 2.6,
+      "breite": 0.62,
+      "drehung": 0,
+      "start": 71.4,
+      "dauer": 0.9
+     },
+     {
       "was": "biegen",
       "start": 82.24,
       "dauer": 0.4,
@@ -179,8 +191,9 @@
       "skala": 1.2,
       "spreizen": 14,
       "spreiz_dauer": 0.2,
-      "start": 89.08,
-      "dauer": 0.28
+      "glut": 0.4,
+      "start": 88.54,
+      "dauer": 0.75
      }
     ]
    }
@@ -2460,15 +2473,15 @@
     "baustein": "push_in",
     "ziel": [
      -16.78,
-     1.9,
+     1.62,
      -2
     ],
     "pos": [
      -16.72,
-     2.05,
-     0.15
+     1.9,
+     -0.15
     ],
-    "fov": 52,
+    "fov": 62,
     "rate": 0.07
    },
    "stellung": {
@@ -2502,7 +2515,7 @@
     {
      "wer": "eli",
      "was": "arm_heben",
-     "dauer": 0.2,
+     "dauer": 0.01,
      "params": {
       "seite": "r",
       "vorn": 40
@@ -2513,7 +2526,7 @@
     {
      "wer": "june",
      "was": "greifen",
-     "dauer": 0.35,
+     "dauer": 0.01,
      "params": {
       "zu": {
        "anker": "eli.hand_r",
@@ -2527,7 +2540,7 @@
       "form": "faust",
       "lehnen": false
      },
-     "start": 17.92,
+     "start": 17.8,
      "nebenbei": true
     },
     {
@@ -3639,26 +3652,23 @@
      "staerke": 2.9
     },
     "kante": {
-     "staerke": 1.6
+     "staerke": 2
     },
     "belichtung": 1.7
    },
    "kamera": {
     "baustein": "push_in",
-    "ziel": {
-     "anker": "odell.kopf",
-     "versatz": [
-      0,
-      -0.3,
-      0
-     ]
-    },
     "pos": [
-     2.7,
-     1.25,
-     -54.4
+     3.2,
+     2.4,
+     -38
     ],
-    "fov": 46,
+    "ziel": [
+     0.1,
+     13.7,
+     -62.4
+    ],
+    "fov": 17,
     "rate": 0.07
    },
    "stellung": {
@@ -5418,32 +5428,26 @@
    "ende": 48.2667,
    "set": [
     "strasse",
-    "marsh",
+    "haus",
     "spur"
    ],
    "licht": "nacht",
    "licht_anpassung": {
-    "hemi": {
-     "staerke": 2.9
-    },
-    "kante": {
-     "staerke": 1.6
-    },
-    "belichtung": 1.7
+    "belichtung": 1.25
    },
    "kamera": {
     "baustein": "push_in",
     "ziel": [
      -18.6,
-     2.3,
+     1.9,
      5.1
     ],
     "pos": [
-     -19.7,
-     3.4,
-     9.7
+     -17.35,
+     1.65,
+     0.6
     ],
-    "fov": 48,
+    "fov": 56,
     "rate": 0.07
    },
    "stellung": {
@@ -5576,13 +5580,12 @@
     {
      "wer": "mh",
      "was": "zaehlen",
-     "dauer": 0.4,
-     "params": {
-      "takt": 0.4,
-      "staerke": 1.2
-     },
      "start": 48.29,
-     "nebenbei": true
+     "dauer": 0.4,
+     "params": {
+      "takt": 0.4,
+      "staerke": 1.2
+     }
     },
     {
      "wer": "mh",
@@ -5592,18 +5595,19 @@
       "takt": 0.4,
       "staerke": 1.2
      },
-     "start": 48.74,
+     "start": 49.02,
      "nebenbei": true
     },
     {
      "wer": "mh",
      "was": "zaehlen",
-     "start": 49.18,
      "dauer": 0.4,
      "params": {
       "takt": 0.4,
       "staerke": 1.4
-     }
+     },
+     "start": 49.75,
+     "nebenbei": true
     }
    ],
    "schatten_bereich": 16,
@@ -5623,17 +5627,17 @@
      "art": "aktion",
      "wer": "mh",
      "was": "zaehlen",
-     "wort": "knocks",
-     "wort_i": 161,
-     "wort_start": 48.98,
-     "start": 49.18,
-     "ende": 49.58,
+     "wort": "Three",
+     "wort_i": 159,
+     "wort_start": 48.29,
+     "start": 48.29,
+     "ende": 48.69,
      "anker": "start",
-     "schluesselwort_idee": "knocks"
+     "schluesselwort_idee": "Three"
     },
     "gesichter": [],
     "hauptsache": "mh.haende",
-    "bogen_zeit": 49.68,
+    "bogen_zeit": 48.79,
     "akzent": false,
     "monster": true,
     "sichtbar": [
@@ -7313,48 +7317,12 @@
    "licht": "kriechkeller",
    "kamera": {
     "baustein": "push_in",
-    "ziel": {
-     "anker": "eli.kopf",
-     "versatz": [
-      0.25,
-      0.05,
-      0
-     ]
-    },
-    "blick": {
-     "azimut": 200,
-     "hoehe": 16,
-     "abstand": 1.6
-    },
-    "fov": 54,
-    "roll": -90,
+    "punkt": "keller.pov",
     "rate": 0.08
    },
    "stellung": {
-    "eli": {
-     "neu": true,
-     "sichtbar": true,
-     "position": [
-      301.3,
-      0,
-      -0.35
-     ],
-     "blick": 90,
-     "pose": "liegen",
-     "pose_params": {
-      "kopf": 30
-     },
-     "gesicht": "besorgt"
-    },
     "luke_k": {
-     "neu": true,
-     "sichtbar": true,
-     "position": [
-      300.45,
-      1.016,
-      -0.4
-     ],
-     "blick": 0
+     "sichtbar": false
     }
    },
    "aktionen": [],
@@ -7382,14 +7350,11 @@
      "schluesselwort_idee": "Above"
     },
     "gesichter": [],
-    "hauptsache": "eli.kopf",
+    "hauptsache": "keller.dielen_mitte",
     "bogen_zeit": 70.7,
     "akzent": false,
     "monster": false,
-    "sichtbar": [
-     "eli",
-     "luke_k"
-    ]
+    "sichtbar": []
    }
   },
   {
@@ -7440,12 +7405,6 @@
       2
      ],
      "blick": 90
-    },
-    "eli": {
-     "sichtbar": false
-    },
-    "luke_k": {
-     "sichtbar": false
     }
    },
    "aktionen": [
@@ -8747,7 +8706,17 @@
    "licht": "kriechkeller",
    "kamera": {
     "baustein": "push_in",
-    "punkt": "keller.pov",
+    "pos": [
+     299.7,
+     0.32,
+     0.55
+    ],
+    "ziel": [
+     299.67,
+     1,
+     1.38
+    ],
+    "fov": 52,
     "rate": 0.05,
     "zusaetze": [
      {
@@ -8780,7 +8749,7 @@
      "art": "dimmen",
      "start": 87.36,
      "ziel": "keller.oben",
-     "faktor": 0.5,
+     "faktor": 0.85,
      "dauer": 0.4
     }
    ],

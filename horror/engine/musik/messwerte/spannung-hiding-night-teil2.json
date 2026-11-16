@@ -38,15 +38,15 @@
   },
   {
    "ab_wort": 162,
-   "versatz_s": -0.42,
+   "versatz_s": -0.05,
    "stufe": "duenn",
    "blende_s": 0.3,
    "einrasten": "aus",
-   "grund": "Wiedereinsatz dünn kurz vor 'When I came back down' (Wegfall 1,40 s); dünn bis zum Omen, damit die zwei Wegfälle nicht hart wechseln",
-   "zeit_s": 49.44,
-   "anker_s": 49.44,
-   "rms_vor_db": -71.9,
-   "rms_nach_db": -26.4
+   "grund": "Wiedereinsatz dünn kurz vor 'When I came back down' (Wegfall 1,40 s); dünn bis zum Omen, damit die zwei Wegfälle nicht hart wechseln (Review Teil 3: erst nach dem dritten, jetzt langsameren Klopfer bei 49,75 s)",
+   "zeit_s": 49.81,
+   "anker_s": 49.81,
+   "rms_vor_db": -89.4,
+   "rms_nach_db": -29.7
   },
   {
    "ab_wort": 169,
@@ -82,6 +82,18 @@
    "rms_nach_db": -19.2
   },
   {
+   "ab_wort": 254,
+   "versatz_s": -0.2,
+   "stufe": "voll",
+   "pegel_db": -5.0,
+   "blende_s": 0.4,
+   "grund": "Review Teil 3 (zu Teil 2): unter Junes Zählen „Ninety-seven / -eight / -nine“ 5 dB leiser; vorher nur 5,2–10 LU Abstand zur Stimme (Regel 10–12 LU), Whisper ließ „Ninety-seven, Ninety-eight“ aus",
+   "zeit_s": 73.577,
+   "anker_s": 73.55,
+   "rms_vor_db": -19.4,
+   "rms_nach_db": -30.1
+  },
+  {
    "ab_wort": 257,
    "versatz_s": -0.27,
    "stufe": "weg",
@@ -89,8 +101,8 @@
    "grund": "Abriss am Ende von 'Ninety-nine' (76,76 s, 0,27 s vor 'Then'): 'Then she stopped' in der Stille",
    "zeit_s": 76.76,
    "anker_s": 76.76,
-   "rms_vor_db": -19.0,
-   "rms_nach_db": -60.7
+   "rms_vor_db": -24.0,
+   "rms_nach_db": -65.6
   },
   {
    "ab_wort": 260,
@@ -102,7 +114,7 @@
    "grund": "Wiedereinsatz mit 'The bell struck midnight': nur Spieldose und Orgelpunkt (dünn: nur die Figur ohne Oberstimme und Verdopplung, +1,2 dB -> etwa 13 LU unter der Stimme)",
    "zeit_s": 78.08,
    "anker_s": 78.08,
-   "rms_vor_db": -60.8,
+   "rms_vor_db": -65.8,
    "rms_nach_db": -25.4
   },
   {
@@ -141,7 +153,7 @@
    "rms_nach_db": -64.4
   }
  ],
- "lufs": -19.59,
- "spitze_dbfs": -7.75,
+ "lufs": -19.7,
+ "spitze_dbfs": -7.91,
  "datei": "build/musik/spannung-hiding-night-teil2.wav"
 }

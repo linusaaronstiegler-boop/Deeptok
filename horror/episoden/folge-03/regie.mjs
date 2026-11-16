@@ -107,41 +107,66 @@ const MH_GROSS = (abstand = 0.8, hoehe = -8, fov = 50, rate = 0.07, versatz = [0
 const HAENDE_WEG = { wer: 'mh', was: 'haende_weg', ab: 'start', dauer: 0.01 };
 // Junes Gesicht im Keller ausleuchten: Schnellbogen zeigte es blau und zu dunkel (Gegenlicht aus der Luke)
 const MH_LICHT = { hemi: { himmel: '#c8d4ff', boden: '#6a5040', staerke: 2.4 }, belichtung: 1.55 };
+// Review Teil 3, Enthüllung: MH_LICHT machte das Gesicht hell, pastellig und freundlich (17 % weiß
+// abgeschnitten). Jetzt Licht von unten (Elis Lampe am Boden), weniger Füll-Licht, kaltes Kantenlicht von
+// der Luke: eine Gesichtshälfte im Schatten, nichts brennt aus.
+const MH_ENTHUELLUNG = { hemi: { himmel: '#7f93c4', boden: '#5a4030', staerke: 0.9 }, kante: { farbe: '#9FD8D2', staerke: 2.6, richtung: [0.5, 0.6, -0.7] }, belichtung: 1.25 };
 const KELLER_AUS_MORGEN = { 'keller.gitter_morgen': false };
 // nach Satz 19 ist Tess' Lampe aus; der Compiler schaltet strasse.* an jedem Nacht-Schnitt an
 const TURM_AUS = { 'strasse.turm_lampe': false };
 const MORGEN_INNEN = { belichtung: 1.15 };
+// Hook und Satz 25 (Review Teil 3): Fuge neben Elis Kopf, aus der der Finger kommt; Kamera seitlich über
+// Elis Gesicht, damit Fingerspitze und Gesicht in einem Bild liegen; Licht hell genug für das Kleinbild
+const HOOK_FUGE = [-1.25, -0.505];
+const HOOK_KAMERA = (rate = 0.08) => ({ ziel: { anker: 'eli.augen', versatz: [-0.14, 0.04, -0.04] }, blick: { azimut: 165, hoehe: 26, abstand: 1.15 }, fov: 54, roll: ROLL_LIEGEN, rate });
+const HOOK_LICHT = { hemi: { staerke: 1.3 }, kante: { staerke: 1.2 }, belichtung: 1.75 };
+// Rückblenden entsättigt (Review Teil 3: Dad, June mit 18 und Owens Pick-up standen in voller Farbe)
+const RUECKBLENDE = { grade: { saettigung: 0.3, kontrast: 1.06 } };
 
 export const einstellungen = {
   // ───────── Hook: Anschluss an das letzte Bild von Teil 2 ─────────
-  // "Mister Hundred takes you at eighteen" – vier Fingerschatten quer über den Fugen, kalte Spitzen
+  // Review Teil 3 (Hook): vorher 1,4 s Dielen von unten, dann ein schwarzes Gesicht – der schwächste Bildtyp
+  // der Folge. Jetzt das stärkste Bild zuerst: Der lange weiße Finger ist schon durch die Fuge und tastet
+  // neben Elis Wange, Elis Gesicht von vorn und hell, Bewegung ab Bild 1 (Finger und Push-in).
+  // "Mister Hundred takes you at eighteen" – Finger und Gesicht in einem Bild
   '1': {
-    figuren: MH_OBEN,
+    figuren: { ...ELI_K('angst', 30), ...MH_OBEN },
     lampen_einzeln: { 'keller.lukenlicht': false, ...KELLER_AUS_MORGEN },
-    kamera: { baustein: 'crane_down_tilt', ziel: kw(-0.33, 1.0, 0.3), blick: { azimut: 180, hoehe: -76, abstand: 0.72 }, hoehe: 0.18, rueck: 0.05, ankunft_wort: 'Hundred', fov: 62 },
-    licht_anpassung: { belichtung: 0.65 },
+    kamera: HOOK_KAMERA(0.09),
+    licht_anpassung: HOOK_LICHT,
     set_ereignisse: [
       { set: 'keller', was: 'fuesse', versatz: -0.5, dauer: 0.01, mitte: [-0.45, -0.45], drehung: 0 },
-      { set: 'keller', was: 'finger', versatz: -0.6, dauer: 0.3, von: [-0.33, 1.1], nach: [-0.33, 1.05], drehung: -90, skala: 1.25, spreizen: 14, spreiz_dauer: 0.2 },
+      { set: 'keller', was: 'finger_durch', versatz: -0.75, dauer: 1.0, stelle: HOOK_FUGE, drehung: -90 },
       { set: 'keller', was: 'biegen', versatz: -0.5, dauer: 0.01, tiefe: 0.05, mitte: [-0.45, -0.1], radius: 0.75 },
     ],
-    haupt: { art: 'kamera', wort: 'Hundred' },
+    haupt: { art: 'set', set: 'keller', was: 'finger_tasten', wort: 'takes', dauer: 1.3, params: { weite: 0.2 } },
     hauptsache: 'mh.fuss',
   },
-  // "if it finds you, and it" – Elis Gesicht, die Fingerschatten liegen über seinen Augen
+  // "if it finds you, and it" – Elis Auge groß, die Fingerspitze schabt in der Unschärfe daneben
   '1:if': {
-    figuren: ELI_K('besorgt', 30),
-    kamera: ELI_NAH(0.95, 186, 40, 0.08),
-    haupt: { art: 'gesicht', wer: 'eli', name: 'angst', wort: 'finds' },
-    hauptsache: 'eli.kopf',
+    figuren: ELI_K('angst', 30),
+    kamera: { ziel: { anker: 'eli.augen', versatz: [0, 0.02, 0.05] }, blick: { azimut: 200, hoehe: 24, abstand: 0.62 }, fov: 42, roll: ROLL_LIEGEN, rate: 0.08 },
+    licht_anpassung: HOOK_LICHT,
+    set_ereignisse: [{ set: 'keller', was: 'finger_tasten', versatz: -0.2, dauer: 1.4, weite: 0.24 }],
+    haupt: { art: 'gesicht', wer: 'eli', name: 'schock', wort: 'finds' },
+    gesichter: [{ wer: 'eli', name: 'angst', wort: 'finds', versatz: 0.28 }],
+    hauptsache: 'eli.augen',
   },
-  // "called to me in my sister's voice." – Untersicht auf den Lichtspalt um die geschlossene Luke
+  // "called to me in my sister's voice." – Review Teil 3 (zweite Kritik): Junes Zimmer, sie zählt im Bett; auf
+  // „sister's“ steht ihr Schatten an der Wand viel zu groß, mit spitzen Ellbogen und der Raute vor dem Kopf.
+  // Die Lukenuntersicht davor las sich als beige Diagonale.
   '1:called': {
-    figuren: { luke_k: { position: ORT.kellerLuke, blick: 0 } },
-    kamera: { pos: kw(0.15, 0.28, -0.95), ziel: kw(0.45, 1.0, -0.05), fov: 54, rate: 0.07 },
-    partikel: [{ art: 'schweben', ort: kw(0.45, 0.8, -0.1), bereich: [0.9, 0.4, 0.9], anzahl: 90, groesse: 0.004, farbe: '#ffe0b0', deckkraft: 0.6 }],
-    haupt: { art: 'kamera', wort: "sister's" },
-    hauptsache: 'keller.luke',
+    figuren: {
+      june: { position: ORT.juneBett, blick: 90, pose: 'liegen', gesicht: 'zaehlt_a' },
+      sch_june: { position: [-20.76, SO + 0.45, 4.2], blick: 90 },
+    },
+    lampen_einzeln: { 'haus.june_lampe': true },
+    kamera: { pos: [-17.4, 2.35, 3.7], ziel: [-20.2, 1.6, 4.2], fov: 58, rate: 0.08 },
+    licht_anpassung: { belichtung: 0.9 },
+    set_ereignisse: [{ set: 'keller', was: 'finger_zurueck', versatz: 0, dauer: 0.01 }],
+    haupt: { wer: 'sch_june', was: 'einblenden', wort: "sister's", dauer: 0.12, params: { deckkraft: 0.62 } },
+    mund: { wer: 'june', art: 'zaehlen', takt: 0.26 },
+    hauptsache: 'june.kopf',
   },
 
   // ───────── Neu pflanzen: die Regel, Junes Versprechen ─────────
@@ -376,13 +401,15 @@ export const einstellungen = {
     haupt: { art: 'licht', licht_art: 'aus', ziel: 'strasse.turm_lampe', wort: 'out', vorlauf: 0.05, dauer: 0.1 },
     hauptsache: [0.3, 13.6, TZ + 1.0],
   },
-  // "The bell rope swung once," – in der dunklen Schallluke schwingt das Glockenseil einmal
+  // "The bell rope swung once," – in der dunklen Schallluke schwingt das Glockenseil einmal weit aus
+  // Review Teil 3: vorher verdeckte der Pfeiler das Seil, und es schwang auf die Kamera zu. Jetzt näher und
+  // links vom Pfeiler, das Seil mit Kantenlicht vor der dunklen Öffnung, Ausschlag quer zur Kamera.
   '20': {
-    kamera: { pos: [1.5, 13.3, TZ + 5.6], ziel: [0.5, 13.2, TZ + 0.4], fov: 30, rate: 0.06 },
-    licht_anpassung: NACHT_HELL,
+    kamera: { pos: [0.45, 13.55, TZ + 4.8], ziel: [0.62, 13.35, TZ + 0.35], fov: 28, rate: 0.06 },
+    licht_anpassung: { ...NACHT_HELL, kante: { staerke: 2.4 } },
     lampen_einzeln: TURM_AUS,
-    haupt: { art: 'set', set: 'strasse', was: 'seil', wort: 'swung', dauer: 1.4 },
-    hauptsache: [0.62, 13.2, TZ + 0.35],
+    haupt: { art: 'set', set: 'strasse', was: 'seil', wort: 'swung', dauer: 1.4, params: { staerke: 0.55 } },
+    hauptsache: [0.62, 12.9, TZ + 0.35],
   },
   // "without a sound." – Eli am Gitter, Mondlicht auf dem Gesicht, er hält den Atem an
   '20:without': {
@@ -393,27 +420,32 @@ export const einstellungen = {
   },
 
   // ───────── Die Straße, der Finger ─────────
-  // "Then it came down Main Street," – Seitenfahrt auf Bodenhöhe: Saum und lange nackte Füße
+  // Review Teil 3: Auf der Main Street war das Monster in 3,4 s praktisch nicht zu sehen (nur Füße, dann eine
+  // leere Straße). Jetzt: erst die ganze Gestalt mitten auf der Straße, dann von schräg gegenüber der Kopf
+  // in Höhe der oberen Fenster, die Raute vor dem Gesicht; auf „window“ fällt ihr Schatten ins Fenster.
+  // "Then it came down Main Street," – Totale die Straße hinab, es kommt zwischen den Laternen auf uns zu
   '21': {
-    figuren: { mh: { position: [-5.4, 0, -27.0], blick: 0, gesicht: 'glatt' } },
-    kamera: { baustein: 'truck_side', pos: [-1.6, 0.5, -23.6], ziel: [-5.4, 0.9, -24.6], fov: 54, richtung: 'links', strecke: 1.2, vordergrund: false },
-    licht_anpassung: NACHT_HELL,
+    figuren: { mh: { position: [-5.0, 0, -36.0], blick: 0, gesicht: 'glatt' } },
+    kamera: { pos: [-3.2, 1.6, -18.5], ziel: [-5.0, 4.4, -33.0], fov: 46, rate: 0.07 },
+    licht_anpassung: { ...NACHT_HELL, kante: { staerke: 2.2 } },
     lampen_einzeln: TURM_AUS,
-    haupt: { wer: 'mh', was: 'stapfen', wort: 'Main', dauer: 1.3, params: { nach: [-5.4, -23.5], schritt: 0.9 } },
-    hauptsache: 'mh.knie',
+    haupt: { wer: 'mh', was: 'stapfen', wort: 'Main', dauer: 1.6, params: { nach: [-5.0, -33.0], schritt: 0.9 } },
+    hauptsache: 'mh.kopf',
   },
-  // "looking in every upstairs window." – obere Fenster von außen, der Schatten der Raute legt sich auf jedes
+  // "looking in every upstairs window." – das Monster beugt den Kopf an ein oberes Fenster; auf „window“
+  // legt sich der Schatten der Raute über die Scheibe
   '21:looking': {
     figuren: {
-      sch_w2: { position: [-11.55, 3.6, -17.0], blick: 90 },
-      sch_w1: { position: [-11.55, 3.6, -31.0], blick: 90, sichtbar: false },
+      mh: { position: [-9.3, 0, -24.0], blick: -90, gesicht: 'glatt', pose: 'vorbeugen', pose_params: { winkel: 14, kopf_ausgleich: 8, knie: 0 } },
+      sch_w1: { position: [-11.55, 3.6, -24.0], blick: 90, sichtbar: false },
     },
-    kamera: { pos: [3.2, 3.4, -9.5], ziel: [-11.5, 5.2, -24.0], fov: 46, rate: 0.07 },
-    licht_anpassung: NACHT_HELL,
+    // Kran-Neiger vom Saum hinauf zum Kopf am Fenster (Akzentfahrt, Ankunft auf „window“)
+    kamera: { baustein: 'tilt_up', von_ziel: { anker: 'mh.huefte' }, ziel: { anker: 'mh.kopf', versatz: [-0.6, 0, 0] }, pos: [-2.0, 2.4, -16.5], ankunft_wort: 'window', kran: 1.6, fov: 48 },
+    licht_anpassung: { ...NACHT_HELL, kante: { staerke: 2.2 } },
     lampen_einzeln: TURM_AUS,
-    haupt: { wer: 'sch_w1', was: 'sichtbar', wort: 'window', params: { wert: true }, dauer: 0.01 },
-    neben: [{ wer: 'sch_w2', was: 'sichtbar', wort: 'upstairs', params: { wert: false } }],
-    hauptsache: [-11.9, 5.0, -24.0],
+    haupt: { wer: 'mh', was: 'vorbeugen', wort: 'looking', dauer: 0.8, params: { winkel: 30, kopf_ausgleich: 18, knie: 0 } },
+    neben: [{ wer: 'sch_w1', was: 'sichtbar', wort: 'window', params: { wert: true }, dauer: 0.01 }],
+    hauptsache: 'mh.kopf',
   },
   // "It stopped at mine," – Elis leeres Zimmer: der Schatten der Raute fällt durchs Fenster auf sein Bett
   '22': {
@@ -424,13 +456,15 @@ export const einstellungen = {
     haupt: { wer: 'sch_bett', was: 'einblenden', wort: 'mine', dauer: 0.25, params: { deckkraft: 0.66 } },
     hauptsache: [-15.7, OG + 0.5, 3.7],
   },
-  // "then bent down to June's." – außen: es beugt sich 60–70° vor Junes Fenster im Erdgeschoss
+  // "then bent down to June's." – Review Teil 3 (wie Teil 2): Von außen lag die helle Schulter als riesiger
+  // Balken vor der Linse, auf „bent“ war das Fenster leer; jede Außenstellung liest den waagrecht gebeugten
+  // Mantel als Kranarm. Jetzt die gute Innenansicht aus Teil 2: Junes leeres Zimmer, auf „bent“ sinken Kopf
+  // und Hände in das Fenster, die Fingerspitzen glimmen am Glas.
   '22:then': {
-    set: ['strasse', 'marsh', 'spur'],
-    figuren: { mh: { position: ORT.monsterJuneFenster, blick: 180, gesicht: 'glatt', pose: 'vorbeugen', pose_params: { winkel: 30, kopf_ausgleich: 20, knie: 10 } } },
-    // über die Schulter (Hausrückseite) wie in Teil 2: von der Seite las sich der waagrecht gebeugte Mantel als Kranarm
-    kamera: { baustein: 'crane_down_tilt', ziel: [-18.6, 2.3, 5.1], blick: { azimut: -13, hoehe: 13, abstand: 4.9 }, hoehe: 1.5, rueck: 0.4, ankunft_wort: 'bent', fov: 50 },
-    licht_anpassung: NACHT_HELL,
+    set: ['strasse', 'haus', 'spur'],
+    figuren: { mh: { position: ORT.monsterJuneFenster, blick: 180, gesicht: 'glatt', pose: 'vorbeugen', pose_params: { winkel: 40, kopf_ausgleich: 30, knie: 20 } }, luke_tp: { position: ORT.luke, blick: 90 } },
+    kamera: { baustein: 'crane_down_tilt', ziel: [-18.6, 2.3, 5.1], pos: [-18.15, 1.2, 2.75], hoehe: 0.7, rueck: 0.3, ankunft_wort: 'bent', fov: 54 },
+    licht_anpassung: { belichtung: 1.25 },
     lampen_einzeln: TURM_AUS,
     haupt: { wer: 'mh', was: 'vorbeugen', wort: 'bent', dauer: 0.9, params: BEUGEN_FENSTER },
     hauptsache: 'mh.haende',
@@ -447,7 +481,7 @@ export const einstellungen = {
   '23:Owen': {
     figuren: { pk2: { position: ORT.pikeEinfahrt, blick: -90, pose: 'tuer_auf', pose_params: { winkel: 62 } } },
     kamera: { pos: [3.0, 2.6, -6.4], ziel: [8.6, 1.1, -12.4], fov: 46, rate: 0.07 },
-    licht_anpassung: { belichtung: 1.3 },
+    licht_anpassung: { belichtung: 1.3, ...RUECKBLENDE },
     partikel: [{ art: 'atem', ort: 'pk2.auspuff', periode: 0.55, richtung: [0.2, 1, 0], groesse: 0.28, deckkraft: 0.8 }],
     haupt: { art: 'kamera', wort: 'ran' },
     hauptsache: 'pk2.mitte',
@@ -456,14 +490,16 @@ export const einstellungen = {
   '23:shoes': {
     figuren: { pk2: { position: ORT.pikeEinfahrt, blick: -90, pose: 'tuer_auf', pose_params: { winkel: 62 } } },
     kamera: { ziel: 'pk2.sitz', blick: { azimut: 10, hoehe: 32, abstand: 1.22 }, fov: 44, rate: 0.07 },
-    licht_anpassung: { belichtung: 1.55, hemi: { staerke: 2.8 }, haupt: { staerke: 3.0 } },
+    licht_anpassung: { belichtung: 1.55, hemi: { staerke: 2.8 }, haupt: { staerke: 3.0 }, ...RUECKBLENDE },
     haupt: { art: 'kamera', wort: 'home' },
     hauptsache: 'pk2.sitz',
   },
   // "The boards above me groaned." – die Dielen biegen sich tief durch, Staub fällt in sein Gesicht
+  // Review Teil 3: Eine Diele lag vor der Linse (80 % des Bildes). Jetzt unter den Dielen: Elis Gesicht von
+  // vorn, das Durchbiegen darüber im Bild.
   '24': {
     figuren: ELI_K('angst', 34),
-    kamera: { ziel: { anker: 'eli.kopf', versatz: [0.15, 0.35, 0] }, blick: { azimut: 176, hoehe: 30, abstand: 1.15 }, fov: 58, roll: ROLL_LIEGEN, rate: 0.07, zusaetze: [{ baustein: 'shake', wort: 'groaned', staerke: 0.9, dauer: 0.3 }] },
+    kamera: { ziel: { anker: 'eli.augen', versatz: [0.25, 0.12, 0] }, blick: { azimut: 194, hoehe: 22, abstand: 1.25 }, fov: 58, roll: ROLL_LIEGEN, rate: 0.07, zusaetze: [{ baustein: 'shake', wort: 'groaned', staerke: 0.9, dauer: 0.3 }] },
     licht_anpassung: { hemi: { staerke: 1.0 }, belichtung: 1.45 },
     set_ereignisse: [{ set: 'keller', was: 'fuesse', versatz: 0, dauer: 0.01, mitte: [-0.45, -0.45], drehung: 0 }],
     haupt: { art: 'set', set: 'keller', was: 'biegen', wort: 'groaned', dauer: 0.4, params: { tiefe: 0.1, mitte: [-0.45, -0.1], radius: 0.75 } },
@@ -474,7 +510,10 @@ export const einstellungen = {
   '25': {
     figuren: MH_OBEN,
     kamera: { baustein: 'crane_down_tilt', ziel: kw(-0.95, 0.45, -0.5), blick: { azimut: 40, hoehe: 8, abstand: 1.3 }, hoehe: 0.3, rueck: 0.1, ankunft_wort: 'crack', fov: 54 },
-    haupt: { art: 'set', set: 'keller', was: 'finger_durch', wort: 'finger', dauer: 1.0, params: { stelle: [-1.25, -0.505], drehung: -90 } },
+    // Review Teil 3: bis 60,3 s war nichts zu sehen (Mittel 18). Die Spitze kommt jetzt schon auf „long“
+    // durch die Fuge und ist heller ausgeleuchtet.
+    licht_anpassung: { hemi: { staerke: 1.2 }, kante: { staerke: 1.4 }, belichtung: 1.7 },
+    haupt: { art: 'set', set: 'keller', was: 'finger_durch', wort: 'long', anker: 'start', dauer: 1.5, params: { stelle: HOOK_FUGE, drehung: -90 } },
     hauptsache: kw(-1.0, 0.45, -0.5),
   },
   // "and felt along the dirt, inches" – Eli von vorn, seine Augen folgen dem Schaben am Boden
@@ -485,10 +524,11 @@ export const einstellungen = {
     set_ereignisse: [{ set: 'keller', was: 'finger_tasten', wort: 'felt', dauer: 1.4, weite: 0.16 }],
     hauptsache: 'eli.kopf',
   },
-  // "from my face. Then it pulled back." – Snap-Zoom: die Fingerspitze neben Elis Wange; sie zieht sich zurück
+  // "from my face. Then it pulled back." – Snap-Zoom: die Fingerspitze neben Elis Wange, sein Gesicht von
+  // vorn (Review Teil 3: vorher Elis Kopf von hinten); sie zieht sich zurück
   '25:from': {
     figuren: { ...ELI_K('angst', 30), ...MH_OBEN },
-    kamera: { baustein: 'snap_zoom', ziel: kw(-0.68, 0.3, -0.45), pos: kw(-0.45, 0.62, 0.35), fov: 52, zeit_wort: 'face', faktor: 1.18, bilder: 2, roll: 0 },
+    kamera: { ...HOOK_KAMERA(0), baustein: 'snap_zoom', zeit_wort: 'face', faktor: 1.18, bilder: 2 },
     // Prüfung: im Mittel 17,6 von 255 (dunkle Orte ≥ 22) – mehr Füll-Licht und Belichtung
     licht_anpassung: { hemi: { staerke: 1.4 }, belichtung: 1.9 },
     set_ereignisse: [
@@ -506,16 +546,32 @@ export const einstellungen = {
     haupt: { art: 'gesicht', wer: 'uhr', name: '3_00', wort: 'three' },
     hauptsache: 'uhr.mitte',
   },
-  // "morning. [Klopfer] Rabbit?" – die Kamera fährt von der Luke zurück: drei Klopfer, Staub aus dem Spalt
+  // "morning. [Klopfer, Klopfer, Klopfer]" – die Kamera fährt von der Luke zurück. Review Teil 3: Die Klopfer
+  // waren nur zu hören. Jetzt rieselt bei jedem Staub aus dem Lukenspalt, und das Licht in den Fugen zuckt
+  // (Puls). Die Pause ist um 0,5 s länger (engine/ton/einschub.py): Klopfer 0,75 s auseinander, also langsam,
+  // bei „morning“ + 0,50 / 1,25 / 2,00 s. „Rabbit?“ hat jetzt ein eigenes Bild (Satz 28).
   '27:morning': {
     figuren: { luke_k: { position: ORT.kellerLuke, blick: 0 } },
     kamera: { baustein: 'dolly_out', pos: kw(0.3, 0.4, -0.85), ziel: kw(0.45, 1.0, -0.05), fov: 54, rate: -0.07 },
     partikel: [
-      { art: 'staub', ort: kw(0.45, 0.95, -0.4), wort: 'morning', vorlauf: -0.52, farbe: '#e8dcc8', anzahl: 70, groesse: 0.004, bereich: [0.5, 0.2, 0.05], deckkraft: 0.75, dauer: 1.2 },
-      { art: 'staub', ort: kw(0.1, 0.95, 0.0), wort: 'morning', vorlauf: -0.97, farbe: '#e8dcc8', anzahl: 70, groesse: 0.004, bereich: [0.05, 0.2, 0.5], deckkraft: 0.75, dauer: 1.2 },
+      { art: 'staub', ort: kw(0.45, 0.95, -0.4), wort: 'morning', vorlauf: -0.5, farbe: '#e8dcc8', anzahl: 90, groesse: 0.0045, bereich: [0.5, 0.2, 0.05], deckkraft: 0.8, dauer: 1.2 },
+      { art: 'staub', ort: kw(0.1, 0.95, 0.0), wort: 'morning', vorlauf: -1.25, farbe: '#e8dcc8', anzahl: 90, groesse: 0.0045, bereich: [0.05, 0.2, 0.5], deckkraft: 0.8, dauer: 1.2 },
     ],
-    haupt: { art: 'partikel', partikel_art: 'staub', wort: 'Rabbit', vorlauf: 0.32, ort: kw(0.8, 0.95, 0.38), farbe: '#e8dcc8', anzahl: 70, groesse: 0.004, bereich: [0.4, 0.2, 0.05], deckkraft: 0.75, dauer: 1.2 },
+    set_ereignisse: [
+      { set: 'keller', was: 'puls', wort: 'morning', versatz: 0.47, dauer: 0.3, takt: 0.75, staerke: 0.7 },
+      { set: 'keller', was: 'puls', wort: 'morning', versatz: 1.22, dauer: 0.3, takt: 0.75, staerke: 0.7 },
+      { set: 'keller', was: 'puls', wort: 'morning', versatz: 1.97, dauer: 0.3, takt: 0.75, staerke: 0.7 },
+    ],
+    haupt: { art: 'partikel', partikel_art: 'staub', wort: 'morning', vorlauf: -2.0, ort: kw(0.8, 0.95, 0.38), farbe: '#e8dcc8', anzahl: 90, groesse: 0.0045, bereich: [0.4, 0.2, 0.05], deckkraft: 0.8, dauer: 1.2 },
     hauptsache: 'keller.luke',
+  },
+  // "Rabbit?" – Elis Auge groß, es reißt auf: Junes Stimme (eigenes Bild, seit die Klopfer langsamer sind)
+  '28': {
+    figuren: ELI_K('besorgt', 34),
+    kamera: { ziel: { anker: 'eli.augen', versatz: [0, 0.02, 0.05] }, blick: { azimut: 188, hoehe: 30, abstand: 0.5 }, fov: 40, roll: ROLL_LIEGEN, rate: 0.09 },
+    licht_anpassung: { hemi: { staerke: 1.0 }, belichtung: 1.5 },
+    haupt: { art: 'gesicht', wer: 'eli', name: 'schock', wort: 'Rabbit' },
+    hauptsache: 'eli.augen',
   },
   // "You can come out now." – der Lichtspalt am Lukenrand, oben bewegt sich ein Schatten
   '29': {
@@ -628,19 +684,24 @@ export const einstellungen = {
     haupt: { wer: 'mh', was: 'kopfueber', wort: 'bent', dauer: 0.7, params: { neigung: 180, nicken: 0, senken: 0.25 } },
     hauptsache: 'mh.haende',
   },
-  // "took its hands away from its face." – die Hände öffnen sich langsam zur Seite wie eine Tür
+  // "took its hands away from its face." – Review Teil 3: vorher gingen die Hände auf, dahinter lag 1,1 s das
+  // leere, weiß ausgebrannte Gesicht „glatt“, erst ein Schnitt zeigte June. Jetzt eine Einstellung: Auf „away“
+  // gehen die Hände auseinander, dahinter liegt sofort Junes gedehntes Gesicht (Grinsen mit Zähnen).
   '39:took': {
-    figuren: MH_KOPF('glatt'),
+    figuren: MH_KOPF('june_gedehnt'),
     kamera: MH_GROSS(1.3, -8, 54, 0.06),
-    licht_anpassung: MH_LICHT,
-    haupt: { wer: 'mh', was: 'haende_weg', wort: 'hands', dauer: 1.1 },
+    licht_anpassung: MH_ENTHUELLUNG,
+    haupt: { wer: 'mh', was: 'haende_weg', wort: 'away', dauer: 0.55 },
     hauptsache: 'mh.kopf',
   },
-  // "It had June's face, far too big." – Großaufnahme: Junes Gesicht auf dem Würfelkopf, zu groß gedehnt
+  // "It had June's face, far too big." – Rückfahrt vom Gesicht, bis Elis Körper daneben die Größe zeigt
+  // (Review Teil 3: vorher bildfüllend, freundlich, ohne Maßstab)
   '40': {
-    figuren: MH_KOPF('june_gedehnt'),
-    kamera: MH_GROSS(1.2, -8, 52, 0.08),
-    licht_anpassung: MH_LICHT,
+    figuren: { ...MH_KOPF('june_gedehnt'), ...ELI_K('angst', 34), luke_k: { position: ORT.kellerLuke, blick: 0, pose: 'oeffnen' } },
+    kamera: { ...MH_GROSS(1.15, -10, 56, 0), baustein: 'dolly_out', rate: -0.16 },
+    licht_anpassung: MH_ENTHUELLUNG,
+    // Größenbezug: Elis grüne Jacke liegt hinter dem Kopf im Bild (der Kopf ist fast so lang wie sein Rumpf);
+    // eine erhobene Hand lag als unscharfer Balken vor der Linse (Probe), deshalb ohne
     neben: [HAENDE_WEG],
     haupt: { art: 'kamera', wort: 'face' },
     hauptsache: 'mh.kopf',
@@ -649,7 +710,7 @@ export const einstellungen = {
   '41': {
     figuren: MH_KOPF('june_gedehnt'),
     kamera: { ziel: { anker: 'mh.augen', versatz: [0, -0.04, 0.12] }, blick: { azimut: -90, hoehe: -4, abstand: 0.55 }, fov: 40, roll: 180, rate: 0.07 },
-    licht_anpassung: MH_LICHT,
+    licht_anpassung: MH_ENTHUELLUNG,
     neben: [HAENDE_WEG],
     haupt: { art: 'kamera', wort: 'eye' },
     hauptsache: 'mh.augen',
@@ -661,6 +722,7 @@ export const einstellungen = {
     licht: 'kriechkeller',
     figuren: { june18: { position: ORT.kellerEli, blick: 90, pose: 'liegen', pose_params: { kopf: 34 }, gesicht: 'besorgt' } },
     kamera: { baustein: 'crane_down_tilt', ziel: { anker: 'june18.augen', versatz: [0, 0.02, 0] }, blick: { azimut: 192, hoehe: 26, abstand: 1.0 }, hoehe: 0.25, rueck: 0.15, ankunft_wort: 'years', fov: 46, roll: ROLL_LIEGEN },
+    licht_anpassung: RUECKBLENDE,
     lampen_einzeln: { 'keller.lukenlicht': false },
     haupt: { art: 'kamera', wort: 'years' },
     hauptsache: 'june18.kopf',
@@ -673,8 +735,10 @@ export const einstellungen = {
       luke_tp: { position: ORT.luke, blick: 90, pose: 'offen' },
       lampe_dad: { position: [-18.15, SO, 1.3], blick: -60 },
     },
-    kamera: { ziel: [-19.1, 1.2, 1.75], pos: [-17.4, 1.75, 0.35], fov: 54, rate: 0.07 },
-    licht_anpassung: { belichtung: 1.35, grade: { saettigung: 0.62, kontrast: 1.04 } },
+    // Review Teil 3: Dads Gesicht war nicht zu sehen (Hinterkopf), die Rückblende hatte volle Farbe.
+    // Jetzt halbnah von vorn an der Luke, entsättigt wie in Teil 2.
+    kamera: { ziel: { anker: 'dad.kopf', versatz: [0, -0.15, 0] }, blick: { azimut: 15, hoehe: 12, abstand: 2.0 }, fov: 50, rate: 0.07 },
+    licht_anpassung: { belichtung: 1.35, ...RUECKBLENDE },
     neben: [
       { wer: 'dad', was: 'greifen', ab: 'start', dauer: 0.25, params: { zu: 'luke_tp.ring', seite: 'r', lehnen: false } },
       { wer: 'lampe_dad', was: 'kippen', wort: 'took', params: { winkel: 120, rollen: 50 } },
@@ -690,7 +754,7 @@ export const einstellungen = {
       mh: { position: [-18.6, -6.05, 2.25], blick: 90, gesicht: 'glatt' },
     },
     kamera: { baustein: 'statisch', rate: 0.04, ziel: [-18.8, 1.45, 2.0], pos: [-16.9, 1.95, 2.7], fov: 54 },
-    licht_anpassung: { belichtung: 1.3 },
+    licht_anpassung: { belichtung: 1.3, ...RUECKBLENDE },
     haupt: { wer: 'june18', was: 'klettern', wort: 'kept', dauer: 0.5, params: { hoehe: 0.75, arme: false } },
     hauptsache: 'june18.kopf',
   },
@@ -711,7 +775,7 @@ export const einstellungen = {
     figuren: MH_KOPF('june_gedehnt'),
     lampen_einzeln: { 'keller.lukenlicht': true },
     kamera: MH_GROSS(1.2, -8, 50, 0.07),
-    licht_anpassung: MH_LICHT,
+    licht_anpassung: MH_ENTHUELLUNG,
     neben: [HAENDE_WEG],
     haupt: { art: 'gesicht', wer: 'mh', name: 'june_bricht', wort: 'never' },
     hauptsache: 'mh.kopf',
@@ -726,21 +790,25 @@ export const einstellungen = {
   },
 
   // ───────── Höhepunkt: das Ritual ─────────
-  // "Then the huge hands shook," – die riesigen Hände zittern über Eli
+  // Review Teil 3: Der Höhepunkt (June kämpft gegen das Monster) fehlte im Bild: die Hände waren nicht zu
+  // sehen, danach kam nur Elis Gesicht. Jetzt beide Einstellungen auf Hände und Gesicht, von vorn.
+  // "Then the huge hands shook," – die riesigen Hände neben Junes Gesicht zittern deutlich ab „shook“
   '46': {
     figuren: MH_KOPF('june_bricht'),
-    kamera: { pos: kw(-0.6, 0.32, -0.32), ziel: { anker: 'mh.haende' }, fov: 66, roll: 180, rate: 0.07 },
-    neben: [HAENDE_WEG, { wer: 'mh', was: 'haende_vor', wort: 'shook', versatz: 0.5, dauer: 0.7 }],
-    haupt: { wer: 'mh', was: 'zittern', wort: 'shook', dauer: 1.0, params: { staerke: 1.2 } },
-    hauptsache: 'mh.haende',
+    kamera: MH_GROSS(2.0, -8, 60, 0.07),
+    licht_anpassung: MH_ENTHUELLUNG,
+    neben: [{ wer: 'mh', was: 'haende_weg', ab: 'start', dauer: 0.01, params: { staerke: 0.55 } }],
+    haupt: { wer: 'mh', was: 'zittern', wort: 'shook', dauer: 1.2, params: { staerke: 2.2 } },
+    hauptsache: 'mh.kopf',
   },
-  // "and June pulled them back over her own face." – Eli: der Schatten der Hände legt sich über sein Gesicht
+  // "and June pulled them back over her own face." – die Hände legen sich wieder vor Junes Gesicht (Raute)
   '46:and June': {
-    figuren: ELI_K('angst', 34),
-    kamera: ELI_NAH(0.95, 192, 26, 0.07),
-    haupt: { art: 'gesicht', wer: 'eli', name: 'schock', wort: 'pulled' },
-    gesichter: [{ wer: 'eli', name: 'angst', wort: 'own' }],
-    hauptsache: 'eli.kopf',
+    figuren: MH_KOPF('june_bricht'),
+    kamera: MH_GROSS(1.55, -8, 56, 0.06),
+    licht_anpassung: MH_ENTHUELLUNG,
+    neben: [{ wer: 'mh', was: 'haende_weg', ab: 'start', dauer: 0.01, params: { staerke: 0.55 } }, { wer: 'mh', was: 'zittern', ab: 'start', dauer: 0.8, params: { staerke: 1.4 } }],
+    haupt: { wer: 'mh', was: 'haende_vor', wort: 'pulled', dauer: 0.9 },
+    hauptsache: 'mh.kopf',
   },
   // "Close your eyes, Rabbit." "Count with me." – Eli schließt langsam die Augen
   '47': {
@@ -761,7 +829,9 @@ export const einstellungen = {
   '49:and it': {
     figuren: ELI_K('augen_zu', 34),
     kamera: { baustein: 'truck_side', ziel: { anker: 'eli.augen', versatz: [0, 0.02, 0] }, blick: { azimut: 192, hoehe: 24, abstand: 1.15 }, fov: 50, roll: ROLL_LIEGEN, richtung: 'rechts', strecke: 0.35, vordergrund: false },
-    set_ereignisse: [{ set: 'keller', was: 'puls', versatz: 0, dauer: 2.3, takt: 0.7, staerke: 1 }],
+    // Review Teil 3: die Lichtpulse liegen auf dem Zählraster der Tonspur (alle 0,9 s ab „She“ 107,12 s;
+    // Zählschlag = Pulsspitze, die 0,15 Takt nach Pulsbeginn kommt)
+    set_ereignisse: [{ set: 'keller', was: 'puls', wort: 'and', versatz: 0.605, dauer: 1.65, takt: 0.9, staerke: 1 }],
     mund: { wer: 'eli', art: 'zaehlen', takt: 0.35 },
     haupt: { art: 'kamera', wort: 'deep' },
     hauptsache: 'eli.kopf',
@@ -770,7 +840,7 @@ export const einstellungen = {
   '50': {
     figuren: ELI_K('augen_zu', 36),
     kamera: ELI_NAH(0.85, 194, 24, 0.06),
-    set_ereignisse: [{ set: 'keller', was: 'puls', versatz: 0, dauer: 1.6, takt: 0.7, staerke: 0.8 }],
+    set_ereignisse: [{ set: 'keller', was: 'puls', wort: 'I', versatz: 0.125, dauer: 1.4, takt: 0.9, staerke: 0.8 }],
     mund: { wer: 'eli', art: 'zaehlen', takt: 0.3, bis: 'sound' },
     haupt: { art: 'gesicht', wer: 'eli', name: 'augen_zu', wort: 'sound' },
     hauptsache: 'eli.kopf',
@@ -788,7 +858,7 @@ export const einstellungen = {
   '51:she started': {
     figuren: ELI_K('augen_zu', 36),
     kamera: { baustein: 'dolly_out', ziel: 'keller.gitter', pos: kw(-1.1, 0.5, 0.7), fov: 54, rate: -0.07 },
-    set_ereignisse: [{ set: 'keller', was: 'puls', versatz: 0, dauer: 2.2, takt: 0.7, staerke: 0.9 }],
+    set_ereignisse: [{ set: 'keller', was: 'puls', wort: 'she', versatz: 0.515, dauer: 1.55, takt: 0.9, staerke: 0.9 }],
     haupt: { art: 'kamera', wort: 'over' },
     hauptsache: 'keller.gitter',
   },
@@ -800,21 +870,27 @@ export const einstellungen = {
     haupt: { wer: 'mh', was: 'haende_weg', wort: 'faint', dauer: 0.8, params: { staerke: 0.22 } },
     hauptsache: 'mh.kopf',
   },
-  // "like she was falling asleep." – June im Bett schläft ein, die Nachttischlampe geht aus (Lichtereignis 3 von 3)
+  // "like she was falling asleep." – Review Teil 3: vorher lag June als Mensch im Bett, obwohl sie in dieser
+  // Szene als Monster im Keller ist. Jetzt das Riesengesicht zwischen den gesunkenen Händen: die Lider sinken,
+  // auf „asleep“ erlischt das kalte Lukenlicht (Lichtereignis 3 von 3)
   '52:like': {
-    figuren: { june: { position: ORT.juneBett, blick: 90, pose: 'liegen', gesicht: 'verschlafen' } },
-    kamera: { ziel: { anker: 'june.kopf', versatz: [0, 0.04, 0] }, blick: { azimut: 92, hoehe: 52, abstand: 1.5 }, fov: 40, rate: 0.06 },
-    licht_anpassung: { belichtung: 0.85 },
-    haupt: { art: 'licht', licht_art: 'aus', ziel: 'haus.june_lampe', wort: 'asleep', vorlauf: 0.1, dauer: 0.4 },
-    mund: { wer: 'june', art: 'zaehlen', takt: 0.32, bis: 'asleep' },
-    gesichter: [{ wer: 'june', name: 'augen_zu', wort: 'asleep' }],
-    hauptsache: 'june.kopf',
+    figuren: MH_KOPF('june_muede'),
+    kamera: MH_GROSS(1.35, -8, 52, 0.05),
+    licht_anpassung: MH_ENTHUELLUNG,
+    lampen_einzeln: { 'keller.lukenlicht': true },
+    neben: [{ wer: 'mh', was: 'haende_weg', ab: 'start', dauer: 0.01, params: { staerke: 0.35 } }],
+    haupt: { art: 'licht', licht_art: 'aus', ziel: 'keller.lukenlicht', wort: 'asleep', vorlauf: 0.1, dauer: 0.5 },
+    gesichter: [{ wer: 'mh', name: 'june_schlaeft', wort: 'asleep' }],
+    hauptsache: 'mh.kopf',
   },
   // "At ninety-nine, she stopped." – Eli, Augen zu; auf „stopped“ Stille, nur sein Atem
   '53': {
     figuren: ELI_K('augen_zu', 36),
     kamera: { ...ELI_NAH(0.8, 190, 24, 0), baustein: 'statisch' },
     mund: { wer: 'eli', art: 'zaehlen', takt: 0.3, bis: 'stopped' },
+    // Review Teil 3: 0,5 s Luft nach „stopped“ (engine/ton/einschub.py); dort schlägt die Sonnenglocke
+    // (stopped + 0,61 s), Eli zuckt mit geschlossenen Augen zusammen
+    neben: [{ wer: 'eli', was: 'erschrecken', wort: 'stopped', versatz: 0.62, dauer: 0.3, params: { staerke: 0.35 } }],
     haupt: { art: 'partikel', partikel_art: 'atem', wort: 'stopped', ort: 'eli.mund', periode: 1.2, richtung: [0, 1, 0.15], groesse: 0.08, deckkraft: 0.8, dauer: 1.2 },
     hauptsache: 'eli.kopf',
   },
@@ -859,12 +935,14 @@ export const einstellungen = {
     haupt: { art: 'kamera', wort: 'over' },
     hauptsache: 'eli.kopf',
   },
-  // "and I was alone." – neben ihm im Staub: Dads alte Taschenlampe
+  // "and I was alone." – Review Teil 3: vorher ein Rohr auf rotem Boden (Dads Lampe war nicht lesbar). Jetzt
+  // die Totale: der leere Kriechkeller im rosa Morgenlicht, die Luke offen, Dads alte Lampe im Staub (Elis
+  // Blick; er selbst liegt außerhalb des Bildes, sonst stünde sein Gesicht quer – Kopf-oben-Regel)
   '55:and I': {
-    figuren: { lampe_alt: { position: kw(-0.9, 0.0, -1.05), blick: 70 } },
-    kamera: { ziel: { anker: 'lampe_alt.mitte' }, blick: { azimut: 160, hoehe: 30, abstand: 0.75 }, fov: 40, rate: 0.07 },
+    figuren: { luke_k: { position: ORT.kellerLuke, blick: 0, pose: 'oeffnen' }, lampe_alt: { position: kw(-0.9, 0.0, -1.05), blick: 70 } },
+    kamera: { pos: kw(-2.7, 0.62, 1.9), ziel: kw(0.2, 0.45, -0.4), fov: 60, rate: 0.07 },
     haupt: { art: 'kamera', wort: 'alone' },
-    hauptsache: 'lampe_alt.mitte',
+    hauptsache: kw(0.2, 0.45, -0.4),
   },
   // "I climbed out." – Eli steigt aus der Luke, dieselbe Kadrierung wie June in Satz 43
   '56': {
@@ -903,8 +981,10 @@ export const einstellungen = {
   },
   // "sneakers still stood side by side." – nur Elis weiße Turnschuhe mit grünen Senkeln stehen gerade nebeneinander
   '58:sneakers': {
-    figuren: { sp_eli: { position: [-13.35, SO, -2.4], blick: 100 }, sp_f1: { position: [-13.6, SO, -1.7], blick: 70 } },
-    kamera: { ziel: 'sp_eli.mitte', blick: { azimut: 60, hoehe: 36, abstand: 1.1 }, fov: 42, rate: 0.07 },
+    // Review Teil 3: die anderen Schuhe lagen unscharf vor der Linse; hier nur Elis Paar (der Haufen ist im
+    // Bild davor zu sehen)
+    figuren: { sp_eli: { position: [-13.35, SO, -2.4], blick: 100 } },
+    kamera: { ziel: 'sp_eli.mitte', blick: { azimut: 60, hoehe: 76, abstand: 0.95 }, fov: 42, rate: 0.07 },
     licht_anpassung: MORGEN_INNEN,
     haupt: { art: 'kamera', wort: 'side' },
     hauptsache: 'sp_eli.mitte',
@@ -925,7 +1005,9 @@ export const einstellungen = {
     licht_anpassung: { belichtung: 0.85 },
     mund: { wer: 'eli', art: 'zaehlen', takt: 0.28, bis: 'It' },
     haupt: { art: 'gesicht', wer: 'eli', name: 'augen_zu', wort: 'asleep' },
-    partikel: [{ art: 'atem', ort: { anker: 'eli.mund', versatz: [0, 0.03, 0.08] }, wort: 'helps', periode: 1.0, richtung: [0, 1, 0], groesse: 0.03, deckkraft: 0.85 }],
+    // Review Teil 3: Der weiße Atem kam erst 0,5 s vor dem Schnitt, oben über der Stirn. Jetzt steigt er ab
+    // „asleep“ aus dem Mund und steht auf „helps“ voll vor dem Gesicht: Über Eli atmet etwas.
+    partikel: [{ art: 'atem', ort: { anker: 'eli.mund', versatz: [0, 0.03, 0.04] }, wort: 'asleep', periode: 1.1, richtung: [0, 1, -0.3], groesse: 0.02, deckkraft: 0.75 }],
     hauptsache: 'eli.kopf',
   },
 };

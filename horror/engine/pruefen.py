@@ -53,7 +53,7 @@ import stimme  # noqa: E402
 
 FPS = 30
 W, H = 1080, 1920
-BAND = (1080, 1250)      # y-Bereich, in dem die Untertitel liegen (Mitte 1200, Pop bis 134 %)
+BAND = (1080, 1500)      # y-Bereich der Untertitel (Mitte 1200; Review Teil 3: Ausweichlage 1440)
 
 
 def probe(mp4: Path) -> dict:
@@ -159,6 +159,10 @@ DUNKLE_ORTE = {"kriechkeller": 22.0}
 # in den ersten 0,5 s einer Einstellung gilt als Leerbild (sonst überall > 12).
 LEERBILD_STREUUNG = 12.0
 LEERBILD_FENSTER_S = 0.5
+# Review Teil 3: Teil 2 E15 zeigte 0,63 s eine leere, unscharfe Wand mit Streuung 12,5–16,8 – knapp über
+# dem Tor. Zusätzlich gilt: Streuung unter 20 UND fast keine Kanten (außerhalb des Untertitel-Streifens).
+LEERBILD_STREUUNG_WEICH = 20.0
+LEERBILD_KANTEN = 0.01
 BALKEN_MAX = 0.10         # Anteil der Bildbreite
 
 
@@ -188,7 +192,11 @@ def bilder_pruefen(mp4: Path, endkarte_bild: int, einstellungen: list | None = N
     balken = ((f < 12).mean(axis=1) > 0.85).mean(axis=1)
     gx = np.abs(np.diff(f, axis=2))[:, :-1, :]
     gy = np.abs(np.diff(f, axis=1))[:, :, :-1]
-    kanten = (np.hypot(gx, gy) > 20).mean(axis=(1, 2))
+    kanten_karte = np.hypot(gx, gy) > 20
+    kanten = kanten_karte.mean(axis=(1, 2))
+    # ohne den Untertitel-Streifen (y 1040–1520 bei 1920, hier Zeilen 104–152): eingebrannte Schrift hat Kanten
+    zeilen = np.r_[0:104, 152:kanten_karte.shape[1]]
+    kanten_ohne_ut = kanten_karte[:, zeilen, :].mean(axis=(1, 2))
     inhalt = slice(0, endkarte_bild)
     je_einstellung = []
     median_maske = np.zeros(n, bool)
@@ -201,8 +209,13 @@ def bilder_pruefen(mp4: Path, endkarte_bild: int, einstellungen: list | None = N
         if ort in DUNKLE_ORTE:
             median_maske[a:b + 1] = False
         k = min(b + 1, a + int(round(LEERBILD_FENSTER_S * FPS)))
-        if streu[a:k].min() < LEERBILD_STREUUNG:
-            leerbilder.append({"id": eid, "bild": int(a + streu[a:k].argmin()), "streuung": round(float(streu[a:k].min()), 1)})
+        weich = (streu[a:k] < LEERBILD_STREUUNG_WEICH) & (kanten_ohne_ut[a:k] < LEERBILD_KANTEN)
+        if ort in DUNKLE_ORTE:
+            weich[:] = False      # im fast dunklen Keller sind wenige Kanten gewollt
+        leer = (streu[a:k] < LEERBILD_STREUUNG) | weich
+        if leer.any():
+            i = int(a + np.argmax(leer))
+            leerbilder.append({"id": eid, "bild": i, "streuung": round(float(streu[i]), 1), "kanten": round(float(kanten_ohne_ut[i]), 4)})
         je_einstellung.append({"id": eid, "ort": ort, "mittel": round(float(mittel[a:b + 1].mean()), 1),
                                "streuung_anfang_min": round(float(streu[a:k].min()), 1),
                                "balken_max": round(float(balken[a:b + 1].max()), 3)})

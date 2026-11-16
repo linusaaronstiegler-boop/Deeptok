@@ -115,23 +115,23 @@
    "klang": "klopfen",
    "wort": 160,
    "text": "slow",
-   "versatz": 0.16,
+   "versatz": 0.44,
    "db": -8,
    "params": {
     "tonhoehe": 0.7
    },
-   "grund": "zweiter Klopfer, 0,45 s nach dem ersten (Bild: Puls 0,16 s nach 'slow'); −8 dB: mit −11 lagen die Klopfer 13–16 LU unter der Stimme und gingen unter"
+   "grund": "Review Teil 3 (zu Teil 2): zweiter Klopfer 0,73 s nach dem ersten (vorher 0,45 s, klang wie normales Klopfen)"
   },
   {
    "klang": "klopfen",
    "wort": 161,
    "text": "knocks.",
-   "versatz": 0.2,
+   "versatz": 0.77,
    "db": -8,
    "params": {
     "tonhoehe": 0.7
    },
-   "grund": "dritter Klopfer, 0,44 s nach dem zweiten (Bild: Puls 0,2 s nach 'knocks'); −8 dB: mit −11 lagen die Klopfer 13–16 LU unter der Stimme und gingen unter"
+   "grund": "dritter Klopfer, wieder 0,73 s später (49,75 s, vor „When“)"
   },
   {
    "klang": "klopfen",

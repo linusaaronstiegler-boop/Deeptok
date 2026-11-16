@@ -40,6 +40,12 @@ SCHRIFT_NAME = "Archivo Black"
 FPS = 30
 BREITE, HOEHE = 1080, 1920
 MITTE = (540, 1200)
+# Review Teil 3: Liegt die Hauptsache einer Einstellung im Untertitel-Streifen (Junes Pupille, Uhrziffern),
+# stehen die Untertitel dieser Einstellung tiefer. 1440 liegt noch über der Beschreibungszeile der App.
+STREIFEN_Y = (1040, 1330)
+AUSWEICH_Y = 1440
+# Wörtliche Rede (Junes Gelb auf ihrem senffarbenen Pulli) bekommt eine dickere Kontur
+KONTUR_REDE = 11
 GROESSE = 96            # px bei 1080 × 1920 (Review Folge 1: 84 px wirkten in der Handyvorschau dünn)
 KONTUR = 7              # px, Vorgabe 6–8
 SCHATTEN = 4            # px nach unten rechts
@@ -265,6 +271,22 @@ def pop_tags(n: int, cs: int) -> str:
 
 # ---------------------------------------------------------------- ASS schreiben
 
+def ausweich_zeiten(ordner: Path, episode: dict) -> list[tuple[float, float]]:
+    """Zeiträume der Einstellungen, deren Hauptsache im Untertitel-Streifen liegt. Grundlage ist die
+    Kompositionsprüfung des Schnellbogens (build/<folge>/komposition.json, projizierte Punkte bei 1080 × 1920).
+    Fehlt die Datei, bleibt alles auf der Mitte."""
+    k = ordner.parent.parent / "build" / ordner.name / "komposition.json"
+    if not k.exists():
+        return []
+    zeiten = {e["id"]: (e["start"], e["ende"]) for e in episode["einstellungen"]}
+    aus = []
+    for e in json.loads(k.read_text(encoding="utf-8")).get("einstellungen", []):
+        punkte = (e.get("komposition") or {}).get("punkte", [])
+        if any(0 <= pt["x"] <= BREITE and STREIFEN_Y[0] <= pt["y"] <= STREIFEN_Y[1] for pt in punkte) and e["id"] in zeiten:
+            aus.append(zeiten[e["id"]])
+    return aus
+
+
 def baue(ordner: Path, tabelle: bool = False) -> dict:
     timing = json.loads((ordner / "timing.json").read_text(encoding="utf-8"))
     vorgaben = json.loads((ordner / "untertitel.json").read_text(encoding="utf-8"))
@@ -275,6 +297,7 @@ def baue(ordner: Path, tabelle: bool = False) -> dict:
     ende_bild = round(end[0]["start"] * FPS) if end else round(episode["einstellungen"][-1]["ende"] * FPS)
 
     gruppen = gruppieren(einheiten(timing, vorgaben))
+    ausweichen = ausweich_zeiten(ordner, episode)
     zeilen = []
     eintraege = []
     starts = [round(g[0]["start"] * FPS) for g in gruppen]
@@ -286,7 +309,10 @@ def baue(ordner: Path, tabelle: bool = False) -> dict:
         text = " ".join(u["text"] for u in g)
         cs, cs_ende = start_cs(n), start_cs(n_ende)
         farbe = g[0]["klasse"][1]
-        tags = f"\\an5\\pos({MITTE[0]},{MITTE[1]})" + pop_tags(n, cs)
+        y = AUSWEICH_Y if any(a <= n / FPS < b for a, b in ausweichen) else MITTE[1]
+        tags = f"\\an5\\pos({MITTE[0]},{y})" + pop_tags(n, cs)
+        if g[0]["klasse"][0].startswith("rede-"):
+            tags += f"\\bord{KONTUR_REDE}"
         # Zu breite feste Paare werden kleiner gesetzt (nicht unter MIN_GROESSE)
         groesse = GROESSE
         if breite_px(text) > MAX_BREITE:
@@ -303,7 +329,7 @@ def baue(ordner: Path, tabelle: bool = False) -> dict:
             "abweichung_ms": round((n / FPS - g[0]["start"]) * 1000, 1),
             "standzeit_s": round((n_ende - n) / FPS, 3), "farbe": g[0]["klasse"][0],
             "breite_px": round((breite_px(text) - 2 * KONTUR) * groesse / GROESSE + 2 * KONTUR),
-            "groesse_px": groesse,
+            "groesse_px": groesse, "y": y,
             "woerter": [g[0]["von"], g[-1]["bis"]],
         })
 
@@ -334,7 +360,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         "zwei_woerter": sum(1 for e in eintraege if " " in e["text"]),
         "max_abweichung_ms": max(abw), "standzeit_median_s": stand[len(stand) // 2],
         "standzeit_min_s": stand[0], "max_breite_px": max(e["breite_px"] for e in eintraege),
-        "letztes_bild": ende_bild - 1,
+        "letztes_bild": ende_bild - 1, "ausgewichen": sum(1 for e in eintraege if e["y"] != MITTE[1]),
         "farbig": {k: sum(1 for e in eintraege if e["farbe"] == k) for k in {e["farbe"] for e in eintraege}},
     }
     (ordner.parent.parent / "build" / ordner.name).mkdir(parents=True, exist_ok=True)

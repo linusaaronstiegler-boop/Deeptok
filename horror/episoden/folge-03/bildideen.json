@@ -244,8 +244,8 @@
    "figuren": [
     "mister-hundred"
    ],
-   "aktion": "Anschluss an das letzte Bild von Teil 2: vier lange Fingerschatten quer über den Dielenfugen, an den Spitzen glimmt es kalt in den Fugen; die Kamera senkt sich weiter",
-   "schluesselwort": "Hundred",
+   "aktion": "Review Teil 3: das stärkste Bild zuerst – der lange weiße Finger ist schon durch die Fuge und tastet neben Elis Wange, Elis Gesicht von vorn, hell genug; Bewegung ab Bild 1",
+   "schluesselwort": "takes",
    "kamera": "kranabstieg",
    "groesse": "pov",
    "monster": true,
@@ -271,11 +271,13 @@
     },
     {
      "ab_wort": "called",
-     "ort": "kriechkeller",
-     "modul": "kriechkeller",
-     "licht": "kriechkeller",
-     "figuren": [],
-     "aktion": "Untersicht auf den Lukenrand: ein dünner Lichtspalt um die geschlossene Luke, Staub hängt im Licht",
+     "ort": "marsh-innen",
+     "modul": "june-zimmer",
+     "licht": "innen-nacht",
+     "figuren": [
+      "june"
+     ],
+     "aktion": "Review Teil 3: Junes Zimmer, sie zählt im Bett; auf „sister's“ steht ihr Schatten an der Wand viel zu groß, mit der Raute vor dem Kopf",
      "schluesselwort": "sister's",
      "kamera": "push-in",
      "groesse": "detail",
@@ -782,7 +784,7 @@
    "modul": "platz",
    "licht": "nacht",
    "figuren": [],
-   "aktion": "in der dunklen Schallluke schwingt das Glockenseil einmal hin und zurück",
+   "aktion": "Review Teil 3: das Glockenseil mit Kantenlicht vor der dunklen Schallluke schwingt einmal weit quer aus",
    "schluesselwort": "swung",
    "kamera": "push-in",
    "groesse": "halbnah",
@@ -819,7 +821,7 @@
    "figuren": [
     "mister-hundred"
    ],
-   "aktion": "Seitenfahrt auf Bodenhöhe: der ausgefranste Saum und lange nackte Füße ziehen an den Veranden vorbei, Bodennebel teilt sich",
+   "aktion": "Review Teil 3: Totale die Main Street hinab, die ganze Gestalt kommt zwischen den Laternen auf uns zu",
    "schluesselwort": "Main",
    "kamera": "seitenfahrt",
    "groesse": "halbtotale",
@@ -832,11 +834,11 @@
      "modul": "haeuserzeile",
      "licht": "nacht",
      "figuren": [],
-     "aktion": "obere Fenster von außen, der Schatten der Raute legt sich nacheinander auf jedes",
-     "schluesselwort": "window",
+     "aktion": "Review Teil 3: das Monster beugt den Kopf an ein oberes Fenster, die Raute vor dem Gesicht; auf „window“ fällt ihr Schatten ins Fenster",
+     "schluesselwort": "looking",
      "kamera": "push-in",
      "groesse": "halbtotale",
-     "monster": false,
+     "monster": true,
      "hinweis": "Paar 10 ('tall enough to look in upstairs windows', Teil 1); nur Schatten"
     }
    ]
@@ -951,7 +953,7 @@
     "mister-hundred"
    ],
    "aktion": "ein langer weißer Finger mit drei Gliedern und dunklem Nagel schiebt sich durch die Fuge; die Kamera folgt ihm nach unten",
-   "schluesselwort": "finger",
+   "schluesselwort": "long",
    "kamera": "folgefahrt",
    "groesse": "nah",
    "monster": true,
@@ -1037,12 +1039,12 @@
      "modul": "kriechkeller",
      "licht": "kriechkeller",
      "figuren": [],
-     "aktion": "die Kamera fährt von der Luke zurück: drei langsame Klopfer, bei jedem rieselt Staub aus dem Lichtspalt; dann Junes Stimme",
+     "aktion": "die Kamera fährt von der Luke zurück: drei langsame Klopfer (0,75 s Abstand), bei jedem rieselt Staub aus dem Lichtspalt und das Licht in den Fugen zuckt",
      "kamera": "pull-out",
      "groesse": "halbnah",
      "monster": false,
      "ab_wort": "morning",
-     "schluesselwort": "Rabbit",
+     "schluesselwort": "morning",
      "sfx": "drei langsame Klopfer an Holz vor 'Rabbit?' (Echo zu Teil 2, Satz 23)",
      "dialog": "june",
      "hinweis": "Bau Teil 3: In die Tonspur ist vor 'Rabbit?' 1,1 s Pause eingefügt (timing.json → einschub). Die Klopfer liegen in dieser Pause; geschnitten wird auf 'morning', damit Klopfer und Lockruf in einer Einstellung stehen (≤ 2,5 s)."
@@ -1053,17 +1055,21 @@
    "text": "\"Rabbit?\"",
    "t_schaetz_s": 69.4,
    "block": "lockruf",
-   "neuer_schnitt": false,
    "dialog": "june",
    "ort": "kriechkeller",
    "modul": "kriechkeller",
    "licht": "kriechkeller",
-   "figuren": [],
+   "figuren": [
+    "eli"
+   ],
    "schluesselwort": "Rabbit",
-   "kamera": "pull-out",
-   "groesse": "halbnah",
+   "kamera": "push-in",
+   "groesse": "detail",
    "monster": false,
-   "aktion": "kein eigener Schnitt (siehe Satz 27, Teilbild 'morning'): Klopfer, dann Junes Stimme"
+   "aktion": "Review Teil 3: eigener Schnitt (die Klopfer davor sind langsamer, die Pause 0,5 s länger). Elis Auge groß, es reißt auf: Junes Stimme ruft von oben",
+   "gesicht": {
+    "eli": "schock"
+   }
   },
   "29": {
    "text": "\"You can come out now.\"",
@@ -1318,8 +1324,8 @@
      "figuren": [
       "mister-hundred"
      ],
-     "aktion": "die Hände öffnen sich langsam zur Seite wie eine Tür, dahinter noch Dunkel",
-     "schluesselwort": "hands",
+     "aktion": "Review Teil 3: eine Einstellung – auf „away“ gehen die Hände auseinander, dahinter sofort Junes gedehntes Gesicht (Grinsen mit Zähnen, leere Augen), Licht von unten, kalte Kante",
+     "schluesselwort": "away",
      "kamera": "push-in",
      "groesse": "gross",
      "monster": true
@@ -1336,7 +1342,7 @@
    "figuren": [
     "mister-hundred"
    ],
-   "aktion": "Großaufnahme von vorn: Junes Gesicht auf dem glatten Würfelkopf, viel zu groß gedehnt, das Lächeln eine Spur zu breit, bernsteinfarbene Augen, kalte Kante",
+   "aktion": "Review Teil 3: Rückfahrt – der Kopf füllt fast die ganze Luke, Elis erhobene Hand davor gibt die Größe",
    "schluesselwort": "face",
    "kamera": "push-in",
    "groesse": "gross",
@@ -1501,7 +1507,7 @@
    "figuren": [
     "mister-hundred"
    ],
-   "aktion": "die riesigen Hände zittern über Eli",
+   "aktion": "Review Teil 3: die riesigen Hände neben Junes Gesicht zittern deutlich ab „shook“",
    "schluesselwort": "shook",
    "kamera": "push-in",
    "groesse": "nah",
@@ -1514,16 +1520,13 @@
      "modul": "kriechkeller",
      "licht": "kriechkeller",
      "figuren": [
-      "eli"
+      "mister_hundred"
      ],
-     "aktion": "Eli von vorn: der Schatten der Hände legt sich wieder über sein Gesicht, das kalte Licht verschwindet, nur die warmen Fugenstreifen bleiben",
+     "aktion": "Review Teil 3: die Hände legen sich wieder vor Junes Gesicht (Raute), von vorn",
      "schluesselwort": "pulled",
      "kamera": "push-in",
      "groesse": "nah",
-     "monster": false,
-     "gesicht": {
-      "eli": "erschrocken"
-     },
+     "monster": true,
      "hinweis": "Die Raute schließt sich im Off; nur Schatten"
     }
    ]
@@ -1682,14 +1685,11 @@
      "figuren": [
       "june"
      ],
-     "aktion": "Erinnerung wie Satz 7: June im Bett, ihre Lippen werden langsamer, sie schläft ein, die Nachttischlampe geht aus",
+     "aktion": "Review Teil 3: das Riesengesicht zwischen den gesunkenen Händen, die Lider sinken; auf „asleep“ erlischt das kalte Lukenlicht",
      "schluesselwort": "asleep",
      "kamera": "push-in",
      "groesse": "nah",
-     "monster": false,
-     "gesicht": {
-      "june": "verschlafen"
-     },
+     "monster": true,
      "hinweis": "Junes Tod als ihr nächtliches Einschlafen, ohne Gewalt"
     }
    ]
@@ -1791,7 +1791,7 @@
      "modul": "kriechkeller",
      "licht": "kriechkeller-morgen",
      "figuren": [],
-     "aktion": "Detail: neben ihm im Staub Dads alte Taschenlampe",
+     "aktion": "Review Teil 3: Totale des leeren Kriechkellers im rosa Morgenlicht, Eli allein, die Luke offen",
      "schluesselwort": "alone",
      "kamera": "push-in",
      "groesse": "detail",

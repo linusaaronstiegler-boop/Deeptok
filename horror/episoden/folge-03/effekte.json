@@ -1,5 +1,5 @@
 {
- "_hinweis": "Cue-Liste für engine/ton/mischen.py (Teil 3, Finale; Wortindizes in timing.json mit dem Einschub vor 'Rabbit?'). Wie Teil 1 und 2: wenige Akzente, nicht jede Bewegung. Stille als Handlung: keine Effekte auf 'Her flashlight went out' und 'The bell rope swung once, without a sound'. Die drei Klopfer liegen in der eingefügten Pause vor 'Rabbit?' (0,45 s Abstand, im Bild rieselt bei jedem Staub). Junes Rede wie in Teil 2 +2,0 Halbtöne.",
+ "_hinweis": "Cue-Liste für engine/ton/mischen.py (Teil 3, Finale; Wortindizes in timing.json mit dem Einschub vor 'Rabbit?'). Wie Teil 1 und 2: wenige Akzente, nicht jede Bewegung. Stille als Handlung: keine Effekte auf 'Her flashlight went out' und 'The bell rope swung once, without a sound'. Die drei Klopfer liegen in der eingefügten Pause vor 'Rabbit?' (0,45 s Abstand, im Bild rieselt bei jedem Staub). Junes Rede wie in Teil 2 +2,0 Halbtöne. Review Teil 3: Klopfer 0,75 s auseinander, Zählraster 0,9 s (Satz 49–53), Sonnenglocke direkt nach „stopped“, Schaben des Fingers, Sub-Boom auf „my“, Monster-Unterstimme unter „One hundred. Ready, Rabbit?“.",
  "endkarte_stumm": true,
  "rede": {
   "_hinweis": "Wörtliche Rede formant-erhaltend höher (ffmpeg rubberband), wie in Teil 2. Im Finale spricht nur June.",
@@ -78,37 +78,48 @@
    "grund": "die Dielen ächzen unter großem Gewicht (Satz 24, Wackeln)"
   },
   {
-   "klang": "klopfen",
-   "wort": 238,
-   "text": "\"Rabbit?\"",
-   "versatz": -1.19,
-   "db": -10,
+   "klang": "schaben",
+   "wort": 220,
+   "text": "felt",
+   "versatz": 0.02,
+   "db": -4,
    "params": {
-    "tonhoehe": 0.75
+    "dauer": 2.86
    },
-   "grund": "erster von drei Klopfern an der Luke (Echo zu Teil 2, Satz 23)"
+   "grund": "Review Teil 3: der Finger tastet hörbar über die Erde, kommt näher und reißt auf „back“ ab"
   },
   {
    "klang": "klopfen",
    "wort": 238,
    "text": "\"Rabbit?\"",
-   "versatz": -0.74,
+   "versatz": -1.74,
    "db": -10,
    "params": {
     "tonhoehe": 0.75
    },
-   "grund": "zweiter Klopfer"
+   "grund": "Review Teil 3: drei langsame Klopfer, 0,75 s auseinander (Pause vor „Rabbit?“ um 0,5 s verlängert), im Bild je Staub und ein Lichtzucken"
   },
   {
    "klang": "klopfen",
    "wort": 238,
    "text": "\"Rabbit?\"",
-   "versatz": -0.29,
+   "versatz": -0.99,
    "db": -10,
    "params": {
     "tonhoehe": 0.75
    },
-   "grund": "dritter Klopfer, dann Junes Stimme"
+   "grund": "Review Teil 3: drei langsame Klopfer, 0,75 s auseinander (Pause vor „Rabbit?“ um 0,5 s verlängert), im Bild je Staub und ein Lichtzucken"
+  },
+  {
+   "klang": "klopfen",
+   "wort": 238,
+   "text": "\"Rabbit?\"",
+   "versatz": -0.24,
+   "db": -10,
+   "params": {
+    "tonhoehe": 0.75
+   },
+   "grund": "Review Teil 3: drei langsame Klopfer, 0,75 s auseinander (Pause vor „Rabbit?“ um 0,5 s verlängert), im Bild je Staub und ein Lichtzucken"
   },
   {
    "klang": "zaehlschlag",
@@ -157,15 +168,193 @@
   },
   {
    "klang": "zaehlschlag",
-   "wort": 367,
-   "text": "counted",
-   "versatz": 0.0,
+   "wort": 366,
+   "text": "She",
+   "versatz": 0.1,
+   "db": -14,
+   "params": {
+    "f": 54.0,
+    "schimmer": 0.8,
+    "dauer": 1.6
+   },
+   "grund": "Review Teil 3: hörbares gemeinsames Zählen (Satz 49–53). Raster 0,9 s ab 107,12 s, fällt mit den Lichtpulsen der Fugen zusammen; ab „faint“ langsamer und leiser, der letzte auf „ninety-nine“"
+  },
+  {
+   "klang": "zaehlschlag",
+   "wort": 366,
+   "text": "She",
+   "versatz": 1.0,
+   "db": -14,
+   "params": {
+    "f": 54.0,
+    "schimmer": 0.8,
+    "dauer": 1.6
+   },
+   "grund": "Zählraster 2/14"
+  },
+  {
+   "klang": "zaehlschlag",
+   "wort": 366,
+   "text": "She",
+   "versatz": 1.9,
+   "db": -14,
+   "params": {
+    "f": 54.0,
+    "schimmer": 0.8,
+    "dauer": 1.6
+   },
+   "grund": "Zählraster 3/14"
+  },
+  {
+   "klang": "zaehlschlag",
+   "wort": 366,
+   "text": "She",
+   "versatz": 2.8,
+   "db": -14,
+   "params": {
+    "f": 54.0,
+    "schimmer": 0.8,
+    "dauer": 1.6
+   },
+   "grund": "Zählraster 4/14"
+  },
+  {
+   "klang": "zaehlschlag",
+   "wort": 366,
+   "text": "She",
+   "versatz": 3.7,
+   "db": -14,
+   "params": {
+    "f": 54.0,
+    "schimmer": 0.8,
+    "dauer": 1.6
+   },
+   "grund": "Zählraster 5/14"
+  },
+  {
+   "klang": "zaehlschlag",
+   "wort": 366,
+   "text": "She",
+   "versatz": 4.6,
+   "db": -14,
+   "params": {
+    "f": 54.0,
+    "schimmer": 0.8,
+    "dauer": 1.6
+   },
+   "grund": "Zählraster 6/14"
+  },
+  {
+   "klang": "zaehlschlag",
+   "wort": 366,
+   "text": "She",
+   "versatz": 5.5,
+   "db": -14,
+   "params": {
+    "f": 54.0,
+    "schimmer": 0.8,
+    "dauer": 1.6
+   },
+   "grund": "Zählraster 7/14"
+  },
+  {
+   "klang": "zaehlschlag",
+   "wort": 366,
+   "text": "She",
+   "versatz": 6.4,
+   "db": -14,
+   "params": {
+    "f": 54.0,
+    "schimmer": 0.8,
+    "dauer": 1.6
+   },
+   "grund": "Zählraster 8/14"
+  },
+  {
+   "klang": "zaehlschlag",
+   "wort": 366,
+   "text": "She",
+   "versatz": 7.3,
+   "db": -14,
+   "params": {
+    "f": 54.0,
+    "schimmer": 0.8,
+    "dauer": 1.6
+   },
+   "grund": "Zählraster 9/14"
+  },
+  {
+   "klang": "zaehlschlag",
+   "wort": 366,
+   "text": "She",
+   "versatz": 8.2,
+   "db": -14,
+   "params": {
+    "f": 54.0,
+    "schimmer": 0.8,
+    "dauer": 1.6
+   },
+   "grund": "Zählraster 10/14"
+  },
+  {
+   "klang": "zaehlschlag",
+   "wort": 366,
+   "text": "She",
+   "versatz": 9.1,
+   "db": -14,
+   "params": {
+    "f": 54.0,
+    "schimmer": 0.8,
+    "dauer": 1.6
+   },
+   "grund": "Zählraster 11/14"
+  },
+  {
+   "klang": "zaehlschlag",
+   "wort": 366,
+   "text": "She",
+   "versatz": 10.1,
+   "db": -17,
+   "params": {
+    "f": 54.0,
+    "schimmer": 0.8,
+    "dauer": 1.6
+   },
+   "grund": "Zählraster 12/14"
+  },
+  {
+   "klang": "zaehlschlag",
+   "wort": 366,
+   "text": "She",
+   "versatz": 11.28,
    "db": -19,
    "params": {
-    "f": 56.0
+    "f": 54.0,
+    "schimmer": 0.8,
+    "dauer": 1.6
    },
-   "tiefpass_hz": 1000,
-   "grund": "das Ritual: sie zählt, es zählt mit (Satz 49), leise"
+   "grund": "Zählraster 13/14"
+  },
+  {
+   "klang": "zaehlschlag",
+   "wort": 366,
+   "text": "She",
+   "versatz": 12.19,
+   "db": -20,
+   "params": {
+    "f": 54.0,
+    "schimmer": 0.8,
+    "dauer": 1.6
+   },
+   "grund": "Zählraster 14/14"
+  },
+  {
+   "klang": "glocke",
+   "wort": 410,
+   "text": "stopped.",
+   "versatz": 0.61,
+   "db": -11,
+   "grund": "Review Teil 3: erster Glockenschlag 0,17 s nach „stopped.“ in der neuen 0,5-s-Pause, also dort, wo „one hundred“ käme; der zweite bleibt auf „rang.“"
   },
   {
    "klang": "glocke",
@@ -174,6 +363,32 @@
    "versatz": -0.25,
    "db": -11,
    "grund": "die Sonnenglocke: klar und laut (Handlung), nach dem Wegfall der Musik"
+  },
+  {
+   "klang": "sub_boom",
+   "wort": 449,
+   "text": "my",
+   "versatz": -0.02,
+   "db": -17,
+   "params": {
+    "f_start": 48.0,
+    "f_ende": 30.0,
+    "dauer": 1.6
+   },
+   "grund": "Review Teil 3: „my sneakers“ – leiser Stoß, die Enthüllung am Schluss"
+  }
+ ],
+ "unterstimmen": [
+  {
+   "wer": "Mister Hundred",
+   "von": 266,
+   "bis": 269,
+   "text": "\"One hundred.\" \"Ready, Rabbit?\"",
+   "halbtoene": -4.5,
+   "formant": "shifted",
+   "hall": true,
+   "db": -12.0,
+   "grund": "Review Teil 3: die Monsterstimme aus Teil 2 (−4 Halbtöne, Formanten mit, Hall) liegt unter Junes „One hundred. Ready, Rabbit?“ – das Erkennungsgeräusch kehrt im Finale wieder"
   }
  ]
 }

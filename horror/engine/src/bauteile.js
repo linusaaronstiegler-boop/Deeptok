@@ -574,13 +574,37 @@ export function laterne(ctx, eltern, x, z, o = {}) {
 
 // Lichtpfütze: weicher heller Fleck auf dem Boden (additiv), ersetzt ein teures Punktlicht.
 // Material leuchtet über emissive, damit Licht-Ereignisse es mit ausschalten.
-export function lichtPfuetzeMat(ctx, farbe = '#ffb874', staerke = 0.55) {
+// Weicher Lichtkegel (Review Teil 3): Ein Kegel aus einer offenen Mantelfläche hat harte Kanten. Wo man
+// streifend auf die Fläche schaut (Silhouette), springt die Helligkeit von zwei Schichten auf null; das las
+// sich als Glasscherbe oder Strich quer über Gesichter. Hier wird das Leuchten mit |n·v|^exponent gewichtet:
+// Schaut man senkrecht auf die Fläche, leuchtet sie voll, zum Rand hin läuft sie weich auf 0 aus. Dicht vor
+// der Linse (nah[0]..nah[1] m) blendet der Kegel ebenfalls aus, damit keine Fläche als Keil durchs Bild fährt.
+// Gilt für MeshStandardMaterial und MeshLambertMaterial (beide haben normal und vViewPosition).
+export function weicherKegel(m, { exponent = 1.8, nah = [0.3, 1.1] } = {}) {
+  const alt = m.onBeforeCompile;
+  m.onBeforeCompile = (shader, r) => {
+    alt?.call(m, shader, r);
+    shader.fragmentShader = shader.fragmentShader.replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
+  {
+    float kRandW = pow(clamp(abs(dot(normalize(normal), normalize(vViewPosition))), 0.0, 1.0), ${exponent.toFixed(2)});
+    float kNahW = smoothstep(${nah[0].toFixed(2)}, ${nah[1].toFixed(2)}, length(vViewPosition));
+    totalEmissiveRadiance *= kRandW * kNahW;
+  }`);
+  };
+  m.customProgramCacheKey = () => `weicherKegel|${exponent}|${nah.join(',')}`;
+  return m;
+}
+
+// opt.ohneGlanz: Lambert statt Standard. Ein schwarzes Standard-Material spiegelt nahe Punktlichter trotzdem
+// (4 %), additiv gibt das eine sichtbare Fläche mit harten Kanten (Review Teil 3, Kriechkeller).
+export function lichtPfuetzeMat(ctx, farbe = '#ffb874', staerke = 0.55, opt = {}) {
   const tex = ctx.zeichenTextur((g, w, h) => {
     const gr = g.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, w / 2);
     gr.addColorStop(0, '#ffffff'); gr.addColorStop(0.35, '#a0a0a0'); gr.addColorStop(1, '#000000');
     g.fillStyle = gr; g.fillRect(0, 0, w, h);
   }, 128, 128);
-  const m = new THREE.MeshStandardMaterial({ color: '#000000', emissive: new THREE.Color(farbe), emissiveIntensity: staerke, emissiveMap: tex, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, roughness: 1 });
+  const art = opt.ohneGlanz ? THREE.MeshLambertMaterial : THREE.MeshStandardMaterial;
+  const m = new art({ color: '#000000', emissive: new THREE.Color(farbe), emissiveIntensity: staerke, emissiveMap: tex, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, ...(opt.ohneGlanz ? {} : { roughness: 1 }) });
   m.fog = false;
   return m;
 }

@@ -27,15 +27,15 @@
      "zeit": "11:58",
      "spruenge": [
       {
-       "start": 71.9833,
+       "start": 72.4833,
        "zeit": "3:00"
       },
       {
-       "start": 120.4166,
+       "start": 121.4166,
        "zeit": "6:10"
       },
       {
-       "start": 121.6166,
+       "start": 122.6166,
        "zeit": "6:10"
       }
      ]
@@ -63,16 +63,17 @@
      {
       "was": "seil",
       "start": 45.88,
-      "dauer": 1.4
+      "dauer": 1.4,
+      "staerke": 0.55
      },
      {
       "was": "glocke",
-      "start": 122,
+      "start": 123,
       "dauer": 0.6
      },
      {
       "was": "glocke",
-      "start": 122.38,
+      "start": 123.38,
       "dauer": 0.6
      }
     ]
@@ -108,6 +109,12 @@
     "morgen": true,
     "ereignisse": [
      {
+      "was": "finger_tasten",
+      "start": 0.52,
+      "dauer": 1.3,
+      "weite": 0.2
+     },
+     {
       "was": "fuesse",
       "mitte": [
        -0.45,
@@ -118,21 +125,14 @@
       "dauer": 0.01
      },
      {
-      "was": "finger",
-      "von": [
-       -0.33,
-       1.1
-      ],
-      "nach": [
-       -0.33,
-       1.05
+      "was": "finger_durch",
+      "stelle": [
+       -1.25,
+       -0.505
       ],
       "drehung": -90,
-      "skala": 1.25,
-      "spreizen": 14,
-      "spreiz_dauer": 0.2,
-      "start": -0.6,
-      "dauer": 0.3
+      "start": -0.75,
+      "dauer": 1
      },
      {
       "was": "biegen",
@@ -143,6 +143,17 @@
       ],
       "radius": 0.75,
       "start": -0.5,
+      "dauer": 0.01
+     },
+     {
+      "was": "finger_tasten",
+      "weite": 0.24,
+      "start": 1.2333,
+      "dauer": 1.4
+     },
+     {
+      "was": "finger_zurueck",
+      "start": 2.7333,
       "dauer": 0.01
      },
      {
@@ -257,8 +268,8 @@
      },
      {
       "was": "finger_durch",
-      "start": 60.18,
-      "dauer": 1,
+      "start": 59.72,
+      "dauer": 1.5,
       "stelle": [
        -1.25,
        -0.505
@@ -294,8 +305,29 @@
       "dauer": 0.01
      },
      {
+      "was": "puls",
+      "takt": 0.75,
+      "staerke": 0.7,
+      "start": 67.07,
+      "dauer": 0.3
+     },
+     {
+      "was": "puls",
+      "takt": 0.75,
+      "staerke": 0.7,
+      "start": 67.82,
+      "dauer": 0.3
+     },
+     {
+      "was": "puls",
+      "takt": 0.75,
+      "staerke": 0.7,
+      "start": 68.57,
+      "dauer": 0.3
+     },
+     {
       "was": "liegen",
-      "start": 75.4,
+      "start": 75.9,
       "dauer": 1.6,
       "mitte": [
        -0.7,
@@ -307,7 +339,7 @@
      },
      {
       "was": "liegen",
-      "start": 77.97,
+      "start": 78.47,
       "dauer": 0.25,
       "mitte": [
        -0.6,
@@ -326,12 +358,12 @@
       "laenge": 2.6,
       "breite": 0.62,
       "drehung": 0,
-      "start": 77.0333,
+      "start": 77.5333,
       "dauer": 0.01
      },
      {
       "was": "finger",
-      "start": 78.98,
+      "start": 79.48,
       "dauer": 0.28,
       "von": [
        -0.33,
@@ -349,41 +381,41 @@
      {
       "was": "liegen",
       "aus": true,
-      "start": 79.0333,
+      "start": 79.5333,
       "dauer": 0.01
      },
      {
       "was": "liegen",
       "aus": true,
-      "start": 81.16,
+      "start": 81.66,
       "dauer": 0.01
      },
      {
       "was": "finger",
       "aus": true,
-      "start": 81.16,
+      "start": 81.66,
       "dauer": 0.01
      },
      {
       "was": "puls",
-      "takt": 0.7,
+      "takt": 0.9,
       "staerke": 1,
-      "start": 107.6333,
-      "dauer": 2.3
+      "start": 108.785,
+      "dauer": 1.65
      },
      {
       "was": "puls",
-      "takt": 0.7,
+      "takt": 0.9,
       "staerke": 0.8,
-      "start": 109.9333,
-      "dauer": 1.6
+      "start": 110.585,
+      "dauer": 1.4
      },
      {
       "was": "puls",
-      "takt": 0.7,
+      "takt": 0.9,
       "staerke": 0.9,
-      "start": 113.1333,
-      "dauer": 2.2
+      "start": 114.185,
+      "dauer": 1.55
      }
     ]
    }
@@ -792,27 +824,49 @@
    ],
    "licht": "kriechkeller",
    "licht_anpassung": {
-    "belichtung": 0.65
+    "hemi": {
+     "staerke": 1.3
+    },
+    "kante": {
+     "staerke": 1.2
+    },
+    "belichtung": 1.75
    },
    "kamera": {
-    "baustein": "crane_down_tilt",
-    "ziel": [
-     299.67,
-     1,
-     0.3
-    ],
-    "blick": {
-     "azimut": 180,
-     "hoehe": -76,
-     "abstand": 0.72
+    "baustein": "push_in",
+    "ziel": {
+     "anker": "eli.augen",
+     "versatz": [
+      -0.14,
+      0.04,
+      -0.04
+     ]
     },
-    "hoehe": 0.18,
-    "rueck": 0.05,
-    "fov": 62,
-    "ankunft": 0.32,
-    "start": -0.25
+    "blick": {
+     "azimut": 165,
+     "hoehe": 26,
+     "abstand": 1.15
+    },
+    "fov": 54,
+    "roll": -90,
+    "rate": 0.09
    },
    "stellung": {
+    "eli": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      301.3,
+      0,
+      -0.35
+     ],
+     "blick": 90,
+     "pose": "liegen",
+     "pose_params": {
+      "kopf": 30
+     },
+     "gesicht": "angst"
+    },
     "mh": {
      "neu": true,
      "sichtbar": true,
@@ -840,21 +894,23 @@
     "ort": "kriechkeller",
     "modul": "kriechkeller",
     "haupt": {
-     "art": "kamera",
-     "wort": "Hundred",
-     "wort_i": 1,
-     "wort_start": 0.32,
-     "start": 0.32,
-     "ende": 0.32,
+     "art": "set",
+     "was": "finger_tasten",
+     "wort": "takes",
+     "wort_i": 2,
+     "wort_start": 0.52,
+     "start": 0.52,
+     "ende": 1.82,
      "anker": "start",
-     "schluesselwort_idee": "Hundred"
+     "schluesselwort_idee": "takes"
     },
     "gesichter": [],
     "hauptsache": "mh.fuss",
-    "bogen_zeit": 0.47,
-    "akzent": true,
+    "bogen_zeit": 0.72,
+    "akzent": false,
     "monster": true,
     "sichtbar": [
+     "eli",
      "mh"
     ]
    }
@@ -867,6 +923,15 @@
     "keller"
    ],
    "licht": "kriechkeller",
+   "licht_anpassung": {
+    "hemi": {
+     "staerke": 1.3
+    },
+    "kante": {
+     "staerke": 1.2
+    },
+    "belichtung": 1.75
+   },
    "kamera": {
     "baustein": "push_in",
     "ziel": {
@@ -874,15 +939,15 @@
      "versatz": [
       0,
       0.02,
-      0
+      0.05
      ]
     },
     "blick": {
-     "azimut": 186,
-     "hoehe": 40,
-     "abstand": 0.95
+     "azimut": 200,
+     "hoehe": 24,
+     "abstand": 0.62
     },
-    "fov": 46,
+    "fov": 42,
     "roll": -90,
     "rate": 0.08
    },
@@ -900,7 +965,7 @@
      "pose_params": {
       "kopf": 30
      },
-     "gesicht": "besorgt"
+     "gesicht": "angst"
     },
     "mh": {
      "sichtbar": false
@@ -912,12 +977,20 @@
      "was": "gesicht",
      "start": 1.78,
      "params": {
+      "name": "schock"
+     }
+    },
+    {
+     "wer": "eli",
+     "was": "gesicht",
+     "start": 2.06,
+     "params": {
       "name": "angst"
      }
     }
    ],
    "tiefenunschaerfe": {
-    "fokus": "eli.kopf",
+    "fokus": "eli.augen",
     "staerke": 0.8
    },
    "schatten_bereich": 10,
@@ -936,7 +1009,7 @@
     "haupt": {
      "art": "gesicht",
      "wer": "eli",
-     "name": "angst",
+     "name": "schock",
      "wort": "finds",
      "wort_i": 8,
      "wort_start": 1.78,
@@ -945,8 +1018,16 @@
      "anker": "start",
      "schluesselwort_idee": "finds"
     },
-    "gesichter": [],
-    "hauptsache": "eli.kopf",
+    "gesichter": [
+     {
+      "wer": "eli",
+      "name": "angst",
+      "wort": "finds",
+      "wort_start": 1.78,
+      "start": 2.06
+     }
+    ],
+    "hauptsache": "eli.augen",
     "bogen_zeit": 1.98,
     "akzent": false,
     "monster": false,
@@ -960,66 +1041,135 @@
    "start": 2.7333,
    "ende": 4.6333,
    "set": [
-    "keller"
+    "strasse",
+    "haus"
    ],
-   "licht": "kriechkeller",
+   "licht": "innen_warm",
+   "licht_anpassung": {
+    "belichtung": 0.9
+   },
    "kamera": {
     "baustein": "push_in",
     "pos": [
-     300.15,
-     0.28,
-     -0.95
+     -17.4,
+     2.35,
+     3.7
     ],
     "ziel": [
-     300.45,
-     1,
-     -0.05
+     -20.2,
+     1.6,
+     4.2
     ],
-    "fov": 54,
-    "rate": 0.07
+    "fov": 58,
+    "rate": 0.08
    },
    "stellung": {
-    "luke_k": {
+    "june": {
      "neu": true,
      "sichtbar": true,
      "position": [
-      300.45,
-      1.016,
-      -0.4
+      -18.85,
+      1,
+      4.2
      ],
-     "blick": 0
+     "blick": 90,
+     "pose": "liegen",
+     "gesicht": "zaehlt_a"
+    },
+    "sch_june": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -20.76,
+      1.05,
+      4.2
+     ],
+     "blick": 90
     },
     "eli": {
      "sichtbar": false
     }
    },
-   "aktionen": [],
-   "partikel": [
+   "aktionen": [
     {
+     "wer": "june",
+     "was": "gesicht",
      "start": 2.7333,
-     "dauer": 1.9,
-     "art": "schweben",
-     "ort": [
-      300.45,
-      0.8,
-      -0.1
-     ],
-     "bereich": [
-      0.9,
-      0.4,
-      0.9
-     ],
-     "anzahl": 90,
-     "groesse": 0.004,
-     "farbe": "#ffe0b0",
-     "deckkraft": 0.6
+     "params": {
+      "name": "zaehlt_a"
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 2.9933,
+     "params": {
+      "name": "zaehlt_b"
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 3.2533,
+     "params": {
+      "name": "zaehlt_c"
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 3.5133,
+     "params": {
+      "name": "zaehlt_b"
+     }
+    },
+    {
+     "wer": "sch_june",
+     "was": "einblenden",
+     "start": 3.58,
+     "dauer": 0.12,
+     "params": {
+      "deckkraft": 0.62
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 3.7733,
+     "params": {
+      "name": "zaehlt_a"
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 4.0333,
+     "params": {
+      "name": "zaehlt_b"
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 4.2933,
+     "params": {
+      "name": "zaehlt_c"
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 4.5533,
+     "params": {
+      "name": "zaehlt_b"
+     }
     }
    ],
    "tiefenunschaerfe": {
-    "fokus": "keller.luke",
+    "fokus": "june.kopf",
     "staerke": 0.8
    },
-   "schatten_bereich": 10,
+   "schatten_bereich": 16,
    "text": "called to me in my sister's voice.",
    "plan": {
     "key": "1:called",
@@ -1030,25 +1180,33 @@
     ],
     "block": "hook",
     "groesse": "detail",
-    "ort": "kriechkeller",
-    "modul": "kriechkeller",
+    "ort": "marsh-innen",
+    "modul": "june-zimmer",
     "haupt": {
-     "art": "kamera",
+     "art": "aktion",
+     "wer": "sch_june",
+     "was": "einblenden",
      "wort": "sister's",
      "wort_i": 17,
      "wort_start": 3.58,
      "start": 3.58,
-     "ende": 3.58,
+     "ende": 3.7,
      "anker": "start",
      "schluesselwort_idee": "sister's"
     },
     "gesichter": [],
-    "hauptsache": "keller.luke",
-    "bogen_zeit": 3.73,
+    "mund": {
+     "wer": "june",
+     "art": "zaehlen",
+     "wechsel": 8
+    },
+    "hauptsache": "june.kopf",
+    "bogen_zeit": 3.83,
     "akzent": false,
     "monster": false,
     "sichtbar": [
-     "luke_k"
+     "june",
+     "sch_june"
     ]
    }
   },
@@ -1095,7 +1253,10 @@
      },
      "gesicht": "neutral"
     },
-    "luke_k": {
+    "june": {
+     "sichtbar": false
+    },
+    "sch_june": {
      "sichtbar": false
     }
    },
@@ -3709,23 +3870,23 @@
      "staerke": 2.9
     },
     "kante": {
-     "staerke": 1.6
+     "staerke": 2.4
     },
     "belichtung": 1.7
    },
    "kamera": {
     "baustein": "push_in",
     "pos": [
-     1.5,
-     13.3,
-     -57.4
+     0.45,
+     13.55,
+     -58.2
     ],
     "ziel": [
-     0.5,
-     13.2,
-     -62.6
+     0.62,
+     13.35,
+     -62.65
     ],
-    "fov": 30,
+    "fov": 28,
     "rate": 0.06
    },
    "stellung": {},
@@ -3757,7 +3918,7 @@
     "gesichter": [],
     "hauptsache": [
      0.62,
-     13.2,
+     12.9,
      -62.65
     ],
     "bogen_zeit": 46.08,
@@ -3871,35 +4032,33 @@
      "staerke": 2.9
     },
     "kante": {
-     "staerke": 1.6
+     "staerke": 2.2
     },
     "belichtung": 1.7
    },
    "kamera": {
-    "baustein": "truck_side",
+    "baustein": "push_in",
     "pos": [
-     -1.6,
-     0.5,
-     -23.6
+     -3.2,
+     1.6,
+     -18.5
     ],
     "ziel": [
-     -5.4,
-     0.9,
-     -24.6
+     -5,
+     4.4,
+     -33
     ],
-    "fov": 54,
-    "richtung": "links",
-    "strecke": 1.2,
-    "vordergrund": false
+    "fov": 46,
+    "rate": 0.07
    },
    "stellung": {
     "mh": {
      "neu": true,
      "sichtbar": true,
      "position": [
-      -5.4,
+      -5,
       0,
-      -27
+      -36
      ],
      "blick": 0,
      "gesicht": "glatt"
@@ -3913,11 +4072,11 @@
      "wer": "mh",
      "was": "stapfen",
      "start": 48.6,
-     "dauer": 1.3,
+     "dauer": 1.6,
      "params": {
       "nach": [
-       -5.4,
-       -23.5
+       -5,
+       -33
       ],
       "schritt": 0.9
      }
@@ -3944,14 +4103,14 @@
      "wort_i": 176,
      "wort_start": 48.6,
      "start": 48.6,
-     "ende": 49.9,
+     "ende": 50.2,
      "anker": "start",
      "schluesselwort_idee": "Main"
     },
     "gesichter": [],
-    "hauptsache": "mh.knie",
+    "hauptsache": "mh.kopf",
     "bogen_zeit": 49.3,
-    "akzent": true,
+    "akzent": false,
     "monster": true,
     "sichtbar": [
      "mh"
@@ -3972,35 +4131,50 @@
      "staerke": 2.9
     },
     "kante": {
-     "staerke": 1.6
+     "staerke": 2.2
     },
     "belichtung": 1.7
    },
    "kamera": {
-    "baustein": "push_in",
+    "baustein": "tilt_up",
+    "von_ziel": {
+     "anker": "mh.huefte"
+    },
+    "ziel": {
+     "anker": "mh.kopf",
+     "versatz": [
+      -0.6,
+      0,
+      0
+     ]
+    },
     "pos": [
-     3.2,
-     3.4,
-     -9.5
+     -2,
+     2.4,
+     -16.5
     ],
-    "ziel": [
-     -11.5,
-     5.2,
-     -24
-    ],
-    "fov": 46,
-    "rate": 0.07
+    "kran": 1.6,
+    "fov": 48,
+    "ankunft": 50.46,
+    "start": 49.1167
    },
    "stellung": {
-    "sch_w2": {
+    "mh": {
      "neu": true,
      "sichtbar": true,
      "position": [
-      -11.55,
-      3.6,
-      -17
+      -9.3,
+      0,
+      -24
      ],
-     "blick": 90
+     "blick": -90,
+     "gesicht": "glatt",
+     "pose": "vorbeugen",
+     "pose_params": {
+      "winkel": 14,
+      "kopf_ausgleich": 8,
+      "knie": 0
+     }
     },
     "sch_w1": {
      "neu": true,
@@ -4008,32 +4182,32 @@
      "position": [
       -11.55,
       3.6,
-      -31
+      -24
      ],
      "blick": 90
-    },
-    "mh": {
-     "sichtbar": false
     }
    },
    "aktionen": [
     {
-     "wer": "sch_w2",
-     "was": "sichtbar",
+     "wer": "mh",
+     "was": "vorbeugen",
+     "start": 49.39,
+     "dauer": 0.8,
      "params": {
-      "wert": false
-     },
-     "start": 50.08,
-     "nebenbei": true
+      "winkel": 30,
+      "kopf_ausgleich": 18,
+      "knie": 0
+     }
     },
     {
      "wer": "sch_w1",
      "was": "sichtbar",
-     "start": 50.46,
-     "dauer": 0.01,
      "params": {
       "wert": true
-     }
+     },
+     "dauer": 0.01,
+     "start": 50.46,
+     "nebenbei": true
     }
    ],
    "schatten_bereich": 24,
@@ -4051,27 +4225,23 @@
     "modul": "haeuserzeile",
     "haupt": {
      "art": "aktion",
-     "wer": "sch_w1",
-     "was": "sichtbar",
-     "wort": "window",
-     "wort_i": 182,
-     "wort_start": 50.46,
-     "start": 50.46,
-     "ende": 50.47,
+     "wer": "mh",
+     "was": "vorbeugen",
+     "wort": "looking",
+     "wort_i": 178,
+     "wort_start": 49.39,
+     "start": 49.39,
+     "ende": 50.19,
      "anker": "start",
-     "schluesselwort_idee": "window"
+     "schluesselwort_idee": "looking"
     },
     "gesichter": [],
-    "hauptsache": [
-     -11.9,
-     5,
-     -24
-    ],
-    "bogen_zeit": 50.71,
-    "akzent": false,
-    "monster": false,
+    "hauptsache": "mh.kopf",
+    "bogen_zeit": 50.29,
+    "akzent": true,
+    "monster": true,
     "sichtbar": [
-     "sch_w2",
+     "mh",
      "sch_w1"
     ]
    }
@@ -4114,7 +4284,7 @@
      ],
      "blick": 90
     },
-    "sch_w2": {
+    "mh": {
      "sichtbar": false
     },
     "sch_w1": {
@@ -4177,18 +4347,12 @@
    "ende": 53.9,
    "set": [
     "strasse",
-    "marsh",
+    "haus",
     "spur"
    ],
    "licht": "nacht",
    "licht_anpassung": {
-    "hemi": {
-     "staerke": 2.9
-    },
-    "kante": {
-     "staerke": 1.6
-    },
-    "belichtung": 1.7
+    "belichtung": 1.25
    },
    "kamera": {
     "baustein": "crane_down_tilt",
@@ -4197,14 +4361,14 @@
      2.3,
      5.1
     ],
-    "blick": {
-     "azimut": -13,
-     "hoehe": 13,
-     "abstand": 4.9
-    },
-    "hoehe": 1.5,
-    "rueck": 0.4,
-    "fov": 50,
+    "pos": [
+     -18.15,
+     1.2,
+     2.75
+    ],
+    "hoehe": 0.7,
+    "rueck": 0.3,
+    "fov": 54,
     "ankunft": 52.52,
     "start": 52.1167
    },
@@ -4221,10 +4385,20 @@
      "gesicht": "glatt",
      "pose": "vorbeugen",
      "pose_params": {
-      "winkel": 30,
-      "kopf_ausgleich": 20,
-      "knie": 10
+      "winkel": 40,
+      "kopf_ausgleich": 30,
+      "knie": 20
      }
+    },
+    "luke_tp": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -19.25,
+      0.6,
+      2
+     ],
+     "blick": 90
     },
     "sch_bett": {
      "sichtbar": false
@@ -4274,7 +4448,8 @@
     "akzent": true,
     "monster": true,
     "sichtbar": [
-     "mh"
+     "mh",
+     "luke_tp"
     ]
    }
   },
@@ -4322,6 +4497,9 @@
      "gesicht": "angst"
     },
     "mh": {
+     "sichtbar": false
+    },
+    "luke_tp": {
      "sichtbar": false
     }
    },
@@ -4430,8 +4608,8 @@
      "dichte": 0.014
     },
     "grade": {
-     "saettigung": 0.62,
-     "kontrast": 1.04
+     "saettigung": 0.3,
+     "kontrast": 1.06
     },
     "belichtung": 1.3
    },
@@ -4559,8 +4737,8 @@
      "dichte": 0.014
     },
     "grade": {
-     "saettigung": 0.62,
-     "kontrast": 1.04
+     "saettigung": 0.3,
+     "kontrast": 1.06
     },
     "belichtung": 1.55,
     "hemi": {
@@ -4650,17 +4828,17 @@
    "kamera": {
     "baustein": "push_in",
     "ziel": {
-     "anker": "eli.kopf",
+     "anker": "eli.augen",
      "versatz": [
-      0.15,
-      0.35,
+      0.25,
+      0.12,
       0
      ]
     },
     "blick": {
-     "azimut": 176,
-     "hoehe": 30,
-     "abstand": 1.15
+     "azimut": 194,
+     "hoehe": 22,
+     "abstand": 1.25
     },
     "fov": 58,
     "roll": -90,
@@ -4762,6 +4940,15 @@
     "keller"
    ],
    "licht": "kriechkeller",
+   "licht_anpassung": {
+    "hemi": {
+     "staerke": 1.2
+    },
+    "kante": {
+     "staerke": 1.4
+    },
+    "belichtung": 1.7
+   },
    "kamera": {
     "baustein": "crane_down_tilt",
     "ziel": [
@@ -4821,13 +5008,13 @@
     "haupt": {
      "art": "set",
      "was": "finger_durch",
-     "wort": "finger",
-     "wort_i": 214,
-     "wort_start": 60.18,
-     "start": 60.18,
-     "ende": 61.18,
+     "wort": "long",
+     "wort_i": 212,
+     "wort_start": 59.72,
+     "start": 59.72,
+     "ende": 61.22,
      "anker": "start",
-     "schluesselwort_idee": "finger"
+     "schluesselwort_idee": "long"
     },
     "gesichter": [],
     "hauptsache": [
@@ -4835,7 +5022,7 @@
      0.45,
      -0.5
     ],
-    "bogen_zeit": 60.38,
+    "bogen_zeit": 59.92,
     "akzent": true,
     "monster": true,
     "sichtbar": [
@@ -4957,20 +5144,24 @@
    },
    "kamera": {
     "baustein": "snap_zoom",
-    "ziel": [
-     299.32,
-     0.3,
-     -0.45
-    ],
-    "pos": [
-     299.55,
-     0.62,
-     0.35
-    ],
-    "fov": 52,
+    "ziel": {
+     "anker": "eli.augen",
+     "versatz": [
+      -0.14,
+      0.04,
+      -0.04
+     ]
+    },
+    "blick": {
+     "azimut": 165,
+     "hoehe": 26,
+     "abstand": 1.15
+    },
+    "fov": 54,
+    "roll": -90,
+    "rate": 0,
     "faktor": 1.18,
     "bilder": 2,
-    "roll": 0,
     "zeit": 63.44
    },
    "stellung": {
@@ -5143,7 +5334,7 @@
   {
    "id": "E46",
    "start": 66.5667,
-   "ende": 69,
+   "ende": 68.8,
    "set": [
     "keller"
    ],
@@ -5182,25 +5373,25 @@
    "partikel": [
     {
      "art": "staub",
-     "start": 68.02,
+     "start": 68.6,
      "ort": [
       300.8,
       0.95,
       0.38
      ],
      "farbe": "#e8dcc8",
-     "anzahl": 70,
-     "groesse": 0.004,
+     "anzahl": 90,
+     "groesse": 0.0045,
      "bereich": [
       0.4,
       0.2,
       0.05
      ],
-     "deckkraft": 0.75,
+     "deckkraft": 0.8,
      "dauer": 1.2
     },
     {
-     "start": 67.12,
+     "start": 67.1,
      "dauer": 1.2,
      "art": "staub",
      "ort": [
@@ -5209,17 +5400,17 @@
       -0.4
      ],
      "farbe": "#e8dcc8",
-     "anzahl": 70,
-     "groesse": 0.004,
+     "anzahl": 90,
+     "groesse": 0.0045,
      "bereich": [
       0.5,
       0.2,
       0.05
      ],
-     "deckkraft": 0.75
+     "deckkraft": 0.8
     },
     {
-     "start": 67.57,
+     "start": 67.85,
      "dauer": 1.2,
      "art": "staub",
      "ort": [
@@ -5228,24 +5419,24 @@
       0
      ],
      "farbe": "#e8dcc8",
-     "anzahl": 70,
-     "groesse": 0.004,
+     "anzahl": 90,
+     "groesse": 0.0045,
      "bereich": [
       0.05,
       0.2,
       0.5
      ],
-     "deckkraft": 0.75
+     "deckkraft": 0.8
     }
    ],
    "schatten_bereich": 10,
-   "text": "morning. \"Rabbit?\"",
+   "text": "morning.",
    "plan": {
     "key": "27:morning",
     "satz": 27,
     "woerter": [
      237,
-     238
+     237
     ],
     "block": "strasse-finger",
     "groesse": "halbnah",
@@ -5253,31 +5444,130 @@
     "modul": "kriechkeller",
     "haupt": {
      "art": "partikel",
-     "wort": "Rabbit",
-     "wort_i": 238,
-     "wort_start": 68.34,
-     "start": 68.02,
-     "ende": 68.52,
+     "wort": "morning",
+     "wort_i": 237,
+     "wort_start": 66.6,
+     "start": 68.6,
+     "ende": 69.1,
      "anker": "start",
-     "schluesselwort_idee": "Rabbit"
+     "schluesselwort_idee": "morning"
     },
     "gesichter": [],
     "hauptsache": "keller.luke",
-    "bogen_zeit": 68.54,
+    "bogen_zeit": 66.8,
     "akzent": true,
     "monster": false,
     "sichtbar": [
      "luke_k"
-    ],
-    "ohne_schnitt": [
-     "28"
     ]
    }
   },
   {
    "id": "E47",
-   "start": 69,
-   "ende": 70.0667,
+   "start": 68.8,
+   "ende": 69.5,
+   "set": [
+    "keller"
+   ],
+   "licht": "kriechkeller",
+   "licht_anpassung": {
+    "hemi": {
+     "staerke": 1
+    },
+    "belichtung": 1.5
+   },
+   "kamera": {
+    "baustein": "push_in",
+    "ziel": {
+     "anker": "eli.augen",
+     "versatz": [
+      0,
+      0.02,
+      0.05
+     ]
+    },
+    "blick": {
+     "azimut": 188,
+     "hoehe": 30,
+     "abstand": 0.5
+    },
+    "fov": 40,
+    "roll": -90,
+    "rate": 0.09
+   },
+   "stellung": {
+    "eli": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      301.3,
+      0,
+      -0.35
+     ],
+     "blick": 90,
+     "pose": "liegen",
+     "pose_params": {
+      "kopf": 34
+     },
+     "gesicht": "besorgt"
+    },
+    "luke_k": {
+     "sichtbar": false
+    }
+   },
+   "aktionen": [
+    {
+     "wer": "eli",
+     "was": "gesicht",
+     "start": 68.84,
+     "params": {
+      "name": "schock"
+     }
+    }
+   ],
+   "tiefenunschaerfe": {
+    "fokus": "eli.augen",
+    "staerke": 0.8
+   },
+   "schatten_bereich": 10,
+   "text": "\"Rabbit?\"",
+   "plan": {
+    "key": "28",
+    "satz": 28,
+    "woerter": [
+     238,
+     238
+    ],
+    "block": "lockruf",
+    "groesse": "detail",
+    "ort": "kriechkeller",
+    "modul": "kriechkeller",
+    "haupt": {
+     "art": "gesicht",
+     "wer": "eli",
+     "name": "schock",
+     "wort": "Rabbit",
+     "wort_i": 238,
+     "wort_start": 68.84,
+     "start": 68.84,
+     "ende": 68.84,
+     "anker": "start",
+     "schluesselwort_idee": "Rabbit"
+    },
+    "gesichter": [],
+    "hauptsache": "eli.augen",
+    "bogen_zeit": 69.04,
+    "akzent": false,
+    "monster": false,
+    "sichtbar": [
+     "eli"
+    ]
+   }
+  },
+  {
+   "id": "E48",
+   "start": 69.5,
+   "ende": 70.5667,
    "set": [
     "keller"
    ],
@@ -5307,6 +5597,9 @@
       -0.4
      ],
      "blick": 0
+    },
+    "eli": {
+     "sichtbar": false
     }
    },
    "aktionen": [],
@@ -5335,9 +5628,9 @@
      "art": "kamera",
      "wort": "come",
      "wort_i": 241,
-     "wort_start": 69.22,
-     "start": 69.22,
-     "ende": 69.22,
+     "wort_start": 69.72,
+     "start": 69.72,
+     "ende": 69.72,
      "anker": "start",
      "schluesselwort_idee": "come"
     },
@@ -5347,7 +5640,7 @@
      1,
      -0.42
     ],
-    "bogen_zeit": 69.37,
+    "bogen_zeit": 69.87,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -5356,9 +5649,9 @@
    }
   },
   {
-   "id": "E48",
-   "start": 70.0667,
-   "ende": 70.9,
+   "id": "E49",
+   "start": 70.5667,
+   "ende": 71.4,
    "set": [
     "keller"
    ],
@@ -5410,13 +5703,13 @@
      "params": {
       "seite": "r"
      },
-     "start": 70.0667,
+     "start": 70.5667,
      "nebenbei": true
     },
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 70.24,
+     "start": 70.74,
      "params": {
       "name": "schock"
      }
@@ -5424,7 +5717,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 70.49,
+     "start": 70.99,
      "params": {
       "name": "angst"
      }
@@ -5453,9 +5746,9 @@
      "name": "schock",
      "wort": "gone",
      "wort_i": 245,
-     "wort_start": 70.24,
-     "start": 70.24,
-     "ende": 70.24,
+     "wort_start": 70.74,
+     "start": 70.74,
+     "ende": 70.74,
      "anker": "start",
      "schluesselwort_idee": "gone"
     },
@@ -5464,12 +5757,12 @@
       "wer": "eli",
       "name": "angst",
       "wort": "gone",
-      "wort_start": 70.24,
-      "start": 70.49
+      "wort_start": 70.74,
+      "start": 70.99
      }
     ],
     "hauptsache": "eli.kopf",
-    "bogen_zeit": 70.44,
+    "bogen_zeit": 70.94,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -5478,9 +5771,9 @@
    }
   },
   {
-   "id": "E49",
-   "start": 70.9,
-   "ende": 72,
+   "id": "E50",
+   "start": 71.4,
+   "ende": 72.5,
    "set": [
     "keller"
    ],
@@ -5525,7 +5818,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 71.52,
+     "start": 72.02,
      "params": {
       "name": "besorgt"
      }
@@ -5554,15 +5847,15 @@
      "name": "besorgt",
      "wort": "voice",
      "wort_i": 249,
-     "wort_start": 71.52,
-     "start": 71.52,
-     "ende": 71.52,
+     "wort_start": 72.02,
+     "start": 72.02,
+     "ende": 72.02,
      "anker": "start",
      "schluesselwort_idee": "voice"
     },
     "gesichter": [],
     "hauptsache": "eli.kopf",
-    "bogen_zeit": 71.72,
+    "bogen_zeit": 72.22,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -5571,9 +5864,9 @@
    }
   },
   {
-   "id": "E50",
-   "start": 72,
-   "ende": 73.6667,
+   "id": "E51",
+   "start": 72.5,
+   "ende": 74.1667,
    "set": [
     "strasse",
     "marsh"
@@ -5626,24 +5919,24 @@
      "art": "kamera",
      "wort": "sunrise",
      "wort_i": 253,
-     "wort_start": 72.72,
-     "start": 72.72,
-     "ende": 72.72,
+     "wort_start": 73.22,
+     "start": 73.22,
+     "ende": 73.22,
      "anker": "start",
      "schluesselwort_idee": "sunrise"
     },
     "gesichter": [],
     "hauptsache": "strasse.kirche_uhr",
-    "bogen_zeit": 72.87,
+    "bogen_zeit": 73.37,
     "akzent": false,
     "monster": false,
     "sichtbar": []
    }
   },
   {
-   "id": "E51",
-   "start": 73.6667,
-   "ende": 74.6333,
+   "id": "E52",
+   "start": 74.1667,
+   "ende": 75.1333,
    "set": [
     "keller"
    ],
@@ -5688,7 +5981,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 73.98,
+     "start": 74.48,
      "params": {
       "name": "entschlossen"
      }
@@ -5717,15 +6010,15 @@
      "name": "entschlossen",
      "wort": "answer",
      "wort_i": 256,
-     "wort_start": 73.98,
-     "start": 73.98,
-     "ende": 73.98,
+     "wort_start": 74.48,
+     "start": 74.48,
+     "ende": 74.48,
      "anker": "start",
      "schluesselwort_idee": "answer"
     },
     "gesichter": [],
     "hauptsache": "eli.kopf",
-    "bogen_zeit": 74.18,
+    "bogen_zeit": 74.68,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -5734,9 +6027,9 @@
    }
   },
   {
-   "id": "E52",
-   "start": 74.6333,
-   "ende": 77.0333,
+   "id": "E53",
+   "start": 75.1333,
+   "ende": 77.5333,
    "set": [
     "keller"
    ],
@@ -5785,9 +6078,9 @@
      "was": "liegen",
      "wort": "counting",
      "wort_i": 261,
-     "wort_start": 75.4,
-     "start": 75.4,
-     "ende": 77,
+     "wort_start": 75.9,
+     "start": 75.9,
+     "ende": 77.5,
      "anker": "start",
      "schluesselwort_idee": "counting"
     },
@@ -5797,16 +6090,16 @@
      1,
      0.2
     ],
-    "bogen_zeit": 75.6,
+    "bogen_zeit": 76.1,
     "akzent": true,
     "monster": false,
     "sichtbar": []
    }
   },
   {
-   "id": "E53",
-   "start": 77.0333,
-   "ende": 79.0333,
+   "id": "E54",
+   "start": 77.5333,
+   "ende": 79.5333,
    "set": [
     "keller"
    ],
@@ -5839,15 +6132,15 @@
      "was": "liegen",
      "wort": "Ninety-nine",
      "wort_i": 265,
-     "wort_start": 77.07,
-     "start": 77.97,
-     "ende": 78.22,
+     "wort_start": 77.57,
+     "start": 78.47,
+     "ende": 78.72,
      "anker": "start",
      "schluesselwort_idee": "Ninety-nine"
     },
     "gesichter": [],
     "hauptsache": "keller.dielen_mitte",
-    "bogen_zeit": 78.17,
+    "bogen_zeit": 78.67,
     "akzent": false,
     "monster": false,
     "sichtbar": [],
@@ -5857,9 +6150,9 @@
    }
   },
   {
-   "id": "E54",
-   "start": 79.0333,
-   "ende": 79.9333,
+   "id": "E55",
+   "start": 79.5333,
+   "ende": 80.4333,
    "set": [
     "keller"
    ],
@@ -5896,24 +6189,24 @@
      "was": "finger",
      "wort": "Ready",
      "wort_i": 268,
-     "wort_start": 79.06,
-     "start": 78.98,
-     "ende": 79.26,
+     "wort_start": 79.56,
+     "start": 79.48,
+     "ende": 79.76,
      "anker": "start",
      "schluesselwort_idee": "Ready"
     },
     "gesichter": [],
     "hauptsache": "keller.dielen_mitte",
-    "bogen_zeit": 79.18,
+    "bogen_zeit": 79.68,
     "akzent": false,
     "monster": false,
     "sichtbar": []
    }
   },
   {
-   "id": "E55",
-   "start": 79.9333,
-   "ende": 80.9,
+   "id": "E56",
+   "start": 80.4333,
+   "ende": 81.4,
    "set": [
     "keller"
    ],
@@ -5958,7 +6251,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 80.22,
+     "start": 80.72,
      "params": {
       "name": "augen_zu"
      }
@@ -5987,15 +6280,15 @@
      "name": "augen_zu",
      "wort": "answer",
      "wort_i": 272,
-     "wort_start": 80.22,
-     "start": 80.22,
-     "ende": 80.22,
+     "wort_start": 80.72,
+     "start": 80.72,
+     "ende": 80.72,
      "anker": "start",
      "schluesselwort_idee": "answer"
     },
     "gesichter": [],
     "hauptsache": "eli.kopf",
-    "bogen_zeit": 80.42,
+    "bogen_zeit": 80.92,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -6004,9 +6297,9 @@
    }
   },
   {
-   "id": "E56",
-   "start": 80.9,
-   "ende": 82.2333,
+   "id": "E57",
+   "start": 81.4,
+   "ende": 82.7333,
    "set": [
     "keller"
    ],
@@ -6044,7 +6337,7 @@
     {
      "wer": "luke_k",
      "was": "oeffnen",
-     "start": 81.16,
+     "start": 81.66,
      "dauer": 0.45,
      "params": {
       "winkel": 105
@@ -6054,14 +6347,14 @@
    "licht_ereignisse": [
     {
      "art": "an",
-     "start": 81.16,
+     "start": 81.66,
      "ziel": "keller.lukenlicht",
      "dauer": 0.3
     }
    ],
    "partikel": [
     {
-     "start": 81.16,
+     "start": 81.66,
      "dauer": 1.6,
      "art": "staub",
      "ort": [
@@ -6099,15 +6392,15 @@
      "was": "oeffnen",
      "wort": "opened",
      "wort_i": 275,
-     "wort_start": 81.16,
-     "start": 81.16,
-     "ende": 81.61,
+     "wort_start": 81.66,
+     "start": 81.66,
+     "ende": 82.11,
      "anker": "start",
      "schluesselwort_idee": "opened"
     },
     "gesichter": [],
     "hauptsache": "luke_k.mitte",
-    "bogen_zeit": 81.71,
+    "bogen_zeit": 82.21,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -6116,9 +6409,9 @@
    }
   },
   {
-   "id": "E57",
-   "start": 82.2333,
-   "ende": 83.3333,
+   "id": "E58",
+   "start": 82.7333,
+   "ende": 83.8333,
    "set": [
     "keller"
    ],
@@ -6142,8 +6435,8 @@
     ],
     "kran": 0.15,
     "fov": 58,
-    "ankunft": 83.02,
-    "start": 81.9833
+    "ankunft": 83.52,
+    "start": 82.4833
    },
    "stellung": {
     "luke_k": {
@@ -6178,7 +6471,7 @@
     {
      "wer": "mh",
      "was": "kopfueber",
-     "start": 82.68,
+     "start": 83.18,
      "dauer": 1.05,
      "ease": "ease_out",
      "params": {
@@ -6207,15 +6500,15 @@
      "was": "kopfueber",
      "wort": "folded",
      "wort_i": 279,
-     "wort_start": 82.68,
-     "start": 82.68,
-     "ende": 83.73,
+     "wort_start": 83.18,
+     "start": 83.18,
+     "ende": 84.23,
      "anker": "start",
      "schluesselwort_idee": "folded"
     },
     "gesichter": [],
     "hauptsache": "mh.haende",
-    "bogen_zeit": 83.2666,
+    "bogen_zeit": 83.7666,
     "akzent": true,
     "monster": true,
     "sichtbar": [
@@ -6225,9 +6518,9 @@
    }
   },
   {
-   "id": "E58",
-   "start": 83.3333,
-   "ende": 84.5333,
+   "id": "E59",
+   "start": 83.8333,
+   "ende": 85.0333,
    "set": [
     "keller"
    ],
@@ -6278,7 +6571,7 @@
    "partikel": [
     {
      "art": "atem",
-     "start": 83.76,
+     "start": 84.26,
      "ort": "eli.mund",
      "periode": 1.1,
      "richtung": [
@@ -6312,15 +6605,15 @@
      "art": "partikel",
      "wort": "crawl",
      "wort_i": 283,
-     "wort_start": 83.76,
-     "start": 83.76,
-     "ende": 84.26,
+     "wort_start": 84.26,
+     "start": 84.26,
+     "ende": 84.76,
      "anker": "start",
      "schluesselwort_idee": "crawl"
     },
     "gesichter": [],
     "hauptsache": "eli.kopf",
-    "bogen_zeit": 83.96,
+    "bogen_zeit": 84.46,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -6329,9 +6622,9 @@
    }
   },
   {
-   "id": "E59",
-   "start": 84.5333,
-   "ende": 85.4,
+   "id": "E60",
+   "start": 85.0333,
+   "ende": 85.9,
    "set": [
     "keller"
    ],
@@ -6375,7 +6668,7 @@
     {
      "wer": "mh",
      "was": "kopfueber",
-     "start": 84.58,
+     "start": 85.08,
      "dauer": 0.7,
      "params": {
       "neigung": 180,
@@ -6407,15 +6700,15 @@
      "was": "kopfueber",
      "wort": "bent",
      "wort_i": 285,
-     "wort_start": 84.58,
-     "start": 84.58,
-     "ende": 85.28,
+     "wort_start": 85.08,
+     "start": 85.08,
+     "ende": 85.78,
      "anker": "start",
      "schluesselwort_idee": "bent"
     },
     "gesichter": [],
     "hauptsache": "mh.haende",
-    "bogen_zeit": 85.3333,
+    "bogen_zeit": 85.8333,
     "akzent": false,
     "monster": true,
     "sichtbar": [
@@ -6424,20 +6717,29 @@
    }
   },
   {
-   "id": "E60",
-   "start": 85.4,
-   "ende": 87.2,
+   "id": "E61",
+   "start": 85.9,
+   "ende": 87.7,
    "set": [
     "keller"
    ],
    "licht": "kriechkeller",
    "licht_anpassung": {
     "hemi": {
-     "himmel": "#c8d4ff",
-     "boden": "#6a5040",
-     "staerke": 2.4
+     "himmel": "#7f93c4",
+     "boden": "#5a4030",
+     "staerke": 0.9
     },
-    "belichtung": 1.55
+    "kante": {
+     "farbe": "#9FD8D2",
+     "staerke": 2.6,
+     "richtung": [
+      0.5,
+      0.6,
+      -0.7
+     ]
+    },
+    "belichtung": 1.25
    },
    "kamera": {
     "baustein": "push_in",
@@ -6473,15 +6775,15 @@
       "neigung": 180,
       "nicken": 0
      },
-     "gesicht": "glatt"
+     "gesicht": "june_gedehnt"
     }
    },
    "aktionen": [
     {
      "wer": "mh",
      "was": "haende_weg",
-     "start": 85.7,
-     "dauer": 1.1
+     "start": 86.46,
+     "dauer": 0.55
     }
    ],
    "tiefenunschaerfe": {
@@ -6505,17 +6807,17 @@
      "art": "aktion",
      "wer": "mh",
      "was": "haende_weg",
-     "wort": "hands",
-     "wort_i": 290,
-     "wort_start": 85.7,
-     "start": 85.7,
-     "ende": 86.8,
+     "wort": "away",
+     "wort_i": 291,
+     "wort_start": 86.46,
+     "start": 86.46,
+     "ende": 87.01,
      "anker": "start",
-     "schluesselwort_idee": "hands"
+     "schluesselwort_idee": "away"
     },
     "gesichter": [],
     "hauptsache": "mh.kopf",
-    "bogen_zeit": 86.9,
+    "bogen_zeit": 87.11,
     "akzent": false,
     "monster": true,
     "sichtbar": [
@@ -6524,23 +6826,32 @@
    }
   },
   {
-   "id": "E61",
-   "start": 87.2,
-   "ende": 89.4667,
+   "id": "E62",
+   "start": 87.7,
+   "ende": 89.9667,
    "set": [
     "keller"
    ],
    "licht": "kriechkeller",
    "licht_anpassung": {
     "hemi": {
-     "himmel": "#c8d4ff",
-     "boden": "#6a5040",
-     "staerke": 2.4
+     "himmel": "#7f93c4",
+     "boden": "#5a4030",
+     "staerke": 0.9
     },
-    "belichtung": 1.55
+    "kante": {
+     "farbe": "#9FD8D2",
+     "staerke": 2.6,
+     "richtung": [
+      0.5,
+      0.6,
+      -0.7
+     ]
+    },
+    "belichtung": 1.25
    },
    "kamera": {
-    "baustein": "push_in",
+    "baustein": "dolly_out",
     "ziel": {
      "anker": "mh.kopf",
      "versatz": [
@@ -6551,12 +6862,12 @@
     },
     "blick": {
      "azimut": -90,
-     "hoehe": -8,
-     "abstand": 1.2
+     "hoehe": -10,
+     "abstand": 1.15
     },
-    "fov": 52,
+    "fov": 56,
     "roll": 180,
-    "rate": 0.08
+    "rate": -0.16
    },
    "stellung": {
     "mh": {
@@ -6574,6 +6885,32 @@
       "nicken": 0
      },
      "gesicht": "june_gedehnt"
+    },
+    "eli": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      301.3,
+      0,
+      -0.35
+     ],
+     "blick": 90,
+     "pose": "liegen",
+     "pose_params": {
+      "kopf": 34
+     },
+     "gesicht": "angst"
+    },
+    "luke_k": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      300.45,
+      1.016,
+      -0.4
+     ],
+     "blick": 0,
+     "pose": "oeffnen"
     }
    },
    "aktionen": [
@@ -6581,7 +6918,7 @@
      "wer": "mh",
      "was": "haende_weg",
      "dauer": 0.01,
-     "start": 87.2,
+     "start": 87.7,
      "nebenbei": true
     }
    ],
@@ -6606,37 +6943,48 @@
      "art": "kamera",
      "wort": "face",
      "wort_i": 298,
-     "wort_start": 87.86,
-     "start": 87.86,
-     "ende": 87.86,
+     "wort_start": 88.36,
+     "start": 88.36,
+     "ende": 88.36,
      "anker": "start",
      "schluesselwort_idee": "face"
     },
     "gesichter": [],
     "hauptsache": "mh.kopf",
-    "bogen_zeit": 88.01,
-    "akzent": false,
+    "bogen_zeit": 88.51,
+    "akzent": true,
     "monster": true,
     "sichtbar": [
-     "mh"
+     "mh",
+     "eli",
+     "luke_k"
     ]
    }
   },
   {
-   "id": "E62",
-   "start": 89.4667,
-   "ende": 91.8667,
+   "id": "E63",
+   "start": 89.9667,
+   "ende": 92.3667,
    "set": [
     "keller"
    ],
    "licht": "kriechkeller",
    "licht_anpassung": {
     "hemi": {
-     "himmel": "#c8d4ff",
-     "boden": "#6a5040",
-     "staerke": 2.4
+     "himmel": "#7f93c4",
+     "boden": "#5a4030",
+     "staerke": 0.9
     },
-    "belichtung": 1.55
+    "kante": {
+     "farbe": "#9FD8D2",
+     "staerke": 2.6,
+     "richtung": [
+      0.5,
+      0.6,
+      -0.7
+     ]
+    },
+    "belichtung": 1.25
    },
    "kamera": {
     "baustein": "push_in",
@@ -6673,6 +7021,12 @@
       "nicken": 0
      },
      "gesicht": "june_gedehnt"
+    },
+    "eli": {
+     "sichtbar": false
+    },
+    "luke_k": {
+     "sichtbar": false
     }
    },
    "aktionen": [
@@ -6680,7 +7034,7 @@
      "wer": "mh",
      "was": "haende_weg",
      "dauer": 0.01,
-     "start": 89.4667,
+     "start": 89.9667,
      "nebenbei": true
     }
    ],
@@ -6705,15 +7059,15 @@
      "art": "kamera",
      "wort": "eye",
      "wort_i": 303,
-     "wort_start": 89.56,
-     "start": 89.56,
-     "ende": 89.56,
+     "wort_start": 90.06,
+     "start": 90.06,
+     "ende": 90.06,
      "anker": "start",
      "schluesselwort_idee": "eye"
     },
     "gesichter": [],
     "hauptsache": "mh.augen",
-    "bogen_zeit": 89.71,
+    "bogen_zeit": 90.21,
     "akzent": false,
     "monster": true,
     "sichtbar": [
@@ -6722,17 +7076,17 @@
    }
   },
   {
-   "id": "E63",
-   "start": 91.8667,
-   "ende": 93.8,
+   "id": "E64",
+   "start": 92.3667,
+   "ende": 94.3,
    "set": [
     "keller"
    ],
    "licht": "kriechkeller",
    "licht_anpassung": {
     "grade": {
-     "saettigung": 0.62,
-     "kontrast": 1.04
+     "saettigung": 0.3,
+     "kontrast": 1.06
     }
    },
    "kamera": {
@@ -6754,8 +7108,8 @@
     "rueck": 0.15,
     "fov": 46,
     "roll": -90,
-    "ankunft": 92.6,
-    "start": 91.6167
+    "ankunft": 93.1,
+    "start": 92.1167
    },
    "stellung": {
     "june18": {
@@ -6799,15 +7153,15 @@
      "art": "kamera",
      "wort": "years",
      "wort_i": 315,
-     "wort_start": 92.6,
-     "start": 92.6,
-     "ende": 92.6,
+     "wort_start": 93.1,
+     "start": 93.1,
+     "ende": 93.1,
      "anker": "start",
      "schluesselwort_idee": "years"
     },
     "gesichter": [],
     "hauptsache": "june18.kopf",
-    "bogen_zeit": 92.75,
+    "bogen_zeit": 93.25,
     "akzent": true,
     "monster": false,
     "sichtbar": [
@@ -6817,9 +7171,9 @@
    }
   },
   {
-   "id": "E64",
-   "start": 93.8,
-   "ende": 95.7667,
+   "id": "E65",
+   "start": 94.3,
+   "ende": 96.2667,
    "set": [
     "strasse",
     "haus"
@@ -6827,24 +7181,27 @@
    "licht": "innen_warm",
    "licht_anpassung": {
     "grade": {
-     "saettigung": 0.62,
-     "kontrast": 1.04
+     "saettigung": 0.3,
+     "kontrast": 1.06
     },
     "belichtung": 1.35
    },
    "kamera": {
     "baustein": "push_in",
-    "ziel": [
-     -19.1,
-     1.2,
-     1.75
-    ],
-    "pos": [
-     -17.4,
-     1.75,
-     0.35
-    ],
-    "fov": 54,
+    "ziel": {
+     "anker": "dad.kopf",
+     "versatz": [
+      0,
+      -0.15,
+      0
+     ]
+    },
+    "blick": {
+     "azimut": 15,
+     "hoehe": 12,
+     "abstand": 2
+    },
+    "fov": 50,
     "rate": 0.07
    },
    "stellung": {
@@ -6899,13 +7256,13 @@
       "seite": "r",
       "lehnen": false
      },
-     "start": 93.8,
+     "start": 94.3,
      "nebenbei": true
     },
     {
      "wer": "luke_tp",
      "was": "schliessen",
-     "start": 93.82,
+     "start": 94.32,
      "dauer": 0.6
     },
     {
@@ -6915,7 +7272,7 @@
       "winkel": 120,
       "rollen": 50
      },
-     "start": 95.18,
+     "start": 95.68,
      "nebenbei": true
     }
    ],
@@ -6938,15 +7295,15 @@
      "was": "schliessen",
      "wort": "Dad",
      "wort_i": 318,
-     "wort_start": 93.82,
-     "start": 93.82,
-     "ende": 94.42,
+     "wort_start": 94.32,
+     "start": 94.32,
+     "ende": 94.92,
      "anker": "start",
      "schluesselwort_idee": "Dad"
     },
     "gesichter": [],
     "hauptsache": "dad.kopf",
-    "bogen_zeit": 94.52,
+    "bogen_zeit": 95.02,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -6958,9 +7315,9 @@
    }
   },
   {
-   "id": "E65",
-   "start": 95.7667,
-   "ende": 96.6,
+   "id": "E66",
+   "start": 96.2667,
+   "ende": 97.1,
    "set": [
     "strasse",
     "haus"
@@ -6996,8 +7353,8 @@
      "dichte": 0.014
     },
     "grade": {
-     "saettigung": 0.62,
-     "kontrast": 1.04
+     "saettigung": 0.3,
+     "kontrast": 1.06
     },
     "belichtung": 1.3
    },
@@ -7061,7 +7418,7 @@
     {
      "wer": "june18",
      "was": "klettern",
-     "start": 95.91,
+     "start": 96.41,
      "dauer": 0.5,
      "params": {
       "hoehe": 0.75,
@@ -7088,15 +7445,15 @@
      "was": "klettern",
      "wort": "kept",
      "wort_i": 328,
-     "wort_start": 95.91,
-     "start": 95.91,
-     "ende": 96.41,
+     "wort_start": 96.41,
+     "start": 96.41,
+     "ende": 96.91,
      "anker": "start",
      "schluesselwort_idee": "kept"
     },
     "gesichter": [],
     "hauptsache": "june18.kopf",
-    "bogen_zeit": 96.51,
+    "bogen_zeit": 97.01,
     "akzent": false,
     "monster": true,
     "sichtbar": [
@@ -7108,9 +7465,9 @@
    }
   },
   {
-   "id": "E66",
-   "start": 96.6,
-   "ende": 98.4667,
+   "id": "E67",
+   "start": 97.1,
+   "ende": 98.9667,
    "set": [
     "strasse",
     "haus"
@@ -7171,7 +7528,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 96.6,
+     "start": 97.1,
      "params": {
       "name": "zaehlt_a"
      }
@@ -7179,7 +7536,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 96.86,
+     "start": 97.36,
      "params": {
       "name": "zaehlt_b"
      }
@@ -7187,7 +7544,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 97.12,
+     "start": 97.62,
      "params": {
       "name": "zaehlt_c"
      }
@@ -7195,7 +7552,7 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 97.38,
+     "start": 97.88,
      "params": {
       "name": "zaehlt_b"
      }
@@ -7203,25 +7560,9 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 97.64,
+     "start": 98.14,
      "params": {
       "name": "zaehlt_a"
-     }
-    },
-    {
-     "wer": "june",
-     "was": "gesicht",
-     "start": 97.66,
-     "params": {
-      "name": "zaehlt_c"
-     }
-    },
-    {
-     "wer": "june",
-     "was": "gesicht",
-     "start": 97.9,
-     "params": {
-      "name": "zaehlt_b"
      }
     },
     {
@@ -7235,7 +7576,23 @@
     {
      "wer": "june",
      "was": "gesicht",
-     "start": 98.42,
+     "start": 98.4,
+     "params": {
+      "name": "zaehlt_b"
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 98.66,
+     "params": {
+      "name": "zaehlt_c"
+     }
+    },
+    {
+     "wer": "june",
+     "was": "gesicht",
+     "start": 98.92,
      "params": {
       "name": "zaehlt_b"
      }
@@ -7260,9 +7617,9 @@
      "name": "zaehlt_c",
      "wort": "sleeps",
      "wort_i": 334,
-     "wort_start": 97.66,
-     "start": 97.66,
-     "ende": 97.66,
+     "wort_start": 98.16,
+     "start": 98.16,
+     "ende": 98.16,
      "anker": "start",
      "schluesselwort_idee": "sleeps"
     },
@@ -7273,7 +7630,7 @@
      "wechsel": 8
     },
     "hauptsache": "june.kopf",
-    "bogen_zeit": 97.86,
+    "bogen_zeit": 98.36,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -7283,20 +7640,29 @@
    }
   },
   {
-   "id": "E67",
-   "start": 98.4667,
-   "ende": 99.3667,
+   "id": "E68",
+   "start": 98.9667,
+   "ende": 99.8667,
    "set": [
     "keller"
    ],
    "licht": "kriechkeller",
    "licht_anpassung": {
     "hemi": {
-     "himmel": "#c8d4ff",
-     "boden": "#6a5040",
-     "staerke": 2.4
+     "himmel": "#7f93c4",
+     "boden": "#5a4030",
+     "staerke": 0.9
     },
-    "belichtung": 1.55
+    "kante": {
+     "farbe": "#9FD8D2",
+     "staerke": 2.6,
+     "richtung": [
+      0.5,
+      0.6,
+      -0.7
+     ]
+    },
+    "belichtung": 1.25
    },
    "kamera": {
     "baustein": "push_in",
@@ -7346,13 +7712,13 @@
      "wer": "mh",
      "was": "haende_weg",
      "dauer": 0.01,
-     "start": 98.4667,
+     "start": 98.9667,
      "nebenbei": true
     },
     {
      "wer": "mh",
      "was": "gesicht",
-     "start": 98.92,
+     "start": 99.42,
      "params": {
       "name": "june_bricht"
      }
@@ -7381,15 +7747,15 @@
      "name": "june_bricht",
      "wort": "never",
      "wort_i": 339,
-     "wort_start": 98.92,
-     "start": 98.92,
-     "ende": 98.92,
+     "wort_start": 99.42,
+     "start": 99.42,
+     "ende": 99.42,
      "anker": "start",
      "schluesselwort_idee": "never"
     },
     "gesichter": [],
     "hauptsache": "mh.kopf",
-    "bogen_zeit": 99.12,
+    "bogen_zeit": 99.62,
     "akzent": false,
     "monster": true,
     "sichtbar": [
@@ -7398,9 +7764,9 @@
    }
   },
   {
-   "id": "E68",
-   "start": 99.3667,
-   "ende": 100.5667,
+   "id": "E69",
+   "start": 99.8667,
+   "ende": 101.0667,
    "set": [
     "strasse",
     "haus"
@@ -7424,8 +7790,8 @@
     "hoehe": 0.8,
     "rueck": 0.3,
     "fov": 56,
-    "ankunft": 99.9,
-    "start": 99.1167
+    "ankunft": 100.4,
+    "start": 99.6167
    },
    "stellung": {
     "luke_tp": {
@@ -7461,9 +7827,9 @@
      "art": "kamera",
      "wort": "bed",
      "wort_i": 344,
-     "wort_start": 99.9,
-     "start": 99.9,
-     "ende": 99.9,
+     "wort_start": 100.4,
+     "start": 100.4,
+     "ende": 100.4,
      "anker": "start",
      "schluesselwort_idee": "bed"
     },
@@ -7473,7 +7839,7 @@
      0.8,
      3
     ],
-    "bogen_zeit": 100.05,
+    "bogen_zeit": 100.55,
     "akzent": true,
     "monster": false,
     "sichtbar": [
@@ -7482,24 +7848,46 @@
    }
   },
   {
-   "id": "E69",
-   "start": 100.5667,
-   "ende": 102.1,
+   "id": "E70",
+   "start": 101.0667,
+   "ende": 102.6,
    "set": [
     "keller"
    ],
    "licht": "kriechkeller",
+   "licht_anpassung": {
+    "hemi": {
+     "himmel": "#7f93c4",
+     "boden": "#5a4030",
+     "staerke": 0.9
+    },
+    "kante": {
+     "farbe": "#9FD8D2",
+     "staerke": 2.6,
+     "richtung": [
+      0.5,
+      0.6,
+      -0.7
+     ]
+    },
+    "belichtung": 1.25
+   },
    "kamera": {
     "baustein": "push_in",
-    "pos": [
-     299.4,
-     0.32,
-     -0.32
-    ],
     "ziel": {
-     "anker": "mh.haende"
+     "anker": "mh.kopf",
+     "versatz": [
+      0,
+      0,
+      0
+     ]
     },
-    "fov": 66,
+    "blick": {
+     "azimut": -90,
+     "hoehe": -8,
+     "abstand": 2
+    },
+    "fov": 60,
     "roll": 180,
     "rate": 0.07
    },
@@ -7529,28 +7917,24 @@
      "wer": "mh",
      "was": "haende_weg",
      "dauer": 0.01,
-     "start": 100.5667,
+     "params": {
+      "staerke": 0.55
+     },
+     "start": 101.0667,
      "nebenbei": true
     },
     {
      "wer": "mh",
      "was": "zittern",
-     "start": 101.48,
-     "dauer": 1,
-     "params": {
-      "staerke": 1.2
-     }
-    },
-    {
-     "wer": "mh",
-     "was": "haende_vor",
-     "dauer": 0.7,
      "start": 101.98,
-     "nebenbei": true
+     "dauer": 1.2,
+     "params": {
+      "staerke": 2.2
+     }
     }
    ],
    "tiefenunschaerfe": {
-    "fokus": "mh.haende",
+    "fokus": "mh.kopf",
     "staerke": 0.8
    },
    "schatten_bereich": 10,
@@ -7572,15 +7956,15 @@
      "was": "zittern",
      "wort": "shook",
      "wort_i": 349,
-     "wort_start": 101.48,
-     "start": 101.48,
-     "ende": 102.48,
+     "wort_start": 101.98,
+     "start": 101.98,
+     "ende": 103.18,
      "anker": "start",
      "schluesselwort_idee": "shook"
     },
     "gesichter": [],
-    "hauptsache": "mh.haende",
-    "bogen_zeit": 102.0333,
+    "hauptsache": "mh.kopf",
+    "bogen_zeit": 102.5333,
     "akzent": false,
     "monster": true,
     "sichtbar": [
@@ -7589,72 +7973,97 @@
    }
   },
   {
-   "id": "E70",
-   "start": 102.1,
-   "ende": 104.4,
+   "id": "E71",
+   "start": 102.6,
+   "ende": 104.9,
    "set": [
     "keller"
    ],
    "licht": "kriechkeller",
+   "licht_anpassung": {
+    "hemi": {
+     "himmel": "#7f93c4",
+     "boden": "#5a4030",
+     "staerke": 0.9
+    },
+    "kante": {
+     "farbe": "#9FD8D2",
+     "staerke": 2.6,
+     "richtung": [
+      0.5,
+      0.6,
+      -0.7
+     ]
+    },
+    "belichtung": 1.25
+   },
    "kamera": {
     "baustein": "push_in",
     "ziel": {
-     "anker": "eli.augen",
+     "anker": "mh.kopf",
      "versatz": [
       0,
-      0.02,
+      0,
       0
      ]
     },
     "blick": {
-     "azimut": 192,
-     "hoehe": 26,
-     "abstand": 0.95
+     "azimut": -90,
+     "hoehe": -8,
+     "abstand": 1.55
     },
-    "fov": 46,
-    "roll": -90,
-    "rate": 0.07
+    "fov": 56,
+    "roll": 180,
+    "rate": 0.06
    },
    "stellung": {
-    "eli": {
+    "mh": {
      "neu": true,
      "sichtbar": true,
      "position": [
-      301.3,
-      0,
-      -0.35
+      300.42,
+      7.18,
+      0
      ],
      "blick": 90,
-     "pose": "liegen",
+     "pose": "kopfueber",
      "pose_params": {
-      "kopf": 34
+      "neigung": 180,
+      "nicken": 0
      },
-     "gesicht": "angst"
-    },
-    "mh": {
-     "sichtbar": false
+     "gesicht": "june_bricht"
     }
    },
    "aktionen": [
     {
-     "wer": "eli",
-     "was": "gesicht",
-     "start": 102.48,
+     "wer": "mh",
+     "was": "haende_weg",
+     "dauer": 0.01,
      "params": {
-      "name": "schock"
-     }
+      "staerke": 0.55
+     },
+     "start": 102.6,
+     "nebenbei": true
     },
     {
-     "wer": "eli",
-     "was": "gesicht",
-     "start": 103.5,
+     "wer": "mh",
+     "was": "zittern",
+     "dauer": 0.8,
      "params": {
-      "name": "angst"
-     }
+      "staerke": 1.4
+     },
+     "start": 102.6,
+     "nebenbei": true
+    },
+    {
+     "wer": "mh",
+     "was": "haende_vor",
+     "start": 102.98,
+     "dauer": 0.9
     }
    ],
    "tiefenunschaerfe": {
-    "fokus": "eli.kopf",
+    "fokus": "mh.kopf",
     "staerke": 0.8
    },
    "schatten_bereich": 10,
@@ -7671,39 +8080,31 @@
     "ort": "kriechkeller",
     "modul": "kriechkeller",
     "haupt": {
-     "art": "gesicht",
-     "wer": "eli",
-     "name": "schock",
+     "art": "aktion",
+     "wer": "mh",
+     "was": "haende_vor",
      "wort": "pulled",
      "wort_i": 352,
-     "wort_start": 102.48,
-     "start": 102.48,
-     "ende": 102.48,
+     "wort_start": 102.98,
+     "start": 102.98,
+     "ende": 103.88,
      "anker": "start",
      "schluesselwort_idee": "pulled"
     },
-    "gesichter": [
-     {
-      "wer": "eli",
-      "name": "angst",
-      "wort": "own",
-      "wort_start": 103.5,
-      "start": 103.5
-     }
-    ],
-    "hauptsache": "eli.kopf",
-    "bogen_zeit": 102.68,
+    "gesichter": [],
+    "hauptsache": "mh.kopf",
+    "bogen_zeit": 103.98,
     "akzent": false,
-    "monster": false,
+    "monster": true,
     "sichtbar": [
-     "eli"
+     "mh"
     ]
    }
   },
   {
-   "id": "E71",
-   "start": 104.4,
-   "ende": 106.5,
+   "id": "E72",
+   "start": 104.9,
+   "ende": 107,
    "set": [
     "keller"
    ],
@@ -7742,13 +8143,16 @@
       "kopf": 36
      },
      "gesicht": "angst"
+    },
+    "mh": {
+     "sichtbar": false
     }
    },
    "aktionen": [
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 104.74,
+     "start": 105.24,
      "params": {
       "name": "augen_zu"
      }
@@ -7777,15 +8181,15 @@
      "name": "augen_zu",
      "wort": "eyes",
      "wort_i": 361,
-     "wort_start": 104.74,
-     "start": 104.74,
-     "ende": 104.74,
+     "wort_start": 105.24,
+     "start": 105.24,
+     "ende": 105.24,
      "anker": "start",
      "schluesselwort_idee": "eyes"
     },
     "gesichter": [],
     "hauptsache": "eli.kopf",
-    "bogen_zeit": 104.94,
+    "bogen_zeit": 105.44,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -7797,9 +8201,9 @@
    }
   },
   {
-   "id": "E72",
-   "start": 106.5,
-   "ende": 107.6333,
+   "id": "E73",
+   "start": 107,
+   "ende": 108.1333,
    "set": [
     "keller"
    ],
@@ -7856,7 +8260,7 @@
     {
      "wer": "mh",
      "was": "zaehlen",
-     "start": 106.62,
+     "start": 107.12,
      "dauer": 1.1,
      "params": {
       "takt": 0.55,
@@ -7887,15 +8291,15 @@
      "was": "zaehlen",
      "wort": "counted",
      "wort_i": 367,
-     "wort_start": 106.62,
-     "start": 106.62,
-     "ende": 107.72,
+     "wort_start": 107.12,
+     "start": 107.12,
+     "ende": 108.22,
      "anker": "start",
      "schluesselwort_idee": "counted"
     },
     "gesichter": [],
     "hauptsache": "mh.haende",
-    "bogen_zeit": 107.5666,
+    "bogen_zeit": 108.0666,
     "akzent": false,
     "monster": true,
     "sichtbar": [
@@ -7904,9 +8308,9 @@
    }
   },
   {
-   "id": "E73",
-   "start": 107.6333,
-   "ende": 109.9333,
+   "id": "E74",
+   "start": 108.1333,
+   "ende": 110.4333,
    "set": [
     "keller"
    ],
@@ -7956,7 +8360,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 107.6333,
+     "start": 108.1333,
      "params": {
       "name": "zaehlt_a"
      }
@@ -7964,7 +8368,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 107.9833,
+     "start": 108.4833,
      "params": {
       "name": "zaehlt_b"
      }
@@ -7972,7 +8376,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 108.3333,
+     "start": 108.8333,
      "params": {
       "name": "zaehlt_c"
      }
@@ -7980,7 +8384,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 108.6833,
+     "start": 109.1833,
      "params": {
       "name": "zaehlt_b"
      }
@@ -7988,7 +8392,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 109.0333,
+     "start": 109.5333,
      "params": {
       "name": "zaehlt_a"
      }
@@ -7996,7 +8400,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 109.3833,
+     "start": 109.8833,
      "params": {
       "name": "zaehlt_b"
      }
@@ -8004,7 +8408,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 109.7333,
+     "start": 110.2333,
      "params": {
       "name": "zaehlt_c"
      }
@@ -8027,9 +8431,9 @@
      "art": "kamera",
      "wort": "deep",
      "wort_i": 377,
-     "wort_start": 109.3,
-     "start": 109.3,
-     "ende": 109.3,
+     "wort_start": 109.8,
+     "start": 109.8,
+     "ende": 109.8,
      "anker": "start",
      "schluesselwort_idee": "deep"
     },
@@ -8040,7 +8444,7 @@
      "wechsel": 7
     },
     "hauptsache": "eli.kopf",
-    "bogen_zeit": 109.45,
+    "bogen_zeit": 109.95,
     "akzent": true,
     "monster": false,
     "sichtbar": [
@@ -8049,9 +8453,9 @@
    }
   },
   {
-   "id": "E74",
-   "start": 109.9333,
-   "ende": 111.5,
+   "id": "E75",
+   "start": 110.4333,
+   "ende": 112,
    "set": [
     "keller"
    ],
@@ -8096,7 +8500,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 109.9333,
+     "start": 110.4333,
      "params": {
       "name": "zaehlt_a"
      }
@@ -8104,7 +8508,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 110.2333,
+     "start": 110.7333,
      "params": {
       "name": "zaehlt_b"
      }
@@ -8112,7 +8516,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 110.5333,
+     "start": 111.0333,
      "params": {
       "name": "zaehlt_c"
      }
@@ -8120,7 +8524,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 110.78,
+     "start": 111.28,
      "params": {
       "name": "augen_zu"
      }
@@ -8149,9 +8553,9 @@
      "name": "augen_zu",
      "wort": "sound",
      "wort_i": 382,
-     "wort_start": 110.78,
-     "start": 110.78,
-     "ende": 110.78,
+     "wort_start": 111.28,
+     "start": 111.28,
+     "ende": 111.28,
      "anker": "start",
      "schluesselwort_idee": "sound"
     },
@@ -8162,7 +8566,7 @@
      "wechsel": 3
     },
     "hauptsache": "eli.kopf",
-    "bogen_zeit": 110.98,
+    "bogen_zeit": 111.48,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -8171,9 +8575,9 @@
    }
   },
   {
-   "id": "E75",
-   "start": 111.5,
-   "ende": 113.1333,
+   "id": "E76",
+   "start": 112,
+   "ende": 113.6333,
    "set": [
     "keller"
    ],
@@ -8230,7 +8634,7 @@
     {
      "wer": "mh",
      "was": "finger_spreizen",
-     "start": 112.58,
+     "start": 113.08,
      "dauer": 0.15,
      "params": {
       "seite": "r",
@@ -8244,7 +8648,7 @@
      "params": {
       "staerke": 0.4
      },
-     "start": 112.88,
+     "start": 113.38,
      "nebenbei": true
     }
    ],
@@ -8271,15 +8675,15 @@
      "was": "finger_spreizen",
      "wort": "hundred",
      "wort_i": 388,
-     "wort_start": 112.58,
-     "start": 112.58,
-     "ende": 112.73,
+     "wort_start": 113.08,
+     "start": 113.08,
+     "ende": 113.23,
      "anker": "start",
      "schluesselwort_idee": "hundred"
     },
     "gesichter": [],
     "hauptsache": "mh.haende",
-    "bogen_zeit": 112.83,
+    "bogen_zeit": 113.33,
     "akzent": false,
     "monster": true,
     "sichtbar": [
@@ -8288,9 +8692,9 @@
    }
   },
   {
-   "id": "E76",
-   "start": 113.1333,
-   "ende": 115.2667,
+   "id": "E77",
+   "start": 113.6333,
+   "ende": 115.7667,
    "set": [
     "keller"
    ],
@@ -8344,15 +8748,15 @@
      "art": "kamera",
      "wort": "over",
      "wort_i": 391,
-     "wort_start": 113.56,
-     "start": 113.56,
-     "ende": 113.56,
+     "wort_start": 114.06,
+     "start": 114.06,
+     "ende": 114.06,
      "anker": "start",
      "schluesselwort_idee": "over"
     },
     "gesichter": [],
     "hauptsache": "keller.gitter",
-    "bogen_zeit": 113.71,
+    "bogen_zeit": 114.21,
     "akzent": true,
     "monster": false,
     "sichtbar": [
@@ -8361,9 +8765,9 @@
    }
   },
   {
-   "id": "E77",
-   "start": 115.2667,
-   "ende": 117.2,
+   "id": "E78",
+   "start": 115.7667,
+   "ende": 117.7,
    "set": [
     "keller"
    ],
@@ -8420,7 +8824,7 @@
     {
      "wer": "mh",
      "was": "haende_weg",
-     "start": 116.62,
+     "start": 117.12,
      "dauer": 0.8,
      "params": {
       "staerke": 0.22
@@ -8450,15 +8854,15 @@
      "was": "haende_weg",
      "wort": "faint",
      "wort_i": 401,
-     "wort_start": 116.62,
-     "start": 116.62,
-     "ende": 117.42,
+     "wort_start": 117.12,
+     "start": 117.12,
+     "ende": 117.92,
      "anker": "start",
      "schluesselwort_idee": "faint"
     },
     "gesichter": [],
     "hauptsache": "mh.kopf",
-    "bogen_zeit": 117.1333,
+    "bogen_zeit": 117.6333,
     "akzent": false,
     "monster": true,
     "sichtbar": [
@@ -8467,88 +8871,98 @@
    }
   },
   {
-   "id": "E78",
-   "start": 117.2,
-   "ende": 118.6,
+   "id": "E79",
+   "start": 117.7,
+   "ende": 119.1,
    "set": [
     "strasse",
     "haus"
    ],
    "licht": "innen_warm",
    "licht_anpassung": {
-    "belichtung": 0.85
+    "hemi": {
+     "himmel": "#7f93c4",
+     "boden": "#5a4030",
+     "staerke": 0.9
+    },
+    "kante": {
+     "farbe": "#9FD8D2",
+     "staerke": 2.6,
+     "richtung": [
+      0.5,
+      0.6,
+      -0.7
+     ]
+    },
+    "belichtung": 1.25
    },
    "kamera": {
     "baustein": "push_in",
     "ziel": {
-     "anker": "june.kopf",
+     "anker": "mh.kopf",
      "versatz": [
       0,
-      0.04,
+      0,
       0
      ]
     },
     "blick": {
-     "azimut": 92,
-     "hoehe": 52,
-     "abstand": 1.5
+     "azimut": -90,
+     "hoehe": -8,
+     "abstand": 1.35
     },
-    "fov": 40,
-    "rate": 0.06
+    "fov": 52,
+    "roll": 180,
+    "rate": 0.05
    },
    "stellung": {
-    "june": {
+    "mh": {
      "neu": true,
      "sichtbar": true,
      "position": [
-      -18.85,
-      1,
-      4.2
+      300.42,
+      7.18,
+      0
      ],
      "blick": 90,
-     "pose": "liegen",
-     "gesicht": "verschlafen"
-    },
-    "mh": {
-     "sichtbar": false
+     "pose": "kopfueber",
+     "pose_params": {
+      "neigung": 180,
+      "nicken": 0
+     },
+     "gesicht": "june_muede"
     }
    },
    "aktionen": [
     {
-     "wer": "june",
-     "was": "gesicht",
-     "start": 117.2,
+     "wer": "mh",
+     "was": "haende_weg",
+     "dauer": 0.01,
      "params": {
-      "name": "zaehlt_a"
-     }
+      "staerke": 0.35
+     },
+     "start": 117.7,
+     "nebenbei": true
     },
     {
-     "wer": "june",
+     "wer": "mh",
      "was": "gesicht",
-     "start": 117.52,
+     "start": 118.34,
      "params": {
-      "name": "zaehlt_b"
-     }
-    },
-    {
-     "wer": "june",
-     "was": "gesicht",
-     "start": 117.84,
-     "params": {
-      "name": "augen_zu"
+      "name": "june_schlaeft"
      }
     }
    ],
    "licht_ereignisse": [
     {
      "art": "aus",
-     "start": 117.74,
-     "ziel": "haus.june_lampe",
-     "dauer": 0.4
+     "start": 118.24,
+     "ziel": "keller.lukenlicht",
+     "dauer": 0.5
     }
    ],
    "tiefenunschaerfe": {
-    "fokus": "june.kopf",
+    "fokus": "mh.kopf",
     "staerke": 0.8
    },
    "schatten_bereich": 16,
@@ -8568,39 +8982,34 @@
      "art": "licht",
      "wort": "asleep",
      "wort_i": 406,
-     "wort_start": 117.84,
-     "start": 117.74,
-     "ende": 118.14,
+     "wort_start": 118.34,
+     "start": 118.24,
+     "ende": 118.74,
      "anker": "start",
      "schluesselwort_idee": "asleep"
     },
     "gesichter": [
      {
-      "wer": "june",
-      "name": "augen_zu",
+      "wer": "mh",
+      "name": "june_schlaeft",
       "wort": "asleep",
-      "wort_start": 117.84,
-      "start": 117.84
+      "wort_start": 118.34,
+      "start": 118.34
      }
     ],
-    "mund": {
-     "wer": "june",
-     "art": "zaehlen",
-     "wechsel": 2
-    },
-    "hauptsache": "june.kopf",
-    "bogen_zeit": 118.24,
+    "hauptsache": "mh.kopf",
+    "bogen_zeit": 118.84,
     "akzent": false,
-    "monster": false,
+    "monster": true,
     "sichtbar": [
-     "june"
+     "mh"
     ]
    }
   },
   {
-   "id": "E79",
-   "start": 118.6,
-   "ende": 120.4333,
+   "id": "E80",
+   "start": 119.1,
+   "ende": 121.4333,
    "set": [
     "keller"
    ],
@@ -8640,7 +9049,7 @@
      },
      "gesicht": "augen_zu"
     },
-    "june": {
+    "mh": {
      "sichtbar": false
     }
    },
@@ -8648,7 +9057,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 118.6,
+     "start": 119.1,
      "params": {
       "name": "zaehlt_a"
      }
@@ -8656,7 +9065,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 118.9,
+     "start": 119.4,
      "params": {
       "name": "zaehlt_b"
      }
@@ -8664,7 +9073,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 119.2,
+     "start": 119.7,
      "params": {
       "name": "zaehlt_c"
      }
@@ -8672,16 +9081,26 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 119.5,
+     "start": 120,
      "params": {
       "name": "zaehlt_b"
      }
+    },
+    {
+     "wer": "eli",
+     "was": "erschrecken",
+     "dauer": 0.3,
+     "params": {
+      "staerke": 0.35
+     },
+     "start": 120.86,
+     "nebenbei": true
     }
    ],
    "partikel": [
     {
      "art": "atem",
-     "start": 119.74,
+     "start": 120.24,
      "ort": "eli.mund",
      "periode": 1.2,
      "richtung": [
@@ -8715,9 +9134,9 @@
      "art": "partikel",
      "wort": "stopped",
      "wort_i": 410,
-     "wort_start": 119.74,
-     "start": 119.74,
-     "ende": 120.24,
+     "wort_start": 120.24,
+     "start": 120.24,
+     "ende": 120.74,
      "anker": "start",
      "schluesselwort_idee": "stopped"
     },
@@ -8728,7 +9147,7 @@
      "wechsel": 4
     },
     "hauptsache": "eli.kopf",
-    "bogen_zeit": 119.94,
+    "bogen_zeit": 120.44,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -8737,9 +9156,9 @@
    }
   },
   {
-   "id": "E80",
-   "start": 120.4333,
-   "ende": 121.6333,
+   "id": "E81",
+   "start": 121.4333,
+   "ende": 122.6333,
    "set": [
     "strasse",
     "marsh"
@@ -8787,8 +9206,8 @@
     ],
     "kran": 1.4,
     "fov": 56,
-    "ankunft": 121.05,
-    "start": 120.1833
+    "ankunft": 122.05,
+    "start": 121.1833
    },
    "stellung": {
     "sp_tess": {
@@ -8823,15 +9242,15 @@
      "art": "kamera",
      "wort": "hundred",
      "wort_i": 414,
-     "wort_start": 121.05,
-     "start": 121.05,
-     "ende": 121.05,
+     "wort_start": 122.05,
+     "start": 122.05,
+     "ende": 122.05,
      "anker": "start",
      "schluesselwort_idee": "hundred"
     },
     "gesichter": [],
     "hauptsache": "strasse.glocke",
-    "bogen_zeit": 121.2,
+    "bogen_zeit": 122.2,
     "akzent": true,
     "monster": false,
     "sichtbar": [
@@ -8840,9 +9259,9 @@
    }
   },
   {
-   "id": "E81",
-   "start": 121.6333,
-   "ende": 123.1333,
+   "id": "E82",
+   "start": 122.6333,
+   "ende": 124.1333,
    "set": [
     "strasse",
     "marsh"
@@ -8933,7 +9352,7 @@
        -62.65
       ]
      },
-     "start": 121.6333,
+     "start": 122.6333,
      "nebenbei": true
     }
    ],
@@ -8955,9 +9374,9 @@
      "was": "glocke",
      "wort": "bell",
      "wort_i": 417,
-     "wort_start": 122,
-     "start": 122,
-     "ende": 122.6,
+     "wort_start": 123,
+     "start": 123,
+     "ende": 123.6,
      "anker": "start",
      "schluesselwort_idee": "bell"
     },
@@ -8967,7 +9386,7 @@
      13.3,
      -61.5
     ],
-    "bogen_zeit": 122.2,
+    "bogen_zeit": 123.2,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -8977,9 +9396,9 @@
    }
   },
   {
-   "id": "E82",
-   "start": 123.1333,
-   "ende": 124.3,
+   "id": "E83",
+   "start": 124.1333,
+   "ende": 125.3,
    "set": [
     "keller"
    ],
@@ -9086,7 +9505,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 123.36,
+     "start": 124.36,
      "params": {
       "name": "besorgt"
      }
@@ -9115,15 +9534,15 @@
      "name": "besorgt",
      "wort": "opened",
      "wort_i": 421,
-     "wort_start": 123.36,
-     "start": 123.36,
-     "ende": 123.36,
+     "wort_start": 124.36,
+     "start": 124.36,
+     "ende": 124.36,
      "anker": "start",
      "schluesselwort_idee": "opened"
     },
     "gesichter": [],
     "hauptsache": "eli.kopf",
-    "bogen_zeit": 123.56,
+    "bogen_zeit": 124.56,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -9133,9 +9552,9 @@
    }
   },
   {
-   "id": "E83",
-   "start": 124.3,
-   "ende": 125.5,
+   "id": "E84",
+   "start": 125.3,
+   "ende": 126.5,
    "set": [
     "keller"
    ],
@@ -9250,15 +9669,15 @@
      "art": "kamera",
      "wort": "over",
      "wort_i": 427,
-     "wort_start": 125,
-     "start": 125,
-     "ende": 125,
+     "wort_start": 126,
+     "start": 126,
+     "ende": 126,
      "anker": "start",
      "schluesselwort_idee": "over"
     },
     "gesichter": [],
     "hauptsache": "eli.kopf",
-    "bogen_zeit": 125.15,
+    "bogen_zeit": 126.15,
     "akzent": true,
     "monster": false,
     "sichtbar": [
@@ -9268,9 +9687,9 @@
    }
   },
   {
-   "id": "E84",
-   "start": 125.5,
-   "ende": 126.5667,
+   "id": "E85",
+   "start": 126.5,
+   "ende": 127.5667,
    "set": [
     "keller"
    ],
@@ -9322,18 +9741,31 @@
    },
    "kamera": {
     "baustein": "push_in",
-    "ziel": {
-     "anker": "lampe_alt.mitte"
-    },
-    "blick": {
-     "azimut": 160,
-     "hoehe": 30,
-     "abstand": 0.75
-    },
-    "fov": 40,
+    "pos": [
+     297.3,
+     0.62,
+     1.9
+    ],
+    "ziel": [
+     300.2,
+     0.45,
+     -0.4
+    ],
+    "fov": 60,
     "rate": 0.07
    },
    "stellung": {
+    "luke_k": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      300.45,
+      1.016,
+      -0.4
+     ],
+     "blick": 0,
+     "pose": "oeffnen"
+    },
     "lampe_alt": {
      "neu": true,
      "sichtbar": true,
@@ -9346,14 +9778,15 @@
     },
     "eli": {
      "sichtbar": false
-    },
-    "luke_k": {
-     "sichtbar": false
     }
    },
    "aktionen": [],
    "tiefenunschaerfe": {
-    "fokus": "lampe_alt.mitte",
+    "fokus": [
+     300.2,
+     0.45,
+     -0.4
+    ],
     "staerke": 0.8
    },
    "schatten_bereich": 10,
@@ -9373,26 +9806,31 @@
      "art": "kamera",
      "wort": "alone",
      "wort_i": 431,
-     "wort_start": 125.84,
-     "start": 125.84,
-     "ende": 125.84,
+     "wort_start": 126.84,
+     "start": 126.84,
+     "ende": 126.84,
      "anker": "start",
      "schluesselwort_idee": "alone"
     },
     "gesichter": [],
-    "hauptsache": "lampe_alt.mitte",
-    "bogen_zeit": 125.99,
+    "hauptsache": [
+     300.2,
+     0.45,
+     -0.4
+    ],
+    "bogen_zeit": 126.99,
     "akzent": false,
     "monster": false,
     "sichtbar": [
+     "luke_k",
      "lampe_alt"
     ]
    }
   },
   {
-   "id": "E85",
-   "start": 126.5667,
-   "ende": 127.5333,
+   "id": "E86",
+   "start": 127.5667,
+   "ende": 128.5333,
    "set": [
     "strasse",
     "haus"
@@ -9450,6 +9888,9 @@
      "blick": 90,
      "pose": "offen"
     },
+    "luke_k": {
+     "sichtbar": false
+    },
     "lampe_alt": {
      "sichtbar": false
     }
@@ -9458,7 +9899,7 @@
     {
      "wer": "eli",
      "was": "klettern",
-     "start": 126.64,
+     "start": 127.64,
      "dauer": 0.6,
      "params": {
       "hoehe": 0.75,
@@ -9485,15 +9926,15 @@
      "was": "klettern",
      "wort": "climbed",
      "wort_i": 433,
-     "wort_start": 126.64,
-     "start": 126.64,
-     "ende": 127.24,
+     "wort_start": 127.64,
+     "start": 127.64,
+     "ende": 128.24,
      "anker": "start",
      "schluesselwort_idee": "climbed"
     },
     "gesichter": [],
     "hauptsache": "eli.kopf",
-    "bogen_zeit": 127.34,
+    "bogen_zeit": 128.34,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -9503,9 +9944,9 @@
    }
   },
   {
-   "id": "E86",
-   "start": 127.5333,
-   "ende": 129.9667,
+   "id": "E87",
+   "start": 128.5333,
+   "ende": 130.9667,
    "set": [
     "strasse",
     "haus"
@@ -9586,15 +10027,15 @@
      "art": "kamera",
      "wort": "sneakers",
      "wort_i": 437,
-     "wort_start": 128.12,
-     "start": 128.12,
-     "ende": 128.12,
+     "wort_start": 129.12,
+     "start": 129.12,
+     "ende": 129.12,
      "anker": "start",
      "schluesselwort_idee": "sneakers"
     },
     "gesichter": [],
     "hauptsache": "sp_june.mitte",
-    "bogen_zeit": 128.27,
+    "bogen_zeit": 129.27,
     "akzent": true,
     "monster": false,
     "sichtbar": [
@@ -9604,9 +10045,9 @@
    }
   },
   {
-   "id": "E87",
-   "start": 129.9667,
-   "ende": 131.0333,
+   "id": "E88",
+   "start": 130.9667,
+   "ende": 132.0333,
    "set": [
     "strasse",
     "haus"
@@ -9637,7 +10078,7 @@
     "fov": 40,
     "faktor": 1.18,
     "bilder": 2,
-    "zeit": 129.99
+    "zeit": 130.99
    },
    "stellung": {
     "sp_june": {
@@ -9676,15 +10117,15 @@
      "art": "kamera",
      "wort": "side",
      "wort_i": 443,
-     "wort_start": 129.99,
-     "start": 129.99,
-     "ende": 129.99,
+     "wort_start": 130.99,
+     "start": 130.99,
+     "ende": 130.99,
      "anker": "start",
      "schluesselwort_idee": "side"
     },
     "gesichter": [],
     "hauptsache": "sp_june.mitte",
-    "bogen_zeit": 130.14,
+    "bogen_zeit": 131.14,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -9693,9 +10134,9 @@
    }
   },
   {
-   "id": "E88",
-   "start": 131.0333,
-   "ende": 131.9667,
+   "id": "E89",
+   "start": 132.0333,
+   "ende": 132.9667,
    "set": [
     "strasse",
     "haus"
@@ -9783,9 +10224,9 @@
      "art": "kamera",
      "wort": "hall",
      "wort_i": 448,
-     "wort_start": 131.26,
-     "start": 131.26,
-     "ende": 131.26,
+     "wort_start": 132.26,
+     "start": 132.26,
+     "ende": 132.26,
      "anker": "start",
      "schluesselwort_idee": "hall"
     },
@@ -9795,7 +10236,7 @@
      0.7,
      -2
     ],
-    "bogen_zeit": 131.41,
+    "bogen_zeit": 132.41,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -9806,9 +10247,9 @@
    }
   },
   {
-   "id": "E89",
-   "start": 131.9667,
-   "ende": 134.2,
+   "id": "E90",
+   "start": 132.9667,
+   "ende": 135.2,
    "set": [
     "strasse",
     "haus"
@@ -9833,8 +10274,8 @@
     "ziel": "sp_eli.mitte",
     "blick": {
      "azimut": 60,
-     "hoehe": 36,
-     "abstand": 1.1
+     "hoehe": 76,
+     "abstand": 0.95
     },
     "fov": 42,
     "rate": 0.07
@@ -9851,14 +10292,7 @@
      "blick": 100
     },
     "sp_f1": {
-     "neu": true,
-     "sichtbar": true,
-     "position": [
-      -13.6,
-      0.6,
-      -1.7
-     ],
-     "blick": 70
+     "sichtbar": false
     },
     "sp_f2": {
      "sichtbar": false
@@ -9882,27 +10316,26 @@
      "art": "kamera",
      "wort": "side",
      "wort_i": 453,
-     "wort_start": 132.96,
-     "start": 132.96,
-     "ende": 132.96,
+     "wort_start": 133.96,
+     "start": 133.96,
+     "ende": 133.96,
      "anker": "start",
      "schluesselwort_idee": "side"
     },
     "gesichter": [],
     "hauptsache": "sp_eli.mitte",
-    "bogen_zeit": 133.11,
+    "bogen_zeit": 134.11,
     "akzent": false,
     "monster": false,
     "sichtbar": [
-     "sp_eli",
-     "sp_f1"
+     "sp_eli"
     ]
    }
   },
   {
-   "id": "E90",
-   "start": 134.2,
-   "ende": 135.8333,
+   "id": "E91",
+   "start": 135.2,
+   "ende": 136.8333,
    "set": [
     "strasse",
     "haus"
@@ -9929,8 +10362,8 @@
     "hoehe": 0.8,
     "rueck": 0.4,
     "fov": 50,
-    "ankunft": 135.29,
-    "start": 133.95
+    "ankunft": 136.29,
+    "start": 134.95
    },
    "stellung": {
     "eli": {
@@ -9947,16 +10380,13 @@
     },
     "sp_eli": {
      "sichtbar": false
-    },
-    "sp_f1": {
-     "sichtbar": false
     }
    },
    "aktionen": [
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 134.2,
+     "start": 135.2,
      "params": {
       "name": "zaehlt_a"
      }
@@ -9964,7 +10394,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 134.46,
+     "start": 135.46,
      "params": {
       "name": "zaehlt_b"
      }
@@ -9972,7 +10402,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 134.72,
+     "start": 135.72,
      "params": {
       "name": "zaehlt_c"
      }
@@ -9980,7 +10410,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 134.98,
+     "start": 135.98,
      "params": {
       "name": "zaehlt_b"
      }
@@ -9988,7 +10418,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 135.24,
+     "start": 136.24,
      "params": {
       "name": "zaehlt_a"
      }
@@ -9996,7 +10426,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 135.5,
+     "start": 136.5,
      "params": {
       "name": "zaehlt_b"
      }
@@ -10004,7 +10434,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 135.76,
+     "start": 136.76,
      "params": {
       "name": "zaehlt_c"
      }
@@ -10027,9 +10457,9 @@
      "art": "kamera",
      "wort": "count",
      "wort_i": 460,
-     "wort_start": 135.29,
-     "start": 135.29,
-     "ende": 135.29,
+     "wort_start": 136.29,
+     "start": 136.29,
+     "ende": 136.29,
      "anker": "start",
      "schluesselwort_idee": "count"
     },
@@ -10040,7 +10470,7 @@
      "wechsel": 7
     },
     "hauptsache": "eli.kopf",
-    "bogen_zeit": 135.44,
+    "bogen_zeit": 136.44,
     "akzent": true,
     "monster": false,
     "sichtbar": [
@@ -10049,9 +10479,9 @@
    }
   },
   {
-   "id": "E91",
-   "start": 135.8333,
-   "ende": 138.2,
+   "id": "E92",
+   "start": 136.8333,
+   "ende": 139.2,
    "set": [
     "strasse",
     "haus"
@@ -10096,7 +10526,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 135.8333,
+     "start": 136.8333,
      "params": {
       "name": "zaehlt_a"
      }
@@ -10104,7 +10534,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 136.1133,
+     "start": 137.1133,
      "params": {
       "name": "zaehlt_b"
      }
@@ -10112,7 +10542,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 136.3933,
+     "start": 137.3933,
      "params": {
       "name": "zaehlt_c"
      }
@@ -10120,7 +10550,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 136.6733,
+     "start": 137.6733,
      "params": {
       "name": "zaehlt_b"
      }
@@ -10128,7 +10558,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 136.82,
+     "start": 137.82,
      "params": {
       "name": "augen_zu"
      }
@@ -10136,7 +10566,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 136.9533,
+     "start": 137.9533,
      "params": {
       "name": "zaehlt_a"
      }
@@ -10144,7 +10574,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 137.2333,
+     "start": 138.2333,
      "params": {
       "name": "zaehlt_b"
      }
@@ -10152,7 +10582,7 @@
     {
      "wer": "eli",
      "was": "gesicht",
-     "start": 137.5133,
+     "start": 138.5133,
      "params": {
       "name": "zaehlt_c"
      }
@@ -10160,25 +10590,25 @@
    ],
    "partikel": [
     {
-     "start": 137.65,
-     "dauer": 0.55,
+     "start": 137.82,
+     "dauer": 1.38,
      "art": "atem",
      "ort": {
       "anker": "eli.mund",
       "versatz": [
        0,
        0.03,
-       0.08
+       0.04
       ]
      },
-     "periode": 1,
+     "periode": 1.1,
      "richtung": [
       0,
       1,
-      0
+      -0.3
      ],
-     "groesse": 0.03,
-     "deckkraft": 0.85
+     "groesse": 0.02,
+     "deckkraft": 0.75
     }
    ],
    "tiefenunschaerfe": {
@@ -10204,9 +10634,9 @@
      "name": "augen_zu",
      "wort": "asleep",
      "wort_i": 467,
-     "wort_start": 136.82,
-     "start": 136.82,
-     "ende": 136.82,
+     "wort_start": 137.82,
+     "start": 137.82,
+     "ende": 137.82,
      "anker": "start",
      "schluesselwort_idee": "asleep"
     },
@@ -10217,7 +10647,7 @@
      "wechsel": 7
     },
     "hauptsache": "eli.kopf",
-    "bogen_zeit": 137.02,
+    "bogen_zeit": 138.02,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -10343,42 +10773,42 @@
    "quelle": "auto:1:if"
   },
   {
-   "art": "aus",
+   "art": "an",
    "ziel": "strasse.*",
    "start": 2.7333,
    "dauer": 0,
    "quelle": "auto:1:called"
   },
   {
-   "art": "aus",
+   "art": "an",
    "ziel": "marsh.*",
    "start": 2.7333,
    "dauer": 0,
    "quelle": "auto:1:called"
   },
   {
-   "art": "aus",
+   "art": "an",
    "ziel": "haus.kueche_lampe",
    "start": 2.7333,
    "dauer": 0,
    "quelle": "auto:1:called"
   },
   {
-   "art": "aus",
+   "art": "an",
    "ziel": "haus.june_lampe",
    "start": 2.7333,
    "dauer": 0,
    "quelle": "auto:1:called"
   },
   {
-   "art": "aus",
+   "art": "an",
    "ziel": "haus.eli_lampe",
    "start": 2.7333,
    "dauer": 0,
    "quelle": "auto:1:called"
   },
   {
-   "art": "aus",
+   "art": "an",
    "ziel": "haus.flur_lampe",
    "start": 2.7333,
    "dauer": 0,
@@ -10387,6 +10817,13 @@
   {
    "art": "an",
    "ziel": "umgebung",
+   "start": 2.7333,
+   "dauer": 0,
+   "quelle": "auto:1:called"
+  },
+  {
+   "art": "an",
+   "ziel": "haus.june_lampe",
    "start": 2.7333,
    "dauer": 0,
    "quelle": "auto:1:called"
@@ -12536,2254 +12973,2310 @@
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 69,
+   "start": 68.8,
+   "dauer": 0,
+   "quelle": "auto:28"
+  },
+  {
+   "art": "aus",
+   "ziel": "marsh.*",
+   "start": 68.8,
+   "dauer": 0,
+   "quelle": "auto:28"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.kueche_lampe",
+   "start": 68.8,
+   "dauer": 0,
+   "quelle": "auto:28"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.june_lampe",
+   "start": 68.8,
+   "dauer": 0,
+   "quelle": "auto:28"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.eli_lampe",
+   "start": 68.8,
+   "dauer": 0,
+   "quelle": "auto:28"
+  },
+  {
+   "art": "aus",
+   "ziel": "haus.flur_lampe",
+   "start": 68.8,
+   "dauer": 0,
+   "quelle": "auto:28"
+  },
+  {
+   "art": "an",
+   "ziel": "umgebung",
+   "start": 68.8,
+   "dauer": 0,
+   "quelle": "auto:28"
+  },
+  {
+   "art": "aus",
+   "ziel": "strasse.*",
+   "start": 69.5,
    "dauer": 0,
    "quelle": "auto:29"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 69,
+   "start": 69.5,
    "dauer": 0,
    "quelle": "auto:29"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 69,
+   "start": 69.5,
    "dauer": 0,
    "quelle": "auto:29"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 69,
+   "start": 69.5,
    "dauer": 0,
    "quelle": "auto:29"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 69,
+   "start": 69.5,
    "dauer": 0,
    "quelle": "auto:29"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 69,
+   "start": 69.5,
    "dauer": 0,
    "quelle": "auto:29"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 69,
+   "start": 69.5,
    "dauer": 0,
    "quelle": "auto:29"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 70.0667,
+   "start": 70.5667,
    "dauer": 0,
    "quelle": "auto:30"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 70.0667,
+   "start": 70.5667,
    "dauer": 0,
    "quelle": "auto:30"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 70.0667,
+   "start": 70.5667,
    "dauer": 0,
    "quelle": "auto:30"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 70.0667,
+   "start": 70.5667,
    "dauer": 0,
    "quelle": "auto:30"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 70.0667,
+   "start": 70.5667,
    "dauer": 0,
    "quelle": "auto:30"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 70.0667,
+   "start": 70.5667,
    "dauer": 0,
    "quelle": "auto:30"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 70.0667,
+   "start": 70.5667,
    "dauer": 0,
    "quelle": "auto:30"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 70.9,
+   "start": 71.4,
    "dauer": 0,
    "quelle": "auto:31"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 70.9,
+   "start": 71.4,
    "dauer": 0,
    "quelle": "auto:31"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 70.9,
+   "start": 71.4,
    "dauer": 0,
    "quelle": "auto:31"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 70.9,
+   "start": 71.4,
    "dauer": 0,
    "quelle": "auto:31"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 70.9,
+   "start": 71.4,
    "dauer": 0,
    "quelle": "auto:31"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 70.9,
+   "start": 71.4,
    "dauer": 0,
    "quelle": "auto:31"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 70.9,
+   "start": 71.4,
    "dauer": 0,
    "quelle": "auto:31"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 72,
+   "start": 72.5,
    "dauer": 0,
    "quelle": "auto:31:three"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 72,
+   "start": 72.5,
    "dauer": 0,
    "quelle": "auto:31:three"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 72,
+   "start": 72.5,
    "dauer": 0,
    "quelle": "auto:31:three"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 72,
+   "start": 72.5,
    "dauer": 0,
    "quelle": "auto:31:three"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 72,
+   "start": 72.5,
    "dauer": 0,
    "quelle": "auto:31:three"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 72,
+   "start": 72.5,
    "dauer": 0,
    "quelle": "auto:31:three"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 72,
+   "start": 72.5,
    "dauer": 0,
    "quelle": "auto:31:three"
   },
   {
    "art": "aus",
    "ziel": "strasse.turm_lampe",
-   "start": 72,
+   "start": 72.5,
    "dauer": 0,
    "quelle": "auto:31:three"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 73.6667,
+   "start": 74.1667,
    "dauer": 0,
    "quelle": "auto:32"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 73.6667,
+   "start": 74.1667,
    "dauer": 0,
    "quelle": "auto:32"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 73.6667,
+   "start": 74.1667,
    "dauer": 0,
    "quelle": "auto:32"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 73.6667,
+   "start": 74.1667,
    "dauer": 0,
    "quelle": "auto:32"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 73.6667,
+   "start": 74.1667,
    "dauer": 0,
    "quelle": "auto:32"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 73.6667,
+   "start": 74.1667,
    "dauer": 0,
    "quelle": "auto:32"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 73.6667,
+   "start": 74.1667,
    "dauer": 0,
    "quelle": "auto:32"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 74.6333,
+   "start": 75.1333,
    "dauer": 0,
    "quelle": "auto:33"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 74.6333,
+   "start": 75.1333,
    "dauer": 0,
    "quelle": "auto:33"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 74.6333,
+   "start": 75.1333,
    "dauer": 0,
    "quelle": "auto:33"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 74.6333,
+   "start": 75.1333,
    "dauer": 0,
    "quelle": "auto:33"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 74.6333,
+   "start": 75.1333,
    "dauer": 0,
    "quelle": "auto:33"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 74.6333,
+   "start": 75.1333,
    "dauer": 0,
    "quelle": "auto:33"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 74.6333,
+   "start": 75.1333,
    "dauer": 0,
    "quelle": "auto:33"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 77.0333,
+   "start": 77.5333,
    "dauer": 0,
    "quelle": "auto:34"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 77.0333,
+   "start": 77.5333,
    "dauer": 0,
    "quelle": "auto:34"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 77.0333,
+   "start": 77.5333,
    "dauer": 0,
    "quelle": "auto:34"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 77.0333,
+   "start": 77.5333,
    "dauer": 0,
    "quelle": "auto:34"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 77.0333,
+   "start": 77.5333,
    "dauer": 0,
    "quelle": "auto:34"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 77.0333,
+   "start": 77.5333,
    "dauer": 0,
    "quelle": "auto:34"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 77.0333,
+   "start": 77.5333,
    "dauer": 0,
    "quelle": "auto:34"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 79.0333,
+   "start": 79.5333,
    "dauer": 0,
    "quelle": "auto:36"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 79.0333,
+   "start": 79.5333,
    "dauer": 0,
    "quelle": "auto:36"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 79.0333,
+   "start": 79.5333,
    "dauer": 0,
    "quelle": "auto:36"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 79.0333,
+   "start": 79.5333,
    "dauer": 0,
    "quelle": "auto:36"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 79.0333,
+   "start": 79.5333,
    "dauer": 0,
    "quelle": "auto:36"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 79.0333,
+   "start": 79.5333,
    "dauer": 0,
    "quelle": "auto:36"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 79.0333,
+   "start": 79.5333,
    "dauer": 0,
    "quelle": "auto:36"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 79.9333,
+   "start": 80.4333,
    "dauer": 0,
    "quelle": "auto:37"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 79.9333,
+   "start": 80.4333,
    "dauer": 0,
    "quelle": "auto:37"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 79.9333,
+   "start": 80.4333,
    "dauer": 0,
    "quelle": "auto:37"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 79.9333,
+   "start": 80.4333,
    "dauer": 0,
    "quelle": "auto:37"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 79.9333,
+   "start": 80.4333,
    "dauer": 0,
    "quelle": "auto:37"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 79.9333,
+   "start": 80.4333,
    "dauer": 0,
    "quelle": "auto:37"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 79.9333,
+   "start": 80.4333,
    "dauer": 0,
    "quelle": "auto:37"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 80.9,
+   "start": 81.4,
    "dauer": 0,
    "quelle": "auto:38"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 80.9,
+   "start": 81.4,
    "dauer": 0,
    "quelle": "auto:38"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 80.9,
+   "start": 81.4,
    "dauer": 0,
    "quelle": "auto:38"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 80.9,
+   "start": 81.4,
    "dauer": 0,
    "quelle": "auto:38"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 80.9,
+   "start": 81.4,
    "dauer": 0,
    "quelle": "auto:38"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 80.9,
+   "start": 81.4,
    "dauer": 0,
    "quelle": "auto:38"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 80.9,
+   "start": 81.4,
    "dauer": 0,
    "quelle": "auto:38"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 82.2333,
+   "start": 82.7333,
    "dauer": 0,
    "quelle": "auto:39"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 82.2333,
+   "start": 82.7333,
    "dauer": 0,
    "quelle": "auto:39"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 82.2333,
+   "start": 82.7333,
    "dauer": 0,
    "quelle": "auto:39"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 82.2333,
+   "start": 82.7333,
    "dauer": 0,
    "quelle": "auto:39"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 82.2333,
+   "start": 82.7333,
    "dauer": 0,
    "quelle": "auto:39"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 82.2333,
+   "start": 82.7333,
    "dauer": 0,
    "quelle": "auto:39"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 82.2333,
+   "start": 82.7333,
    "dauer": 0,
    "quelle": "auto:39"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 83.3333,
+   "start": 83.8333,
    "dauer": 0,
    "quelle": "auto:39:into"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 83.3333,
+   "start": 83.8333,
    "dauer": 0,
    "quelle": "auto:39:into"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 83.3333,
+   "start": 83.8333,
    "dauer": 0,
    "quelle": "auto:39:into"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 83.3333,
+   "start": 83.8333,
    "dauer": 0,
    "quelle": "auto:39:into"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 83.3333,
+   "start": 83.8333,
    "dauer": 0,
    "quelle": "auto:39:into"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 83.3333,
+   "start": 83.8333,
    "dauer": 0,
    "quelle": "auto:39:into"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 83.3333,
+   "start": 83.8333,
    "dauer": 0,
    "quelle": "auto:39:into"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 84.5333,
+   "start": 85.0333,
    "dauer": 0,
    "quelle": "auto:39:bent"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 84.5333,
+   "start": 85.0333,
    "dauer": 0,
    "quelle": "auto:39:bent"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 84.5333,
+   "start": 85.0333,
    "dauer": 0,
    "quelle": "auto:39:bent"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 84.5333,
+   "start": 85.0333,
    "dauer": 0,
    "quelle": "auto:39:bent"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 84.5333,
+   "start": 85.0333,
    "dauer": 0,
    "quelle": "auto:39:bent"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 84.5333,
+   "start": 85.0333,
    "dauer": 0,
    "quelle": "auto:39:bent"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 84.5333,
+   "start": 85.0333,
    "dauer": 0,
    "quelle": "auto:39:bent"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 85.4,
+   "start": 85.9,
    "dauer": 0,
    "quelle": "auto:39:took"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 85.4,
+   "start": 85.9,
    "dauer": 0,
    "quelle": "auto:39:took"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 85.4,
+   "start": 85.9,
    "dauer": 0,
    "quelle": "auto:39:took"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 85.4,
+   "start": 85.9,
    "dauer": 0,
    "quelle": "auto:39:took"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 85.4,
+   "start": 85.9,
    "dauer": 0,
    "quelle": "auto:39:took"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 85.4,
+   "start": 85.9,
    "dauer": 0,
    "quelle": "auto:39:took"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 85.4,
+   "start": 85.9,
    "dauer": 0,
    "quelle": "auto:39:took"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 87.2,
+   "start": 87.7,
    "dauer": 0,
    "quelle": "auto:40"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 87.2,
+   "start": 87.7,
    "dauer": 0,
    "quelle": "auto:40"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 87.2,
+   "start": 87.7,
    "dauer": 0,
    "quelle": "auto:40"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 87.2,
+   "start": 87.7,
    "dauer": 0,
    "quelle": "auto:40"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 87.2,
+   "start": 87.7,
    "dauer": 0,
    "quelle": "auto:40"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 87.2,
+   "start": 87.7,
    "dauer": 0,
    "quelle": "auto:40"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 87.2,
+   "start": 87.7,
    "dauer": 0,
    "quelle": "auto:40"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 89.4667,
+   "start": 89.9667,
    "dauer": 0,
    "quelle": "auto:41"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 89.4667,
+   "start": 89.9667,
    "dauer": 0,
    "quelle": "auto:41"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 89.4667,
+   "start": 89.9667,
    "dauer": 0,
    "quelle": "auto:41"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 89.4667,
+   "start": 89.9667,
    "dauer": 0,
    "quelle": "auto:41"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 89.4667,
+   "start": 89.9667,
    "dauer": 0,
    "quelle": "auto:41"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 89.4667,
+   "start": 89.9667,
    "dauer": 0,
    "quelle": "auto:41"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 89.4667,
+   "start": 89.9667,
    "dauer": 0,
    "quelle": "auto:41"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 91.8667,
+   "start": 92.3667,
    "dauer": 0,
    "quelle": "auto:42"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 91.8667,
+   "start": 92.3667,
    "dauer": 0,
    "quelle": "auto:42"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 91.8667,
+   "start": 92.3667,
    "dauer": 0,
    "quelle": "auto:42"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 91.8667,
+   "start": 92.3667,
    "dauer": 0,
    "quelle": "auto:42"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 91.8667,
+   "start": 92.3667,
    "dauer": 0,
    "quelle": "auto:42"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 91.8667,
+   "start": 92.3667,
    "dauer": 0,
    "quelle": "auto:42"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 91.8667,
+   "start": 92.3667,
    "dauer": 0,
    "quelle": "auto:42"
   },
   {
    "art": "aus",
    "ziel": "keller.lukenlicht",
-   "start": 91.8667,
+   "start": 92.3667,
    "dauer": 0,
    "quelle": "auto:42"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 93.8,
+   "start": 94.3,
    "dauer": 0,
    "quelle": "auto:43"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 93.8,
+   "start": 94.3,
    "dauer": 0,
    "quelle": "auto:43"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 93.8,
+   "start": 94.3,
    "dauer": 0,
    "quelle": "auto:43"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 93.8,
+   "start": 94.3,
    "dauer": 0,
    "quelle": "auto:43"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 93.8,
+   "start": 94.3,
    "dauer": 0,
    "quelle": "auto:43"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 93.8,
+   "start": 94.3,
    "dauer": 0,
    "quelle": "auto:43"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 93.8,
+   "start": 94.3,
    "dauer": 0,
    "quelle": "auto:43"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 95.7667,
+   "start": 96.2667,
    "dauer": 0,
    "quelle": "auto:43:and kept"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 95.7667,
+   "start": 96.2667,
    "dauer": 0,
    "quelle": "auto:43:and kept"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 95.7667,
+   "start": 96.2667,
    "dauer": 0,
    "quelle": "auto:43:and kept"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 95.7667,
+   "start": 96.2667,
    "dauer": 0,
    "quelle": "auto:43:and kept"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 95.7667,
+   "start": 96.2667,
    "dauer": 0,
    "quelle": "auto:43:and kept"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 95.7667,
+   "start": 96.2667,
    "dauer": 0,
    "quelle": "auto:43:and kept"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 95.7667,
+   "start": 96.2667,
    "dauer": 0,
    "quelle": "auto:43:and kept"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 96.6,
+   "start": 97.1,
    "dauer": 0,
    "quelle": "auto:44"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 96.6,
+   "start": 97.1,
    "dauer": 0,
    "quelle": "auto:44"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 96.6,
+   "start": 97.1,
    "dauer": 0,
    "quelle": "auto:44"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 96.6,
+   "start": 97.1,
    "dauer": 0,
    "quelle": "auto:44"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 96.6,
+   "start": 97.1,
    "dauer": 0,
    "quelle": "auto:44"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 96.6,
+   "start": 97.1,
    "dauer": 0,
    "quelle": "auto:44"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 96.6,
+   "start": 97.1,
    "dauer": 0,
    "quelle": "auto:44"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 98.4667,
+   "start": 98.9667,
    "dauer": 0,
    "quelle": "auto:45"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 98.4667,
+   "start": 98.9667,
    "dauer": 0,
    "quelle": "auto:45"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 98.4667,
+   "start": 98.9667,
    "dauer": 0,
    "quelle": "auto:45"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 98.4667,
+   "start": 98.9667,
    "dauer": 0,
    "quelle": "auto:45"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 98.4667,
+   "start": 98.9667,
    "dauer": 0,
    "quelle": "auto:45"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 98.4667,
+   "start": 98.9667,
    "dauer": 0,
    "quelle": "auto:45"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 98.4667,
+   "start": 98.9667,
    "dauer": 0,
    "quelle": "auto:45"
   },
   {
    "art": "an",
    "ziel": "keller.lukenlicht",
-   "start": 98.4667,
+   "start": 98.9667,
    "dauer": 0,
    "quelle": "auto:45"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 99.3667,
+   "start": 99.8667,
    "dauer": 0,
    "quelle": "auto:45:under"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 99.3667,
+   "start": 99.8667,
    "dauer": 0,
    "quelle": "auto:45:under"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 99.3667,
+   "start": 99.8667,
    "dauer": 0,
    "quelle": "auto:45:under"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 99.3667,
+   "start": 99.8667,
    "dauer": 0,
    "quelle": "auto:45:under"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 99.3667,
+   "start": 99.8667,
    "dauer": 0,
    "quelle": "auto:45:under"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 99.3667,
+   "start": 99.8667,
    "dauer": 0,
    "quelle": "auto:45:under"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 99.3667,
+   "start": 99.8667,
    "dauer": 0,
    "quelle": "auto:45:under"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 100.5667,
+   "start": 101.0667,
    "dauer": 0,
    "quelle": "auto:46"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 100.5667,
+   "start": 101.0667,
    "dauer": 0,
    "quelle": "auto:46"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 100.5667,
+   "start": 101.0667,
    "dauer": 0,
    "quelle": "auto:46"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 100.5667,
+   "start": 101.0667,
    "dauer": 0,
    "quelle": "auto:46"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 100.5667,
+   "start": 101.0667,
    "dauer": 0,
    "quelle": "auto:46"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 100.5667,
+   "start": 101.0667,
    "dauer": 0,
    "quelle": "auto:46"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 100.5667,
+   "start": 101.0667,
    "dauer": 0,
    "quelle": "auto:46"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 102.1,
+   "start": 102.6,
    "dauer": 0,
    "quelle": "auto:46:and June"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 102.1,
+   "start": 102.6,
    "dauer": 0,
    "quelle": "auto:46:and June"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 102.1,
+   "start": 102.6,
    "dauer": 0,
    "quelle": "auto:46:and June"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 102.1,
+   "start": 102.6,
    "dauer": 0,
    "quelle": "auto:46:and June"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 102.1,
+   "start": 102.6,
    "dauer": 0,
    "quelle": "auto:46:and June"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 102.1,
+   "start": 102.6,
    "dauer": 0,
    "quelle": "auto:46:and June"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 102.1,
+   "start": 102.6,
    "dauer": 0,
    "quelle": "auto:46:and June"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 104.4,
+   "start": 104.9,
    "dauer": 0,
    "quelle": "auto:47"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 104.4,
+   "start": 104.9,
    "dauer": 0,
    "quelle": "auto:47"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 104.4,
+   "start": 104.9,
    "dauer": 0,
    "quelle": "auto:47"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 104.4,
+   "start": 104.9,
    "dauer": 0,
    "quelle": "auto:47"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 104.4,
+   "start": 104.9,
    "dauer": 0,
    "quelle": "auto:47"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 104.4,
+   "start": 104.9,
    "dauer": 0,
    "quelle": "auto:47"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 104.4,
+   "start": 104.9,
    "dauer": 0,
    "quelle": "auto:47"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 106.5,
+   "start": 107,
    "dauer": 0,
    "quelle": "auto:49"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 106.5,
+   "start": 107,
    "dauer": 0,
    "quelle": "auto:49"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 106.5,
+   "start": 107,
    "dauer": 0,
    "quelle": "auto:49"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 106.5,
+   "start": 107,
    "dauer": 0,
    "quelle": "auto:49"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 106.5,
+   "start": 107,
    "dauer": 0,
    "quelle": "auto:49"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 106.5,
+   "start": 107,
    "dauer": 0,
    "quelle": "auto:49"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 106.5,
+   "start": 107,
    "dauer": 0,
    "quelle": "auto:49"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 107.6333,
+   "start": 108.1333,
    "dauer": 0,
    "quelle": "auto:49:and it"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 107.6333,
+   "start": 108.1333,
    "dauer": 0,
    "quelle": "auto:49:and it"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 107.6333,
+   "start": 108.1333,
    "dauer": 0,
    "quelle": "auto:49:and it"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 107.6333,
+   "start": 108.1333,
    "dauer": 0,
    "quelle": "auto:49:and it"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 107.6333,
+   "start": 108.1333,
    "dauer": 0,
    "quelle": "auto:49:and it"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 107.6333,
+   "start": 108.1333,
    "dauer": 0,
    "quelle": "auto:49:and it"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 107.6333,
+   "start": 108.1333,
    "dauer": 0,
    "quelle": "auto:49:and it"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 109.9333,
+   "start": 110.4333,
    "dauer": 0,
    "quelle": "auto:50"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 109.9333,
+   "start": 110.4333,
    "dauer": 0,
    "quelle": "auto:50"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 109.9333,
+   "start": 110.4333,
    "dauer": 0,
    "quelle": "auto:50"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 109.9333,
+   "start": 110.4333,
    "dauer": 0,
    "quelle": "auto:50"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 109.9333,
+   "start": 110.4333,
    "dauer": 0,
    "quelle": "auto:50"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 109.9333,
+   "start": 110.4333,
    "dauer": 0,
    "quelle": "auto:50"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 109.9333,
+   "start": 110.4333,
    "dauer": 0,
    "quelle": "auto:50"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 111.5,
+   "start": 112,
    "dauer": 0,
    "quelle": "auto:51"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 111.5,
+   "start": 112,
    "dauer": 0,
    "quelle": "auto:51"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 111.5,
+   "start": 112,
    "dauer": 0,
    "quelle": "auto:51"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 111.5,
+   "start": 112,
    "dauer": 0,
    "quelle": "auto:51"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 111.5,
+   "start": 112,
    "dauer": 0,
    "quelle": "auto:51"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 111.5,
+   "start": 112,
    "dauer": 0,
    "quelle": "auto:51"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 111.5,
+   "start": 112,
    "dauer": 0,
    "quelle": "auto:51"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 113.1333,
+   "start": 113.6333,
    "dauer": 0,
    "quelle": "auto:51:she started"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 113.1333,
+   "start": 113.6333,
    "dauer": 0,
    "quelle": "auto:51:she started"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 113.1333,
+   "start": 113.6333,
    "dauer": 0,
    "quelle": "auto:51:she started"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 113.1333,
+   "start": 113.6333,
    "dauer": 0,
    "quelle": "auto:51:she started"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 113.1333,
+   "start": 113.6333,
    "dauer": 0,
    "quelle": "auto:51:she started"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 113.1333,
+   "start": 113.6333,
    "dauer": 0,
    "quelle": "auto:51:she started"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 113.1333,
+   "start": 113.6333,
    "dauer": 0,
    "quelle": "auto:51:she started"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 115.2667,
+   "start": 115.7667,
    "dauer": 0,
    "quelle": "auto:52"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 115.2667,
+   "start": 115.7667,
    "dauer": 0,
    "quelle": "auto:52"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 115.2667,
+   "start": 115.7667,
    "dauer": 0,
    "quelle": "auto:52"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 115.2667,
+   "start": 115.7667,
    "dauer": 0,
    "quelle": "auto:52"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 115.2667,
+   "start": 115.7667,
    "dauer": 0,
    "quelle": "auto:52"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 115.2667,
+   "start": 115.7667,
    "dauer": 0,
    "quelle": "auto:52"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 115.2667,
+   "start": 115.7667,
    "dauer": 0,
    "quelle": "auto:52"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 117.2,
+   "start": 117.7,
    "dauer": 0,
    "quelle": "auto:52:like"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 117.2,
+   "start": 117.7,
    "dauer": 0,
    "quelle": "auto:52:like"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 117.2,
+   "start": 117.7,
    "dauer": 0,
    "quelle": "auto:52:like"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 117.2,
+   "start": 117.7,
    "dauer": 0,
    "quelle": "auto:52:like"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 117.2,
+   "start": 117.7,
    "dauer": 0,
    "quelle": "auto:52:like"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 117.2,
+   "start": 117.7,
    "dauer": 0,
    "quelle": "auto:52:like"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 117.2,
+   "start": 117.7,
+   "dauer": 0,
+   "quelle": "auto:52:like"
+  },
+  {
+   "art": "an",
+   "ziel": "keller.lukenlicht",
+   "start": 117.7,
    "dauer": 0,
    "quelle": "auto:52:like"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 118.6,
+   "start": 119.1,
    "dauer": 0,
    "quelle": "auto:53"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 118.6,
+   "start": 119.1,
    "dauer": 0,
    "quelle": "auto:53"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 118.6,
+   "start": 119.1,
    "dauer": 0,
    "quelle": "auto:53"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 118.6,
+   "start": 119.1,
    "dauer": 0,
    "quelle": "auto:53"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 118.6,
+   "start": 119.1,
    "dauer": 0,
    "quelle": "auto:53"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 118.6,
+   "start": 119.1,
    "dauer": 0,
    "quelle": "auto:53"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 118.6,
+   "start": 119.1,
    "dauer": 0,
    "quelle": "auto:53"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 120.4333,
+   "start": 121.4333,
    "dauer": 0,
    "quelle": "auto:54"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 120.4333,
+   "start": 121.4333,
    "dauer": 0,
    "quelle": "auto:54"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 120.4333,
+   "start": 121.4333,
    "dauer": 0,
    "quelle": "auto:54"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 120.4333,
+   "start": 121.4333,
    "dauer": 0,
    "quelle": "auto:54"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 120.4333,
+   "start": 121.4333,
    "dauer": 0,
    "quelle": "auto:54"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 120.4333,
+   "start": 121.4333,
    "dauer": 0,
    "quelle": "auto:54"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 120.4333,
+   "start": 121.4333,
    "dauer": 0,
    "quelle": "auto:54"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 121.6333,
+   "start": 122.6333,
    "dauer": 0,
    "quelle": "auto:54:the"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 121.6333,
+   "start": 122.6333,
    "dauer": 0,
    "quelle": "auto:54:the"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 121.6333,
+   "start": 122.6333,
    "dauer": 0,
    "quelle": "auto:54:the"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 121.6333,
+   "start": 122.6333,
    "dauer": 0,
    "quelle": "auto:54:the"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 121.6333,
+   "start": 122.6333,
    "dauer": 0,
    "quelle": "auto:54:the"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 121.6333,
+   "start": 122.6333,
    "dauer": 0,
    "quelle": "auto:54:the"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 121.6333,
+   "start": 122.6333,
    "dauer": 0,
    "quelle": "auto:54:the"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 123.1333,
+   "start": 124.1333,
    "dauer": 0,
    "quelle": "auto:55"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 123.1333,
+   "start": 124.1333,
    "dauer": 0,
    "quelle": "auto:55"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 123.1333,
+   "start": 124.1333,
    "dauer": 0,
    "quelle": "auto:55"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 123.1333,
+   "start": 124.1333,
    "dauer": 0,
    "quelle": "auto:55"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 123.1333,
+   "start": 124.1333,
    "dauer": 0,
    "quelle": "auto:55"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 123.1333,
+   "start": 124.1333,
    "dauer": 0,
    "quelle": "auto:55"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 123.1333,
+   "start": 124.1333,
    "dauer": 0,
    "quelle": "auto:55"
   },
   {
    "art": "aus",
    "ziel": "keller.lampe",
-   "start": 123.1333,
+   "start": 124.1333,
    "dauer": 0,
    "quelle": "auto:55"
   },
   {
    "art": "aus",
    "ziel": "keller.lukenlicht",
-   "start": 123.1333,
+   "start": 124.1333,
    "dauer": 0,
    "quelle": "auto:55"
   },
   {
    "art": "aus",
    "ziel": "keller.gitter",
-   "start": 123.1333,
+   "start": 124.1333,
    "dauer": 0,
    "quelle": "auto:55"
   },
   {
    "art": "an",
    "ziel": "keller.gitter_morgen",
-   "start": 123.1333,
+   "start": 124.1333,
    "dauer": 0,
    "quelle": "auto:55"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 124.3,
+   "start": 125.3,
    "dauer": 0,
    "quelle": "auto:55:Hiding"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 124.3,
+   "start": 125.3,
    "dauer": 0,
    "quelle": "auto:55:Hiding"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 124.3,
+   "start": 125.3,
    "dauer": 0,
    "quelle": "auto:55:Hiding"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 124.3,
+   "start": 125.3,
    "dauer": 0,
    "quelle": "auto:55:Hiding"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 124.3,
+   "start": 125.3,
    "dauer": 0,
    "quelle": "auto:55:Hiding"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 124.3,
+   "start": 125.3,
    "dauer": 0,
    "quelle": "auto:55:Hiding"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 124.3,
+   "start": 125.3,
    "dauer": 0,
    "quelle": "auto:55:Hiding"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 125.5,
+   "start": 126.5,
    "dauer": 0,
    "quelle": "auto:55:and I"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 125.5,
+   "start": 126.5,
    "dauer": 0,
    "quelle": "auto:55:and I"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 125.5,
+   "start": 126.5,
    "dauer": 0,
    "quelle": "auto:55:and I"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 125.5,
+   "start": 126.5,
    "dauer": 0,
    "quelle": "auto:55:and I"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 125.5,
+   "start": 126.5,
    "dauer": 0,
    "quelle": "auto:55:and I"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 125.5,
+   "start": 126.5,
    "dauer": 0,
    "quelle": "auto:55:and I"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 125.5,
+   "start": 126.5,
    "dauer": 0,
    "quelle": "auto:55:and I"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 126.5667,
+   "start": 127.5667,
    "dauer": 0,
    "quelle": "auto:56"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 126.5667,
+   "start": 127.5667,
    "dauer": 0,
    "quelle": "auto:56"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 126.5667,
+   "start": 127.5667,
    "dauer": 0,
    "quelle": "auto:56"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 126.5667,
+   "start": 127.5667,
    "dauer": 0,
    "quelle": "auto:56"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 126.5667,
+   "start": 127.5667,
    "dauer": 0,
    "quelle": "auto:56"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 126.5667,
+   "start": 127.5667,
    "dauer": 0,
    "quelle": "auto:56"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 126.5667,
+   "start": 127.5667,
    "dauer": 0,
    "quelle": "auto:56"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 127.5333,
+   "start": 128.5333,
    "dauer": 0,
    "quelle": "auto:57"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 127.5333,
+   "start": 128.5333,
    "dauer": 0,
    "quelle": "auto:57"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 127.5333,
+   "start": 128.5333,
    "dauer": 0,
    "quelle": "auto:57"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 127.5333,
+   "start": 128.5333,
    "dauer": 0,
    "quelle": "auto:57"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 127.5333,
+   "start": 128.5333,
    "dauer": 0,
    "quelle": "auto:57"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 127.5333,
+   "start": 128.5333,
    "dauer": 0,
    "quelle": "auto:57"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 127.5333,
+   "start": 128.5333,
    "dauer": 0,
    "quelle": "auto:57"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 129.9667,
+   "start": 130.9667,
    "dauer": 0,
    "quelle": "auto:57:side"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 129.9667,
+   "start": 130.9667,
    "dauer": 0,
    "quelle": "auto:57:side"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 129.9667,
+   "start": 130.9667,
    "dauer": 0,
    "quelle": "auto:57:side"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 129.9667,
+   "start": 130.9667,
    "dauer": 0,
    "quelle": "auto:57:side"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 129.9667,
+   "start": 130.9667,
    "dauer": 0,
    "quelle": "auto:57:side"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 129.9667,
+   "start": 130.9667,
    "dauer": 0,
    "quelle": "auto:57:side"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 129.9667,
+   "start": 130.9667,
    "dauer": 0,
    "quelle": "auto:57:side"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 131.0333,
+   "start": 132.0333,
    "dauer": 0,
    "quelle": "auto:58"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 131.0333,
+   "start": 132.0333,
    "dauer": 0,
    "quelle": "auto:58"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 131.0333,
+   "start": 132.0333,
    "dauer": 0,
    "quelle": "auto:58"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 131.0333,
+   "start": 132.0333,
    "dauer": 0,
    "quelle": "auto:58"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 131.0333,
+   "start": 132.0333,
    "dauer": 0,
    "quelle": "auto:58"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 131.0333,
+   "start": 132.0333,
    "dauer": 0,
    "quelle": "auto:58"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 131.0333,
+   "start": 132.0333,
    "dauer": 0,
    "quelle": "auto:58"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 131.9667,
+   "start": 132.9667,
    "dauer": 0,
    "quelle": "auto:58:sneakers"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 131.9667,
+   "start": 132.9667,
    "dauer": 0,
    "quelle": "auto:58:sneakers"
   },
   {
    "art": "aus",
    "ziel": "haus.kueche_lampe",
-   "start": 131.9667,
+   "start": 132.9667,
    "dauer": 0,
    "quelle": "auto:58:sneakers"
   },
   {
    "art": "aus",
    "ziel": "haus.june_lampe",
-   "start": 131.9667,
+   "start": 132.9667,
    "dauer": 0,
    "quelle": "auto:58:sneakers"
   },
   {
    "art": "aus",
    "ziel": "haus.eli_lampe",
-   "start": 131.9667,
+   "start": 132.9667,
    "dauer": 0,
    "quelle": "auto:58:sneakers"
   },
   {
    "art": "aus",
    "ziel": "haus.flur_lampe",
-   "start": 131.9667,
+   "start": 132.9667,
    "dauer": 0,
    "quelle": "auto:58:sneakers"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 131.9667,
+   "start": 132.9667,
    "dauer": 0,
    "quelle": "auto:58:sneakers"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 134.2,
+   "start": 135.2,
    "dauer": 0,
    "quelle": "auto:59"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 134.2,
+   "start": 135.2,
    "dauer": 0,
    "quelle": "auto:59"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 134.2,
+   "start": 135.2,
    "dauer": 0,
    "quelle": "auto:59"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 134.2,
+   "start": 135.2,
    "dauer": 0,
    "quelle": "auto:59"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 134.2,
+   "start": 135.2,
    "dauer": 0,
    "quelle": "auto:59"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 134.2,
+   "start": 135.2,
    "dauer": 0,
    "quelle": "auto:59"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 134.2,
+   "start": 135.2,
    "dauer": 0,
    "quelle": "auto:59"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 135.8333,
+   "start": 136.8333,
    "dauer": 0,
    "quelle": "auto:59:hundred"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 135.8333,
+   "start": 136.8333,
    "dauer": 0,
    "quelle": "auto:59:hundred"
   },
   {
    "art": "an",
    "ziel": "haus.kueche_lampe",
-   "start": 135.8333,
+   "start": 136.8333,
    "dauer": 0,
    "quelle": "auto:59:hundred"
   },
   {
    "art": "an",
    "ziel": "haus.june_lampe",
-   "start": 135.8333,
+   "start": 136.8333,
    "dauer": 0,
    "quelle": "auto:59:hundred"
   },
   {
    "art": "an",
    "ziel": "haus.eli_lampe",
-   "start": 135.8333,
+   "start": 136.8333,
    "dauer": 0,
    "quelle": "auto:59:hundred"
   },
   {
    "art": "an",
    "ziel": "haus.flur_lampe",
-   "start": 135.8333,
+   "start": 136.8333,
    "dauer": 0,
    "quelle": "auto:59:hundred"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 135.8333,
+   "start": 136.8333,
    "dauer": 0,
    "quelle": "auto:59:hundred"
   }

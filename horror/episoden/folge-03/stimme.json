@@ -539,5 +539,14 @@
   "timing_sha256": "aee5f240e3f87a21c383d37dd70514af7a7ae5f24cd2025bf97fd7e6d59776d3",
   "vorher": "build/folge-03/stimme-vor-einschub.wav, build/folge-03/timing-vor-einschub.json",
   "musik_anker_hinweis": "musik_anker_s oben sind die Zeiten vor dem Einschub; ab 67,10 s gilt +1,1 s. Die Musik (engine/musik/spannung/hiding-night-teil3.json) rechnet mit Wort- und Satznummern."
+ },
+ "einschub_review": {
+  "datum": "2026-11-16",
+  "werkzeug": "engine/ton/einschub.py",
+  "was": "Zwei weitere Pausen ohne neue Aufnahme: +0,5 s vor 'Rabbit?' (bei 67,6 s; Klopfer jetzt 0,75 s auseinander) und +0,5 s nach 'At ninety-nine, she stopped.' (bei 120,33 s alter Zeit; dort schlägt die Sonnenglocke statt 'one hundred'). Füllung: Rauschen der Pause (−77 dBFS), gekachelt.",
+  "dauer_s_vorher": 138.19,
+  "dauer_s_nachher": 139.19,
+  "stimme_wav_sha256": "174afef444de4282682dc7686f1977e585577b5fa1e809bd6824540694bc254d",
+  "vorher": "build/folge-03/stimme-vor-einschub-1.wav, build/folge-03/timing-vor-einschub-1.json"
  }
 }

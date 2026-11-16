@@ -2,7 +2,7 @@
  "name": "hiding-night-teil3",
  "stil": "r2-eigen",
  "quelle": "musik-v2",
- "laenge_s": 138.2,
+ "laenge_s": 139.2,
  "punkte": [
   {
    "ab_s": 0.0,
@@ -76,11 +76,12 @@
    "versatz_s": 0.0,
    "stufe": "voll",
    "blende_s": 0.8,
-   "grund": "Dielen, Finger",
+   "grund": "Dielen, Finger (Review Teil 3: voll +3,5 dB über normal, damit das Finale steigt)",
+   "pegel_db": 3.5,
    "zeit_s": 59.076,
    "anker_s": 58.7,
    "rms_vor_db": -23.0,
-   "rms_nach_db": -22.6
+   "rms_nach_db": -19.1
   },
   {
    "ab_wort": 231,
@@ -90,8 +91,8 @@
    "grund": "der Finger zieht sich zurück ('back.' Wortende)",
    "zeit_s": 64.98,
    "anker_s": 64.98,
-   "rms_vor_db": -19.7,
-   "rms_nach_db": -43.9
+   "rms_vor_db": -16.2,
+   "rms_nach_db": -41.2
   },
   {
    "ab_wort": 234,
@@ -102,7 +103,7 @@
    "grund": "drei Uhr, Lockruf: dünn (Wegfall 1,16 s)",
    "zeit_s": 66.14,
    "anker_s": 66.14,
-   "rms_vor_db": -56.7,
+   "rms_vor_db": -53.2,
    "rms_nach_db": -27.7
   },
   {
@@ -111,22 +112,22 @@
    "pegel_db": -3.0,
    "blende_s": 0.5,
    "grund": "unter dem Zählen der Stimme 3 dB zurück",
-   "zeit_s": 77.336,
-   "anker_s": 77.07,
-   "rms_vor_db": -22.8,
-   "rms_nach_db": -28.8
+   "zeit_s": 77.873,
+   "anker_s": 77.57,
+   "rms_vor_db": -24.1,
+   "rms_nach_db": -28.6
   },
   {
    "ab_wort": 275,
    "versatz_s": 0.0,
    "stufe": "voll",
-   "pegel_db": 0.0,
+   "pegel_db": 3.5,
    "blende_s": 0.4,
-   "grund": "die Luke geht auf: das Ritual beginnt",
-   "zeit_s": 81.633,
-   "anker_s": 81.16,
-   "rms_vor_db": -30.4,
-   "rms_nach_db": -19.2
+   "grund": "die Luke geht auf: das Ritual beginnt (Review Teil 3: voll +3,5 dB über normal, damit das Finale steigt)",
+   "zeit_s": 82.17,
+   "anker_s": 81.66,
+   "rms_vor_db": -24.9,
+   "rms_nach_db": -18.7
   },
   {
    "ab_wort": 291,
@@ -134,10 +135,10 @@
    "stufe": "weg",
    "blende_s": 0.15,
    "grund": "Wegfall von 'away' bis 'June's face' (Sub-Boom auf June's)",
-   "zeit_s": 85.96,
-   "anker_s": 85.96,
-   "rms_vor_db": -22.7,
-   "rms_nach_db": -62.7
+   "zeit_s": 86.46,
+   "anker_s": 86.46,
+   "rms_vor_db": -17.3,
+   "rms_nach_db": -62.6
   },
   {
    "ab_wort": 302,
@@ -146,31 +147,31 @@
    "blende_s": 0.5,
    "einrasten": "aus",
    "grund": "unter Junes Geständnis dünn",
-   "zeit_s": 89.19,
-   "anker_s": 89.19,
+   "zeit_s": 89.69,
+   "anker_s": 89.69,
    "rms_vor_db": -200.0,
-   "rms_nach_db": -22.3
+   "rms_nach_db": -26.2
   },
   {
    "ab_satz": 47,
    "stufe": "duenn",
    "blende_s": 0.8,
    "grund": "Wiegenlied beim Zählen (die Oberstimme allein kann das Bett nicht; dünn)",
-   "zeit_s": 104.726,
-   "anker_s": 104.43,
-   "rms_vor_db": -26.6,
-   "rms_nach_db": -24.7
+   "zeit_s": 105.263,
+   "anker_s": 104.93,
+   "rms_vor_db": -27.9,
+   "rms_nach_db": -25.8
   },
   {
-   "ab_satz": 54,
-   "versatz_s": -0.25,
+   "versatz_s": 0.3,
    "stufe": "weg",
    "blende_s": 0.15,
-   "grund": "Wegfall vor der Sonnenglocke; die Glocke klar und laut (Handlung)",
-   "zeit_s": 120.23,
-   "anker_s": 120.23,
-   "rms_vor_db": -25.4,
-   "rms_nach_db": -70.2
+   "grund": "Review Teil 3: Wegfall direkt nach „stopped.“; in der Stille schlägt die Sonnenglocke (0,61 s nach dem Wortbeginn)",
+   "ab_wort": 410,
+   "zeit_s": 120.54,
+   "anker_s": 120.54,
+   "rms_vor_db": -25.1,
+   "rms_nach_db": -66.0
   },
   {
    "ab_satz": 55,
@@ -179,20 +180,43 @@
    "blende_s": 0.6,
    "einrasten": "aus",
    "grund": "Morgen",
-   "zeit_s": 122.95,
-   "anker_s": 122.95,
+   "zeit_s": 123.95,
+   "anker_s": 123.95,
    "rms_vor_db": -200.0,
-   "rms_nach_db": -23.0
+   "rms_nach_db": -23.9
   },
   {
    "ab_satz": 57,
    "stufe": "duenn",
    "blende_s": 1.0,
    "grund": "Schuhe, Schluss",
-   "zeit_s": 127.82,
-   "anker_s": 127.58,
-   "rms_vor_db": -22.7,
-   "rms_nach_db": -25.8
+   "zeit_s": 128.894,
+   "anker_s": 128.58,
+   "rms_vor_db": -21.6,
+   "rms_nach_db": -26.3
+  },
+  {
+   "ab_wort": 449,
+   "versatz_s": -0.05,
+   "stufe": "weg",
+   "blende_s": 0.1,
+   "grund": "Review Teil 3: kurzer Wegfall auf „my“ (Elis Schuhe), mit leisem Sub-Boom",
+   "zeit_s": 132.49,
+   "anker_s": 132.49,
+   "rms_vor_db": -26.1,
+   "rms_nach_db": -71.3
+  },
+  {
+   "ab_wort": 453,
+   "versatz_s": -0.1,
+   "stufe": "duenn",
+   "blende_s": 0.35,
+   "einrasten": "aus",
+   "grund": "Wiedereinsatz auf „side by side“",
+   "zeit_s": 133.86,
+   "anker_s": 133.86,
+   "rms_vor_db": -73.4,
+   "rms_nach_db": -23.7
   },
   {
    "ab_satz": 60,
@@ -200,13 +224,13 @@
    "stufe": "weg",
    "blende_s": 0.2,
    "grund": "Wegfall vor 'It helps.'; still nach dem Schnitt",
-   "zeit_s": 137.31,
-   "anker_s": 137.31,
-   "rms_vor_db": -24.7,
-   "rms_nach_db": -81.2
+   "zeit_s": 138.31,
+   "anker_s": 138.31,
+   "rms_vor_db": -24.2,
+   "rms_nach_db": -75.7
   }
  ],
- "lufs": -20.65,
- "spitze_dbfs": -7.95,
+ "lufs": -20.04,
+ "spitze_dbfs": -4.45,
  "datei": "build/musik/spannung-hiding-night-teil3.wav"
 }

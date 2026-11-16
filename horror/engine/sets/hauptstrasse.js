@@ -23,7 +23,7 @@
 import * as THREE from 'three';
 import {
   k, flaeche, zyl, verschmelze, tmat, baueHaus, fensterLichtMat, zaun, laterne, lichtPfuetzeMat,
-  laubbaum, kiefer, busch, briefkasten, bank, nebelKarte, giebel, MARSH,
+  laubbaum, kiefer, busch, briefkasten, bank, nebelKarte, giebel, MARSH, weicherKegel,
 } from '../src/bauteile.js';
 
 export default async function baue(ctx, params = {}) {
@@ -229,6 +229,7 @@ export default async function baue(ctx, params = {}) {
     // Lambert statt Standard: ohne Glanz, ausgeschaltet (Satz 19) bleibt vom Kegel nichts übrig
     const kMat = new T.MeshLambertMaterial({ color: '#000000', emissive: new T.Color('#ffe8c0'), emissiveIntensity: lp.kegel ?? 0.45, emissiveMap: kTex, transparent: true, depthWrite: false, blending: T.AdditiveBlending, side: T.DoubleSide });
     kMat.fog = false;
+    weicherKegel(kMat, { exponent: 1.0 });   // Review Teil 3: weiche Kegelkante (von weitem gesehen, daher schwächer gewichtet)
     const kl = lp.laenge ?? 6;
     const kegel = new T.Mesh(new T.CylinderGeometry(1.1, 0.06, kl, 20, 1, true), kMat);
     kegel.position.y = kl / 2; kegel.userData.einzeln = true; lg.add(kegel);
@@ -443,12 +444,16 @@ export default async function baue(ctx, params = {}) {
       glockeDreh.rotation.x = w;
       // Glockenseil: schwingt mit der Glocke und einmal allein (Ereignis „seil“)
       if (seilDreh) {
-        let sw = w * 0.6;
+        // mit der Glocke schwingt es in Richtung Straße (x-Achse); das Ereignis „seil“ (Satz 20) schwingt
+        // quer dazu (z-Achse). Review Teil 3: Von der Straße aus gesehen lief das Ereignis-Schwingen auf die
+        // Kamera zu und war nicht zu sehen; quer ist es von vorn ein weiter Ausschlag.
+        let quer = 0;
         for (const e of seilEreignisse) {
           const d = t - e.start;
-          if (d >= 0) sw += (e.staerke ?? 0.38) * Math.sin((d * 2 * Math.PI) / 1.5) * Math.exp(-d * 1.1) * Math.min(1, d / 0.1);
+          if (d >= 0) quer += (e.staerke ?? 0.38) * Math.sin((d * 2 * Math.PI) / 1.5) * Math.exp(-d * 1.1) * Math.min(1, d / 0.1);
         }
-        seilDreh.rotation.x = sw;
+        seilDreh.rotation.x = w * 0.6;
+        seilDreh.rotation.z = quer;
       }
       let zeit = uhrSpec.zeit ?? '11:58';
       for (const s of uhrSpec.spruenge ?? []) if (t >= s.start) zeit = s.zeit;

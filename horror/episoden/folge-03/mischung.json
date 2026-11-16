@@ -1,12 +1,12 @@
 {
  "folge": "folge-03",
- "laenge_s": 138.2,
- "bilder": 4146,
- "endkarte_ab_s": 138.2,
+ "laenge_s": 139.2,
+ "bilder": 4176,
+ "endkarte_ab_s": 139.2,
  "stimme": {
   "datei": "build/folge-03/stimme.wav",
   "lufs_stereo": -14.24,
-  "sha256": "03fbe9a74fb36576f91fcc797537a64baf4519d8cb5428e7e4c1e3c16eabf888",
+  "sha256": "174afef444de4282682dc7686f1977e585577b5fa1e809bd6824540694bc254d",
   "rede": [
    {
     "wer": "June",
@@ -17,52 +17,60 @@
    },
    {
     "wer": "June",
-    "von_s": 68.28,
-    "bis_s": 70.71,
+    "von_s": 68.78,
+    "bis_s": 71.21,
     "halbtoene": 2.0,
     "db": -2.0
    },
    {
     "wer": "June",
-    "von_s": 77.01,
-    "bis_s": 79.74,
+    "von_s": 77.51,
+    "bis_s": 80.24,
     "halbtoene": 2.0,
     "db": -2.0
    },
    {
     "wer": "June",
-    "von_s": 91.83,
-    "bis_s": 93.62,
+    "von_s": 92.33,
+    "bis_s": 94.12,
     "halbtoene": 2.0,
     "db": -2.0
    },
    {
     "wer": "June",
-    "von_s": 93.76,
-    "bis_s": 96.42,
+    "von_s": 94.26,
+    "bis_s": 96.92,
     "halbtoene": 1.5,
     "db": -2.0
    },
    {
     "wer": "June",
-    "von_s": 96.58,
-    "bis_s": 98.29,
+    "von_s": 97.08,
+    "bis_s": 98.79,
     "halbtoene": 2.0,
     "db": -2.0
    },
    {
     "wer": "June",
-    "von_s": 98.45,
-    "bis_s": 100.39,
+    "von_s": 98.95,
+    "bis_s": 100.89,
     "halbtoene": 2.0,
     "db": -2.0
    },
    {
     "wer": "June",
-    "von_s": 104.37,
-    "bis_s": 106.29,
+    "von_s": 104.87,
+    "bis_s": 106.79,
     "halbtoene": 2.0,
     "db": -2.0
+   },
+   {
+    "wer": "Mister Hundred",
+    "von_s": 78.66,
+    "bis_s": 80.51,
+    "halbtoene": -4.5,
+    "db": -12.0,
+    "art": "unter"
    }
   ]
  },
@@ -72,13 +80,14 @@
    "klopfen",
    "knarzen",
    "riegel",
+   "schaben",
    "sub_boom",
    "zaehlschlag"
   ],
-  "cues": 14,
-  "abstand_min_lu": 5.7,
-  "abstand_median_lu": 12.350000000000001,
-  "lufs_integriert_allein": -27.43,
+  "cues": 30,
+  "abstand_min_lu": 5.2,
+  "abstand_median_lu": 13.2,
+  "lufs_integriert_allein": -27.51,
   "liste": [
    {
     "nr": 0,
@@ -132,163 +141,278 @@
    },
    {
     "nr": 5,
-    "klang": "klopfen",
-    "wort": "\"Rabbit?\"",
-    "zeit_s": 67.15,
-    "db": -10,
-    "fx_max_lufs": -27.1,
-    "abstand_zur_stimme_lu": 12.9,
-    "stimme_dort_lufs": -17.3
+    "klang": "schaben",
+    "wort": "felt",
+    "zeit_s": 61.7,
+    "db": -14,
+    "fx_max_lufs": -38.1,
+    "abstand_zur_stimme_lu": 23.9,
+    "stimme_dort_lufs": -11.8
    },
    {
     "nr": 6,
     "klang": "klopfen",
     "wort": "\"Rabbit?\"",
-    "zeit_s": 67.6,
+    "zeit_s": 67.1,
     "db": -10,
     "fx_max_lufs": -27.1,
     "abstand_zur_stimme_lu": 12.9,
-    "stimme_dort_lufs": -16.3
+    "stimme_dort_lufs": -27.7
    },
    {
     "nr": 7,
     "klang": "klopfen",
     "wort": "\"Rabbit?\"",
-    "zeit_s": 68.05,
+    "zeit_s": 67.85,
     "db": -10,
-    "fx_max_lufs": -27.5,
-    "abstand_zur_stimme_lu": 13.3,
-    "stimme_dort_lufs": -16.0
+    "fx_max_lufs": -27.4,
+    "abstand_zur_stimme_lu": 13.2,
+    "stimme_dort_lufs": -17.3
    },
    {
     "nr": 8,
-    "klang": "zaehlschlag",
-    "wort": "\"Ninety-nine.\"",
-    "zeit_s": 77.07,
-    "db": -18,
-    "fx_max_lufs": -27.0,
-    "abstand_zur_stimme_lu": 12.8,
-    "stimme_dort_lufs": -11.5
+    "klang": "klopfen",
+    "wort": "\"Rabbit?\"",
+    "zeit_s": 68.6,
+    "db": -10,
+    "fx_max_lufs": -27.4,
+    "abstand_zur_stimme_lu": 13.2,
+    "stimme_dort_lufs": -16.0
    },
    {
     "nr": 9,
     "klang": "zaehlschlag",
-    "wort": "hundred.\"",
-    "zeit_s": 78.32,
-    "db": -14,
-    "fx_max_lufs": -27.0,
-    "abstand_zur_stimme_lu": 12.8,
-    "stimme_dort_lufs": -12.1
+    "wort": "\"Ninety-nine.\"",
+    "zeit_s": 77.57,
+    "db": -18,
+    "fx_max_lufs": -25.8,
+    "abstand_zur_stimme_lu": 11.6,
+    "stimme_dort_lufs": -11.3
    },
    {
     "nr": 10,
-    "klang": "riegel",
-    "wort": "opened",
-    "zeit_s": 81.16,
-    "db": -11,
-    "fx_max_lufs": -24.9,
-    "abstand_zur_stimme_lu": 10.7,
-    "stimme_dort_lufs": -11.5
+    "klang": "zaehlschlag",
+    "wort": "hundred.\"",
+    "zeit_s": 78.82,
+    "db": -14,
+    "fx_max_lufs": -25.8,
+    "abstand_zur_stimme_lu": 11.6,
+    "stimme_dort_lufs": -11.9
    },
    {
     "nr": 11,
-    "klang": "sub_boom",
-    "wort": "June's",
-    "zeit_s": 87.34,
-    "db": -12,
-    "fx_max_lufs": -25.3,
-    "abstand_zur_stimme_lu": 11.1,
+    "klang": "riegel",
+    "wort": "opened",
+    "zeit_s": 81.66,
+    "db": -11,
+    "fx_max_lufs": -27.3,
+    "abstand_zur_stimme_lu": 13.1,
     "stimme_dort_lufs": -11.5
    },
    {
     "nr": 12,
-    "klang": "zaehlschlag",
-    "wort": "counted",
-    "zeit_s": 106.62,
-    "db": -19,
-    "fx_max_lufs": -31.9,
-    "abstand_zur_stimme_lu": 17.7,
-    "stimme_dort_lufs": -12.0
+    "klang": "sub_boom",
+    "wort": "June's",
+    "zeit_s": 87.84,
+    "db": -12,
+    "fx_max_lufs": -24.7,
+    "abstand_zur_stimme_lu": 10.5,
+    "stimme_dort_lufs": -11.5
    },
    {
     "nr": 13,
+    "klang": "zaehlschlag",
+    "wort": "She",
+    "zeit_s": 107.12,
+    "db": -15,
+    "fx_max_lufs": -27.1,
+    "abstand_zur_stimme_lu": 12.9,
+    "stimme_dort_lufs": -12.0
+   },
+   {
+    "nr": 14,
+    "klang": "zaehlschlag",
+    "wort": "She",
+    "zeit_s": 108.02,
+    "db": -15,
+    "fx_max_lufs": -27.4,
+    "abstand_zur_stimme_lu": 13.2,
+    "stimme_dort_lufs": -11.3
+   },
+   {
+    "nr": 15,
+    "klang": "zaehlschlag",
+    "wort": "She",
+    "zeit_s": 108.92,
+    "db": -15,
+    "fx_max_lufs": -27.4,
+    "abstand_zur_stimme_lu": 13.2,
+    "stimme_dort_lufs": -11.3
+   },
+   {
+    "nr": 16,
+    "klang": "zaehlschlag",
+    "wort": "She",
+    "zeit_s": 109.82,
+    "db": -15,
+    "fx_max_lufs": -27.4,
+    "abstand_zur_stimme_lu": 13.2,
+    "stimme_dort_lufs": -12.8
+   },
+   {
+    "nr": 17,
+    "klang": "zaehlschlag",
+    "wort": "She",
+    "zeit_s": 110.72,
+    "db": -15,
+    "fx_max_lufs": -27.5,
+    "abstand_zur_stimme_lu": 13.3,
+    "stimme_dort_lufs": -12.1
+   },
+   {
+    "nr": 18,
+    "klang": "zaehlschlag",
+    "wort": "She",
+    "zeit_s": 111.62,
+    "db": -15,
+    "fx_max_lufs": -27.5,
+    "abstand_zur_stimme_lu": 13.3,
+    "stimme_dort_lufs": -11.5
+   },
+   {
+    "nr": 19,
+    "klang": "zaehlschlag",
+    "wort": "She",
+    "zeit_s": 112.52,
+    "db": -15,
+    "fx_max_lufs": -27.5,
+    "abstand_zur_stimme_lu": 13.3,
+    "stimme_dort_lufs": -11.1
+   },
+   {
+    "nr": 20,
+    "klang": "zaehlschlag",
+    "wort": "She",
+    "zeit_s": 113.42,
+    "db": -15,
+    "fx_max_lufs": -26.8,
+    "abstand_zur_stimme_lu": 12.6,
+    "stimme_dort_lufs": -11.1
+   },
+   {
+    "nr": 21,
+    "klang": "zaehlschlag",
+    "wort": "She",
+    "zeit_s": 114.32,
+    "db": -15,
+    "fx_max_lufs": -26.8,
+    "abstand_zur_stimme_lu": 12.6,
+    "stimme_dort_lufs": -13.0
+   },
+   {
+    "nr": 22,
+    "klang": "zaehlschlag",
+    "wort": "She",
+    "zeit_s": 115.22,
+    "db": -15,
+    "fx_max_lufs": -27.8,
+    "abstand_zur_stimme_lu": 13.6,
+    "stimme_dort_lufs": -11.8
+   },
+   {
+    "nr": 23,
+    "klang": "zaehlschlag",
+    "wort": "She",
+    "zeit_s": 116.12,
+    "db": -15,
+    "fx_max_lufs": -27.8,
+    "abstand_zur_stimme_lu": 13.6,
+    "stimme_dort_lufs": -12.4
+   },
+   {
+    "nr": 24,
+    "klang": "zaehlschlag",
+    "wort": "She",
+    "zeit_s": 117.12,
+    "db": -17,
+    "fx_max_lufs": -28.2,
+    "abstand_zur_stimme_lu": 14.0,
+    "stimme_dort_lufs": -12.7
+   },
+   {
+    "nr": 25,
+    "klang": "zaehlschlag",
+    "wort": "She",
+    "zeit_s": 118.3,
+    "db": -19,
+    "fx_max_lufs": -31.5,
+    "abstand_zur_stimme_lu": 17.3,
+    "stimme_dort_lufs": -11.3
+   },
+   {
+    "nr": 26,
+    "klang": "zaehlschlag",
+    "wort": "She",
+    "zeit_s": 119.21,
+    "db": -20,
+    "fx_max_lufs": -27.5,
+    "abstand_zur_stimme_lu": 13.3,
+    "stimme_dort_lufs": -11.3
+   },
+   {
+    "nr": 27,
+    "klang": "glocke",
+    "wort": "stopped.",
+    "zeit_s": 120.85,
+    "db": -11,
+    "fx_max_lufs": -19.4,
+    "abstand_zur_stimme_lu": 5.2,
+    "stimme_dort_lufs": -11.3
+   },
+   {
+    "nr": 28,
     "klang": "glocke",
     "wort": "rang.",
-    "zeit_s": 122.13,
+    "zeit_s": 123.13,
     "db": -11,
-    "fx_max_lufs": -19.9,
-    "abstand_zur_stimme_lu": 5.7,
+    "fx_max_lufs": -19.4,
+    "abstand_zur_stimme_lu": 5.2,
+    "stimme_dort_lufs": -11.4
+   },
+   {
+    "nr": 29,
+    "klang": "sub_boom",
+    "wort": "my",
+    "zeit_s": 132.52,
+    "db": -17,
+    "fx_max_lufs": -30.2,
+    "abstand_zur_stimme_lu": 16.0,
     "stimme_dort_lufs": -11.4
    }
   ]
  },
  "upload": {
   "eingang": {
-   "lufs": -14.23,
-   "true_peak_dbtp": -2.42,
-   "lra_lu": 2.7
+   "lufs": -14.22,
+   "true_peak_dbtp": -2.06,
+   "lra_lu": 2.8
   },
-  "verstaerkung_db": 0.23,
+  "verstaerkung_db": 0.22,
   "decke_dbfs": -1.8,
   "runden": 1,
-  "begrenzer_max_db": 0.03,
+  "begrenzer_max_db": 0.95,
   "begrenzer_rahmen_ueber_1db_prozent": 0.0,
   "ausgang": {
    "lufs": -14.0,
-   "true_peak_dbtp": -2.19,
-   "lra_lu": 2.7
+   "true_peak_dbtp": -1.84,
+   "lra_lu": 2.8
   }
  },
- "vorhoer": {
-  "eingang": {
-   "lufs": -14.06,
-   "true_peak_dbtp": -2.29,
-   "lra_lu": 2.6
-  },
-  "verstaerkung_db": 0.06,
-  "decke_dbfs": -1.8,
-  "runden": 1,
-  "begrenzer_max_db": 0.03,
-  "begrenzer_rahmen_ueber_1db_prozent": 0.0,
-  "ausgang": {
-   "lufs": -14.01,
-   "true_peak_dbtp": -2.23,
-   "lra_lu": 2.7
-  },
-  "bett": {
-   "datei": "/home/user/Deeptok/horror/build/musik/spannung-hiding-night-teil3.wav",
-   "sha256": "9a4d3cea22e9bd5084c6cb5d1fb367c8ce53bc863b0d0f8a4ebc4010f13c6de9",
-   "lufs_roh": -20.72,
-   "bezug_lufs": -20.0,
-   "abstand_zur_stimme_lu": 12.0,
-   "lufs_im_mix_vor_norm": -26.96
-  }
- },
+ "vorhoer": null,
  "regel": {
   "ziel_lufs": -14.0,
   "max_tp_dbtp": -1.0,
   "decke_dbfs": -1.8,
   "decke_vorhoer_dbfs": -1.8
- },
- "nach_aac": {
-  "kbit": 192,
-  "upload": {
-   "lufs": -14.05,
-   "true_peak_dbtp": -2.25,
-   "lra_lu": 2.7
-  },
-  "vorhoer": {
-   "lufs": -14.06,
-   "true_peak_dbtp": -2.28,
-   "lra_lu": 2.7
-  },
-  "decken_dbfs": {
-   "upload": -1.8,
-   "vorhoer": -1.8
-  }
- },
- "dateien": {
-  "upload": "build/folge-03/folge-03-ohne-musik.mp4",
-  "vorhoer": "build/folge-03/folge-03-mit-musik.mp4"
  }
 }

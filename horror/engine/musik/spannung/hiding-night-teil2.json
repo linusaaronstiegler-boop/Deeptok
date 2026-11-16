@@ -31,11 +31,11 @@
   },
   {
    "ab_wort": 162,
-   "versatz_s": -0.42,
+   "versatz_s": -0.05,
    "stufe": "duenn",
    "blende_s": 0.3,
    "einrasten": "aus",
-   "grund": "Wiedereinsatz dünn kurz vor 'When I came back down' (Wegfall 1,40 s); dünn bis zum Omen, damit die zwei Wegfälle nicht hart wechseln"
+   "grund": "Wiedereinsatz dünn kurz vor 'When I came back down' (Wegfall 1,40 s); dünn bis zum Omen, damit die zwei Wegfälle nicht hart wechseln (Review Teil 3: erst nach dem dritten, jetzt langsameren Klopfer bei 49,75 s)"
   },
   {
    "ab_wort": 169,
@@ -57,6 +57,14 @@
    "stufe": "voll",
    "blende_s": 1.5,
    "grund": "ab der Luke: hohe Linie und Chor dazu (Review: volle Stufe erst ab der Luke, nicht unter Odell und Tess)"
+  },
+  {
+   "ab_wort": 254,
+   "versatz_s": -0.2,
+   "stufe": "voll",
+   "pegel_db": -5.0,
+   "blende_s": 0.4,
+   "grund": "Review Teil 3 (zu Teil 2): unter Junes Zählen „Ninety-seven / -eight / -nine“ 5 dB leiser; vorher nur 5,2–10 LU Abstand zur Stimme (Regel 10–12 LU), Whisper ließ „Ninety-seven, Ninety-eight“ aus"
   },
   {
    "ab_wort": 257,

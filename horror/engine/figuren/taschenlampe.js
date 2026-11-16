@@ -5,6 +5,8 @@
 //         laenge (Std 0.3), staubig (Std false: matt grau statt rot lackiert)
 // Animationen: kippen { winkel (Grad, Std 80), rollen (Grad, Std 40) } – fällt auf die Seite, der Kegel
 //              schwenkt mit (0,35 s); aus (Linse und Kegel gehen aus, 0,1 s)
+import { weicherKegel } from '../src/bauteile.js';
+
 export default async function baue(ctx, params = {}) {
   const T = ctx.THREE;
   const L = params.laenge ?? 0.3;
@@ -26,6 +28,7 @@ export default async function baue(ctx, params = {}) {
   }, 8, 128);
   const kegelMat = new T.MeshLambertMaterial({ color: '#000000', emissive: new T.Color('#ffe4b8'), emissiveIntensity: an ? (params.kegel ?? 0.25) : 0, emissiveMap: kegelTex, transparent: true, depthWrite: false, blending: T.AdditiveBlending, side: T.DoubleSide });
   kegelMat.fog = false;
+  weicherKegel(kegelMat);   // Review Teil 3: keine harte Kegelkante
   const kegelL = 1.6;
   const kegel = new T.Mesh(new T.CylinderGeometry(0.42, 0.05, kegelL, 20, 1, true), kegelMat);
   kegel.rotation.x = Math.PI / 2; kegel.position.z = L / 2 + 0.07 + kegelL / 2; kegel.userData.einzeln = true;

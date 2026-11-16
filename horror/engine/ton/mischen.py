@@ -204,6 +204,37 @@ def rede_bearbeiten(stimme: np.ndarray, ordner: Path, woerter: list, cfg: dict) 
     return protokoll
 
 
+def unterstimmen(stimme: np.ndarray, roh: np.ndarray, woerter: list, liste: list) -> list:
+    """Review Teil 3: Eine zweite, tiefe Stimme UNTER einen Redeabschnitt legen, statt ihn zu ersetzen.
+    June spricht „One hundred. Ready, Rabbit?“, und darunter zählt das Monster mit (wie Mister Hundred in
+    Teil 2: tiefer, Formanten wandern mit, kurzer Hall). Quelle ist die unbearbeitete Erzählerstimme (roh),
+    damit die Unterstimme nicht aus Junes schon erhöhter Fassung entsteht. Pegel 'db' relativ zur
+    Lautheit des Abschnitts in der Hauptstimme. Arbeitet in place auf stimme."""
+    protokoll = []
+    for u in liste:
+        a = woerter[u["von"]]["start"] - 0.05
+        b = woerter[u["bis"]]["ende"] + 0.35          # Hall darf ausklingen
+        i, j = int(a * SR), min(len(stimme), int(b * SR))
+        rand = int(0.25 * SR)
+        i0, j0 = max(0, i - rand), min(len(roh), j + rand)
+        filt = f"rubberband=pitch={2 ** (u.get('halbtoene', -4.5) / 12):.5f}:formant={u.get('formant', 'shifted')}:pitchq=quality"
+        if u.get("hall", True):
+            filt += ",aecho=0.85:0.6:38|83:0.32|0.18"
+        y = ffmpeg_filter(roh[i0:j0], filt)
+        y = np.pad(y, ((0, max(0, (j0 - i0) - len(y))), (0, 0)))[: j0 - i0]
+        neu = y[i - i0: j - i0]
+        # Pegel: so laut wie der Abschnitt in der Hauptstimme, dann u["db"] darunter
+        bezug = lautheit(stimme[i:j])["lufs"]
+        neu = neu * 10 ** ((bezug - lautheit(neu)["lufs"] + u.get("db", -13.0)) / 20)
+        k = int(0.03 * SR)
+        neu[:k] *= np.linspace(0, 1, k)[:, None]
+        neu[-k:] *= np.linspace(1, 0, k)[:, None]
+        stimme[i:j] += neu
+        protokoll.append({"wer": u.get("wer", "Mister Hundred"), "von_s": round(a, 3), "bis_s": round(b, 3),
+                          "halbtoene": u.get("halbtoene", -4.5), "db": u.get("db", -13.0), "art": "unter"})
+    return protokoll
+
+
 def setze_cue(spur: np.ndarray, klang: np.ndarray, t: float, db: float) -> None:
     i = int(round(t * SR))
     if i < 0:
@@ -247,7 +278,9 @@ def mische(ordner: Path, bett_pfad: Path | None, decke_db: float, decke_vh: floa
     st = lade_stereo(stimme_pfad)
     stimme = np.zeros((n, 2))
     stimme[: min(n, len(st))] = st[:n]
+    roh = stimme.copy()
     rede = rede_bearbeiten(stimme, ordner, woerter, cues.get("rede", {}))
+    rede += unterstimmen(stimme, roh, woerter, cues.get("unterstimmen", []))
 
     # Effekte nach Cue-Liste
     fx = np.zeros((n, 2))

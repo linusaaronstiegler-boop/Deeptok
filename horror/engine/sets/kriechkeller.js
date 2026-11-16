@@ -29,7 +29,7 @@
 //   Teppich darüberfällt), keller.lampe (Elis Taschenlampe: Punktlicht, Kegel, Lichtfleck), keller.gitter
 //   (Mondlicht am Lüftungsgitter, für Teil 3)
 import * as THREE from 'three';
-import { k, zyl, verschmelze, tmat, lichtPfuetzeMat } from '../src/bauteile.js';
+import { k, zyl, verschmelze, tmat, lichtPfuetzeMat, weicherKegel } from '../src/bauteile.js';
 
 // Maße (lokal)
 export const KELLER = {
@@ -255,14 +255,21 @@ export default async function baue(ctx, params = {}) {
   }, 8, 128);
   const kegelLaenge = kegelZiel.distanceTo(lampePos);
   // Review Teil 2: Der Kegel war unsichtbar (0,1). Im dunklen Keller ist die Taschenlampe das Hauptlicht.
-  const kegelMat = new T.MeshStandardMaterial({ color: '#000000', emissive: new T.Color('#ffe4b8'), emissiveIntensity: params.kegel ?? 0.22, emissiveMap: kegelTex, transparent: true, depthWrite: false, blending: T.AdditiveBlending, side: T.DoubleSide, roughness: 1 });
+  // Review Teil 3: Der Kegel schnitt als halbtransparente Fläche mit harter Kante (Keil, haarfeine Linie)
+  // durch Bretter und Gesichter. Ursache: MeshStandardMaterial glänzt auch in Schwarz (4 % Spiegelung);
+  // das Punktlicht der Lampe spiegelte sich auf der Kegelfläche, additiv, mit der harten Silhouette des
+  // Kegels. Jetzt Lambert (ohne Glanz, wie die Turmlampe) und weich: Rand und Nähe zur Linse blenden aus
+  // (weicherKegel). Weil der weiche Kegel im Mittel etwa halb so hell ist, steigt er von 0,22 auf 0,3.
+  const kegelMat = new T.MeshLambertMaterial({ color: '#000000', emissive: new T.Color('#ffe4b8'), emissiveIntensity: params.kegel ?? 0.3, emissiveMap: kegelTex, transparent: true, depthWrite: false, blending: T.AdditiveBlending, side: T.DoubleSide });
   kegelMat.fog = false;
+  weicherKegel(kegelMat);
   const kegel = new T.Mesh(new T.CylinderGeometry(0.3, 0.05, kegelLaenge, 24, 1, true), kegelMat);
   kegel.position.set(0, 0.06 + kegelLaenge / 2, 0);
   kegel.userData.einzeln = true;
   lampeKoerper.add(kegel);
   // Lichtfleck unter den Dielen
-  const fleckMat = lichtPfuetzeMat(ctx, '#ffd9a0', 0.32);
+  // Lichtfleck ebenfalls ohne Glanz (Review Teil 3, siehe Kegel)
+  const fleckMat = lichtPfuetzeMat(ctx, '#ffd9a0', 0.32, { ohneGlanz: true });
   const fleck = new T.Mesh(new T.PlaneGeometry(1.4, 1.4), fleckMat);
   fleck.rotation.x = Math.PI / 2;
   fleck.position.set(kegelZiel.x, yU - 0.004, kegelZiel.z);
@@ -473,7 +480,8 @@ export default async function baue(ctx, params = {}) {
         finger.forEach((g, i) => { g.rotation.y = (i - 1.5) * sp * 0.66; });
       }
       // kalter Saum: leuchtet mit dem Finger-Ereignis oder einem eigenen Glut-Ereignis auf
-      let glut = f ? 0.9 * glatt((t - f.start) / 0.25) : 0;
+      // f.glut (Review Teil 3): schwächere Spitzen, sonst blühen sie im dunklen Keller zur Lichtwolke auf
+      let glut = f ? (f.glut ?? 0.9) * glatt((t - f.start) / 0.25) : 0;
       for (const e of glutEv) if (t >= e.start) glut = Math.max(glut, (e.staerke ?? 1) * anteil(e, t));
       // Review Teil 2: der breite Saum flutete den Keller türkis; nur noch ein schmaler kalter Rand,
       // die Spitzen leuchten hell

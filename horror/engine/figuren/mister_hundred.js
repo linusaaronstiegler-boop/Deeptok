@@ -117,9 +117,13 @@ export default async function baue(ctx, params = {}) {
   // Brauen, Wangen und Sommersprossen, bernsteinfarbenen Augen und einem Lächeln eine Spur zu breit.
   // june_gedehnt (Std), june_bricht (das Lächeln bricht, die Brauen sinken); Mundformen für Junes Rede als
   // zusammengesetzter Name: "june_gedehnt/reden_a" usw.
-  const stilJuneDehn = { haut: '#E2CDB8', iris: '#E3A33B', tinte: '#141012', brauen: '#5E2219', wangen: '#e8968a', sommersprossen: true,
-    augenAbstand: 0.215, augenGroesse: 1.32, augenHoehe: 0.45, mundHoehe: 0.8, mundBreite: 1.45 };
-  const JUNE_DEHN = { june_gedehnt: 'laecheln/zu_breit', june_bricht: 'besorgt' };
+  // Review Teil 3: Das Gesicht wirkte hell, pastellig und freundlich (Lichtpunkte in den Augen, rosa Wangen,
+  // dünner Lächelbogen). Jetzt: Haut fahler, keine Wangen, Augen eine Spur zu weit auseinander und leer
+  // (ohne Lichtpunkt), ein Grinsen fast über die ganze Breite mit Zähnen (Ausdruck „gedehnt“).
+  const stilJuneDehn = { haut: '#D8C3AE', iris: '#E3A33B', tinte: '#141012', brauen: '#5E2219', sommersprossen: true,
+    augenAbstand: 0.255, augenGroesse: 1.32, augenHoehe: 0.43, mundHoehe: 0.79, mundBreite: 1.45 };
+  // june_muede (Satz 52): die Lider sinken, wenn sie beim Zählen einschläft
+  const JUNE_DEHN = { june_gedehnt: 'gedehnt', june_bricht: 'gedehnt_bricht', june_muede: 'gedehnt_muede', june_schlaeft: 'gedehnt_schlaeft' };
   const gesichtKarten = {};
   const karte = (name) => gesichtKarten[name] ??= ctx.zeichenTextur((g, w, h) => {
     const [basis, ...mund] = name.split('/');
@@ -361,7 +365,7 @@ export default async function baue(ctx, params = {}) {
     huefteHoehe, beinDicke: M.beinD, masse: M,
     glieder: { arm: [M.oberarm, M.unterarm], bein: [M.oberschenkel, M.unterschenkel] },
     hoehe: huefteHoehe + 0.05 + M.rumpfH + M.hals + M.kopfH,
-    gesichter: ['glatt', 'auge', 'june_gross', 'june_mund', 'june_gedehnt', 'june_bricht'],
+    gesichter: ['glatt', 'auge', 'june_gross', 'june_mund', 'june_gedehnt', 'june_bricht', 'june_muede', 'june_schlaeft'],
   };
 
   fig.grundpose = () => {

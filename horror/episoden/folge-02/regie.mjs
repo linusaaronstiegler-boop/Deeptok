@@ -303,11 +303,14 @@ export const einstellungen = {
     lampen_einzeln: { 'haus.flur_lampe': false },
     // Review Teil 2: las sich als Händeschütteln, das Zucken warf die Arme aus dem Bild. Jetzt halbnah mit
     // beiden Gesichtern, June greift von oben ums Handgelenk, Eli zuckt klein, sein Atem wird weiß
-    kamera: { ziel: [-16.78, 1.9, -2.0], pos: [-16.72, 2.05, 0.15], fov: 52, rate: 0.07 },
+    // Review Teil 3 (zu Teil 2): 0,63 s lang war nur eine leere lila Fläche zu sehen (die Fahrt begann hinter
+    // der Flurwand), die Hände kamen erst nach „her hands“. Jetzt beginnt die Einstellung in der Endkadrierung
+    // im Flur, Junes Griff ums Handgelenk liegt ab Bild 1.
+    kamera: { ziel: [-16.78, 1.62, -2.0], pos: [-16.72, 1.9, -0.15], fov: 62, rate: 0.07 },
     licht_anpassung: KALT_INNEN,
     neben: [
-      { wer: 'eli', was: 'arm_heben', ab: 'start', dauer: 0.2, params: { seite: 'r', vorn: 40 } },
-      { wer: 'june', was: 'greifen', wort: 'hands', dauer: 0.35, params: { zu: { anker: 'eli.hand_r', versatz: [-0.09, 0.06, 0] }, seite: 'l', form: 'faust', lehnen: false } },
+      { wer: 'eli', was: 'arm_heben', ab: 'start', dauer: 0.01, params: { seite: 'r', vorn: 40 } },
+      { wer: 'june', was: 'greifen', ab: 'start', dauer: 0.01, params: { zu: { anker: 'eli.hand_r', versatz: [-0.09, 0.06, 0] }, seite: 'l', form: 'faust', lehnen: false } },
     ],
     haupt: { wer: 'eli', was: 'erschrecken', wort: 'cold', params: { staerke: 0.35 } },
     gesichter: [{ wer: 'eli', name: 'angst', wort: 'cold' }],
@@ -398,8 +401,10 @@ export const einstellungen = {
   '13': {
     uhr: '11:00',
     figuren: { odell: { position: ORT.odell, blick: 0, gesicht: 'streng' } },
-    kamera: { ziel: { anker: 'odell.kopf', versatz: [0, -0.3, 0] }, pos: [2.7, 1.25, -54.4], fov: 46, rate: 0.07 },
-    licht_anpassung: NACHT_HELL,
+    // Review Teil 3 (zu Teil 2): die Glocke war nicht im Bild. Jetzt von unten an Odell vorbei: er im
+    // Vordergrund, darüber Turm und Schallluke, auf „bell“ schwingt die Glocke sichtbar.
+    kamera: { pos: [3.2, 2.4, -38.0], ziel: [0.1, 13.7, -62.4], fov: 17, rate: 0.07 },
+    licht_anpassung: { ...NACHT_HELL, kante: { staerke: 2.0 } },
     neben: [{ wer: 'odell', was: 'kopf_drehen', wort: 'midnight', dauer: 0.4, params: { winkel: 12, nicken: -45 } }],
     haupt: { art: 'set', set: 'strasse', was: 'glocke', wort: 'bell' },
     hauptsache: 'odell.kopf',
@@ -567,8 +572,12 @@ export const einstellungen = {
     // über die Schulter des Monsters (Hausrückseite) auf Junes Fenster: Rücken und Mantel verkürzt, der helle
     // Kopf mit den Fingern liegt vor der oberen Scheibe. Von schräg vorn las sich der waagrecht gebeugte
     // Mantel im Probebild als Kranarm; vier Kamerastellungen verglichen (build/folge-02, Probebilder)
-    kamera: { ziel: [-18.6, 2.3, 5.1], pos: [-19.7, 3.4, 9.7], fov: 48, rate: 0.07 },
-    licht_anpassung: NACHT_HELL,
+    // Review Teil 3 (zu Teil 2): Außen lag die helle Schulter als Balken vor der Linse, ein Nicken war nicht zu
+    // sehen. Jetzt innen und weit: Junes dunkles, leeres Zimmer von der Tür aus, hinten im Fenster die Hände;
+    // auf „tapped“ pulst das kalte Licht. Danach (Satz 23) dieselbe Stelle näher.
+    set: ['strasse', 'haus', 'spur'],
+    kamera: { ziel: [-18.6, 1.9, 5.1], pos: [-17.35, 1.65, 0.6], fov: 56, rate: 0.07 },
+    licht_anpassung: { belichtung: 1.25 },
     haupt: { wer: 'mh', was: 'zaehlen', wort: 'tapped', dauer: 0.45, params: { takt: 0.45, staerke: 1.3 } },
     hauptsache: 'mh.haende',
   },
@@ -581,11 +590,13 @@ export const einstellungen = {
     figuren: { ...MH(ORT.monsterJuneFenster, 180, BEUGEN_FENSTER), luke_tp: { position: ORT.luke, blick: 90 } },
     kamera: { ziel: [-18.6, 2.55, 5.1], pos: [-18.15, 1.2, 2.75], fov: 54, rate: 0.07 },
     licht_anpassung: { belichtung: 1.25 },
+    // Review Teil 3 (zu Teil 2): 0,45 s Abstand wirkte wie normales Klopfen. Jetzt 0,73 s: auf „Three“, dann
+    // 48,29 + 0,73 und + 1,46 s (vor „When“ bei 49,86 s)
     neben: [
-      { wer: 'mh', was: 'zaehlen', wort: 'Three', dauer: 0.4, params: { takt: 0.4, staerke: 1.2 } },
-      { wer: 'mh', was: 'zaehlen', wort: 'slow', versatz: 0.16, dauer: 0.4, params: { takt: 0.4, staerke: 1.2 } },
+      { wer: 'mh', was: 'zaehlen', wort: 'slow', versatz: 0.44, dauer: 0.4, params: { takt: 0.4, staerke: 1.2 } },
+      { wer: 'mh', was: 'zaehlen', wort: 'knocks', versatz: 0.77, dauer: 0.4, params: { takt: 0.4, staerke: 1.4 } },
     ],
-    haupt: { wer: 'mh', was: 'zaehlen', wort: 'knocks', versatz: 0.2, dauer: 0.4, params: { takt: 0.4, staerke: 1.4 } },
+    haupt: { wer: 'mh', was: 'zaehlen', wort: 'Three', dauer: 0.4, params: { takt: 0.4, staerke: 1.2 } },
     hauptsache: 'mh.haende',
   },
   // "When I came back down," – Eli kommt mit dem Rucksack die Treppe herunter (Kamera fährt vor ihm)
@@ -764,11 +775,13 @@ export const einstellungen = {
     hauptsache: 'keller.luke',
   },
   // "Above me, June lay down and" – Eli liegt auf dem Erdboden, über ihm die Lichtstreifen der Dielen
+  // Review Teil 3 (zu Teil 2): las sich als dunkler Kasten mit Streifen. Jetzt die Dielen von unten: auf „lay“
+  // legt sich Junes Schatten der Länge nach über die Fugen (wie im Finale, Satz 33)
   '33': {
-    figuren: { eli: { position: ORT.kellerEli, blick: 90, pose: 'liegen', pose_params: { kopf: 30 }, gesicht: 'besorgt' }, luke_k: { position: ORT.kellerLuke, blick: 0 } },
-    kamera: { ziel: { anker: 'eli.kopf', versatz: [0.25, 0.05, 0] }, blick: { azimut: 200, hoehe: 16, abstand: 1.6 }, fov: 54, roll: ROLL_LIEGEN, rate: 0.08 },
+    kamera: { punkt: 'keller.pov', rate: 0.08 },
+    set_ereignisse: [{ set: 'keller', was: 'liegen', wort: 'lay', versatz: -0.1, dauer: 0.9, mitte: [-0.7, 0.15], laenge: 2.6, breite: 0.62, drehung: 0 }],
     haupt: { art: 'kamera', wort: 'Above' },
-    hauptsache: 'eli.kopf',
+    hauptsache: 'keller.dielen_mitte',
   },
   // "counted, like every night." – Kran von oben: June im Bett, die Augen zu, die Lippen zählen
   '33:counted': {
@@ -884,12 +897,16 @@ export const einstellungen = {
   // sich (Snap-Zoom). Kein Finger kommt durch (das bleibt für Teil 3). Harter Schnitt, PART 3.
   '43': {
     figuren: MH(ORT.kellerMonster, 0),
-    kamera: { punkt: 'keller.pov', rate: 0.05, zusaetze: [{ baustein: 'snap_zoom', wort: 'Ready', faktor: 1.18, bilder: 2 }] },
+    // Kamera auf die Fugen, über denen die Hand liegt (vorher lag sie am Bildrand)
+    kamera: { pos: kw(-0.3, 0.32, 0.55), ziel: kw(-0.33, 1.0, 1.38), fov: 52, rate: 0.05, zusaetze: [{ baustein: 'snap_zoom', wort: 'Ready', faktor: 1.18, bilder: 2 }] },
     // auf „One“ wird es oben dunkel (es steht über der Lampe): dann ist der kalte Saum der Finger das Licht
-    haupt: { art: 'licht', licht_art: 'dimmen', ziel: 'keller.oben', faktor: 0.5, wort: 'One', dauer: 0.4 },
+    // Review Teil 3 (zu Teil 2): 87,6–89,1 s fast schwarz, auf „Ready?“ nur ein türkiser Lichtfleck. Jetzt
+    // dimmt es nur auf 75 %, die Fingerschatten liegen schon 0,75 s vor dem Schnitt quer über den Fugen, die
+    // Spitzen glimmen schwächer (keine Lichtwolke), gespreizt wird auf „Ready“.
+    haupt: { art: 'licht', licht_art: 'dimmen', ziel: 'keller.oben', faktor: 0.85, wort: 'One', dauer: 0.4 },
     set_ereignisse: [
       { set: 'keller', was: 'fuesse', versatz: 0, dauer: 0.01, mitte: [-0.45, -0.45], drehung: 0 },
-      { set: 'keller', was: 'finger', wort: 'Ready', versatz: -0.08, dauer: 0.28, von: [-0.33, 1.72], nach: [-0.33, 1.384], drehung: -90, skala: 1.2, spreizen: 14, spreiz_dauer: 0.2 },
+      { set: 'keller', was: 'finger', wort: 'Ready', versatz: -0.62, dauer: 0.75, von: [-0.33, 1.72], nach: [-0.33, 1.384], drehung: -90, skala: 1.2, spreizen: 14, spreiz_dauer: 0.2, glut: 0.4 },
     ],
     hauptsache: 'keller.dielen_mitte',
   },

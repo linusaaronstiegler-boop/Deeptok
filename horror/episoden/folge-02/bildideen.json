@@ -361,7 +361,7 @@
     "june",
     "eli"
    ],
-   "aktion": "June greift Elis Handgelenk, Eli zuckt zusammen",
+   "aktion": "Review Teil 3: halbnah im Flur, Junes Griff ums Handgelenk liegt ab Bild 1 (vorher 0,63 s leere Wand), auf „cold“ zuckt Eli",
    "schluesselwort": "cold",
    "kamera": "push-in",
    "groesse": "detail",
@@ -483,7 +483,7 @@
    "figuren": [
     "odell"
    ],
-   "aktion": "Mr. Odell vor den Kirchenstufen schaut zum Turm hinauf; auf 'bell' schwingt oben die Glocke",
+   "aktion": "Review Teil 3: die Schallluke mit der Glocke über der Uhr (11:00); auf „bell“ schwingt sie (vorher war nur Odell zu sehen)",
    "schluesselwort": "bell",
    "kamera": "push-in",
    "groesse": "halbnah",
@@ -734,7 +734,7 @@
      "figuren": [
       "mister-hundred"
      ],
-     "aktion": "Junes Fenster im Erdgeschoss von außen: Mister Hundred steht tief gebeugt davor, die Hände wie immer vor dem Gesicht; ein Fingerknöchel berührt die Scheibe",
+     "aktion": "Review Teil 3: Junes dunkles Zimmer von der Tür aus, hinten im Fenster Kopf und Hände; auf „tapped“ pulst das kalte Licht (vorher außen über die Schulter: Balken vor der Linse)",
      "schluesselwort": "tapped",
      "kamera": "push-in",
      "groesse": "halbtotale",
@@ -754,8 +754,8 @@
    "figuren": [
     "mister-hundred"
    ],
-   "aktion": "Junes leeres Zimmer von innen, die Tür einen Spalt offen: hinter dem Vorhang der Schatten eines langen Fingers; auf 'Three', 'slow' und 'knocks' je ein Klopfen, der Vorhang zittert",
-   "schluesselwort": "knocks",
+   "aktion": "Junes Zimmer näher: im Fenster die Fingerknöchel, drei langsame Klopfer 0,73 s auseinander (Review Teil 3), jedes Mal pulst das kalte Licht",
+   "schluesselwort": "Three",
    "kamera": "push-in",
    "groesse": "halbnah",
    "monster": true,
@@ -1014,7 +1014,7 @@
    "figuren": [
     "eli"
    ],
-   "aktion": "Eli liegt auf dem Erdboden, über ihm die Dielen mit dünnen Lichtstreifen",
+   "aktion": "Review Teil 3: die Dielen von unten, auf „lay“ legt sich Junes Schatten der Länge nach über die Fugen",
    "schluesselwort": "Above",
    "kamera": "push-in",
    "groesse": "halbnah",
@@ -1248,7 +1248,7 @@
    "figuren": [
     "mister-hundred"
    ],
-   "aktion": "Untersicht auf die Dielen: die Lichtspalten verdunkeln sich, etwas Großes steht darauf; auf 'Ready?' fallen die Schatten von vier langen Fingern durch die Fugen und spreizen sich",
+   "aktion": "Review Teil 3: die Fingerschatten liegen 0,75 s vor dem Schnitt quer über den Fugen (Kamera auf diese Fugen), das Licht dimmt nur auf 85 %, die Spitzen glimmen schwächer; auf „Ready“ spreizen sie sich",
    "schluesselwort": "One",
    "kamera": "push-in",
    "groesse": "pov",
