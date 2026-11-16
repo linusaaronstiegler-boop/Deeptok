@@ -43,7 +43,9 @@ MITTE = (540, 1200)
 # Review Teil 3: Liegt die Hauptsache einer Einstellung im Untertitel-Streifen (Junes Pupille, Uhrziffern),
 # stehen die Untertitel dieser Einstellung tiefer. 1440 liegt noch über der Beschreibungszeile der App.
 STREIFEN_Y = (1040, 1330)
-AUSWEICH_Y = 1440
+# 1400 statt 1440: Die Vorbilder setzen ihre Untertitel bei y 1355–1370 (format-spec.md), darunter beginnt
+# die Beschreibungszone der App. Bei 96 px reicht der Text von etwa 1345 bis 1455.
+AUSWEICH_Y = 1400
 # Wörtliche Rede (Junes Gelb auf ihrem senffarbenen Pulli) bekommt eine dickere Kontur
 KONTUR_REDE = 11
 GROESSE = 96            # px bei 1080 × 1920 (Review Folge 1: 84 px wirkten in der Handyvorschau dünn)
@@ -271,15 +273,20 @@ def pop_tags(n: int, cs: int) -> str:
 
 # ---------------------------------------------------------------- ASS schreiben
 
-def ausweich_zeiten(ordner: Path, episode: dict) -> list[tuple[float, float]]:
+def ausweich_zeiten(ordner: Path, episode: dict, vorgaben: dict | None = None) -> list[tuple[float, float]]:
     """Zeiträume der Einstellungen, deren Hauptsache im Untertitel-Streifen liegt. Grundlage ist die
     Kompositionsprüfung des Schnellbogens (build/<folge>/komposition.json, projizierte Punkte bei 1080 × 1920).
     Fehlt die Datei, bleibt alles auf der Mitte."""
+    vorgaben = vorgaben or {}
     k = ordner.parent.parent / "build" / ordner.name / "komposition.json"
-    if not k.exists():
-        return []
     zeiten = {e["id"]: (e["start"], e["ende"]) for e in episode["einstellungen"]}
-    aus = []
+    # Von Hand erzwungen (untertitel.json → "ausweichen": Regie-Schlüssel wie "41" oder "27:three"): wenn der
+    # Ankerpunkt die Sache nicht trifft (Junes Pupille in Teil 3 E63: der Augen-Anker lag außerhalb des Bildes;
+    # die Uhrziffern reichen unter ihren Mittelpunkt)
+    erzwungen = set(vorgaben.get("ausweichen", []))
+    aus = [(e["start"], e["ende"]) for e in episode["einstellungen"] if (e.get("plan") or {}).get("key") in erzwungen]
+    if not k.exists():
+        return aus
     for e in json.loads(k.read_text(encoding="utf-8")).get("einstellungen", []):
         punkte = (e.get("komposition") or {}).get("punkte", [])
         if any(0 <= pt["x"] <= BREITE and STREIFEN_Y[0] <= pt["y"] <= STREIFEN_Y[1] for pt in punkte) and e["id"] in zeiten:
@@ -297,7 +304,7 @@ def baue(ordner: Path, tabelle: bool = False) -> dict:
     ende_bild = round(end[0]["start"] * FPS) if end else round(episode["einstellungen"][-1]["ende"] * FPS)
 
     gruppen = gruppieren(einheiten(timing, vorgaben))
-    ausweichen = ausweich_zeiten(ordner, episode)
+    ausweichen = ausweich_zeiten(ordner, episode, vorgaben)
     zeilen = []
     eintraege = []
     starts = [round(g[0]["start"] * FPS) for g in gruppen]
