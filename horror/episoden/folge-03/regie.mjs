@@ -370,9 +370,12 @@ export const einstellungen = {
     haupt: { art: 'kamera', wort: 'higher' },
     hauptsache: [-12, 5, -31],
   },
-  // "It stood up straight," – einzige Totale: es richtet sich neben dem Turm auf, von hinten, die Kamera steigt mit
+  // "It stood up straight," – einzige Totale: es richtet sich neben dem Turm auf, die Kamera steigt mit.
+  // Review Teil 3: Von hinten lagen die spitz abstehenden Oberarme als waagrechter Balken (T-Pose, wirkte
+  // unanimiert). Jetzt dreht es der Kamera das Gesicht zu: die Raute aus Händen und Ellbogen vor dem Kopf ist
+  // lesbar, die Kirche steht dahinter (Probe 39,5 / 40,4 s).
   '17': {
-    figuren: { mh_turm: { position: [-1.4, 0, -55.6], blick: 180, gesicht: 'glatt', pose: 'vorbeugen', pose_params: { winkel: 55, kopf_ausgleich: 30, knie: 30 } } },
+    figuren: { mh_turm: { position: [-1.4, 0, -55.6], blick: 0, gesicht: 'glatt', pose: 'vorbeugen', pose_params: { winkel: 55, kopf_ausgleich: 30, knie: 30 } } },
     kamera: { baustein: 'tilt_up', von_ziel: { anker: 'mh_turm.huefte' }, ziel: { anker: 'mh_turm.kopf', versatz: [0, 0.6, 0] }, pos: [-3.6, 2.2, -40.5], ankunft_wort: 'straight', kran: 2.0, fov: 58 },
     licht_anpassung: { ...NACHT_HELL, kante: { staerke: 2.0 } },
     haupt: { wer: 'mh_turm', was: 'vorbeugen', wort: 'straight', anker: 'ende', dauer: 0.9, params: { winkel: 12, kopf_ausgleich: 4, knie: 0 } },

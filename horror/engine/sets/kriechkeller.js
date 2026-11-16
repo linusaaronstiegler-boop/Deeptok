@@ -85,9 +85,13 @@ export default async function baue(ctx, params = {}) {
   for (let i = 0; i < 5; i++) k(statisch, 0.22, 0.07, 0.11, ziegel, 2.4 + (i % 3) * 0.24, 0.035 + Math.floor(i / 3) * 0.07, 1.7 + (i % 2) * 0.05, { dreh: [0, 0.1 * i, 0] });
   // Spinnweben-Fäden an den Balken: dünne helle Schnüre
   const faden = ctx.mat('#d8d4cc', { rauheit: 1 });
+  // Review Teil 3: Die 4 mm dünnen Fäden lagen nah an der Linse als haarfeine, gerade Linien quer durchs Bild
+  // (E17: waagrechte Linie bei y ≈ 1150, las sich wie ein Renderfehler). Sie werden nicht mehr gebaut; die
+  // Zufallszahlen werden trotzdem gezogen, damit alles danach an seinem Platz bleibt.
   for (let i = 0; i < 7; i++) {
     const fx = -2.7 + Math.floor(z() * 7) * 0.9;
-    k(statisch, 0.004, 0.18 + z() * 0.2, 0.004, faden, fx + 0.05, yU - 0.3, K.z0 + 0.3 + z() * (K.z1 - K.z0 - 0.6), { schatten: false, dreh: [0, 0, 0.3 * (z() - 0.5)] });
+    const fh = 0.18 + z() * 0.2, fz = K.z0 + 0.3 + z() * (K.z1 - K.z0 - 0.6), fd = 0.3 * (z() - 0.5);
+    if (params.faeden) k(statisch, 0.004, fh, 0.004, faden, fx + 0.05, yU - 0.3, fz, { schatten: false, dreh: [0, 0, fd] });
   }
 
   // ---------- Grundmauern (Naturstein) mit Lüftungsgitter ----------
@@ -183,6 +187,10 @@ export default async function baue(ctx, params = {}) {
   handflaeche.add(flach(0.58, 0.52, saumMat, 0.008));
   handflaeche.children[0].position.x = 0.2; handflaeche.children[1].position.x = 0.23;
   const finger = [];
+  // Review Teil 3 (zu Teil 2, „Ready?“): Die Säume (je 12 cm um 7 cm breite Finger) überlappten sich und füllten
+  // die Lücken zwischen den Fingern kalt aus: durch die Fugen sah man ein türkises Gitter statt vier Finger.
+  // Mit saum: false (Finger-Ereignis) bleiben nur die dunklen Finger und die glimmenden Spitzen.
+  const saeume = [];
   for (let i = 0; i < 4; i++) {
     const g = new T.Group();
     g.position.set(-0.18, 0, -0.16 + i * 0.107);
@@ -194,6 +202,7 @@ export default async function baue(ctx, params = {}) {
     g.add(f);
     const s = flach(0.12, laenge + 0.04, saumMat, 0.008);
     g.add(s);
+    saeume.push(s);
     // glimmende Fingerspitze (wie die Nägel des Monsters): kaltes Licht, das durch die Fuge sickert.
     // Review Teil 2: eigenes, helleres Material und länger (16 cm), damit jede Spitze in einer Fuge als
     // kalter Punkt erscheint: vier Punkte in einer Reihe lesen sich als Fingerspitzen
@@ -478,6 +487,8 @@ export default async function baue(ctx, params = {}) {
         // spreizen erst, wenn die Hand liegt (Review Teil 2: in etwa 0,2 s, deutlich sichtbar)
         const sp = ((f.spreizen ?? 22) * Math.PI) / 180 * glatt((t - f.start - (f.dauer ?? 0.35) * 0.62) / (f.spreiz_dauer ?? 0.2));
         finger.forEach((g, i) => { g.rotation.y = (i - 1.5) * sp * 0.66; });
+        for (const sm of saeume) sm.visible = f.saum !== false;
+        handflaeche.children[1].visible = f.saum !== false;
       }
       // kalter Saum: leuchtet mit dem Finger-Ereignis oder einem eigenen Glut-Ereignis auf
       // f.glut (Review Teil 3): schwächere Spitzen, sonst blühen sie im dunklen Keller zur Lichtwolke auf

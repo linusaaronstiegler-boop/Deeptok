@@ -185,7 +185,9 @@ export const einstellungen = {
     // steil von unten zwischen Haus und Riese: Hände und Kopf gegen den Abendhimmel; der Kopf dreht sich zur Kamera
     // Review Teil 2: weniger steil (−55° las sich als Jubeln), die Raute aus Händen und Ellbogen von vorn
     // von der Seite (vorn steht das Haus zu nah): der Kopf dreht sich im Profil zur Hausecke
-    kamera: { ziel: { anker: 'mh.haende', versatz: [0, -0.6, 0] }, blick: { azimut: 180, hoehe: -26, abstand: 8.5 }, fov: 54, rate: 0.08 },
+    // Review Teil 3 (zu Teil 2): im Profil las sich der Riese wie eine Straßenlaterne (Mast mit Lampenkopf).
+    // Jetzt schräg von vorn (Azimut 140): Mantel, Arm und die Hände vor dem Kopf, dahinter die Häuser
+    kamera: { ziel: { anker: 'mh.haende', versatz: [0, -0.6, 0] }, blick: { azimut: 140, hoehe: -26, abstand: 8.5 }, fov: 54, rate: 0.08 },
     // gegen den dunklen Abendhimmel heller (Prüfung: Mittel 31 < 35): mehr Füll- und Kantenlicht
     licht_anpassung: { ...KALT, hemi: { himmel: '#9aa2e0', boden: '#4a4058', staerke: 2.8 }, kante: { farbe: '#9fb4ff', staerke: 2.0 }, belichtung: 1.75 },
     haupt: { wer: 'mh', was: 'kopf_drehen', wort: 'hide', anker: 'ende', dauer: 0.6, ease: 'ease_in', params: { winkel: 38 } },
@@ -199,7 +201,9 @@ export const einstellungen = {
     figuren: { eli: { position: ORT.eliFenster, blick: 90, gesicht: 'angst' }, vorhang: { position: ORT.vorhang, blick: -90 }, ...MH(ORT.monsterGarten, -90) },
     // Review Teil 2: nach dem Zuziehen sah man 1 s nur Vorhang; jetzt steht Eli mit Schulter und Hand vorn im Bild
     // Neubau: Kamera 0,6 m weiter hinter Eli, sonst stand sein Kopf neben dem Bild (Kompositionsprüfung x −1344)
-    kamera: { ziel: { anker: 'mh.haende', versatz: [0, -0.6, 0] }, pos: [-13.9, 5.75, 2.85], fov: 52, rate: 0.07, zusaetze: [{ baustein: 'shake', wort: 'yanked', staerke: 1 }] },
+    // Review Teil 3 (zu Teil 2): Elis schwarzer Hinterkopf füllte 40 % des Bildes. Kamera höher und weiter
+    // zurück: der Kopf liegt klein am unteren Rand, der Vorhang fliegt sichtbar zu
+    kamera: { ziel: { anker: 'mh.haende', versatz: [0, -0.6, 0] }, pos: [-14.3, 6.0, 2.55], fov: 52, rate: 0.07, zusaetze: [{ baustein: 'shake', wort: 'yanked', staerke: 1 }] },
     licht_anpassung: KALT_INNEN,
     neben: [{ wer: 'eli', was: 'greifen', ab: 'start', dauer: 0.12, params: { zu: 'vorhang.griff_r', seite: 'r', form: 'faust' } }],
     haupt: { wer: 'vorhang', was: 'zuziehen', wort: 'yanked' },
@@ -219,7 +223,8 @@ export const einstellungen = {
   '3:the yard': {
     set: ['strasse', 'haus', 'spur'],
     // Elis Blick aus dem Fenster steil hinunter in den Vorgarten (Reif, Spur); der Fensterrahmen rahmt das Bild
-    kamera: { pos: [-12.62, 5.62, 2.45], ziel: [-8.6, 1.2, 2.95], fov: 50, rate: 0.07 },
+    // Review Teil 3 (zu Teil 2): ein heller Fensterholm lag als Balken vor der Linse; 0,3 m zur Seite
+    kamera: { pos: [-12.5, 5.62, 2.75], ziel: [-8.6, 1.2, 2.95], fov: 50, rate: 0.07 },
     licht_anpassung: KALT_INNEN,
     haupt: { art: 'kamera', wort: 'empty' },
     hauptsache: [-8.6, 0.5, 3.0],
@@ -615,7 +620,8 @@ export const einstellungen = {
       sp_eli_c: { position: [-13.35, SO, -1.95], blick: 100 },
       tuer_june: { position: ORT.juneTuer, blick: 180, pose: 'oeffnen', pose_params: { winkel: -14 } },
     },
-    kamera: { baustein: 'snap_zoom', ziel: 'sp_eli_c.mitte', pos: [-12.55, 1.05, -2.75], fov: 42, zeit_wort: 'side', faktor: 1.18, bilder: 2 },
+    // Review Teil 3 (zu Teil 2): ein unscharfer Schuh lag vorn vor der Linse; Kamera 0,35 m versetzt
+    kamera: { baustein: 'snap_zoom', ziel: 'sp_eli_c.mitte', pos: [-12.85, 1.2, -2.55], fov: 42, zeit_wort: 'side', faktor: 1.18, bilder: 2 },
     licht_anpassung: { belichtung: 1.25 },
     tiefe: { fokus: 'sp_eli_c.mitte', staerke: 0.7 },
     haupt: { art: 'kamera', wort: 'side' },
@@ -665,7 +671,8 @@ export const einstellungen = {
       luke_tp: { position: ORT.luke, blick: 90, pose: 'offen' },   // Teppich gerollt, Deckel offen ab dem ersten Bild
     },
     // Bogenfahrt im Zimmer (bei azimut 62 und 3,1 m stand die Kamera hinter der Wand zum Flur)
-    kamera: { baustein: 'orbit', ziel: [-18.95, 1.05, 1.85], blick: { azimut: 50, hoehe: 15, abstand: 2.35 }, grad_pro_s: 16, richtung: -1, fov: 60 },
+    // Review Teil 3 (zu Teil 2): der gerollte Teppich lag groß vor der Linse; höher (26°), er bleibt klein unten rechts
+    kamera: { baustein: 'orbit', ziel: [-18.95, 1.05, 1.85], blick: { azimut: 50, hoehe: 26, abstand: 2.5 }, grad_pro_s: 16, richtung: -1, fov: 60 },
     licht_anpassung: { belichtung: 1.5, hemi: { staerke: 2.8 } },
     neben: [
       { wer: 'dad', was: 'greifen', ab: 'start', dauer: 0.25, params: { zu: 'luke_tp.ring', seite: 'r', lehnen: false } },
@@ -898,7 +905,7 @@ export const einstellungen = {
   '43': {
     figuren: MH(ORT.kellerMonster, 0),
     // Kamera auf die Fugen, über denen die Hand liegt (vorher lag sie am Bildrand)
-    kamera: { pos: kw(-0.3, 0.32, 0.55), ziel: kw(-0.33, 1.0, 1.38), fov: 52, rate: 0.05, zusaetze: [{ baustein: 'snap_zoom', wort: 'Ready', faktor: 1.18, bilder: 2 }] },
+    kamera: { pos: kw(-0.3, 0.3, 0.3), ziel: kw(-0.33, 1.0, 1.25), fov: 56, rate: 0.05, zusaetze: [{ baustein: 'snap_zoom', wort: 'Ready', faktor: 1.18, bilder: 2 }] },
     // auf „One“ wird es oben dunkel (es steht über der Lampe): dann ist der kalte Saum der Finger das Licht
     // Review Teil 3 (zu Teil 2): 87,6–89,1 s fast schwarz, auf „Ready?“ nur ein türkiser Lichtfleck. Jetzt
     // dimmt es nur auf 75 %, die Fingerschatten liegen schon 0,75 s vor dem Schnitt quer über den Fugen, die
@@ -906,7 +913,9 @@ export const einstellungen = {
     haupt: { art: 'licht', licht_art: 'dimmen', ziel: 'keller.oben', faktor: 0.85, wort: 'One', dauer: 0.4 },
     set_ereignisse: [
       { set: 'keller', was: 'fuesse', versatz: 0, dauer: 0.01, mitte: [-0.45, -0.45], drehung: 0 },
-      { set: 'keller', was: 'finger', wort: 'Ready', versatz: -0.62, dauer: 0.75, von: [-0.33, 1.72], nach: [-0.33, 1.384], drehung: -90, skala: 1.2, spreizen: 14, spreiz_dauer: 0.2, glut: 0.4 },
+      // saum: false – sonst füllte der kalte Saum die Lücken zwischen den Fingern (türkises Gitter); jetzt liegen
+      // vier dunkle Finger quer über den warmen Fugen, die Spitzen glimmen, gespreizt wird weiter (22°)
+      { set: 'keller', was: 'finger', wort: 'Ready', versatz: -0.62, dauer: 0.75, von: [-0.33, 1.72], nach: [-0.33, 1.384], drehung: -90, skala: 1.2, spreizen: 22, spreiz_dauer: 0.2, glut: 0.7, saum: false },
     ],
     hauptsache: 'keller.dielen_mitte',
   },

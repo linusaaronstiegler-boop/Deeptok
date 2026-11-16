@@ -284,9 +284,13 @@ export async function kompiliere(ordner) {
         setEreignis(h.set ?? fehler(`regie "${e.key}": Set-Ereignis "${h.was}" braucht "set"`), { was: h.was, start: hStart, dauer, ...(h.params ?? {}) });
       }
     } else if (art === 'partikel') {
-      const { art: _a, wort: _w, versatz: _v, vorlauf = 0, partikel_art: pa, ...rest } = h;
+      const { art: _a, wort: _w, versatz: _v, vorlauf = 0, partikel_art: pa, ueber_schnitt = false, ...rest } = h;
       hStart = r4(tw - vorlauf);
-      partikel.push({ art: pa, start: hStart, ...rest });
+      // Review Teil 3: Der Atem aus E16 lief 0,6 s über den Schnitt und lag in E17 als unscharfer weißer Ball
+      // vor der Linse (die nächste Kamera steht woanders). Partikel enden deshalb mit ihrer Einstellung,
+      // außer die Regie sagt ausdrücklich ueber_schnitt: true.
+      const pDauer = ueber_schnitt ? (rest.dauer ?? 1.5) : Math.min(rest.dauer ?? 1.5, ende - hStart);
+      partikel.push({ art: pa, start: hStart, ...rest, dauer: r4(pDauer) });
       hEnde = r4(hStart + 0.5);
     } else if (art === 'kamera') {
       // Die Kamera selbst ist die Hauptaktion (Insert, Ergebnis-Bild, Enthüllung): ihr Schlüsselzeitpunkt

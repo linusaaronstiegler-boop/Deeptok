@@ -189,9 +189,10 @@
       ],
       "drehung": -90,
       "skala": 1.2,
-      "spreizen": 14,
+      "spreizen": 22,
       "spreiz_dauer": 0.2,
-      "glut": 0.4,
+      "glut": 0.7,
+      "saum": false,
       "start": 88.54,
       "dauer": 0.75
      }
@@ -1151,7 +1152,7 @@
      ]
     },
     "blick": {
-     "azimut": 180,
+     "azimut": 140,
      "hoehe": -26,
      "abstand": 8.5
     },
@@ -1272,9 +1273,9 @@
      ]
     },
     "pos": [
-     -13.9,
-     5.75,
-     2.85
+     -14.3,
+     6,
+     2.55
     ],
     "fov": 52,
     "rate": 0.07,
@@ -1578,9 +1579,9 @@
    "kamera": {
     "baustein": "push_in",
     "pos": [
-     -12.62,
+     -12.5,
      5.62,
-     2.45
+     2.75
     ],
     "ziel": [
      -8.6,
@@ -5789,9 +5790,9 @@
     "baustein": "snap_zoom",
     "ziel": "sp_eli_c.mitte",
     "pos": [
-     -12.55,
-     1.05,
-     -2.75
+     -12.85,
+     1.2,
+     -2.55
     ],
     "fov": 42,
     "faktor": 1.18,
@@ -6248,8 +6249,8 @@
     ],
     "blick": {
      "azimut": 50,
-     "hoehe": 15,
-     "abstand": 2.35
+     "hoehe": 26,
+     "abstand": 2.5
     },
     "grad_pro_s": 16,
     "richtung": -1,
@@ -8708,15 +8709,15 @@
     "baustein": "push_in",
     "pos": [
      299.7,
-     0.32,
-     0.55
+     0.3,
+     0.3
     ],
     "ziel": [
      299.67,
      1,
-     1.38
+     1.25
     ],
-    "fov": 52,
+    "fov": 56,
     "rate": 0.05,
     "zusaetze": [
      {
