@@ -2,7 +2,7 @@
  "_hinweis": "Cue-Liste für engine/ton/mischen.py (Teil 2, Neuaufnahme vom 16.11.2026). 'wort' = Index in timing.json, 'text' wird geprüft. Wie Teil 1 nach dem Review: wenige Akzente, nicht jede Bewegung. Neu: das Klopfen an Junes Fenster (Sätze 22–23), vier Klopfer, die im Bild zu sehen sind. Ab dem Musik-Abriss nach 'Ninety-nine' nur noch Glocke (Handlung), Dielen und das Leitgeräusch.",
  "endkarte_stumm": true,
  "rede": {
-  "_hinweis": "Wörtliche Rede formant-erhaltend höher/tiefer (ffmpeg rubberband), wie in Teil 1. Mister Hundred: tiefer, Formanten mit verschoben, kurzer Hall (serie.md: Leitgeräusch −5 Halbtöne mit kurzem Hall; −4, damit 'Ready' verständlich bleibt). June in Teil 2 +2,0 statt +2,5 Halbtöne: mit +2,5 hörte Whisper im Zusammenhang 'He can't touch you' statt 'It can't …' (Bau Teil 2, gemessen). Review Teil 2: Odell klang mit −1,5 Halbtönen (200 Hz) höher als June (145–162 Hz), obwohl er 74 ist; jetzt −4,5 Halbtöne (Ziel ≤ 160 Hz). Nachmessung 16.11. (pyin auf der Mischung): mit −4,5 lag Odell bei 166 Hz, June bei 130–164 Hz – nicht mehr höher, aber auch nicht tiefer; jetzt −5,5 Halbtöne (rechnerisch etwa 157 Hz).",
+  "_hinweis": "Wörtliche Rede formant-erhaltend höher/tiefer (ffmpeg rubberband), wie in Teil 1. Mister Hundred: tiefer, Formanten mit verschoben, kurzer Hall (serie.md: Leitgeräusch −5 Halbtöne mit kurzem Hall; −4, damit 'Ready' verständlich bleibt). June in Teil 2 +2,0 statt +2,5 Halbtöne: mit +2,5 hörte Whisper im Zusammenhang 'He can't touch you' statt 'It can't …' (Bau Teil 2, gemessen). Review Teil 2: Odell klang mit −1,5 Halbtönen (200 Hz) höher als June (145–162 Hz), obwohl er 74 ist; jetzt −4,5 Halbtöne (Ziel ≤ 160 Hz). Nachmessung 16.11. (pyin auf der Mischung): mit −4,5 lag Odell bei 166 Hz, June bei 130–164 Hz – nicht mehr höher, aber auch nicht tiefer; jetzt −5,5 Halbtöne (rechnerisch etwa 157 Hz). Neuaufnahme 16.11.: In der Fassung mit Musik hört Whisper 'he can't touch you' (Satz 10). Mit +1,5 Halbtönen blieb es dabei, deshalb wieder +2,0 wie im Review (Junes Stimme bleibt gleich).",
   "june": {
    "halbtoene": 2.0,
    "db": -2.0
@@ -94,44 +94,44 @@
    "wort": 155,
    "text": "tapped",
    "versatz": 0.0,
-   "db": -11,
+   "db": -8,
    "params": {
     "tonhoehe": 0.7
    },
-   "grund": "Neuaufnahme: der Knöchel stößt an Junes Scheibe (Bild 22:something, ein Puls auf 'tapped')"
+   "grund": "Neuaufnahme: der Knöchel stößt an Junes Scheibe (Bild 22:something, ein Puls auf 'tapped'); −8 dB: mit −11 lagen die Klopfer 13–16 LU unter der Stimme und gingen unter"
   },
   {
    "klang": "klopfen",
    "wort": 159,
    "text": "Three",
    "versatz": 0.0,
-   "db": -11,
+   "db": -8,
    "params": {
     "tonhoehe": 0.7
    },
-   "grund": "erster von drei Klopfern ans Glas (Bild 23, Puls auf 'Three')"
+   "grund": "erster von drei Klopfern ans Glas (Bild 23, Puls auf 'Three'); −8 dB: mit −11 lagen die Klopfer 13–16 LU unter der Stimme und gingen unter"
   },
   {
    "klang": "klopfen",
    "wort": 160,
    "text": "slow",
    "versatz": 0.16,
-   "db": -11,
+   "db": -8,
    "params": {
     "tonhoehe": 0.7
    },
-   "grund": "zweiter Klopfer, 0,45 s nach dem ersten (Bild: Puls 0,16 s nach 'slow')"
+   "grund": "zweiter Klopfer, 0,45 s nach dem ersten (Bild: Puls 0,16 s nach 'slow'); −8 dB: mit −11 lagen die Klopfer 13–16 LU unter der Stimme und gingen unter"
   },
   {
    "klang": "klopfen",
    "wort": 161,
    "text": "knocks.",
    "versatz": 0.2,
-   "db": -11,
+   "db": -8,
    "params": {
     "tonhoehe": 0.7
    },
-   "grund": "dritter Klopfer, 0,44 s nach dem zweiten (Bild: Puls 0,2 s nach 'knocks')"
+   "grund": "dritter Klopfer, 0,44 s nach dem zweiten (Bild: Puls 0,2 s nach 'knocks'); −8 dB: mit −11 lagen die Klopfer 13–16 LU unter der Stimme und gingen unter"
   },
   {
    "klang": "klopfen",

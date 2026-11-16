@@ -4,7 +4,7 @@
 // mit "luke_als_figur": true lässt es den festen Deckel weg (Anker "luke" = Mitte der Öffnung).
 // Ursprung = Mitte der Angelkante (hinten, −z), Deckel liegt in +z, Oberseite bei y = 0.
 // params: teppich (Std false), groesse ([0.9, 0.9])
-// Animationen: oeffnen { winkel (Std 105) }, schliessen, teppich_rollen { rest }; Anker: ring, mitte, schacht
+// Animationen: oeffnen { winkel (Std 105) }, schliessen, teppich_rollen { rest }, offen (Pose: beides); Anker: ring, mitte, schacht
 export default async function baue(ctx, params = {}) {
   const T = ctx.THREE;
   const [b, t] = params.groesse ?? [0.9, 0.9];
@@ -64,7 +64,7 @@ export default async function baue(ctx, params = {}) {
   }
   const mitte = new T.Object3D(); mitte.position.set(0, 0, t / 2); gruppe.add(mitte);
   const schacht = new T.Object3D(); schacht.position.set(0, -0.6, t / 2); gruppe.add(schacht);
-  return {
+  const luke = {
     gruppe, gelenke: { deckel },
     grundpose() {
       deckel.rotation.set(0, 0, 0);
@@ -96,4 +96,15 @@ export default async function baue(ctx, params = {}) {
       },
     },
   };
+  // Pose „offen“ (Neubau Teil 2): Teppich zurückgerollt UND Deckel offen. Eine Einstellung kann nur eine
+  // Pose haben; mit „teppich_rollen“ als Pose und „oeffnen“ als Aktion ab Einstellungsbeginn stand der
+  // Deckel im ersten Bild noch zu (aus dem Schacht gesehen: ein schwarzes Bild). params: winkel, rest
+  luke.animationen.offen = {
+    dauer: 0.01, ease: 'linear',
+    anwenden(f, p, prm, c) {
+      luke.animationen.teppich_rollen.anwenden(f, p, prm, c);
+      luke.animationen.oeffnen.anwenden(f, p, prm, c);
+    },
+  };
+  return luke;
 }

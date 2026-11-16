@@ -727,7 +727,7 @@ Stand nach dem Review (Einzelheiten und Vorher-Werte: `episoden/folge-01/REVIEW.
 
 ### 17.6 Folge 2 in Zahlen
 
-Stand 16.11.2026. Aufrufe:
+Stand 16.11.2026, Neubau nach der Neuaufnahme (Einzelheiten und alte Werte: `episoden/folge-02/REVIEW.md`). Aufrufe:
 
 ```bash
 python engine/musik/spannung.py engine/musik/spannung/hiding-night-teil2.json     # Bett r2-eigen (musik-v2)
@@ -737,18 +737,16 @@ python engine/pruefen.py episoden/folge-02 --namen ohne-musik,mit-musik
 
 | | Wert |
 |---|---|
-| Render 1080 × 1920, 2 Prozesse, JPEG 0,95 | 2.608 Bilder in 973,6 s (16,2 min), 0,373 s/Bild effektiv, 11,2 min Rechenzeit je Minute Video; danach Teil-Renders für das Review (E05; nach der Wortzeit-Korrektur E42/E43 und E55/E56, 196 Bilder in 1,9 min) |
-| Fassungen | `build/folge-02/folge-02-mit-musik.mp4` (Hauptfassung, 152,3 MB), `folge-02-ohne-musik.mp4` (152,2 MB); Teilen-Fassungen in `build/teilen/` (crf 21, je etwa 55 MB) |
-| Untertitel | 191 Einblendungen, breiteste 807 px; Abstand zum Wortbeginn im MP4: Median 0,00 s, p90 0,027 s, höchstens 0,053 s (Review: zwei Wortzeiten nach Pausen korrigiert, `timing.json` → `korrekturen`) |
-| Effekte | 12 Cues (`effekte.json`); wörtliche Rede: June +2,0, Tess +3,0, Odell −5,5 Halbtöne (Review: vorher −1,5, 200 Hz; jetzt 158 Hz), Mister Hundred −4 mit verschobenen Formanten und kurzem Hall |
-| Musik | r2-eigen (musik-v2, eigene Begleitfiguren, Fingerabdruck kein Treffer); Hook 9,1 LU unter der Stimme, normal 11,4–12,1, voll 10,7, dünn etwa 14; vier Wegfälle von 1,2–1,3 s mit Nachhall, unter −50 LUFS höchstens 0,6 s am Stück |
-| Ton nach AAC | ohne Musik −14,06 LUFS, −1,77 dBTP, LRA 2,8 LU; mit Musik −14,05 LUFS, −1,82 dBTP, LRA 2,5 LU |
-| Dauer | Stimme 85,79 s, Endkarte PART 3 ab 85,933 s (0,143 s nach dem letzten Wort), Video 86,933 s |
-| Bilder | Helligkeit Median 86,6 ohne Kriechkeller (gesamt 84,9), Keller im Mittel 71,1 mit 36,6 % fast schwarzen Pixeln; Streuung mindestens 14,1 (Leerbild-Tor); keine Balken außerhalb des Kellers, keine eingefrorenen Bilder; Kantendichte 14,9 % |
-| Hör-Check (Whisper auf dem MP4) | 1 Wortfehler je Fassung: „lay“ als „laid“; „helper too“ wird seit Odell −5,5 richtig gehört („to“ zählt als Schreibweise), „O'Dell“ und „Mr“ ebenso |
-| Kompositionsprüfung | 14 von 61 Einstellungen mit der Hauptsache außerhalb des mittleren Drittels (Untersichten im Keller, Beine des Monsters, Laternenzug); nur Warnung |
-
-`timing.json` von Teil 2 ist an einer Stelle korrigiert (`korrekturen`): „She“ lag im Ausklang von „here.“; der Schnitt hätte Junes letztes Wort abgeschnitten.
+| Render 1080 × 1920, 2 Prozesse, JPEG 0,95 | 2.719 Bilder in 1.411,5 s (23,5 min), 0,52 s/Bild effektiv, 15,6 min Rechenzeit je Minute Video (die Rechner-Last war höher als beim ersten Bau: 0,37 s/Bild); danach 103 Bilder neu (Luke) |
+| Fassungen | `build/folge-02/folge-02-mit-musik.mp4` (Hauptfassung) und `folge-02-ohne-musik.mp4`, je 158,5 MB; Teilen-Fassungen in `build/teilen/` (crf 21, je 55 MB) |
+| Untertitel | 204 Einblendungen, breiteste 807 px; Abstand zum Wortbeginn im MP4: Median 0,00 s, p90 0,023 s, höchstens 0,067 s. Feste Paare neu: „Mr. Odell“, „end up“ (vorher flackerten „I'd“, „end“, „up“ je 3–5 Bilder einzeln); allein: „Three“, „slow“, „knocks“ |
+| Effekte | 17 Cues, 6,6–17,6 LU unter der Stimme (Median 11,6); neu vier Klopfer an Junes Fenster (Bild: je ein Lichtpuls); wörtliche Rede June +2,0, Tess +3,0, Odell −5,5, Mister Hundred −4 Halbtöne |
+| Musik | r2-eigen, normal 12 LU unter der Stimme, Hook +2,5 dB, voll ab Satz 30, vier Wegfälle von 1,23–1,40 s mit Nachhall |
+| Ton nach AAC | ohne Musik −14,05 LUFS, −1,80 dBTP, LRA 3,0 LU; mit Musik −14,07 LUFS, −1,81 dBTP, LRA 3,0 LU |
+| Dauer | Stimme 89,62 s (letztes Wort endet 89,49 s), Endkarte PART 3 ab 89,633 s (0,143 s danach), Video 90,633 s |
+| Bilder | Helligkeit Median 86,4 ohne Kriechkeller (gesamt 84,9), Keller im Mittel 69,9; Streuung mindestens 14,1; keine Balken außerhalb des Kellers, keine schwarzen oder eingefrorenen Bilder; Kantendichte 15 % |
+| Hör-Check (Whisper auf dem MP4) | ohne Musik 1 Fehler („lay“ als „laid“), mit Musik „It“ als „he“ und „Ninety-seven, Ninety-eight“ ausgelassen; abschnittsweise nachgehört sind alle richtig (Whisper-Fenster, siehe REVIEW.md) |
+| Kompositionsprüfung | 17 von 62 Einstellungen mit der Hauptsache außerhalb des mittleren Drittels (Untersichten im Keller, Beine des Monsters, Laternenzug; nur Warnung); Mund im Untertitel-Streifen in E43 (June sinkt in der Rückblende in die Luke, letzte 0,4 s) und E59 (wie bisher); Kopf-oben-Regel: alle Gesichter höchstens 30° geneigt |
 
 ## 18. Musik-Werkstatt
 

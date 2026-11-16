@@ -8,19 +8,19 @@
     "breite": 1080,
     "hoehe": 1920,
     "fps": "30/1",
-    "bilder": 2608,
+    "bilder": 2719,
     "pix_fmt": "yuv420p",
     "farbraum": "bt709",
-    "dauer_s": 86.933333
+    "dauer_s": 90.633333
    },
    "audio": {
     "codec": "aac",
     "kanaele": 2,
     "abtastrate": 44100,
-    "dauer_s": 86.932993,
+    "dauer_s": 90.632993,
     "kbit": 192
    },
-   "megabyte": 152.2
+   "megabyte": 158.5
   },
   "vorhoer": {
    "video": {
@@ -29,276 +29,239 @@
     "breite": 1080,
     "hoehe": 1920,
     "fps": "30/1",
-    "bilder": 2608,
+    "bilder": 2719,
     "pix_fmt": "yuv420p",
     "farbraum": "bt709",
-    "dauer_s": 86.933333
+    "dauer_s": 90.633333
    },
    "audio": {
     "codec": "aac",
     "kanaele": 2,
     "abtastrate": 44100,
-    "dauer_s": 86.932993,
-    "kbit": 198
+    "dauer_s": 90.632993,
+    "kbit": 197
    },
-   "megabyte": 152.3
+   "megabyte": 158.5
   }
  },
  "dauer": {
-  "stimme_s": 85.79,
-  "letztes_wort_ende_s": 85.79,
-  "endkarte_ab_s": 85.933,
+  "stimme_s": 89.49,
+  "letztes_wort_ende_s": 89.49,
+  "endkarte_ab_s": 89.633,
   "endkarte_s": 1.0,
-  "video_s": 86.933,
+  "video_s": 90.633,
   "abstand_letztes_wort_endkarte_s": 0.143
  },
  "hoer_check": {
   "upload": {
-   "wer": 0.0142,
+   "wer": 0.0034,
    "fehler": [
     {
      "skript": "lay",
      "gehoert": "laid",
-     "zeit_s": 68.24
+     "zeit_s": 71.56
     }
    ],
-   "schreibweisen": [
-    {
-     "skript": "odell",
-     "gehoert": "o'dell",
-     "zeit_s": 28.66
-    },
-    {
-     "skript": "odell",
-     "gehoert": "o'dell",
-     "zeit_s": 34.36
-    },
-    {
-     "skript": "too",
-     "gehoert": "to",
-     "zeit_s": 36.54
-    }
-   ],
+   "schreibweisen": [],
    "eingefuegt": [],
-   "n_skript": 281,
-   "n_gehoert": 281,
-   "unsicher": [
-    {
-     "wort": "Hundred",
-     "p": 0.22,
-     "zeit_s": 0.3
-    },
-    {
-     "wort": "\"It",
-     "p": 0.17,
-     "zeit_s": 18.78
-    },
-    {
-     "wort": "Mr.",
-     "p": 0.01,
-     "zeit_s": 27.94
-    },
-    {
-     "wort": "Only",
-     "p": 0.06,
-     "zeit_s": 31.04
-    },
-    {
-     "wort": "\"It",
-     "p": 0.2,
-     "zeit_s": 35.42
-    },
-    {
-     "wort": "too.\"",
-     "p": 0.46,
-     "zeit_s": 36.54
-    },
-    {
-     "wort": "\"So",
-     "p": 0.48,
-     "zeit_s": 36.88
-    },
-    {
-     "wort": "they",
-     "p": 0.31,
-     "zeit_s": 51.12
-    },
-    {
-     "wort": "June",
-     "p": 0.5,
-     "zeit_s": 56.9
-    },
-    {
-     "wort": "lay",
-     "p": 0.44,
-     "zeit_s": 68.24
-    },
-    {
-     "wort": "Then",
-     "p": 0.41,
-     "zeit_s": 72.92
-    },
-    {
-     "wort": "No",
-     "p": 0.37,
-     "zeit_s": 75.42
-    },
-    {
-     "wort": "My",
-     "p": 0.24,
-     "zeit_s": 79.34
-    }
-   ],
-   "versatz_zu_timing_median_ms": 0.0,
-   "versatz_zu_timing_p90_ms": 70.0
-  },
-  "vorhoer": {
-   "wer": 0.0142,
-   "fehler": [
-    {
-     "skript": "lay",
-     "gehoert": "laid",
-     "zeit_s": 68.24
-    }
-   ],
-   "schreibweisen": [
-    {
-     "skript": "odell",
-     "gehoert": "o'dell",
-     "zeit_s": 28.66
-    },
-    {
-     "skript": "odell",
-     "gehoert": "o'dell",
-     "zeit_s": 34.36
-    },
-    {
-     "skript": "too",
-     "gehoert": "to",
-     "zeit_s": 36.54
-    }
-   ],
-   "eingefuegt": [],
-   "n_skript": 281,
-   "n_gehoert": 281,
+   "n_skript": 294,
+   "n_gehoert": 294,
    "unsicher": [
     {
      "wort": "Mister",
+     "p": 0.44,
+     "zeit_s": 0.0
+    },
+    {
+     "wort": "\"It",
+     "p": 0.13,
+     "zeit_s": 19.4
+    },
+    {
+     "wort": "because",
      "p": 0.48,
+     "zeit_s": 26.96
+    },
+    {
+     "wort": "At",
+     "p": 0.04,
+     "zeit_s": 29.14
+    },
+    {
+     "wort": "his",
+     "p": 0.17,
+     "zeit_s": 30.1
+    },
+    {
+     "wort": "\"It",
+     "p": 0.24,
+     "zeit_s": 35.1
+    },
+    {
+     "wort": "I",
+     "p": 0.48,
+     "zeit_s": 43.92
+    },
+    {
+     "wort": "If",
+     "p": 0.04,
+     "zeit_s": 55.66
+    },
+    {
+     "wort": "lay",
+     "p": 0.49,
+     "zeit_s": 71.56
+    }
+   ],
+   "versatz_zu_timing_median_ms": 0.0,
+   "versatz_zu_timing_p90_ms": 40.0
+  },
+  "vorhoer": {
+   "wer": 0.017,
+   "fehler": [
+    {
+     "skript": "it",
+     "gehoert": "he",
+     "zeit_s": 19.42
+    },
+    {
+     "skript": "seven ninety eight ninety",
+     "gehoert": "",
+     "zeit_s": null
+    }
+   ],
+   "schreibweisen": [],
+   "eingefuegt": [],
+   "n_skript": 294,
+   "n_gehoert": 290,
+   "unsicher": [
+    {
+     "wort": "Mister",
+     "p": 0.45,
      "zeit_s": 0.0
     },
     {
      "wort": "Hundred",
-     "p": 0.24,
+     "p": 0.42,
      "zeit_s": 0.3
     },
     {
      "wort": "\"It",
-     "p": 0.2,
-     "zeit_s": 18.8
+     "p": 0.45,
+     "zeit_s": 19.42
     },
     {
-     "wort": "Mr.",
-     "p": 0.01,
-     "zeit_s": 27.94
+     "wort": "At",
+     "p": 0.02,
+     "zeit_s": 29.14
+    },
+    {
+     "wort": "his",
+     "p": 0.34,
+     "zeit_s": 30.08
+    },
+    {
+     "wort": "the",
+     "p": 0.37,
+     "zeit_s": 31.02
     },
     {
      "wort": "Only",
-     "p": 0.05,
-     "zeit_s": 31.06
-    },
-    {
-     "wort": "Mr.",
-     "p": 0.48,
-     "zeit_s": 33.76
+     "p": 0.13,
+     "zeit_s": 31.48
     },
     {
      "wort": "\"It",
-     "p": 0.14,
-     "zeit_s": 35.44
-    },
-    {
-     "wort": "too.\"",
-     "p": 0.4,
-     "zeit_s": 36.54
+     "p": 0.16,
+     "zeit_s": 34.64
     },
     {
      "wort": "\"So",
-     "p": 0.46,
-     "zeit_s": 36.88
+     "p": 0.29,
+     "zeit_s": 36.04
     },
     {
-     "wort": "they",
-     "p": 0.39,
-     "zeit_s": 51.12
+     "wort": "she'd",
+     "p": 0.12,
+     "zeit_s": 56.8
     },
     {
-     "wort": "June",
-     "p": 0.39,
-     "zeit_s": 56.9
+     "wort": "who",
+     "p": 0.44,
+     "zeit_s": 57.96
     },
     {
-     "wort": "lay",
-     "p": 0.47,
-     "zeit_s": 68.24
+     "wort": "\"It",
+     "p": 0.15,
+     "zeit_s": 60.62
     },
     {
      "wort": "\"Ninety-seven.\"",
-     "p": 0.31,
-     "zeit_s": 70.22
+     "p": 0.0,
+     "zeit_s": 73.48
+    },
+    {
+     "wort": "\"Ninety-eight.\"",
+     "p": 0.0,
+     "zeit_s": 73.88
+    },
+    {
+     "wort": "\"Ninety-nine.\"",
+     "p": 0.0,
+     "zeit_s": 73.88
     },
     {
      "wort": "Then",
-     "p": 0.45,
-     "zeit_s": 72.96
+     "p": 0.29,
+     "zeit_s": 76.68
     },
     {
      "wort": "No",
-     "p": 0.29,
-     "zeit_s": 75.44
+     "p": 0.34,
+     "zeit_s": 78.94
     },
     {
-     "wort": "My",
+     "wort": "Something",
      "p": 0.43,
-     "zeit_s": 79.34
+     "zeit_s": 84.16
     }
    ]
   }
  },
  "untertitel_sync": {
-  "einblendungen": 191,
-  "wechsel_gefunden": 574,
+  "einblendungen": 202,
+  "wechsel_gefunden": 606,
   "einblendung_nicht_auf_plan_bild": [],
   "wechsel_ausserhalb_plan": [],
   "abstand_zu_timing_max_s": 0.017,
   "versatz_mp4_ton_zu_master_ms": 0.0,
-  "gemessen_nach_pause_einsatz": 55,
-  "gemessen_mitten_im_satz_whisper": 136,
-  "abstand_zum_wortbeginn_median_s": -0.003,
-  "abstand_zum_wortbeginn_p90_abs_s": 0.027,
-  "abstand_zum_wortbeginn_max_abs_s": 0.053,
+  "gemessen_nach_pause_einsatz": 65,
+  "gemessen_mitten_im_satz_whisper": 137,
+  "abstand_zum_wortbeginn_median_s": 0.0,
+  "abstand_zum_wortbeginn_p90_abs_s": 0.023,
+  "abstand_zum_wortbeginn_max_abs_s": 0.067,
   "ueber_0_1_s": []
  },
  "bilder": {
-  "bilder": 2608,
+  "bilder": 2719,
   "dekodierfehler": null,
-  "helligkeit_median_ohne_dunkle_orte": 86.6,
-  "dunkle_orte_mittel": 71.1,
-  "dunkle_orte_fast_schwarz_anteil": 0.366,
+  "helligkeit_median_ohne_dunkle_orte": 86.4,
+  "dunkle_orte_mittel": 69.9,
+  "dunkle_orte_fast_schwarz_anteil": 0.38,
   "leerbilder_am_anfang": [],
-  "balken_max_ohne_dunkle_orte": 0.0,
-  "balken_bild_ohne_dunkle_orte": 0,
-  "helligkeit_p10": 54.7,
-  "fast_schwarz_anteil": 0.017,
-  "balken_max": 0.935,
-  "balken_bild": 2562,
-  "kantendichte_median": 0.149,
+  "balken_max_ohne_dunkle_orte": 0.009,
+  "balken_bild_ohne_dunkle_orte": 67,
+  "helligkeit_p10": 53.3,
+  "fast_schwarz_anteil": 0.018,
+  "balken_max": 0.926,
+  "balken_bild": 2673,
+  "kantendichte_median": 0.15,
   "einstellungen": [
    {
     "id": "E01",
     "ort": "hauptstrasse",
     "mittel": 98.3,
-    "streuung_anfang_min": 44.9,
+    "streuung_anfang_min": 45.0,
     "balken_max": 0.0
    },
    {
@@ -311,35 +274,35 @@
    {
     "id": "E03",
     "ort": "hauptstrasse",
-    "mittel": 35.7,
-    "streuung_anfang_min": 32.1,
-    "balken_max": 0.0
+    "mittel": 35.8,
+    "streuung_anfang_min": 31.7,
+    "balken_max": 0.009
    },
    {
     "id": "E04",
     "ort": "hauptstrasse",
     "mittel": 83.3,
-    "streuung_anfang_min": 46.5,
+    "streuung_anfang_min": 46.4,
     "balken_max": 0.0
    },
    {
     "id": "E05",
     "ort": "marsh-innen",
-    "mittel": 74.2,
-    "streuung_anfang_min": 37.4,
+    "mittel": 57.9,
+    "streuung_anfang_min": 43.5,
     "balken_max": 0.0
    },
    {
     "id": "E06",
     "ort": "marsh-innen",
-    "mittel": 91.5,
-    "streuung_anfang_min": 57.0,
+    "mittel": 91.9,
+    "streuung_anfang_min": 56.9,
     "balken_max": 0.0
    },
    {
     "id": "E07",
     "ort": "hauptstrasse",
-    "mittel": 155.3,
+    "mittel": 155.5,
     "streuung_anfang_min": 38.7,
     "balken_max": 0.0
    },
@@ -360,70 +323,70 @@
    {
     "id": "E10",
     "ort": "hauptstrasse",
-    "mittel": 72.8,
+    "mittel": 72.9,
     "streuung_anfang_min": 40.0,
     "balken_max": 0.0
    },
    {
     "id": "E11",
     "ort": "marsh-innen",
-    "mittel": 122.9,
+    "mittel": 122.8,
     "streuung_anfang_min": 64.6,
     "balken_max": 0.0
    },
    {
     "id": "E12",
     "ort": "marsh-innen",
-    "mittel": 139.6,
+    "mittel": 139.8,
     "streuung_anfang_min": 51.1,
     "balken_max": 0.0
    },
    {
     "id": "E13",
     "ort": "marsh-innen",
-    "mittel": 93.3,
+    "mittel": 92.4,
     "streuung_anfang_min": 54.1,
     "balken_max": 0.0
    },
    {
     "id": "E14",
     "ort": "marsh-innen",
-    "mittel": 58.9,
-    "streuung_anfang_min": 60.5,
+    "mittel": 59.0,
+    "streuung_anfang_min": 60.4,
     "balken_max": 0.0
    },
    {
     "id": "E15",
     "ort": "marsh-innen",
-    "mittel": 135.5,
+    "mittel": 135.4,
     "streuung_anfang_min": 14.1,
     "balken_max": 0.0
    },
    {
     "id": "E16",
     "ort": "marsh-innen",
-    "mittel": 103.6,
+    "mittel": 104.0,
     "streuung_anfang_min": 51.9,
     "balken_max": 0.0
    },
    {
     "id": "E17",
     "ort": "hauptstrasse",
-    "mittel": 79.2,
-    "streuung_anfang_min": 46.8,
+    "mittel": 81.2,
+    "streuung_anfang_min": 50.1,
     "balken_max": 0.0
    },
    {
     "id": "E18",
     "ort": "hauptstrasse",
-    "mittel": 76.1,
+    "mittel": 76.2,
     "streuung_anfang_min": 38.0,
     "balken_max": 0.0
    },
    {
     "id": "E19",
     "ort": "hauptstrasse",
-    "mittel": 88.3,
+    "mittel": 88.4,
     "streuung_anfang_min": 34.8,
     "balken_max": 0.0
    },
@@ -437,343 +400,350 @@
    {
     "id": "E21",
     "ort": "hauptstrasse",
-    "mittel": 63.5,
+    "mittel": 64.1,
     "streuung_anfang_min": 37.5,
     "balken_max": 0.0
    },
    {
     "id": "E22",
     "ort": "hauptstrasse",
-    "mittel": 72.3,
-    "streuung_anfang_min": 59.3,
+    "mittel": 73.7,
+    "streuung_anfang_min": 59.4,
     "balken_max": 0.0
    },
    {
     "id": "E23",
     "ort": "hauptstrasse",
-    "mittel": 55.8,
+    "mittel": 56.0,
     "streuung_anfang_min": 35.5,
     "balken_max": 0.0
    },
    {
     "id": "E24",
     "ort": "hauptstrasse",
-    "mittel": 146.8,
-    "streuung_anfang_min": 43.8,
+    "mittel": 146.7,
+    "streuung_anfang_min": 43.5,
     "balken_max": 0.0
    },
    {
     "id": "E25",
     "ort": "hauptstrasse",
-    "mittel": 126.2,
-    "streuung_anfang_min": 47.5,
+    "mittel": 127.1,
+    "streuung_anfang_min": 47.6,
     "balken_max": 0.0
    },
    {
     "id": "E26",
     "ort": "hauptstrasse",
-    "mittel": 97.7,
+    "mittel": 97.8,
     "streuung_anfang_min": 49.6,
     "balken_max": 0.0
    },
    {
     "id": "E27",
     "ort": "hauptstrasse",
-    "mittel": 85.4,
-    "streuung_anfang_min": 58.8,
+    "mittel": 84.9,
+    "streuung_anfang_min": 58.7,
     "balken_max": 0.0
    },
    {
     "id": "E28",
     "ort": "hauptstrasse",
     "mittel": 88.5,
-    "streuung_anfang_min": 47.8,
+    "streuung_anfang_min": 47.9,
     "balken_max": 0.0
    },
    {
     "id": "E29",
     "ort": "hauptstrasse",
-    "mittel": 99.8,
-    "streuung_anfang_min": 52.4,
+    "mittel": 74.5,
+    "streuung_anfang_min": 50.9,
     "balken_max": 0.0
    },
    {
     "id": "E30",
     "ort": "hauptstrasse",
-    "mittel": 75.0,
-    "streuung_anfang_min": 51.0,
+    "mittel": 78.6,
+    "streuung_anfang_min": 46.1,
     "balken_max": 0.0
    },
    {
     "id": "E31",
     "ort": "hauptstrasse",
-    "mittel": 78.8,
-    "streuung_anfang_min": 46.3,
+    "mittel": 85.1,
+    "streuung_anfang_min": 62.1,
     "balken_max": 0.0
    },
    {
     "id": "E32",
     "ort": "hauptstrasse",
-    "mittel": 83.8,
-    "streuung_anfang_min": 47.9,
+    "mittel": 70.7,
+    "streuung_anfang_min": 40.5,
     "balken_max": 0.0
    },
    {
     "id": "E33",
-    "ort": "hauptstrasse",
-    "mittel": 97.5,
-    "streuung_anfang_min": 59.0,
+    "ort": "marsh-innen",
+    "mittel": 68.9,
+    "streuung_anfang_min": 55.1,
     "balken_max": 0.0
    },
    {
     "id": "E34",
-    "ort": "hauptstrasse",
-    "mittel": 71.0,
-    "streuung_anfang_min": 41.6,
+    "ort": "marsh-innen",
+    "mittel": 48.0,
+    "streuung_anfang_min": 45.1,
     "balken_max": 0.0
    },
    {
     "id": "E35",
     "ort": "marsh-innen",
-    "mittel": 69.0,
-    "streuung_anfang_min": 55.1,
+    "mittel": 90.4,
+    "streuung_anfang_min": 45.4,
     "balken_max": 0.0
    },
    {
     "id": "E36",
-    "ort": "marsh-innen",
-    "mittel": 48.5,
-    "streuung_anfang_min": 45.1,
+    "ort": "hauptstrasse",
+    "mittel": 91.2,
+    "streuung_anfang_min": 46.1,
     "balken_max": 0.0
    },
    {
     "id": "E37",
     "ort": "marsh-innen",
-    "mittel": 89.5,
-    "streuung_anfang_min": 45.3,
+    "mittel": 102.3,
+    "streuung_anfang_min": 52.9,
     "balken_max": 0.0
    },
    {
     "id": "E38",
     "ort": "marsh-innen",
-    "mittel": 63.5,
+    "mittel": 63.1,
     "streuung_anfang_min": 43.8,
     "balken_max": 0.0
    },
    {
     "id": "E39",
     "ort": "marsh-innen",
-    "mittel": 108.0,
-    "streuung_anfang_min": 52.8,
+    "mittel": 107.9,
+    "streuung_anfang_min": 51.8,
     "balken_max": 0.0
    },
    {
     "id": "E40",
     "ort": "hauptstrasse",
-    "mittel": 95.3,
-    "streuung_anfang_min": 42.2,
+    "mittel": 71.1,
+    "streuung_anfang_min": 35.8,
     "balken_max": 0.0
    },
    {
     "id": "E41",
+    "ort": "hauptstrasse",
+    "mittel": 96.0,
+    "streuung_anfang_min": 42.0,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E42",
     "ort": "hauptstrasse",
     "mittel": 69.6,
     "streuung_anfang_min": 31.9,
     "balken_max": 0.0
    },
    {
-    "id": "E42",
-    "ort": "marsh-innen",
-    "mittel": 64.3,
-    "streuung_anfang_min": 43.9,
-    "balken_max": 0.0
-   },
-   {
     "id": "E43",
     "ort": "marsh-innen",
-    "mittel": 88.6,
-    "streuung_anfang_min": 36.1,
+    "mittel": 82.8,
+    "streuung_anfang_min": 45.7,
     "balken_max": 0.0
    },
    {
     "id": "E44",
     "ort": "marsh-innen",
-    "mittel": 84.8,
-    "streuung_anfang_min": 41.2,
+    "mittel": 63.8,
+    "streuung_anfang_min": 43.7,
     "balken_max": 0.0
    },
    {
     "id": "E45",
     "ort": "marsh-innen",
-    "mittel": 62.4,
-    "streuung_anfang_min": 36.7,
+    "mittel": 88.3,
+    "streuung_anfang_min": 36.0,
     "balken_max": 0.0
    },
    {
     "id": "E46",
     "ort": "marsh-innen",
-    "mittel": 81.4,
-    "streuung_anfang_min": 41.8,
+    "mittel": 85.0,
+    "streuung_anfang_min": 41.2,
     "balken_max": 0.0
    },
    {
     "id": "E47",
     "ort": "marsh-innen",
-    "mittel": 80.2,
-    "streuung_anfang_min": 45.9,
+    "mittel": 59.9,
+    "streuung_anfang_min": 36.5,
     "balken_max": 0.0
    },
    {
     "id": "E48",
-    "ort": "kriechkeller",
-    "mittel": 106.9,
-    "streuung_anfang_min": 76.2,
+    "ort": "marsh-innen",
+    "mittel": 96.6,
+    "streuung_anfang_min": 47.0,
     "balken_max": 0.0
    },
    {
     "id": "E49",
-    "ort": "kriechkeller",
-    "mittel": 53.7,
-    "streuung_anfang_min": 42.3,
+    "ort": "marsh-innen",
+    "mittel": 88.5,
+    "streuung_anfang_min": 36.3,
     "balken_max": 0.0
    },
    {
     "id": "E50",
     "ort": "kriechkeller",
-    "mittel": 91.8,
-    "streuung_anfang_min": 79.2,
+    "mittel": 81.5,
+    "streuung_anfang_min": 76.2,
     "balken_max": 0.0
    },
    {
     "id": "E51",
-    "ort": "marsh-innen",
-    "mittel": 122.1,
-    "streuung_anfang_min": 40.5,
+    "ort": "kriechkeller",
+    "mittel": 92.0,
+    "streuung_anfang_min": 79.5,
     "balken_max": 0.0
    },
    {
     "id": "E52",
     "ort": "marsh-innen",
-    "mittel": 116.6,
-    "streuung_anfang_min": 39.4,
+    "mittel": 121.6,
+    "streuung_anfang_min": 41.3,
     "balken_max": 0.0
    },
    {
     "id": "E53",
-    "ort": "kriechkeller",
-    "mittel": 69.4,
-    "streuung_anfang_min": 63.3,
+    "ort": "marsh-innen",
+    "mittel": 116.3,
+    "streuung_anfang_min": 39.4,
     "balken_max": 0.0
    },
    {
     "id": "E54",
-    "ort": "marsh-innen",
-    "mittel": 115.6,
-    "streuung_anfang_min": 40.6,
+    "ort": "kriechkeller",
+    "mittel": 71.8,
+    "streuung_anfang_min": 63.6,
     "balken_max": 0.0
    },
    {
     "id": "E55",
-    "ort": "hauptstrasse",
-    "mittel": 108.8,
-    "streuung_anfang_min": 43.8,
+    "ort": "marsh-innen",
+    "mittel": 118.0,
+    "streuung_anfang_min": 43.5,
     "balken_max": 0.0
    },
    {
     "id": "E56",
     "ort": "hauptstrasse",
-    "mittel": 99.3,
-    "streuung_anfang_min": 33.2,
+    "mittel": 108.3,
+    "streuung_anfang_min": 42.8,
     "balken_max": 0.0
    },
    {
     "id": "E57",
-    "ort": "kriechkeller",
-    "mittel": 103.9,
-    "streuung_anfang_min": 61.4,
+    "ort": "hauptstrasse",
+    "mittel": 99.4,
+    "streuung_anfang_min": 33.2,
     "balken_max": 0.0
    },
    {
     "id": "E58",
     "ort": "kriechkeller",
-    "mittel": 52.2,
-    "streuung_anfang_min": 54.4,
+    "mittel": 98.3,
+    "streuung_anfang_min": 61.5,
     "balken_max": 0.0
    },
    {
     "id": "E59",
     "ort": "kriechkeller",
-    "mittel": 49.5,
-    "streuung_anfang_min": 50.7,
-    "balken_max": 0.13
-   },
-   {
-    "id": "E60",
-    "ort": "marsh-innen",
-    "mittel": 72.9,
-    "streuung_anfang_min": 53.4,
+    "mittel": 52.7,
+    "streuung_anfang_min": 54.5,
     "balken_max": 0.0
    },
    {
-    "id": "E61",
+    "id": "E60",
     "ort": "kriechkeller",
-    "mittel": 40.5,
+    "mittel": 51.3,
+    "streuung_anfang_min": 51.6,
+    "balken_max": 0.12
+   },
+   {
+    "id": "E61",
+    "ort": "marsh-innen",
+    "mittel": 73.5,
+    "streuung_anfang_min": 51.5,
+    "balken_max": 0.0
+   },
+   {
+    "id": "E62",
+    "ort": "kriechkeller",
+    "mittel": 39.6,
     "streuung_anfang_min": 67.2,
-    "balken_max": 0.935
+    "balken_max": 0.926
    }
   ],
-  "helligkeit_min": 15.2,
+  "helligkeit_min": 13.8,
   "helligkeit_median": 84.9,
-  "dunkelstes_bild": 2562,
+  "dunkelstes_bild": 2673,
   "streuung_min": 14.1,
   "schwarz_oder_einfarbig": [],
   "laengster_stillstand_s": 0.0,
   "stillstand_endet_bild": null,
-  "aenderung_median": 1.61
+  "aenderung_median": 1.64
  },
  "bogen_zeiten_s": [
-  1.449,
-  4.347,
-  7.244,
-  10.142,
-  13.04,
-  15.938,
-  18.836,
-  21.733,
-  24.631,
-  27.529,
-  30.427,
-  33.324,
-  36.222,
-  39.12,
-  42.018,
-  44.916,
-  47.813,
-  50.711,
-  53.609,
-  56.507,
-  59.404,
-  62.302,
-  65.2,
-  68.098,
+  1.511,
+  4.532,
+  7.553,
+  10.574,
+  13.595,
+  16.616,
+  19.637,
+  22.658,
+  25.679,
+  28.701,
+  31.722,
+  34.743,
+  37.764,
+  40.785,
+  43.806,
+  46.827,
+  49.848,
+  52.869,
+  55.891,
+  58.912,
+  61.933,
+  64.954,
+  67.975,
   70.996,
-  73.893,
-  76.791,
-  79.689,
-  82.587,
-  85.484
+  74.017,
+  77.038,
+  80.059,
+  83.081,
+  86.102,
+  89.123
  ],
  "ton": {
   "kbit": 192,
   "upload": {
-   "lufs": -14.06,
-   "true_peak_dbtp": -1.77,
-   "lra_lu": 2.8
+   "lufs": -14.05,
+   "true_peak_dbtp": -1.8,
+   "lra_lu": 3.0
   },
   "vorhoer": {
-   "lufs": -14.05,
-   "true_peak_dbtp": -1.82,
-   "lra_lu": 2.5
+   "lufs": -14.07,
+   "true_peak_dbtp": -1.81,
+   "lra_lu": 3.0
   },
   "decken_dbfs": {
    "upload": -1.8,
@@ -782,7 +752,7 @@
  },
  "verstoesse": [
   "Hör-Check upload: 1 Wortfehler",
-  "Hör-Check vorhoer: 1 Wortfehler"
+  "Hör-Check vorhoer: 2 Wortfehler"
  ],
  "ok": false
 }

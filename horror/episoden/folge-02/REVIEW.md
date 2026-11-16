@@ -1,11 +1,52 @@
 # Review Folge 2 „Hiding Night“, Teil 2
 
-Stand 16.11.2026. Grundlage: 36 Befunde aus zwei Kritiken (Bild; Erzählung und Ton) zum Render aus Commit 2a84cb6, dazu Linus' Rückmeldung zu Teil 1: „sehr gute, fesselnde Geschichten“, „mit Teil 2 weitermachen“, „die Musik fand ich gut, kopier die Musik der Vorbildvideos mehr eins zu eins, aber mit eigenem Stil“. Danach kam seine zweite Vorgabe zur Musik: „sehr viel näher an den Vorbildern“. Teil 1 und 2 laufen deshalb jetzt auf dem Bett **r2-eigen** (Abschnitt „Musik“).
+Stand 16.11.2026 (Neubau nach der Neuaufnahme: nächster Abschnitt). Grundlage des Reviews: 36 Befunde aus zwei Kritiken (Bild; Erzählung und Ton) zum Render aus Commit 2a84cb6, dazu Linus' Rückmeldung zu Teil 1: „sehr gute, fesselnde Geschichten“, „mit Teil 2 weitermachen“, „die Musik fand ich gut, kopier die Musik der Vorbildvideos mehr eins zu eins, aber mit eigenem Stil“. Danach kam seine zweite Vorgabe zur Musik: „sehr viel näher an den Vorbildern“. Teil 1 und 2 laufen deshalb jetzt auf dem Bett **r2-eigen** (Abschnitt „Musik“).
 
 Jeden Befund habe ich an Bildern, Schnellbögen, Einzelbildern und Messungen selbst geprüft. Bis auf zwei Zahlenangaben (siehe „Geprüft, anders gesehen“) haben sich alle bestätigt.
 Behoben sind der P0, alle P1, die sich ohne neue Aufnahme beheben lassen, und die kleinen, eindeutigen P2. Neue ElevenLabs-Aufnahmen gab es keine: Kein Befund war ein Ton-P0. Die drei Erzähl-P1, die neuen Text brauchen, stehen unten als fertiger Vorschlag zum Vertonen.
 
 Die Arbeit lief in zwei Abschnitten (dazwischen ein Neustart des Containers, Zwischenstand Commit a464b89). Vor dem Weiterarbeiten habe ich geprüft, dass der Render zum aktuellen `episode.json` passt: Shotliste neu übersetzt (bitgleich) und je Einstellung das mittlere Bild neu gerendert und mit dem vorhandenen verglichen (mittlere Abweichung 0,6–1,8 Graustufen, also nur JPEG und Korn).
+
+## Neubau nach der Neuaufnahme (16.11.2026, aktueller Stand)
+
+Teil 2 ist mit dem neuen Text (44 Sätze, Stimme 89,62 s) komplett neu gebaut: Shotliste, Render, Untertitel, Effekte, Musik und beide Fassungen. Die Abschnitte darunter („Messwerte“ bis „Ton (offen)“) beschreiben das Review der alten Aufnahme und bleiben als Verlauf stehen.
+
+| | Neubau |
+|---|---|
+| Fassungen | `build/folge-02/folge-02-mit-musik.mp4` (Hauptfassung) und `folge-02-ohne-musik.mp4`, je 158,5 MB, 90,63 s; Teilen-Fassungen in `build/teilen/` (unten) |
+| Shotliste (Messtor grün) | 62 Einstellungen plus Endkarte PART 3. Median 1,40 s, 41,5 je Minute, kürzeste 0,73 s, längste 2,30 s, 14 Akzentfahrten (im Mittel alle 6,4 s, größte Lücke 8,6 s), 2 Snap-Zooms, 3-mal Wackeln, 3 Lichtereignisse, Monster in 19,4 % (vorher 16,4 %), Endkarte 0,143 s nach „Ready?“ |
+| Render | 2.719 Bilder in 23,5 min mit 2 Prozessen (0,52 s/Bild), danach 103 Bilder neu (Luke, siehe unten) |
+| Ton nach AAC | ohne Musik −14,05 LUFS, −1,80 dBTP, LRA 3,0 LU; mit Musik −14,07 LUFS, −1,81 dBTP, LRA 3,0 LU |
+| Effekte | 17 Cues (vorher 12, neu: vier Klopfer an Junes Fenster), 6,6–17,6 LU unter der Stimme (Median 11,6) |
+| Musik | r2-eigen, normal 12 LU unter der Stimme, Hook +2,5 dB, voll ab der Luke (Satz 30). vier kurze Wegfälle von 1,23–1,40 s: Klopfen (Satz 23, neu), vor „side by side“ (Satz 24), nach „Ninety-nine“, auf „No counting came from the square“; still erst nach „Ready?“ |
+| Untertitel | 204 Einblendungen, im MP4 gemessen: Median 0,00 s, p90 0,023 s, höchstens 0,067 s neben dem Wortbeginn |
+| Bilder | Helligkeit Median 86,4 ohne Kriechkeller, Keller im Mittel 69,9; keine schwarzen, einfarbigen oder eingefrorenen Bilder, keine Balken außerhalb des Kellers, Streuung mindestens 14,1 |
+| Kompositionsprüfung | 17 von 62 Einstellungen mit der Hauptsache außerhalb des mittleren Drittels (Warnung, meist Keller-Untersichten); Junes Mund liegt in der Rückblende (E43) in den letzten 0,4 s im Untertitel-Streifen, weil sie in die Luke sinkt; Kopf-oben-Regel erfüllt |
+| `pruefen.py` | Exit 1, nur wegen Whisper: ohne Musik „lay“ als „laid“ (wie bisher); mit Musik „It“ als „he“ (Satz 10) und „Ninety-seven, Ninety-eight“ ausgelassen. Abschnittsweise nachgehört (Whisper auf 2–14 s langen Ausschnitten beider MP4) sind alle drei Stellen richtig: „It can't touch you before midnight.“, „97, 98, 99… Then she stopped.“ Das Auslassen tauchte erst im dritten Lauf auf, nachdem sich nur Pegel 25 s früher geändert hatten: Es liegt am 30-s-Fenster von Whisper, nicht an der Aufnahme |
+
+**Was im Bild neu ist** (Kontaktbogen `kontaktbogen.jpg`, 30 Bilder `render-bogen.jpg`):
+- **Satz 11:** Mr. Odell geht vorn im Laternenzug (Brille, langer Mantel), sein Gesicht über dem Untertitel-Streifen. Eine Laterne in der Hand gibt es nicht, dafür fehlt ein Baustein.
+- **Satz 13:** „his bell“: Odell schaut zum Turm, auf „bell“ schwingt die Glocke (Hauptaktion).
+- **Satz 17:** Junes Blick wird auf „here“ fest. Das ist das Bild des gestrichenen „June didn't answer“.
+- **Satz 20:** Die Menge steht von hinten im Vordergrund und sieht Tess auf den Kirchenstufen nach. Das ist das Bild des gestrichenen „Nobody laughed“.
+- **Satz 22–23, das Klopfen:** Außen steht Mister Hundred tief gebeugt vor Junes Fenster (Kamera über seine Schulter), auf „tapped“ nickt der Kopf einmal ans Glas. Innen in Junes leerem Zimmer liegen die Hände mit den glimmenden Fingerspitzen im Fenster, dreimal pulst das kalte Licht im Abstand von etwa 0,45 s. Dazu kommt je ein Klopfer, und die Musik fällt weg. Einen Vorhang hat Junes Fenster im Set nicht: Statt des Fingerschattens ist der Finger selbst zu sehen. Erprobt habe ich vier Kamerastellungen für außen. Von schräg vorn las sich der waagrecht gebeugte Mantel als Kranarm.
+- **Satz 25:** Owens Pick-up erhöht von der Straße, ohne Scheinwerfer (frontal blendeten sie). Danach die Stiefel auf dem Sitz.
+- **Satz 26, Rückblende:** Dad hält die Luke auf, June (18, offene Haare) steigt hinein. Bogenfahrt im Zimmer, beide Gesichter von vorn. Das Bild ist entsättigt.
+- **Satz 31:** June steht hinter Eli und drückt ihn an beiden Schultern in die Luke. Dann folgt die Untersicht aus dem Schacht: Junes Gesicht über dem Rand, auf „no“ wird ihr Blick hart.
+- **Satz 2:** Die Kamera steht 0,6 m weiter hinter Eli. Nach dem Zuziehen ist sein Kopf vor dem Vorhang zu sehen; vorher lag er neben dem Bild.
+
+**Angepasst, damit das Messtor besteht:**
+- Satz 30 („She rolled back the rug and opened the hatch.“) und Satz 32 („The hatch closed over me, then the rug.“) sind je ein Bild statt zwei. „She rolled back the“ allein wäre 0,67 s, und der Median läge bei 1,37 s.
+- Satz 31 schneidet auf „could“ statt „before“, sonst wäre „She pushed me in“ nur 0,63 s.
+- „June took my bag“ ist ein Push-in statt einer Bogenfahrt. Den Akzent trägt die Rückblende davor, sonst wären es 15 Akzentfahrten (alle 5,98 s statt 6–10 s).
+
+**Zwei Fehler in der Engine gefunden und behoben:**
+- **`src/zeitplan.js`:** Eine Nebenaktion mit `ab: "start"` fiel weg, wenn die auf 4 Stellen gerundete Startzeit knapp vor dem Schnittbild lag. Sichtbar wurde das an zwei Stellen: Die Luke blieb in der Rückblende zu, June stieg durch den Deckel, und Elis Griff zum Vorhang in Satz 3 fehlte. Jetzt gelten Zeiten bis 0,1 ms als gleich, und die Stellung kommt zuerst; ein Test liegt in `test/kamera.test.mjs`. Teil 2 alt war nicht betroffen. **Teil 1 schon:** 8 Nebenaktionen fehlen im bisherigen Render (E19 zwei Nachbarn gehen, E21/E22 Arm heben, E25 Owen dreht den Kopf, E40 Dad duckt sich, E41 June18 dreht den Kopf, E58 Mister Hundred dreht den Kopf). Ein neuer Render von Teil 1 würde diese Bewegungen zeigen.
+- **`figuren/luke.js`:** neue Pose `offen` (Teppich gerollt und Deckel offen). Mit „teppich_rollen“ als Pose und „oeffnen“ als Aktion war der Deckel im ersten Bild noch zu. Aus dem Schacht gesehen war Bild 2019 dadurch ganz schwarz, `pruefen.py` hatte es als Balken über 100 % gemeldet.
+
+**Ton:** Die vier Klopfer (−8 dB, 10,0–12,8 LU unter der Stimme) liegen genau auf den Lichtpulsen im Bild. June bleibt bei +2,0 Halbtönen. Ein Versuch mit +1,5 änderte nichts daran, dass Whisper „he“ hört.
+
+**Offen für Linus' Ohr und Auge:** ob die drei Klopfer langsam genug wirken (0,45 s Abstand, gesprochen „Three slow knocks“), ob der gebeugte Riese außen vor Junes Fenster als Klopfen lesbar ist und ob die vier kurzen Wegfälle der Musik zu viele sind (Klopfen und Omen liegen nur 1,5 s auseinander, dazwischen spielt die dünne Stufe).
 
 ## Messwerte
 
@@ -159,12 +200,7 @@ Linus hat den Vorschlag freigegeben („Ja, mach alles“). Der ganze Teil ist i
 | 9b | ja | Dad schützt June |
 | 10 | ja | Mister Hundred, Hiding Night (Websuche 15.11.2026, `folge-01/praemissen.md`) |
 
-**Offen für den Neubau:** Diese Dateien gehören noch zur alten Aufnahme und müssen neu gebaut werden:
-- `regie.mjs` hat noch die alten 46 Satzschlüssel. Neue Einstellungen fehlen: 22:something, 23, 25:his shoes, 26:who hid her, 31, 31:before.
-- `episode.json`, `untertitel.*`, `effekte.json`, `mischung.json` und `pruefung.json` stammen ebenfalls aus der alten Aufnahme.
-- `engine/musik/spannung/hiding-night-teil2.json` muss auf die neuen Satznummern und Sekunden umgestellt werden.
-
-Bis dahin schlagen die beiden Folge-2-Tests in `engine/test/shotliste.test.mjs` fehl, weil `regie.mjs` Schlüssel nennt, die es nicht mehr gibt.
+**Neubau:** erledigt am 16.11.2026, siehe Abschnitt „Neubau nach der Neuaufnahme“ oben.
 
 ### Bild (P2, offen)
 
@@ -194,8 +230,9 @@ Bis dahin schlagen die beiden Folge-2-Tests in `engine/test/shotliste.test.mjs` 
 
 H.264 crf 21, höchstens 6 Mbit/s, 1080 × 1920, 30 fps, Ton unverändert kopiert (AAC 192 kbit/s):
 
-- `build/teilen/hiding-night-teil2.mp4`: Hauptfassung mit Musik, 53 MB, 86,93 s, −14,05 LUFS, −1,82 dBTP
-- `build/teilen/hiding-night-teil2-ohne-musik.mp4`: für einen Sound aus der TikTok-Bibliothek, 53 MB, −14,06 LUFS, −1,77 dBTP
+- `build/teilen/hiding-night-teil2.mp4`: Hauptfassung mit Musik, Neubau vom 16.11.2026, 55 MB, 90,63 s, −14,07 LUFS, −1,81 dBTP
+- `build/teilen/hiding-night-teil2-ohne-musik.mp4`: für einen Sound aus der TikTok-Bibliothek, 55 MB, −14,05 LUFS, −1,80 dBTP
+- Die Teilen-Fassungen der alten Aufnahme (86,93 s) sind ersetzt.
 - `build/teilen/hiding-night-teil1-musik-neu.mp4`: Teil 1 mit r2-eigen, Bild unverändert, 55 MB, 87,27 s, −14,05 LUFS, −1,95 dBTP
 
 Zum A/B-Vergleich liegt die alte Musik von Teil 1 unverändert in `build/folge-01/teilen/hiding-night-teil1-vorhoer.mp4`. Ist Teil 1 schon online, dort bitte nichts tauschen.

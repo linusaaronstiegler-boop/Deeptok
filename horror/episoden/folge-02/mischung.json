@@ -1,52 +1,52 @@
 {
  "folge": "folge-02",
- "laenge_s": 86.933,
- "bilder": 2608,
- "endkarte_ab_s": 85.933,
+ "laenge_s": 90.633,
+ "bilder": 2719,
+ "endkarte_ab_s": 89.633,
  "stimme": {
   "datei": "build/folge-02/stimme.wav",
-  "lufs_stereo": -14.25,
-  "sha256": "2919a9ed52166c51c210144347d890146763021a7399113063a7c0c4c09b2700",
+  "lufs_stereo": -14.29,
+  "sha256": "7cb622276d3e2a2b664976d11e84abc7d1ab6acb4a37a3a8291f7ab44ae1e053",
   "rede": [
    {
     "wer": "June",
-    "von_s": 18.71,
-    "bis_s": 20.38,
+    "von_s": 19.35,
+    "bis_s": 21.02,
     "halbtoene": 2.0,
     "db": -2.0
    },
    {
     "wer": "Odell",
-    "von_s": 35.76,
-    "bis_s": 38.55,
+    "von_s": 35.02,
+    "bis_s": 38.03,
     "halbtoene": -5.5,
     "db": -1.0
    },
    {
     "wer": "Tess",
-    "von_s": 40.8,
-    "bis_s": 42.3,
+    "von_s": 39.08,
+    "bis_s": 40.55,
     "halbtoene": 3.0,
     "db": -2.0
    },
    {
     "wer": "June",
-    "von_s": 58.46,
-    "bis_s": 61.42,
+    "von_s": 60.95,
+    "bis_s": 63.98,
     "halbtoene": 2.0,
     "db": -2.0
    },
    {
     "wer": "June",
-    "von_s": 70.48,
-    "bis_s": 72.9,
+    "von_s": 73.69,
+    "bis_s": 76.84,
     "halbtoene": 2.0,
     "db": -2.0
    },
    {
     "wer": "Mister Hundred",
-    "von_s": 83.78,
-    "bis_s": 85.87,
+    "von_s": 87.3,
+    "bis_s": 89.57,
     "halbtoene": -4.0,
     "db": 0.0,
     "formant": "shifted",
@@ -64,10 +64,10 @@
    "whoosh",
    "zaehlschlag"
   ],
-  "cues": 13,
-  "abstand_min_lu": 6.4,
-  "abstand_median_lu": 11.9,
-  "lufs_integriert_allein": -28.04,
+  "cues": 17,
+  "abstand_min_lu": 6.6,
+  "abstand_median_lu": 11.6,
+  "lufs_integriert_allein": -27.7,
   "liste": [
    {
     "nr": 0,
@@ -76,171 +76,211 @@
     "zeit_s": 0.49,
     "db": -13,
     "fx_max_lufs": -26.1,
-    "abstand_zur_stimme_lu": 11.9,
-    "stimme_dort_lufs": -12.8
+    "abstand_zur_stimme_lu": 11.8,
+    "stimme_dort_lufs": -12.4
    },
    {
     "nr": 1,
     "klang": "whoosh",
     "wort": "yanked",
-    "zeit_s": 4.72,
+    "zeit_s": 5.3,
     "db": -12,
-    "fx_max_lufs": -24.8,
-    "abstand_zur_stimme_lu": 10.6,
-    "stimme_dort_lufs": -11.4
+    "fx_max_lufs": -26.0,
+    "abstand_zur_stimme_lu": 11.7,
+    "stimme_dort_lufs": -12.0
    },
    {
     "nr": 2,
     "klang": "klopfen",
     "wort": "When",
-    "zeit_s": 5.69,
+    "zeit_s": 6.26,
     "db": -13,
     "fx_max_lufs": -31.9,
     "abstand_zur_stimme_lu": 17.6,
-    "stimme_dort_lufs": -12.2
+    "stimme_dort_lufs": -12.0
    },
    {
     "nr": 3,
     "klang": "sub_boom",
     "wort": "window.",
-    "zeit_s": 11.6,
+    "zeit_s": 12.2,
     "db": -13,
     "fx_max_lufs": -25.9,
     "abstand_zur_stimme_lu": 11.6,
-    "stimme_dort_lufs": -10.8
+    "stimme_dort_lufs": -10.5
    },
    {
     "nr": 4,
     "klang": "glocke",
-    "wort": "bell,",
-    "zeit_s": 29.66,
+    "wort": "bell",
+    "zeit_s": 30.5,
     "db": -22,
-    "fx_max_lufs": -28.0,
-    "abstand_zur_stimme_lu": 13.8,
-    "stimme_dort_lufs": -13.6
+    "fx_max_lufs": -27.6,
+    "abstand_zur_stimme_lu": 13.3,
+    "stimme_dort_lufs": -11.0
    },
    {
     "nr": 5,
     "klang": "zaehlschlag",
-    "wort": "counting.",
-    "zeit_s": 30.64,
+    "wort": "count.",
+    "zeit_s": 31.24,
     "db": -17,
-    "fx_max_lufs": -28.1,
-    "abstand_zur_stimme_lu": 13.9,
-    "stimme_dort_lufs": -10.1
+    "fx_max_lufs": -27.6,
+    "abstand_zur_stimme_lu": 13.3,
+    "stimme_dort_lufs": -10.7
    },
    {
     "nr": 6,
     "klang": "klopfen",
-    "wort": "side",
-    "zeit_s": 51.58,
-    "db": -9,
-    "fx_max_lufs": -27.4,
-    "abstand_zur_stimme_lu": 13.1,
-    "stimme_dort_lufs": -11.3
+    "wort": "tapped",
+    "zeit_s": 46.7,
+    "db": -8,
+    "fx_max_lufs": -24.3,
+    "abstand_zur_stimme_lu": 10.0,
+    "stimme_dort_lufs": -12.0
    },
    {
     "nr": 7,
     "klang": "klopfen",
-    "wort": "side.",
-    "zeit_s": 52.04,
-    "db": -9,
-    "fx_max_lufs": -27.4,
-    "abstand_zur_stimme_lu": 13.1,
-    "stimme_dort_lufs": -11.3
+    "wort": "Three",
+    "zeit_s": 48.29,
+    "db": -8,
+    "fx_max_lufs": -25.9,
+    "abstand_zur_stimme_lu": 11.6,
+    "stimme_dort_lufs": -11.6
    },
    {
     "nr": 8,
-    "klang": "riegel",
-    "wort": "closed",
-    "zeit_s": 65.45,
-    "db": -12,
-    "fx_max_lufs": -26.2,
-    "abstand_zur_stimme_lu": 11.9,
-    "stimme_dort_lufs": -11.2
+    "klang": "klopfen",
+    "wort": "slow",
+    "zeit_s": 48.74,
+    "db": -8,
+    "fx_max_lufs": -26.6,
+    "abstand_zur_stimme_lu": 12.3,
+    "stimme_dort_lufs": -11.6
    },
    {
     "nr": 9,
-    "klang": "glocke",
-    "wort": "struck",
-    "zeit_s": 74.88,
-    "db": -14,
-    "fx_max_lufs": -23.7,
-    "abstand_zur_stimme_lu": 9.4,
-    "stimme_dort_lufs": -12.1
+    "klang": "klopfen",
+    "wort": "knocks.",
+    "zeit_s": 49.18,
+    "db": -8,
+    "fx_max_lufs": -27.1,
+    "abstand_zur_stimme_lu": 12.8,
+    "stimme_dort_lufs": -12.2
    },
    {
     "nr": 10,
-    "klang": "knarzen",
-    "wort": "bent",
-    "zeit_s": 78.65,
-    "db": -10,
-    "fx_max_lufs": -20.7,
-    "abstand_zur_stimme_lu": 6.4,
-    "stimme_dort_lufs": -13.6
+    "klang": "klopfen",
+    "wort": "side",
+    "zeit_s": 51.16,
+    "db": -9,
+    "fx_max_lufs": -25.8,
+    "abstand_zur_stimme_lu": 11.5,
+    "stimme_dort_lufs": -11.6
    },
    {
     "nr": 11,
-    "klang": "zaehlschlag",
-    "wort": "hundred.\"",
-    "zeit_s": 84.15,
-    "db": -11,
-    "fx_max_lufs": -23.4,
-    "abstand_zur_stimme_lu": 9.1,
-    "stimme_dort_lufs": -12.7
+    "klang": "klopfen",
+    "wort": "side.",
+    "zeit_s": 51.6,
+    "db": -9,
+    "fx_max_lufs": -25.9,
+    "abstand_zur_stimme_lu": 11.6,
+    "stimme_dort_lufs": -11.6
    },
    {
     "nr": 12,
+    "klang": "riegel",
+    "wort": "closed",
+    "zeit_s": 68.61,
+    "db": -12,
+    "fx_max_lufs": -27.7,
+    "abstand_zur_stimme_lu": 13.4,
+    "stimme_dort_lufs": -11.2
+   },
+   {
+    "nr": 13,
+    "klang": "glocke",
+    "wort": "struck",
+    "zeit_s": 78.42,
+    "db": -14,
+    "fx_max_lufs": -22.9,
+    "abstand_zur_stimme_lu": 8.6,
+    "stimme_dort_lufs": -12.1
+   },
+   {
+    "nr": 14,
+    "klang": "knarzen",
+    "wort": "bent",
+    "zeit_s": 82.19,
+    "db": -10,
+    "fx_max_lufs": -20.9,
+    "abstand_zur_stimme_lu": 6.6,
+    "stimme_dort_lufs": -13.8
+   },
+   {
+    "nr": 15,
+    "klang": "zaehlschlag",
+    "wort": "hundred.\"",
+    "zeit_s": 88.25,
+    "db": -11,
+    "fx_max_lufs": -23.1,
+    "abstand_zur_stimme_lu": 8.8,
+    "stimme_dort_lufs": -14.9
+   },
+   {
+    "nr": 16,
     "klang": "sub_boom",
     "wort": "\"Ready?\"",
-    "zeit_s": 85.45,
+    "zeit_s": 89.16,
     "db": -11,
-    "fx_max_lufs": -24.5,
-    "abstand_zur_stimme_lu": 10.2,
-    "stimme_dort_lufs": -13.7
+    "fx_max_lufs": -25.7,
+    "abstand_zur_stimme_lu": 11.4,
+    "stimme_dort_lufs": -14.9
    }
   ]
  },
  "upload": {
   "eingang": {
-   "lufs": -14.21,
-   "true_peak_dbtp": -1.54,
-   "lra_lu": 2.8
+   "lufs": -14.26,
+   "true_peak_dbtp": -0.99,
+   "lra_lu": 3.0
   },
-  "verstaerkung_db": 0.21,
+  "verstaerkung_db": 0.26,
   "decke_dbfs": -1.8,
   "runden": 1,
-  "begrenzer_max_db": 0.46,
-  "begrenzer_rahmen_ueber_1db_prozent": 0.0,
+  "begrenzer_max_db": 1.07,
+  "begrenzer_rahmen_ueber_1db_prozent": 0.01,
   "ausgang": {
-   "lufs": -14.01,
-   "true_peak_dbtp": -1.8,
-   "lra_lu": 2.8
+   "lufs": -14.0,
+   "true_peak_dbtp": -1.79,
+   "lra_lu": 3.1
   }
  },
  "vorhoer": {
   "eingang": {
-   "lufs": -14.08,
-   "true_peak_dbtp": -1.59,
-   "lra_lu": 2.6
+   "lufs": -14.11,
+   "true_peak_dbtp": -0.64,
+   "lra_lu": 2.9
   },
-  "verstaerkung_db": 0.08,
+  "verstaerkung_db": 0.11,
   "decke_dbfs": -1.8,
   "runden": 1,
-  "begrenzer_max_db": 0.29,
-  "begrenzer_rahmen_ueber_1db_prozent": 0.0,
+  "begrenzer_max_db": 1.27,
+  "begrenzer_rahmen_ueber_1db_prozent": 0.03,
   "ausgang": {
-   "lufs": -14.0,
+   "lufs": -14.01,
    "true_peak_dbtp": -1.8,
-   "lra_lu": 2.6
+   "lra_lu": 2.9
   },
   "bett": {
    "datei": "/home/user/Deeptok/horror/build/musik/spannung-hiding-night-teil2.wav",
-   "sha256": "5d7ff9c78fc2e1e846fd8918a6db7e842e32f7ce6650fac49ae7b5f5c2ac6c2a",
-   "lufs_roh": -19.69,
+   "sha256": "868fa5193ce50bd8c7e62bf59d2d666f17cf8b4ecbc8bc517d5e6d6866761bc9",
+   "lufs_roh": -19.62,
    "bezug_lufs": -20.0,
    "abstand_zur_stimme_lu": 12.0,
-   "lufs_im_mix_vor_norm": -25.94
+   "lufs_im_mix_vor_norm": -25.91
   }
  },
  "regel": {
@@ -252,14 +292,14 @@
  "nach_aac": {
   "kbit": 192,
   "upload": {
-   "lufs": -14.06,
-   "true_peak_dbtp": -1.77,
-   "lra_lu": 2.8
+   "lufs": -14.05,
+   "true_peak_dbtp": -1.8,
+   "lra_lu": 3.0
   },
   "vorhoer": {
-   "lufs": -14.05,
-   "true_peak_dbtp": -1.82,
-   "lra_lu": 2.5
+   "lufs": -14.07,
+   "true_peak_dbtp": -1.81,
+   "lra_lu": 3.0
   },
   "decken_dbfs": {
    "upload": -1.8,

@@ -6288,23 +6288,13 @@
       2
      ],
      "blick": 90,
-     "pose": "teppich_rollen"
+     "pose": "offen"
     },
     "sp_dad": {
      "sichtbar": false
     }
    },
    "aktionen": [
-    {
-     "wer": "luke_tp",
-     "was": "oeffnen",
-     "dauer": 0.03,
-     "params": {
-      "winkel": 105
-     },
-     "start": 58.2333,
-     "nebenbei": true
-    },
     {
      "wer": "dad",
      "was": "greifen",
@@ -6994,20 +6984,10 @@
       2
      ],
      "blick": 90,
-     "pose": "teppich_rollen"
+     "pose": "offen"
     }
    },
    "aktionen": [
-    {
-     "wer": "luke_tp",
-     "was": "oeffnen",
-     "dauer": 0.03,
-     "params": {
-      "winkel": 105
-     },
-     "start": 66.3,
-     "nebenbei": true
-    },
     {
      "wer": "june",
      "was": "greifen",
@@ -7152,23 +7132,13 @@
       2
      ],
      "blick": 90,
-     "pose": "teppich_rollen"
+     "pose": "offen"
     },
     "eli": {
      "sichtbar": false
     }
    },
    "aktionen": [
-    {
-     "wer": "luke_tp",
-     "was": "oeffnen",
-     "dauer": 0.03,
-     "params": {
-      "winkel": 105
-     },
-     "start": 67.3,
-     "nebenbei": true
-    },
     {
      "wer": "june",
      "was": "kopf_drehen",

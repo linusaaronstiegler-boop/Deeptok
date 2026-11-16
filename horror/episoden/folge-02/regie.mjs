@@ -651,13 +651,12 @@ export const einstellungen = {
     figuren: {
       dad: { position: [-19.55, SO, 1.45], blick: 40, gesicht: 'entschlossen', pose: 'ducken', pose_params: { tiefe: 0.5, arme: 'knie' } },
       june18: { position: ORT.lukeMitte, blick: 40, gesicht: 'besorgt' },   // zur Kamera gedreht: Gesicht von vorn
-      luke_tp: { position: ORT.luke, blick: 90, pose: 'teppich_rollen' },
+      luke_tp: { position: ORT.luke, blick: 90, pose: 'offen' },   // Teppich gerollt, Deckel offen ab dem ersten Bild
     },
     // Bogenfahrt im Zimmer (bei azimut 62 und 3,1 m stand die Kamera hinter der Wand zum Flur)
     kamera: { baustein: 'orbit', ziel: [-18.95, 1.05, 1.85], blick: { azimut: 50, hoehe: 15, abstand: 2.35 }, grad_pro_s: 16, richtung: -1, fov: 60 },
     licht_anpassung: { belichtung: 1.5, hemi: { staerke: 2.8 } },
     neben: [
-      { wer: 'luke_tp', was: 'oeffnen', ab: 'start', dauer: 0.03, params: { winkel: 105 } },
       { wer: 'dad', was: 'greifen', ab: 'start', dauer: 0.25, params: { zu: 'luke_tp.ring', seite: 'r', lehnen: false } },
     ],
     haupt: { wer: 'june18', was: 'klettern', wort: 'hid', dauer: 0.8, params: { hoehe: -0.9, arme: false } },
@@ -720,13 +719,12 @@ export const einstellungen = {
     figuren: {
       eli: { position: ORT.lukeMitte, blick: 0, gesicht: 'besorgt' },
       june: { position: [-18.62, SO, 1.4], blick: -8, gesicht: 'entschlossen' },
-      luke_tp: { position: ORT.luke, blick: 90, pose: 'teppich_rollen' },
+      luke_tp: { position: ORT.luke, blick: 90, pose: 'offen' },   // Teppich gerollt, Deckel offen ab dem ersten Bild
     },
     // Kamera auf Brusthöhe: tiefer verdeckte Elis Kopf Junes Gesicht
     kamera: { ziel: [-18.75, 1.85, 1.7], pos: [-18.3, 1.65, 3.75], fov: 52, rate: 0.07 },
     licht_anpassung: { belichtung: 1.3 },
     neben: [
-      { wer: 'luke_tp', was: 'oeffnen', ab: 'start', dauer: 0.03, params: { winkel: 105 } },
       // ohne Vorbeugen: mit lehnen kippte Junes Kopf nach vorn, die Kamera sah nur ihren Scheitel
       { wer: 'june', was: 'greifen', ab: 'start', dauer: 0.2, params: { zu: 'eli.schulter_l', seite: 'l', lehnen: false } },
       { wer: 'june', was: 'greifen', ab: 'start', dauer: 0.2, params: { zu: 'eli.schulter_r', seite: 'r', lehnen: false } },
@@ -741,12 +739,11 @@ export const einstellungen = {
   '31:could': {
     figuren: {
       june: { position: [-18.8, SO, 1.3], blick: 0, gesicht: 'besorgt', pose: 'ducken', pose_params: { tiefe: 0.7, arme: 'knie' } },
-      luke_tp: { position: ORT.luke, blick: 90, pose: 'teppich_rollen' },
+      luke_tp: { position: ORT.luke, blick: 90, pose: 'offen' },   // Teppich gerollt, Deckel offen ab dem ersten Bild
     },
     kamera: { ziel: { anker: 'june.kopf', versatz: [0, -0.05, 0] }, pos: [-18.8, SO - 0.7, 2.25], fov: 50, rate: 0.07 },
     licht_anpassung: { belichtung: 1.35 },
     neben: [
-      { wer: 'luke_tp', was: 'oeffnen', ab: 'start', dauer: 0.03, params: { winkel: 105 } },
       { wer: 'june', was: 'kopf_drehen', ab: 'start', dauer: 0.03, params: { nicken: 38 } },
       { wer: 'june', was: 'greifen', ab: 'start', dauer: 0.3, params: { zu: 'luke_tp.ring', seite: 'r', lehnen: false } },
     ],
