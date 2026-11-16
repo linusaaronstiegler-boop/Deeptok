@@ -101,7 +101,9 @@ def main(folge: str) -> None:
         f"TITEL\n{yt['titel']}\n\nBESCHREIBUNG\n{yt['beschreibung']}\n\nEINSTELLUNGEN\n"
         + "\n".join(f"- {e}" for e in yt["einstellungen"]) + "\n", encoding="utf-8")
     srt(ordner / p.get("timing", "timing.json"), ziel / "untertitel.srt")
-    (ziel / "LIESMICH.txt").write_text("\n".join(p["liesmich"]) + "\n", encoding="utf-8")
+    sekunde = f'{p["titelbild"]["sekunde"]:.1f}'.replace(".", ",")  # deutsche Schreibweise
+    (ziel / "LIESMICH.txt").write_text("\n".join(p["liesmich"]).replace("{sekunde}", sekunde) + "\n",
+                                       encoding="utf-8")
     print(ziel)
 
 

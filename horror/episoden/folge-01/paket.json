@@ -1,7 +1,12 @@
 {
   "slug": "hiding-night-part-1",
   "video": "build/teilen/hiding-night-teil1-musik-neu.mp4",
-  "titelbild": {"bild": "build/folge-01/bilder/f00200.jpg", "sekunde": 6.7, "titel": "Hiding Night", "teil": "Part 1"},
+  "titelbild": {
+    "bild": "build/folge-01/bilder/f00200.jpg",
+    "sekunde": 6.7,
+    "titel": "Hiding Night",
+    "teil": "Part 1"
+  },
   "bildunterschrift": "Hiding Night, Part 1 of 3. In this town, when you turn 18, you hide until sunrise, or Mister Hundred finds you. An animated horror story. Where would you hide from Mister Hundred? #hidingnight #horrorstory #animation #scarystories #inthistown",
   "youtube": {
     "titel": "In this town, you hide on your 18th birthday | Hiding Night, Part 1",
@@ -26,7 +31,7 @@
     "TIKTOK (am PC: tiktok.com/tiktokstudio → Hochladen)",
     "1. Video: hiding-night-part-1.mp4",
     "2. Beschreibung: Inhalt von bildunterschrift.txt einfügen, eine Zeile, nichts ändern.",
-    "3. Titelbild: „Titelbild bearbeiten“ → titelbild.jpg hochladen. Gibt es kein Hochladen: Bild bei Sekunde 6,7 wählen.",
+    "3. Titelbild: „Titelbild bearbeiten“ → titelbild.jpg hochladen. Gibt es kein Hochladen: Bild bei Sekunde {sekunde} wählen.",
     "4. Weitere Einstellungen: „KI-generierter Inhalt“ an. Kommentare, Duett und Stitch an.",
     "5. Sound: nichts auswählen. Die Musik ist im Video (original sound).",
     "6. Zeitplan: Datum und Uhrzeit eintragen → „Planen“.",
