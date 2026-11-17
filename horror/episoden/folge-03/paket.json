@@ -2,8 +2,8 @@
   "slug": "hiding-night-part-3",
   "video": "build/teilen/hiding-night-teil3-finale.mp4",
   "titelbild": {
-    "bild": "OFFEN",
-    "sekunde": 0,
+    "bild": "build/folge-03/titelbild-roh.jpg",
+    "sekunde": 49.0,
     "titel": "Hiding Night",
     "teil": "Part 3 · Finale"
   },

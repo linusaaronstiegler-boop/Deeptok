@@ -2,8 +2,8 @@
   "slug": "hiding-night-part-2",
   "video": "build/teilen/hiding-night-teil2-v2.mp4",
   "titelbild": {
-    "bild": "OFFEN",
-    "sekunde": 0,
+    "bild": "build/folge-02/titelbild-roh.jpg",
+    "sekunde": 48.9,
     "titel": "Hiding Night",
     "teil": "Part 2"
   },
