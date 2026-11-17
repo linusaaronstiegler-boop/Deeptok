@@ -2414,18 +2414,17 @@
    "kamera": {
     "baustein": "push_in",
     "ziel": {
-     "anker": "ok.haende",
+     "anker": "ok.faust_l",
      "versatz": [
+      -0.25,
       0,
-      0.05,
       0
      ]
     },
     "blick": {
-     "azimut": 180,
-     "hoehe": -12,
-     "abstand": 2.6,
-     "bezug": "ok.haende"
+     "azimut": 205,
+     "hoehe": -10,
+     "abstand": 2.3
     },
     "fov": 46,
     "rate": 0.08

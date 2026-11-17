@@ -317,7 +317,8 @@ export const einstellungen = {
   // "Its fists press up against the ice." – Untersicht von Süden unter dem Körper durch: beide Fäuste am Eis
   '11': {
     figuren: { ok: { position: OK_TIEF, blick: 0, gesicht: 'glatt' } },
-    kamera: { ziel: { anker: 'ok.haende', versatz: [0, 0.05, 0] }, blick: { azimut: 180, hoehe: -12, abstand: 2.6, bezug: 'ok.haende' }, fov: 46, rate: 0.08 },
+    // schräg von vorn-unten auf die linke Faust: vier Knöchelwürfel gegen das Eis, dahinter die rechte (wie S2, andere Seite)
+    kamera: { ziel: { anker: 'ok.faust_l', versatz: [-0.25, 0.0, 0] }, blick: { azimut: 205, hoehe: -10, abstand: 2.3 }, fov: 46, rate: 0.08 },
     neben: [{ wer: 'ok', was: 'klopfen_unten', wort: 'press', dauer: 0.9, params: { schlaege: 1, tiefe: 0.06 } }],
     haupt: { art: 'kamera', wort: 'press' },
     hauptsache: 'ok.haende',
