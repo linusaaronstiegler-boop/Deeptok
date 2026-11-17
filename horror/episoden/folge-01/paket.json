@@ -20,6 +20,20 @@
       "Titelbild: titelbild.jpg"
     ]
   },
+  "instagram": {
+    "bildunterschrift": "In the morning, all that's left are your shoes, side by side. Hiding Night, Part 1 of 3: in this town, when you turn 18, you hide until sunrise, or Mister Hundred finds you. An animated horror story. Where would you hide? #hidingnight #horrorstory #animation #scarystories",
+    "einstellungen": [
+      "Konto: Instagram-Profikonto (Creator); nur damit lässt sich in der App planen, bis 75 Tage voraus",
+      "Video: dieselbe Datei wie bei TikTok, nie einen TikTok-Download (sichtbares Wasserzeichen kostet Reichweite)",
+      "Titelbild (Cover): titelbild.jpg hochladen; das Profilraster zeigt den 3:4-Ausschnitt, der Text liegt darin",
+      "Im Profilraster zeigen: an",
+      "KI-Kennzeichnung („KI-Info“ / „AI info“): an, weil die Erzählstimme synthetisch ist und echt klingt",
+      "Musik: nichts hinzufügen, die Musik ist im Video",
+      "Probe-Reel (Trial): aus, die Folge soll auch den Followern gezeigt werden",
+      "Planen: Erweiterte Einstellungen → Planen → Freitag, 20.11.2026, 02:00 Uhr bei uns (= Donnerstag, 20:00 Uhr US-Ostküste, eine Stunde nach TikTok)",
+      "Kommentar: denselben Text wie bei TikTok anheften und zur selben Zeit tauschen (LIESMICH)"
+    ]
+  },
   "liesmich": [
     "HIDING NIGHT – TEIL 1 VON 3 · Upload-Paket",
     "",
@@ -45,6 +59,9 @@
     "- Nach dem Upload unter „Keywords verwalten“ (falls angeboten): „roblox“ sperren; „horror story“, „animated horror story“, „hiding night“, „mister hundred“ hinzufügen.",
     "",
     "YOUTUBE SHORTS (studio.youtube.com, gleiche Uhrzeit)",
-    "Video: dieselbe Datei. Titel, Beschreibung und Einstellungen: youtube.txt. Untertitel: untertitel.srt."
+    "Video: dieselbe Datei. Titel, Beschreibung und Einstellungen: youtube.txt. Untertitel: untertitel.srt.",
+    "",
+    "INSTAGRAM REELS (Handy-App, eine Stunde nach TikTok)",
+    "Video: dieselbe Datei. Bildunterschrift, Titelbild und Schalter: instagram.txt. Planen: Freitag, 20.11.2026, 02:00 Uhr bei uns (= 20:00 Uhr US-Ostküste)."
   ]
 }
