@@ -1,9 +1,10 @@
 # Serie 2: Rules of Kindly
 
-Stand 16.11.2026. Die Bibel ist überarbeitet, Folge 1 ist Endfassung und noch nicht vertont.
+Stand 17.11.2026. Die Bibel ist überarbeitet, alle offenen Fragen sind entschieden (Bibel §14), Folge 1 ist Endfassung und noch nicht vertont.
 
 - [`bibel.md`](bibel.md): Welt, Faden, Kultfigur, Monster, acht Logzeilen, Folge 1 im Detail, Namensprüfung. Nicht öffentlich teilen, sie enthält alle Lösungen.
 - [`folge-01-skript.txt`](folge-01-skript.txt): Sprechtext Folge 1, ein Satz pro Zeile (65 Sätze, 465 Wörter, geschätzt 143 s, mit Endkarte etwa 2:25).
+- [`../kindly-01/paket.json`](../kindly-01/paket.json): Upload-Texte für Folge 1 (TikTok, YouTube Shorts, Instagram Reels), Termin und LIESMICH. Video und Titelbild-Bild sind noch `OFFEN`.
 
 ## Die Idee in fünf Sätzen
 
@@ -26,14 +27,19 @@ Alle Zahlen stammen aus fremden Videos (`docs/trends/virale-serien.md`, `bericht
 
 Die Redaktion gab der ersten Fassung 6,5 von 10 und hielt mit ihren Änderungen 7,5–8 für erreichbar. Alle Änderungen sind eingearbeitet.
 
-## Was Linus entscheiden soll
+## Entschieden am 17.11.2026 (Kriterium: Reichweite)
 
-Die vollständige Liste steht in der Bibel, §14. Am wichtigsten:
+Linus: „Entscheidest selber, was die meisten Views bringt.“ Die 15 Entscheidungen mit je einem Satz Begründung stehen in der Bibel, §14. Das Wichtigste:
 
-1. **Freigabe Folge 1 zum Vertonen** (Adam, 2 Takes, etwa 4.800 Credits). Danach kommt eine Handy-Probe für den Atemdampf als privater Entwurf, und erst dann wird der See gebaut.
-2. **Name und Marke:** Kindly, *Rules of Kindly*, #kindlytown. Damit heißt auch die Stadt aus Hiding Night rückwirkend Kindly, und dessen Endkarte könnte das Ortsschild werden.
-3. **Ende von Folge 1:** A, Gus nimmt die Kopie mit nach Hause (Empfehlung), oder B, Gus klopft zurück.
-4. **Titel von Folge 1:** *His Breath Didn't Fog* oder *Clear Glasses*, am besten als A/B-Test.
-5. **Endkarte** 1,5 s mit Glockenschlag statt 1,0 s ohne Ton.
-6. **Folge 4 als Abstimmung**, aber nur, wenn F1 und F2 genug Kommentare bringen.
-7. **Folge 6 mit schwarzem Humor** („hiring“) als bewusster Test.
+1. **Marke:** Kindly, *Rules of Kindly*, #kindlytown, Motto *„Kindly mind the rules.“* Das Finale von Hiding Night bleibt, wie es ist („MORE TOWNS SOON“). Sobald Folge 1 online ist, zeigt der angeheftete Kommentar unter dem Finale auf *Rules of Kindly*.
+2. **Folge 1:** Titel *His Breath Didn't Fog* mit Kopfzeile RULES OF KINDLY, Ende A (*„Gus doesn't tap the ice anymore.“*), angehefteter Kommentar *„Breathe on your screen. Did it fog?“*. Kein Titel-A/B-Test: TikTok hat keinen, und YouTube bietet „Test & Compare“ für Shorts nicht an.
+3. **Endkarte** 1,5 s mit Glockenschlag; die Zahl *1,204 → 1,203* muss lesbar sein.
+4. **Atemdampf:** Statt der Handy-Probe prüft eine Kompressions-Simulation (2 Mbit/s 1080p und 1 Mbit/s 720p), ob der fehlende Dampf sofort auffällt. Linus' Blick am Handy ist optional.
+5. **Takt:** Folge 1 am Di 24.11., 19:00 Uhr US-Ostküste (bei uns Mi 25.11., 01:00 Uhr), danach mindestens Di/Fr; F7 am 23.12., F8 an Silvester und erst nach F1–F7. Lücken füllen Vorrats-Folgen, wenn die Credits reichen.
+6. **Cross-Posting:** dieselbe Datei auch als YouTube Short (gleiche Uhrzeit) und Instagram Reel (eine Stunde später), mit eigenen Texten.
+7. **Weiter wie geplant:** Rule Zero mit Plan B, Odell und der Clerk nur angedeutet (Odells Augen nie im Bild), F4-Abstimmung nur ab Schwelle, F5 im Dezember, F6 mit schwarzem Humor, F7 *Mouth Shut*, nur männliche Erzähler.
+
+## Was noch offen ist
+
+- **Geld (Linus):** welcher ElevenLabs-Tarif. Starter (30.000 Credits) trägt etwa 6 Folgen im Monat, Creator (121.000) etwa 25. Für F1–F8 ohne Lückenfüller reicht Starter, mit Lückenfüllern braucht es Creator. Rechnung und Quellen: `docs/release/automatisierung.md` §6.4.
+- **Von Hand in der App (Linus):** #kindlytown vor dem ersten Post prüfen; ein Instagram-Profikonto für den Kanal, falls es noch keins gibt.

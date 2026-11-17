@@ -1,6 +1,6 @@
 # Serie 2 „Rules of Kindly“: Serien-Bibel
 
-Stand 16.11.2026, überarbeitet nach der Redaktionskritik vom selben Tag (Note 6,5; Änderungsliste vollständig eingearbeitet). Folge 1 ist Endfassung und noch nicht vertont.
+Stand 17.11.2026. Überarbeitet nach der Redaktionskritik vom 16.11.2026 (Note 6,5; Änderungsliste vollständig eingearbeitet). Die offenen Fragen sind am 17.11.2026 nach dem Kriterium Reichweite entschieden (§14) und hier überall nachgezogen. Folge 1 ist Endfassung und noch nicht vertont.
 
 **Grundlage:**
 - `docs/trends/virale-serien.md`: Mechaniken M1–M10, Bauplan §5, Vorbild-Muster.
@@ -25,10 +25,10 @@ Folge 1 liegt als fertiger Sprechtext in [`folge-01-skript.txt`](folge-01-skript
 | **Serienmarke** | **Rules of Kindly**. Steht als Kopfzeile auf jedem Titelbild („RULES OF KINDLY“) und vorn in jeder Bildunterschrift, dazu immer **#kindlytown**. „Kindly“ allein ist ein Allerweltswort und zählt nicht als Eigenname (Regel 10). |
 | **Format** | Abgeschlossene Folgen von 2:00–2:30, je etwa 430–520 Wörter. Jede Folge ist eine Regel aus Mr. Odells Stadtbuch, mit eigenem Erzähler, eigenem Monster und eigener Pointe. Keine Teile, keine Cliffhanger (M10: nein). |
 | **Faden für alle** | Nur zwei: **Rule Zero** (die herausgerissene erste Seite, ein Wort je Folge, versteckt im Bild) und das **Ortsschild mit der Einwohnerzahl** (Odell malt sie auf der Endkarte um oder lässt sie stehen). Alles andere ist Tiefen-Ei (§3.0). |
-| **Kultfigur** | **Mr. Odell** (74), Glöckner und Hüter des Stadtbuchs. Merkmal als Strichzeichnung: **runde Gläser, die immer weiß spiegeln**; seine Augen sieht man erst in Folge 8. Requisit: eine Handglocke. Satz: *„Kindly mind the rules.“* Er hilft nie, er lügt nie, er stirbt nie, er weiß alles. |
+| **Kultfigur** | **Mr. Odell** (74), Glöckner und Hüter des Stadtbuchs. Merkmal als Strichzeichnung: **runde Gläser, die immer weiß spiegeln**; seine Augen kommen nie ins Bild. Requisit: eine Handglocke. Satz: *„Kindly mind the rules.“* Er hilft nie, er lügt nie, er stirbt nie, er weiß alles. |
 | **Monster** | in jeder Folge ein neues, fast menschliches Wesen mit genau einem Fehler, der groß ins Bild kommt (Katalog in §5) |
-| **Folgen** | 8 Logzeilen (§8). Folge 4 ist eine Abstimmung zwischen zwei fertigen Stoffen, aber nur ab einer Kommentar-Schwelle (§8). Die Folge zu Heiligabend erscheint am 23./24.12., das Finale an Silvester. |
-| **Folge 1** | ***His Breath Didn't Fog*** (A/B-Test: *Clear Glasses*; Stoff *Thin Ice*): 465 Wörter, 65 Sätze, geschätzt **143 s** Sprache, mit Endkarte etwa **2:25**. Der Stadtname fällt bei etwa 4,8 s, die Wendung im Bild bei 63–67 %. |
+| **Folgen** | 8 Logzeilen (§8). Folge 4 ist eine Abstimmung zwischen zwei fertigen Stoffen, aber nur ab einer Kommentar-Schwelle (§8). Start Di 24.11. (19:00 US-Ostküste), danach mindestens Di/Fr; F7 am 23.12., das Finale an Silvester. |
+| **Folge 1** | ***His Breath Didn't Fog*** (Stoff *Thin Ice*; kein Titel-Test, §14 Nr. 6): 465 Wörter, 65 Sätze, geschätzt **143 s** Sprache, mit Endkarte etwa **2:25**. Der Stadtname fällt bei etwa 4,8 s, die Wendung im Bild bei 63–67 %. |
 | **Neu zu bauen für Folge 1** | See mit Steg und Eishütten, Hütte innen (Tür „BEAR & GUS“), Monster Old Knuckles, Eis, das klar wird, dichter Atemdampf je Figur schaltbar, Odells Brille (beschlägt in der Hand, spiegelt weiß auf der Nase), Handglocke, Stadtbuch-Seite, Ortsschild, Mrs. Lund |
 
 **Welche Mechanik wo steckt** (aus `virale-serien.md` §3):
@@ -164,15 +164,20 @@ Die Alltagsregeln (§2) sind Kulisse und werden nicht als Faden gezählt.
 - Hell genug (Helligkeits-Tor), nicht auf Mund oder Augen.
 - Nie gesprochen, nie mit einem Untertitel versehen.
 
-**Plan B, falls die Staffel vor F8 endet:**
+**Plan B, falls die Staffel vor F8 endet** (entschieden am 17.11.2026, §14 Nr. 3):
 - Der Satz ergibt auch halb einen Sinn: Nach F3 steht „IF YOU KNOW …“, nach F5 „IF YOU KNOW THE RULES …“. Beides ist eine Drohung, die die Kommentare zu Ende raten können.
 - F8 wird erst veröffentlicht, wenn F1–F7 draußen sind. Endet die Staffel früher, bleibt F8 im Vorrat, und Rule Zero bleibt offen. Der Kanal beantwortet die Theorien auch dann nicht (§3.4).
 
 ### 3.2 Das Ortsschild
 
-- **Endkarte jeder Folge** (1,5 s): das Ortsschild bei Nacht.
+- **Endkarte jeder Folge** (1,5 s, entschieden am 17.11.2026, §14 Nr. 2): das Ortsschild bei Nacht.
 - Odells Pinsel streicht die alte Zahl durch und malt eine neue, oder er hebt den Pinsel und lässt ihn sinken.
 - **Pro durchgestrichenem Einwohner ein Glockenschlag**, sonst Stille.
+- **Die Zahl muss lesbar sein, sie ist Kommentar-Köder** (*1,204 → 1,203*: Wer fehlt?). Bauvorgabe (A):
+  - Ziffern mindestens 120 px hoch, in der sicheren Zone (x 120–860, y 260–1040), über dem Untertitel-Streifen.
+  - Die alte Zahl ist bis zum Strich mindestens 0,4 s ruhig zu lesen und bleibt danach durchgestrichen lesbar.
+  - Die neue Zahl steht mindestens 0,7 s fertig gemalt im Bild, bevor geschnitten wird.
+  - Gleiche Prüfung wie beim Atemdampf: nach der Kompressions-Simulation (§10.7) noch lesbar.
 
 **Die Zählweise,** die man aus den Folgen lernt, nie ausgesprochen:
 - Odell zählt nur echte Einwohner.
@@ -193,10 +198,10 @@ Die Alltagsregeln (§2) sind Kulisse und werden nicht als Faden gezählt.
 
 ### 3.3 Odells Brille
 
-- Getragen spiegeln die Gläser **immer weiß**: ein neues Material auf den beiden Ringen des Moduls `odell` (weiß, leicht emissiv, sanfter Verlauf). Odells Augen sieht man bis F8 nie.
+- Getragen spiegeln die Gläser **immer weiß**: ein neues Material auf den beiden Ringen des Moduls `odell` (weiß, leicht emissiv, sanfter Verlauf), in F1–F7 ohne Ausnahme. **Odells Augen kommen nie ins Bild**, auch nicht im Finale (entschieden am 17.11.2026, §14 Nr. 4).
 - In der Hand sind die Gläser klar und können beschlagen (Requisite `brille_hand`).
 - **Bildregel:** Hat Odell die Brille abgenommen, ist sein Gesicht nie von vorn im Bild. Die Kamera steht hinter ihm, über seiner Schulter oder auf den Gläsern. Seine Dialogzeilen spricht er immer mit Brille, also mit Gesicht von vorn (REVIEW-Lehre bleibt erfüllt).
-- Der Clerk aus Folge 8 trägt dieselbe Brille, hinter seinen Gläsern ist nichts. In Folge 8 sieht man zum ersten Mal Odells Augen, müde und menschlich, auf der Endkarte für ein einziges Bild nichts. Ob Odell der Clerk ist, sagt keine Folge.
+- Odell und der Clerk werden **nur angedeutet**: Der Clerk aus Folge 8 trägt dieselbe Brille, hinter seinen Gläsern ist nichts. Auf der Endkarte von Folge 8 hören Odells Gläser für ein einziges Bild auf zu spiegeln, und dahinter ist ebenfalls nichts. Ob Odell der Clerk ist, sagt keine Folge, und kein Bild zeigt es eindeutig.
 
 ### 3.4 Regeln für den Faden
 
@@ -224,7 +229,7 @@ Die Alltagsregeln (§2) sind Kulisse und werden nicht als Faden gezählt.
 - In F4 und F8 steht er klein in einem fernen Fenster oder zwischen Häusern, die Hände vor dem Gesicht.
 - Nicht in F1: Dort ist Atem das Zeichen, und ein Bild mit Mister Hundred und Atemdampf würde als sein Zeichen gelesen (§2).
 - Er wird nie erwähnt. Für Hiding-Night-Zuschauer ist das ein Wiedersehen, für alle anderen ein Rätsel.
-- Ob es nach dem Finale von Hiding Night passt, hängt von Linus' Wahl des Endes ab.
+- Das Finale von Hiding Night ist fertig (Mister Hundred trägt Junes Gesicht). Ein ferner Mister Hundred mit den Händen vor dem Gesicht widerspricht ihm nicht und wird nie erklärt.
 
 ---
 
@@ -275,7 +280,7 @@ Regel geschichten-regeln Nr. 3: fast menschlich, genau ein Fehler, groß im Bild
 | Erste 7 s | A7.2 | nichts Drastisches: keine Leiche, keine blauen Lippen, kein Blut. Gesichter unter Eis sehen aus wie eine Kopie, nicht wie eine Wasserleiche. |
 
 **Wiedererkennung (M9):**
-- **Titelbild:** oben die Kopfzeile **RULES OF KINDLY**, darunter klein „RULE 3“ in Odells Handschrift, dann der Kurztitel in Archivo Black (wie die Untertitel), dazu das Bild des Fehlers. Nichts Drastisches (A7.2).
+- **Titelbild:** oben die Kopfzeile **RULES OF KINDLY** (gesperrt, kleiner als der Titel, Akzentfarbe), darunter groß der Kurztitel in Archivo Black (wie die Untertitel, bei Bedarf zweizeilig), darunter „RULE 3“ in Akzentfarbe, dazu das Bild des Fehlers. Alles im 3:4-Ausschnitt des Profilrasters (y 240–1680). Nichts Drastisches (A7.2), und das Bild verrät die Wendung nicht. Gebaut wird es mit `tools/paket/paket.py` (Schlüssel `titelbild.kopfzeile` in `paket.json`).
 - **Untertitel:** wie A5 nach Review: Archivo Black 96 px, Versalien, Kontur 7 px, Mitte y ≈ 1200.
 - **Farben für wörtliche Rede (höchstens 4):**
   - die Schutzfigur jeder Folge warm-gelb `#F2C14E` (Junes Farbe; in Kindly heißt Gelb: der Mensch, der dich schützt),
@@ -286,8 +291,8 @@ Regel geschichten-regeln Nr. 3: fast menschlich, genau ein Fehler, groß im Bild
 - **Musik:** Bett r2-eigen, Stufen dünn, normal und voll, 10–12 LU unter der Stimme, Hook 2,5 dB lauter. Wegfälle von 1,1–1,4 s vor Pointen. Ganz still erst nach dem letzten Wort.
 - **Endkarte:**
   - 1,5 s Ortsschild bei Nacht mit Schneefall, Odells Hand mit Pinsel, dazu der Glockenschlag oder Stille.
-  - Ersetzt „PART 2“ und „MORE TOWNS SOON“.
-  - **Abweichung von A6** (Endkarte 1,0 s ohne Ton): Linus entscheidet (A).
+  - Ersetzt in Kindly-Folgen „PART 2“ und „MORE TOWNS SOON“. Das Finale von Hiding Night bleibt unverändert.
+  - **Abweichung von A6** (Endkarte 1,0 s ohne Ton): entschieden am 17.11.2026 für 1,5 s mit Glockenschlag (§14 Nr. 2). Die Zahl muss lesbar sein (Bauvorgabe in §3.2).
 
 **Paletten:**
 
@@ -324,15 +329,19 @@ Regel geschichten-regeln Nr. 3: fast menschlich, genau ein Fehler, groß im Bild
 
 ## 8. Folgenliste: 8 Logzeilen
 
-Reihenfolge nach Jahreszeit, Bauaufwand und Wechsel des Ausgangs (A3: kein gleicher Ausgang zweimal hintereinander). Termine sind ein Vorschlag (S): zwei Folgen pro Woche nach dem Finale von Hiding Night, also etwa 4.800–6.800 Credits und 25–27 min Render je Folge (M9).
+Reihenfolge nach Jahreszeit, Bauaufwand und Wechsel des Ausgangs (A3: kein gleicher Ausgang zweimal hintereinander). Je Folge etwa 4.800–6.800 Credits und 25–27 min Render (M9).
+
+**Termine** (entschieden am 17.11.2026, §14 Nr. 13): jeweils **19:00 Uhr US-Ostküste**, bei uns 01:00 Uhr am Folgetag. F1 so früh, wie die Qualität es erlaubt, Ziel Di 24.11. (= Mi 25.11., 01:00 Uhr). Danach mindestens dienstags und freitags. F7 am 23.12., F8 an Silvester und erst, wenn F1–F7 draußen sind. Freie Di/Fr-Plätze (Fr 04.12., Di 08.12., Fr 25.12., Di 29.12.) füllen Vorrats-Folgen, wenn die Credits reichen. Der Di 22.12. entfällt, weil F7 am Tag darauf kommt. Kommt F4B (keine Abstimmung oder B gewinnt), kann F4 auf Di 08.12. vorrücken; dann wird Fr 11.12. ein Vorrats-Platz. Alle Termine mit Uhrzeit und Plattform: `docs/release/automatisierung.md` §6.
+
+**Vorrats-Folgen** (Lückenfüller): Außer dem Verlierer der Abstimmung gibt es keinen fertigen Stoff ≥ 7,0 mehr (`docs/ideen-vorrat.md`); jede Lückenfolge wird neu geschrieben und durchläuft Prüfbogen und Namensprüfung (§11). Sie sind Kindly-Folgen mit eigener Regel, tragen aber **kein Rule-Zero-Wort**, und auf ihrer Endkarte **bleibt die Zahl stehen** (Überlebende oder Besucher, Zählweise §3.2). So bleiben Rätsel und Zahlenkette F1–F8 unberührt.
 
 | # | Kurztitel (Titelbild) | Stoff | Regel, Schwelle oder Termin | Logzeile | Ausgang | Termin |
 |---|---|---|---|---|---|---|
-| 1 | **His Breath Didn't Fog** (A/B: *Clear Glasses*) | Thin Ice | 3 · erstes Eis | In Kindly, if the ice knocks, you never knock back, or it comes home as you. When Bear's habit of tapping the ice gets an answer, his brother drags him off the lake just in time, or so Bear believes until he breathes on a frozen window. | Enthüllung (der Erzähler ist die Kopie), Wahl der Schutzfigur | Di 01.12. |
-| 2 | **Made Bed** | Sleep Tight (gerettet) | 11 · erste eigene Wohnung | In Kindly, if everyone in your house falls asleep, it tucks you in for good. Sam moves into his first house alone, sleeps seven perfect nights, and on the eighth wakes up being tucked in, with no idea who has been keeping him alive. | Enthüllung, Opfer einer anderen Figur (die heimliche Wächterin) | Fr 04.12. |
-| 3 | **Too Far Apart** | Clear Nights | 9 · erster Schnee | In Kindly, on clear nights after the first snow, something walks your footprints to the end. When the plow breaks down, Jamie walks home inside his coworker's tracks so no trail leads to him, until he sees how far apart they are. | Flucht mit Fluch (er geht bis Sonnenaufgang im Kreis) | Di 08.12. |
+| 1 | **His Breath Didn't Fog** | Thin Ice | 3 · erstes Eis | In Kindly, if the ice knocks, you never knock back, or it comes home as you. When Bear's habit of tapping the ice gets an answer, his brother drags him off the lake just in time, or so Bear believes until he breathes on a frozen window. | Enthüllung (der Erzähler ist die Kopie), Wahl der Schutzfigur | Di 24.11. |
+| 2 | **Made Bed** | Sleep Tight (gerettet) | 11 · erste eigene Wohnung | In Kindly, if everyone in your house falls asleep, it tucks you in for good. Sam moves into his first house alone, sleeps seven perfect nights, and on the eighth wakes up being tucked in, with no idea who has been keeping him alive. | Enthüllung, Opfer einer anderen Figur (die heimliche Wächterin) | Fr 27.11. |
+| 3 | **Too Far Apart** | Clear Nights | 9 · erster Schnee | In Kindly, on clear nights after the first snow, something walks your footprints to the end. When the plow breaks down, Jamie walks home inside his coworker's tracks so no trail leads to him, until he sees how far apart they are. | Flucht mit Fluch (er geht bis Sonnenaufgang im Kreis) | Di 01.12. |
 | 4A | **Last Song** | Straight Face | 41 · Hochzeit der Schwester | In Kindly, at every wedding, it takes whoever smiles during the last song. Nate's sister has never kept a straight face, so Grandpa, the fiddler, promises to play it too short for it to reach her. | Enthüllung (Grandpa wählt die Opfer), Opfer einer Nebenfigur | Fr 11.12. |
-| 4B | **Wrong Wrist** | One Second Late | 12 · jeden Abend um sieben | In Kindly, the people across Main Street copy you one second late, a little faster every time. Theo's mom closes twelve curtains every night, but their house has thirteen windows. | Enthüllung (Tausch), Schleife | Fr 11.12. |
+| 4B | **Wrong Wrist** | One Second Late | 12 · jeden Abend um sieben | In Kindly, the people across Main Street copy you one second late, a little faster every time. Theo's mom closes twelve curtains every night, but their house has thirteen windows. | Enthüllung (Tausch), Schleife | Fr 11.12. (oder Di 08.12.) |
 | 5 | **Two Fireflies** | Three Fireflies (umgebaut) | 6 · Sommernächte (als Erinnerung erzählt) | In Kindly's summers, when the crickets stop, nobody moves, because the tall thing outlined in fireflies only finds what moves. For four summers, Cal's girlfriend Mara has kept two forbidden fireflies in a jar on their windowsill, and every night it stands outside the window without taking him. | Opfer des Erzählers, Schleife | Di 15.12. |
 | 6 | **Wrong Name Tag** | Missing (gerettet, neues Monster, neue Wendung) | 27 · Auslosung jeden Morgen | In Kindly, never tear a face off the town board, or tomorrow's face is yours. So when Leo finds his own face on the board, he tears it down on purpose. | Flucht durch List, Schleife (er wird der Neue); Pointe mit schwarzem Humor (Test) | Fr 18.12. |
 | 7 | **Mouth Shut** | One More Voice (umgebaut: Probe im Chor statt an der Tür) | 24 · Heiligabend | In Kindly, on Christmas Eve, the whole town sings in the street, and whoever sings the last note joins the choir for good. Noah knows how to spot the thing among the singers: it sings with its mouth shut. This year, his sister's mouth is shut. | Opfer des Erzählers, Schleife | Mi 23.12. |
@@ -379,10 +388,11 @@ Reihenfolge nach Jahreszeit, Bauaufwand und Wechsel des Ausgangs (A3: kein gleic
 
 Alle Gefährdeten sind volljährig, auch Menge und Hintergrund. Kinder kommen nicht vor.
 
-**Abstimmung (M5, Test) nur ab Schwelle:**
-- **Bedingung:** F1 und F2 haben drei Tage nach Erscheinen zusammen mindestens 400 Kommentare (S). Sonst entfällt die Abstimmung, und F4B kommt ohne Ansage, weil sie fast nur Vorhandenes braucht.
-- Wenn ja: Unter Folge 3 steht ein angehefteter Kommentar: *„Next rule: 41 or 12? You pick.“* Die Bildunterschrift bleibt für die Streitfrage.
-- **Zählung nach drei Tagen:** Gewertet wird erst ab **200 Stimmen**. Darunter kommt B ohne Ergebnis-Ansage, damit niemand ein dünnes Ergebnis sieht und die Festscheune nicht für wenige Stimmen gebaut wird.
+**Abstimmung (M5, Test) nur ab Schwelle** (entschieden am 17.11.2026, §14 Nr. 8):
+- **Bedingung:** F1 und F2 haben drei Tage nach dem Erscheinen von F2 (Mo 30.11.) zusammen mindestens 400 Kommentare (S). Sonst entfällt die Abstimmung, und F4B kommt ohne Ansage, weil sie fast nur Vorhandenes braucht.
+- Wenn ja: Unter Folge 3 (Di 01.12.) steht ein angehefteter Kommentar: *„Next rule: 41 or 12? You pick.“* Die Bildunterschrift bleibt für die Streitfrage.
+- **Festscheune erst bauen, wenn die Schwelle erreicht ist** (ab Mo 30.11.), nicht vorher auf Verdacht.
+- **Zählung nach drei Tagen** (Fr 04.12.): Gewertet wird erst ab **200 Stimmen**. Darunter kommt B ohne Ergebnis-Ansage, damit niemand ein dünnes Ergebnis sieht und die Festscheune nicht für wenige Stimmen gebaut wird.
 - Beide Skripte liegen vorher fertig vor. Danach folgen Stimme, Bau und Render (etwa 27 min Render, S).
 - Der Verlierer geht in den Vorrat für Staffel 2.
 
@@ -404,9 +414,9 @@ Die Fragen werden nie gesprochen (A6). Köder sind Bilder, die man anhalten und 
 | 5 | *Would you have opened the jar?* | Die zwei dunklen Stellen sind so groß wie die zwei Lichter im Glas · es dreht den Kopf immer zum Glas, nie zu Cal · „RULES“ unter dem Deckel |
 | 6 | *Would you tear it down?* | Mister Todays Namensschild zeigt schon SMUDGE, bevor Leo das Brett sieht · „YOU“ mit sechs Punkten zwischen den Schichten · Bears Kopie ohne Atemdampf vor dem Brett · Leo lebt, und trotzdem −1 |
 | 7 | *Would you have let go of her hand?* | im ersten Bild die geschlossenen Münder zählen: zwei · Ivys Schal sitzt in jeder Einstellung hoch über dem Hals · „LIVE“ im leeren Liederbuch · −1, und im Chor singt eine Stimme mehr |
-| 8 | *Would you write your name over theirs?* | ganz Rule Zero · der Clerk trägt Odells Brille · zum ersten Mal Odells Augen · das alte Stadtfoto mit Odell, gleich alt · Mister Hundred im Archivfenster · +1: Wer ist der Neue? |
+| 8 | *Would you write your name over theirs?* | ganz Rule Zero · der Clerk trägt Odells Brille · für ein Bild nichts hinter Odells Gläsern · das alte Stadtfoto mit Odell, gleich alt · Mister Hundred im Archivfenster · +1: Wer ist der Neue? |
 
-**Angehefteter Kommentar F1 (Test, A):** *„Breathe on your screen. Did it fog?“* Damit prüft sich der Zuschauer selbst, wie bei *That's Not My Neighbor*. Ob das Kommentare hebt, ist unbelegt. Er wird nie gesprochen.
+**Angehefteter Kommentar F1** (entschieden am 17.11.2026, §14 Nr. 7): *„Breathe on your screen. Did it fog?“* Damit prüft sich der Zuschauer selbst, wie bei *That's Not My Neighbor*. Ob das Kommentare hebt, ist unbelegt (A, messen). Er wird nie gesprochen. Derselbe Kommentar wird bei YouTube und Instagram angeheftet.
 
 **Hashtags:** 3–5 nach `docs/trends/hashtags.md`, dazu immer **#kindlytown** als Serienmarke. #inthistown höchstens als einer davon (Regel 10). Den Hashtag #kindlytown prüft Linus vor dem ersten Post von Hand in der App; automatisch wird bei TikTok nichts abgerufen.
 
@@ -431,7 +441,7 @@ Die Fragen werden nie gesprochen (A6). Köder sind Bilder, die man anhalten und 
   - Das Fenster in der Hütte bestätigt es bei 103–107 s (72–75 %).
   - Die Erklärung *„I never knocked back. I knocked first …“* bis *„It was Bear, down there, looking up.“* kommt bei 115–122 s (80–85 %), das Ritual kehrt bei 130–135 s (91–94 %) wieder.
 - **Dialog:** 9 Zeilen in 6 Einsätzen (Odell 2 Zeilen, Gus 7), 50 Wörter = 10,8 %. Das liegt über den 5–10 % aus A3, weil Gus' drei Sätze in der Hütte die Wendung tragen. Hiding Night Teil 2 hat 14 %.
-- **Stimme:** 2.382 Zeichen, mit 2 Takes etwa 4.800 Credits (S, eleven_v4).
+- **Stimme:** 2.382 Zeichen, mit 2 Takes etwa 4.800 Credits, mit Ton-Tags und Absätzen eher 5.000 (eleven_v4 rechnet 1 Credit je Zeichen samt Tags, gemessen an Hiding Night Teil 3: 2.624 Credits je Take für 2.534 Zeichen Text). Welcher Tarif wie viele Folgen trägt: `docs/release/automatisierung.md` §6.4.
 - **Render:** etwa 26 min bei 2 Prozessen (10,7 min je Videominute, `virale-serien.md` §3).
 
 ### 10.2 Figuren
@@ -496,7 +506,7 @@ Zeiten aus der Schätzung. Die Einstellungen schneidet und vermisst später der 
 | 63 | 137,0–138,6 | Gus legt den Deckel auf das Loch (Detail, auf *put*) | Aktion auf dem Verb |
 | 64 | 138,9–141,6 | Totale bei Nacht: Zwei Figuren gehen über das Eis zur Stadt. Gus' Atem dampft dicht gegen das Licht, Bears nicht. | Suchbild ganz deutlich |
 | 65 | 141,9–143,4 | Gus' Stiefel geht übers Eis und tippt nicht mehr. Harter Schnitt ≤ 0,2 s nach *anymore*. | A3 |
-| Endkarte | +1,5 | Ortsschild bei Nacht, Schneefall. Odells Pinsel streicht *1,204* und malt *1,203*. Ein Glockenschlag. | Abweichung A6 (Ton): Linus |
+| Endkarte | +1,5 | Ortsschild bei Nacht, Schneefall. Odells Pinsel streicht *1,204* und malt *1,203*. Ein Glockenschlag. | entschieden (§14 Nr. 2); beide Zahlen lesbar nach §3.2 (≥ 120 px, neue Zahl ≥ 0,7 s fertig), auch nach der Kompressions-Simulation |
 
 ### 10.4 Gesichter von vorn (Liste für den Bau)
 
@@ -528,9 +538,8 @@ S1 (Lund unter dem Eis, aufrecht, neutral) · S8 (Odell mit Brille) · S27–28 
 - Die Form ist anders als bei Hiding Night: Dort war die Schutzfigur das Monster, hier ist der Erzähler die Kopie, und die Schutzfigur entscheidet sich für sie.
 - Abstand zu *The Ice Lake* (2014): S53 sagt *It was Bear*, nicht *it was me* (§13.2).
 
-**Andere Enden zur Wahl:**
-- **B:** Gus kniet sich hin und tippt dreimal zurück. Schlusszeile *„In the morning, Gus came home too. His breath never fogged again.“* (Echo auf Mr. Lund). Das ist Opfer der Schutzfigur und liegt damit nahe an Hiding Night.
-- **Empfehlung: A.** Die Schlusszeile ist eine Gewohnheit, die verschwindet, und die Streitfrage hat zwei Seiten: Regel (Mrs. Lund) gegen Liebe (Gus).
+**Ende: entschieden am 17.11.2026 für A** (§14 Nr. 5): Gus nimmt die Kopie mit nach Hause, Schlusszeile *„Gus doesn't tap the ice anymore.“* Die Schlusszeile ist eine Gewohnheit, die verschwindet, und die Streitfrage hat zwei Seiten: Regel (Mrs. Lund) gegen Liebe (Gus).
+- **Verworfen, B:** Gus kniet sich hin und tippt dreimal zurück. Schlusszeile *„In the morning, Gus came home too. His breath never fogged again.“* (Echo auf Mr. Lund). Das ist Opfer der Schutzfigur und liegt damit nahe an Hiding Night.
 
 ### 10.6 Musik und Effekte
 
@@ -559,10 +568,13 @@ Bett **r2-eigen**, normal 10–12 LU unter der Stimme, Wegfälle mit eigenem Nac
 
 ### 10.7 Neue Bausteine für Folge 1
 
-**Vorher, Pflicht: Handy-Probe für den Atemdampf.** Das Suchbild trägt die ganze Wendung, und die Kompression kann dünnen Dampf schlucken.
-- 10 s Probe am Steg: drei Figuren, zwei dampfen, eine nicht, Gegenlicht von der Laterne, Dampf als dichte, stehende Wolke statt dünner Partikel.
-- Linus lädt sie als privaten Entwurf hoch und sieht sie am Handy an (kein automatischer Abruf bei TikTok).
-- Gebaut wird der See erst, wenn der fehlende Dampf nach der Kompression in unter 1 s auffällt.
+**Vorher, Pflicht: Kompressions-Probe für den Atemdampf** (Tor; entschieden am 17.11.2026, §14 Nr. 15). Das Suchbild trägt die ganze Wendung, und die Kompression der Plattformen kann dünnen Dampf schlucken.
+- **Probe:** 10 s am Steg im Set `see`, sobald Steg und Laterne stehen: drei Figuren, zwei dampfen, eine nicht, Gegenlicht von der Laterne, Dampf als dichte, stehende Wolke statt dünner Partikel. Dazu die Endkarte (1,5 s, *1,204 → 1,203*).
+- **Simulation (A):** Die Probe wird zweimal neu kodiert, wie es eine Plattform im schlechten Fall tut: H.264 1080×1920 mit 2 Mbit/s und 720×1280 mit 1 Mbit/s, je 30 fps, x264 `-preset medium`, zwei Durchgänge. TikTok nennt keine Bitrate für die Auslieferung; Fremdangaben liegen bei 2–4 Mbit/s (Websuche 17.11.2026, unbelegt). Die Werte liegen absichtlich am unteren Rand.
+- **Tor, für beide Fassungen:**
+  1. Messung: In einem festen Kasten vor jedem Mund hebt sich die Dampfwolke im Mittel um mindestens 12 Helligkeitsstufen (von 255) vom selben Kasten ohne Dampf ab; bei der Figur ohne Dampf bleibt der Unterschied unter 3 (A, Schwellen nach der ersten Probe nachschärfen).
+  2. Sicht: Kontaktbogen der komprimierten Fassung in Feed-Größe 270×480. In jedem Bild ist sofort zu sehen, wer nicht dampft (unter 1 s), und beide Zahlen der Endkarte sind lesbar.
+- Erst nach bestandenem Tor werden die Einstellungen der Folge gerendert. Linus' Blick am Handy (privater Entwurf, kein automatischer Abruf bei TikTok) ist willkommen, aber kein Warte-Tor mehr.
 
 | Baustein | Zweck | Aufwand (S) |
 |---|---|---|
@@ -620,14 +632,15 @@ Vor dem Vertonen läuft jedes Skript durch den Prüfbogen aus `geschichten-regel
 
 ## 12. Produktion und Takt
 
-- **Stimme:** etwa 2.300–2.800 Zeichen je Folge, mit 2 Takes etwa 4.700–6.800 Credits (S). Eine Generierung wird nie wiederholt. Bei Ablehnung wegen Kontingent sofort aufhören.
+- **Stimme:** etwa 2.300–2.800 Zeichen je Folge, mit 2 Takes etwa 4.700–6.800 Credits (S). Eine Generierung wird nie wiederholt. Bei Ablehnung wegen Kontingent oder Berechtigung sofort aufhören und berichten. Tarif und Folgen je Monat: `docs/release/automatisierung.md` §6.4 (Geld entscheidet Linus).
 - **Render:** 25–27 min je Folge bei höchstens 2 Prozessen. Dazu kommen Bau, Messtor und Schnellbogen.
 - **Bau-Reihenfolge:**
-  - F1 braucht den meisten Neubau (See) und kommt trotzdem zuerst: Es passt zum ersten Eis im Dezember. Die Zeit ist neben dem Finale von Hiding Night knapp; deshalb zuerst die Handy-Probe für den Atemdampf (§10.7), dann erst der See.
+  - F1 braucht den meisten Neubau (See) und kommt trotzdem zuerst: Es passt zum ersten Eis, und Ziel ist Di 24.11. Im Set `see` läuft zuerst die Kompressions-Probe für den Atemdampf (§10.7); die Folge wird erst nach bestandenem Tor gerendert.
   - F2 und F3 nutzen fast nur Vorhandenes und geben Luft.
-  - Für F4A müsste die Festscheune vorbereitet sein, bevor die Abstimmung endet. Wird die Schwelle verfehlt, nur B.
-  - Das Glühwürmchen-Modul (F5) frühestens parallel zu F2 bauen und am Handy prüfen.
-- **Veröffentlichen:** ab etwa 01.12., Di/Fr. F7 am 23./24.12., F8 an Silvester und erst, wenn F1–F7 draußen sind (§3.1, Plan B). Jede Folge steht für sich, also muss nicht die ganze Staffel vor dem Start fertig sein (A1 galt für Teile mit Cliffhangern).
+  - Die Festscheune (F4A) wird erst gebaut, wenn die Kommentar-Schwelle erreicht ist (Mo 30.11., §8). Wird sie verfehlt, nur B.
+  - Das Glühwürmchen-Modul (F5) frühestens parallel zu F2 bauen und mit derselben Kompressions-Simulation prüfen.
+  - Vorrats-Folgen nur, wenn Credits und Rechenzeit neben F1–F8 reichen (§8).
+- **Veröffentlichen** (entschieden am 17.11.2026, §14 Nr. 13 und 14): F1 Di 24.11., dann mindestens Di/Fr, je 19:00 Uhr US-Ostküste (bei uns 01:00 Uhr am Folgetag). F7 am 23.12., F8 an Silvester und erst, wenn F1–F7 draußen sind (§3.1, Plan B). Jedes Video geht mit derselben Datei auch als YouTube Short (gleiche Uhrzeit) und Instagram Reel (eine Stunde später), mit eigenen Texten aus `paket.json`. Jede Folge steht für sich, also muss nicht die ganze Staffel vor dem Start fertig sein (A1 galt für Teile mit Cliffhangern). Termin-Tabelle: `docs/release/automatisierung.md` §6.
 
 ---
 
@@ -669,19 +682,42 @@ Bei TikTok wurde nichts abgerufen; nur Websuche (US-Index). „Kein Treffer“ h
 
 ---
 
-## 14. Offen: Entscheidungen für Linus
+## 14. Entschieden am 17.11.2026 (Kriterium: Reichweite)
 
-1. **Name und Marke:** Stadt „Kindly“, Serienmarke „Rules of Kindly“, #kindlytown, Motto *„Kindly mind the rules.“*. Damit wäre die Stadt aus Hiding Night rückwirkend Kindly.
-   - Vorschlag für das Finale von Hiding Night: Die Endkarte „MORE TOWNS SOON“ wird das Ortsschild. Das betrifft `episoden/folge-03/entwurf.md`, hier nicht geändert.
-2. **Endkarte mit Glockenschlag und 1,5 s** statt 1,0 s ohne Ton (A6).
-3. **Rule Zero:** der Satz *IF YOU KNOW THE RULES, YOU LIVE HERE.*, die Positionspunkte, Plan B (F8 erst nach F1–F7) und das +1 mit Odells Blick in die Kamera im Finale.
-4. **Odell und der Clerk:** nur andeuten (Empfehlung) oder in F8 zeigen. Dazu: weiße Gläser bis F8, Augen erst im Finale.
-5. **F1 Ende:** A (Gus nimmt die Kopie mit, Empfehlung) oder B (Gus tippt zurück). Gus statt Dad wegen 9b.
-6. **F1 Titel:** *His Breath Didn't Fog* ist fast wortgleich mit *He Didn't Blink* und verrät, dass ein „er“ die Kopie ist. A/B-Test mit *Clear Glasses* (Empfehlung: beide Titelbilder vorbereiten).
-7. **F1 angehefteter Kommentar:** *„Breathe on your screen. Did it fog?“* als Test (A).
-8. **F4:** Abstimmung nur ab Schwelle (400 Kommentare auf F1+F2, gewertet ab 200 Stimmen). Wenn ja, ob die Festscheune (F4A) vorher gebaut wird.
-9. **F5 im Dezember** als Sommer-Erinnerung, oder *Two Fireflies* als Auftakt einer Sommerstaffel. Dann rückt der Verlierer der Abstimmung nach.
-10. **F6, Pointe mit schwarzem Humor** („hiring“): ein bewusster Test, ob Komik-Pointen im Horror geteilt werden (45,0 Shares je 1.000 bei Komik-Regeln). Die Aushänge sind deutlich fiktiv: Kindly-Grün, gezeichnete Klötzchen-Porträts, Spitzname und „GONE BY DARK“, keine Fotos, keine Telefonnummern, kein „MISSING“-Layout, nur Erwachsene.
-11. **F7 neu:** Probe im Chor statt an der Tür (*Mouth Shut*). Die alte Fassung mit zwei Ivys ist verworfen.
-12. **Nur männliche Erzähler**, weil die Stimme Adam ist. Weibliche Figuren tragen Dialog (Ivy, Mara, Nan, Jo, Mrs. Lund) mit +2,5 Halbtönen wie bei June.
-13. **Unbelegt (A):** Ob Rule-Zero-Wörter, Ortsschild, Selbsttest und Abstimmung Kommentare und Profilbesuche heben, zeigen erst eigene Zahlen aus TikTok Studio.
+Linus am 17.11.2026: „Entscheidest selber, was die meisten Views bringt.“ Entschieden wurde nach dem Kriterium Reichweite. Die betroffenen Stellen dieser Bibel, `README.md`, die Upload-Pakete und `docs/release/automatisierung.md` §6 sind nachgezogen.
+
+1. **Marke:** Stadt Kindly, Serie *Rules of Kindly*, #kindlytown, Motto *„Kindly mind the rules.“* Das Finale von Hiding Night bleibt unverändert („MORE TOWNS SOON“); sobald F1 online ist, zeigt der angeheftete Kommentar unter dem Finale auf *Rules of Kindly* (Text im Paket von Teil 3).
+   *Grund:* Ein eigener, suchbarer Name mit festem Hashtag macht jede Folge im Feed als Teil derselben Welt erkennbar und führt Zuschauer aufs Profil (Regel 10, M9).
+2. **Endkarte 1,5 s mit Glockenschlag**; die Zahl *1,204 → 1,203* muss lesbar sein (Bauvorgabe §3.2).
+   *Grund:* Die Zahl ist ein Kommentar-Köder („Wer fehlt?“), und der Glockenschlag macht die Endkarte zum Erkennungslaut; dafür lohnt die halbe Sekunde mehr als in A6.
+3. **Rule Zero wie geplant**, mit Positionspunkten und Plan B: F8 erscheint erst nach F1–F7 (§3.1).
+   *Grund:* Ein Rätsel über alle Folgen gibt einen Grund, das Profil zu besuchen, und Plan B verhindert, dass die Auflösung vor ihren Teilen erscheint.
+4. **Odell und der Clerk nur andeuten.** Odells getragene Gläser spiegeln weiß bis F8, seine Augen kommen nie ins Bild (§3.3).
+   *Grund:* Offene Fragen halten Theorien in den Kommentaren am Leben; eine Antwort würde sie beenden (M3: nie ganz auflösen).
+5. **F1 Ende A:** Gus nimmt die Kopie mit nach Hause, Schlusszeile *„Gus doesn't tap the ice anymore.“* (§10.5).
+   *Grund:* Die Streitfrage hat zwei echte Seiten (Regel gegen Liebe), während B mit dem Opfer der Schutzfigur zu nah an Hiding Night läge.
+6. **F1 Titel *His Breath Didn't Fog*,** Kopfzeile RULES OF KINDLY auf dem Titelbild. *Clear Glasses* kommt nur, falls YouTube „Test & Compare“ für Shorts nachweislich anbietet; TikTok hat keinen Titel-A/B-Test.
+   *Grund:* Der Titel nennt den einen Fehler wie die stärksten Vorbilder (*He Didn't Blink*, 906.300 Aufrufe). Ein A/B-Test entfällt vorerst, weil die YouTube-Hilfe am 17.11.2026 sagt: „A/B testing is not available for Shorts.“
+7. **Angehefteter Kommentar F1:** *„Breathe on your screen. Did it fog?“* (auch bei YouTube und Instagram).
+   *Grund:* Ein Selbsttest gibt jedem Zuschauer einen Anlass, etwas zu schreiben; ob er wirkt, misst TikTok Studio (A).
+8. **F4-Abstimmung nur ab Schwelle:** 400 Kommentare auf F1 und F2 zusammen, gewertet ab 200 Stimmen. Die Festscheune wird erst gebaut, wenn die Schwelle erreicht ist (§8).
+   *Grund:* Eine dünne Abstimmung wirkt leer und würde das größte Set für wenige Stimmen kosten.
+9. **F5 im Dezember** als Sommer-Erinnerung.
+   *Grund:* Die Staffel bleibt ohne Pause im Takt, und ein Sommerbild fällt im Winter-Feed auf (S).
+10. **F6 mit schwarzem Humor** („hiring“) als bewusster Test.
+    *Grund:* Komik-Regeln werden im Datensatz um ein Vielfaches öfter geteilt als reiner Horror (45,0 gegenüber 0,6–5,6 Shares je 1.000 Aufrufe), und Teilen bringt Zuschauer außerhalb der Follower.
+11. **F7 *Mouth Shut*:** Die Probe läuft im Chor auf der Straße, nicht an der Tür.
+    *Grund:* So hält die Folge Abstand zu den Tür-Proben-Spielen und zu *FROM* (§13.2) und trägt trotzdem den Heiligabend-Termin.
+12. **Nur männliche Erzähler** mit der Stimme Adam; weibliche Figuren tragen Dialog mit +2,5 Halbtönen wie bei June.
+    *Grund:* Eine feste Erzählstimme ist Teil der Wiedererkennung über alle Folgen (M9).
+13. **Takt:** F1 so früh, wie die Qualität es erlaubt, Ziel **Di 24.11., 19:00 Uhr US-Ostküste (= Mi 25.11., 01:00 Uhr bei uns)**, danach mindestens Di/Fr; F7 am 23.12., F8 an Silvester; Lücken füllen Vorrats-Folgen, wenn die Credits reichen (§8, Termine in `docs/release/automatisierung.md` §6).
+    *Grund:* Ein Start zwei Tage nach dem Finale von Hiding Night nimmt dessen Zuschauer mit, und ein fester Takt zur US-Abendzeit hält das Profil im Feed.
+14. **Cross-Posting:** Jedes Video geht zusätzlich als YouTube Short und Instagram Reel, mit derselben Datei und eigenen Texten (`paket.json`, Schlüssel `youtube` und `instagram`).
+    *Grund:* Das bringt mehr Reichweite ohne Mehrkosten; beide Plattformen nehmen Hochformat bis 3 min (Instagram empfiehlt längere Reels nicht an neue Zuschauer), und unsere Folgen dauern 87–145 s.
+15. **Kompressions-Simulation statt Handy-Probe** als Tor für den Atemdampf (§10.7); Linus' Blick am Handy ist optional.
+    *Grund:* Das Tor läuft ohne Warten und wiederholbar im Container, und F1 kann dadurch früher erscheinen.
+
+**Weiter offen:**
+- **Geld:** welcher ElevenLabs-Tarif. Die Rechnung mit Zahlen steht in `docs/release/automatisierung.md` §6.4; Linus entscheidet.
+- **Von Hand in der App (Linus):** #kindlytown vor dem ersten Post prüfen; ein Instagram-Profikonto für den Kanal, falls es noch keins gibt.
+- **Unbelegt (A):** Ob Rule-Zero-Wörter, Ortsschild, Selbsttest und Abstimmung Kommentare und Profilbesuche heben, zeigen erst eigene Zahlen aus TikTok Studio.
