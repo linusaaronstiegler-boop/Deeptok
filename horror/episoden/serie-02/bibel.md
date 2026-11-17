@@ -299,7 +299,7 @@ Regel geschichten-regeln Nr. 3: fast menschlich, genau ein Fehler, groß im Bild
 | Element | Farben |
 |---|---|
 | Kindly im Winter | Nacht blau-violett, Schnee bläulich-weiß, Fenster warm-gelb wie bei Hiding Night (Preset `nacht` nach Review) |
-| Kindly im Sommer (F5) | Dämmergrün, Gras, fast keine Lampen, Licht kommt von den Glühwürmchen. Vorher eine Lesbarkeitsprobe am Handy (Ideen-Vorrat). |
+| Kindly im Sommer (F5) | Dämmergrün, Gras, fast keine Lampen, Licht kommt von den Glühwürmchen. Vorher eine Lesbarkeitsprobe mit der Kompressions-Simulation aus §10.7 (Ideen-Vorrat; Handy optional). |
 | Ortsschild | emaillegrün `#2F4A3A`, Schrift creme `#EDE6D3`, Zahl weiß gemalt über alten Schichten |
 | Stadtbuch | Papier creme `#EFE6CF`, Tinte fast schwarz `#1E1C1A`, Streichungen als gerade Federstriche, Nachträge in frischer, glänzender Tinte |
 | Rule-Zero-Wörter | immer Papier `#EFE6CF` mit Rissrand, Tinte `#1E1C1A`, „0“ mit Positionspunkten davor |
