@@ -26,31 +26,44 @@
   },
   {
    "klang": "eis_schlag",
+   "wort": 0,
+   "text": "In",
+   "versatz": 0.12,
+   "db": -11,
+   "params": {
+    "zeiten": [
+     0.0
+    ]
+   },
+   "grund": "S1 (E01): die Faust schlägt bei 0,12 s von unten gegen das Eis, Sternriss (klopfen_unten 0,16 s ab Bild 0)"
+  },
+  {
+   "klang": "eis_schlag",
    "wort": 6,
    "text": "knocks,",
-   "versatz": 0.3,
+   "versatz": 0.225,
    "db": -12,
    "params": {
     "zeiten": [
      0.0,
-     0.4,
-     0.8
+     0.3,
+     0.6
     ]
    },
-   "grund": "S1: die Fäuste schlagen dreimal von unten (klopfen_unten 1,2 s ab „knocks“)"
+   "grund": "S1 (E02): die Fäuste schlagen dreimal von unten (klopfen_unten 0,9 s ab „knocks“, Aufprall 0,225/0,525/0,825 s)"
   },
   {
    "klang": "sub_boom",
-   "wort": 6,
-   "text": "knocks,",
-   "versatz": 0.3,
-   "db": -14,
+   "wort": 0,
+   "text": "In",
+   "versatz": 0.12,
+   "db": -13,
    "params": {
     "f_start": 56.0,
     "f_ende": 30.0,
     "dauer": 2.0
    },
-   "grund": "Hook-Impact auf dem ersten Schlag"
+   "grund": "Hook-Impact auf Bild 1: die Faust kracht bei 0,12 s von unten gegen das Eis (Review Kindly F1: der stärkste Moment ins erste Bild)"
   },
   {
    "klang": "frost",
@@ -69,6 +82,19 @@
    "grund": "Snap-Zoom auf „Knuckles“"
   },
   {
+   "klang": "eis_schlag",
+   "wort": 23,
+   "text": "Knuckles.",
+   "versatz": 0.02,
+   "db": -15,
+   "params": {
+    "zeiten": [
+     0.0
+    ]
+   },
+   "grund": "S2 (E05): die Faust drückt auf „Knuckles“ gegen das Eis, ein Riss-Ring (klopfen_unten 0,4 s)"
+  },
+  {
    "klang": "handglocke",
    "wort": 43,
    "text": "waits",
@@ -77,18 +103,33 @@
    "grund": "S5: Odells Handglocke, ein Schlag (glocke_laeuten, Schlag bei 0,15 s)"
   },
   {
+   "klang": "eis_schlag",
+   "wort": 98,
+   "text": "press",
+   "versatz": 0.03,
+   "db": -16,
+   "params": {
+    "zeiten": [
+     0.0
+    ],
+    "knacken": 0.8
+   },
+   "grund": "S11 (E20): die Faust stemmt sich auf „press“ gegen das Eis, ein Riss springt (klopfen_unten 0,6 s, Aufprall 0,45 s)"
+  },
+  {
    "klang": "eis_tipps",
    "wort": 103,
    "text": "Knock",
-   "versatz": 0.28,
+   "versatz": 0.188,
    "db": -10,
    "params": {
     "zeiten": [
      0.0,
-     0.375
+     0.25,
+     0.5
     ]
    },
-   "grund": "S12: „Knock back“, zweimal gestampft"
+   "grund": "S12: der Fischer stampft auf „Knock“ dreimal zurück (stiefel_tippen 0,75 s, Aufprall 0,19/0,44/0,69 s)"
   },
   {
    "klang": "frost",
@@ -115,17 +156,17 @@
    "klang": "eis_tipps",
    "wort": 153,
    "text": "knocked",
-   "versatz": 0.25,
+   "versatz": 0.225,
    "db": -12,
    "tiefpass_hz": 2600,
    "params": {
     "zeiten": [
      0.0,
-     0.333,
-     0.667
+     0.3,
+     0.6
     ]
    },
-   "grund": "S18: Lund stampft lachend zurück (Rückblende, gedämpft)"
+   "grund": "S18: Lund stampft lachend dreimal zurück (stiefel_tippen 0,9 s, Aufprall 0,225/0,525/0,825 s; Rückblende, gedämpft)"
   },
   {
    "klang": "eis_tipps",

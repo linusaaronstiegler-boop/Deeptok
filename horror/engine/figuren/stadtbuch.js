@@ -126,8 +126,13 @@ export default async function baue(ctx, params = {}) {
     g.strokeStyle = 'rgba(255,250,235,0.9)'; g.lineWidth = 5;
     g.beginPath(); rand.forEach(([x, y], i) => (i ? g.lineTo(x - 2, y) : g.moveTo(x - 2, y))); g.stroke();
     // „0 IF“: Versalhöhe 80 px = 2,3 cm
-    const b0 = federText(g, '0', 22, 230, 80, { seed: 91, fett: true });
-    g.fillStyle = TINTE; g.beginPath(); g.arc(22 + b0 / 2, 268, 10, 0, Math.PI * 2); g.fill();
+    // Die „0“ als hochovale Ziffer in voller Versalhöhe mit Querstrich, von Hand gezogen (Review Kindly F1: die
+    // Mediävalziffer der Schrift stand in x-Höhe und las sich als „o“ oder Gradzeichen). Vorlage für F2–F8.
+    const b0 = 50, mx = 22 + b0 / 2, my = 230 - 40;
+    g.strokeStyle = TINTE; g.lineCap = 'round'; g.lineWidth = 11;
+    g.beginPath(); g.ellipse(mx, my, 19, 37, 0.06, 0, Math.PI * 2); g.stroke();
+    g.lineWidth = 8; g.beginPath(); g.moveTo(mx - 13, my + 22); g.lineTo(mx + 13, my - 22); g.stroke();
+    g.fillStyle = TINTE; g.beginPath(); g.arc(mx, 268, 12, 0, Math.PI * 2); g.fill();
     federText(g, 'IF', 22 + b0 + 34, 230, 80, { seed: 92, fett: true });
     // Rest der Zeile: abgerissen (nur Ansätze von Buchstaben am Rand)
     g.restore();

@@ -57,7 +57,9 @@ export default async function baue(ctx, params = {}) {
         anwenden(f, p, prm, c) {
           z.beschlag = 0;
           halter.rotation.x += 0.28 * Math.sin(Math.PI * Math.min(1, c.roh * 1.25));
-          z.glanz = 0.35 + 0.65 * Math.sin(Math.PI * c.roh);
+          // glanz (Std 0,65): Höhe des Glanzes, der übers Glas läuft. Review Kindly F1: klein halten, sonst lesen sich
+          // klare Gläser in Feed-Größe wie beschlagene
+          z.glanz = (prm.glanz !== undefined ? prm.glanz * 0.5 : 0.35) + (prm.glanz ?? 0.65) * Math.sin(Math.PI * c.roh);
         },
       },
       abwischen: {

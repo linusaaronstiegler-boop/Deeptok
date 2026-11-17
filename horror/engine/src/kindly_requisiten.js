@@ -47,17 +47,29 @@ export function baueBrille(ctx, opt = {}) {
   const glaeser = [];
   // Beschlag: milchig-weiße Schicht, die Deckkraft trägt den Zustand (0 klar … 1 ganz beschlagen).
   // Eigene Materialien je Brille (eigenes: true), weil Aktionen sie ändern.
-  let beschlagMat = null, glanzMat = null;
+  let beschlagMat = null, glanzMat = null, beschlagJetzt = 0;
   if (opt.glas === 'klar') {
-    const nebel = merke(ctx, 'tex:beschlag', () => ctx.zeichenTextur((c, w, h) => {
-      const r = c.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, w / 2);
-      r.addColorStop(0, 'rgba(255,255,255,1)'); r.addColorStop(0.75, 'rgba(255,255,255,0.92)'); r.addColorStop(1, 'rgba(255,255,255,0.55)');
-      c.fillStyle = r; c.fillRect(0, 0, w, h);
-      // feine Tröpfchen-Körnung
+    // Beschlag (Review Kindly F1): eigenes Material, das sich von Odells getragenen, weiß SPIEGELNDEN Gläsern
+    // unterscheidet. Matt grau-weiß, Tröpfchen und zwei Laufspuren, kein Glanzstreifen, kein Verlauf von oben.
+    // Vorher (weiß, leuchtend) sah „beschlagen“ in Feed-Größe genauso aus wie die getragene Brille.
+    const nebel = merke(ctx, 'tex:beschlag2', () => ctx.zeichenTextur((c, w, h) => {
+      c.fillStyle = 'rgba(214,220,224,0.94)'; c.fillRect(0, 0, w, h);
       let s = 4711; const z = () => { s = (s * 16807) % 2147483647; return s / 2147483647; };
-      for (let i = 0; i < 300; i++) { c.fillStyle = `rgba(200,210,220,${0.2 + z() * 0.3})`; c.fillRect(z() * w, z() * h, 1.5, 1.5); }
-    }, 64, 64));
-    beschlagMat = new THREE.MeshStandardMaterial({ color: '#f2f5f8', map: nebel, alphaMap: nebel, transparent: true, opacity: 0, roughness: 0.9, emissive: new THREE.Color('#e6ecf2'), emissiveIntensity: 0.85, depthWrite: false });
+      // wolkige Dichte (Kondens ist nicht gleichmäßig)
+      for (let i = 0; i < 40; i++) { c.fillStyle = `rgba(${z() < 0.5 ? '170,180,188' : '236,240,242'},${0.12 + z() * 0.16})`; c.beginPath(); c.arc(z() * w, z() * h, 6 + z() * 14, 0, Math.PI * 2); c.fill(); }
+      // Tröpfchen: dunkler Rand, heller Punkt
+      for (let i = 0; i < 70; i++) {
+        const x = z() * w, y = z() * h, r = 1.2 + z() * 2.6;
+        c.fillStyle = 'rgba(120,132,142,0.55)'; c.beginPath(); c.arc(x, y, r, 0, Math.PI * 2); c.fill();
+        c.fillStyle = 'rgba(250,252,253,0.8)'; c.beginPath(); c.arc(x - r * 0.3, y - r * 0.3, r * 0.35, 0, Math.PI * 2); c.fill();
+      }
+      // zwei Laufspuren: klare, dunkle Bahnen nach unten
+      for (const x0 of [0.3, 0.64]) {
+        c.fillStyle = 'rgba(90,100,110,0.5)'; c.fillRect(w * x0, h * 0.35, w * 0.035, h * 0.65);
+        c.fillStyle = 'rgba(110,122,132,0.7)'; c.beginPath(); c.arc(w * (x0 + 0.017), h * 0.35, w * 0.03, 0, Math.PI * 2); c.fill();
+      }
+    }, 96, 96));
+    beschlagMat = new THREE.MeshStandardMaterial({ color: '#d6dce0', map: nebel, alphaMap: null, transparent: true, opacity: 0, roughness: 1.0, emissive: new THREE.Color('#9aa4ac'), emissiveMap: nebel, emissiveIntensity: 0.32, depthWrite: false });
     // klares Glas: nur ein schwacher Spiegel-Glanz, damit man sieht, dass Glas da ist
     const glanz = merke(ctx, 'tex:glanz', () => ctx.zeichenTextur((c, w, h) => {
       c.clearRect(0, 0, w, h);
@@ -110,8 +122,9 @@ export function baueBrille(ctx, opt = {}) {
   }
   return {
     gruppe: g,
-    setzeBeschlag(x) { if (beschlagMat) beschlagMat.opacity = Math.min(0.97, Math.max(0, x)); },
-    setzeGlanz(x) { if (glanzMat) glanzMat.opacity = Math.max(0, x); },
+    // Glanz nur auf klarem Glas: Beschlag ist matt (setzeBeschlag vor setzeGlanz aufrufen)
+    setzeBeschlag(x) { beschlagJetzt = Math.min(1, Math.max(0, x)); if (beschlagMat) beschlagMat.opacity = Math.min(0.97, beschlagJetzt); },
+    setzeGlanz(x) { if (glanzMat) glanzMat.opacity = Math.max(0, x) * (1 - Math.min(1, beschlagJetzt * 1.4)); },
   };
 }
 

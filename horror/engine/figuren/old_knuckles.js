@@ -34,7 +34,9 @@ const STILE = {
   lund: { stil: { haut: '#E3BFA0', iris: '#3a4a5a', brauen: '#b8b3aa', falten: true, augenGroesse: 0.9, augenHoehe: 0.5, mundHoehe: 0.8 }, extra: 'schnurrbart' },
   bear: { stil: { haut: '#E6C3A0', iris: '#3A2618', brauen: '#2E2018', augenHoehe: 0.52, mundHoehe: 0.78 }, extra: 'pony' },
   gus: { stil: { haut: '#DDB592', iris: '#2c1d14', brauen: '#4a3020', augenHoehe: 0.48, mundHoehe: 0.7, augenGroesse: 0.94 }, extra: 'bart' },
-  fischer: { stil: { haut: '#E3BC98', iris: '#2e2016', brauen: '#3a2a1e', augenHoehe: 0.5, mundHoehe: 0.78 }, extra: 'muetze' },
+  // der Fischer mit Strickmütze und Vollbart (Variante "muetze" in figuren/fischer.js): Bart, Bartbacken und Mütze
+  // gemalt, damit „Yours.“ dasselbe Gesicht zeigt wie der Mann oben (Review Kindly F1: vorher glatt, ohne Bart)
+  fischer: { stil: { haut: '#E3BC98', iris: '#2e2016', brauen: '#3a2a1e', augenHoehe: 0.46, mundHoehe: 0.7, augenGroesse: 0.92 }, extra: 'muetze_bart' },
 };
 
 function zeichneZusatz(g, w, h, art) {
@@ -55,6 +57,17 @@ function zeichneZusatz(g, w, h, art) {
     g.lineTo(w * 0.8, h * 0.62); g.lineTo(w * 0.62, h * 0.66); g.lineTo(w * 0.62, h * 0.78); g.lineTo(w * 0.38, h * 0.78); g.lineTo(w * 0.38, h * 0.66); g.lineTo(w * 0.2, h * 0.62); g.closePath(); g.fill();
   } else if (art === 'muetze') {
     g.fillStyle = '#2f5f73'; g.fillRect(0, 0, w, h * 0.12);
+  } else if (art === 'muetze_bart') {
+    // Strickmütze mit Umschlag und Bommel-Ansatz oben in der Mitte
+    g.fillStyle = '#2f5f73'; g.fillRect(0, 0, w, h * 0.17);
+    g.fillStyle = '#285466'; g.fillRect(0, h * 0.13, w, h * 0.06);
+    g.fillStyle = 'rgba(255,255,255,0.10)'; for (let x = 0; x < w; x += w / 14) g.fillRect(x, 0, w / 40, h * 0.13);
+    g.fillStyle = '#e8e2d4'; g.beginPath(); g.ellipse(w * 0.5, 0, w * 0.1, h * 0.05, 0, 0, Math.PI * 2); g.fill();
+    // Vollbart wie der Bartklotz des Fischers (#7a5a40): Backen seitlich, Kinnband unten, Mund frei
+    g.fillStyle = '#7a5a40';
+    g.fillRect(0, h * 0.42, w * 0.13, h * 0.58); g.fillRect(w * 0.87, h * 0.42, w * 0.13, h * 0.58);
+    g.beginPath(); g.moveTo(0, h * 0.8); g.lineTo(w, h * 0.8); g.lineTo(w, h); g.lineTo(0, h); g.closePath(); g.fill();
+    g.fillRect(w * 0.18, h * 0.74, w * 0.22, h * 0.08); g.fillRect(w * 0.6, h * 0.74, w * 0.22, h * 0.08);
   }
 }
 

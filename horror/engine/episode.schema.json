@@ -90,7 +90,8 @@
         "dauer": { "type": "number" },
         "ease": { "enum": ["linear", "ease_in_out", "ease_in", "ease_out", "ease_in_kubisch", "ease_out_kubisch", "ease_in_out_stark", "nachwippen", "sprung"] },
         "params": { "type": "object" },
-        "nebenbei": { "type": "boolean", "description": "zählt nicht als Hauptaktion der Einstellung" }
+        "nebenbei": { "type": "boolean", "description": "zählt nicht als Hauptaktion der Einstellung" },
+        "sofort": { "type": "boolean", "description": "gilt schon im ersten Bild der Einstellung ganz (Fortschritt 1), trotz gerundeter Startzeit" }
       },
       "additionalProperties": false
     },

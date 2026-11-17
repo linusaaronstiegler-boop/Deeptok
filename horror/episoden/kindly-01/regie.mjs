@@ -32,6 +32,13 @@ const STELLE = [2, -31.55];                     // klare Stelle über dem Kopf (
 // die Stiefel liegen dann am oberen Bildrand und nicht zwischen Kamera und Gesicht.
 const UEBER_KOPF = L(2, 0, -32.25);
 const STEG = { odell: L(0.25, 0.85, -48.5), bear: L(0.22, 0.85, -47.3), gus: L(-0.62, 0.85, -47.05), kante: L(-0.2, 0.85, -47.35) };
+// Steg bei Nacht (S37–S40, Review Kindly F1): alle drei 1 m landwärts und zur linken Stegseite. Vorher hing die
+// Steglaterne (x 0,28, z −47,57, Glas 2,8 m) 0,4 m über Bears Kopf: Kopf ausgebrannt, Laternenkasten im Gläser-Bild.
+// Jetzt steht sie hinter Bear und Gus (Gegenlicht für Gus' Atem) und außerhalb der nahen Bilder.
+const STEG_N = { odell: L(-0.38, 0.85, -50.25), bear: L(-0.4, 0.85, -49.3), gus: L(0.52, 0.85, -49.1) };
+// Wer in einer Untersicht auf dem Eis steht, steht 1,5 cm darüber: Sohlen in der Eisebene lagen von unten als
+// scharfe schwarze Vierecke vor dem Frost (Review Kindly F1: E01, E28, E53, E86)
+const AUF_EIS = 0.015;
 // Gus neben Bear auf dem Eis (S30–S33): Gus schaut zu Bear (blick 127), Bear zu Gus (blick −53)
 const GUS_EIS = L(0.75, 0, -31.3);
 // drei Männer am Ufer, Lund vorn in der Mitte, die beiden anderen versetzt dahinter (9:16 ist schmal)
@@ -44,6 +51,9 @@ const OK2_GROESSE = 0.75;
 const OK2_TIEF = HU(-0.25, -0.62, 0.35 + 3.12 * OK2_GROESSE);
 
 export const titel = "Rules of Kindly – Folge 1: His Breath Didn't Fog";
+// Review Kindly F1: Schnitt-Ereignisse (Lampen, Dampf aus, Hand am Buch, angedrücktes Gesicht) gelten schon im ersten
+// Bild einer Einstellung (vorher: drei Einzelbild-Blitzer bei 62,97 s, 96,87 s und 113,00 s). engine/shotliste.mjs
+export const bildgenau = true;
 export const seed = 1203;
 export const monster = ['ok', 'ok2'];
 export const nachlauf = 0.14;
@@ -66,9 +76,11 @@ export const endkarte = {
 export const look = { licht: 'see_morgengrauen', bloom: { staerke: 0.55, radius: 0.55, schwelle: 1.0 }, vignette: 0.3, korn: 0.025, toene: 'aces' };
 
 export const sets = [
-  { id: 'see', modul: 'see', position: [0, 0, 1000], params: {} },
+  // Wasserschein unter dem Eis (nur von oben sichtbar): klare Stellen zeigen dunkeltürkises Wasser statt Schwarz
+  { id: 'see', modul: 'see', position: [0, 0, 1000], params: { wasser_schein: true } },
   // Lampe gedämpft: unter der Bloom-Schwelle, sonst brannten Gesichter in 0,5–1 m Abstand aus (Schnellbogen 1)
-  { id: 'huette', modul: 'huette_innen', position: [600, 0, 0], params: { lampe: 0.45 } },
+  // Fenster: Mitte klar und dunkel, Frost am Rand, rechts ein alter Hauchfleck (Gus) als Vergleich; Deckel dunkel
+  { id: 'huette', modul: 'huette_innen', position: [600, 0, 0], params: { lampe: 0.45, fenster_klar: 1, fenster_y: 1.5, alter_hauch: [0.8, 0.38, 0.17, 1.0], deckel_farbe: '#3e2a1a' } },
   { id: 'rand', modul: 'stadtrand', position: [-600, 0, 0] },
   { id: 'rathaus', modul: 'rathaus', position: [900, 0, 0] },
   { id: 'strasse', modul: 'hauptstrasse', params: { licht_an: 0.7 } },
@@ -80,6 +92,8 @@ export const figuren = [
   // Bear (19), Erzähler; ab S34 die Kopie: kein neuer Atemzug mehr (überlebt jeden Schnitt)
   { id: 'bear', modul: 'bear', params: { dampf_aus_ab: 82.76 }, gesicht: 'neutral' },
   { id: 'gus', modul: 'gus', gesicht: 'ernst' },
+  // Gus ohne Pickel (Rathaus und S63 am Eisloch: der Pickel lag quer über Buch und Linse)
+  { id: 'gus2', modul: 'gus', params: { pickel: false }, gesicht: 'leer' },
   // Odell mit Brille auf der Nase (Gläser weiß), Laterne und Handglocke
   { id: 'odell', modul: 'odell', params: { glaeser: 'weiss', links: 'laterne', rechts: 'glocke', dampf: true }, gesicht: 'streng' },
   // Odell mit der Brille in der Hand (klar, beschlägt): nie von vorn
@@ -95,7 +109,8 @@ export const figuren = [
   { id: 'f5', modul: 'fischer', params: { variante: 'kappe', angel: true }, gesicht: 'neutral' },
   { id: 'f6', modul: 'fischer', params: { variante: 'kapuze', alter: 'jung', farbe: '#7A3B36', haut: '#E3BC98' }, gesicht: 'neutral' },
   // das Wesen: auf dem See und (kleiner) im Eisloch der Hütte
-  { id: 'ok', modul: 'old_knuckles', gesicht: 'glatt', blinzeln: false },
+  // Kantenlicht kräftiger (Review: im Hook „Seifenfigur“ türkis auf türkis)
+  { id: 'ok', modul: 'old_knuckles', params: { kante: 1.25 }, gesicht: 'glatt', blinzeln: false },
   { id: 'ok2', modul: 'old_knuckles', params: { groesse: OK2_GROESSE, eis_y: -0.17 }, gesicht: 'bear', blinzeln: false },
   // Requisiten
   { id: 'schild', modul: 'ortsschild', atmen: false, blinzeln: false },
@@ -130,40 +145,47 @@ const FENSTER_LICHT = { hemi: { staerke: 1.75 } };
 const LAMPE_AUS = { 'huette.lampe': false };
 // Gus steht in der Hütte an der Tür und schaut zum Ofen (die Lampe bleibt so außerhalb der Gesichts-Einstellungen)
 const GUS_HUETTE = HU(-0.4, 0, 1.0);
+// Bear am Fenster (S42–45): schaut aufs Glas (blick 90); vorgebeugt liegt sein Mund eine Handbreit vor der Scheibe
+const BEAR_FENSTER = HU(0.8, 0, -0.2);
 
 export const einstellungen = {
   // ───────── Hook (0–4,2 s): Auslöser, Regel, endgültiger Preis ─────────
-  // "In this town, if the ice" – Bild 1, das stärkste Bild zuerst: unter dem Eis liegt der lange bleiche Körper,
-  // die Fäuste oben am Eis, darüber als Schatten ein Fischer, dessen Stiefel dreimal tippt (Kamera vom Kopfende, tief)
+  // "In this town, if the ice" – Bild 1 (Review Kindly F1): das stärkste Bild zuerst. Von oben auf den Stiefel, das Eis
+  // darunter halb klar, darunter die bleiche Faust. Schon bei 0,12 s kracht sie von unten gegen das Eis (Sternriss,
+  // Schnee springt), dann tippt der Stiefel dreimal zurück: genau das, was die Regel verbietet.
+  // (Vorher: fast unbewegte Untersicht, türkis in türkis, das Wesen gesichtslos von hinten.)
   '1': {
     figuren: {
       f4: { position: L(1.38, 0, -30.32), blick: 0, gesicht: 'neutral' },
       ok: { position: OK_TIEF, blick: 0, gesicht: 'glatt' },
     },
-    kamera: { pos: L(2.0, -3.2, -34.3), ziel: L(2, -0.45, -29.4), fov: 56, rate: 0.09 },
-    haupt: { wer: 'f4', was: 'stiefel_tippen', wort: 'town', dauer: 0.95, params: { seite: 'r', schlaege: 3 } },
-    hauptsache: 'ok.brust',
-  },
-  // "knocks, never knock back," – von oben: unter dem Stiefel schlägt die Faust dreimal ans halb klare Eis, Risse, Wackeln
-  '1:knocks': {
-    figuren: {
-      f4: { position: L(1.38, 0, -30.32), blick: 0, gesicht: 'neutral' },
-      ok: { position: OK_TIEF, blick: 0, gesicht: 'glatt' },
-    },
-    kamera: { ziel: L(1.3, -0.12, -30.55), blick: { azimut: 150, hoehe: 46, abstand: 2.3 }, fov: 40, rate: 0.08, zusaetze: [{ baustein: 'shake', wort: 'knocks', versatz: 0.3 }] },
+    kamera: { ziel: L(1.25, -0.12, -30.5), blick: { azimut: 150, hoehe: 46, abstand: 2.2 }, fov: 40, rate: 0.09 },
     set_ereignisse: [
       { set: 'see', was: 'klar', versatz: -0.3, dauer: 0.01, mitte: [1.3, -30.65], radius: 0.95, staerke: 0.95 },
-      { set: 'see', was: 'risse', wort: 'knocks', versatz: 0.3, dauer: 0.12, mitte: [1.3, -30.55], radius: 1.5 },
+      { set: 'see', was: 'risse', versatz: 0.12, dauer: 0.12, mitte: [1.1, -30.5], radius: 1.5 },
     ],
-    partikel: [{ art: 'staub', ort: L(1.3, 0.05, -30.55), wort: 'knocks', vorlauf: -0.3, farbe: '#f2f6fb', anzahl: 90, groesse: 0.025, bereich: [1.0, 0.4, 1.0], deckkraft: 0.9, dauer: 1.2 }],
-    haupt: { wer: 'ok', was: 'klopfen_unten', wort: 'knocks', dauer: 1.2 },
+    partikel: [{ art: 'staub', ort: L(1.1, 0.05, -30.5), wort: 'In', vorlauf: -0.12, farbe: '#f2f6fb', anzahl: 110, groesse: 0.028, bereich: [1.0, 0.45, 1.0], deckkraft: 0.95, dauer: 1.1 }],
+    neben: [{ wer: 'ok', was: 'klopfen_unten', ab: 'start', dauer: 0.16, params: { schlaege: 1, seite: 'r', tiefe: 0.3 } }],
+    haupt: { wer: 'f4', was: 'stiefel_tippen', wort: 'town', dauer: 0.95, params: { seite: 'r', schlaege: 3 } },
     hauptsache: 'ok.faust_r',
+  },
+  // "knocks, never knock back," – Untersicht vom Kopfende: der ganze lange Körper, die Fäuste schlagen dreimal von unten
+  // gegen das Eis (erster Schlag 1,52 s), Wackeln auf dem ersten Schlag; oben der Fischer als Schatten
+  '1:knocks': {
+    figuren: {
+      f4: { position: L(1.38, AUF_EIS, -30.32), blick: 0, gesicht: 'neutral' },
+      ok: { position: OK_TIEF, blick: 0, gesicht: 'glatt' },
+    },
+    kamera: { pos: L(2.0, -3.2, -34.3), ziel: L(2, -0.45, -29.4), fov: 56, rate: 0.09, zusaetze: [{ baustein: 'shake', wort: 'knocks', versatz: 0.23 }] },
+    set_ereignisse: [{ set: 'see', was: 'risse', wort: 'knocks', versatz: 0.225, dauer: 0.12, mitte: [2.95, -30.45], radius: 1.4 }],
+    haupt: { wer: 'ok', was: 'klopfen_unten', wort: 'knocks', dauer: 0.9 },
+    hauptsache: 'ok.brust',
   },
   // "or it comes home as you." – das Eis wird klar: Mr. Lunds Gesicht, neutral, Augen offen
   '1:or': {
     figuren: { ok: { position: OK_FLACH, blick: 0, gesicht: 'lund' } },
     kamera: { ziel: L(2, -0.3, -31.55), blick: { azimut: 0, hoehe: 58, abstand: 2.3 }, fov: 40, rate: 0.08 },
-    set_ereignisse: [{ set: 'see', was: 'klar', versatz: 0, dauer: 0.01, mitte: [1.3, -30.55], radius: 0.95, staerke: 0 }, RISSE_WEG(0)],
+    set_ereignisse: [{ set: 'see', was: 'klar', versatz: 0, dauer: 0.01, mitte: [1.3, -30.65], radius: 0.95, staerke: 0 }, RISSE_WEG(0)],
     neben: [{ wer: 'ok', was: 'andruecken', wort: 'home', dauer: 0.8 }],
     haupt: { art: 'set', set: 'see', was: 'klar', wort: 'as', versatz: -0.2, dauer: 0.45, params: { mitte: STELLE, radius: 1.35 } },
     hauptsache: 'ok.gesicht',
@@ -182,6 +204,9 @@ export const einstellungen = {
   '2:Old': {
     figuren: { ok: { position: OK_TIEF, blick: 0, gesicht: 'glatt' } },
     kamera: { baustein: 'snap_zoom', ziel: { anker: 'ok.faust_r', versatz: [0, 0.05, 0] }, blick: { azimut: 180, hoehe: -14, abstand: 1.7 }, fov: 44, zeit_wort: 'Knuckles', faktor: 1.2, bilder: 2 },
+    // auf „Knuckles“ drückt die Faust sichtbar gegen das Eis: ein Schlag, ein Riss-Ring (vorher 1,2 s reglos)
+    set_ereignisse: [RISSE_WEG(0), { set: 'see', was: 'risse', wort: 'Knuckles', versatz: 0.02, dauer: 0.12, mitte: [1.02, -30.48], radius: 0.9 }],
+    neben: [{ wer: 'ok', was: 'klopfen_unten', wort: 'Knuckles', versatz: -0.28, dauer: 0.4, params: { schlaege: 1, seite: 'r', tiefe: 0.28 } }],
     haupt: { art: 'kamera', wort: 'Knuckles' },
     hauptsache: 'ok.faust_r',
   },
@@ -250,11 +275,17 @@ export const einstellungen = {
     haupt: { wer: 'f3', was: 'hauchen', wort: 'breathes', dauer: 3.0, params: { zu: 'odell2.brille' } },
     hauptsache: 'odell2.brille',
   },
-  // "If they fog," – Detail: die Gläser im Fäustling, ganz weiß beschlagen
+  // "If they fog," – aus Odells Blick wie später S38 (Review Kindly F1: derselbe Bildaufbau, damit „beschlagen“ und „klar“
+  // 1:1 vergleichbar sind): die Gläser in seiner Hand, dahinter das Gesicht des Fischers; auf „fog“ beschlagen sie matt
+  // grau-weiß (eigenes Material mit Tröpfchen, kein Spiegel-Glanz wie Odells getragene Gläser)
   '7': {
-    figuren: { brille: { position: L(0.1, 2.05, -48.05), blick: 180 } },
-    kamera: { ziel: 'brille.mitte', blick: { azimut: 160, hoehe: 6, abstand: 0.75 }, fov: 36, rate: 0.08 },
+    figuren: {
+      brille: { position: L(-0.13, 2.23, -48.0), blick: 0 },
+      f3: { position: L(-0.15, 0.85, -47.25), blick: 180, gesicht: 'neutral' },
+    },
+    kamera: { pos: L(-0.1, 2.33, -48.6), ziel: L(-0.15, 2.27, -47.5), fov: 54, rate: 0.06 },
     lampen_einzeln: STEGLATERNE_AUS,
+    tiefe: { fokus: 'f3.kopf', staerke: 0.35 },
     haupt: { wer: 'brille', was: 'beschlagen', wort: 'fog', dauer: 0.35 },
     hauptsache: 'brille.mitte',
   },
@@ -299,35 +330,50 @@ export const einstellungen = {
   },
 
   // ───────── Das Wesen, die Regel Schritt für Schritt ─────────
-  // "Old Knuckles lies on its back under the ice," – Seitenfahrt unter dem Eis: Körper, Arme nach oben, Fäuste am Eis
+  // "Old Knuckles lies on its back under the ice," – unter dem Eis seitlich vom Kopfende, etwa auf Körperhöhe: Gesicht
+  // nach oben, Arme gestreckt, Fäuste am Eis. Unten das dunkeltürkise Wasser als Grund (Review Kindly F1: vorher
+  // sah man zwei hochragende Beine wie eine stehende Statue, Steine und Pflanzen wischten vor der Linse)
   '10': {
     figuren: { ok: { position: OK_TIEF, blick: 0, gesicht: 'glatt' } },
-    kamera: { baustein: 'truck_side', pos: L(2.0, -3.25, -22.4), ziel: L(2, -0.6, -29.6), fov: 56, richtung: 'rechts', strecke: 1.8, vordergrund: false },
+    kamera: { baustein: 'truck_side', pos: L(-2.3, -1.25, -33.4), ziel: L(2, -0.95, -29.2), fov: 54, richtung: 'rechts', strecke: 1.0, vordergrund: false },
     set_ereignisse: [RISSE_WEG(-0.1)],
     haupt: { art: 'kamera', wort: 'back' },
     hauptsache: 'ok.brust',
   },
-  // "longer than a fishing hut." – Draufsicht: der Umriss, länger als die Hütte BEAR & GUS daneben
+  // "longer than a fishing hut." – Draufsicht: das Eis über dem ganzen Körper wird klar (dunkles Wasser darunter), daneben
+  // die Hütte BEAR & GUS ganz im Bild und ein Fischer als Maßstab (vorher Hütte angeschnitten, Körper bleich auf bleichem Eis)
   '10:longer': {
-    figuren: { ok: { position: OK_FLACH, blick: 0, gesicht: 'glatt' } },
-    kamera: { pos: L(5.3, 13.5, -17.0), ziel: L(4.6, 0, -27.6), fov: 44, rate: 0.07 },
+    figuren: {
+      ok: { position: OK_FLACH, blick: 0, gesicht: 'glatt' },
+      f5: { position: L(5.6, 0, -23.6), blick: 200 },
+    },
+    kamera: { pos: L(5.4, 18.5, -21.0), ziel: L(5.3, 0, -28.6), fov: 44, rate: 0.07 },
+    set_ereignisse: [{ set: 'see', was: 'klar', versatz: -0.05, dauer: 0.01, mitte: [2, -28.5], radius: 3.6, staerke: 0.9 }],
     haupt: { art: 'kamera', wort: 'hut' },
     hauptsache: 'ok.brust',
   },
-  // "Its fists press up against the ice." – Untersicht von Süden unter dem Körper durch: beide Fäuste am Eis
+  // "Its fists press up against the ice." – schräg von vorn-unten auf die linke Faust: auf „press“ stemmt sie sich
+  // gegen das Eis, ein Riss-Ring springt auf (vorher 2,1 s reglos)
   '11': {
     figuren: { ok: { position: OK_TIEF, blick: 0, gesicht: 'glatt' } },
-    // schräg von vorn-unten auf die linke Faust: vier Knöchelwürfel gegen das Eis, dahinter die rechte (wie S2, andere Seite)
     kamera: { ziel: { anker: 'ok.faust_l', versatz: [-0.25, 0.0, 0] }, blick: { azimut: 205, hoehe: -10, abstand: 2.3 }, fov: 46, rate: 0.08 },
-    neben: [{ wer: 'ok', was: 'klopfen_unten', wort: 'press', dauer: 0.9, params: { schlaege: 1, tiefe: 0.06 } }],
+    set_ereignisse: [
+      { set: 'see', was: 'klar', versatz: -0.05, dauer: 0.01, mitte: [2, -28.5], radius: 3.6, staerke: 0 },
+      { set: 'see', was: 'risse', wort: 'press', versatz: 0.05, dauer: 0.18, mitte: [2.98, -30.48], radius: 1.2 },
+    ],
+    neben: [{ wer: 'ok', was: 'klopfen_unten', wort: 'press', versatz: -0.42, dauer: 0.6, params: { schlaege: 1, seite: 'l', tiefe: 0.32 } }],
     haupt: { art: 'kamera', wort: 'press' },
     hauptsache: 'ok.haende',
   },
-  // "Knock back, and it" – ein Fischer stampft zweimal zurück aufs Eis (halbnah von vorn)
+  // "Knock back, and it" – der Fischer stampft auf „Knock“ dreimal hoch aus dem Knie aufs Eis: Riss-Stern und Schnee,
+  // ganze Figur mit Kopf im Bild (Review Kindly F1: vorher stand er nur da, der Kopf unter der Kopfzeile angeschnitten;
+  // „knock back“ fiel dreimal und war nie zu sehen)
   '12': {
     figuren: { f4: { position: L(-0.6, 0, -35.2), blick: 140, gesicht: 'entschlossen' } },
-    kamera: { ziel: { anker: 'f4.huefte', versatz: [0, -0.15, 0] }, blick: { azimut: 160, hoehe: 10, abstand: 3.6, bezug: 'f4.huefte' }, fov: 42, rate: 0.08 },
-    haupt: { wer: 'f4', was: 'stiefel_tippen', wort: 'Knock', dauer: 0.75, params: { seite: 'r', schlaege: 2, hoehe: 1.3 } },
+    kamera: { ziel: { anker: 'f4.huefte', versatz: [0, 0.05, 0] }, blick: { azimut: 168, hoehe: 9, abstand: 3.5, bezug: 'f4.huefte' }, fov: 42, rate: 0.08 },
+    set_ereignisse: [{ set: 'see', was: 'risse', wort: 'Knock', versatz: 0.19, dauer: 0.45, mitte: [-0.47, -35.35], radius: 0.85 }],
+    partikel: [{ art: 'staub', ort: L(-0.47, 0.04, -35.35), wort: 'Knock', vorlauf: -0.19, farbe: '#f2f6fb', anzahl: 80, groesse: 0.024, bereich: [0.6, 0.3, 0.6], deckkraft: 0.9, dauer: 0.55 }],
+    haupt: { wer: 'f4', was: 'stiefel_tippen', wort: 'Knock', dauer: 0.75, params: { seite: 'r', schlaege: 3, hoehe: 1.9 } },
     hauptsache: 'f4.kopf',
   },
   // "follows you under the ice," – steil von oben: der Fischer geht, darunter gleitet der Umriss mit
@@ -363,7 +409,7 @@ export const einstellungen = {
   // (erste Fassung von Süden unter dem Rumpf: der Hinterkopf füllte das ganze Bild, Render-Bogen 35,7 s)
   '13:like': {
     figuren: {
-      f4: { position: UEBER_KOPF, blick: 0 },
+      f4: { position: plus(UEBER_KOPF, [0, AUF_EIS, 0]), blick: 0 },
       ok: { position: OK_FLACH, blick: 0, gesicht: 'glatt' },
     },
     kamera: { pos: L(2.4, -1.7, -34.9), ziel: L(2, 0.3, -32.0), fov: 56, rate: 0.07 },
@@ -391,7 +437,7 @@ export const einstellungen = {
   },
   // "And now it's you down there, looking up." – Gegenschuss von unten: der Fischer oben geht aus dem klaren Fenster
   '16': {
-    figuren: { f4: { position: L(2, 0, -31.0), blick: 180 } },
+    figuren: { f4: { position: L(2, AUF_EIS, -31.0), blick: 180 } },
     kamera: { baustein: 'dolly_out', pos: L(2, -2.0, -29.2), ziel: L(2, 0.7, -32.6), fov: 56, rate: -0.06 },
     haupt: { wer: 'f4', was: 'gehen', wort: 'now', dauer: 1.7, params: { nach: [2, 1000 - 34.4] } },
     hauptsache: 'f4.kopf',
@@ -425,14 +471,17 @@ export const einstellungen = {
   },
 
   // ───────── Mr. und Mrs. Lund ─────────
-  // "Mr. Lund knocked back once," – Rückblende: Lund stampft lachend zurück aufs Eis
+  // "Mr. Lund knocked back once," – Rückblende: Lund stampft lachend dreimal zurück aufs Eis, ganze Figur, Riss-Stern und
+  // Schnee (Review Kindly F1: vorher lachte er nur, die Füße lagen außerhalb des Bildes)
   '18': {
     figuren: {
       lund: { position: L(-6.2, 0, -40.0), blick: 15, gesicht: 'lachend' },
       f1: { position: L(-5.0, 0, -40.7), blick: -40, gesicht: 'besorgt' },
     },
-    kamera: { ziel: { anker: 'lund.brust', versatz: [0.35, -0.1, 0] }, blick: { azimut: 25, hoehe: 8, abstand: 4.4, bezug: 'lund.brust' }, fov: 40, rate: 0.07 },
-    haupt: { wer: 'lund', was: 'stiefel_tippen', wort: 'knocked', dauer: 1.0, params: { seite: 'r', schlaege: 3, hoehe: 1.4 } },
+    kamera: { ziel: { anker: 'lund.huefte', versatz: [0.3, 0.05, 0] }, blick: { azimut: 30, hoehe: 9, abstand: 3.7, bezug: 'lund.huefte' }, fov: 42, rate: 0.07 },
+    set_ereignisse: [{ set: 'see', was: 'risse', wort: 'knocked', versatz: 0.225, dauer: 0.5, mitte: [-6.15, -39.8], radius: 0.8 }],
+    partikel: [{ art: 'staub', ort: L(-6.15, 0.04, -39.8), wort: 'knocked', vorlauf: -0.225, farbe: '#f2f6fb', anzahl: 70, groesse: 0.022, bereich: [0.55, 0.25, 0.55], deckkraft: 0.85, dauer: 0.6 }],
+    haupt: { wer: 'lund', was: 'stiefel_tippen', wort: 'knocked', dauer: 0.9, params: { seite: 'r', schlaege: 3, hoehe: 1.7 } },
     hauptsache: 'lund.kopf',
   },
   // "as a joke, and" – nah: Lund lacht, sein Atem dampft noch
@@ -546,21 +595,23 @@ export const einstellungen = {
   },
   // "Knocking first isn't against the rules." – Seitenfahrt über das Buch: Gus' Hand fährt die Zeile entlang
   '25': {
-    figuren: { gus: { position: RA(0, 0, 0.62), blick: 180, gesicht: 'ernst' }, buch2: { position: RA(0, 1.05, 0), blick: 0 } },
+    figuren: { gus2: { position: RA(0, 0, 0.62), blick: 180, gesicht: 'ernst' }, buch2: { position: RA(0, 1.05, 0), blick: 0 } },
     lampen_einzeln: BUCH_LICHT,
-    kamera: { baustein: 'truck_side', pos: RA(0.55, 1.75, 0.15), ziel: { anker: 'buch2.zeile', versatz: [0.07, 0, 0] }, fov: 44, richtung: 'rechts', strecke: 0.18, vordergrund: false },
-    neben: [...DRINNEN('gus'), { wer: 'gus', was: 'greifen', wort: 'rules', dauer: 0.45, params: { zu: 'buch2.zeile_ende', seite: 'r' } }],
-    haupt: { wer: 'gus', was: 'greifen', wort: 'first', dauer: 0.4, params: { zu: 'buch2.zeile', seite: 'r' } },
+    // Review Kindly F1: Die Hand fährt UNTER der Zeile entlang (7,5 cm tiefer) und hält nach BACK; „NEVER KNOCK BACK“
+    // bleibt frei (vorher lag die Hand auf der Zeile)
+    kamera: { baustein: 'truck_side', pos: RA(0.05, 1.72, 0.17), ziel: { anker: 'buch2.zeile', versatz: [0.17, 0, 0.01] }, fov: 44, richtung: 'rechts', strecke: 0.12, vordergrund: false },
+    neben: [...DRINNEN('gus2'), { wer: 'gus2', was: 'greifen', wort: 'rules', dauer: 0.45, params: { zu: { anker: 'buch2.zeile_ende', versatz: [0.03, 0.02, 0.075] }, seite: 'r' } }],
+    haupt: { wer: 'gus2', was: 'greifen', wort: 'first', dauer: 0.4, params: { zu: { anker: 'buch2.zeile', versatz: [0, 0.02, 0.075] }, seite: 'r' } },
     hauptsache: 'buch2.zeile',
   },
   // "Gus checked." – Gus am Pult von vorn, er nickt
   '26': {
-    figuren: { gus: { position: RA(0, 0, 0.62), blick: 180, gesicht: 'ernst' }, buch2: { position: RA(0, 1.05, 0), blick: 0 } },
+    figuren: { gus2: { position: RA(0, 0, 0.62), blick: 180, gesicht: 'ernst' }, buch2: { position: RA(0, 1.05, 0), blick: 0 } },
     lampen_einzeln: BUCH_LICHT,
-    kamera: KOPF('gus', 160, 6, 2.8, 36, 0.07),
-    neben: DRINNEN('gus'),
-    haupt: { wer: 'gus', was: 'kopf_drehen', wort: 'checked', dauer: 0.3, params: { nicken: 14 } },
-    hauptsache: 'gus.kopf',
+    kamera: KOPF('gus2', 160, 6, 2.8, 36, 0.07),
+    neben: DRINNEN('gus2'),
+    haupt: { wer: 'gus2', was: 'kopf_drehen', wort: 'checked', dauer: 0.3, params: { nicken: 14 } },
+    hauptsache: 'gus2.kopf',
   },
   // "If it sounds hollow, Bear, go back." – Gus auf dem Eis im Dreiviertelprofil, Mundformen
   '27': {
@@ -631,7 +682,7 @@ export const einstellungen = {
   },
   // "Under my boots," – Untersicht, Tilt hinauf: von den Fäusten zu Bears Stiefeln im Eis
   '31': {
-    figuren: { bear: { position: UEBER_KOPF, blick: -53 }, ok: { position: OK_UNTER_BEAR, blick: 0, gesicht: 'glatt' } },
+    figuren: { bear: { position: plus(UEBER_KOPF, [0, AUF_EIS, 0]), blick: -53 }, ok: { position: OK_UNTER_BEAR, blick: 0, gesicht: 'glatt' } },
     kamera: { baustein: 'tilt_up', von_ziel: 'ok.brust', ziel: L(2, 0.05, -32.25), pos: L(2, -3.2, -37.2), fov: 56, ankunft_wort: 'boots' },
     haupt: { art: 'kamera', wort: 'boots' },
     hauptsache: 'ok.haende',
@@ -688,8 +739,9 @@ export const einstellungen = {
   // "My own face was rising toward it," – Großaufnahme durchs klare Eis: Bears Gesicht steigt herauf
   '35': {
     figuren: { bear: { position: UEBER_KOPF, blick: -53 }, ok: { position: OK_DRUNTER, blick: 0, gesicht: 'bear' } },
-    kamera: { ziel: 'ok.gesicht', blick: { azimut: 0, hoehe: 60, abstand: 2.4 }, fov: 40, rate: 0.07 },
-    haupt: { wer: 'ok', was: 'andruecken', wort: 'rising', dauer: 1.4, params: { hoehe: 0.26 } },
+    // feste Kamera auf die klare Stelle (vorher folgte sie dem Gesicht: es stand 1,8 s still im Bild)
+    kamera: { ziel: L(2, -0.45, -31.6), blick: { azimut: 0, hoehe: 62, abstand: 2.3 }, fov: 40, rate: 0.06 },
+    haupt: { wer: 'ok', was: 'andruecken', wort: 'rising', dauer: 1.4, params: { hoehe: 0.34 } },
     hauptsache: 'ok.gesicht',
   },
   // "looking up." – das Gesicht berührt das Eis 4 Bilder vor dem Schnitt (Suchbild)
@@ -704,14 +756,16 @@ export const einstellungen = {
   '36': {
     figuren: {
       gus: { position: L(1.5, 0, -32.95), blick: 180, gesicht: 'entschlossen' },
-      bear: { position: L(2.05, 0, -32.45), blick: 180, gesicht: 'besorgt' },
+      bear: { position: L(1.6, 0, -31.8), blick: 180, gesicht: 'besorgt' },
     },
-    kamera: { baustein: 'track_follow', folge: 'gus', versatz: [3.2, 1.0, -2.4], ziel_versatz: [0.35, 0.6, -0.2], lokal: false, fov: 46 },
+    // von der Seite: Gus zieht vorn, Bear stolpert 1,2 m hinterher; Gus' Wolke zieht nach vorn, weg von Bear (Atem-Tor)
+    kamera: { baustein: 'track_follow', folge: 'gus', versatz: [3.9, 1.0, 0.65], ziel_versatz: [0, 0.75, 0.6], lokal: false, fov: 46 },
     neben: [
       { wer: 'gus', was: 'greifen', ab: 'start', dauer: 0.2, params: { zu: 'bear.schulter_r', seite: 'l', form: 'faust', lehnen: false } },
-      { wer: 'bear', was: 'gehen', ab: 'start', dauer: 1.45, params: { nach: [1.15, 1000 - 36.5], drehen: false } },
+      { wer: 'bear', was: 'gehen', wort: 'dragged', dauer: 0.95, params: { nach: [1.45, 1000 - 35.85], drehen: false } },
     ],
-    haupt: { wer: 'gus', was: 'gehen', wort: 'dragged', dauer: 1.3, params: { nach: [0.6, 1000 - 37.0] } },
+    // Tempo ×1,4 (Review: „ruhig nebeneinander“, vom Reißen am Kragen war nichts zu sehen)
+    haupt: { wer: 'gus', was: 'gehen', wort: 'dragged', dauer: 0.95, params: { nach: [1.35, 1000 - 37.0] } },
     hauptsache: 'gus.kopf',
   },
   // "just in time." – von oben: das Gesicht sinkt zurück, die klare Stelle friert wieder zu
@@ -727,7 +781,7 @@ export const einstellungen = {
   // "At the pier, I" – Steg bei Nacht: Odell mit Laterne am Ende, Gus und Bear kommen herauf
   '37': {
     figuren: {
-      odell2: { position: STEG.odell, blick: 0 },
+      odell2: { position: STEG_N.odell, blick: 0 },
       gus: { position: L(-0.35, 0, -44.7), blick: 180 }, bear: { position: L(0.45, 0, -44.4), blick: 180 },
     },
     kamera: { punkt: 'see.steg_totale', rate: 0.07 },
@@ -738,47 +792,50 @@ export const einstellungen = {
     haupt: { art: 'kamera', wort: 'pier' },
     hauptsache: 'odell2.kopf',
   },
-  // "breathed on Mr. Odell's glasses." – Bear haucht auf die hochgehaltenen Gläser: es kommt nichts (wie die Atem-Probe)
+  // "breathed on Mr. Odell's glasses." – Bear im Dreiviertelprofil von vorn (Review Kindly F1): Odells Hand hält die
+  // Gläser vor seinen Mund, Bear beugt sich vor und haucht mit offenem Mund: durchs klare Glas sieht man den Mund, es
+  // kommt nichts. Die Steglaterne hängt jetzt hinter ihm, nicht mehr über seinem Kopf. Gus steht hier bewusst nicht im
+  // Bild: seine Wolke lag in der ersten Fassung neben Bears Kinn (Atem-Tor); sein Dampf kommt in S38–39 groß.
   '37:breathed': {
     figuren: {
-      odell2: { position: STEG.odell, blick: 0, pose: 'brille_hoch', pose_params: { zu: 'bear.mund' } },
-      bear: { position: STEG.bear, blick: 212, gesicht: 'besorgt' },
-      gus: { position: STEG.gus, blick: 203, gesicht: 'ernst' },
+      // Odell selbst ist hier nicht im Bild (Bildregel §3.3: ohne Brille nie von vorn), nur seine Hand mit den Gläsern
+      brille: { position: L(-0.58, 2.2, -49.82), blick: 0 },
+      bear: { position: STEG_N.bear, blick: 180, gesicht: 'besorgt' },
     },
-    kamera: { pos: L(-2.9, 2.6, -51.1), ziel: L(-0.1, 2.05, -47.55), fov: 42, rate: 0.06 },
-    haupt: { wer: 'bear', was: 'hauchen', wort: 'breathed', dauer: 3.0, params: { zu: 'odell2.brille' } },
+    kamera: { pos: L(-1.55, 2.12, -50.9), ziel: L(-0.38, 2.25, -49.65), fov: 50, rate: 0.06 },
+    gesichter: [{ wer: 'bear', name: 'besorgt/o', wort: 'breathed' }, { wer: 'bear', name: 'besorgt', wort: 'glasses' }],
+    haupt: { wer: 'bear', was: 'hauchen', wort: 'breathed', dauer: 2.0, params: { zu: 'brille.mitte', vor: 1.0 } },
     hauptsache: 'bear.kopf',
   },
-  // "He looked at them for a long time," – über Odells Schulter: die Gläser bleiben klar, dahinter Bear
-  // Aus Odells Blick (er selbst ist hier nicht im Bild): die Requisite hängt, wo er die Gläser hält; hinter den klaren
-  // Gläsern steht Bear, vor seinem Mund keine Wolke.
+  // "He looked at them for a long time," – aus Odells Blick: die klaren Gläser in seiner Hand, dahinter scharf Bears
+  // Gesicht, ein Auge mitten im Glas; kein Glanzstreifen, nichts vor der Linse (vorher Laternenkasten oben im Bild)
   '38': {
     figuren: {
-      brille: { position: L(0.24, 2.4, -48.05), blick: 0 },
-      bear: { position: STEG.bear, blick: 212, gesicht: 'besorgt' },
+      brille: { position: L(-0.39, 2.33, -50.0), blick: 0 },
+      bear: { position: STEG_N.bear, blick: 180, gesicht: 'besorgt' },
     },
-    kamera: { pos: L(0.3, 2.45, -49.05), ziel: L(0.22, 2.38, -47.4), fov: 40, rate: 0.06 },
-    lampen_einzeln: STEGLATERNE_AUS,
-    tiefe: { fokus: 'brille.mitte', staerke: 0.5 },
-    haupt: { wer: 'brille', was: 'bleibt_klar', wort: 'looked', dauer: 0.8 },
+    kamera: { pos: L(-0.36, 2.42, -50.6), ziel: L(-0.4, 2.38, -49.55), fov: 54, rate: 0.06 },
+    tiefe: { fokus: 'bear.kopf', staerke: 0.35 },
+    haupt: { wer: 'brille', was: 'bleibt_klar', wort: 'looked', dauer: 0.8, params: { glanz: 0.08 } },
     hauptsache: 'brille.mitte',
   },
   // "then at Gus." – Reißschwenk von den Gläsern zu Gus (Kamera seitlich hinter Odell)
   '38:then': {
     figuren: {
-      odell2: { position: STEG.odell, blick: 0, pose: 'brille_hoch', pose_params: { zu: 'bear.mund' } },
-      bear: { position: STEG.bear, blick: 212, gesicht: 'besorgt' },
-      gus: { position: STEG.gus, blick: 203, gesicht: 'ernst' },
+      odell2: { position: STEG_N.odell, blick: 0, pose: 'brille_hoch', pose_params: { zu: 'bear.mund', hoehe: -0.2, vor: 0.36 } },
+      bear: { position: STEG_N.bear, blick: 180, gesicht: 'besorgt' },
+      gus: { position: STEG_N.gus, blick: 195, gesicht: 'ernst' },
     },
-    kamera: { baustein: 'whip', von_ziel: 'odell2.brille', ziel: { anker: 'gus.kopf', versatz: [0, -0.15, 0] }, pos: L(-1.35, 2.45, -50.4), fov: 40, zeit_wort: 'then', dauer: 0.3 },
-    neben: [{ wer: 'odell2', was: 'kopf_drehen', wort: 'then', dauer: 0.4, params: { zu: 'gus.kopf' } }],
+    kamera: { baustein: 'whip', von_ziel: 'odell2.brille', ziel: { anker: 'gus.kopf', versatz: [0, -0.15, 0] }, pos: L(-1.55, 2.4, -52.1), fov: 40, zeit_wort: 'then', dauer: 0.3 },
+    // Odell hält beim Prüfen den Atem an (Dampf aus in diesem Reißschwenk): seine Wolke lag sonst vor Bears Mund (Atem-Tor)
+    neben: [{ wer: 'odell2', was: 'dampf', ab: 'start', dauer: 0.01, params: { wert: false } }, { wer: 'odell2', was: 'kopf_drehen', wort: 'then', dauer: 0.4, params: { zu: 'gus.kopf' } }],
     haupt: { art: 'kamera', wort: 'Gus' },
     hauptsache: 'gus.kopf',
   },
   // "He's fine, Mr. Odell." – Gus im Dreiviertelprofil, Atem dicht, Untertitel gelb
   '39': {
-    figuren: { gus: { position: STEG.gus, blick: 203, gesicht: 'entschlossen' }, bear: { position: STEG.bear, blick: 212 } },
-    kamera: KOPF('gus', 178, 3, 2.6, 34, 0.07),
+    figuren: { gus: { position: STEG_N.gus, blick: 195, gesicht: 'entschlossen' }, bear: { position: STEG_N.bear, blick: 180 } },
+    kamera: KOPF('gus', 196, 3, 2.6, 34, 0.07),
     neben: [DIALOG_DAMPF('gus', 0.65)],
     haupt: { art: 'gesicht', wer: 'gus', name: 'entschlossen', wort: 'fine' },
     mund: { wer: 'gus', miene: 'entschlossen' },
@@ -788,7 +845,7 @@ export const einstellungen = {
   // Das Aufsetzen beginnt 0,7 s vor dem Schnitt (neu: false: Odell läuft aus 38:then weiter), damit seine Augen
   // nie ohne Gläser von vorn zu sehen sind; im ersten Bild sitzt die Brille schon fast auf der Nase.
   '40': {
-    figuren: { odell2: { position: STEG.odell, blick: 0, neu: false, gesicht: 'streng' } },
+    figuren: { odell2: { position: STEG_N.odell, blick: 0, neu: false, gesicht: 'streng' } },
     kamera: KOPF('odell2', -10, 3, 2.7, 34, 0.07),
     lampen_einzeln: STEGLATERNE_AUS,
     neben: [{ wer: 'odell2', was: 'aufsetzen', ab: 'start', versatz: -0.7, dauer: 0.9 }, DIALOG_DAMPF('odell2')],
@@ -822,50 +879,59 @@ export const einstellungen = {
     haupt: { art: 'kamera', wort: 'hut' },
     hauptsache: 'see.huette_bg_tuer',
   },
-  // "I breathed on the frozen" – Hütte innen: Bear haucht ans Fenster (die Kopie: nichts)
+  // "I breathed on the frozen" – von draußen durch die Scheibe (Review Kindly F1): Bear steht dicht am Fenster, die Mitte
+  // der Scheibe ist klar (Frost nur am Rand), man sieht sein Gesicht von vorn. Er beugt sich vor und haucht mit offenem
+  // Mund ans Glas: es bleibt klar. Daneben Gus' alter, milchiger Hauchfleck: so sieht es aus, wenn ein Mensch haucht.
+  // (Vorher: Bear frontal ohne Glas, dann ein ganz weißes Frostfenster, auf dem kein Fleck hätte erscheinen können.)
   '42': {
     licht_anpassung: FENSTER_LICHT,
     lampen_einzeln: LAMPE_AUS,
-    figuren: { bear: { position: HU(-0.15, 0, -0.85), blick: 63, gesicht: 'leer' } },
-    // Kamera neben dem Fenster (z −0,55): von HU(1,0, 1,6, 0,38) hing die Petroleumlampe (0,15 | 1,72 | −0,35)
-    // genau in der Sichtlinie und lag als schwarzer Balken über Bears Stirn (Render-Bogen 102,2 s)
-    kamera: { pos: HU(1.05, 1.5, -0.55), ziel: { anker: 'bear.kopf', versatz: [0, -0.12, 0] }, fov: 68, rate: 0.07 },   // 1,24 m Abstand: Weitwinkel
+    figuren: { bear: { position: BEAR_FENSTER, blick: 90, gesicht: 'leer' } },
+    kamera: { pos: HU(2.45, 1.47, -0.16), ziel: HU(0.9, 1.43, -0.2), fov: 40, rate: 0.06 },
     neben: DRINNEN('bear'),
-    haupt: { wer: 'bear', was: 'hauchen', wort: 'breathed', dauer: 3.0, params: { zu: 'huette.fenster' } },
+    gesichter: [{ wer: 'bear', name: 'leer/o', wort: 'breathed' }, { wer: 'bear', name: 'leer', wort: 'frozen' }],
+    haupt: { wer: 'bear', was: 'hauchen', wort: 'breathed', dauer: 2.0, params: { zu: 'huette.fenster', vor: 1.4 } },
     hauptsache: 'bear.kopf',
   },
-  // "window. Nothing." – das Frostfenster: kein Fleck
+  // "window. Nothing." – näher an der Scheibe: vor seinem Mund klares Glas, kein Fleck; rechts Gus' alter Fleck
   '42:window': {
-    licht_anpassung: HUETTE_LICHT,
-    kamera: { punkt: 'huette.fenster', rate: 0.07 },
+    licht_anpassung: FENSTER_LICHT,
+    lampen_einzeln: LAMPE_AUS,
+    figuren: { bear: { position: BEAR_FENSTER, blick: 90, gesicht: 'leer' } },
+    kamera: { pos: HU(2.1, 1.5, -0.24), ziel: HU(0.95, 1.5, -0.2), fov: 38, rate: 0.08 },
+    neben: DRINNEN('bear'),
     haupt: { art: 'kamera', wort: 'window' },
     hauptsache: 'huette.fenster',
   },
-  // "I breathed again." – Bear näher, haucht noch einmal
+  // "I breathed again." – wieder etwas weiter, leicht von der Seite: er haucht noch einmal
   '44': {
     licht_anpassung: FENSTER_LICHT,
     lampen_einzeln: LAMPE_AUS,
-    figuren: { bear: { position: HU(-0.15, 0, -0.85), blick: 63, gesicht: 'besorgt' } },
-    kamera: { pos: HU(1.05, 1.5, -0.55), ziel: { anker: 'bear.kopf', versatz: [0, -0.12, 0] }, fov: 60, rate: 0.08 },   // wie S42: Lampe aus der Sichtlinie
+    figuren: { bear: { position: BEAR_FENSTER, blick: 90, gesicht: 'besorgt' } },
+    kamera: { pos: HU(2.3, 1.5, 0.05), ziel: HU(0.9, 1.43, -0.22), fov: 40, rate: 0.08 },
     neben: DRINNEN('bear'),
-    haupt: { wer: 'bear', was: 'hauchen', wort: 'breathed', dauer: 3.0, params: { zu: 'huette.fenster' } },
+    gesichter: [{ wer: 'bear', name: 'besorgt/o', wort: 'breathed' }],
+    haupt: { wer: 'bear', was: 'hauchen', wort: 'breathed', dauer: 2.0, params: { zu: 'huette.fenster', vor: 1.4 } },
     hauptsache: 'bear.kopf',
   },
-  // "Nothing." – das Fenster, näher: nichts
+  // "Nothing." – ganz nah am Glas vor seinem Mund: nichts
   '45': {
-    licht_anpassung: HUETTE_LICHT,
-    kamera: { punkt: 'huette.fenster', fov: 30, rate: 0.1 },
+    licht_anpassung: FENSTER_LICHT,
+    lampen_einzeln: LAMPE_AUS,
+    figuren: { bear: { position: BEAR_FENSTER, blick: 90, gesicht: 'besorgt' } },
+    kamera: { pos: HU(1.95, 1.5, -0.26), ziel: HU(0.95, 1.48, -0.2), fov: 34, rate: 0.1 },
+    neben: DRINNEN('bear'),
     haupt: { art: 'kamera', wort: 'Nothing' },
     hauptsache: 'huette.fenster',
   },
   // "Gus didn't look up from the stove." – Gus sitzt auf der Bank und schaut in die Glut, er sieht nicht auf
   '46': {
     licht_anpassung: HUETTE_LICHT,
-    figuren: { gus: { position: GUS_HUETTE, blick: -171, gesicht: 'leer' } },
-    kamera: KOPF_INNEN('gus', -168, 4, 2.15, 48, 0.06),
-    gesichter: [{ wer: 'gus', name: 'leer', wort: 'Gus' }],
-    neben: DRINNEN('gus'),
-    haupt: { art: 'gesicht', wer: 'gus', name: 'leer', wort: 'look' },
+    // Review Kindly F1: Gus schaut in die Glut, den Blick gesenkt, Dreiviertelprofil (vorher frontal in die Kamera)
+    figuren: { gus: { position: GUS_HUETTE, blick: -171, gesicht: 'blick_gesenkt' } },
+    kamera: KOPF_INNEN('gus', 152, 2, 1.55, 54, 0.06),
+    neben: [...DRINNEN('gus'), { wer: 'gus', was: 'kopf_drehen', ab: 'start', dauer: 0.01, params: { nicken: 16 } }],
+    haupt: { art: 'gesicht', wer: 'gus', name: 'blick_gesenkt', wort: 'look' },
     hauptsache: 'gus.kopf',
   },
   // "His glasses stayed" – Gus von vorn, die Augen nass
@@ -878,11 +944,16 @@ export const einstellungen = {
     mund: { wer: 'gus', miene: 'nass' },
     hauptsache: 'gus.kopf',
   },
-  // "clear, Bear." – Blitz-Rückblende: Odells klare Gläser in der Hand
+  // "clear, Bear." – Blitz-Rückblende: dasselbe Bild wie S38, die klaren Gläser, dahinter Bears Gesicht
+  // (vorher zeigten die Gläser hellen Schnee und Glanzstreifen und sahen beschlagen aus)
   '47:clear': {
-    figuren: { brille: { position: L(0.1, 2.05, -48.05), blick: 180 } },
-    kamera: { ziel: 'brille.mitte', blick: { azimut: 165, hoehe: 5, abstand: 0.75 }, fov: 36, rate: 0.09 },
-    haupt: { wer: 'brille', was: 'bleibt_klar', wort: 'clear', dauer: 0.8 },
+    figuren: {
+      brille: { position: L(-0.39, 2.33, -50.0), blick: 0 },
+      bear: { position: STEG_N.bear, blick: 180, gesicht: 'besorgt' },
+    },
+    kamera: { pos: L(-0.36, 2.42, -50.6), ziel: L(-0.4, 2.38, -49.55), fov: 54, rate: 0.06 },
+    tiefe: { fokus: 'bear.kopf', staerke: 0.35 },
+    haupt: { wer: 'brille', was: 'bleibt_klar', wort: 'clear', dauer: 0.8, params: { glanz: 0.08 } },
     hauptsache: 'brille.mitte',
   },
   // "I already lost Mom to this lake." – Bogen um Gus, die Augen nass
@@ -909,11 +980,11 @@ export const einstellungen = {
   // ───────── Erklärung ─────────
   // "I never knocked back." – Rückblende: Gus' Hand auf „NEVER KNOCK BACK.“
   '50': {
-    figuren: { gus: { position: RA(0, 0, 0.62), blick: 180 }, buch2: { position: RA(0, 1.05, 0), blick: 0 } },
+    // Review Kindly F1: nur die Zeile, ohne Hand (die Hand lag unscharf über 40 % des Bildes und dem Text)
+    figuren: { buch2: { position: RA(0, 1.05, 0), blick: 0 } },
     lampen_einzeln: BUCH_LICHT,
-    kamera: { ziel: { anker: 'buch2.zeile', versatz: [0.08, 0, 0.0] }, blick: { azimut: 10, hoehe: 58, abstand: 0.75, bezug: 'buch2.zeile' }, fov: 42, rate: 0.08 },
-    neben: [...DRINNEN('gus'), { wer: 'gus', was: 'greifen', ab: 'start', dauer: 0.01, params: { zu: 'buch2.zeile', seite: 'r' } }],
-    haupt: { wer: 'gus', was: 'greifen', wort: 'knocked', dauer: 0.5, params: { zu: 'buch2.zeile_ende', seite: 'r' } },
+    kamera: { ziel: { anker: 'buch2.zeile', versatz: [0.11, 0, 0.0] }, blick: { azimut: 6, hoehe: 62, abstand: 0.62, bezug: 'buch2.zeile' }, fov: 42, rate: 0.09 },
+    haupt: { art: 'kamera', wort: 'knocked' },
     hauptsache: 'buch2.zeile',
   },
   // "I knocked first," – Rückblende: Bears Stiefel tippt dreimal
@@ -925,7 +996,7 @@ export const einstellungen = {
   },
   // "and it answered." – Rückblende: die Fäuste antworten von unten
   '51:and': {
-    figuren: { ok: { position: OK_UNTER_BEAR, blick: 0, gesicht: 'glatt' }, bear: { position: UEBER_KOPF, blick: -53 } },
+    figuren: { ok: { position: OK_UNTER_BEAR, blick: 0, gesicht: 'glatt' }, bear: { position: plus(UEBER_KOPF, [0, AUF_EIS, 0]), blick: -53 } },
     kamera: { pos: L(2, -3.2, -37.0), ziel: L(2, -0.35, -31.8), fov: 56, rate: 0.08 },
     haupt: { wer: 'ok', was: 'klopfen_unten', wort: 'answered', dauer: 0.66 },
     hauptsache: 'ok.haende',
@@ -958,8 +1029,8 @@ export const einstellungen = {
   // "down there, looking up." – Rückblende von unten (wie S16): oben zieht Gus die Kopie aus dem klaren Fenster
   '53:down': {
     figuren: {
-      gus: { position: L(1.65, 0, -31.2), blick: 180 },
-      bear: { position: L(2.2, 0, -30.9), blick: 180 },
+      gus: { position: L(1.65, AUF_EIS, -31.2), blick: 180 },
+      bear: { position: L(2.2, AUF_EIS, -30.9), blick: 180 },
     },
     kamera: { baustein: 'dolly_out', pos: L(2, -2.0, -29.2), ziel: L(2, 0.7, -32.6), fov: 56, rate: -0.06 },
     set_ereignisse: [{ set: 'see', was: 'klar', versatz: -0.05, dauer: 0.01, mitte: STELLE, radius: 1.35 }],
@@ -988,6 +1059,8 @@ export const einstellungen = {
     licht_anpassung: HUETTE_LICHT,
     kamera: { punkt: 'huette.loch', rate: 0.08, zusaetze: [{ baustein: 'shake', wort: 'three', versatz: 0.12 }] },
     licht_ereignisse: [{ licht_art: 'flackern', ziel: 'huette.lampe', wort: 'came', dauer: 1.0, ende_faktor: 1 }],
+    // je Schlag springt ein Riss in der Eishaut über dem Wasser (Review: das Loch blieb bei den Schlägen unbewegt)
+    set_ereignisse: [0, 0.29, 0.58].map((v, k) => ({ set: 'huette', was: 'risse', wort: 'three', versatz: 0.05 + v, dauer: 0.1, mitte: [-0.25 + (k - 1) * 0.12, 0.3 + (k % 2) * 0.1], radius: 0.15 })),
     haupt: { art: 'set', set: 'huette', was: 'zittern', wort: 'three', dauer: 1.0, params: { schlaege: 3, staerke: 1.4 } },
     hauptsache: 'huette.loch',
   },
@@ -1020,6 +1093,7 @@ export const einstellungen = {
   '58': {
     licht_anpassung: HUETTE_LICHT,
     kamera: { baustein: 'crane_down_tilt', punkt: 'huette.loch', hoehe: 0.45, rueck: 0.25, ankunft_wort: 'clear' },
+    set_ereignisse: [{ set: 'huette', was: 'risse_weg', wort: 'turned', versatz: 0, dauer: 0.01 }],
     haupt: { art: 'set', set: 'huette', was: 'klar', wort: 'turned', dauer: 0.8 },
     hauptsache: 'huette.loch',
   },
@@ -1059,12 +1133,17 @@ export const einstellungen = {
     haupt: { art: 'kamera', wort: 'lips' },
     hauptsache: 'ok2.mund',
   },
-  // "Gus put the lid on the hole." – Gus kniet hinter dem Loch und legt den Deckel darauf
+  // "Gus put the lid on the hole." – von oben schräg auf das Loch (Review Kindly F1): unten im klaren Eis noch Bears
+  // Gesicht, dahinter kniet Gus; auf „put“ schwenkt der dunkle Deckel mit Eisenbändern herüber und legt sich darauf,
+  // danach 0,6 s der geschlossene Deckel. (Vorher Untersicht durch die Bretter: Holz auf Holz, kaum lesbar.)
   '63': {
     licht_anpassung: HUETTE_LICHT,
-    figuren: { gus: { position: HU(-0.25, 0, -0.42), blick: 0, gesicht: 'leer', pose: 'ducken', pose_params: { tiefe: 0.45 } } },
-    kamera: { pos: HU(-0.2, 1.3, 1.3), ziel: HU(-0.25, 0.45, -0.05), fov: 56, rate: 0.07 },
-    neben: [...DRINNEN('gus'), { wer: 'gus', was: 'greifen', wort: 'Gus', dauer: 0.4, params: { zu: 'huette.deckel', seite: 'r' } }],
+    figuren: {
+      gus2: { position: HU(-0.25, 0, -0.42), blick: 0, gesicht: 'leer' },
+      ok2: { position: OK2_TIEF, blick: 0, gesicht: 'bear' },
+    },
+    kamera: { pos: HU(-0.2, 1.7, 1.12), ziel: HU(-0.25, 0.45, -0.05), fov: 56, rate: 0.05 },
+    neben: [...DRINNEN('gus2'), { wer: 'ok2', was: 'andruecken', ab: 'start', dauer: 0.01, params: { hoehe: 0.12 } }],
     haupt: { art: 'set', set: 'huette', was: 'deckel_drauf', wort: 'put', dauer: 0.6 },
     hauptsache: 'huette.loch',
   },
@@ -1083,25 +1162,30 @@ export const einstellungen = {
     haupt: { wer: 'gus', was: 'greifen', wort: 'took', dauer: 0.4, params: { zu: 'bear.hand_r', seite: 'l', lehnen: false } },
     hauptsache: 'gus.kopf',
   },
-  // "we walked home across the ice." – Totale bei Nacht: zwei Figuren gehen zur Stadt; Gus dampft, Bear nicht
+  // "we walked home across the ice." – Totale bei Nacht (Review Kindly F1, P0): die beiden verlassen die Hütte BEAR & GUS
+  // und gehen auf die Kamera zu, Richtung Stadt. Hinter Gus die Türlampe der Hütte als Gegenlicht: sein Atem leuchtet
+  // dicht vor ihm auf, Bear dampft nicht. Gus geht außen, 1,2 m neben Bear, Gesicht nach vorn (kein Kopfdrehen
+  // mehr: vorher zog seine Wolke 1,2 s lang an Bears Kinn, in Feed-Größe sah es aus, als dampfe Bear).
   '64:we': {
     figuren: {
-      gus: { position: L(2.6, 0, -20.0), blick: 175 },
-      bear: { position: L(3.35, 0, -19.8), blick: 175 },
+      gus: { position: L(8.75, 0, -29.6), blick: 180 },
+      bear: { position: L(7.55, 0, -29.75), blick: 180 },
     },
-    kamera: { baustein: 'dolly_out', pos: L(2.7, 1.75, -27.2), ziel: L(2.7, 1.35, -21.8), fov: 40, rate: -0.06 },
-    neben: [
-      { wer: 'bear', was: 'gehen', ab: 'start', dauer: 1.75, params: { nach: [3.05, 1000 - 23.4] } },
-      { wer: 'gus', was: 'kopf_drehen', ab: 'start', versatz: 0.3, dauer: 0.4, params: { zu: 'bear.kopf' } },
-    ],
-    haupt: { wer: 'gus', was: 'gehen', wort: 'walked', dauer: 1.4, params: { nach: [2.3, 1000 - 23.6] } },
-    hauptsache: 'gus.kopf',
+    kamera: { baustein: 'dolly_out', pos: L(8.15, 1.6, -36.3), ziel: L(8.15, 1.5, -30.6), fov: 42, rate: -0.05 },
+    neben: [{ wer: 'bear', was: 'gehen', ab: 'start', dauer: 1.75, params: { nach: [7.6, 1000 - 31.9] } }],
+    haupt: { wer: 'gus', was: 'gehen', wort: 'walked', dauer: 1.5, params: { nach: [8.8, 1000 - 31.8] } },
+    hauptsache: [8.15, 1.5, 1000 - 30.8],
   },
-  // "Gus doesn't tap the ice anymore." – Folgefahrt auf Gus' Stiefel: der Pickel hängt, er tippt nicht mehr
+  // "Gus doesn't tap the ice anymore." – tief von der Seite, Kniehöhe: Gus' Stiefel und der hängende Pickel gleiten übers
+  // Eis, daneben Bears Stiefel. Kein Tippen, kein Ton (vorher füllte Gus' Körper unscharf das linke Drittel)
   '65': {
-    figuren: { gus: { position: L(2.3, 0, -24.0), blick: 180 } },
-    kamera: { baustein: 'track_follow', folge: 'gus', versatz: [1.7, 0.85, -0.6], ziel_versatz: [0, 0.55, -0.5], lokal: false, fov: 46 },
-    haupt: { wer: 'gus', was: 'gehen', wort: 'Gus', dauer: 1.75, params: { nach: [2.3, 1000 - 26.8] } },
+    figuren: {
+      gus: { position: L(8.8, 0, -32.1), blick: 180 },
+      bear: { position: L(7.6, 0, -32.2), blick: 180 },
+    },
+    kamera: { baustein: 'track_follow', folge: 'gus', versatz: [3.2, 0.32, -1.7], ziel_versatz: [-0.65, 0.3, -0.25], lokal: false, fov: 30 },
+    neben: [{ wer: 'bear', was: 'gehen', ab: 'start', dauer: 1.8, params: { nach: [7.6, 1000 - 35.4] } }],
+    haupt: { wer: 'gus', was: 'gehen', wort: 'Gus', dauer: 1.75, params: { nach: [8.8, 1000 - 35.3] } },
     hauptsache: 'gus.fuss',
   },
 };

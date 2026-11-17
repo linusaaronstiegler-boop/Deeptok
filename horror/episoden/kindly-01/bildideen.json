@@ -1441,13 +1441,13 @@
     "gus",
     "stiefel"
    ],
-   "aktion": "Gus steht an der Tür und starrt in die Glut des Ofens, er sieht nicht auf.",
+   "aktion": "Gus steht an der Tür und starrt mit gesenktem Blick in die Glut des Ofens, Dreiviertelprofil, er sieht nicht auf (Review: vorher frontal).",
    "schluesselwort": "look",
    "kamera": "push-in",
    "groesse": "halbnah",
    "monster": false,
    "gesicht": {
-    "gus": "leer"
+    "gus": "blick_gesenkt"
    },
    "hinweis": "Die Lampe hängt mitten in der Hütte: Gus steht an der Tür, damit sie nicht neben seinem Kopf ausbrennt"
   },
@@ -1533,10 +1533,9 @@
    "ort": "rathaus",
    "licht": "rathaus",
    "figuren": [
-    "gus",
     "stadtbuch"
    ],
-   "aktion": "Rückblende: Gus' Finger auf „NEVER KNOCK BACK.“ im Stadtbuch.",
+   "aktion": "Rückblende: die Zeile „NEVER KNOCK BACK.“ im Stadtbuch, ohne Hand (Review: die Hand verdeckte den Text).",
    "schluesselwort": "knocked",
    "kamera": "push-in",
    "groesse": "detail",

@@ -13,16 +13,18 @@
 // Set-Ereignisse (params.ereignisse; regie.mjs: { art: "set", set: "huette", was, wort }):
 //   klar         { dauer (Std 0,8), radius (Std 0,45), staerke }: die Eishaut im Loch wird klar (S58)
 //   zittern      { dauer (Std 1,2), schlaege (Std 3), staerke (Std 1) }: das Wasser im Loch zittert im Takt (S54–55)
+//   risse        { mitte [x, z], radius (Std 0,35), dauer }: ein Riss springt in der Eishaut (wie im Set see)
 //   deckel_drauf { dauer (Std 0,6) }: der Holzdeckel hebt sich vom Boden und legt sich aufs Loch (S63, auf „put“);
 //                deckel_weg legt ihn zurück
 //   riegel_zu    { dauer (Std 0,25) }: der Türriegel schiebt sich zu (S49); riegel_auf öffnet
 //   hauch        { mitte [u, v] (Std [0,5, 0,45]), radius (Std 0,22), dauer (Std 1,6) }: Atem beschlägt die
 //                Frostscheibe milchig und vergeht (nur echte Menschen; Bears Kopie haucht ohne Ereignis)
-// params: ofen (Std 1, Stärke der Glut), lampe (Std 1), punktlichter (Std true)
+// params: ofen (Std 1, Stärke der Glut), lampe (Std 1), punktlichter (Std true), fenster_klar (0..1), alter_hauch
+//         [u, v, r, staerke], deckel_farbe (dunkles Holz, dann Eisenbänder)
 // Lichtgruppen: huette.ofen (Glut + Punktlicht), huette.lampe (Petroleumlampe + Punktlicht), huette.fenster
 import * as THREE from 'three';
 import { k, zyl, verschmelze, tmat } from '../src/bauteile.js';
-import { eisMaterial, eisGeometrie, klarStellen, ereignisStand } from '../src/winter.js';
+import { eisMaterial, eisGeometrie, klarStellen, rissStellen, ereignisStand } from '../src/winter.js';
 
 export const HUETTE = {
   x0: -1.12, x1: 1.12, z0: -1.42, z1: 1.42,
@@ -85,7 +87,8 @@ export default async function baue(ctx, params = {}) {
 
   // ---------- Wände, Decke (Pultdach), Eckleisten ----------
   const wandStueck = (b, h, t, x, y, zz) => k(statisch, b, h, t, wandMat, x, y, zz);
-  const F = H.fenster, Tu = H.tuer;
+  // params.fenster_y: Fenstermitte höher setzen (Kindly F1, S42–45: Bears Gesicht soll im Fenster liegen)
+  const F = { ...H.fenster, y: params.fenster_y ?? H.fenster.y }, Tu = H.tuer;
   // hinten (z0) und links (x0): ganz
   wandStueck(B + 0.16, 2.3, 0.08, 0, 1.15, H.z0 - 0.04);
   wandStueck(0.08, 2.3, Tt + 0.16, H.x0 - 0.04, 1.15, 0);
@@ -157,12 +160,49 @@ export default async function baue(ctx, params = {}) {
     g.fillStyle = 'rgba(235,244,255,0.18)'; g.fillRect(0, 0, w, h);
   }, 512, 400);
   const frostMat = new T.MeshStandardMaterial({ map: frostTex, emissive: new T.Color('#8fa8d0'), emissiveMap: frostTex, emissiveIntensity: 0.45, roughness: 0.4 });
-  const hauchU = { uHauch: { value: new T.Vector4(0.5, 0.45, 0.22, 0) } };
+  // params.fenster_klar (0..1, Review Kindly F1): Mitte der Scheibe dunkel und klar, Frost nur an den Rändern.
+  // Auf ganz weißem Frost konnte kein Hauchfleck erscheinen, „Nothing.“ war nicht zu sehen.
+  // params.alter_hauch [u, v, radius, staerke]: ein alter, halb zugefrorener Hauchfleck (Gus' Seite) als Vergleich:
+  // so sieht die Scheibe aus, wenn ein Mensch sie anhaucht.
+  const hauchU = {
+    uHauch: { value: new T.Vector4(0.5, 0.45, 0.22, 0) },
+    uKlar: { value: params.fenster_klar ?? 0 },
+    uAlt: { value: new T.Vector4(...(params.alter_hauch ?? [0.75, 0.5, 0.16, 0])) },
+  };
   frostMat.onBeforeCompile = (shader) => {
     Object.assign(shader.uniforms, hauchU);
     shader.fragmentShader = shader.fragmentShader
-      .replace('#include <common>', '#include <common>\nuniform vec4 uHauch;')
+      .replace('#include <common>', '#include <common>\nuniform vec4 uHauch;\nuniform float uKlar;\nuniform vec4 uAlt;')
       .replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
+  {
+    // klare Mitte: Nacht draußen, schwarzblau mit einem schwachen Schimmer; Frost bleibt am Rand (Abstand zum Rahmen)
+    vec2 q = abs(vMapUv - 0.5) * 2.0;
+    float randAbst = max(q.x, q.y * 1.1);
+    float mitte = (1.0 - smoothstep(0.55, 0.86, randAbst + (sin(vMapUv.x * 31.0) * 0.03 + sin(vMapUv.y * 23.0) * 0.03))) * uKlar;
+    diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.035, 0.05, 0.075) + 0.05 * vec3(0.5, 0.6, 0.8) * (1.0 - vMapUv.y), mitte);
+    totalEmissiveRadiance *= 1.0 - 0.92 * mitte;
+    // die klare Mitte ist durchsichtig (Kamera draußen vor der Scheibe sieht Bears Gesicht durchs Glas)
+    diffuseColor.a = mix(1.0, 0.08, mitte);
+    // alter Hauchfleck auf der klaren Scheibe: milchig-weiß, Tröpfchen, zwei Laufspuren nach unten
+    vec2 da = (vMapUv - uAlt.xy) * vec2(1.28, 1.0);
+    float ra = length(da);
+    float alt = (1.0 - smoothstep(uAlt.z * 0.35, uAlt.z, ra + 0.012 * sin(atan(da.y, da.x) * 3.0))) * uAlt.w;
+    // Tröpfchen im Beschlag (Zellrauschen) und zwei dünne Laufspuren nach unten
+    vec2 zc = floor(vMapUv * vec2(96.0, 74.0));
+    float hz = fract(sin(dot(zc, vec2(12.9898, 78.233))) * 43758.5453);
+    float tropfen = step(0.8, hz) * alt;
+    float lauf = 0.0;
+    for (int i = 0; i < 2; i++) {
+      float lx = uAlt.x + (float(i) - 0.5) * uAlt.z * 0.6;
+      float unter = step(vMapUv.y, uAlt.y - uAlt.z * 0.3) * step(uAlt.y - uAlt.z * 1.5, vMapUv.y);
+      lauf = max(lauf, (1.0 - smoothstep(0.003, 0.008, abs(vMapUv.x - lx))) * unter);
+    }
+    diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.72, 0.77, 0.82), alt * 0.75);
+    diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.42, 0.48, 0.55), tropfen * 0.55);
+    diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.6, 0.66, 0.72), lauf * 0.4 * uAlt.w);
+    diffuseColor.a = max(diffuseColor.a, max(alt * 0.88, lauf * 0.45 * uAlt.w));
+    totalEmissiveRadiance += vec3(0.16, 0.18, 0.2) * alt;
+  }
   {
     // Warmer Atem auf der Frostscheibe: der Frost taut zu einem dunklen, nassen Fleck mit hellem
     // Beschlag-Rand, der wieder zufriert (uHauch.w = Stärke). Auf weißem Frost liest sich nur dunkel.
@@ -176,12 +216,14 @@ export default async function baue(ctx, params = {}) {
   }`);
   };
   frostMat.customProgramCacheKey = () => 'kindly-frostfenster';
+  // Mit klarer Mitte: durchsichtig und von beiden Seiten sichtbar (Review Kindly F1: S42–45 durchs Glas von draußen)
+  if ((params.fenster_klar ?? 0) > 0) { frostMat.transparent = true; frostMat.side = T.DoubleSide; }
   const scheibe = new T.Mesh(new T.PlaneGeometry(F.b, F.h), frostMat);
   scheibe.position.set(H.x1 + 0.035, F.y, F.z); scheibe.rotation.y = -Math.PI / 2;
   scheibe.userData.einzeln = true;
   gruppe.add(scheibe);
   // Rahmen: oben, unten, links, rechts, Mittelsprosse (b = Ausdehnung längs der Wand, h = Höhe)
-  for (const [b, h, dy, dz] of [[F.b + 0.08, 0.05, F.h / 2 + 0.02, 0], [F.b + 0.08, 0.06, -F.h / 2 - 0.03, 0], [0.04, F.h, 0, F.b / 2 + 0.02], [0.04, F.h, 0, -F.b / 2 - 0.02], [0.025, F.h, 0, 0]]) k(statisch, 0.05, h, b, leiste, H.x1 - 0.005, F.y + dy, F.z + dz);
+  for (const [b, h, dy, dz] of [[F.b + 0.08, 0.05, F.h / 2 + 0.02, 0], [F.b + 0.08, 0.06, -F.h / 2 - 0.03, 0], [0.04, F.h, 0, F.b / 2 + 0.02], [0.04, F.h, 0, -F.b / 2 - 0.02], ...((params.fenster_klar ?? 0) > 0 ? [] : [[0.025, F.h, 0, 0]])]) k(statisch, 0.05, h, b, leiste, H.x1 - 0.005, F.y + dy, F.z + dz);
   k(statisch, 0.12, 0.03, F.b + 0.1, leiste, H.x1 - 0.06, F.y - F.h / 2 - 0.05, F.z);   // Fensterbrett
 
   // ---------- Ofen mit Glut, Ofenrohr ----------
@@ -229,9 +271,11 @@ export default async function baue(ctx, params = {}) {
 
   // ---------- Holzdeckel fürs Loch (bewegt sich beim Ereignis deckel_drauf) ----------
   const deckel = new T.Group(); gruppe.add(deckel);
-  const deckelHolz = tmat(ctx, '#9a7650', 'holz', { rauheit: 0.85 });
+  // dunkles, geteertes Holz mit zwei Eisenbändern: hebt sich vom hellen Dielenboden ab (Review Kindly F1: Holz auf
+  // Holz, der Deckel verschwand in 0,3 s im Boden)
+  const deckelHolz = tmat(ctx, params.deckel_farbe ?? '#9a7650', 'holz', { rauheit: 0.85 });
   for (let i = 0; i < 5; i++) k(deckel, 0.155, 0.035, L.b + 0.12, deckelHolz, -0.33 + i * 0.165, 0, 0, { rund: 0.006 });
-  for (const sz of [-0.25, 0.25]) k(deckel, L.b + 0.08, 0.03, 0.08, leiste, 0, 0.03, sz);
+  for (const sz of [-0.25, 0.25]) k(deckel, L.b + 0.08, 0.03, 0.08, params.deckel_farbe ? eisen : leiste, 0, 0.03, sz);
   k(deckel, 0.18, 0.04, 0.05, eisen, 0, 0.065, 0, { rund: 0.015 });   // Griff
   deckel.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.userData.einzeln = true; } });
   const [rx, ry, rz, rdreh] = H.deckelRest;
@@ -294,7 +338,8 @@ export default async function baue(ctx, params = {}) {
     },
     aktualisiere(t) {
       // Eishaut klar
-      haut.eis.setze({ klar: klarStellen(ereignisse, t, { mitte: [L.x, L.z], radius: 0.45 }) });
+      // Risse in der Eishaut (Review Kindly F1: S54 „came three taps“, je Schlag ein Riss)
+      haut.eis.setze({ klar: klarStellen(ereignisse, t, { mitte: [L.x, L.z], radius: 0.45 }), risse: rissStellen(ereignisse, t, { mitte: [L.x, L.z], radius: 0.35 }) });
       // Deckel und Riegel
       deckelPose(ereignisStand(ereignisse, t, { deckel_drauf: 1, deckel_weg: 0 }, 0.6));
       bolzen.position.x = bolzenAuf + (bolzenZu - bolzenAuf) * ereignisStand(ereignisse, t, { riegel_zu: 1, riegel_auf: 0 }, 0.25);

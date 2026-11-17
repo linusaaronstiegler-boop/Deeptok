@@ -142,7 +142,7 @@ export class Welt {
       if (!anim) throw new Error(`Animation "${was}" fehlt für Figur ${id}`);
       const dauer = a?.dauer ?? anim.dauer ?? 0;
       anim.anwenden(inst, p, params, {
-        t, roh: a ? fortschritt(t, a.start, dauer) : 1, tLokal: a ? Math.min(Math.max(0, t - a.start), dauer) : 0, dauer,
+        t, roh: a ? (a.sofort ? 1 : fortschritt(t, a.start, dauer)) : 1, tLokal: a ? (a.sofort ? dauer : Math.min(Math.max(0, t - a.start), dauer)) : 0, dauer,
         mischen, mischeWinkel, GRAD, welt: this, figurId: id, THREE,
         // Zielpunkt für Blick/Zeigen: "kamera" (Position am Einstellungsbeginn), [x,y,z] oder Anker
         // (andere Figuren werden dafür zuerst auf dieselbe Zeit gesetzt).
@@ -171,7 +171,11 @@ export class Welt {
 
     for (let k = ab; k < fig.aktionen.length; k++) {
       const a = fig.aktionen[k];
-      if (a.start > t) break;
+      // "sofort" (Review Kindly F1): Aktion am Schnitt, die im ERSTEN Bild schon ganz gilt. Der Compiler schreibt
+      // Startzeiten auf 4 Stellen gerundet (113,9667 > Bildzeit 113,96666…); ohne Toleranz fehlte die Aktion
+      // im ersten Bild, und mit Dauer 0,01 stand sie dort bei Fortschritt 0 (Hand sprang im 2. Bild ins Bild).
+      if (a.start > t + 1e-4) break;
+      if (a.start > t && !a.sofort) continue;
       if (a.was === 'gesicht') { gesicht = a.params.name ?? a.gesicht; continue; }
       if (a.was === 'sichtbar') { g.visible = a.params.wert !== false; continue; }
       if (a.was === 'stellung') {
@@ -187,7 +191,7 @@ export class Welt {
       const anim = this.animation(fig, a.was);
       const dauer = a.dauer ?? anim.dauer ?? 0.3;
       const ease = easeFunktion(a.ease ?? anim.ease ?? 'ease_in_out');
-      anwenden(a.was, ease(fortschritt(t, a.start, dauer)), a.params, { ...a, dauer });
+      anwenden(a.was, a.sofort ? 1 : ease(fortschritt(t, a.start, dauer)), a.params, { ...a, dauer });
     }
 
     if (inst.setzeGesicht && gesicht) {

@@ -27,6 +27,7 @@
     1000
    ],
    "params": {
+    "wasser_schein": true,
     "ereignisse": [
      {
       "was": "klar",
@@ -36,17 +37,27 @@
       ],
       "radius": 0.95,
       "staerke": 0.95,
-      "start": 0.9667,
+      "start": -0.3,
       "dauer": 0.01
      },
      {
       "was": "risse",
       "mitte": [
-       1.3,
-       -30.55
+       1.1,
+       -30.5
       ],
       "radius": 1.5,
-      "start": 1.6,
+      "start": 0.12,
+      "dauer": 0.12
+     },
+     {
+      "was": "risse",
+      "mitte": [
+       2.95,
+       -30.45
+      ],
+      "radius": 1.4,
+      "start": 1.525,
       "dauer": 0.12
      },
      {
@@ -63,16 +74,16 @@
       "was": "klar",
       "mitte": [
        1.3,
-       -30.55
+       -30.65
       ],
       "radius": 0.95,
       "staerke": 0,
-      "start": 2.9333,
+      "start": 2.9166,
       "dauer": 0.01
      },
      {
       "was": "risse_weg",
-      "start": 2.9333,
+      "start": 2.9166,
       "dauer": 0.01
      },
      {
@@ -83,13 +94,70 @@
       ],
       "staerke": 0,
       "radius": 1.4,
-      "start": 4.4333,
+      "start": 4.4166,
       "dauer": 0.01
+     },
+     {
+      "was": "risse_weg",
+      "start": 5.7833,
+      "dauer": 0.01
+     },
+     {
+      "was": "risse",
+      "mitte": [
+       1.02,
+       -30.48
+      ],
+      "radius": 0.9,
+      "start": 6.12,
+      "dauer": 0.12
      },
      {
       "was": "risse_weg",
       "start": 23.8667,
       "dauer": 0.01
+     },
+     {
+      "was": "klar",
+      "mitte": [
+       2,
+       -28.5
+      ],
+      "radius": 3.6,
+      "staerke": 0.9,
+      "start": 26.2167,
+      "dauer": 0.01
+     },
+     {
+      "was": "klar",
+      "mitte": [
+       2,
+       -28.5
+      ],
+      "radius": 3.6,
+      "staerke": 0,
+      "start": 27.6833,
+      "dauer": 0.01
+     },
+     {
+      "was": "risse",
+      "mitte": [
+       2.98,
+       -30.48
+      ],
+      "radius": 1.2,
+      "start": 28.23,
+      "dauer": 0.18
+     },
+     {
+      "was": "risse",
+      "mitte": [
+       -0.47,
+       -35.35
+      ],
+      "radius": 0.85,
+      "start": 30.07,
+      "dauer": 0.45
      },
      {
       "was": "klar",
@@ -109,12 +177,22 @@
       ],
       "staerke": 0,
       "radius": 1.4,
-      "start": 40.4667,
+      "start": 40.45,
       "dauer": 0.01
      },
      {
+      "was": "risse",
+      "mitte": [
+       -6.15,
+       -39.8
+      ],
+      "radius": 0.8,
+      "start": 44.625,
+      "dauer": 0.5
+     },
+     {
       "was": "risse_weg",
-      "start": 72.8,
+      "start": 72.7833,
       "dauer": 0.01
      },
      {
@@ -198,6 +276,15 @@
    ],
    "params": {
     "lampe": 0.45,
+    "fenster_klar": 1,
+    "fenster_y": 1.5,
+    "alter_hauch": [
+     0.8,
+     0.38,
+     0.17,
+     1
+    ],
+    "deckel_farbe": "#3e2a1a",
     "ereignisse": [
      {
       "was": "riegel_zu",
@@ -212,9 +299,44 @@
       "staerke": 1.4
      },
      {
+      "was": "risse",
+      "mitte": [
+       -0.37,
+       0.3
+      ],
+      "radius": 0.15,
+      "start": 122.57,
+      "dauer": 0.1
+     },
+     {
+      "was": "risse",
+      "mitte": [
+       -0.25,
+       0.4
+      ],
+      "radius": 0.15,
+      "start": 122.86,
+      "dauer": 0.1
+     },
+     {
+      "was": "risse",
+      "mitte": [
+       -0.13,
+       0.3
+      ],
+      "radius": 0.15,
+      "start": 123.15,
+      "dauer": 0.1
+     },
+     {
       "was": "klar",
       "start": 128.34,
       "dauer": 0.8
+     },
+     {
+      "was": "risse_weg",
+      "start": 128.34,
+      "dauer": 0.01
      },
      {
       "was": "deckel_drauf",
@@ -293,6 +415,21 @@
    "id": "gus",
    "modul": "gus",
    "gesicht": "ernst"
+  },
+  {
+   "position": [
+    0,
+    -40,
+    0
+   ],
+   "blick": 0,
+   "sichtbar": false,
+   "id": "gus2",
+   "modul": "gus",
+   "params": {
+    "pickel": false
+   },
+   "gesicht": "leer"
   },
   {
    "position": [
@@ -474,6 +611,9 @@
    "sichtbar": false,
    "id": "ok",
    "modul": "old_knuckles",
+   "params": {
+    "kante": 1.25
+   },
    "gesicht": "glatt",
    "blinzeln": false
   },
@@ -594,17 +734,17 @@
    "licht": "see_unter",
    "kamera": {
     "baustein": "push_in",
-    "pos": [
-     2,
-     -3.2,
-     965.7
-    ],
     "ziel": [
-     2,
-     -0.45,
-     970.6
+     1.25,
+     -0.12,
+     969.5
     ],
-    "fov": 56,
+    "blick": {
+     "azimut": 150,
+     "hoehe": 46,
+     "abstand": 2.2
+    },
+    "fov": 40,
     "rate": 0.09
    },
    "stellung": {
@@ -633,6 +773,18 @@
    },
    "aktionen": [
     {
+     "wer": "ok",
+     "was": "klopfen_unten",
+     "dauer": 0.16,
+     "params": {
+      "schlaege": 1,
+      "seite": "r",
+      "tiefe": 0.3
+     },
+     "start": 0,
+     "nebenbei": true
+    },
+    {
      "wer": "f4",
      "was": "stiefel_tippen",
      "start": 0.28,
@@ -641,6 +793,27 @@
       "seite": "r",
       "schlaege": 3
      }
+    }
+   ],
+   "partikel": [
+    {
+     "start": 0.12,
+     "dauer": 1.1,
+     "art": "staub",
+     "ort": [
+      1.1,
+      0.05,
+      969.5
+     ],
+     "farbe": "#f2f6fb",
+     "anzahl": 110,
+     "groesse": 0.028,
+     "bereich": [
+      1,
+      0.45,
+      1
+     ],
+     "deckkraft": 0.95
     }
    ],
    "schatten_bereich": 24,
@@ -668,7 +841,7 @@
      "schluesselwort_idee": "town"
     },
     "gesichter": [],
-    "hauptsache": "ok.brust",
+    "hauptsache": "ok.faust_r",
     "bogen_zeit": 1.2,
     "akzent": false,
     "monster": true,
@@ -688,22 +861,22 @@
    "licht": "see_morgengrauen",
    "kamera": {
     "baustein": "push_in",
-    "ziel": [
-     1.3,
-     -0.12,
-     969.45
+    "pos": [
+     2,
+     -3.2,
+     965.7
     ],
-    "blick": {
-     "azimut": 150,
-     "hoehe": 46,
-     "abstand": 2.3
-    },
-    "fov": 40,
-    "rate": 0.08,
+    "ziel": [
+     2,
+     -0.45,
+     970.6
+    ],
+    "fov": 56,
+    "rate": 0.09,
     "zusaetze": [
      {
       "baustein": "shake",
-      "start": 1.6
+      "start": 1.53
      }
     ]
    },
@@ -713,7 +886,7 @@
      "sichtbar": true,
      "position": [
       1.38,
-      0,
+      0.015,
       969.68
      ],
      "blick": 0,
@@ -736,32 +909,11 @@
      "wer": "ok",
      "was": "klopfen_unten",
      "start": 1.3,
-     "dauer": 1.2
-    }
-   ],
-   "partikel": [
-    {
-     "start": 1.6,
-     "dauer": 1.2,
-     "art": "staub",
-     "ort": [
-      1.3,
-      0.05,
-      969.45
-     ],
-     "farbe": "#f2f6fb",
-     "anzahl": 90,
-     "groesse": 0.025,
-     "bereich": [
-      1,
-      0.4,
-      1
-     ],
-     "deckkraft": 0.9
+     "dauer": 0.9
     }
    ],
    "tiefenunschaerfe": {
-    "fokus": "ok.faust_r",
+    "fokus": "ok.brust",
     "staerke": 0.8
    },
    "schatten_bereich": 24,
@@ -784,13 +936,13 @@
      "wort_i": 6,
      "wort_start": 1.3,
      "start": 1.3,
-     "ende": 2.5,
+     "ende": 2.2,
      "anker": "start",
      "schluesselwort_idee": "knocks"
     },
     "gesichter": [],
-    "hauptsache": "ok.faust_r",
-    "bogen_zeit": 2.6,
+    "hauptsache": "ok.brust",
+    "bogen_zeit": 2.3,
     "akzent": false,
     "monster": true,
     "sichtbar": [
@@ -1020,7 +1172,20 @@
      "sichtbar": false
     }
    },
-   "aktionen": [],
+   "aktionen": [
+    {
+     "wer": "ok",
+     "was": "klopfen_unten",
+     "dauer": 0.4,
+     "params": {
+      "schlaege": 1,
+      "seite": "r",
+      "tiefe": 0.28
+     },
+     "start": 5.82,
+     "nebenbei": true
+    }
+   ],
    "tiefenunschaerfe": {
     "fokus": "ok.faust_r",
     "staerke": 0.8
@@ -1760,30 +1925,42 @@
    "licht": "see_morgengrauen",
    "kamera": {
     "baustein": "push_in",
-    "ziel": "brille.mitte",
-    "blick": {
-     "azimut": 160,
-     "hoehe": 6,
-     "abstand": 0.75
-    },
-    "fov": 36,
-    "rate": 0.08
+    "pos": [
+     -0.1,
+     2.33,
+     951.4
+    ],
+    "ziel": [
+     -0.15,
+     2.27,
+     952.5
+    ],
+    "fov": 54,
+    "rate": 0.06
    },
    "stellung": {
     "brille": {
      "neu": true,
      "sichtbar": true,
      "position": [
-      0.1,
-      2.05,
-      951.95
+      -0.13,
+      2.23,
+      952
      ],
-     "blick": 180
-    },
-    "odell2": {
-     "sichtbar": false
+     "blick": 0
     },
     "f3": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -0.15,
+      0.85,
+      952.75
+     ],
+     "blick": 180,
+     "gesicht": "neutral"
+    },
+    "odell2": {
      "sichtbar": false
     }
    },
@@ -1796,8 +1973,8 @@
     }
    ],
    "tiefenunschaerfe": {
-    "fokus": "brille.mitte",
-    "staerke": 0.8
+    "fokus": "f3.kopf",
+    "staerke": 0.35
    },
    "schatten_bereich": 24,
    "text": "If they fog,",
@@ -1829,7 +2006,8 @@
     "akzent": false,
     "monster": false,
     "sichtbar": [
-     "brille"
+     "brille",
+     "f3"
     ]
    }
   },
@@ -1892,7 +2070,8 @@
      "was": "beschlagen",
      "dauer": 0.01,
      "start": 18.2333,
-     "nebenbei": true
+     "nebenbei": true,
+     "sofort": true
     },
     {
      "wer": "odell2",
@@ -1994,7 +2173,8 @@
       "staerke": 0.5
      },
      "start": 19.6333,
-     "nebenbei": true
+     "nebenbei": true,
+     "sofort": true
     },
     {
      "wer": "odell",
@@ -2271,18 +2451,18 @@
    "kamera": {
     "baustein": "truck_side",
     "pos": [
-     2,
-     -3.25,
-     977.6
+     -2.3,
+     -1.25,
+     966.6
     ],
     "ziel": [
      2,
-     -0.6,
-     970.4
+     -0.95,
+     970.8
     ],
-    "fov": 56,
+    "fov": 54,
     "richtung": "rechts",
-    "strecke": 1.8,
+    "strecke": 1,
     "vordergrund": false
    },
    "stellung": {
@@ -2345,14 +2525,14 @@
    "kamera": {
     "baustein": "push_in",
     "pos": [
-     5.3,
-     13.5,
-     983
+     5.4,
+     18.5,
+     979
     ],
     "ziel": [
-     4.6,
+     5.3,
      0,
-     972.4
+     971.4
     ],
     "fov": 44,
     "rate": 0.07
@@ -2368,6 +2548,16 @@
      ],
      "blick": 0,
      "gesicht": "glatt"
+    },
+    "f5": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      5.6,
+      0,
+      976.4
+     ],
+     "blick": 200
     }
    },
    "aktionen": [],
@@ -2399,7 +2589,8 @@
     "akzent": false,
     "monster": true,
     "sichtbar": [
-     "ok"
+     "ok",
+     "f5"
     ]
    }
   },
@@ -2440,18 +2631,22 @@
      ],
      "blick": 0,
      "gesicht": "glatt"
+    },
+    "f5": {
+     "sichtbar": false
     }
    },
    "aktionen": [
     {
      "wer": "ok",
      "was": "klopfen_unten",
-     "dauer": 0.9,
+     "dauer": 0.6,
      "params": {
       "schlaege": 1,
-      "tiefe": 0.06
+      "seite": "l",
+      "tiefe": 0.32
      },
-     "start": 28.18,
+     "start": 27.76,
      "nebenbei": true
     }
    ],
@@ -2505,14 +2700,14 @@
      "anker": "f4.huefte",
      "versatz": [
       0,
-      -0.15,
+      0.05,
       0
      ]
     },
     "blick": {
-     "azimut": 160,
-     "hoehe": 10,
-     "abstand": 3.6,
+     "azimut": 168,
+     "hoehe": 9,
+     "abstand": 3.5,
      "bezug": "f4.huefte"
     },
     "fov": 42,
@@ -2542,9 +2737,30 @@
      "dauer": 0.75,
      "params": {
       "seite": "r",
-      "schlaege": 2,
-      "hoehe": 1.3
+      "schlaege": 3,
+      "hoehe": 1.9
      }
+    }
+   ],
+   "partikel": [
+    {
+     "start": 30.07,
+     "dauer": 0.55,
+     "art": "staub",
+     "ort": [
+      -0.47,
+      0.04,
+      964.65
+     ],
+     "farbe": "#f2f6fb",
+     "anzahl": 80,
+     "groesse": 0.024,
+     "bereich": [
+      0.6,
+      0.3,
+      0.6
+     ],
+     "deckkraft": 0.9
     }
    ],
    "tiefenunschaerfe": {
@@ -2919,7 +3135,7 @@
      "sichtbar": true,
      "position": [
       2,
-      0,
+      0.015,
       967.75
      ],
      "blick": 0
@@ -3117,7 +3333,8 @@
      "was": "andruecken",
      "dauer": 0.01,
      "start": 37.5333,
-     "nebenbei": true
+     "nebenbei": true,
+     "sofort": true
     }
    ],
    "tiefenunschaerfe": {
@@ -3185,7 +3402,7 @@
      "sichtbar": true,
      "position": [
       2,
-      0,
+      0.015,
       969
      ],
      "blick": 180
@@ -3512,20 +3729,20 @@
    "kamera": {
     "baustein": "push_in",
     "ziel": {
-     "anker": "lund.brust",
+     "anker": "lund.huefte",
      "versatz": [
-      0.35,
-      -0.1,
+      0.3,
+      0.05,
       0
      ]
     },
     "blick": {
-     "azimut": 25,
-     "hoehe": 8,
-     "abstand": 4.4,
-     "bezug": "lund.brust"
+     "azimut": 30,
+     "hoehe": 9,
+     "abstand": 3.7,
+     "bezug": "lund.huefte"
     },
-    "fov": 40,
+    "fov": 42,
     "rate": 0.07
    },
    "stellung": {
@@ -3566,12 +3783,33 @@
      "wer": "lund",
      "was": "stiefel_tippen",
      "start": 44.4,
-     "dauer": 1,
+     "dauer": 0.9,
      "params": {
       "seite": "r",
       "schlaege": 3,
-      "hoehe": 1.4
+      "hoehe": 1.7
      }
+    }
+   ],
+   "partikel": [
+    {
+     "start": 44.625,
+     "dauer": 0.6,
+     "art": "staub",
+     "ort": [
+      -6.15,
+      0.04,
+      960.2
+     ],
+     "farbe": "#f2f6fb",
+     "anzahl": 70,
+     "groesse": 0.022,
+     "bereich": [
+      0.55,
+      0.25,
+      0.55
+     ],
+     "deckkraft": 0.85
     }
    ],
    "schatten_bereich": 24,
@@ -3594,13 +3832,13 @@
      "wort_i": 153,
      "wort_start": 44.4,
      "start": 44.4,
-     "ende": 45.4,
+     "ende": 45.3,
      "anker": "start",
      "schluesselwort_idee": "knocked"
     },
     "gesichter": [],
     "hauptsache": "lund.kopf",
-    "bogen_zeit": 45.4666,
+    "bogen_zeit": 45.4,
     "akzent": false,
     "monster": false,
     "sichtbar": [
@@ -4748,25 +4986,25 @@
    "kamera": {
     "baustein": "truck_side",
     "pos": [
-     900.55,
-     1.75,
-     0.15
+     900.05,
+     1.72,
+     0.17
     ],
     "ziel": {
      "anker": "buch2.zeile",
      "versatz": [
-      0.07,
+      0.17,
       0,
-      0
+      0.01
      ]
     },
     "fov": 44,
     "richtung": "rechts",
-    "strecke": 0.18,
+    "strecke": 0.12,
     "vordergrund": false
    },
    "stellung": {
-    "gus": {
+    "gus2": {
      "neu": true,
      "sichtbar": true,
      "position": [
@@ -4786,35 +5024,53 @@
       0
      ],
      "blick": 0
+    },
+    "gus": {
+     "sichtbar": false
     }
    },
    "aktionen": [
     {
-     "wer": "gus",
+     "wer": "gus2",
      "was": "dampf",
      "dauer": 0.01,
      "params": {
       "wert": false
      },
      "start": 62.9667,
-     "nebenbei": true
+     "nebenbei": true,
+     "sofort": true
     },
     {
-     "wer": "gus",
+     "wer": "gus2",
      "was": "greifen",
      "start": 63.2,
      "dauer": 0.4,
      "params": {
-      "zu": "buch2.zeile",
+      "zu": {
+       "anker": "buch2.zeile",
+       "versatz": [
+        0,
+        0.02,
+        0.075
+       ]
+      },
       "seite": "r"
      }
     },
     {
-     "wer": "gus",
+     "wer": "gus2",
      "was": "greifen",
      "dauer": 0.45,
      "params": {
-      "zu": "buch2.zeile_ende",
+      "zu": {
+       "anker": "buch2.zeile_ende",
+       "versatz": [
+        0.03,
+        0.02,
+        0.075
+       ]
+      },
       "seite": "r"
      },
      "start": 64.22,
@@ -4839,7 +5095,7 @@
     "ort": "rathaus",
     "haupt": {
      "art": "aktion",
-     "wer": "gus",
+     "wer": "gus2",
      "was": "greifen",
      "wort": "first",
      "wort_i": 216,
@@ -4855,7 +5111,7 @@
     "akzent": true,
     "monster": false,
     "sichtbar": [
-     "gus",
+     "gus2",
      "buch2"
     ]
    }
@@ -4877,7 +5133,7 @@
    "kamera": {
     "baustein": "push_in",
     "ziel": {
-     "anker": "gus.kopf",
+     "anker": "gus2.kopf",
      "versatz": [
       0,
       -0.2,
@@ -4888,13 +5144,13 @@
      "azimut": 160,
      "hoehe": 6,
      "abstand": 2.8,
-     "bezug": "gus.kopf"
+     "bezug": "gus2.kopf"
     },
     "fov": 36,
     "rate": 0.07
    },
    "stellung": {
-    "gus": {
+    "gus2": {
      "neu": true,
      "sichtbar": true,
      "position": [
@@ -4918,17 +5174,18 @@
    },
    "aktionen": [
     {
-     "wer": "gus",
+     "wer": "gus2",
      "was": "dampf",
      "dauer": 0.01,
      "params": {
       "wert": false
      },
      "start": 64.8667,
-     "nebenbei": true
+     "nebenbei": true,
+     "sofort": true
     },
     {
-     "wer": "gus",
+     "wer": "gus2",
      "was": "kopf_drehen",
      "start": 65.08,
      "dauer": 0.3,
@@ -4938,7 +5195,7 @@
     }
    ],
    "tiefenunschaerfe": {
-    "fokus": "gus.kopf",
+    "fokus": "gus2.kopf",
     "staerke": 0.8
    },
    "schatten_bereich": 12,
@@ -4955,7 +5212,7 @@
     "ort": "rathaus",
     "haupt": {
      "art": "aktion",
-     "wer": "gus",
+     "wer": "gus2",
      "was": "kopf_drehen",
      "wort": "checked",
      "wort_i": 222,
@@ -4966,12 +5223,12 @@
      "schluesselwort_idee": "checked"
     },
     "gesichter": [],
-    "hauptsache": "gus.kopf",
+    "hauptsache": "gus2.kopf",
     "bogen_zeit": 65.48,
     "akzent": false,
     "monster": false,
     "sichtbar": [
-     "gus",
+     "gus2",
      "buch2"
     ]
    }
@@ -5026,6 +5283,9 @@
      "blick": 228,
      "gesicht": "neutral"
     },
+    "gus2": {
+     "sichtbar": false
+    },
     "buch2": {
      "sichtbar": false
     }
@@ -5039,7 +5299,8 @@
       "staerke": 0.5
      },
      "start": 65.8,
-     "nebenbei": true
+     "nebenbei": true,
+     "sofort": true
     },
     {
      "wer": "gus",
@@ -5234,7 +5495,8 @@
       "staerke": 0.5
      },
      "start": 68.0333,
-     "nebenbei": true
+     "nebenbei": true,
+     "sofort": true
     },
     {
      "wer": "gus",
@@ -5839,7 +6101,7 @@
      "sichtbar": true,
      "position": [
       2,
-      0,
+      0.015,
       967.75
      ],
      "blick": -53
@@ -6097,7 +6359,8 @@
       "staerke": 0.6
      },
      "start": 79.5,
-     "nebenbei": true
+     "nebenbei": true,
+     "sofort": true
     },
     {
      "wer": "gus",
@@ -6245,7 +6508,8 @@
       "staerke": 0.5
      },
      "start": 80.9333,
-     "nebenbei": true
+     "nebenbei": true,
+     "sofort": true
     },
     {
      "wer": "gus",
@@ -6530,14 +6794,18 @@
    "licht": "see_daemmerung",
    "kamera": {
     "baustein": "push_in",
-    "ziel": "ok.gesicht",
+    "ziel": [
+     2,
+     -0.45,
+     968.4
+    ],
     "blick": {
      "azimut": 0,
-     "hoehe": 60,
-     "abstand": 2.4
+     "hoehe": 62,
+     "abstand": 2.3
     },
     "fov": 40,
-    "rate": 0.07
+    "rate": 0.06
    },
    "stellung": {
     "bear": {
@@ -6569,7 +6837,7 @@
      "start": 85.36,
      "dauer": 1.4,
      "params": {
-      "hoehe": 0.26
+      "hoehe": 0.34
      }
     }
    ],
@@ -6663,7 +6931,8 @@
       "hoehe": 0.26
      },
      "start": 86.3667,
-     "nebenbei": true
+     "nebenbei": true,
+     "sofort": true
     },
     {
      "wer": "ok",
@@ -6723,14 +6992,14 @@
     "baustein": "track_follow",
     "folge": "gus",
     "versatz": [
-     3.2,
+     3.9,
      1,
-     -2.4
+     0.65
     ],
     "ziel_versatz": [
-     0.35,
-     0.6,
-     -0.2
+     0,
+     0.75,
+     0.6
     ],
     "lokal": false,
     "fov": 46
@@ -6751,9 +7020,9 @@
      "neu": true,
      "sichtbar": true,
      "position": [
-      2.05,
+      1.6,
       0,
-      967.55
+      968.2
      ],
      "blick": 180,
      "gesicht": "besorgt"
@@ -6777,30 +7046,30 @@
      "nebenbei": true
     },
     {
-     "wer": "bear",
-     "was": "gehen",
-     "dauer": 1.45,
-     "params": {
-      "nach": [
-       1.15,
-       963.5
-      ],
-      "drehen": false
-     },
-     "start": 87.1667,
-     "nebenbei": true
-    },
-    {
      "wer": "gus",
      "was": "gehen",
      "start": 87.36,
-     "dauer": 1.3,
+     "dauer": 0.95,
      "params": {
       "nach": [
-       0.6,
+       1.35,
        963
       ]
      }
+    },
+    {
+     "wer": "bear",
+     "was": "gehen",
+     "dauer": 0.95,
+     "params": {
+      "nach": [
+       1.45,
+       964.15
+      ],
+      "drehen": false
+     },
+     "start": 87.36,
+     "nebenbei": true
     }
    ],
    "schatten_bereich": 24,
@@ -6823,13 +7092,13 @@
      "wort_i": 288,
      "wort_start": 87.36,
      "start": 87.36,
-     "ende": 88.66,
+     "ende": 88.31,
      "anker": "start",
      "schluesselwort_idee": "dragged"
     },
     "gesichter": [],
     "hauptsache": "gus.kopf",
-    "bogen_zeit": 88.5666,
+    "bogen_zeit": 88.41,
     "akzent": true,
     "monster": false,
     "sichtbar": [
@@ -6886,7 +7155,8 @@
      "was": "andruecken",
      "dauer": 0.01,
      "start": 88.6333,
-     "nebenbei": true
+     "nebenbei": true,
+     "sofort": true
     },
     {
      "wer": "ok",
@@ -6951,9 +7221,9 @@
      "neu": true,
      "sichtbar": true,
      "position": [
-      0.25,
+      -0.38,
       0.85,
-      951.5
+      949.75
      ],
      "blick": 0
     },
@@ -7054,54 +7324,45 @@
    "kamera": {
     "baustein": "push_in",
     "pos": [
-     -2.9,
-     2.6,
-     948.9
+     -1.55,
+     2.12,
+     949.1
     ],
     "ziel": [
-     -0.1,
-     2.05,
-     952.45
+     -0.38,
+     2.25,
+     950.35
     ],
-    "fov": 42,
+    "fov": 50,
     "rate": 0.06
    },
    "stellung": {
-    "odell2": {
+    "brille": {
      "neu": true,
      "sichtbar": true,
      "position": [
-      0.25,
-      0.85,
-      951.5
+      -0.58,
+      2.2,
+      950.18
      ],
-     "blick": 0,
-     "pose": "brille_hoch",
-     "pose_params": {
-      "zu": "bear.mund"
-     }
+     "blick": 0
     },
     "bear": {
      "neu": true,
      "sichtbar": true,
      "position": [
-      0.22,
+      -0.4,
       0.85,
-      952.7
+      950.7
      ],
-     "blick": 212,
+     "blick": 180,
      "gesicht": "besorgt"
     },
+    "odell2": {
+     "sichtbar": false
+    },
     "gus": {
-     "neu": true,
-     "sichtbar": true,
-     "position": [
-      -0.62,
-      0.85,
-      952.95
-     ],
-     "blick": 203,
-     "gesicht": "ernst"
+     "sichtbar": false
     }
    },
    "aktionen": [
@@ -7109,9 +7370,26 @@
      "wer": "bear",
      "was": "hauchen",
      "start": 90.64,
-     "dauer": 3,
+     "dauer": 2,
      "params": {
-      "zu": "odell2.brille"
+      "zu": "brille.mitte",
+      "vor": 1
+     }
+    },
+    {
+     "wer": "bear",
+     "was": "gesicht",
+     "start": 90.64,
+     "params": {
+      "name": "besorgt/o"
+     }
+    },
+    {
+     "wer": "bear",
+     "was": "gesicht",
+     "start": 91.8,
+     "params": {
+      "name": "besorgt"
      }
     }
    ],
@@ -7135,19 +7413,33 @@
      "wort_i": 300,
      "wort_start": 90.64,
      "start": 90.64,
-     "ende": 93.64,
+     "ende": 92.64,
      "anker": "start",
      "schluesselwort_idee": "breathed"
     },
-    "gesichter": [],
+    "gesichter": [
+     {
+      "wer": "bear",
+      "name": "besorgt/o",
+      "wort": "breathed",
+      "wort_start": 90.64,
+      "start": 90.64
+     },
+     {
+      "wer": "bear",
+      "name": "besorgt",
+      "wort": "glasses",
+      "wort_start": 91.8,
+      "start": 91.8
+     }
+    ],
     "hauptsache": "bear.kopf",
     "bogen_zeit": 92.5666,
     "akzent": false,
     "monster": false,
     "sichtbar": [
-     "odell2",
-     "bear",
-     "gus"
+     "brille",
+     "bear"
     ]
    }
   },
@@ -7162,16 +7454,16 @@
    "kamera": {
     "baustein": "push_in",
     "pos": [
-     0.3,
-     2.45,
-     950.95
+     -0.36,
+     2.42,
+     949.4
     ],
     "ziel": [
-     0.22,
+     -0.4,
      2.38,
-     952.6
+     950.45
     ],
-    "fov": 40,
+    "fov": 54,
     "rate": 0.06
    },
    "stellung": {
@@ -7179,9 +7471,9 @@
      "neu": true,
      "sichtbar": true,
      "position": [
-      0.24,
-      2.4,
-      951.95
+      -0.39,
+      2.33,
+      950
      ],
      "blick": 0
     },
@@ -7189,18 +7481,12 @@
      "neu": true,
      "sichtbar": true,
      "position": [
-      0.22,
+      -0.4,
       0.85,
-      952.7
+      950.7
      ],
-     "blick": 212,
+     "blick": 180,
      "gesicht": "besorgt"
-    },
-    "odell2": {
-     "sichtbar": false
-    },
-    "gus": {
-     "sichtbar": false
     }
    },
    "aktionen": [
@@ -7208,12 +7494,15 @@
      "wer": "brille",
      "was": "bleibt_klar",
      "start": 92.74,
-     "dauer": 0.8
+     "dauer": 0.8,
+     "params": {
+      "glanz": 0.08
+     }
     }
    ],
    "tiefenunschaerfe": {
-    "fokus": "brille.mitte",
-    "staerke": 0.5
+    "fokus": "bear.kopf",
+    "staerke": 0.35
    },
    "schatten_bereich": 24,
    "text": "He looked at them for a long time,",
@@ -7270,9 +7559,9 @@
      ]
     },
     "pos": [
-     -1.35,
-     2.45,
-     949.6
+     -1.55,
+     2.4,
+     947.9
     ],
     "fov": 40,
     "dauer": 0.3,
@@ -7283,36 +7572,38 @@
      "neu": true,
      "sichtbar": true,
      "position": [
-      0.25,
+      -0.38,
       0.85,
-      951.5
+      949.75
      ],
      "blick": 0,
      "pose": "brille_hoch",
      "pose_params": {
-      "zu": "bear.mund"
+      "zu": "bear.mund",
+      "hoehe": -0.2,
+      "vor": 0.36
      }
     },
     "bear": {
      "neu": true,
      "sichtbar": true,
      "position": [
-      0.22,
+      -0.4,
       0.85,
-      952.7
+      950.7
      ],
-     "blick": 212,
+     "blick": 180,
      "gesicht": "besorgt"
     },
     "gus": {
      "neu": true,
      "sichtbar": true,
      "position": [
-      -0.62,
+      0.52,
       0.85,
-      952.95
+      950.9
      ],
-     "blick": 203,
+     "blick": 195,
      "gesicht": "ernst"
     },
     "brille": {
@@ -7320,6 +7611,17 @@
     }
    },
    "aktionen": [
+    {
+     "wer": "odell2",
+     "was": "dampf",
+     "dauer": 0.01,
+     "params": {
+      "wert": false
+     },
+     "start": 94.3667,
+     "nebenbei": true,
+     "sofort": true
+    },
     {
      "wer": "odell2",
      "was": "kopf_drehen",
@@ -7388,7 +7690,7 @@
      ]
     },
     "blick": {
-     "azimut": 178,
+     "azimut": 196,
      "hoehe": 3,
      "abstand": 2.6,
      "bezug": "gus.kopf"
@@ -7401,22 +7703,22 @@
      "neu": true,
      "sichtbar": true,
      "position": [
-      -0.62,
+      0.52,
       0.85,
-      952.95
+      950.9
      ],
-     "blick": 203,
+     "blick": 195,
      "gesicht": "entschlossen"
     },
     "bear": {
      "neu": true,
      "sichtbar": true,
      "position": [
-      0.22,
+      -0.4,
       0.85,
-      952.7
+      950.7
      ],
-     "blick": 212
+     "blick": 180
     },
     "odell2": {
      "sichtbar": false
@@ -7431,7 +7733,8 @@
       "staerke": 0.65
      },
      "start": 95.3333,
-     "nebenbei": true
+     "nebenbei": true,
+     "sofort": true
     },
     {
      "wer": "gus",
@@ -7574,9 +7877,9 @@
      "neu": false,
      "sichtbar": true,
      "position": [
-      0.25,
+      -0.38,
       0.85,
-      951.5
+      949.75
      ],
      "blick": 0,
      "gesicht": "streng"
@@ -7604,7 +7907,8 @@
       "staerke": 0.5
      },
      "start": 96.8667,
-     "nebenbei": true
+     "nebenbei": true,
+     "sofort": true
     },
     {
      "wer": "odell2",
@@ -7942,31 +8246,28 @@
    "kamera": {
     "baustein": "push_in",
     "pos": [
-     601.05,
-     1.5,
-     -0.55
+     602.45,
+     1.47,
+     -0.16
     ],
-    "ziel": {
-     "anker": "bear.kopf",
-     "versatz": [
-      0,
-      -0.12,
-      0
-     ]
-    },
-    "fov": 68,
-    "rate": 0.07
+    "ziel": [
+     600.9,
+     1.43,
+     -0.2
+    ],
+    "fov": 40,
+    "rate": 0.06
    },
    "stellung": {
     "bear": {
      "neu": true,
      "sichtbar": true,
      "position": [
-      599.85,
+      600.8,
       0,
-      -0.85
+      -0.2
      ],
-     "blick": 63,
+     "blick": 90,
      "gesicht": "leer"
     },
     "gus": {
@@ -7982,15 +8283,33 @@
       "wert": false
      },
      "start": 101.8333,
-     "nebenbei": true
+     "nebenbei": true,
+     "sofort": true
     },
     {
      "wer": "bear",
      "was": "hauchen",
      "start": 102,
-     "dauer": 3,
+     "dauer": 2,
      "params": {
-      "zu": "huette.fenster"
+      "zu": "huette.fenster",
+      "vor": 1.4
+     }
+    },
+    {
+     "wer": "bear",
+     "was": "gesicht",
+     "start": 102,
+     "params": {
+      "name": "leer/o"
+     }
+    },
+    {
+     "wer": "bear",
+     "was": "gesicht",
+     "start": 102.62,
+     "params": {
+      "name": "leer"
      }
     }
    ],
@@ -8018,11 +8337,26 @@
      "wort_i": 339,
      "wort_start": 102,
      "start": 102,
-     "ende": 105,
+     "ende": 104,
      "anker": "start",
      "schluesselwort_idee": "breathed"
     },
-    "gesichter": [],
+    "gesichter": [
+     {
+      "wer": "bear",
+      "name": "leer/o",
+      "wort": "breathed",
+      "wort_start": 102,
+      "start": 102
+     },
+     {
+      "wer": "bear",
+      "name": "leer",
+      "wort": "frozen",
+      "wort_start": 102.62,
+      "start": 102.62
+     }
+    ],
     "hauptsache": "bear.kopf",
     "bogen_zeit": 102.7666,
     "akzent": false,
@@ -8042,20 +8376,50 @@
    "licht": "huette",
    "licht_anpassung": {
     "hemi": {
-     "staerke": 1.4
+     "staerke": 1.75
     }
    },
    "kamera": {
     "baustein": "push_in",
-    "punkt": "huette.fenster",
-    "rate": 0.07
+    "pos": [
+     602.1,
+     1.5,
+     -0.24
+    ],
+    "ziel": [
+     600.95,
+     1.5,
+     -0.2
+    ],
+    "fov": 38,
+    "rate": 0.08
    },
    "stellung": {
     "bear": {
-     "sichtbar": false
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      600.8,
+      0,
+      -0.2
+     ],
+     "blick": 90,
+     "gesicht": "leer"
     }
    },
-   "aktionen": [],
+   "aktionen": [
+    {
+     "wer": "bear",
+     "was": "dampf",
+     "dauer": 0.01,
+     "params": {
+      "wert": false
+     },
+     "start": 102.8333,
+     "nebenbei": true,
+     "sofort": true
+    }
+   ],
    "tiefenunschaerfe": {
     "fokus": "huette.fenster",
     "staerke": 0.8
@@ -8087,7 +8451,9 @@
     "bogen_zeit": 103.01,
     "akzent": false,
     "monster": false,
-    "sichtbar": [],
+    "sichtbar": [
+     "bear"
+    ],
     "ohne_schnitt": [
      "43"
     ]
@@ -8109,19 +8475,16 @@
    "kamera": {
     "baustein": "push_in",
     "pos": [
-     601.05,
+     602.3,
      1.5,
-     -0.55
+     0.05
     ],
-    "ziel": {
-     "anker": "bear.kopf",
-     "versatz": [
-      0,
-      -0.12,
-      0
-     ]
-    },
-    "fov": 60,
+    "ziel": [
+     600.9,
+     1.43,
+     -0.22
+    ],
+    "fov": 40,
     "rate": 0.08
    },
    "stellung": {
@@ -8129,11 +8492,11 @@
      "neu": true,
      "sichtbar": true,
      "position": [
-      599.85,
+      600.8,
       0,
-      -0.85
+      -0.2
      ],
-     "blick": 63,
+     "blick": 90,
      "gesicht": "besorgt"
     }
    },
@@ -8146,15 +8509,25 @@
       "wert": false
      },
      "start": 104.3,
-     "nebenbei": true
+     "nebenbei": true,
+     "sofort": true
     },
     {
      "wer": "bear",
      "was": "hauchen",
      "start": 104.44,
-     "dauer": 3,
+     "dauer": 2,
      "params": {
-      "zu": "huette.fenster"
+      "zu": "huette.fenster",
+      "vor": 1.4
+     }
+    },
+    {
+     "wer": "bear",
+     "was": "gesicht",
+     "start": 104.44,
+     "params": {
+      "name": "besorgt/o"
      }
     }
    ],
@@ -8182,11 +8555,19 @@
      "wort_i": 346,
      "wort_start": 104.44,
      "start": 104.44,
-     "ende": 107.44,
+     "ende": 106.44,
      "anker": "start",
      "schluesselwort_idee": "breathed"
     },
-    "gesichter": [],
+    "gesichter": [
+     {
+      "wer": "bear",
+      "name": "besorgt/o",
+      "wort": "breathed",
+      "wort_start": 104.44,
+      "start": 104.44
+     }
+    ],
     "hauptsache": "bear.kopf",
     "bogen_zeit": 105.3666,
     "akzent": false,
@@ -8206,21 +8587,50 @@
    "licht": "huette",
    "licht_anpassung": {
     "hemi": {
-     "staerke": 1.4
+     "staerke": 1.75
     }
    },
    "kamera": {
     "baustein": "push_in",
-    "punkt": "huette.fenster",
-    "fov": 30,
+    "pos": [
+     601.95,
+     1.5,
+     -0.26
+    ],
+    "ziel": [
+     600.95,
+     1.48,
+     -0.2
+    ],
+    "fov": 34,
     "rate": 0.1
    },
    "stellung": {
     "bear": {
-     "sichtbar": false
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      600.8,
+      0,
+      -0.2
+     ],
+     "blick": 90,
+     "gesicht": "besorgt"
     }
    },
-   "aktionen": [],
+   "aktionen": [
+    {
+     "wer": "bear",
+     "was": "dampf",
+     "dauer": 0.01,
+     "params": {
+      "wert": false
+     },
+     "start": 105.4333,
+     "nebenbei": true,
+     "sofort": true
+    }
+   ],
    "tiefenunschaerfe": {
     "fokus": "huette.fenster",
     "staerke": 0.8
@@ -8252,7 +8662,9 @@
     "bogen_zeit": 105.63,
     "akzent": false,
     "monster": false,
-    "sichtbar": []
+    "sichtbar": [
+     "bear"
+    ]
    }
   },
   {
@@ -8279,12 +8691,12 @@
      ]
     },
     "blick": {
-     "azimut": -168,
-     "hoehe": 4,
-     "abstand": 2.15,
+     "azimut": 152,
+     "hoehe": 2,
+     "abstand": 1.55,
      "bezug": "gus.kopf"
     },
-    "fov": 48,
+    "fov": 54,
     "rate": 0.06
    },
    "stellung": {
@@ -8297,7 +8709,10 @@
       1
      ],
      "blick": -171,
-     "gesicht": "leer"
+     "gesicht": "blick_gesenkt"
+    },
+    "bear": {
+     "sichtbar": false
     }
    },
    "aktionen": [
@@ -8309,22 +8724,26 @@
       "wert": false
      },
      "start": 106.1333,
-     "nebenbei": true
+     "nebenbei": true,
+     "sofort": true
     },
     {
      "wer": "gus",
-     "was": "gesicht",
-     "start": 106.18,
+     "was": "kopf_drehen",
+     "dauer": 0.01,
      "params": {
-      "name": "leer"
-     }
+      "nicken": 16
+     },
+     "start": 106.1333,
+     "nebenbei": true,
+     "sofort": true
     },
     {
      "wer": "gus",
      "was": "gesicht",
      "start": 106.6,
      "params": {
-      "name": "leer"
+      "name": "blick_gesenkt"
      }
     }
    ],
@@ -8343,7 +8762,7 @@
     "haupt": {
      "art": "gesicht",
      "wer": "gus",
-     "name": "leer",
+     "name": "blick_gesenkt",
      "wort": "look",
      "wort_i": 351,
      "wort_start": 106.6,
@@ -8352,15 +8771,7 @@
      "anker": "start",
      "schluesselwort_idee": "look"
     },
-    "gesichter": [
-     {
-      "wer": "gus",
-      "name": "leer",
-      "wort": "Gus",
-      "wort_start": 106.18,
-      "start": 106.18
-     }
-    ],
+    "gesichter": [],
     "hauptsache": "gus.kopf",
     "bogen_zeit": 106.8,
     "akzent": false,
@@ -8424,7 +8835,8 @@
       "wert": false
      },
      "start": 107.8333,
-     "nebenbei": true
+     "nebenbei": true,
+     "sofort": true
     },
     {
      "wer": "gus",
@@ -8534,25 +8946,40 @@
    },
    "kamera": {
     "baustein": "push_in",
-    "ziel": "brille.mitte",
-    "blick": {
-     "azimut": 165,
-     "hoehe": 5,
-     "abstand": 0.75
-    },
-    "fov": 36,
-    "rate": 0.09
+    "pos": [
+     -0.36,
+     2.42,
+     949.4
+    ],
+    "ziel": [
+     -0.4,
+     2.38,
+     950.45
+    ],
+    "fov": 54,
+    "rate": 0.06
    },
    "stellung": {
     "brille": {
      "neu": true,
      "sichtbar": true,
      "position": [
-      0.1,
-      2.05,
-      951.95
+      -0.39,
+      2.33,
+      950
      ],
-     "blick": 180
+     "blick": 0
+    },
+    "bear": {
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      -0.4,
+      0.85,
+      950.7
+     ],
+     "blick": 180,
+     "gesicht": "besorgt"
     },
     "gus": {
      "sichtbar": false
@@ -8563,12 +8990,15 @@
      "wer": "brille",
      "was": "bleibt_klar",
      "start": 108.64,
-     "dauer": 0.8
+     "dauer": 0.8,
+     "params": {
+      "glanz": 0.08
+     }
     }
    ],
    "tiefenunschaerfe": {
-    "fokus": "brille.mitte",
-    "staerke": 0.8
+    "fokus": "bear.kopf",
+    "staerke": 0.35
    },
    "schatten_bereich": 24,
    "text": "clear, Bear.\"",
@@ -8600,7 +9030,8 @@
     "akzent": false,
     "monster": false,
     "sichtbar": [
-     "brille"
+     "brille",
+     "bear"
     ],
     "rueckblende": true
    }
@@ -8652,6 +9083,9 @@
     },
     "brille": {
      "sichtbar": false
+    },
+    "bear": {
+     "sichtbar": false
     }
    },
    "aktionen": [
@@ -8663,7 +9097,8 @@
       "wert": false
      },
      "start": 109.6333,
-     "nebenbei": true
+     "nebenbei": true,
+     "sofort": true
     },
     {
      "wer": "gus",
@@ -8835,7 +9270,8 @@
       "wert": false
      },
      "start": 111.5333,
-     "nebenbei": true
+     "nebenbei": true,
+     "sofort": true
     },
     {
      "wer": "gus",
@@ -8971,31 +9407,21 @@
     "ziel": {
      "anker": "buch2.zeile",
      "versatz": [
-      0.08,
+      0.11,
       0,
       0
      ]
     },
     "blick": {
-     "azimut": 10,
-     "hoehe": 58,
-     "abstand": 0.75,
+     "azimut": 6,
+     "hoehe": 62,
+     "abstand": 0.62,
      "bezug": "buch2.zeile"
     },
     "fov": 42,
-    "rate": 0.08
+    "rate": 0.09
    },
    "stellung": {
-    "gus": {
-     "neu": true,
-     "sichtbar": true,
-     "position": [
-      900,
-      0,
-      0.62
-     ],
-     "blick": 180
-    },
     "buch2": {
      "neu": true,
      "sichtbar": true,
@@ -9005,41 +9431,12 @@
       0
      ],
      "blick": 0
+    },
+    "gus": {
+     "sichtbar": false
     }
    },
-   "aktionen": [
-    {
-     "wer": "gus",
-     "was": "dampf",
-     "dauer": 0.01,
-     "params": {
-      "wert": false
-     },
-     "start": 113,
-     "nebenbei": true
-    },
-    {
-     "wer": "gus",
-     "was": "greifen",
-     "dauer": 0.01,
-     "params": {
-      "zu": "buch2.zeile",
-      "seite": "r"
-     },
-     "start": 113,
-     "nebenbei": true
-    },
-    {
-     "wer": "gus",
-     "was": "greifen",
-     "start": 113.32,
-     "dauer": 0.5,
-     "params": {
-      "zu": "buch2.zeile_ende",
-      "seite": "r"
-     }
-    }
-   ],
+   "aktionen": [],
    "tiefenunschaerfe": {
     "fokus": "buch2.zeile",
     "staerke": 0.8
@@ -9057,24 +9454,21 @@
     "groesse": "detail",
     "ort": "rathaus",
     "haupt": {
-     "art": "aktion",
-     "wer": "gus",
-     "was": "greifen",
+     "art": "kamera",
      "wort": "knocked",
      "wort_i": 375,
      "wort_start": 113.32,
      "start": 113.32,
-     "ende": 113.82,
+     "ende": 113.32,
      "anker": "start",
      "schluesselwort_idee": "knocked"
     },
     "gesichter": [],
     "hauptsache": "buch2.zeile",
-    "bogen_zeit": 113.92,
+    "bogen_zeit": 113.47,
     "akzent": false,
     "monster": false,
     "sichtbar": [
-     "gus",
      "buch2"
     ],
     "rueckblende": true
@@ -9122,9 +9516,6 @@
       967.75
      ],
      "blick": -53
-    },
-    "gus": {
-     "sichtbar": false
     },
     "buch2": {
      "sichtbar": false
@@ -9227,7 +9618,7 @@
      "sichtbar": true,
      "position": [
       2,
-      0,
+      0.015,
       967.75
      ],
      "blick": -53
@@ -9326,7 +9717,8 @@
      "was": "andruecken",
      "dauer": 0.01,
      "start": 116.1333,
-     "nebenbei": true
+     "nebenbei": true,
+     "sofort": true
     }
    ],
    "tiefenunschaerfe": {
@@ -9427,7 +9819,8 @@
       "wert": false
      },
      "start": 117.3333,
-     "nebenbei": true
+     "nebenbei": true,
+     "sofort": true
     },
     {
      "wer": "bear",
@@ -9524,7 +9917,8 @@
      "was": "andruecken",
      "dauer": 0.01,
      "start": 118.3,
-     "nebenbei": true
+     "nebenbei": true,
+     "sofort": true
     }
    ],
    "tiefenunschaerfe": {
@@ -9599,7 +9993,7 @@
      "sichtbar": true,
      "position": [
       1.65,
-      0,
+      0.015,
       968.8
      ],
      "blick": 180
@@ -9609,7 +10003,7 @@
      "sichtbar": true,
      "position": [
       2.2,
-      0,
+      0.015,
       969.1
      ],
      "blick": 180
@@ -9744,7 +10138,8 @@
       "wert": false
      },
      "start": 120.8,
-     "nebenbei": true
+     "nebenbei": true,
+     "sofort": true
     }
    ],
    "schatten_bereich": 6,
@@ -10009,7 +10404,8 @@
       "wert": false
      },
      "start": 124.8667,
-     "nebenbei": true
+     "nebenbei": true,
+     "sofort": true
     },
     {
      "wer": "gus",
@@ -10112,7 +10508,8 @@
       "wert": false
      },
      "start": 126.7333,
-     "nebenbei": true
+     "nebenbei": true,
+     "sofort": true
     },
     {
      "wer": "gus",
@@ -10351,7 +10748,8 @@
       "hoehe": 0.12
      },
      "start": 130.2333,
-     "nebenbei": true
+     "nebenbei": true,
+     "sofort": true
     },
     {
      "wer": "ok2",
@@ -10443,7 +10841,8 @@
      "was": "andruecken",
      "dauer": 0.01,
      "start": 131.8667,
-     "nebenbei": true
+     "nebenbei": true,
+     "sofort": true
     }
    ],
    "tiefenunschaerfe": {
@@ -10532,7 +10931,8 @@
      "was": "andruecken",
      "dauer": 0.01,
      "start": 132.6,
-     "nebenbei": true
+     "nebenbei": true,
+     "sofort": true
     },
     {
      "wer": "ok2",
@@ -10598,8 +10998,8 @@
     "baustein": "push_in",
     "pos": [
      599.8,
-     1.3,
-     1.3
+     1.7,
+     1.12
     ],
     "ziel": [
      599.75,
@@ -10607,10 +11007,10 @@
      -0.05
     ],
     "fov": 56,
-    "rate": 0.07
+    "rate": 0.05
    },
    "stellung": {
-    "gus": {
+    "gus2": {
      "neu": true,
      "sichtbar": true,
      "position": [
@@ -10619,37 +11019,42 @@
       -0.42
      ],
      "blick": 0,
-     "gesicht": "leer",
-     "pose": "ducken",
-     "pose_params": {
-      "tiefe": 0.45
-     }
+     "gesicht": "leer"
     },
     "ok2": {
-     "sichtbar": false
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      599.75,
+      -0.62,
+      2.69
+     ],
+     "blick": 0,
+     "gesicht": "bear"
     }
    },
    "aktionen": [
     {
-     "wer": "gus",
+     "wer": "gus2",
      "was": "dampf",
      "dauer": 0.01,
      "params": {
       "wert": false
      },
      "start": 134.9,
-     "nebenbei": true
+     "nebenbei": true,
+     "sofort": true
     },
     {
-     "wer": "gus",
-     "was": "greifen",
-     "dauer": 0.4,
+     "wer": "ok2",
+     "was": "andruecken",
+     "dauer": 0.01,
      "params": {
-      "zu": "huette.deckel",
-      "seite": "r"
+      "hoehe": 0.12
      },
-     "start": 134.95,
-     "nebenbei": true
+     "start": 134.9,
+     "nebenbei": true,
+     "sofort": true
     }
    ],
    "tiefenunschaerfe": {
@@ -10683,9 +11088,10 @@
     "hauptsache": "huette.loch",
     "bogen_zeit": 135.335,
     "akzent": false,
-    "monster": false,
+    "monster": true,
     "sichtbar": [
-     "gus"
+     "gus2",
+     "ok2"
     ]
    }
   },
@@ -10739,6 +11145,12 @@
      ],
      "blick": -90,
      "gesicht": "ruhig"
+    },
+    "gus2": {
+     "sichtbar": false
+    },
+    "ok2": {
+     "sichtbar": false
     }
    },
    "aktionen": [
@@ -10750,7 +11162,8 @@
       "wert": false
      },
      "start": 136.3333,
-     "nebenbei": true
+     "nebenbei": true,
+     "sofort": true
     },
     {
      "wer": "bear",
@@ -10760,7 +11173,8 @@
       "wert": false
      },
      "start": 136.3333,
-     "nebenbei": true
+     "nebenbei": true,
+     "sofort": true
     },
     {
      "wer": "gus",
@@ -10820,38 +11234,38 @@
    "kamera": {
     "baustein": "dolly_out",
     "pos": [
-     2.7,
-     1.75,
-     972.8
+     8.15,
+     1.6,
+     963.7
     ],
     "ziel": [
-     2.7,
-     1.35,
-     978.2
+     8.15,
+     1.5,
+     969.4
     ],
-    "fov": 40,
-    "rate": -0.06
+    "fov": 42,
+    "rate": -0.05
    },
    "stellung": {
     "gus": {
      "neu": true,
      "sichtbar": true,
      "position": [
-      2.6,
+      8.75,
       0,
-      980
+      970.4
      ],
-     "blick": 175
+     "blick": 180
     },
     "bear": {
      "neu": true,
      "sichtbar": true,
      "position": [
-      3.35,
+      7.55,
       0,
-      980.2
+      970.25
      ],
-     "blick": 175
+     "blick": 180
     }
    },
    "aktionen": [
@@ -10861,8 +11275,8 @@
      "dauer": 1.75,
      "params": {
       "nach": [
-       3.05,
-       976.6
+       7.6,
+       968.1
       ]
      },
      "start": 137.6333,
@@ -10872,23 +11286,13 @@
      "wer": "gus",
      "was": "gehen",
      "start": 137.8,
-     "dauer": 1.4,
+     "dauer": 1.5,
      "params": {
       "nach": [
-       2.3,
-       976.4
+       8.8,
+       968.2
       ]
      }
-    },
-    {
-     "wer": "gus",
-     "was": "kopf_drehen",
-     "dauer": 0.4,
-     "params": {
-      "zu": "bear.kopf"
-     },
-     "start": 137.9333,
-     "nebenbei": true
     }
    ],
    "schatten_bereich": 24,
@@ -10911,13 +11315,17 @@
      "wort_i": 454,
      "wort_start": 137.8,
      "start": 137.8,
-     "ende": 139.2,
+     "ende": 139.3,
      "anker": "start",
      "schluesselwort_idee": "walked"
     },
     "gesichter": [],
-    "hauptsache": "gus.kopf",
-    "bogen_zeit": 139.3,
+    "hauptsache": [
+     8.15,
+     1.5,
+     969.2
+    ],
+    "bogen_zeit": 139.3333,
     "akzent": true,
     "monster": false,
     "sichtbar": [
@@ -10938,34 +11346,54 @@
     "baustein": "track_follow",
     "folge": "gus",
     "versatz": [
-     1.7,
-     0.85,
-     -0.6
+     3.2,
+     0.32,
+     -1.7
     ],
     "ziel_versatz": [
-     0,
-     0.55,
-     -0.5
+     -0.65,
+     0.3,
+     -0.25
     ],
     "lokal": false,
-    "fov": 46
+    "fov": 30
    },
    "stellung": {
     "gus": {
      "neu": true,
      "sichtbar": true,
      "position": [
-      2.3,
+      8.8,
       0,
-      976
+      967.9
      ],
      "blick": 180
     },
     "bear": {
-     "sichtbar": false
+     "neu": true,
+     "sichtbar": true,
+     "position": [
+      7.6,
+      0,
+      967.8
+     ],
+     "blick": 180
     }
    },
    "aktionen": [
+    {
+     "wer": "bear",
+     "was": "gehen",
+     "dauer": 1.8,
+     "params": {
+      "nach": [
+       7.6,
+       964.6
+      ]
+     },
+     "start": 139.4,
+     "nebenbei": true
+    },
     {
      "wer": "gus",
      "was": "gehen",
@@ -10973,8 +11401,8 @@
      "dauer": 1.75,
      "params": {
       "nach": [
-       2.3,
-       973.2
+       8.8,
+       964.7
       ]
      }
     }
@@ -11013,7 +11441,8 @@
     "akzent": true,
     "monster": false,
     "sichtbar": [
-     "gus"
+     "gus",
+     "bear"
     ]
    }
   },
@@ -11047,6 +11476,9 @@
    },
    "stellung": {
     "gus": {
+     "sichtbar": false
+    },
+    "bear": {
      "sichtbar": false
     },
     "schild": {
@@ -11107,4375 +11539,4382 @@
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 0,
+   "start": -0.0167,
    "dauer": 0,
    "quelle": "auto:1"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 0,
+   "start": -0.0167,
    "dauer": 0,
    "quelle": "auto:1"
   },
   {
    "art": "aus",
    "ziel": "see.*",
-   "start": 0,
+   "start": -0.0167,
    "dauer": 0,
    "quelle": "auto:1"
   },
   {
    "art": "aus",
    "ziel": "huette.*",
-   "start": 0,
+   "start": -0.0167,
    "dauer": 0,
    "quelle": "auto:1"
   },
   {
    "art": "aus",
    "ziel": "rathaus.*",
-   "start": 0,
+   "start": -0.0167,
    "dauer": 0,
    "quelle": "auto:1"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 0,
+   "start": -0.0167,
    "dauer": 0,
    "quelle": "auto:1"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 1.2667,
+   "start": 1.25,
    "dauer": 0,
    "quelle": "auto:1:knocks"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 1.2667,
+   "start": 1.25,
    "dauer": 0,
    "quelle": "auto:1:knocks"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 1.2667,
+   "start": 1.25,
    "dauer": 0,
    "quelle": "auto:1:knocks"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 1.2667,
+   "start": 1.25,
    "dauer": 0,
    "quelle": "auto:1:knocks"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 1.2667,
+   "start": 1.25,
    "dauer": 0,
    "quelle": "auto:1:knocks"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 1.2667,
+   "start": 1.25,
    "dauer": 0,
    "quelle": "auto:1:knocks"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 2.9333,
+   "start": 2.9166,
    "dauer": 0,
    "quelle": "auto:1:or"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 2.9333,
+   "start": 2.9166,
    "dauer": 0,
    "quelle": "auto:1:or"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 2.9333,
+   "start": 2.9166,
    "dauer": 0,
    "quelle": "auto:1:or"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 2.9333,
+   "start": 2.9166,
    "dauer": 0,
    "quelle": "auto:1:or"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 2.9333,
+   "start": 2.9166,
    "dauer": 0,
    "quelle": "auto:1:or"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 2.9333,
+   "start": 2.9166,
    "dauer": 0,
    "quelle": "auto:1:or"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 4.4333,
+   "start": 4.4166,
    "dauer": 0,
    "quelle": "auto:2"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 4.4333,
+   "start": 4.4166,
    "dauer": 0,
    "quelle": "auto:2"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 4.4333,
+   "start": 4.4166,
    "dauer": 0,
    "quelle": "auto:2"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 4.4333,
+   "start": 4.4166,
    "dauer": 0,
    "quelle": "auto:2"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 4.4333,
+   "start": 4.4166,
    "dauer": 0,
    "quelle": "auto:2"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 4.4333,
+   "start": 4.4166,
    "dauer": 0,
    "quelle": "auto:2"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 5.8,
+   "start": 5.7833,
    "dauer": 0,
    "quelle": "auto:2:Old"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 5.8,
+   "start": 5.7833,
    "dauer": 0,
    "quelle": "auto:2:Old"
   },
   {
    "art": "aus",
    "ziel": "see.*",
-   "start": 5.8,
+   "start": 5.7833,
    "dauer": 0,
    "quelle": "auto:2:Old"
   },
   {
    "art": "aus",
    "ziel": "huette.*",
-   "start": 5.8,
+   "start": 5.7833,
    "dauer": 0,
    "quelle": "auto:2:Old"
   },
   {
    "art": "aus",
    "ziel": "rathaus.*",
-   "start": 5.8,
+   "start": 5.7833,
    "dauer": 0,
    "quelle": "auto:2:Old"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 5.8,
+   "start": 5.7833,
    "dauer": 0,
    "quelle": "auto:2:Old"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 7,
+   "start": 6.9833,
    "dauer": 0,
    "quelle": "auto:3"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 7,
+   "start": 6.9833,
    "dauer": 0,
    "quelle": "auto:3"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 7,
+   "start": 6.9833,
    "dauer": 0,
    "quelle": "auto:3"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 7,
+   "start": 6.9833,
    "dauer": 0,
    "quelle": "auto:3"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 7,
+   "start": 6.9833,
    "dauer": 0,
    "quelle": "auto:3"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 7,
+   "start": 6.9833,
    "dauer": 0,
    "quelle": "auto:3"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 7.9,
+   "start": 7.8833,
    "dauer": 0,
    "quelle": "auto:3:only"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 7.9,
+   "start": 7.8833,
    "dauer": 0,
    "quelle": "auto:3:only"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 7.9,
+   "start": 7.8833,
    "dauer": 0,
    "quelle": "auto:3:only"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 7.9,
+   "start": 7.8833,
    "dauer": 0,
    "quelle": "auto:3:only"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 7.9,
+   "start": 7.8833,
    "dauer": 0,
    "quelle": "auto:3:only"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 7.9,
+   "start": 7.8833,
    "dauer": 0,
    "quelle": "auto:3:only"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 9.6667,
+   "start": 9.65,
    "dauer": 0,
    "quelle": "auto:4"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 9.6667,
+   "start": 9.65,
    "dauer": 0,
    "quelle": "auto:4"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 9.6667,
+   "start": 9.65,
    "dauer": 0,
    "quelle": "auto:4"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 9.6667,
+   "start": 9.65,
    "dauer": 0,
    "quelle": "auto:4"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 9.6667,
+   "start": 9.65,
    "dauer": 0,
    "quelle": "auto:4"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 9.6667,
+   "start": 9.65,
    "dauer": 0,
    "quelle": "auto:4"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 11.3667,
+   "start": 11.35,
    "dauer": 0,
    "quelle": "auto:5"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 11.3667,
+   "start": 11.35,
    "dauer": 0,
    "quelle": "auto:5"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 11.3667,
+   "start": 11.35,
    "dauer": 0,
    "quelle": "auto:5"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 11.3667,
+   "start": 11.35,
    "dauer": 0,
    "quelle": "auto:5"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 11.3667,
+   "start": 11.35,
    "dauer": 0,
    "quelle": "auto:5"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 11.3667,
+   "start": 11.35,
    "dauer": 0,
    "quelle": "auto:5"
   },
   {
    "art": "aus",
    "ziel": "see.laterne",
-   "start": 11.3667,
+   "start": 11.35,
    "dauer": 0,
    "quelle": "auto:5"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 12.6333,
+   "start": 12.6166,
    "dauer": 0,
    "quelle": "auto:5:Odell"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 12.6333,
+   "start": 12.6166,
    "dauer": 0,
    "quelle": "auto:5:Odell"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 12.6333,
+   "start": 12.6166,
    "dauer": 0,
    "quelle": "auto:5:Odell"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 12.6333,
+   "start": 12.6166,
    "dauer": 0,
    "quelle": "auto:5:Odell"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 12.6333,
+   "start": 12.6166,
    "dauer": 0,
    "quelle": "auto:5:Odell"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 12.6333,
+   "start": 12.6166,
    "dauer": 0,
    "quelle": "auto:5:Odell"
   },
   {
    "art": "aus",
    "ziel": "see.laterne",
-   "start": 12.6333,
+   "start": 12.6166,
    "dauer": 0,
    "quelle": "auto:5:Odell"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 14.5333,
+   "start": 14.5166,
    "dauer": 0,
    "quelle": "auto:6"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 14.5333,
+   "start": 14.5166,
    "dauer": 0,
    "quelle": "auto:6"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 14.5333,
+   "start": 14.5166,
    "dauer": 0,
    "quelle": "auto:6"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 14.5333,
+   "start": 14.5166,
    "dauer": 0,
    "quelle": "auto:6"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 14.5333,
+   "start": 14.5166,
    "dauer": 0,
    "quelle": "auto:6"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 14.5333,
+   "start": 14.5166,
    "dauer": 0,
    "quelle": "auto:6"
   },
   {
    "art": "aus",
    "ziel": "see.laterne",
-   "start": 14.5333,
+   "start": 14.5166,
    "dauer": 0,
    "quelle": "auto:6"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 15.7,
+   "start": 15.6833,
    "dauer": 0,
    "quelle": "auto:6:breathes"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 15.7,
+   "start": 15.6833,
    "dauer": 0,
    "quelle": "auto:6:breathes"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 15.7,
+   "start": 15.6833,
    "dauer": 0,
    "quelle": "auto:6:breathes"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 15.7,
+   "start": 15.6833,
    "dauer": 0,
    "quelle": "auto:6:breathes"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 15.7,
+   "start": 15.6833,
    "dauer": 0,
    "quelle": "auto:6:breathes"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 15.7,
+   "start": 15.6833,
    "dauer": 0,
    "quelle": "auto:6:breathes"
   },
   {
    "art": "aus",
    "ziel": "see.laterne",
-   "start": 15.7,
+   "start": 15.6833,
    "dauer": 0,
    "quelle": "auto:6:breathes"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 17.3,
+   "start": 17.2833,
    "dauer": 0,
    "quelle": "auto:7"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 17.3,
+   "start": 17.2833,
    "dauer": 0,
    "quelle": "auto:7"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 17.3,
+   "start": 17.2833,
    "dauer": 0,
    "quelle": "auto:7"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 17.3,
+   "start": 17.2833,
    "dauer": 0,
    "quelle": "auto:7"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 17.3,
+   "start": 17.2833,
    "dauer": 0,
    "quelle": "auto:7"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 17.3,
+   "start": 17.2833,
    "dauer": 0,
    "quelle": "auto:7"
   },
   {
    "art": "aus",
    "ziel": "see.laterne",
-   "start": 17.3,
+   "start": 17.2833,
    "dauer": 0,
    "quelle": "auto:7"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 18.2333,
+   "start": 18.2166,
    "dauer": 0,
    "quelle": "auto:7:he"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 18.2333,
+   "start": 18.2166,
    "dauer": 0,
    "quelle": "auto:7:he"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 18.2333,
+   "start": 18.2166,
    "dauer": 0,
    "quelle": "auto:7:he"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 18.2333,
+   "start": 18.2166,
    "dauer": 0,
    "quelle": "auto:7:he"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 18.2333,
+   "start": 18.2166,
    "dauer": 0,
    "quelle": "auto:7:he"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 18.2333,
+   "start": 18.2166,
    "dauer": 0,
    "quelle": "auto:7:he"
   },
   {
    "art": "aus",
    "ziel": "see.laterne",
-   "start": 18.2333,
+   "start": 18.2166,
    "dauer": 0,
    "quelle": "auto:7:he"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 19.6333,
+   "start": 19.6166,
    "dauer": 0,
    "quelle": "auto:8"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 19.6333,
+   "start": 19.6166,
    "dauer": 0,
    "quelle": "auto:8"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 19.6333,
+   "start": 19.6166,
    "dauer": 0,
    "quelle": "auto:8"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 19.6333,
+   "start": 19.6166,
    "dauer": 0,
    "quelle": "auto:8"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 19.6333,
+   "start": 19.6166,
    "dauer": 0,
    "quelle": "auto:8"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 19.6333,
+   "start": 19.6166,
    "dauer": 0,
    "quelle": "auto:8"
   },
   {
    "art": "aus",
    "ziel": "see.laterne",
-   "start": 19.6333,
+   "start": 19.6166,
    "dauer": 0,
    "quelle": "auto:8"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 21.3333,
+   "start": 21.3166,
    "dauer": 0,
    "quelle": "auto:9"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 21.3333,
+   "start": 21.3166,
    "dauer": 0,
    "quelle": "auto:9"
   },
   {
    "art": "aus",
    "ziel": "see.*",
-   "start": 21.3333,
+   "start": 21.3166,
    "dauer": 0,
    "quelle": "auto:9"
   },
   {
    "art": "aus",
    "ziel": "huette.*",
-   "start": 21.3333,
+   "start": 21.3166,
    "dauer": 0,
    "quelle": "auto:9"
   },
   {
    "art": "aus",
    "ziel": "rathaus.*",
-   "start": 21.3333,
+   "start": 21.3166,
    "dauer": 0,
    "quelle": "auto:9"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 21.3333,
+   "start": 21.3166,
    "dauer": 0,
    "quelle": "auto:9"
   },
   {
    "art": "aus",
    "ziel": "rand.laterne",
-   "start": 21.3333,
+   "start": 21.3166,
    "dauer": 0,
    "quelle": "auto:9"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 22.5667,
+   "start": 22.55,
    "dauer": 0,
    "quelle": "auto:9:right"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 22.5667,
+   "start": 22.55,
    "dauer": 0,
    "quelle": "auto:9:right"
   },
   {
    "art": "aus",
    "ziel": "see.*",
-   "start": 22.5667,
+   "start": 22.55,
    "dauer": 0,
    "quelle": "auto:9:right"
   },
   {
    "art": "aus",
    "ziel": "huette.*",
-   "start": 22.5667,
+   "start": 22.55,
    "dauer": 0,
    "quelle": "auto:9:right"
   },
   {
    "art": "aus",
    "ziel": "rathaus.*",
-   "start": 22.5667,
+   "start": 22.55,
    "dauer": 0,
    "quelle": "auto:9:right"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 22.5667,
+   "start": 22.55,
    "dauer": 0,
    "quelle": "auto:9:right"
   },
   {
    "art": "aus",
    "ziel": "rand.laterne",
-   "start": 22.5667,
+   "start": 22.55,
    "dauer": 0,
    "quelle": "auto:9:right"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 23.9667,
+   "start": 23.95,
    "dauer": 0,
    "quelle": "auto:10"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 23.9667,
+   "start": 23.95,
    "dauer": 0,
    "quelle": "auto:10"
   },
   {
    "art": "aus",
    "ziel": "see.*",
-   "start": 23.9667,
+   "start": 23.95,
    "dauer": 0,
    "quelle": "auto:10"
   },
   {
    "art": "aus",
    "ziel": "huette.*",
-   "start": 23.9667,
+   "start": 23.95,
    "dauer": 0,
    "quelle": "auto:10"
   },
   {
    "art": "aus",
    "ziel": "rathaus.*",
-   "start": 23.9667,
+   "start": 23.95,
    "dauer": 0,
    "quelle": "auto:10"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 23.9667,
+   "start": 23.95,
    "dauer": 0,
    "quelle": "auto:10"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 26.2667,
+   "start": 26.25,
    "dauer": 0,
    "quelle": "auto:10:longer"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 26.2667,
+   "start": 26.25,
    "dauer": 0,
    "quelle": "auto:10:longer"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 26.2667,
+   "start": 26.25,
    "dauer": 0,
    "quelle": "auto:10:longer"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 26.2667,
+   "start": 26.25,
    "dauer": 0,
    "quelle": "auto:10:longer"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 26.2667,
+   "start": 26.25,
    "dauer": 0,
    "quelle": "auto:10:longer"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 26.2667,
+   "start": 26.25,
    "dauer": 0,
    "quelle": "auto:10:longer"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 27.7333,
+   "start": 27.7166,
    "dauer": 0,
    "quelle": "auto:11"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 27.7333,
+   "start": 27.7166,
    "dauer": 0,
    "quelle": "auto:11"
   },
   {
    "art": "aus",
    "ziel": "see.*",
-   "start": 27.7333,
+   "start": 27.7166,
    "dauer": 0,
    "quelle": "auto:11"
   },
   {
    "art": "aus",
    "ziel": "huette.*",
-   "start": 27.7333,
+   "start": 27.7166,
    "dauer": 0,
    "quelle": "auto:11"
   },
   {
    "art": "aus",
    "ziel": "rathaus.*",
-   "start": 27.7333,
+   "start": 27.7166,
    "dauer": 0,
    "quelle": "auto:11"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 27.7333,
+   "start": 27.7166,
    "dauer": 0,
    "quelle": "auto:11"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 29.8333,
+   "start": 29.8166,
    "dauer": 0,
    "quelle": "auto:12"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 29.8333,
+   "start": 29.8166,
    "dauer": 0,
    "quelle": "auto:12"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 29.8333,
+   "start": 29.8166,
    "dauer": 0,
    "quelle": "auto:12"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 29.8333,
+   "start": 29.8166,
    "dauer": 0,
    "quelle": "auto:12"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 29.8333,
+   "start": 29.8166,
    "dauer": 0,
    "quelle": "auto:12"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 29.8333,
+   "start": 29.8166,
    "dauer": 0,
    "quelle": "auto:12"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 30.7333,
+   "start": 30.7166,
    "dauer": 0,
    "quelle": "auto:12:follows"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 30.7333,
+   "start": 30.7166,
    "dauer": 0,
    "quelle": "auto:12:follows"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 30.7333,
+   "start": 30.7166,
    "dauer": 0,
    "quelle": "auto:12:follows"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 30.7333,
+   "start": 30.7166,
    "dauer": 0,
    "quelle": "auto:12:follows"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 30.7333,
+   "start": 30.7166,
    "dauer": 0,
    "quelle": "auto:12:follows"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 30.7333,
+   "start": 30.7166,
    "dauer": 0,
    "quelle": "auto:12:follows"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 32.1,
+   "start": 32.0833,
    "dauer": 0,
    "quelle": "auto:12:until"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 32.1,
+   "start": 32.0833,
    "dauer": 0,
    "quelle": "auto:12:until"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 32.1,
+   "start": 32.0833,
    "dauer": 0,
    "quelle": "auto:12:until"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 32.1,
+   "start": 32.0833,
    "dauer": 0,
    "quelle": "auto:12:until"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 32.1,
+   "start": 32.0833,
    "dauer": 0,
    "quelle": "auto:12:until"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 32.1,
+   "start": 32.0833,
    "dauer": 0,
    "quelle": "auto:12:until"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 33.5333,
+   "start": 33.5166,
    "dauer": 0,
    "quelle": "auto:13"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 33.5333,
+   "start": 33.5166,
    "dauer": 0,
    "quelle": "auto:13"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 33.5333,
+   "start": 33.5166,
    "dauer": 0,
    "quelle": "auto:13"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 33.5333,
+   "start": 33.5166,
    "dauer": 0,
    "quelle": "auto:13"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 33.5333,
+   "start": 33.5166,
    "dauer": 0,
    "quelle": "auto:13"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 33.5333,
+   "start": 33.5166,
    "dauer": 0,
    "quelle": "auto:13"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 34.9667,
+   "start": 34.95,
    "dauer": 0,
    "quelle": "auto:13:like"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 34.9667,
+   "start": 34.95,
    "dauer": 0,
    "quelle": "auto:13:like"
   },
   {
    "art": "aus",
    "ziel": "see.*",
-   "start": 34.9667,
+   "start": 34.95,
    "dauer": 0,
    "quelle": "auto:13:like"
   },
   {
    "art": "aus",
    "ziel": "huette.*",
-   "start": 34.9667,
+   "start": 34.95,
    "dauer": 0,
    "quelle": "auto:13:like"
   },
   {
    "art": "aus",
    "ziel": "rathaus.*",
-   "start": 34.9667,
+   "start": 34.95,
    "dauer": 0,
    "quelle": "auto:13:like"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 34.9667,
+   "start": 34.95,
    "dauer": 0,
    "quelle": "auto:13:like"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 35.9,
+   "start": 35.8833,
    "dauer": 0,
    "quelle": "auto:14"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 35.9,
+   "start": 35.8833,
    "dauer": 0,
    "quelle": "auto:14"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 35.9,
+   "start": 35.8833,
    "dauer": 0,
    "quelle": "auto:14"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 35.9,
+   "start": 35.8833,
    "dauer": 0,
    "quelle": "auto:14"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 35.9,
+   "start": 35.8833,
    "dauer": 0,
    "quelle": "auto:14"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 35.9,
+   "start": 35.8833,
    "dauer": 0,
    "quelle": "auto:14"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 37.5333,
+   "start": 37.5166,
    "dauer": 0,
    "quelle": "auto:15"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 37.5333,
+   "start": 37.5166,
    "dauer": 0,
    "quelle": "auto:15"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 37.5333,
+   "start": 37.5166,
    "dauer": 0,
    "quelle": "auto:15"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 37.5333,
+   "start": 37.5166,
    "dauer": 0,
    "quelle": "auto:15"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 37.5333,
+   "start": 37.5166,
    "dauer": 0,
    "quelle": "auto:15"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 37.5333,
+   "start": 37.5166,
    "dauer": 0,
    "quelle": "auto:15"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 38.3667,
+   "start": 38.35,
    "dauer": 0,
    "quelle": "auto:16"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 38.3667,
+   "start": 38.35,
    "dauer": 0,
    "quelle": "auto:16"
   },
   {
    "art": "aus",
    "ziel": "see.*",
-   "start": 38.3667,
+   "start": 38.35,
    "dauer": 0,
    "quelle": "auto:16"
   },
   {
    "art": "aus",
    "ziel": "huette.*",
-   "start": 38.3667,
+   "start": 38.35,
    "dauer": 0,
    "quelle": "auto:16"
   },
   {
    "art": "aus",
    "ziel": "rathaus.*",
-   "start": 38.3667,
+   "start": 38.35,
    "dauer": 0,
    "quelle": "auto:16"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 38.3667,
+   "start": 38.35,
    "dauer": 0,
    "quelle": "auto:16"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 40.4667,
+   "start": 40.45,
    "dauer": 0,
    "quelle": "auto:17"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 40.4667,
+   "start": 40.45,
    "dauer": 0,
    "quelle": "auto:17"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 40.4667,
+   "start": 40.45,
    "dauer": 0,
    "quelle": "auto:17"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 40.4667,
+   "start": 40.45,
    "dauer": 0,
    "quelle": "auto:17"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 40.4667,
+   "start": 40.45,
    "dauer": 0,
    "quelle": "auto:17"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 40.4667,
+   "start": 40.45,
    "dauer": 0,
    "quelle": "auto:17"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 42,
+   "start": 41.9833,
    "dauer": 0,
    "quelle": "auto:17:your voice"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 42,
+   "start": 41.9833,
    "dauer": 0,
    "quelle": "auto:17:your voice"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 42,
+   "start": 41.9833,
    "dauer": 0,
    "quelle": "auto:17:your voice"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 42,
+   "start": 41.9833,
    "dauer": 0,
    "quelle": "auto:17:your voice"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 42,
+   "start": 41.9833,
    "dauer": 0,
    "quelle": "auto:17:your voice"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 42,
+   "start": 41.9833,
    "dauer": 0,
    "quelle": "auto:17:your voice"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 43.8667,
+   "start": 43.85,
    "dauer": 0,
    "quelle": "auto:18"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 43.8667,
+   "start": 43.85,
    "dauer": 0,
    "quelle": "auto:18"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 43.8667,
+   "start": 43.85,
    "dauer": 0,
    "quelle": "auto:18"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 43.8667,
+   "start": 43.85,
    "dauer": 0,
    "quelle": "auto:18"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 43.8667,
+   "start": 43.85,
    "dauer": 0,
    "quelle": "auto:18"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 43.8667,
+   "start": 43.85,
    "dauer": 0,
    "quelle": "auto:18"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 45.5333,
+   "start": 45.5166,
    "dauer": 0,
    "quelle": "auto:18:as"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 45.5333,
+   "start": 45.5166,
    "dauer": 0,
    "quelle": "auto:18:as"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 45.5333,
+   "start": 45.5166,
    "dauer": 0,
    "quelle": "auto:18:as"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 45.5333,
+   "start": 45.5166,
    "dauer": 0,
    "quelle": "auto:18:as"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 45.5333,
+   "start": 45.5166,
    "dauer": 0,
    "quelle": "auto:18:as"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 45.5333,
+   "start": 45.5166,
    "dauer": 0,
    "quelle": "auto:18:as"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 46.4,
+   "start": 46.3833,
    "dauer": 0,
    "quelle": "auto:18:ran"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 46.4,
+   "start": 46.3833,
    "dauer": 0,
    "quelle": "auto:18:ran"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 46.4,
+   "start": 46.3833,
    "dauer": 0,
    "quelle": "auto:18:ran"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 46.4,
+   "start": 46.3833,
    "dauer": 0,
    "quelle": "auto:18:ran"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 46.4,
+   "start": 46.3833,
    "dauer": 0,
    "quelle": "auto:18:ran"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 46.4,
+   "start": 46.3833,
    "dauer": 0,
    "quelle": "auto:18:ran"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 47.5333,
+   "start": 47.5166,
    "dauer": 0,
    "quelle": "auto:19"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 47.5333,
+   "start": 47.5166,
    "dauer": 0,
    "quelle": "auto:19"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 47.5333,
+   "start": 47.5166,
    "dauer": 0,
    "quelle": "auto:19"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 47.5333,
+   "start": 47.5166,
    "dauer": 0,
    "quelle": "auto:19"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 47.5333,
+   "start": 47.5166,
    "dauer": 0,
    "quelle": "auto:19"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 47.5333,
+   "start": 47.5166,
    "dauer": 0,
    "quelle": "auto:19"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 48.2667,
+   "start": 48.25,
    "dauer": 0,
    "quelle": "auto:20"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 48.2667,
+   "start": 48.25,
    "dauer": 0,
    "quelle": "auto:20"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 48.2667,
+   "start": 48.25,
    "dauer": 0,
    "quelle": "auto:20"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 48.2667,
+   "start": 48.25,
    "dauer": 0,
    "quelle": "auto:20"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 48.2667,
+   "start": 48.25,
    "dauer": 0,
    "quelle": "auto:20"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 48.2667,
+   "start": 48.25,
    "dauer": 0,
    "quelle": "auto:20"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 50.0333,
+   "start": 50.0166,
    "dauer": 0,
    "quelle": "auto:21"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 50.0333,
+   "start": 50.0166,
    "dauer": 0,
    "quelle": "auto:21"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 50.0333,
+   "start": 50.0166,
    "dauer": 0,
    "quelle": "auto:21"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 50.0333,
+   "start": 50.0166,
    "dauer": 0,
    "quelle": "auto:21"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 50.0333,
+   "start": 50.0166,
    "dauer": 0,
    "quelle": "auto:21"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 50.0333,
+   "start": 50.0166,
    "dauer": 0,
    "quelle": "auto:21"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 51.7333,
+   "start": 51.7166,
    "dauer": 0,
    "quelle": "auto:21:herself"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 51.7333,
+   "start": 51.7166,
    "dauer": 0,
    "quelle": "auto:21:herself"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 51.7333,
+   "start": 51.7166,
    "dauer": 0,
    "quelle": "auto:21:herself"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 51.7333,
+   "start": 51.7166,
    "dauer": 0,
    "quelle": "auto:21:herself"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 51.7333,
+   "start": 51.7166,
    "dauer": 0,
    "quelle": "auto:21:herself"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 51.7333,
+   "start": 51.7166,
    "dauer": 0,
    "quelle": "auto:21:herself"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 52.5667,
+   "start": 52.55,
    "dauer": 0,
    "quelle": "auto:22"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 52.5667,
+   "start": 52.55,
    "dauer": 0,
    "quelle": "auto:22"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 52.5667,
+   "start": 52.55,
    "dauer": 0,
    "quelle": "auto:22"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 52.5667,
+   "start": 52.55,
    "dauer": 0,
    "quelle": "auto:22"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 52.5667,
+   "start": 52.55,
    "dauer": 0,
    "quelle": "auto:22"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 52.5667,
+   "start": 52.55,
    "dauer": 0,
    "quelle": "auto:22"
   },
   {
    "art": "aus",
    "ziel": "rathaus.lampe",
-   "start": 52.5667,
+   "start": 52.55,
    "dauer": 0,
    "quelle": "auto:22"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 54.1333,
+   "start": 54.1166,
    "dauer": 0,
    "quelle": "auto:22:town"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 54.1333,
+   "start": 54.1166,
    "dauer": 0,
    "quelle": "auto:22:town"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 54.1333,
+   "start": 54.1166,
    "dauer": 0,
    "quelle": "auto:22:town"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 54.1333,
+   "start": 54.1166,
    "dauer": 0,
    "quelle": "auto:22:town"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 54.1333,
+   "start": 54.1166,
    "dauer": 0,
    "quelle": "auto:22:town"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 54.1333,
+   "start": 54.1166,
    "dauer": 0,
    "quelle": "auto:22:town"
   },
   {
    "art": "aus",
    "ziel": "rathaus.lampe",
-   "start": 54.1333,
+   "start": 54.1166,
    "dauer": 0,
    "quelle": "auto:22:town"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 56.3333,
+   "start": 56.3166,
    "dauer": 0,
    "quelle": "auto:23"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 56.3333,
+   "start": 56.3166,
    "dauer": 0,
    "quelle": "auto:23"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 56.3333,
+   "start": 56.3166,
    "dauer": 0,
    "quelle": "auto:23"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 56.3333,
+   "start": 56.3166,
    "dauer": 0,
    "quelle": "auto:23"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 56.3333,
+   "start": 56.3166,
    "dauer": 0,
    "quelle": "auto:23"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 56.3333,
+   "start": 56.3166,
    "dauer": 0,
    "quelle": "auto:23"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 57.8,
+   "start": 57.7833,
    "dauer": 0,
    "quelle": "auto:23:my"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 57.8,
+   "start": 57.7833,
    "dauer": 0,
    "quelle": "auto:23:my"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 57.8,
+   "start": 57.7833,
    "dauer": 0,
    "quelle": "auto:23:my"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 57.8,
+   "start": 57.7833,
    "dauer": 0,
    "quelle": "auto:23:my"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 57.8,
+   "start": 57.7833,
    "dauer": 0,
    "quelle": "auto:23:my"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 57.8,
+   "start": 57.7833,
    "dauer": 0,
    "quelle": "auto:23:my"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 60.0333,
+   "start": 60.0166,
    "dauer": 0,
    "quelle": "auto:24"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 60.0333,
+   "start": 60.0166,
    "dauer": 0,
    "quelle": "auto:24"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 60.0333,
+   "start": 60.0166,
    "dauer": 0,
    "quelle": "auto:24"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 60.0333,
+   "start": 60.0166,
    "dauer": 0,
    "quelle": "auto:24"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 60.0333,
+   "start": 60.0166,
    "dauer": 0,
    "quelle": "auto:24"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 60.0333,
+   "start": 60.0166,
    "dauer": 0,
    "quelle": "auto:24"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 61.1,
+   "start": 61.0833,
    "dauer": 0,
    "quelle": "auto:24:he"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 61.1,
+   "start": 61.0833,
    "dauer": 0,
    "quelle": "auto:24:he"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 61.1,
+   "start": 61.0833,
    "dauer": 0,
    "quelle": "auto:24:he"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 61.1,
+   "start": 61.0833,
    "dauer": 0,
    "quelle": "auto:24:he"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 61.1,
+   "start": 61.0833,
    "dauer": 0,
    "quelle": "auto:24:he"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 61.1,
+   "start": 61.0833,
    "dauer": 0,
    "quelle": "auto:24:he"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 62.9667,
+   "start": 62.95,
    "dauer": 0,
    "quelle": "auto:25"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 62.9667,
+   "start": 62.95,
    "dauer": 0,
    "quelle": "auto:25"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 62.9667,
+   "start": 62.95,
    "dauer": 0,
    "quelle": "auto:25"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 62.9667,
+   "start": 62.95,
    "dauer": 0,
    "quelle": "auto:25"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 62.9667,
+   "start": 62.95,
    "dauer": 0,
    "quelle": "auto:25"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 62.9667,
+   "start": 62.95,
    "dauer": 0,
    "quelle": "auto:25"
   },
   {
    "art": "aus",
    "ziel": "rathaus.lampe",
-   "start": 62.9667,
+   "start": 62.95,
    "dauer": 0,
    "quelle": "auto:25"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 64.8667,
+   "start": 64.85,
    "dauer": 0,
    "quelle": "auto:26"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 64.8667,
+   "start": 64.85,
    "dauer": 0,
    "quelle": "auto:26"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 64.8667,
+   "start": 64.85,
    "dauer": 0,
    "quelle": "auto:26"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 64.8667,
+   "start": 64.85,
    "dauer": 0,
    "quelle": "auto:26"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 64.8667,
+   "start": 64.85,
    "dauer": 0,
    "quelle": "auto:26"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 64.8667,
+   "start": 64.85,
    "dauer": 0,
    "quelle": "auto:26"
   },
   {
    "art": "aus",
    "ziel": "rathaus.lampe",
-   "start": 64.8667,
+   "start": 64.85,
    "dauer": 0,
    "quelle": "auto:26"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 65.8,
+   "start": 65.7833,
    "dauer": 0,
    "quelle": "auto:27"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 65.8,
+   "start": 65.7833,
    "dauer": 0,
    "quelle": "auto:27"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 65.8,
+   "start": 65.7833,
    "dauer": 0,
    "quelle": "auto:27"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 65.8,
+   "start": 65.7833,
    "dauer": 0,
    "quelle": "auto:27"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 65.8,
+   "start": 65.7833,
    "dauer": 0,
    "quelle": "auto:27"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 65.8,
+   "start": 65.7833,
    "dauer": 0,
    "quelle": "auto:27"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 68.0333,
+   "start": 68.0166,
    "dauer": 0,
    "quelle": "auto:28"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 68.0333,
+   "start": 68.0166,
    "dauer": 0,
    "quelle": "auto:28"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 68.0333,
+   "start": 68.0166,
    "dauer": 0,
    "quelle": "auto:28"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 68.0333,
+   "start": 68.0166,
    "dauer": 0,
    "quelle": "auto:28"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 68.0333,
+   "start": 68.0166,
    "dauer": 0,
    "quelle": "auto:28"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 68.0333,
+   "start": 68.0166,
    "dauer": 0,
    "quelle": "auto:28"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 69.2,
+   "start": 69.1833,
    "dauer": 0,
    "quelle": "auto:28:I'll"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 69.2,
+   "start": 69.1833,
    "dauer": 0,
    "quelle": "auto:28:I'll"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 69.2,
+   "start": 69.1833,
    "dauer": 0,
    "quelle": "auto:28:I'll"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 69.2,
+   "start": 69.1833,
    "dauer": 0,
    "quelle": "auto:28:I'll"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 69.2,
+   "start": 69.1833,
    "dauer": 0,
    "quelle": "auto:28:I'll"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 69.2,
+   "start": 69.1833,
    "dauer": 0,
    "quelle": "auto:28:I'll"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 70.1333,
+   "start": 70.1166,
    "dauer": 0,
    "quelle": "auto:29"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 70.1333,
+   "start": 70.1166,
    "dauer": 0,
    "quelle": "auto:29"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 70.1333,
+   "start": 70.1166,
    "dauer": 0,
    "quelle": "auto:29"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 70.1333,
+   "start": 70.1166,
    "dauer": 0,
    "quelle": "auto:29"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 70.1333,
+   "start": 70.1166,
    "dauer": 0,
    "quelle": "auto:29"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 70.1333,
+   "start": 70.1166,
    "dauer": 0,
    "quelle": "auto:29"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 71.1667,
+   "start": 71.15,
    "dauer": 0,
    "quelle": "auto:29:and"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 71.1667,
+   "start": 71.15,
    "dauer": 0,
    "quelle": "auto:29:and"
   },
   {
    "art": "aus",
    "ziel": "see.*",
-   "start": 71.1667,
+   "start": 71.15,
    "dauer": 0,
    "quelle": "auto:29:and"
   },
   {
    "art": "aus",
    "ziel": "huette.*",
-   "start": 71.1667,
+   "start": 71.15,
    "dauer": 0,
    "quelle": "auto:29:and"
   },
   {
    "art": "aus",
    "ziel": "rathaus.*",
-   "start": 71.1667,
+   "start": 71.15,
    "dauer": 0,
    "quelle": "auto:29:and"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 71.1667,
+   "start": 71.15,
    "dauer": 0,
    "quelle": "auto:29:and"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 72.8,
+   "start": 72.7833,
    "dauer": 0,
    "quelle": "auto:30"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 72.8,
+   "start": 72.7833,
    "dauer": 0,
    "quelle": "auto:30"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 72.8,
+   "start": 72.7833,
    "dauer": 0,
    "quelle": "auto:30"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 72.8,
+   "start": 72.7833,
    "dauer": 0,
    "quelle": "auto:30"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 72.8,
+   "start": 72.7833,
    "dauer": 0,
    "quelle": "auto:30"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 72.8,
+   "start": 72.7833,
    "dauer": 0,
    "quelle": "auto:30"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 74.2,
+   "start": 74.1833,
    "dauer": 0,
    "quelle": "auto:30:I tapped"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 74.2,
+   "start": 74.1833,
    "dauer": 0,
    "quelle": "auto:30:I tapped"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 74.2,
+   "start": 74.1833,
    "dauer": 0,
    "quelle": "auto:30:I tapped"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 74.2,
+   "start": 74.1833,
    "dauer": 0,
    "quelle": "auto:30:I tapped"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 74.2,
+   "start": 74.1833,
    "dauer": 0,
    "quelle": "auto:30:I tapped"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 74.2,
+   "start": 74.1833,
    "dauer": 0,
    "quelle": "auto:30:I tapped"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 76.3,
+   "start": 76.2833,
    "dauer": 0,
    "quelle": "auto:31"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 76.3,
+   "start": 76.2833,
    "dauer": 0,
    "quelle": "auto:31"
   },
   {
    "art": "aus",
    "ziel": "see.*",
-   "start": 76.3,
+   "start": 76.2833,
    "dauer": 0,
    "quelle": "auto:31"
   },
   {
    "art": "aus",
    "ziel": "huette.*",
-   "start": 76.3,
+   "start": 76.2833,
    "dauer": 0,
    "quelle": "auto:31"
   },
   {
    "art": "aus",
    "ziel": "rathaus.*",
-   "start": 76.3,
+   "start": 76.2833,
    "dauer": 0,
    "quelle": "auto:31"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 76.3,
+   "start": 76.2833,
    "dauer": 0,
    "quelle": "auto:31"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 77.2,
+   "start": 77.1833,
    "dauer": 0,
    "quelle": "auto:31:something"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 77.2,
+   "start": 77.1833,
    "dauer": 0,
    "quelle": "auto:31:something"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 77.2,
+   "start": 77.1833,
    "dauer": 0,
    "quelle": "auto:31:something"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 77.2,
+   "start": 77.1833,
    "dauer": 0,
    "quelle": "auto:31:something"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 77.2,
+   "start": 77.1833,
    "dauer": 0,
    "quelle": "auto:31:something"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 77.2,
+   "start": 77.1833,
    "dauer": 0,
    "quelle": "auto:31:something"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 79.5,
+   "start": 79.4833,
    "dauer": 0,
    "quelle": "auto:32"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 79.5,
+   "start": 79.4833,
    "dauer": 0,
    "quelle": "auto:32"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 79.5,
+   "start": 79.4833,
    "dauer": 0,
    "quelle": "auto:32"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 79.5,
+   "start": 79.4833,
    "dauer": 0,
    "quelle": "auto:32"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 79.5,
+   "start": 79.4833,
    "dauer": 0,
    "quelle": "auto:32"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 79.5,
+   "start": 79.4833,
    "dauer": 0,
    "quelle": "auto:32"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 80.9333,
+   "start": 80.9166,
    "dauer": 0,
    "quelle": "auto:32:Don't answer"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 80.9333,
+   "start": 80.9166,
    "dauer": 0,
    "quelle": "auto:32:Don't answer"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 80.9333,
+   "start": 80.9166,
    "dauer": 0,
    "quelle": "auto:32:Don't answer"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 80.9333,
+   "start": 80.9166,
    "dauer": 0,
    "quelle": "auto:32:Don't answer"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 80.9333,
+   "start": 80.9166,
    "dauer": 0,
    "quelle": "auto:32:Don't answer"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 80.9333,
+   "start": 80.9166,
    "dauer": 0,
    "quelle": "auto:32:Don't answer"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 82,
+   "start": 81.9833,
    "dauer": 0,
    "quelle": "auto:33"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 82,
+   "start": 81.9833,
    "dauer": 0,
    "quelle": "auto:33"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 82,
+   "start": 81.9833,
    "dauer": 0,
    "quelle": "auto:33"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 82,
+   "start": 81.9833,
    "dauer": 0,
    "quelle": "auto:33"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 82,
+   "start": 81.9833,
    "dauer": 0,
    "quelle": "auto:33"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 82,
+   "start": 81.9833,
    "dauer": 0,
    "quelle": "auto:33"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 82.7667,
+   "start": 82.75,
    "dauer": 0,
    "quelle": "auto:34"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 82.7667,
+   "start": 82.75,
    "dauer": 0,
    "quelle": "auto:34"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 82.7667,
+   "start": 82.75,
    "dauer": 0,
    "quelle": "auto:34"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 82.7667,
+   "start": 82.75,
    "dauer": 0,
    "quelle": "auto:34"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 82.7667,
+   "start": 82.75,
    "dauer": 0,
    "quelle": "auto:34"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 82.7667,
+   "start": 82.75,
    "dauer": 0,
    "quelle": "auto:34"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 84.5,
+   "start": 84.4833,
    "dauer": 0,
    "quelle": "auto:35"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 84.5,
+   "start": 84.4833,
    "dauer": 0,
    "quelle": "auto:35"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 84.5,
+   "start": 84.4833,
    "dauer": 0,
    "quelle": "auto:35"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 84.5,
+   "start": 84.4833,
    "dauer": 0,
    "quelle": "auto:35"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 84.5,
+   "start": 84.4833,
    "dauer": 0,
    "quelle": "auto:35"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 84.5,
+   "start": 84.4833,
    "dauer": 0,
    "quelle": "auto:35"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 86.3667,
+   "start": 86.35,
    "dauer": 0,
    "quelle": "auto:35:looking"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 86.3667,
+   "start": 86.35,
    "dauer": 0,
    "quelle": "auto:35:looking"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 86.3667,
+   "start": 86.35,
    "dauer": 0,
    "quelle": "auto:35:looking"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 86.3667,
+   "start": 86.35,
    "dauer": 0,
    "quelle": "auto:35:looking"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 86.3667,
+   "start": 86.35,
    "dauer": 0,
    "quelle": "auto:35:looking"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 86.3667,
+   "start": 86.35,
    "dauer": 0,
    "quelle": "auto:35:looking"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 87.1667,
+   "start": 87.15,
    "dauer": 0,
    "quelle": "auto:36"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 87.1667,
+   "start": 87.15,
    "dauer": 0,
    "quelle": "auto:36"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 87.1667,
+   "start": 87.15,
    "dauer": 0,
    "quelle": "auto:36"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 87.1667,
+   "start": 87.15,
    "dauer": 0,
    "quelle": "auto:36"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 87.1667,
+   "start": 87.15,
    "dauer": 0,
    "quelle": "auto:36"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 87.1667,
+   "start": 87.15,
    "dauer": 0,
    "quelle": "auto:36"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 88.6333,
+   "start": 88.6166,
    "dauer": 0,
    "quelle": "auto:36:just"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 88.6333,
+   "start": 88.6166,
    "dauer": 0,
    "quelle": "auto:36:just"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 88.6333,
+   "start": 88.6166,
    "dauer": 0,
    "quelle": "auto:36:just"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 88.6333,
+   "start": 88.6166,
    "dauer": 0,
    "quelle": "auto:36:just"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 88.6333,
+   "start": 88.6166,
    "dauer": 0,
    "quelle": "auto:36:just"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 88.6333,
+   "start": 88.6166,
    "dauer": 0,
    "quelle": "auto:36:just"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 89.7333,
+   "start": 89.7166,
    "dauer": 0,
    "quelle": "auto:37"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 89.7333,
+   "start": 89.7166,
    "dauer": 0,
    "quelle": "auto:37"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 89.7333,
+   "start": 89.7166,
    "dauer": 0,
    "quelle": "auto:37"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 89.7333,
+   "start": 89.7166,
    "dauer": 0,
    "quelle": "auto:37"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 89.7333,
+   "start": 89.7166,
    "dauer": 0,
    "quelle": "auto:37"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 89.7333,
+   "start": 89.7166,
    "dauer": 0,
    "quelle": "auto:37"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 90.6,
+   "start": 90.5833,
    "dauer": 0,
    "quelle": "auto:37:breathed"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 90.6,
+   "start": 90.5833,
    "dauer": 0,
    "quelle": "auto:37:breathed"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 90.6,
+   "start": 90.5833,
    "dauer": 0,
    "quelle": "auto:37:breathed"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 90.6,
+   "start": 90.5833,
    "dauer": 0,
    "quelle": "auto:37:breathed"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 90.6,
+   "start": 90.5833,
    "dauer": 0,
    "quelle": "auto:37:breathed"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 90.6,
+   "start": 90.5833,
    "dauer": 0,
    "quelle": "auto:37:breathed"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 92.6333,
+   "start": 92.6166,
    "dauer": 0,
    "quelle": "auto:38"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 92.6333,
+   "start": 92.6166,
    "dauer": 0,
    "quelle": "auto:38"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 92.6333,
+   "start": 92.6166,
    "dauer": 0,
    "quelle": "auto:38"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 92.6333,
+   "start": 92.6166,
    "dauer": 0,
    "quelle": "auto:38"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 92.6333,
+   "start": 92.6166,
    "dauer": 0,
    "quelle": "auto:38"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 92.6333,
-   "dauer": 0,
-   "quelle": "auto:38"
-  },
-  {
-   "art": "aus",
-   "ziel": "see.laterne",
-   "start": 92.6333,
+   "start": 92.6166,
    "dauer": 0,
    "quelle": "auto:38"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 94.3667,
+   "start": 94.35,
    "dauer": 0,
    "quelle": "auto:38:then"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 94.3667,
+   "start": 94.35,
    "dauer": 0,
    "quelle": "auto:38:then"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 94.3667,
+   "start": 94.35,
    "dauer": 0,
    "quelle": "auto:38:then"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 94.3667,
+   "start": 94.35,
    "dauer": 0,
    "quelle": "auto:38:then"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 94.3667,
+   "start": 94.35,
    "dauer": 0,
    "quelle": "auto:38:then"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 94.3667,
+   "start": 94.35,
    "dauer": 0,
    "quelle": "auto:38:then"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 95.3333,
+   "start": 95.3166,
    "dauer": 0,
    "quelle": "auto:39"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 95.3333,
+   "start": 95.3166,
    "dauer": 0,
    "quelle": "auto:39"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 95.3333,
+   "start": 95.3166,
    "dauer": 0,
    "quelle": "auto:39"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 95.3333,
+   "start": 95.3166,
    "dauer": 0,
    "quelle": "auto:39"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 95.3333,
+   "start": 95.3166,
    "dauer": 0,
    "quelle": "auto:39"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 95.3333,
+   "start": 95.3166,
    "dauer": 0,
    "quelle": "auto:39"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 96.8667,
+   "start": 96.85,
    "dauer": 0,
    "quelle": "auto:40"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 96.8667,
+   "start": 96.85,
    "dauer": 0,
    "quelle": "auto:40"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 96.8667,
+   "start": 96.85,
    "dauer": 0,
    "quelle": "auto:40"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 96.8667,
+   "start": 96.85,
    "dauer": 0,
    "quelle": "auto:40"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 96.8667,
+   "start": 96.85,
    "dauer": 0,
    "quelle": "auto:40"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 96.8667,
+   "start": 96.85,
    "dauer": 0,
    "quelle": "auto:40"
   },
   {
    "art": "aus",
    "ziel": "see.laterne",
-   "start": 96.8667,
+   "start": 96.85,
    "dauer": 0,
    "quelle": "auto:40"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 98.7333,
+   "start": 98.7166,
    "dauer": 0,
    "quelle": "auto:41"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 98.7333,
+   "start": 98.7166,
    "dauer": 0,
    "quelle": "auto:41"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 98.7333,
+   "start": 98.7166,
    "dauer": 0,
    "quelle": "auto:41"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 98.7333,
+   "start": 98.7166,
    "dauer": 0,
    "quelle": "auto:41"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 98.7333,
+   "start": 98.7166,
    "dauer": 0,
    "quelle": "auto:41"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 98.7333,
+   "start": 98.7166,
    "dauer": 0,
    "quelle": "auto:41"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 100.6333,
+   "start": 100.6166,
    "dauer": 0,
    "quelle": "auto:41:our"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 100.6333,
+   "start": 100.6166,
    "dauer": 0,
    "quelle": "auto:41:our"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 100.6333,
+   "start": 100.6166,
    "dauer": 0,
    "quelle": "auto:41:our"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 100.6333,
+   "start": 100.6166,
    "dauer": 0,
    "quelle": "auto:41:our"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 100.6333,
+   "start": 100.6166,
    "dauer": 0,
    "quelle": "auto:41:our"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 100.6333,
+   "start": 100.6166,
    "dauer": 0,
    "quelle": "auto:41:our"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 101.8333,
+   "start": 101.8166,
    "dauer": 0,
    "quelle": "auto:42"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 101.8333,
+   "start": 101.8166,
    "dauer": 0,
    "quelle": "auto:42"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 101.8333,
+   "start": 101.8166,
    "dauer": 0,
    "quelle": "auto:42"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 101.8333,
+   "start": 101.8166,
    "dauer": 0,
    "quelle": "auto:42"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 101.8333,
+   "start": 101.8166,
    "dauer": 0,
    "quelle": "auto:42"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 101.8333,
+   "start": 101.8166,
    "dauer": 0,
    "quelle": "auto:42"
   },
   {
    "art": "aus",
    "ziel": "huette.lampe",
-   "start": 101.8333,
+   "start": 101.8166,
    "dauer": 0,
    "quelle": "auto:42"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 102.8333,
+   "start": 102.8166,
    "dauer": 0,
    "quelle": "auto:42:window"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 102.8333,
+   "start": 102.8166,
    "dauer": 0,
    "quelle": "auto:42:window"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 102.8333,
+   "start": 102.8166,
    "dauer": 0,
    "quelle": "auto:42:window"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 102.8333,
+   "start": 102.8166,
    "dauer": 0,
    "quelle": "auto:42:window"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 102.8333,
+   "start": 102.8166,
    "dauer": 0,
    "quelle": "auto:42:window"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 102.8333,
+   "start": 102.8166,
+   "dauer": 0,
+   "quelle": "auto:42:window"
+  },
+  {
+   "art": "aus",
+   "ziel": "huette.lampe",
+   "start": 102.8166,
    "dauer": 0,
    "quelle": "auto:42:window"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 104.3,
+   "start": 104.2833,
    "dauer": 0,
    "quelle": "auto:44"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 104.3,
+   "start": 104.2833,
    "dauer": 0,
    "quelle": "auto:44"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 104.3,
+   "start": 104.2833,
    "dauer": 0,
    "quelle": "auto:44"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 104.3,
+   "start": 104.2833,
    "dauer": 0,
    "quelle": "auto:44"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 104.3,
+   "start": 104.2833,
    "dauer": 0,
    "quelle": "auto:44"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 104.3,
+   "start": 104.2833,
    "dauer": 0,
    "quelle": "auto:44"
   },
   {
    "art": "aus",
    "ziel": "huette.lampe",
-   "start": 104.3,
+   "start": 104.2833,
    "dauer": 0,
    "quelle": "auto:44"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 105.4333,
+   "start": 105.4166,
    "dauer": 0,
    "quelle": "auto:45"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 105.4333,
+   "start": 105.4166,
    "dauer": 0,
    "quelle": "auto:45"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 105.4333,
+   "start": 105.4166,
    "dauer": 0,
    "quelle": "auto:45"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 105.4333,
+   "start": 105.4166,
    "dauer": 0,
    "quelle": "auto:45"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 105.4333,
+   "start": 105.4166,
    "dauer": 0,
    "quelle": "auto:45"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 105.4333,
+   "start": 105.4166,
+   "dauer": 0,
+   "quelle": "auto:45"
+  },
+  {
+   "art": "aus",
+   "ziel": "huette.lampe",
+   "start": 105.4166,
    "dauer": 0,
    "quelle": "auto:45"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 106.1333,
+   "start": 106.1166,
    "dauer": 0,
    "quelle": "auto:46"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 106.1333,
+   "start": 106.1166,
    "dauer": 0,
    "quelle": "auto:46"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 106.1333,
+   "start": 106.1166,
    "dauer": 0,
    "quelle": "auto:46"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 106.1333,
+   "start": 106.1166,
    "dauer": 0,
    "quelle": "auto:46"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 106.1333,
+   "start": 106.1166,
    "dauer": 0,
    "quelle": "auto:46"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 106.1333,
+   "start": 106.1166,
    "dauer": 0,
    "quelle": "auto:46"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 107.8333,
+   "start": 107.8166,
    "dauer": 0,
    "quelle": "auto:47"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 107.8333,
+   "start": 107.8166,
    "dauer": 0,
    "quelle": "auto:47"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 107.8333,
+   "start": 107.8166,
    "dauer": 0,
    "quelle": "auto:47"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 107.8333,
+   "start": 107.8166,
    "dauer": 0,
    "quelle": "auto:47"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 107.8333,
+   "start": 107.8166,
    "dauer": 0,
    "quelle": "auto:47"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 107.8333,
+   "start": 107.8166,
    "dauer": 0,
    "quelle": "auto:47"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 108.6,
+   "start": 108.5833,
    "dauer": 0,
    "quelle": "auto:47:clear"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 108.6,
+   "start": 108.5833,
    "dauer": 0,
    "quelle": "auto:47:clear"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 108.6,
+   "start": 108.5833,
    "dauer": 0,
    "quelle": "auto:47:clear"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 108.6,
+   "start": 108.5833,
    "dauer": 0,
    "quelle": "auto:47:clear"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 108.6,
+   "start": 108.5833,
    "dauer": 0,
    "quelle": "auto:47:clear"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 108.6,
+   "start": 108.5833,
    "dauer": 0,
    "quelle": "auto:47:clear"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 109.6333,
+   "start": 109.6166,
    "dauer": 0,
    "quelle": "auto:48"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 109.6333,
+   "start": 109.6166,
    "dauer": 0,
    "quelle": "auto:48"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 109.6333,
+   "start": 109.6166,
    "dauer": 0,
    "quelle": "auto:48"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 109.6333,
+   "start": 109.6166,
    "dauer": 0,
    "quelle": "auto:48"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 109.6333,
+   "start": 109.6166,
    "dauer": 0,
    "quelle": "auto:48"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 109.6333,
+   "start": 109.6166,
    "dauer": 0,
    "quelle": "auto:48"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 111.5333,
+   "start": 111.5166,
    "dauer": 0,
    "quelle": "auto:49"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 111.5333,
+   "start": 111.5166,
    "dauer": 0,
    "quelle": "auto:49"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 111.5333,
+   "start": 111.5166,
    "dauer": 0,
    "quelle": "auto:49"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 111.5333,
+   "start": 111.5166,
    "dauer": 0,
    "quelle": "auto:49"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 111.5333,
+   "start": 111.5166,
    "dauer": 0,
    "quelle": "auto:49"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 111.5333,
+   "start": 111.5166,
    "dauer": 0,
    "quelle": "auto:49"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 113,
+   "start": 112.9833,
    "dauer": 0,
    "quelle": "auto:50"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 113,
+   "start": 112.9833,
    "dauer": 0,
    "quelle": "auto:50"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 113,
+   "start": 112.9833,
    "dauer": 0,
    "quelle": "auto:50"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 113,
+   "start": 112.9833,
    "dauer": 0,
    "quelle": "auto:50"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 113,
+   "start": 112.9833,
    "dauer": 0,
    "quelle": "auto:50"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 113,
+   "start": 112.9833,
    "dauer": 0,
    "quelle": "auto:50"
   },
   {
    "art": "aus",
    "ziel": "rathaus.lampe",
-   "start": 113,
+   "start": 112.9833,
    "dauer": 0,
    "quelle": "auto:50"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 114.2333,
+   "start": 114.2166,
    "dauer": 0,
    "quelle": "auto:51"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 114.2333,
+   "start": 114.2166,
    "dauer": 0,
    "quelle": "auto:51"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 114.2333,
+   "start": 114.2166,
    "dauer": 0,
    "quelle": "auto:51"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 114.2333,
+   "start": 114.2166,
    "dauer": 0,
    "quelle": "auto:51"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 114.2333,
+   "start": 114.2166,
    "dauer": 0,
    "quelle": "auto:51"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 114.2333,
+   "start": 114.2166,
    "dauer": 0,
    "quelle": "auto:51"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 115.2333,
+   "start": 115.2166,
    "dauer": 0,
    "quelle": "auto:51:and"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 115.2333,
+   "start": 115.2166,
    "dauer": 0,
    "quelle": "auto:51:and"
   },
   {
    "art": "aus",
    "ziel": "see.*",
-   "start": 115.2333,
+   "start": 115.2166,
    "dauer": 0,
    "quelle": "auto:51:and"
   },
   {
    "art": "aus",
    "ziel": "huette.*",
-   "start": 115.2333,
+   "start": 115.2166,
    "dauer": 0,
    "quelle": "auto:51:and"
   },
   {
    "art": "aus",
    "ziel": "rathaus.*",
-   "start": 115.2333,
+   "start": 115.2166,
    "dauer": 0,
    "quelle": "auto:51:and"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 115.2333,
+   "start": 115.2166,
    "dauer": 0,
    "quelle": "auto:51:and"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 116.1333,
+   "start": 116.1166,
    "dauer": 0,
    "quelle": "auto:52"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 116.1333,
+   "start": 116.1166,
    "dauer": 0,
    "quelle": "auto:52"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 116.1333,
+   "start": 116.1166,
    "dauer": 0,
    "quelle": "auto:52"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 116.1333,
+   "start": 116.1166,
    "dauer": 0,
    "quelle": "auto:52"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 116.1333,
+   "start": 116.1166,
    "dauer": 0,
    "quelle": "auto:52"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 116.1333,
+   "start": 116.1166,
    "dauer": 0,
    "quelle": "auto:52"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 117.3333,
+   "start": 117.3166,
    "dauer": 0,
    "quelle": "auto:52:copying"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 117.3333,
+   "start": 117.3166,
    "dauer": 0,
    "quelle": "auto:52:copying"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 117.3333,
+   "start": 117.3166,
    "dauer": 0,
    "quelle": "auto:52:copying"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 117.3333,
+   "start": 117.3166,
    "dauer": 0,
    "quelle": "auto:52:copying"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 117.3333,
+   "start": 117.3166,
    "dauer": 0,
    "quelle": "auto:52:copying"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 117.3333,
+   "start": 117.3166,
    "dauer": 0,
    "quelle": "auto:52:copying"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 118.3,
+   "start": 118.2833,
    "dauer": 0,
    "quelle": "auto:53"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 118.3,
+   "start": 118.2833,
    "dauer": 0,
    "quelle": "auto:53"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 118.3,
+   "start": 118.2833,
    "dauer": 0,
    "quelle": "auto:53"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 118.3,
+   "start": 118.2833,
    "dauer": 0,
    "quelle": "auto:53"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 118.3,
+   "start": 118.2833,
    "dauer": 0,
    "quelle": "auto:53"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 118.3,
+   "start": 118.2833,
    "dauer": 0,
    "quelle": "auto:53"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 119.2,
+   "start": 119.1833,
    "dauer": 0,
    "quelle": "auto:53:down"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 119.2,
+   "start": 119.1833,
    "dauer": 0,
    "quelle": "auto:53:down"
   },
   {
    "art": "aus",
    "ziel": "see.*",
-   "start": 119.2,
+   "start": 119.1833,
    "dauer": 0,
    "quelle": "auto:53:down"
   },
   {
    "art": "aus",
    "ziel": "huette.*",
-   "start": 119.2,
+   "start": 119.1833,
    "dauer": 0,
    "quelle": "auto:53:down"
   },
   {
    "art": "aus",
    "ziel": "rathaus.*",
-   "start": 119.2,
+   "start": 119.1833,
    "dauer": 0,
    "quelle": "auto:53:down"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 119.2,
+   "start": 119.1833,
    "dauer": 0,
    "quelle": "auto:53:down"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 120.8,
+   "start": 120.7833,
    "dauer": 0,
    "quelle": "auto:54"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 120.8,
+   "start": 120.7833,
    "dauer": 0,
    "quelle": "auto:54"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 120.8,
+   "start": 120.7833,
    "dauer": 0,
    "quelle": "auto:54"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 120.8,
+   "start": 120.7833,
    "dauer": 0,
    "quelle": "auto:54"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 120.8,
+   "start": 120.7833,
    "dauer": 0,
    "quelle": "auto:54"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 120.8,
+   "start": 120.7833,
    "dauer": 0,
    "quelle": "auto:54"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 122.3667,
+   "start": 122.35,
    "dauer": 0,
    "quelle": "auto:54:came"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 122.3667,
+   "start": 122.35,
    "dauer": 0,
    "quelle": "auto:54:came"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 122.3667,
+   "start": 122.35,
    "dauer": 0,
    "quelle": "auto:54:came"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 122.3667,
+   "start": 122.35,
    "dauer": 0,
    "quelle": "auto:54:came"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 122.3667,
+   "start": 122.35,
    "dauer": 0,
    "quelle": "auto:54:came"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 122.3667,
+   "start": 122.35,
    "dauer": 0,
    "quelle": "auto:54:came"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 123.6333,
+   "start": 123.6166,
    "dauer": 0,
    "quelle": "auto:55"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 123.6333,
+   "start": 123.6166,
    "dauer": 0,
    "quelle": "auto:55"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 123.6333,
+   "start": 123.6166,
    "dauer": 0,
    "quelle": "auto:55"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 123.6333,
+   "start": 123.6166,
    "dauer": 0,
    "quelle": "auto:55"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 123.6333,
+   "start": 123.6166,
    "dauer": 0,
    "quelle": "auto:55"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 123.6333,
+   "start": 123.6166,
    "dauer": 0,
    "quelle": "auto:55"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 124.8667,
+   "start": 124.85,
    "dauer": 0,
    "quelle": "auto:56"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 124.8667,
+   "start": 124.85,
    "dauer": 0,
    "quelle": "auto:56"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 124.8667,
+   "start": 124.85,
    "dauer": 0,
    "quelle": "auto:56"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 124.8667,
+   "start": 124.85,
    "dauer": 0,
    "quelle": "auto:56"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 124.8667,
+   "start": 124.85,
    "dauer": 0,
    "quelle": "auto:56"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 124.8667,
+   "start": 124.85,
    "dauer": 0,
    "quelle": "auto:56"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 126.7333,
+   "start": 126.7166,
    "dauer": 0,
    "quelle": "auto:57"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 126.7333,
+   "start": 126.7166,
    "dauer": 0,
    "quelle": "auto:57"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 126.7333,
+   "start": 126.7166,
    "dauer": 0,
    "quelle": "auto:57"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 126.7333,
+   "start": 126.7166,
    "dauer": 0,
    "quelle": "auto:57"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 126.7333,
+   "start": 126.7166,
    "dauer": 0,
    "quelle": "auto:57"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 126.7333,
+   "start": 126.7166,
    "dauer": 0,
    "quelle": "auto:57"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 127.5667,
+   "start": 127.55,
    "dauer": 0,
    "quelle": "auto:58"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 127.5667,
+   "start": 127.55,
    "dauer": 0,
    "quelle": "auto:58"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 127.5667,
+   "start": 127.55,
    "dauer": 0,
    "quelle": "auto:58"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 127.5667,
+   "start": 127.55,
    "dauer": 0,
    "quelle": "auto:58"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 127.5667,
+   "start": 127.55,
    "dauer": 0,
    "quelle": "auto:58"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 127.5667,
+   "start": 127.55,
    "dauer": 0,
    "quelle": "auto:58"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 129.3333,
+   "start": 129.3166,
    "dauer": 0,
    "quelle": "auto:58:like"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 129.3333,
+   "start": 129.3166,
    "dauer": 0,
    "quelle": "auto:58:like"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 129.3333,
+   "start": 129.3166,
    "dauer": 0,
    "quelle": "auto:58:like"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 129.3333,
+   "start": 129.3166,
    "dauer": 0,
    "quelle": "auto:58:like"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 129.3333,
+   "start": 129.3166,
    "dauer": 0,
    "quelle": "auto:58:like"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 129.3333,
+   "start": 129.3166,
    "dauer": 0,
    "quelle": "auto:58:like"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 130.2333,
+   "start": 130.2166,
    "dauer": 0,
    "quelle": "auto:59"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 130.2333,
+   "start": 130.2166,
    "dauer": 0,
    "quelle": "auto:59"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 130.2333,
+   "start": 130.2166,
    "dauer": 0,
    "quelle": "auto:59"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 130.2333,
+   "start": 130.2166,
    "dauer": 0,
    "quelle": "auto:59"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 130.2333,
+   "start": 130.2166,
    "dauer": 0,
    "quelle": "auto:59"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 130.2333,
+   "start": 130.2166,
    "dauer": 0,
    "quelle": "auto:59"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 131.8667,
+   "start": 131.85,
    "dauer": 0,
    "quelle": "auto:60"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 131.8667,
+   "start": 131.85,
    "dauer": 0,
    "quelle": "auto:60"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 131.8667,
+   "start": 131.85,
    "dauer": 0,
    "quelle": "auto:60"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 131.8667,
+   "start": 131.85,
    "dauer": 0,
    "quelle": "auto:60"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 131.8667,
+   "start": 131.85,
    "dauer": 0,
    "quelle": "auto:60"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 131.8667,
+   "start": 131.85,
    "dauer": 0,
    "quelle": "auto:60"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 132.6,
+   "start": 132.5833,
    "dauer": 0,
    "quelle": "auto:61"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 132.6,
+   "start": 132.5833,
    "dauer": 0,
    "quelle": "auto:61"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 132.6,
+   "start": 132.5833,
    "dauer": 0,
    "quelle": "auto:61"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 132.6,
+   "start": 132.5833,
    "dauer": 0,
    "quelle": "auto:61"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 132.6,
+   "start": 132.5833,
    "dauer": 0,
    "quelle": "auto:61"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 132.6,
+   "start": 132.5833,
    "dauer": 0,
    "quelle": "auto:61"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 134.9,
+   "start": 134.8833,
    "dauer": 0,
    "quelle": "auto:63"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 134.9,
+   "start": 134.8833,
    "dauer": 0,
    "quelle": "auto:63"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 134.9,
+   "start": 134.8833,
    "dauer": 0,
    "quelle": "auto:63"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 134.9,
+   "start": 134.8833,
    "dauer": 0,
    "quelle": "auto:63"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 134.9,
+   "start": 134.8833,
    "dauer": 0,
    "quelle": "auto:63"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 134.9,
+   "start": 134.8833,
    "dauer": 0,
    "quelle": "auto:63"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 136.3333,
+   "start": 136.3166,
    "dauer": 0,
    "quelle": "auto:64"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 136.3333,
+   "start": 136.3166,
    "dauer": 0,
    "quelle": "auto:64"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 136.3333,
+   "start": 136.3166,
    "dauer": 0,
    "quelle": "auto:64"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 136.3333,
+   "start": 136.3166,
    "dauer": 0,
    "quelle": "auto:64"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 136.3333,
+   "start": 136.3166,
    "dauer": 0,
    "quelle": "auto:64"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 136.3333,
+   "start": 136.3166,
    "dauer": 0,
    "quelle": "auto:64"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 137.6333,
+   "start": 137.6166,
    "dauer": 0,
    "quelle": "auto:64:we"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 137.6333,
+   "start": 137.6166,
    "dauer": 0,
    "quelle": "auto:64:we"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 137.6333,
+   "start": 137.6166,
    "dauer": 0,
    "quelle": "auto:64:we"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 137.6333,
+   "start": 137.6166,
    "dauer": 0,
    "quelle": "auto:64:we"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 137.6333,
+   "start": 137.6166,
    "dauer": 0,
    "quelle": "auto:64:we"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 137.6333,
+   "start": 137.6166,
    "dauer": 0,
    "quelle": "auto:64:we"
   },
   {
    "art": "an",
    "ziel": "strasse.*",
-   "start": 139.4,
+   "start": 139.3833,
    "dauer": 0,
    "quelle": "auto:65"
   },
   {
    "art": "an",
    "ziel": "marsh.*",
-   "start": 139.4,
+   "start": 139.3833,
    "dauer": 0,
    "quelle": "auto:65"
   },
   {
    "art": "an",
    "ziel": "see.*",
-   "start": 139.4,
+   "start": 139.3833,
    "dauer": 0,
    "quelle": "auto:65"
   },
   {
    "art": "an",
    "ziel": "huette.*",
-   "start": 139.4,
+   "start": 139.3833,
    "dauer": 0,
    "quelle": "auto:65"
   },
   {
    "art": "an",
    "ziel": "rathaus.*",
-   "start": 139.4,
+   "start": 139.3833,
    "dauer": 0,
    "quelle": "auto:65"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 139.4,
+   "start": 139.3833,
    "dauer": 0,
    "quelle": "auto:65"
   },
   {
    "art": "aus",
    "ziel": "strasse.*",
-   "start": 141.1667,
+   "start": 141.15,
    "dauer": 0,
    "quelle": "auto:endkarte"
   },
   {
    "art": "aus",
    "ziel": "marsh.*",
-   "start": 141.1667,
+   "start": 141.15,
    "dauer": 0,
    "quelle": "auto:endkarte"
   },
   {
    "art": "aus",
    "ziel": "see.*",
-   "start": 141.1667,
+   "start": 141.15,
    "dauer": 0,
    "quelle": "auto:endkarte"
   },
   {
    "art": "aus",
    "ziel": "huette.*",
-   "start": 141.1667,
+   "start": 141.15,
    "dauer": 0,
    "quelle": "auto:endkarte"
   },
   {
    "art": "aus",
    "ziel": "rathaus.*",
-   "start": 141.1667,
+   "start": 141.15,
    "dauer": 0,
    "quelle": "auto:endkarte"
   },
   {
    "art": "an",
    "ziel": "umgebung",
-   "start": 141.1667,
+   "start": 141.15,
    "dauer": 0,
    "quelle": "auto:endkarte"
   },
   {
    "art": "an",
    "ziel": "rand.laterne",
-   "start": 141.1667,
+   "start": 141.15,
    "dauer": 0,
    "quelle": "auto:endkarte"
   }

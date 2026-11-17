@@ -7,6 +7,7 @@
 //   --von <s> --bis <s>      Zeitbereich in Sekunden (bis = exklusiv). Ohne Angabe: alles.
 //   --bilder <a>-<b>         Bildbereich (beide inklusiv), statt --von/--bis
 //   --einzelbild <s>         nur das Bild zur Zeit s als JPG (schnelle Probe)
+//   --atemtor <id> [ab_s]    Atem-Tor: keine fremde Dampfwolke am Mund der Kopie (schreibt atem-tor.json)
 //   --prozesse <n>           parallele Chromium-Prozesse mit je einem Bildbereich (Std 1, 2 empfohlen)
 //   --format png|jpg         Einzelbilder (Std png, verlustfrei)
 //   --qualitaet <0..1>       JPEG-Qualität (Std 0.92)
@@ -59,6 +60,8 @@ function argumente(argv) {
     else if (a === '--kein-bogen') o.bogen = false;
     else if (a === '--schnellbogen') o.schnellbogen = true;
     else if (a === '--bogenbild') o.bogenbild = wert();
+    else if (a === '--anker') { const [z, n] = wert().split('@').reverse(); o.anker = { namen: z.split(','), zeit: parseFloat(n) }; }
+    else if (a === '--atemtor') { o.atemtor = wert(); if (argv[i + 1] && !argv[i + 1].startsWith('--') && /^[0-9.]+$/.test(argv[i + 1])) o.atemAb = parseFloat(argv[++i]); }
     else if (a === '--backend') o.backend = wert();
     else if (a === '--debug') o.debug = true;
     else if (a === '-h' || a === '--hilfe') o.hilfe = true;
@@ -346,6 +349,40 @@ async function main() {
   if (o.schnellbogen) {
     await schnellBogen(o, meta, browser0, seitenUrl, ordner, name, fps);
     await browser0.close(); server.close(); aufraeumen(); return;
+  }
+
+  // Anker in Weltkoordinaten ausgeben: --anker <s>@<anker,anker,…> (zum Einrichten von Kameras)
+  if (o.anker) {
+    const page = await oeffneSeite(browser0, seitenUrl, 'k1');
+    const r = await page.evaluate(([i, n]) => window.engine.ankerWelt(i, n), [Math.round(o.anker.zeit * fps), o.anker.namen]);
+    for (const [n, x, y, z] of r) console.log(`${n}: ${x} ${y} ${z}`);
+    await browser0.close(); server.close(); aufraeumen(); return;
+  }
+
+  // Atem-Tor (Review Kindly F1, P0): --atemtor <kopie> [ab_s]. Jedes zweite Bild aller Einstellungen ab ab_s, in denen der
+  // Mund der Kopie im Bild ist: keine Dampfwolke einer anderen Figur näher als eine halbe Kopfbreite am Mund der Kopie.
+  // Schreibt atem-tor.json in den Ausgabeordner (pruefen.py liest sie), Exit 1 bei Verstoß. Rechnet nur Zustände.
+  if (o.atemtor) {
+    const page = await oeffneSeite(browser0, seitenUrl, 'a1');
+    const ab = Math.round((o.atemAb ?? 0) * fps);
+    const verstoesse = [];
+    let geprueft = 0, minimum = null;
+    for (let i = Math.max(meta.startBild, ab); i < meta.bilder; i += 2) {
+      const r = await page.evaluate(([i, k]) => window.engine.atemNaehe(i, k), [i, o.atemtor]);
+      if (!r) continue;
+      geprueft++;
+      if (r.verhaeltnis !== null && (minimum === null || r.verhaeltnis < minimum.verhaeltnis)) minimum = r;
+      if (r.verhaeltnis !== null && r.verhaeltnis < 1) verstoesse.push(r);
+    }
+    await page.close();
+    const ergebnis = { kopie: o.atemtor, ab_s: o.atemAb ?? 0, regel: 'keine fremde Dampfwolke näher als eine halbe Kopfbreite am Mund der Kopie', bilder_geprueft: geprueft, knappster: minimum, verstoesse, ok: verstoesse.length === 0 };
+    await fsp.writeFile(path.join(ordner, 'atem-tor.json'), JSON.stringify(ergebnis, null, 1));
+    const je = {};
+    for (const v of verstoesse) je[v.einstellung] = (je[v.einstellung] ?? 0) + 1;
+    console.log(`Atem-Tor ${o.atemtor} ab ${o.atemAb ?? 0} s: ${geprueft} Bilder, ${verstoesse.length} Verstöße ${JSON.stringify(je)}, knappstes Verhältnis ${minimum?.verhaeltnis ?? '–'} (${minimum?.einstellung ?? ''})`);
+    await browser0.close(); server.close(); aufraeumen();
+    if (verstoesse.length) process.exitCode = 1;
+    return;
   }
 
   // Einzelbild-Probe

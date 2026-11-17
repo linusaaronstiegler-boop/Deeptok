@@ -90,6 +90,35 @@ export default async function baue(ctx, params = {}) {
   eis.renderOrder = 1;
   eis.userData.einzeln = true;
   gruppe.add(eis);
+  // Wasserschein (Review Kindly F1): Durch klares Eis von oben sah man unter Gesicht und Körper nur Schwarz
+  // (Bildmedian 3–4, „Kopf auf einem Sockel im schwarzen Raum“). Eine nach oben zeigende, einseitige Fläche 2,4 m
+  // unter dem Eis gibt dem Wasser einen dunkeltürkisen Grund mit weichen Lichtnetzen (Kaustik). Von unten
+  // (Untersichten, Kamera tiefer als die Fläche) ist sie unsichtbar (Rückseite), dort bleibt das Wasser dunkel.
+  if (params.wasser_schein !== false) {
+    const kaustik = ctx.zeichenTextur((g, w, h) => {
+      g.fillStyle = '#ffffff'; g.fillRect(0, 0, w, h);
+      const zz = ctx.zufall('kaustik');
+      g.lineJoin = 'round';
+      // Zellnetz: verzerrte Waben als weiche, nur leicht dunklere Linien (Review: das harte Netz wirkte wie ein Gitter)
+      const zellen = [];
+      for (let i = 0; i < 70; i++) {
+        const cx = zz() * w, cy = zz() * h, r = 22 + zz() * 26, pkt = [];
+        for (let k2 = 0; k2 <= 6; k2++) { const a = (k2 / 6) * Math.PI * 2 + zz() * 0.4; const rr = r * (0.8 + zz() * 0.4); pkt.push([cx + Math.cos(a) * rr, cy + Math.sin(a) * rr]); }
+        zellen.push(pkt);
+      }
+      for (const [breite, deck] of [[14, 0.05], [8, 0.07], [4, 0.09]]) {
+        g.strokeStyle = `rgba(30,60,66,${deck})`; g.lineWidth = breite;
+        for (const pkt of zellen) { g.beginPath(); pkt.forEach(([x, y], k2) => (k2 ? g.lineTo(x, y) : g.moveTo(x, y))); g.closePath(); g.stroke(); }
+      }
+    }, 256, 256);
+    kaustik.wrapS = kaustik.wrapT = T.RepeatWrapping;
+    kaustik.repeat.set(9, 12);
+    const scheinMat = new T.MeshBasicMaterial({ color: params.wasser_farbe ?? '#2b6f79', map: kaustik, side: T.FrontSide, fog: true });
+    const schein = new T.Mesh(new T.PlaneGeometry(36, 48), scheinMat);
+    schein.rotation.x = -Math.PI / 2;
+    schein.position.set(SEE.wesen[0], -2.4, SEE.wesen[2] - 6);
+    gruppe.add(schein);
+  }
   // Seegrund als Schüssel: tief und dunkel in der Mitte, am Ufer steigt er unter das Eis hinauf. So sieht
   // eine Kamera unter dem Eis nirgends den Himmel durch eine Lücke am Rand.
   const grundMat = ctx.mat('#10303a', { rauheit: 0.95 });

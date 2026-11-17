@@ -230,6 +230,46 @@ async function starten() {
         return { anker: a, x: Math.round(((v.x + 1) / 2) * W0), y: Math.round(((1 - v.y) / 2) * H0), vorn, tiefe: +(-kz).toFixed(4) };
       });
     },
+    // Anker in Weltkoordinaten zur Bildzeit i (zum Einrichten von Kameras, ohne Rendern)
+    ankerWelt(i, namen) {
+      const e = zeitplan.einstellungFuer(i);
+      einstellungAktivieren(e);
+      zeitSetzen(i / fps, e);
+      return [].concat(namen).map((n) => { const v = welt.anker(n, i / fps); return [n, +v.x.toFixed(3), +v.y.toFixed(3), +v.z.toFixed(3)]; });
+    },
+    // Atem-Tor (Review Kindly F1, P0: im letzten Suchbild stand Gus' Dampfwolke an Bears Kinn, in Feed-Größe sah es
+    // aus, als dampfe die Kopie). Für Bild i: Abstand jeder sichtbaren Dampfwolke anderer Figuren zum Mund der Kopie,
+    // in Pixeln der vollen Auflösung und als Anteil der halben Kopfbreite der Kopie. Nur Zustand, kein Rendern.
+    atemNaehe(i, kopie) {
+      const e = zeitplan.einstellungFuer(i);
+      einstellungAktivieren(e);
+      const t = i / fps;
+      zeitSetzen(t, e);
+      kamera.updateMatrixWorld();
+      const fig = welt.figuren.get(kopie);
+      if (!fig || !fig.inst.gruppe.visible) return null;
+      const px = (v) => { const kz = v.clone().applyMatrix4(kamera.matrixWorldInverse).z; const q = v.clone().project(kamera); return { x: ((q.x + 1) / 2) * W0, y: ((1 - q.y) / 2) * H0, vorn: kz < 0 }; };
+      const mund = px(welt.anker(`${kopie}.mund`, t));
+      if (!mund.vorn || mund.x < 0 || mund.x > W0 || mund.y < 0 || mund.y > H0) return null;
+      // halbe Kopfbreite der Kopie im Bild: Kopfmitte gegen einen Punkt 0,27 m daneben (quer zur Blickachse)
+      const kopf = welt.anker(`${kopie}.kopf`, t);
+      const quer = new THREE.Vector3(1, 0, 0).applyQuaternion(kamera.quaternion).multiplyScalar(0.27);
+      const k0 = px(kopf), k1 = px(kopf.clone().add(quer));
+      const halb = Math.max(4, Math.hypot(k1.x - k0.x, k1.y - k0.y));
+      let naechste = null;
+      for (const [id, f] of welt.figuren) {
+        if (id === kopie || !f.inst.gruppe.visible || !f.inst.dampf) continue;
+        f.inst.dampf.gruppe.updateMatrixWorld(true);
+        for (const sp of f.inst.dampf.gruppe.children) {
+          if (!sp.visible || (sp.userData.deck ?? 0) < 0.15) continue;
+          const p = px(sp.getWorldPosition(new THREE.Vector3()));
+          if (!p.vorn) continue;
+          const d = Math.hypot(p.x - mund.x, p.y - mund.y);
+          if (!naechste || d < naechste.abstand) naechste = { figur: id, abstand: Math.round(d), x: Math.round(p.x), y: Math.round(p.y) };
+        }
+      }
+      return { bild: i, einstellung: e.id, mund: { x: Math.round(mund.x), y: Math.round(mund.y) }, halbe_kopfbreite: Math.round(halb), naechste, verhaeltnis: naechste ? +(naechste.abstand / halb).toFixed(2) : null };
+    },
     // Rendern und als Daten-URL zurückgeben (im selben Aufruf, sonst ist der Puffer leer).
     bildDaten(i, format = 'image/png', qualitaet = 0.92) {
       const t0 = performance.now();

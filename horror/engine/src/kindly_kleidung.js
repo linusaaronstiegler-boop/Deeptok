@@ -65,10 +65,12 @@ export function fellTextur(ctx, farbe = '#CDBFA6') {
 
 // Kapuze im Nacken mit Fellrand (Bear: Petrol-Parka). Der Rand ist ein Kranz aus kleinen, unregelmäßigen
 // Fellklötzen rund um die Kapuzenöffnung; er liest sich in der Halbtotalen als heller Kragen.
-export function kapuzeMitFell({ ctx, gelenke, masse: m, mat, rundeKiste }, { farbe, fell = '#CDBFA6' }) {
+// groesse: Faktor für die Büschel; kante: Stärke des hellen Kantenlichts. Review Kindly F1: Bears weißgrauer Kranz
+// las sich in Feed-Größe wie Atemdampf neben dem Mund, ausgerechnet im Suchbild „dampft er noch?“.
+export function kapuzeMitFell({ ctx, gelenke, masse: m, mat, rundeKiste }, { farbe, fell = '#CDBFA6', groesse = 1, kante = 0.35 }) {
   const r = gelenke.rumpf;
   const stoff = mat(farbe, { rauheit: 0.85 });
-  const fellM = ctx.mat('#ffffff', { rauheit: 1, karte: fellTextur(ctx, fell), kante: { farbe: '#fff4e0', staerke: 0.35, exponent: 2 } });
+  const fellM = ctx.mat('#ffffff', { rauheit: 1, karte: fellTextur(ctx, fell), kante: { farbe: '#fff4e0', staerke: kante, exponent: 2 } });
   const kapuze = rundeKiste(m.rumpfOben * 0.82, 0.2, 0.2, stoff, 0.07);
   kapuze.position.set(0, m.rumpfH + 0.03, -m.rumpfT / 2 - 0.04);
   kapuze.rotation.x = 0.3;
@@ -81,8 +83,8 @@ export function kapuzeMitFell({ ctx, gelenke, masse: m, mat, rundeKiste }, { far
     const x = Math.cos(w) * (m.rumpfOben * 0.4);
     const y = m.rumpfH + 0.07 + Math.sin(w) * 0.1;
     const zz = -Math.sin(w) * (m.rumpfT * 0.55 + 0.08) + 0.06 * (1 - Math.sin(w));
-    const b = 0.13 + z() * 0.06;
-    const f = rundeKiste(b, 0.11 + z() * 0.05, b, fellM, 0.05, false);
+    const b = (0.13 + z() * 0.06) * groesse;
+    const f = rundeKiste(b, (0.11 + z() * 0.05) * groesse, b, fellM, 0.05 * groesse, false);
     f.position.set(x, y, zz);
     f.rotation.set((z() - 0.5) * 0.5, z() * 3, (z() - 0.5) * 0.5);
     r.add(f);

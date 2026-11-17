@@ -195,6 +195,8 @@ export async function kompiliere(ordner) {
   const W = timing.woerter;
   const einst = schneide(timing, ideen);
   const monsterIds = new Set(regie.monster ?? []);
+  // Opt-in (Review Kindly F1): Schnitt-Ereignisse gelten schon im ersten Bild (siehe Nebenaktionen, Lampen)
+  const BILDGENAU = regie.bildgenau === true;
   const figurIds = new Set(regie.figuren.map((f) => f.id));
   const R = regie.einstellungen;
 
@@ -324,13 +326,17 @@ export async function kompiliere(ordner) {
       const dauer = n.dauer ?? DAUER[n.was];
       const st = n.anker === 'ende' && dauer ? r4(s0 - dauer) : r4(s0 + (n.ab === 'start' ? n.versatz ?? 0 : 0));
       const { wort: _w, versatz: _v, ab: _ab, anker: _an, zeit: _z, ...rest } = n;
-      aktionen.push({ ...rest, start: st, ...(dauer !== undefined && !['gesicht', 'sichtbar'].includes(n.was) ? { dauer } : {}), nebenbei: true });
+      // Bildgenau (regie.bildgenau, Review Kindly F1): Was "ab start" in höchstens einem Bild fertig ist (Dampf aus,
+      // Gesicht angedrückt, Hand am Buch), gilt schon im ersten Bild ganz. Sonst stand es dort bei Fortschritt 0.
+      const sofort = BILDGENAU && n.ab === 'start' && !(n.versatz) && dauer !== undefined && dauer <= 1 / FPS;
+      aktionen.push({ ...rest, start: st, ...(dauer !== undefined && !['gesicht', 'sichtbar'].includes(n.was) ? { dauer } : {}), nebenbei: true, ...(sofort ? { sofort: true } : {}) });
     }
 
     // --- weitere Set-Ereignisse (nebenbei, z. B. Glut der Fingerschatten, Dielen biegen weiter) ---
     for (const s of r.set_ereignisse ?? []) {
       const { set: sid, wort, versatz = 0, anker: an, dauer = 0.6, ...rest } = s;
-      const t0 = wort !== undefined ? zeit(wort, versatz) : r4(start + versatz);
+      // bildgenau: Ereignisse am Schnitt ein halbes Bild davor, damit sie im ersten Bild schon gelten
+      const t0 = wort !== undefined ? zeit(wort, versatz) : r4(start + versatz - (BILDGENAU && versatz === 0 ? 0.5 / FPS : 0));
       setEreignis(sid, { ...rest, start: an === 'ende' ? r4(t0 - dauer) : t0, dauer });
     }
 
@@ -397,9 +403,13 @@ export async function kompiliere(ordner) {
     if (idee.rueckblende) anpassung = tief(anpassung, RUECKBLENDE);
     if (r.licht_anpassung) anpassung = tief(anpassung, r.licht_anpassung);
     const lampen = r.lampen ?? L.lampen;
-    for (const ziel of lampenFuer(sets)) lichtGlobal.push({ art: lampen ? 'an' : 'aus', ziel, start, dauer: 0, quelle: `auto:${e.key}` });
-    lichtGlobal.push({ art: 'an', ziel: 'umgebung', start, dauer: 0, quelle: `auto:${e.key}` });
-    for (const [ziel, an] of Object.entries(r.lampen_einzeln ?? {})) lichtGlobal.push({ art: an ? 'an' : 'aus', ziel, start, dauer: 0, quelle: `auto:${e.key}` });
+    // bildgenau: Lampen ein halbes Bild vor dem Schnitt schalten (wie die Turmuhr). Die Startzeit ist auf 4 Stellen
+    // gerundet und lag oft hinter der Bildzeit; dann brannte im ersten Bild noch die Lampe der vorigen Einstellung
+    // (Review Kindly F1: E44 Mittelhelligkeit 116 → 211 → 134, E68 Odell überstrahlt).
+    const lStart = BILDGENAU ? r4(start - 0.5 / FPS) : start;
+    for (const ziel of lampenFuer(sets)) lichtGlobal.push({ art: lampen ? 'an' : 'aus', ziel, start: lStart, dauer: 0, quelle: `auto:${e.key}` });
+    lichtGlobal.push({ art: 'an', ziel: 'umgebung', start: lStart, dauer: 0, quelle: `auto:${e.key}` });
+    for (const [ziel, an] of Object.entries(r.lampen_einzeln ?? {})) lichtGlobal.push({ art: an ? 'an' : 'aus', ziel, start: lStart, dauer: 0, quelle: `auto:${e.key}` });
 
     // --- Hauptsache (für Kompositionsprüfung und Tiefenunschärfe) ---
     const hauptsache = r.hauptsache ?? (typeof k.ziel === 'string' ? k.ziel : null);
@@ -468,9 +478,10 @@ export async function kompiliere(ordner) {
   const ekStart = r4(storyEnde / FPS), ekEnde = r4((storyEnde + endkarteBilder) / FPS);
   const ekAktionen = (ek.aktionen ?? []).map(({ ab = 0, ...a }) => ({ ...a, start: r4(ekStart + ab) }));
   const ekPartikel = (ek.partikel ?? []).map(({ ab = 0, ...p }) => ({ start: r4(ekStart + ab), dauer: r4(ekEnde - ekStart - ab), ...p }));
-  for (const ziel of lampenFuer(sets)) lichtGlobal.push({ art: 'aus', ziel, start: ekStart, dauer: 0, quelle: 'auto:endkarte' });
-  lichtGlobal.push({ art: 'an', ziel: 'umgebung', start: ekStart, dauer: 0, quelle: 'auto:endkarte' });
-  for (const [ziel, an] of Object.entries(ek.lampen_einzeln ?? {})) lichtGlobal.push({ art: an ? 'an' : 'aus', ziel, start: ekStart, dauer: 0, quelle: 'auto:endkarte' });
+  const ekLicht = BILDGENAU ? r4(ekStart - 0.5 / FPS) : ekStart;
+  for (const ziel of lampenFuer(sets)) lichtGlobal.push({ art: 'aus', ziel, start: ekLicht, dauer: 0, quelle: 'auto:endkarte' });
+  lichtGlobal.push({ art: 'an', ziel: 'umgebung', start: ekLicht, dauer: 0, quelle: 'auto:endkarte' });
+  for (const [ziel, an] of Object.entries(ek.lampen_einzeln ?? {})) lichtGlobal.push({ art: an ? 'an' : 'aus', ziel, start: ekLicht, dauer: 0, quelle: 'auto:endkarte' });
   einstellungen.push({
     id: 'END', start: ekStart, ende: ekEnde, set: ek.set ?? ['karte'], licht: ek.licht ?? 'nacht',
     licht_anpassung: ek.licht_anpassung ?? { nebel: { dichte: 0.0001 } },

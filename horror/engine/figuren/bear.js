@@ -70,7 +70,8 @@ export default async function baue(ctx, params = {}) {
         seite.position.set(sx * (m.kopfB / 2 + 0.004), m.kopfH * 0.83, -0.08);
         k.add(seite);
       }
-      kapuzeMitFell(teile, { farbe: F.parkaDunkel });
+      // Fellrand dunkel-bräunlich und kleiner: Weiß am Mund bleibt allein dem Atem (Review Kindly F1)
+      kapuzeMitFell(teile, { farbe: F.parkaDunkel, fell: '#6E5A45', groesse: 0.8, kante: 0.12 });
       // Parka reicht über die Hüfte
       schoesse(teile, mat(F.parka, { rauheit: 0.82 }), { laenge: 0.5 });
       return {};
