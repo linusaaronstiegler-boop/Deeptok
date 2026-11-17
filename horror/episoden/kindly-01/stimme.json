@@ -482,7 +482,7 @@
  },
  "timing": {
   "datei": "episoden/kindly-01/timing.json",
-  "sha256": "4198239779859d091129223826c30f856fe1b0e257cb9b1126165870eeffdbc9",
+  "sha256": "4283cbcae88b277a79c2ffc7ddc413289650b6a15cf33e95a1d5cd5634ddb56b",
   "woerter": 465,
   "saetze": 65,
   "dauer_s": 141.14,
@@ -631,7 +631,8 @@
    "weg_ab_satz65": 139.44,
    "schnitt_nach_anymore": 141.02
   },
-  "musik_hinweis": "Stufen und Wegfälle nach Bibel §10.6 auf die echten Satzzeiten gelegt; die Wegfälle „1,2 s vor …“ sind von Satzbeginn zurückgerechnet und beim Mischen auf die Pause davor zu legen."
+  "musik_hinweis": "Stufen und Wegfälle nach Bibel §10.6 auf die echten Satzzeiten gelegt; die Wegfälle „1,2 s vor …“ sind von Satzbeginn zurückgerechnet und beim Mischen auf die Pause davor zu legen.",
+  "bloecke": "nachgetragen aus bildideen.json (17.11.2026, Regie); sonst unverändert"
  },
  "vergleich_schaetzung": {
   "quelle": "Bibel §10.1/§10.3 (0,166 s je Silbe, 0,331 s je Komma, 0,221 s je Satz, 0,30 s Pause)",

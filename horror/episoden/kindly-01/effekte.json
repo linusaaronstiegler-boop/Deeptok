@@ -1,0 +1,300 @@
+{
+ "_hinweis": "Cue-Liste für engine/ton/mischen.py (Rules of Kindly F1, Bibel §10.6). Wenige Akzente: Tipper aufs Eis (hohl), Schläge von unten mit Eisknacken, Knistern beim Klarwerden, Odells Handglocke, Riegel, Deckel, der Glockenschlag auf der Endkarte. Die Zeiten der Tipper und Schläge folgen den Aufprall-Zeiten der Animationen (README §20). Stille als Handlung: am Fenster (S42–45) und unter der Schlusszeile keine Effekte. Die Endkarte ist nicht stumm: Pro gestrichenem Einwohner ein Glockenschlag (Bibel §3.2).",
+ "endkarte_stumm": false,
+ "rede": {
+  "_hinweis": "Odell wie in Hiding Night formant-erhaltend tiefer (−5,5 Halbtöne). Gus bleibt bei der Stimme (Ton-Tags warmly/whispers/sad tragen ihn); Bear erzählt.",
+  "odell": {
+   "halbtoene": -5.5,
+   "db": -1.0
+  }
+ },
+ "cues": [
+  {
+   "klang": "eis_tipps",
+   "wort": 2,
+   "text": "town,",
+   "versatz": 0.237,
+   "db": -11,
+   "params": {
+    "zeiten": [
+     0.0,
+     0.317,
+     0.633
+    ]
+   },
+   "grund": "S1: der Stiefel tippt dreimal (stiefel_tippen 0,95 s ab „town“, Aufprall bei (k+0,75)/3)"
+  },
+  {
+   "klang": "eis_schlag",
+   "wort": 6,
+   "text": "knocks,",
+   "versatz": 0.3,
+   "db": -12,
+   "params": {
+    "zeiten": [
+     0.0,
+     0.4,
+     0.8
+    ]
+   },
+   "grund": "S1: die Fäuste schlagen dreimal von unten (klopfen_unten 1,2 s ab „knocks“)"
+  },
+  {
+   "klang": "sub_boom",
+   "wort": 6,
+   "text": "knocks,",
+   "versatz": 0.3,
+   "db": -14,
+   "params": {
+    "f_start": 56.0,
+    "f_ende": 30.0,
+    "dauer": 2.0
+   },
+   "grund": "Hook-Impact auf dem ersten Schlag"
+  },
+  {
+   "klang": "frost",
+   "wort": 14,
+   "text": "as",
+   "versatz": -0.2,
+   "db": -20,
+   "grund": "S1: das Eis wird klar, darunter Lunds Gesicht"
+  },
+  {
+   "klang": "whoosh",
+   "wort": 23,
+   "text": "Knuckles.",
+   "versatz": 0.0,
+   "db": -16,
+   "grund": "Snap-Zoom auf „Knuckles“"
+  },
+  {
+   "klang": "handglocke",
+   "wort": 43,
+   "text": "waits",
+   "versatz": 0.15,
+   "db": -15,
+   "grund": "S5: Odells Handglocke, ein Schlag (glocke_laeuten, Schlag bei 0,15 s)"
+  },
+  {
+   "klang": "eis_tipps",
+   "wort": 103,
+   "text": "Knock",
+   "versatz": 0.28,
+   "db": -10,
+   "params": {
+    "zeiten": [
+     0.0,
+     0.375
+    ]
+   },
+   "grund": "S12: „Knock back“, zweimal gestampft"
+  },
+  {
+   "klang": "frost",
+   "wort": 120,
+   "text": "turns",
+   "versatz": 0.0,
+   "db": -18,
+   "grund": "S13: das Eis wird klar"
+  },
+  {
+   "klang": "sub_boom",
+   "wort": 131,
+   "text": "Yours.",
+   "versatz": 0.0,
+   "db": -15,
+   "params": {
+    "f_start": 50.0,
+    "f_ende": 29.0,
+    "dauer": 1.8
+   },
+   "grund": "S15: „Yours.“ nach dem Wegfall der Musik"
+  },
+  {
+   "klang": "eis_tipps",
+   "wort": 153,
+   "text": "knocked",
+   "versatz": 0.25,
+   "db": -12,
+   "tiefpass_hz": 2600,
+   "params": {
+    "zeiten": [
+     0.0,
+     0.333,
+     0.667
+    ]
+   },
+   "grund": "S18: Lund stampft lachend zurück (Rückblende, gedämpft)"
+  },
+  {
+   "klang": "eis_tipps",
+   "wort": 210,
+   "text": "taps",
+   "versatz": 0.384,
+   "db": -10,
+   "params": {
+    "zeiten": [
+     0.0,
+     0.288,
+     0.576
+    ],
+    "hell": 1.3
+   },
+   "grund": "S24: Gus' Pickel tippt dreimal (tippen 1,2 s, Aufprall 0,38/0,67/0,96 s)"
+  },
+  {
+   "klang": "eis_tipps",
+   "wort": 251,
+   "text": "tapped",
+   "versatz": 0.3,
+   "db": -10,
+   "params": {
+    "zeiten": [
+     0.0,
+     0.4,
+     0.8
+    ]
+   },
+   "grund": "S30: Bear tippt dreimal wie Gus (stiefel_tippen 1,2 s)"
+  },
+  {
+   "klang": "eis_schlag",
+   "wort": 260,
+   "text": "tapped",
+   "versatz": 0.3,
+   "db": -11,
+   "params": {
+    "zeiten": [
+     0.0,
+     0.4,
+     0.8
+    ]
+   },
+   "grund": "S31: es antwortet von unten, drei Schläge mit Eisknacken"
+  },
+  {
+   "klang": "sub_boom",
+   "wort": 260,
+   "text": "tapped",
+   "versatz": 0.3,
+   "db": -15,
+   "params": {
+    "f_start": 54.0,
+    "f_ende": 29.0,
+    "dauer": 2.0
+   },
+   "grund": "S31: Impact auf dem ersten Schlag"
+  },
+  {
+   "klang": "frost",
+   "wort": 276,
+   "text": "turned",
+   "versatz": 0.0,
+   "db": -17,
+   "grund": "S34: das Eis unter Bear wird klar"
+  },
+  {
+   "klang": "riegel",
+   "wort": 370,
+   "text": "losing",
+   "versatz": 0.0,
+   "db": -10,
+   "grund": "S49: Gus schiebt den Riegel zu"
+  },
+  {
+   "klang": "eis_schlag",
+   "wort": 382,
+   "text": "answered.",
+   "versatz": 0.165,
+   "db": -15,
+   "tiefpass_hz": 1800,
+   "params": {
+    "zeiten": [
+     0.0,
+     0.22,
+     0.44
+    ]
+   },
+   "grund": "S51: Rückblende, die Fäuste antworten (gedämpft)"
+  },
+  {
+   "klang": "eis_schlag",
+   "wort": 404,
+   "text": "three",
+   "versatz": 0.05,
+   "db": -12,
+   "params": {
+    "zeiten": [
+     0.0,
+     0.29,
+     0.58
+    ],
+    "knacken": 0.6
+   },
+   "grund": "S54: drei Schläge aus dem Eisloch, im Takt von Gus' Tippen (0,29 s)"
+  },
+  {
+   "klang": "eis_tipps",
+   "wort": 409,
+   "text": "taps.",
+   "versatz": 0.272,
+   "db": -11,
+   "tiefpass_hz": 2600,
+   "params": {
+    "zeiten": [
+     0.0,
+     0.204,
+     0.408
+    ],
+    "hell": 1.3
+   },
+   "grund": "S55: Blitz-Rückblende, Gus' Pickel (tippen 0,85 s)"
+  },
+  {
+   "klang": "frost",
+   "wort": 422,
+   "text": "turned",
+   "versatz": 0.0,
+   "db": -18,
+   "grund": "S58: die Eishaut im Loch wird klar"
+  },
+  {
+   "klang": "sub_boom",
+   "wort": 433,
+   "text": "Mine.",
+   "versatz": 0.0,
+   "db": -15,
+   "params": {
+    "f_start": 50.0,
+    "f_ende": 29.0,
+    "dauer": 1.8
+   },
+   "grund": "S60: „Mine.“"
+  },
+  {
+   "klang": "klopfen",
+   "wort": 441,
+   "text": "put",
+   "versatz": 0.55,
+   "db": -9,
+   "params": {
+    "tonhoehe": 0.55,
+    "dauer": 0.6
+   },
+   "grund": "S63: der Holzdeckel landet auf dem Loch (deckel_drauf 0,6 s ab „put“)"
+  },
+  {
+   "klang": "glocke",
+   "wort": 464,
+   "text": "anymore.",
+   "versatz": 1.117,
+   "db": -12,
+   "params": {
+    "f": 196.0,
+    "dauer": 2.5
+   },
+   "grund": "Endkarte: ein Glockenschlag, wenn Odells Pinsel 1,204 durchstreicht (umschreiben, Strich 0,40–0,52 s)"
+  }
+ ]
+}

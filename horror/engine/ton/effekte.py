@@ -383,6 +383,80 @@ KLAENGE = {
 SYNC = {"whoosh": SYNC_WHOOSH}
 
 
+# ---------------------------------------------------------------- Rules of Kindly (Folge 1, Bibel §10.6)
+
+def _eis_tipp_einzel(rng, hohl=1.0, hell=1.0):
+    """Ein Tipper auf dünnem Eis: harter Klick, ein kurzes „Singen“ des Eises (fallender hoher Ton, wie ein
+    gespanntes Blech) und darunter ein hohler, dumpfer Ton (das Wasser unter dem Eis)."""
+    dauer = 0.6
+    n = sek(dauer)
+    t = np.arange(n) / SR
+    klick = filter_fft(rng.standard_normal(n), tief=1500, hoch=7000, ordnung=2) * huelle(n, 0.0004, 0.004) * 1.2
+    # singendes Eis: Tonhöhe fällt schnell von 3,2 auf 1,1 kHz
+    f = 1100 + 2100 * np.exp(-t / 0.035)
+    sing = np.sin(2 * np.pi * np.cumsum(f) / SR) * huelle(n, 0.001, 0.07) * 0.35 * hell
+    # hohler Körper: gedämpfte tiefe Moden
+    koerper = sum(a * gedaempfter_ton(fk, tau, dauer, rng.uniform(0, 1)) for fk, tau, a in ((146.0, 0.07, 1.0), (311.0, 0.04, 0.55), (622.0, 0.02, 0.3)))
+    return klick + sing + koerper * 0.8 * hohl
+
+
+def klang_eis_tipps(rng, zeiten=(0.0, 0.32, 0.64), hohl=1.0, hell=1.0):
+    """Stiefel oder Eispickel tippt aufs Eis, hohl (S1, S24, S30): ein Tipper je Eintrag in zeiten (s ab
+    Klangbeginn); der erste Tipper liegt am Klangbeginn, die Cue-Zeit also auf dem ersten Aufprall."""
+    dauer = max(zeiten) + 0.9
+    x = np.zeros(sek(dauer))
+    for k, z in enumerate(zeiten):
+        e = _eis_tipp_einzel(rng, hohl, hell) * (1.0 - 0.06 * k)
+        i = sek(z)
+        x[i:i + len(e)] += e[: len(x) - i]
+    y = hall(stereo(x), 1.4, 0.25, rng, dunkel=6000)       # weite Eisfläche: langer, heller Nachhall
+    return normieren(ausblenden(y))
+
+
+def klang_eis_schlag(rng, zeiten=(0.0, 0.4, 0.8), knacken=1.0):
+    """Drei dumpfe Schläge von unten gegen das Eis (S1, S31, S51, S54): tiefer, gedämpfter Stoß wie durch
+    Wasser, Mitten-Schicht für Handy-Lautsprecher, und nach jedem Schlag knackt das Eis (helle Risse)."""
+    dauer = max(zeiten) + 1.6
+    n = sek(dauer)
+    x = np.zeros(n)
+    for k, z in enumerate(zeiten):
+        m = sek(0.9)
+        tt = np.arange(m) / SR
+        fk = 58 * (1 + 0.6 * np.exp(-tt / 0.03))
+        stoss = np.sin(2 * np.pi * np.cumsum(fk) / SR) * huelle(m, 0.002, 0.16)
+        stoss += filter_fft(rng.standard_normal(m), hoch=260, ordnung=2) * huelle(m, 0.001, 0.05) * 0.9
+        stoss = np.tanh(1.6 * stoss)
+        mitte = mitten_schicht(rng, m, f=170.0, tau=0.1, klick=0.6)
+        stoss = stoss + mitte * (rms(stoss) / rms(mitte)) * 10 ** (-3 / 20)
+        i = sek(z)
+        x[i:i + m] += stoss[: n - i] * (1.0 + 0.08 * k)
+        # Knacken: kurze helle Rauschblitze, die sich 0,05–0,4 s nach dem Schlag ausbreiten
+        for _ in range(9):
+            zb = z + rng.uniform(0.04, 0.4)
+            b = filter_fft(rng.standard_normal(sek(0.006)), tief=2500, hoch=9000, ordnung=2) * np.hanning(sek(0.006))
+            j = sek(zb)
+            if j + len(b) < n:
+                x[j:j + len(b)] += b * rng.uniform(0.2, 0.55) * knacken
+    y = hall(stereo(x), 1.6, 0.22, rng, dunkel=3500)
+    return normieren(ausblenden(y))
+
+
+def klang_handglocke(rng, f=880.0, dauer=2.4):
+    """Odells Handglocke (S5): kleine Messingglocke, nah, heller als die Turmglocke, kurzer Raum."""
+    t = zeit(dauer)
+    x = np.zeros(len(t))
+    for r, a, tau in ((1.0, 1.0, 0.9), (2.0, 0.45, 0.5), (2.76, 0.35, 0.35), (3.95, 0.2, 0.22), (5.4, 0.12, 0.15)):
+        for d in (-1.2, 1.2):
+            x += a * np.sin(2 * np.pi * (f * r + d) * t + rng.uniform(0, 2 * np.pi)) * np.exp(-t / tau)
+    x += filter_fft(rng.standard_normal(len(t)), tief=1500, hoch=8000, ordnung=2) * huelle(len(t), 0.0005, 0.006) * 1.5
+    x = filter_fft(x, tief=300, hoch=7000, ordnung=2)
+    y = hall(stereo(x), 1.2, 0.2, rng, dunkel=7000)
+    return normieren(ausblenden(y, 0.2))
+
+
+KLAENGE.update({"eis_tipps": klang_eis_tipps, "eis_schlag": klang_eis_schlag, "handglocke": klang_handglocke})
+
+
 def erzeuge(name: str, seed: int, **params) -> np.ndarray:
     """Klang mit eigenem Zufallsgenerator (Seed) bauen."""
     rng = np.random.default_rng(seed)

@@ -4685,7 +4685,8 @@
    "start": 0.0,
    "ende": 4.16,
    "wort_von": 0,
-   "wort_bis": 15
+   "wort_bis": 15,
+   "block": "hook"
   },
   {
    "nr": 2,
@@ -4693,7 +4694,8 @@
    "start": 4.45,
    "ende": 6.71,
    "wort_von": 16,
-   "wort_bis": 23
+   "wort_bis": 23,
+   "block": "regel"
   },
   {
    "nr": 3,
@@ -4701,7 +4703,8 @@
    "start": 7.02,
    "ende": 9.41,
    "wort_von": 24,
-   "wort_bis": 33
+   "wort_bis": 33,
+   "block": "regel"
   },
   {
    "nr": 4,
@@ -4709,7 +4712,8 @@
    "start": 9.71,
    "ende": 11.09,
    "wort_von": 34,
-   "wort_bis": 37
+   "wort_bis": 37,
+   "block": "regel"
   },
   {
    "nr": 5,
@@ -4717,7 +4721,8 @@
    "start": 11.39,
    "ende": 14.26,
    "wort_von": 38,
-   "wort_bis": 49
+   "wort_bis": 49,
+   "block": "regel"
   },
   {
    "nr": 6,
@@ -4725,7 +4730,8 @@
    "start": 14.56,
    "ende": 17.01,
    "wort_von": 50,
-   "wort_bis": 59
+   "wort_bis": 59,
+   "block": "regel"
   },
   {
    "nr": 7,
@@ -4733,7 +4739,8 @@
    "start": 17.33,
    "ende": 19.36,
    "wort_von": 60,
-   "wort_bis": 68
+   "wort_bis": 68,
+   "block": "regel"
   },
   {
    "nr": 8,
@@ -4741,7 +4748,8 @@
    "start": 19.65,
    "ende": 21.08,
    "wort_von": 69,
-   "wort_bis": 72
+   "wort_bis": 72,
+   "block": "regel"
   },
   {
    "nr": 9,
@@ -4749,7 +4757,8 @@
    "start": 21.37,
    "ende": 23.7,
    "wort_von": 73,
-   "wort_bis": 81
+   "wort_bis": 81,
+   "block": "regel"
   },
   {
    "nr": 10,
@@ -4757,7 +4766,8 @@
    "start": 24.0,
    "ende": 27.46,
    "wort_von": 82,
-   "wort_bis": 95
+   "wort_bis": 95,
+   "block": "wesen"
   },
   {
    "nr": 11,
@@ -4765,7 +4775,8 @@
    "start": 27.76,
    "ende": 29.57,
    "wort_von": 96,
-   "wort_bis": 102
+   "wort_bis": 102,
+   "block": "wesen"
   },
   {
    "nr": 12,
@@ -4773,7 +4784,8 @@
    "start": 29.88,
    "ende": 33.28,
    "wort_von": 103,
-   "wort_bis": 116
+   "wort_bis": 116,
+   "block": "wesen"
   },
   {
    "nr": 13,
@@ -4781,7 +4793,8 @@
    "start": 33.56,
    "ende": 35.63,
    "wort_von": 117,
-   "wort_bis": 124
+   "wort_bis": 124,
+   "block": "wesen"
   },
   {
    "nr": 14,
@@ -4789,7 +4802,8 @@
    "start": 35.93,
    "ende": 37.26,
    "wort_von": 125,
-   "wort_bis": 130
+   "wort_bis": 130,
+   "block": "wesen"
   },
   {
    "nr": 15,
@@ -4797,7 +4811,8 @@
    "start": 37.55,
    "ende": 38.09,
    "wort_von": 131,
-   "wort_bis": 131
+   "wort_bis": 131,
+   "block": "wesen"
   },
   {
    "nr": 16,
@@ -4805,7 +4820,8 @@
    "start": 38.39,
    "ende": 40.18,
    "wort_von": 132,
-   "wort_bis": 139
+   "wort_bis": 139,
+   "block": "wesen"
   },
   {
    "nr": 17,
@@ -4813,7 +4829,8 @@
    "start": 40.49,
    "ende": 43.59,
    "wort_von": 140,
-   "wort_bis": 150
+   "wort_bis": 150,
+   "block": "wesen"
   },
   {
    "nr": 18,
@@ -4821,7 +4838,8 @@
    "start": 43.89,
    "ende": 47.25,
    "wort_von": 151,
-   "wort_bis": 163
+   "wort_bis": 163,
+   "block": "lund"
   },
   {
    "nr": 19,
@@ -4829,7 +4847,8 @@
    "start": 47.55,
    "ende": 48.0,
    "wort_von": 164,
-   "wort_bis": 166
+   "wort_bis": 166,
+   "block": "lund"
   },
   {
    "nr": 20,
@@ -4837,7 +4856,8 @@
    "start": 48.3,
    "ende": 49.77,
    "wort_von": 167,
-   "wort_bis": 171
+   "wort_bis": 171,
+   "block": "lund"
   },
   {
    "nr": 21,
@@ -4845,7 +4865,8 @@
    "start": 50.06,
    "ende": 52.3,
    "wort_von": 172,
-   "wort_bis": 180
+   "wort_bis": 180,
+   "block": "lund"
   },
   {
    "nr": 22,
@@ -4853,7 +4874,8 @@
    "start": 52.61,
    "ende": 56.09,
    "wort_von": 181,
-   "wort_bis": 191
+   "wort_bis": 191,
+   "block": "lore"
   },
   {
    "nr": 23,
@@ -4861,7 +4883,8 @@
    "start": 56.38,
    "ende": 59.77,
    "wort_von": 192,
-   "wort_bis": 205
+   "wort_bis": 205,
+   "block": "gus"
   },
   {
    "nr": 24,
@@ -4869,7 +4892,8 @@
    "start": 60.06,
    "ende": 62.68,
    "wort_von": 206,
-   "wort_bis": 214
+   "wort_bis": 214,
+   "block": "gus"
   },
   {
    "nr": 25,
@@ -4877,7 +4901,8 @@
    "start": 62.99,
    "ende": 64.68,
    "wort_von": 215,
-   "wort_bis": 220
+   "wort_bis": 220,
+   "block": "gus"
   },
   {
    "nr": 26,
@@ -4885,7 +4910,8 @@
    "start": 64.91,
    "ende": 65.52,
    "wort_von": 221,
-   "wort_bis": 222
+   "wort_bis": 222,
+   "block": "gus"
   },
   {
    "nr": 27,
@@ -4893,7 +4919,8 @@
    "start": 65.83,
    "ende": 67.76,
    "wort_von": 223,
-   "wort_bis": 229
+   "wort_bis": 229,
+   "block": "gus"
   },
   {
    "nr": 28,
@@ -4901,7 +4928,8 @@
    "start": 68.06,
    "ende": 69.86,
    "wort_von": 230,
-   "wort_bis": 236
+   "wort_bis": 236,
+   "block": "gus"
   },
   {
    "nr": 29,
@@ -4909,7 +4937,8 @@
    "start": 70.15,
    "ende": 72.53,
    "wort_von": 237,
-   "wort_bis": 243
+   "wort_bis": 243,
+   "block": "gus"
   },
   {
    "nr": 30,
@@ -4917,7 +4946,8 @@
    "start": 72.82,
    "ende": 76.04,
    "wort_von": 244,
-   "wort_bis": 255
+   "wort_bis": 255,
+   "block": "vorfall"
   },
   {
    "nr": 31,
@@ -4925,7 +4955,8 @@
    "start": 76.34,
    "ende": 79.23,
    "wort_von": 256,
-   "wort_bis": 263
+   "wort_bis": 263,
+   "block": "vorfall"
   },
   {
    "nr": 32,
@@ -4933,7 +4964,8 @@
    "start": 79.53,
    "ende": 81.74,
    "wort_von": 264,
-   "wort_bis": 269
+   "wort_bis": 269,
+   "block": "vorfall"
   },
   {
    "nr": 33,
@@ -4941,7 +4973,8 @@
    "start": 82.04,
    "ende": 82.49,
    "wort_von": 270,
-   "wort_bis": 271
+   "wort_bis": 271,
+   "block": "vorfall"
   },
   {
    "nr": 34,
@@ -4949,7 +4982,8 @@
    "start": 82.79,
    "ende": 84.22,
    "wort_von": 272,
-   "wort_bis": 277
+   "wort_bis": 277,
+   "block": "vorfall"
   },
   {
    "nr": 35,
@@ -4957,7 +4991,8 @@
    "start": 84.53,
    "ende": 86.9,
    "wort_von": 278,
-   "wort_bis": 286
+   "wort_bis": 286,
+   "block": "vorfall"
   },
   {
    "nr": 36,
@@ -4965,7 +5000,8 @@
    "start": 87.2,
    "ende": 89.45,
    "wort_von": 287,
-   "wort_bis": 295
+   "wort_bis": 295,
+   "block": "vorfall"
   },
   {
    "nr": 37,
@@ -4973,7 +5009,8 @@
    "start": 89.76,
    "ende": 92.35,
    "wort_von": 296,
-   "wort_bis": 304
+   "wort_bis": 304,
+   "block": "steg"
   },
   {
    "nr": 38,
@@ -4981,7 +5018,8 @@
    "start": 92.65,
    "ende": 95.08,
    "wort_von": 305,
-   "wort_bis": 315
+   "wort_bis": 315,
+   "block": "steg"
   },
   {
    "nr": 39,
@@ -4989,7 +5027,8 @@
    "start": 95.38,
    "ende": 96.6,
    "wort_von": 316,
-   "wort_bis": 319
+   "wort_bis": 319,
+   "block": "steg"
   },
   {
    "nr": 40,
@@ -4997,7 +5036,8 @@
    "start": 96.91,
    "ende": 98.45,
    "wort_von": 320,
-   "wort_bis": 324
+   "wort_bis": 324,
+   "block": "steg"
   },
   {
    "nr": 41,
@@ -5005,7 +5045,8 @@
    "start": 98.75,
    "ende": 101.57,
    "wort_von": 325,
-   "wort_bis": 337
+   "wort_bis": 337,
+   "block": "huette"
   },
   {
    "nr": 42,
@@ -5013,7 +5054,8 @@
    "start": 101.88,
    "ende": 103.35,
    "wort_von": 338,
-   "wort_bis": 343
+   "wort_bis": 343,
+   "block": "huette"
   },
   {
    "nr": 43,
@@ -5021,7 +5063,8 @@
    "start": 103.65,
    "ende": 104.04,
    "wort_von": 344,
-   "wort_bis": 344
+   "wort_bis": 344,
+   "block": "huette"
   },
   {
    "nr": 44,
@@ -5029,7 +5072,8 @@
    "start": 104.34,
    "ende": 105.17,
    "wort_von": 345,
-   "wort_bis": 347
+   "wort_bis": 347,
+   "block": "huette"
   },
   {
    "nr": 45,
@@ -5037,7 +5081,8 @@
    "start": 105.48,
    "ende": 105.88,
    "wort_von": 348,
-   "wort_bis": 348
+   "wort_bis": 348,
+   "block": "huette"
   },
   {
    "nr": 46,
@@ -5045,7 +5090,8 @@
    "start": 106.18,
    "ende": 107.58,
    "wort_von": 349,
-   "wort_bis": 355
+   "wort_bis": 355,
+   "block": "huette"
   },
   {
    "nr": 47,
@@ -5053,7 +5099,8 @@
    "start": 107.87,
    "ende": 109.38,
    "wort_von": 356,
-   "wort_bis": 360
+   "wort_bis": 360,
+   "block": "huette"
   },
   {
    "nr": 48,
@@ -5061,7 +5108,8 @@
    "start": 109.68,
    "ende": 111.28,
    "wort_von": 361,
-   "wort_bis": 367
+   "wort_bis": 367,
+   "block": "huette"
   },
   {
    "nr": 49,
@@ -5069,7 +5117,8 @@
    "start": 111.58,
    "ende": 112.74,
    "wort_von": 368,
-   "wort_bis": 372
+   "wort_bis": 372,
+   "block": "huette"
   },
   {
    "nr": 50,
@@ -5077,7 +5126,8 @@
    "start": 113.04,
    "ende": 113.97,
    "wort_von": 373,
-   "wort_bis": 376
+   "wort_bis": 376,
+   "block": "erklaerung"
   },
   {
    "nr": 51,
@@ -5085,7 +5135,8 @@
    "start": 114.28,
    "ende": 115.87,
    "wort_von": 377,
-   "wort_bis": 382
+   "wort_bis": 382,
+   "block": "erklaerung"
   },
   {
    "nr": 52,
@@ -5093,7 +5144,8 @@
    "start": 116.17,
    "ende": 118.03,
    "wort_von": 383,
-   "wort_bis": 390
+   "wort_bis": 390,
+   "block": "erklaerung"
   },
   {
    "nr": 53,
@@ -5101,7 +5153,8 @@
    "start": 118.33,
    "ende": 120.53,
    "wort_von": 391,
-   "wort_bis": 397
+   "wort_bis": 397,
+   "block": "erklaerung"
   },
   {
    "nr": 54,
@@ -5109,7 +5162,8 @@
    "start": 120.83,
    "ende": 123.34,
    "wort_von": 398,
-   "wort_bis": 405
+   "wort_bis": 405,
+   "block": "ritual"
   },
   {
    "nr": 55,
@@ -5117,7 +5171,8 @@
    "start": 123.65,
    "ende": 124.59,
    "wort_von": 406,
-   "wort_bis": 409
+   "wort_bis": 409,
+   "block": "ritual"
   },
   {
    "nr": 56,
@@ -5125,7 +5180,8 @@
    "start": 124.89,
    "ende": 126.45,
    "wort_von": 410,
-   "wort_bis": 414
+   "wort_bis": 414,
+   "block": "ritual"
   },
   {
    "nr": 57,
@@ -5133,7 +5189,8 @@
    "start": 126.75,
    "ende": 127.3,
    "wort_von": 415,
-   "wort_bis": 416
+   "wort_bis": 416,
+   "block": "ritual"
   },
   {
    "nr": 58,
@@ -5141,7 +5198,8 @@
    "start": 127.61,
    "ende": 129.97,
    "wort_von": 417,
-   "wort_bis": 426
+   "wort_bis": 426,
+   "block": "ritual"
   },
   {
    "nr": 59,
@@ -5149,7 +5207,8 @@
    "start": 130.28,
    "ende": 131.58,
    "wort_von": 427,
-   "wort_bis": 432
+   "wort_bis": 432,
+   "block": "ritual"
   },
   {
    "nr": 60,
@@ -5157,7 +5216,8 @@
    "start": 131.89,
    "ende": 132.33,
    "wort_von": 433,
-   "wort_bis": 433
+   "wort_bis": 433,
+   "block": "ritual"
   },
   {
    "nr": 61,
@@ -5165,7 +5225,8 @@
    "start": 132.63,
    "ende": 133.94,
    "wort_von": 434,
-   "wort_bis": 438
+   "wort_bis": 438,
+   "block": "ritual"
   },
   {
    "nr": 62,
@@ -5173,7 +5234,8 @@
    "start": 134.25,
    "ende": 134.64,
    "wort_von": 439,
-   "wort_bis": 439
+   "wort_bis": 439,
+   "block": "ritual"
   },
   {
    "nr": 63,
@@ -5181,7 +5243,8 @@
    "start": 134.95,
    "ende": 136.19,
    "wort_von": 440,
-   "wort_bis": 446
+   "wort_bis": 446,
+   "block": "ritual"
   },
   {
    "nr": 64,
@@ -5189,7 +5252,8 @@
    "start": 136.37,
    "ende": 139.13,
    "wort_von": 447,
-   "wort_bis": 458
+   "wort_bis": 458,
+   "block": "schluss"
   },
   {
    "nr": 65,
@@ -5197,7 +5261,8 @@
    "start": 139.44,
    "ende": 141.02,
    "wort_von": 459,
-   "wort_bis": 464
+   "wort_bis": 464,
+   "block": "schluss"
   }
  ],
  "pruefung": {

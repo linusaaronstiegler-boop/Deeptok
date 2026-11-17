@@ -1,0 +1,144 @@
+{
+ "stil": "r2-eigen",
+ "quelle": "musik-v2",
+ "folge": "episoden/kindly-01",
+ "dauer_s": 142.667,
+ "endkarte_s": 1.5,
+ "start_in_schleife_s": 0.0,
+ "uebergang_s": 1.5,
+ "einrasten": "schlag",
+ "ausblenden_s": 0.3,
+ "nachhall_rt60_s": 1.3,
+ "nachhall_db": -6.0,
+ "_hinweis": "Rules of Kindly F1 (Bibel §10.6): Bett r2-eigen wie Hiding Night, normal etwa 12 LU unter der Stimme, Hook +2,5 dB, Wegfälle 1,2–1,3 s vor den Pointen mit eigenem Nachhall, ganz weg am Fenster (S42–45) und unter der Schlusszeile. Wortnummern von episoden/kindly-01/timing.json.",
+ "stufen": [
+  {
+   "ab_s": 0.0,
+   "stufe": "normal",
+   "pegel_db": 2.5,
+   "grund": "Hook lauter als der Rest (Bibel §6, wie Hiding Night)"
+  },
+  {
+   "ab_satz": 2,
+   "stufe": "normal",
+   "pegel_db": 0.0,
+   "blende_s": 1.5,
+   "grund": "Regel, Odell, Ritual, Lund, Lore (S2–22)"
+  },
+  {
+   "ab_wort": 131,
+   "versatz_s": -1.2,
+   "stufe": "weg",
+   "blende_s": 0.2,
+   "grund": "Wegfall 1,2 s vor „Yours.“ (S15)"
+  },
+  {
+   "ab_wort": 132,
+   "versatz_s": -0.1,
+   "stufe": "normal",
+   "blende_s": 0.35,
+   "einrasten": "aus",
+   "grund": "Wiedereinsatz mit „And now it's you down there“"
+  },
+  {
+   "ab_satz": 23,
+   "stufe": "duenn",
+   "blende_s": 1.2,
+   "grund": "Gus, Gewohnheit, Wortlaut, Versprechen (S23–29)"
+  },
+  {
+   "ab_satz": 30,
+   "stufe": "voll",
+   "pegel_db": 3.5,
+   "blende_s": 0.8,
+   "grund": "Vorfall und Steg (S30–40), voll wie im Finale von Hiding Night"
+  },
+  {
+   "ab_wort": 256,
+   "versatz_s": -1.2,
+   "stufe": "weg",
+   "blende_s": 0.15,
+   "grund": "Wegfall 1,2 s vor „Under my boots, something tapped back“ (S31)"
+  },
+  {
+   "ab_wort": 256,
+   "versatz_s": -0.05,
+   "stufe": "voll",
+   "blende_s": 0.3,
+   "einrasten": "aus",
+   "grund": "Wiedereinsatz auf „Under“"
+  },
+  {
+   "ab_wort": 305,
+   "versatz_s": 0.0,
+   "stufe": "weg",
+   "blende_s": 0.15,
+   "grund": "Wegfall 1,3 s auf S38: die Gläser bleiben klar"
+  },
+  {
+   "ab_wort": 305,
+   "versatz_s": 1.3,
+   "stufe": "voll",
+   "blende_s": 0.4,
+   "einrasten": "aus",
+   "grund": "Wiedereinsatz nach 1,3 s (vor „then at Gus“)"
+  },
+  {
+   "ab_satz": 41,
+   "stufe": "duenn",
+   "pegel_db": 0.0,
+   "blende_s": 1.0,
+   "grund": "Hütte, Entscheidung (S41–49)"
+  },
+  {
+   "ab_wort": 338,
+   "versatz_s": -0.1,
+   "stufe": "weg",
+   "blende_s": 0.25,
+   "grund": "ganz weg vom Fenster bis nach dem zweiten „Nothing.“ (S42–45)"
+  },
+  {
+   "ab_wort": 349,
+   "versatz_s": -0.1,
+   "stufe": "duenn",
+   "blende_s": 0.4,
+   "einrasten": "aus",
+   "grund": "Wiedereinsatz mit „Gus didn't look up from the stove“"
+  },
+  {
+   "ab_satz": 50,
+   "stufe": "normal",
+   "blende_s": 1.0,
+   "grund": "Erklärung (S50–53)"
+  },
+  {
+   "ab_satz": 54,
+   "stufe": "voll",
+   "pegel_db": 3.5,
+   "blende_s": 0.8,
+   "grund": "Klopfen, Ritual, Deckel (S54–64)"
+  },
+  {
+   "ab_wort": 415,
+   "versatz_s": -1.2,
+   "stufe": "weg",
+   "blende_s": 0.15,
+   "grund": "Wegfall 1,2 s vor „He heard.“ (S57)"
+  },
+  {
+   "ab_wort": 417,
+   "versatz_s": -0.1,
+   "stufe": "voll",
+   "blende_s": 0.3,
+   "einrasten": "aus",
+   "grund": "Wiedereinsatz mit „The ice in the hole turned clear“"
+  },
+  {
+   "ab_wort": 459,
+   "versatz_s": -0.15,
+   "stufe": "weg",
+   "blende_s": 0.25,
+   "grund": "Schlusszeile in Stille, harter Schnitt; auf der Endkarte nur der Glockenschlag (Effekt)"
+  }
+ ]
+}

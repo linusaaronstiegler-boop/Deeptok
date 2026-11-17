@@ -1,11 +1,11 @@
 {
   "slug": "rules-of-kindly-01",
-  "video": "OFFEN",
+  "video": "build/teilen/rules-of-kindly-01.mp4",
   "timing": "timing.json",
   "titelbild": {
-    "bild": "OFFEN",
-    "bild_vorschlag": "Einstellung zu S3–4: drei Männer am Ufer atmen aus, zwei dampfen dicht, Mr. Lund nicht. Zeigt den Fehler groß und verrät die Wendung nicht. Nicht S64 (verrät, dass Bear die Kopie ist), kein Gesicht unter dem Eis (nichts Drastisches). Sauberes Bild aus der Bildspur ohne Untertitel als build/kindly-01/titelbild-roh.jpg ablegen und hier eintragen.",
-    "sekunde": "OFFEN",
+    "bild": "build/kindly-01/titelbild-roh.jpg",
+    "bild_vorschlag": "Gewählt (Regie 17.11.2026): Bild bei 8,8 s aus S3 „only one thing gives it away“, als sauberes Einzelbild ohne Untertitel (render.mjs --einzelbild 8.8): drei Männer am Ufer, die beiden äußeren dampfen dicht, Mr. Lund in der Mitte nicht. Zeigt den Fehler groß, verrät die Wendung nicht, nichts Drastisches.",
+    "sekunde": 8.8,
     "kopfzeile": "Rules of Kindly",
     "titel": "His Breath Didn't Fog",
     "teil": "Rule 3"

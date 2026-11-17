@@ -27,6 +27,7 @@ Grundlage sind `horror/docs/bewegungs-spec.md` (Kamera, Schnitt, Aktionen), `hor
 18. [Musik-Werkstatt](#18-musik-werkstatt)
 19. [Orte der Serie „Rules of Kindly“](#19-orte-der-serie-rules-of-kindly)
 20. [Figuren, Monster, Requisiten und Atemdampf von „Rules of Kindly“](#20-figuren-monster-requisiten-und-atemdampf-von-rules-of-kindly)
+21. [Regie von „Rules of Kindly“ Folge 1](#21-regie-von-rules-of-kindly-folge-1-episodenkindly-01)
 
 ## 1. Schnellstart
 
@@ -1021,3 +1022,40 @@ node test/atem-probe.mjs --nur-messung   # nur Kompression und Messung erneut (t
 - Der Shotlisten-Test „Set-Ereignisse landen mit Wortzeit in params.ereignisse (Kriechkeller, Glocke)“ (`npm test`) schlägt fehl („Fingerschatten auf Ready“); er betrifft `shotliste.mjs` (zuletzt geändert mit den Orten, ce04830), nicht die Bausteine dieses Abschnitts.
 - Kamerapunkte des Sets see für Old Knuckles nachstellen (Untersicht schräg von unten-seitlich, Kopf unter `stelle`), `rand.endkarte` näher an die Tafel, `rathaus.lampe` bei Buch-Einstellungen dimmen (20.4, 20.5).
 
+
+## 21. Regie von „Rules of Kindly“ Folge 1 (`episoden/kindly-01/`)
+
+Stand 17.11.2026. Aus der echten Stimme (Adam ×1,2, 141,14 s), `bildideen.json` (65 Sätze, 100 Einstellungen; Satz 43 „Nothing.“ und 62 „Gus.“ ohne eigenen Schnitt, sonst unter 0,7 s) und `regie.mjs` baut der Compiler `episode.json` (101 Einstellungen inkl. Endkarte, 142,67 s).
+
+```bash
+cd horror/engine
+node shotliste.mjs ../episoden/kindly-01 --tabelle                                   # Messtor
+node render.mjs ../episoden/kindly-01/episode.json --schnellbogen --skala 0.25       # 1 Bild je Einstellung
+python musik/spannung.py musik/spannung/rules-of-kindly-01.json                      # Bett r2-eigen nach Bibel §10.6
+cd .. && python engine/fertigen.py episoden/kindly-01 --bett build/musik/spannung-rules-of-kindly-01.wav --bett-bezug -20 --abstand 12 --namen ohne-musik,mit-musik
+python engine/pruefen.py episoden/kindly-01 --namen ohne-musik,mit-musik --dauer 135,150
+```
+
+**Messtor:** Median 1,43 s, 42,5 Einstellungen je Minute, 0,70–2,30 s; 23 Akzentfahrten (im Mittel alle 6,1 s, größte Lücke 9 s); 3 Snap-Zooms („Knuckles“, „Yours“, „Mine“); 3-mal Wackeln (Hook, S31, S54); 2 Lichtereignisse (Eislaternen S31, Hüttenlampe S54); Monster in 24 % der Einstellungen; Endkarte 0,147 s nach dem letzten Wort, 1,5 s.
+
+**Erweiterungen (rückwärtskompatibel, Hiding Night Teil 2 und 3 kompilieren bitgleich):**
+
+| Baustein | Datei | Zweck |
+|---|---|---|
+| Endkarte mit Figuren | `shotliste.mjs` | `regie.endkarte` { `dauer` (M11 prüft gegen diesen Wert), `figuren` (Stellung wie Einstellungen), `aktionen` [{ wer, was, `ab` (s ab Endkarte), dauer }], `partikel` [{ …, `ab` }], `lampen_einzeln`, `bogen_ab` }. Kindly: Ortsschild bei Nacht, `umschreiben` ab Bild 1, Schneefall, `rand.laterne` an |
+| Kindly-Dauern | `shotliste.mjs` (`DAUER`) | stiefel_tippen, tippen, hauchen, klopfen_unten, andruecken, sinken, lippen_gus, Odells Brillen-Aktionen, umschreiben, blaettern, gleiten |
+| Gesichtsnamen | `shotliste.mjs` (M6) | „old-knuckles“ trifft die Monster-IDs; Bindestrich in den Bildideen = Unterstrich in der Regie („mrs-lund“ → `mrs_lund`) |
+| Kopf-oben-Regel | `render.mjs`, `src/haupt.js` | zählt nur Gesichter, die zur Kamera zeigen (Anker `augen` näher als die Kopfmitte; `projiziere` liefert dazu `tiefe`). Von unten durchs Eis sieht man den Hinterkopf von Old Knuckles; daran brach der Bogen ab |
+| `risse_weg` | `src/winter.js` | Set-Ereignis: alle Risse davor verschwinden. Ohne lagen die Hook-Risse über jedem späteren Gesicht unter dem Eis |
+| `gleiten` | `animationen/gleiten.js` | Figur rutscht ohne Schritte von „von“ nach „nach“ (S12: das Wesen folgt dem Fischer unter dem Eis) |
+| Schema | `episode.schema.json` | `look.licht` und `einstellung.licht` kennen die Kindly-Presets |
+| Klänge | `ton/effekte.py` | `eis_tipps` (hohl, je Eintrag in `zeiten` ein Tipper), `eis_schlag` (dumpf von unten mit Eisknacken), `handglocke` |
+
+**Lehren aus dem Schnellbogen (für jede Kindly-Folge):**
+- **9:16 ist schmal.** Bildbreite = 2 · Abstand · tan(fov/2) · 0,5625. Kopf und Schultern (≈ 1 m) brauchen bei fov 34 etwa 2,7 m Abstand; die erste Fassung mit 1,0–1,6 m zeigte nur Teile des Gesichts. Hilfe `KOPF(wer, azimut, …)` in `regie.mjs` zielt 0,2 m unter die Kopfmitte (Mund über dem Untertitel-Streifen).
+- **Hütte (2,2 × 2,8 m):** Weitwinkel (fov 46–58) statt Abstand. Die Petroleumlampe hängt mitten im Raum: In 0,5–1 m Abstand brannten Gesichter aus. `huette.params.lampe: 0.45` (unter der Bloom-Schwelle), Füll-Licht `hemi 1,4`, Gus steht an der Tür (Kamera von hinten, Lampe außerhalb), am Fenster Lampe aus.
+- **Steg:** Die Steglaterne hängt 1 m vor Odell; bei Tag und für seine Großaufnahmen `see.laterne` aus (sonst weißes Gesicht). Nur S37 (Hauchen bei Nacht) braucht sie als Gegenlicht.
+- **Das Wesen unter dem Eis** liest sich nur vom Kopfende (unten, nördlich, Blick nach Süden: Kopf, Rumpf, erhobene Fäuste, darüber die Figur auf dem Eis) oder von den Füßen her; von der Seite wirkt der liegende Körper wie ein Balken. Die Faust mit vier Knöchelwürfeln von vorn auf Faust-Höhe (S2).
+- **Wer über dem Kopf steht, steht nördlich davon:** Kameras schauen von Süden auf das Gesicht im Eis (Kopf oben), die Stiefel liegen am oberen Bildrand statt zwischen Kamera und Gesicht.
+- **Odell ohne Brille:** von der Seite oder von hinten; das Gläser-Detail (S38) aus seinem Blick mit der Requisite `brille_hand` vor Bears Gesicht. Aufsetzen (S40) beginnt 0,7 s vor dem Schnitt (`stellung.odell2.neu: false`), damit im ersten Bild schon die weißen Gläser sitzen.
+- **Rule Zero (S22):** Draufsicht 0,6 m über dem Stummel, fov 40: „IF“ etwa 110 px Versalhöhe bei x ≈ 200–420, y ≈ 710–810, 2,2 s im Bild.

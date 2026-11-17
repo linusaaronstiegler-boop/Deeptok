@@ -1,0 +1,209 @@
+{
+ "_hinweis": "Vorgaben für engine/untertitel.py (Rules of Kindly F1, 465 Wörter). Wortbezüge sind Indizes in timing.json; 'text' wird beim Bauen gegen timing.json geprüft. Farben nach Bibel §6: Schutzfigur Gus #F2C14E, Odell #8EC3F4, Monster/Akzent #9FD8D2. Das Rule-Zero-Wort im Bild (S22) bekommt nie einen Untertitel; gesprochen wird nur „except rule zero“.",
+ "akzent_farbe": "#9FD8D2",
+ "akzent_grund": "Kaltes Kantenlicht des Wesens (Bibel §5): Monstername, der Stadtname beim ersten Fallen und das eine Wort, das die Lippen unter dem Eis formen.",
+ "akzent": [
+  {
+   "von": 18,
+   "bis": 18,
+   "text": "Kindly,"
+  },
+  {
+   "von": 22,
+   "bis": 23,
+   "text": "Old Knuckles."
+  },
+  {
+   "von": 82,
+   "bis": 83,
+   "text": "Old Knuckles"
+  },
+  {
+   "von": 439,
+   "bis": 439,
+   "text": "Gus."
+  }
+ ],
+ "rede": [
+  {
+   "wer": "Odell",
+   "farbe": "#8EC3F4",
+   "von": 69,
+   "bis": 72,
+   "text": "\"Kindly mind the rules.\""
+  },
+  {
+   "wer": "Gus",
+   "farbe": "#F2C14E",
+   "von": 223,
+   "bis": 229,
+   "text": "\"If it sounds hollow, Bear, go back.\""
+  },
+  {
+   "wer": "Gus",
+   "farbe": "#F2C14E",
+   "von": 230,
+   "bis": 236,
+   "text": "\"And wherever you are, I'll hear you.\""
+  },
+  {
+   "wer": "Gus",
+   "farbe": "#F2C14E",
+   "von": 264,
+   "bis": 269,
+   "text": "\"Bear, don't move. Don't answer it.\""
+  },
+  {
+   "wer": "Gus",
+   "farbe": "#F2C14E",
+   "von": 316,
+   "bis": 319,
+   "text": "\"He's fine, Mr. Odell.\""
+  },
+  {
+   "wer": "Odell",
+   "farbe": "#8EC3F4",
+   "von": 320,
+   "bis": 324,
+   "text": "\"Kindly mind the rules, Gus.\""
+  },
+  {
+   "wer": "Gus",
+   "farbe": "#F2C14E",
+   "von": 356,
+   "bis": 360,
+   "text": "\"His glasses stayed clear, Bear.\""
+  },
+  {
+   "wer": "Gus",
+   "farbe": "#F2C14E",
+   "von": 361,
+   "bis": 367,
+   "text": "\"I already lost Mom to this lake.\""
+  },
+  {
+   "wer": "Gus",
+   "farbe": "#F2C14E",
+   "von": 368,
+   "bis": 372,
+   "text": "\"I'm not losing you too.\""
+  }
+ ],
+ "allein": [
+  {
+   "i": 131,
+   "text": "Yours.",
+   "grund": "Snap-Zoom auf das Gesicht unter dem Eis"
+  },
+  {
+   "i": 344,
+   "text": "Nothing.",
+   "grund": "das Fenster bleibt leer"
+  },
+  {
+   "i": 348,
+   "text": "Nothing.",
+   "grund": "das Fenster bleibt leer"
+  },
+  {
+   "i": 433,
+   "text": "Mine.",
+   "grund": "Snap-Zoom: Bears Gesicht im Eisloch"
+  },
+  {
+   "i": 439,
+   "text": "Gus.",
+   "grund": "das Wort der Lippen"
+  }
+ ],
+ "paare": [
+  {
+   "von": 22,
+   "bis": 23,
+   "text": "Old Knuckles."
+  },
+  {
+   "von": 41,
+   "bis": 42,
+   "text": "Mr. Odell"
+  },
+  {
+   "von": 82,
+   "bis": 83,
+   "text": "Old Knuckles"
+  },
+  {
+   "von": 151,
+   "bis": 152,
+   "text": "Mr. Lund"
+  },
+  {
+   "von": 172,
+   "bis": 173,
+   "text": "Mrs. Lund"
+  },
+  {
+   "von": 185,
+   "bis": 186,
+   "text": "Mr. Odell's"
+  },
+  {
+   "von": 190,
+   "bis": 191,
+   "text": "rule zero."
+  },
+  {
+   "von": 302,
+   "bis": 303,
+   "text": "Mr. Odell's"
+  },
+  {
+   "von": 318,
+   "bis": 319,
+   "text": "Mr. Odell.\""
+  }
+ ],
+ "ziffern_nicht": [
+  {
+   "i": 213,
+   "text": "three"
+  },
+  {
+   "i": 237,
+   "text": "Five"
+  },
+  {
+   "i": 252,
+   "text": "three"
+  },
+  {
+   "i": 262,
+   "text": "three"
+  },
+  {
+   "i": 404,
+   "text": "three"
+  },
+  {
+   "i": 437,
+   "text": "one"
+  }
+ ],
+ "ziffern_grund": "„three times“, „Five winters“, „three taps“, „one word“ bleiben ausgeschrieben (Erzählton, kein Zahlenwert)",
+ "ausweichen": [
+  "1:knocks",
+  "1:or",
+  "14",
+  "15",
+  "35",
+  "35:looking",
+  "36:just",
+  "52",
+  "53",
+  "58:like",
+  "59",
+  "60",
+  "61"
+ ],
+ "ausweichen_grund": "Gesichter unter dem Eis liegen mitten im Bild; ihr Mund läge sonst hinter dem Untertitel-Streifen (die Kompositionsprüfung misst nur Köpfe mit Anker .kopf)"
+}
