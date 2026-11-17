@@ -18,8 +18,8 @@
 // params: eis { deckFrost, deckUnten, deckKlar, schnee, durchlicht, … } (an eisMaterial), huetten (Std true),
 //   stuhl (Std true: Klappstuhl mit rotem Schal, S23), stadt (Std true), dunst (Std true: Nebelbänke am Ufer),
 //   punktlicht (Std true: echtes Punktlicht in der Steglaterne, Gegenlicht für den Atemdampf)
-// Lichtgruppen: see.laterne (Steglaterne mit Punktlicht und Lichtfleck), see.huette_bg (Fenster der Hütte
-//   BEAR & GUS), see.huetten (Fenster der anderen Hütten), see.eislaternen (Laternen auf dem Eis, S30),
+// Lichtgruppen: see.laterne (Steglaterne mit Punktlicht und Lichtfleck), see.huette_bg (Fenster und Türlampe
+//   mit Punktlicht der Hütte BEAR & GUS), see.huetten (Fenster der anderen Hütten), see.eislaternen (Laternen auf dem Eis, S30),
 //   see.stadt (Fenster und Straßenlampen von Kindly). Alle: "see.*".
 // Anker und Kamerapunkte: siehe unten (README §19).
 import * as THREE from 'three';
@@ -171,6 +171,7 @@ export default async function baue(ctx, params = {}) {
   document.fonts.add(schrift);
   const huettenFenster = ctx.leuchtMat('#ffc47a', 2.2);
   const bgFenster = ctx.leuchtMat('#ffc47a', 2.4);
+  const bgLampe = ctx.leuchtMat('#ffd9a0', 2.2);
   const huette = (h) => {
     const g = new T.Group(); g.position.set(h.x, 0, h.z); g.rotation.y = h.dreh ?? 0; statisch.add(g);
     const wand = tmat(ctx, h.farbe, 'verkleidung', { rauheit: 0.85 });
@@ -205,7 +206,7 @@ export default async function baue(ctx, params = {}) {
     return g;
   };
   const HUETTEN = [
-    { id: 'bg', x: SEE.bg.x, z: SEE.bg.z, b: SEE.bg.b, t: SEE.bg.t, h: SEE.bg.h, farbe: '#4f6f8f', tuer: '#2d3e52', dreh: Math.PI, fensterMat: bgFenster },
+    { id: 'bg', x: SEE.bg.x, z: SEE.bg.z, b: SEE.bg.b, t: SEE.bg.t, h: SEE.bg.h, farbe: '#6a87a4', tuer: '#3c5672', dreh: Math.PI, fensterMat: bgFenster },
     { id: 'h2', x: -7.5, z: -33.5, b: 2.2, t: 2.6, h: 2.1, farbe: '#9a3d33', tuer: '#5a2420', dreh: Math.PI * 0.92 },
     { id: 'h3', x: 15.5, z: -38.5, b: 2.0, t: 2.4, h: 2.0, farbe: '#4e7350', tuer: '#2f4a32', dreh: Math.PI * 1.1 },
     { id: 'h4', x: -15, z: -22, b: 2.3, t: 2.8, h: 2.15, farbe: '#c49a45', tuer: '#6a4e22', dreh: Math.PI * 0.8 },
@@ -231,7 +232,18 @@ export default async function baue(ctx, params = {}) {
     aufschrift.rotation.y = Math.PI;
     aufschrift.userData.einzeln = true;
     gruppe.add(aufschrift);
-    lichter.huette_bg = { lichter: [], materialien: [bgFenster] };
+    // Türlampe über der Tür: Die Tür liegt nachts im Mondschatten (Prüfbild: Mittel 41 von 255); die Lampe
+    // macht die Aufschrift auch in der Totalen S41 lesbar. Zweites Punktlicht des Sets.
+    const lampe = k(gruppe, 0.16, 0.2, 0.14, bgLampe, B.x + 0.62, 0.12 + 2.05, B.z - B.t / 2 - 0.1, { schatten: false });
+    lampe.userData.einzeln = true;
+    k(statisch, 0.2, 0.05, 0.18, eisen, B.x + 0.62, 0.12 + 2.17, B.z - B.t / 2 - 0.1);
+    const bgLichter = [];
+    if (params.punktlicht !== false) {
+      const pl = new T.PointLight('#ffcf98', 2.2, 6, 2);
+      pl.position.set(B.x + 0.5, 0.12 + 2.0, B.z - B.t / 2 - 0.55);
+      gruppe.add(pl); bgLichter.push(pl);
+    }
+    lichter.huette_bg = { lichter: bgLichter, materialien: [bgFenster, bgLampe] };
     lichter.huetten = { lichter: [], materialien: [huettenFenster] };
     anker.huette_bg = [B.x, 0, B.z];
     anker.huette_bg_tuer = [B.x, 1.07, B.z - B.t / 2 - 0.05];
@@ -359,8 +371,10 @@ export default async function baue(ctx, params = {}) {
     wesen: SEE.wesen,                       // Mitte des Wesens unter dem Eis (liegt längs z, Kopf nach −z)
     wesen_kopf: SEE.kopf,
     stelle: [SEE.kopf[0], 0, SEE.kopf[2]],  // auf dem Eis über dem Kopf: hier steht Bear (S30–35), hier wird es klar
-    steg_ende: [S.x - 0.1, S.deck, STEG_ENDE - 1.0],    // Odell (blick 0: schaut aufs Eis, zu dem, der heraufkommt)
-    steg_kante: [S.x, S.deck, STEG_ENDE - 0.15],         // wer vom Eis kommt und haucht (blick 180: schaut zu Odell)
+    // Odell steht etwas zur Laternenseite (+x), wer vom Eis kommt, etwas links davon: So sieht die Kamera
+    // "steg_seite" links an Odells Kopf vorbei auf das Gesicht des Hauchenden (Prüfbild: sonst verdeckt)
+    steg_ende: [S.x + 0.35, S.deck, STEG_ENDE - 1.0],   // Odell (blick 0: schaut aufs Eis, zu dem, der heraufkommt)
+    steg_kante: [S.x - 0.2, S.deck, STEG_ENDE - 0.15],  // wer vom Eis kommt und haucht (blick 180: schaut zu Odell)
     steg_stufen: [S.x, 0, STEG_ENDE + 1.55],            // Fuß der Stufen auf dem Eis
     steg_mitte: [S.x, S.deck, (STEG_LAND + STEG_ENDE) / 2],
     ufer: [-6, SEE.uferHoehe, NORD_Z - 3.2],            // Uferplatz (S3–4: drei Männer, blick 0 = zum See)
@@ -383,7 +397,7 @@ export default async function baue(ctx, params = {}) {
     unter_gegenschuss: { pos: [kx, -2.0, kz + 1.5], ziel: [kx, 1.2, kz - 3.5], fov: 60 },  // S16: der Mann oben geht weg (steht bei stelle − 3 m)
     steg_totale: { pos: [-7.5, 2.4, STEG_ENDE + 11], ziel: [0, 1.6, STEG_ENDE - 3], fov: 46 },
     steg_ende: { pos: [S.x - 1.3, S.deck + 1.6, STEG_ENDE - 5.2], ziel: [S.x - 0.1, S.deck + 1.3, STEG_ENDE - 1.0], fov: 38 },   // Odell am Stegende, Laterne, dahinter das Eis
-    steg_seite: { pos: [S.x - 1.2, S.deck + 1.7, STEG_ENDE - 2.2], ziel: [S.x, S.deck + 1.55, STEG_ENDE - 0.4], fov: 36 },    // S37: über Odells rechte Schulter auf Bear (von vorn); Kamera neben dem Steg, über den Pfosten
+    steg_seite: { pos: [S.x - 1.0, S.deck + 1.75, STEG_ENDE - 2.4], ziel: [S.x - 0.2, S.deck + 1.18, STEG_ENDE - 0.4], fov: 36 },   // Ziel unter dem Gesicht: Mund über dem Untertitel-Streifen   // Odell außerhalb, sein Arm mit der Brille ragt ins Bild    // S37: über Odells rechte Schulter auf Bear (von vorn); Kamera neben dem Steg, über den Pfosten
     ufer: { pos: [-6, SEE.uferHoehe + 1.45, NORD_Z + 1.1], ziel: [-6, SEE.uferHoehe + 1.45, NORD_Z - 3.2], fov: 44 },  // S3–4
     weg_totale: { pos: [3.0, 2.8, NORD_Z + 6.5], ziel: [SEE.bg.x - 1, 0.8, SEE.bg.z - 2], fov: 42 },   // S21 und S41 (gleiche Kamera)
     huette_tuer: { pos: [SEE.bg.x - 0.6, 1.6, SEE.bg.z - SEE.bg.t / 2 - 3.3], ziel: [SEE.bg.x, 1.25, SEE.bg.z - SEE.bg.t / 2], fov: 42 },

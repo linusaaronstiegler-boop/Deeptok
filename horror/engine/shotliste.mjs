@@ -103,13 +103,27 @@ export const LICHT = {
   nacht: { preset: 'nacht', lampen: true },
   'innen-nacht': { preset: 'innen_warm', lampen: true },
   'rueckblende-nacht': { preset: 'nacht', lampen: true },
+  // Rules of Kindly (Winter; Presets in src/licht_kindly.js, Orte in README §19)
+  'see-morgengrauen': { preset: 'see_morgengrauen', lampen: true },
+  'see-daemmerung': { preset: 'see_daemmerung', lampen: true },
+  'see-nacht': { preset: 'see_nacht', lampen: true },
+  'see-unter': { preset: 'see_unter', lampen: false },
+  huette: { preset: 'huette', lampen: true },
+  rathaus: { preset: 'innen_warm', anpassung: { hemi: { staerke: 1.8 }, belichtung: 1.15 }, lampen: true },   // Prüfbild: Totale sonst Median 38
 };
 // Rückblenden sind entsättigt (Vergangenheit), damit man sie ohne Text erkennt.
 const RUECKBLENDE = { grade: { saettigung: 0.62, kontrast: 1.04 } };
 // Lampen, die der Compiler je Einstellung an- oder ausschaltet (Kerzen nicht: die bläst Eli aus).
-const LAMPEN = ['strasse.*', 'marsh.*', 'haus.kueche_lampe', 'haus.june_lampe', 'haus.eli_lampe', 'haus.flur_lampe'];
+// Kindly: see, huette, rathaus. Der Stadtrand ("rand") fehlt absichtlich: seine Laterne leuchtet das Ortsschild
+// auf der Endkarte an. Es zählen nur Gruppen geladener Sets (lampenFuer), sonst bricht eine Folge ohne "haus" ab.
+const LAMPEN = ['strasse.*', 'marsh.*', 'haus.kueche_lampe', 'haus.june_lampe', 'haus.eli_lampe', 'haus.flur_lampe', 'see.*', 'huette.*', 'rathaus.*'];
+const lampenFuer = (sets) => LAMPEN.filter((z) => sets.some((s) => s.id === z.split('.')[0]));
 // Orte der Bildideen -> sichtbare Sets (README 15.5)
-const ORTE = { hauptstrasse: ['strasse', 'marsh'], 'marsh-innen': ['strasse', 'haus'], kriechkeller: ['keller'] };
+const ORTE = {
+  hauptstrasse: ['strasse', 'marsh'], 'marsh-innen': ['strasse', 'haus'], kriechkeller: ['keller'],
+  // Rules of Kindly (Set-IDs in regie.sets: see, huette, rand, rathaus, schnee)
+  see: ['see'], 'huette-innen': ['huette'], stadtrand: ['rand'], rathaus: ['rathaus'], 'hauptstrasse-schnee': ['strasse', 'marsh', 'schnee'],
+};
 // Tiefenunschärfe in Nah- und Detailaufnahmen (BEW 1.6)
 const TIEFE_GROESSEN = new Set(['nah', 'gross', 'detail', 'ueber-schulter']);
 
@@ -378,7 +392,7 @@ export async function kompiliere(ordner) {
     if (idee.rueckblende) anpassung = tief(anpassung, RUECKBLENDE);
     if (r.licht_anpassung) anpassung = tief(anpassung, r.licht_anpassung);
     const lampen = r.lampen ?? L.lampen;
-    for (const ziel of LAMPEN) lichtGlobal.push({ art: lampen ? 'an' : 'aus', ziel, start, dauer: 0, quelle: `auto:${e.key}` });
+    for (const ziel of lampenFuer(sets)) lichtGlobal.push({ art: lampen ? 'an' : 'aus', ziel, start, dauer: 0, quelle: `auto:${e.key}` });
     lichtGlobal.push({ art: 'an', ziel: 'umgebung', start, dauer: 0, quelle: `auto:${e.key}` });
     for (const [ziel, an] of Object.entries(r.lampen_einzeln ?? {})) lichtGlobal.push({ art: an ? 'an' : 'aus', ziel, start, dauer: 0, quelle: `auto:${e.key}` });
 
@@ -417,7 +431,7 @@ export async function kompiliere(ordner) {
       ...(partikel.length ? { partikel } : {}),
       ...(tiefe ? { tiefenunschaerfe: tiefe } : {}),
       ...(r.bewegungsunschaerfe ? { bewegungsunschaerfe: r.bewegungsunschaerfe } : {}),
-      schatten_bereich: r.schatten_bereich ?? ({ 'marsh-innen': 16, kriechkeller: 10 }[einst[i].idee.ort] ?? 24),
+      schatten_bereich: r.schatten_bereich ?? ({ 'marsh-innen': 16, kriechkeller: 10, 'huette-innen': 6, rathaus: 12 }[einst[i].idee.ort] ?? 24),
       ...(r.schatten_mitte ? { schatten_mitte: r.schatten_mitte } : {}),
       text,
       plan,
@@ -441,7 +455,7 @@ export async function kompiliere(ordner) {
   const ekStellung = {};
   for (const id of sichtbarVorher) ekStellung[id] = { sichtbar: false };
   const ekStart = r4(storyEnde / FPS), ekEnde = r4((storyEnde + endkarteBilder) / FPS);
-  for (const ziel of LAMPEN) lichtGlobal.push({ art: 'aus', ziel, start: ekStart, dauer: 0, quelle: 'auto:endkarte' });
+  for (const ziel of lampenFuer(sets)) lichtGlobal.push({ art: 'aus', ziel, start: ekStart, dauer: 0, quelle: 'auto:endkarte' });
   lichtGlobal.push({ art: 'an', ziel: 'umgebung', start: ekStart, dauer: 0, quelle: 'auto:endkarte' });
   einstellungen.push({
     id: 'END', start: ekStart, ende: ekEnde, set: ek.set ?? ['karte'], licht: ek.licht ?? 'nacht',

@@ -61,6 +61,38 @@ export function schneeMat(ctx, farbe = '#e9eff7', opt = {}) {
   }));
 }
 
+// Festgefahrener Schnee auf einer Straße mit zwei Spurenpaaren (Leinwand-x = quer zur Fahrbahn).
+// Kachel längs der Straße: 8 m (UV v in Metern / 8, siehe schneeStrasse).
+export function spurTextur(ctx) {
+  return merke(ctx, 'textur:spur', () => {
+    const z = quelle('spur');
+    const t = ctx.zeichenTextur((g, w, h) => {
+      g.fillStyle = '#ffffff'; g.fillRect(0, 0, w, h);
+      for (let i = 0; i < 1200; i++) { g.fillStyle = `rgba(90,100,120,${z() * 0.08})`; g.fillRect(z() * w, z() * h, 2, 2); }
+      for (const mitte of [0.27, 0.73]) for (const d of [-0.085, 0.085]) {
+        const x = (mitte + d) * w;
+        const gr = g.createLinearGradient(x - 14, 0, x + 14, 0);
+        gr.addColorStop(0, 'rgba(70,80,100,0)'); gr.addColorStop(0.5, 'rgba(70,80,100,0.38)'); gr.addColorStop(1, 'rgba(70,80,100,0)');
+        g.fillStyle = gr; g.fillRect(x - 14, 0, 28, h);
+        for (let y = 0; y < h; y += 6) { g.fillStyle = 'rgba(60,70,90,0.18)'; g.fillRect(x - 8, y, 16, 2); }
+      }
+    }, 256, 256);
+    t.wrapS = t.wrapT = THREE.RepeatWrapping;
+    return t;
+  });
+}
+
+// Verschneite Fahrbahn längs z: Breite b, von z0 bis z1, Mitte x, Höhe y (über dem Asphalt).
+export function schneeStrasse(ctx, eltern, b, z0, z1, x = 0, y = 0.02) {
+  const mat = merke(ctx, 'mat:strasse', () => new THREE.MeshStandardMaterial({ color: '#d6dde8', roughness: 0.85, map: spurTextur(ctx) }));
+  const geo = new THREE.PlaneGeometry(b, z1 - z0); geo.rotateX(-Math.PI / 2);
+  const uv = geo.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i), uv.getY(i) * (z1 - z0) / 8);
+  const m = new THREE.Mesh(geo, mat);
+  m.position.set(x, y, (z0 + z1) / 2); m.receiveShadow = true; m.userData.einzeln = true;
+  eltern.add(m);
+  return m;
+}
+
 // Flache Schneefläche (Plane in der xz-Ebene) mit UV in Metern (Kachel 3 m über schneeTextur.repeat).
 export function schneeFlaeche(ctx, eltern, b, t, x, y, z, material) {
   const geo = new THREE.PlaneGeometry(b, t);

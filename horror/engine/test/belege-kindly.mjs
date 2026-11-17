@@ -1,3 +1,4 @@
+import fs from 'node:fs';
 // Set-Belege der Orte von „Rules of Kindly“ Folge 1 (see, huette_innen, stadtrand, rathaus, schnee).
 // Wird von test/belege-sets.mjs eingehängt (gleiche episode()-Hilfe, 3 Bilder je Einstellung).
 //   node test/belege.mjs set-see set-huette set-stadtrand set-rathaus set-schnee
@@ -11,6 +12,8 @@ const HUETTE = [600, 0, 0];
 const RAND = [-600, 0, 0];
 const RATHAUS = [900, 0, 0];
 const plus = (a, b) => a.map((v, i) => v + b[i]);
+// Requisiten der Figuren-Werkstatt, sobald es sie gibt (sonst Stellvertreter bzw. leer)
+const gibt = (modul) => fs.existsSync(new URL(`../figuren/${modul}.js`, import.meta.url));
 // Atemdampf als Stellvertreter, bis das Atem-Modul fertig ist: dichter als die Hiding-Night-Vorgabe
 const atem = (wer) => ({ art: 'atem', ort: `${wer}.mund`, periode: 2.6, anzahl: 60, groesse: 0.07, deckkraft: 0.38, farbe: '#eef2f8', seed: wer });
 
@@ -45,8 +48,8 @@ export const KINDLY_BELEGE = {
       lichtGruppen: ['see'],
       figurenFest: [
         // Odell am Stegende, Bear an der Kante (S37), drei Männer am Ufer (S3–4), Bear über dem Kopf (S34)
-        { id: 'odell', modul: 'odell', position: plus(SEE, [-0.1, 0.85, -48.2]), blick: 0, gesicht: 'streng' },
-        { id: 'bear', modul: 'nachbar', params: { variante: 'muetze', alter: 'jung', farbe: '#2E6E7E' }, position: plus(SEE, [0, 0.85, -47.35]), blick: 180, gesicht: 'neutral' },
+        { id: 'odell', modul: 'odell', position: plus(SEE, [0.35, 0.85, -48.2]), blick: 0, gesicht: 'streng' },
+        { id: 'bear', modul: 'nachbar', params: { variante: 'muetze', alter: 'jung', farbe: '#2E6E7E' }, position: plus(SEE, [-0.2, 0.85, -47.35]), blick: 180, gesicht: 'neutral' },
         { id: 'u1', modul: 'nachbar', params: { variante: 'muetze' }, position: plus(SEE, [-7.0, 0.5, -64.4]), blick: 0, gesicht: 'neutral' },
         { id: 'u2', modul: 'nachbar', params: { variante: 'glatze' }, position: plus(SEE, [-6.0, 0.5, -64.6]), blick: 0, gesicht: 'neutral' },
         { id: 'u3', modul: 'nachbar', params: { variante: 'brille', alter: 'alt' }, position: plus(SEE, [-5.0, 0.5, -64.4]), blick: 0, gesicht: 'neutral' },
@@ -78,6 +81,55 @@ export const KINDLY_BELEGE = {
         // Gesicht unter der Eishaut im Loch (Stellvertreter): liegt rücklings, Kopf nach −z unter der Lochmitte
         { id: 'unten', modul: 'nachbar', params: { variante: 'muetze', alter: 'jung' }, position: plus(HUETTE, [-0.25, -0.8, 1.95]), blick: 0, pose: 'liegen', gesicht: 'neutral' },
       ],
+    });
+  },
+  'set-stadtrand': ({ episode }) => {
+    const e = [];
+    const nacht = (punkt) => e.push({ kamera: kp(`rand.${punkt}`), licht: 'nacht', set: ['rand'] });
+    const tag = (punkt) => e.push({ kamera: kp(`rand.${punkt}`), licht: 'tag', set: ['rand'] });
+    for (const p of ['totale', 'schild', 'zahl', 'dead_end', 'strasse']) tag(p);
+    for (const p of ['totale', 'schild', 'zahl', 'endkarte']) nacht(p);
+    const schild = gibt('ortsschild');
+    return episode('Beleg Set stadtrand', e, {
+      sets: [{ id: 'rand', modul: 'stadtrand', position: RAND, params: { platzhalter_schild: !schild } }],
+      lichtGruppen: ['rand'],
+      figurenFest: schild ? [{ id: 'schild', modul: 'ortsschild', position: plus(RAND, [5.7, 0, -4.6]), blick: 180 }] : [],
+      // Schneefall um das Schild, nicht bis an die Linse (nichts vor der Linse)
+      partikel: [{ art: 'schnee', ort: plus(RAND, [4.5, 4, -2]), bereich: [14, 9, 10], anzahl: 600 }],
+    });
+  },
+  'set-rathaus': ({ episode }) => {
+    const e = [];
+    for (const [p, licht] of [['totale', 'innen_warm'], ['pult_detail', 'innen_warm'], ['pult_nah', 'innen_warm'], ['pult_halbnah', 'innen_warm'], ['seite', 'tag'], ['totale', 'tag']]) e.push({ kamera: kp(`rathaus.${p}`), licht, set: ['rathaus'], schatten_bereich: 12, ...(licht === 'innen_warm' ? { licht_anpassung: { hemi: { staerke: 1.8 }, belichtung: 1.15 } } : {}) });   // wie LICHT.rathaus im Compiler
+    const buch = gibt('stadtbuch');
+    return episode('Beleg Set rathaus', e, {
+      sets: [{ id: 'rathaus', modul: 'rathaus', position: RATHAUS }],
+      lichtGruppen: ['rathaus'],
+      figurenFest: [
+        { id: 'gus', modul: 'nachbar', params: { variante: 'muetze', farbe: '#9E2B25' }, position: plus(RATHAUS, [0, 0, 0.62]), blick: 180, gesicht: 'ernst' },
+        ...(buch ? [{ id: 'buch', modul: 'stadtbuch', position: plus(RATHAUS, [0, 1.05, 0]), blick: 0 }] : []),
+      ],
+    });
+  },
+  'set-schnee': ({ episode }) => {
+    const e = [];
+    const aussen = ['strasse', 'marsh', 'schnee'];
+    e.push({ kamera: kp('schnee.lund_halbnah'), licht: 'nacht', set: aussen });
+    e.push({ kamera: kp('schnee.lund_gegen'), licht: 'nacht', set: aussen });
+    e.push({ kamera: kp('schnee.lund_totale'), licht: 'nacht', set: aussen });
+    e.push({ kamera: kp('schnee.strasse_schnee'), licht: 'nacht', set: aussen });
+    e.push({ kamera: kp('schnee.lund_totale'), licht: 'tag', set: aussen });
+    e.push({ kamera: kp('strasse.haeuser_totale'), licht: 'tag', set: aussen });
+    e.push({ kamera: kp('strasse.ende_halbtotale'), licht: 'daemmerung', set: aussen });
+    return episode('Beleg Set schnee', e, {
+      sets: [{ id: 'strasse', modul: 'hauptstrasse' }, { id: 'marsh', modul: 'marsh_haus', params: { tuer_als_figur: true } }, { id: 'schnee', modul: 'schnee' }],
+      lichtGruppen: ['strasse', 'marsh'],
+      figurenFest: [
+        { id: 'tuer', modul: 'tuer', position: [-11.98, 0.6, -1.175], blick: 90 },
+        { id: 'mann', modul: 'nachbar', params: { variante: 'glatze', alter: 'alt', farbe: '#2b3a5a' }, position: [-10.75, 0.6, -1.7], blick: -90, gesicht: 'neutral' },
+        { id: 'frau', modul: 'nachbar', params: { variante: 'kopftuch', alter: 'alt', farbe: '#3f5a3c' }, position: [-12.65, 0.6, -1.7], blick: 90, gesicht: 'ernst' },
+      ],
+      partikel: [{ art: 'schnee', ort: [-8, 5, 0], bereich: [20, 10, 20], anzahl: 700 }, atem('frau')],
     });
   },
 };

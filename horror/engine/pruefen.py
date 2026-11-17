@@ -154,7 +154,7 @@ HELL_MEDIAN_MIN = 85.0    # Median der Bildhelligkeit (0–255)
 HELL_EINSTELLUNG_MIN = 35.0
 # Review Teil 2: Der Kriechkeller soll fast dunkel sein (r2, dunkle Strecke: Mittel 25–30). Er zählt
 # nicht zum Median und hat eine eigene Untergrenze je Einstellung; sonst hellt das Tor ihn wieder auf.
-DUNKLE_ORTE = {"kriechkeller": 22.0}
+DUNKLE_ORTE = {"kriechkeller": 22.0, "huette-innen": 22.0}   # Rules of Kindly: Fischerhütte nachts (Preset "huette")
 # Review Teil 2: E40 begann 0,8 s in einer Fläche (einfarbig blauviolett). Ein Bild mit Streuung unter 12
 # in den ersten 0,5 s einer Einstellung gilt als Leerbild (sonst überall > 12).
 LEERBILD_STREUUNG = 12.0

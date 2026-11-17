@@ -25,6 +25,7 @@ Grundlage sind `horror/docs/bewegungs-spec.md` (Kamera, Schnitt, Aktionen), `hor
 16. [Shotliste, Messtor, Kontaktbogen](#16-shotliste-messtor-kontaktbogen)
 17. [Untertitel, Effekte, Mischung, fertige MP4](#17-untertitel-effekte-mischung-fertige-mp4)
 18. [Musik-Werkstatt](#18-musik-werkstatt)
+19. [Orte der Serie „Rules of Kindly“](#19-orte-der-serie-rules-of-kindly)
 
 ## 1. Schnellstart
 
@@ -814,3 +815,107 @@ Stand 15.11.2026. Eigene Klangbetten im Stil der Referenzvideos, Einzelheiten in
 - Stand 16.11.2026: In „Hiding Night“ Teil 1 und 2 läuft **r2-eigen** aus `musik-v2/` (Spieluhr wie r2 mit eigenen Begleitfiguren; Werte in `musik-v2/LIZENZEN.md`). `musik/spannung.py` liest es mit `"quelle": "musik-v2"` und setzt an jeden Wegfall einen kurzen Nachhall. Das Wiegenlied unten bleibt als Werkzeug.
 - Früher für „Hiding Night“ empfohlen: Wiegenlied-Spieluhr. Die Spannungsfassung (`musik/spannung.py`, Steuerung über `musik/spannung/hiding-night-teil1.json`) kann als `--bett` von `fertigen.py` das bisherige Bett `klangbett-r2-a.wav` in der Vorhör-Fassung ersetzen (noch nicht eingebaut; `mischen.py` normiert dann das ganze Bett auf 12 LU unter der Stimme, `spannung.py --vorhoer` dagegen die Stufe „normal“). Der Upload bleibt ohne Musik.
 
+## 19. Orte der Serie „Rules of Kindly“
+
+Stand 17.11.2026, Folge 1 (Bibel `episoden/serie-02/bibel.md` §10.3, §10.7). Alles im Code gebaut, keine fremden Assets. Prüfbilder: `node test/belege.mjs set-see set-huette set-stadtrand set-rathaus set-schnee` (Episoden in `test/belege-kindly.mjs`, Bögen in `belege/`). Einzelne Einstellungen in voller Auflösung: `node render.mjs ../build/belege/beleg-set-see.json --einzelbild 0.3333` (Einstellung i beginnt bei i · 0,1 s).
+
+### 19.1 Übersicht
+
+| Set (Modul) | Datei | Set-ID in `regie.sets` | Position (Vorschlag) | Ort in `bildideen.json` | Licht in `bildideen.json` |
+|---|---|---|---|---|---|
+| Zugefrorener See | `sets/see.js` | `see` | `[0, 0, 1000]` | `see` | `see-morgengrauen`, `see-daemmerung`, `see-nacht`, unter dem Eis `see-unter` |
+| Fischerhütte innen | `sets/huette_innen.js` | `huette` | `[600, 0, 0]` | `huette-innen` (dunkler Ort, Untergrenze 22) | `huette` |
+| Stadtrand mit Ortsschild | `sets/stadtrand.js` | `rand` | `[-600, 0, 0]` | `stadtrand` | `tag`, `nacht`, `see-morgengrauen` |
+| Rathaus mit Pult | `sets/rathaus.js` | `rathaus` | `[900, 0, 0]` | `rathaus` | `rathaus` (innen_warm, heller, Lampen an) |
+| Schnee über der Hauptstraße | `sets/schnee.js` | `schnee` | `[0, 0, 0]` | `hauptstrasse-schnee` (= strasse, marsh, schnee) | `nacht`, `tag`, `daemmerung` |
+
+Gemeinsame Bauteile: `src/winter.js`. Licht-Presets: `src/licht_kindly.js` (in `src/licht.js` zu `PRESETS` gelegt). Registriert in `shotliste.mjs` (`LICHT`, `ORTE`, Lampenliste, Schattenbereich Hütte 6 m, Rathaus 12 m) und `pruefen.py` (`DUNKLE_ORTE["huette-innen"] = 22`). Die Lampenliste des Compilers zählt jetzt nur Gruppen geladener Sets (`lampenFuer`): Vorher brach jede Folge ohne `marsh_innen` an `haus.kueche_lampe` ab. Hiding Night Teil 2 und 3 kompilieren bitgleich zur eingecheckten `episode.json` (Teil 1 weicht nur in einer Partikeldauer ab: Regel „Partikel enden mit der Einstellung“ aus 15.10, älter als diese Änderung).
+
+### 19.2 `src/winter.js`
+
+| Funktion | Zweck |
+|---|---|
+| `schneeMat(ctx, farbe, { flach, rauheit })`, `schneeTextur` | bläulich-weißer Schnee (Kachel 3 m, Welt-UV beim Verschmelzen) |
+| `schneeFlaeche(ctx, eltern, b, t, x, y, z)` | flache Schneedecke mit UV in Metern |
+| `schneeStrasse(ctx, eltern, b, z0, z1, x, y)`, `spurTextur` | festgefahrener Schnee mit zwei Spurenpaaren, längs z |
+| `schneeHaufen(ctx, eltern, x, y, z, rx, ry, rz, zufall)` | Verwehung, Pflugwall, Haube (gestauchte Kugel) |
+| `schneeKiefer(ctx, eltern, x, z, zufall, { groesse, y, schnee })` | Kiefer im Hausstil mit Schneehauben, grüner Saum bleibt |
+| `eisMaterial(ctx, opt)`, `eisGeometrie({ radius \| b, t, mitte, y, kachel })` | Eis: Frost mit Rissen und Schneeflecken (halbdurchsichtig), klare Stellen, frische Risse, schneefreie Ellipsen, von unten leuchtend; `material.eis.setze({ klar, risse })` je Bild |
+| `klarStellen(ereignisse, t, std)`, `rissStellen(…)`, `ereignisStand(ereignisse, t, ziele, dauer)` | Set-Ereignisse → Zustand zur Zeit t (nur aus t) |
+
+Eis-Optionen: `farbe` `#bccfdd`, `deckFrost` 0,55 (von oben), `deckUnten` 0,72, `deckKlar` 0,1, `klarFarbe`, `schnee` 1, `schneeMassstab`, `schneefrei [[x, z, rx, rz]]`, `durchlicht` 0,9 und `durchFarbe` (Leuchten der Unterseite), `spiegelFarbe` (Totalreflexion von unten), `rauheit` 0,5, `klarRauheit` 0,12, `rissGlut`.
+
+- **Klar werden:** Der Frost weicht von der Mitte nach außen (Radius wächst mit dem Fortschritt), am Rand glitzert kurz ein Kristallsaum, darunter sieht man das Wasser und was darin liegt. Bis zu vier Stellen gleichzeitig; ein Ereignis mit `staerke: 0` friert die Stelle wieder zu.
+- **Von unten:** Die Unterseite leuchtet (Untersicht hell genug). Flach gesehen (außerhalb des Snellius-Fensters, etwa 49° zur Senkrechten) spiegelt sie das Wasser und wird undurchsichtig: Ufer, Hütten und Stadt sind von unten nicht mehr wie durch Glas zu sehen, eine Figur auf dem Eis verschwindet, wenn sie aus dem Fenster über der Kamera geht (S16).
+- **Technik-Befund:** `gl_FrontFacing` lieferte unter ANGLE/llvmpipe für die Unterseite `true` (Rot-Test: keine Wirkung). „Von unten“ wird darum aus der Kamerahöhe gegenüber der Fläche entschieden (`cameraPosition.y < Weltposition.y`). Gilt für jede waagerechte Fläche.
+
+### 19.3 Set `see`
+
+Lokal: Eisoberfläche y = 0, See als Ellipse (rx 75 m, rz 60 m), 3,6 m Wasser über einem schüsselförmigen Grund (von unten nirgends Himmel durch eine Lücke). Norden (−z): Uferplatz (eben, y 0,5), Steg bei x = 0 (Deck y 0,85, Ende bei z ≈ −47,2, Stufen aufs Eis, Pfosten 0,32 m über dem Deck, Laterne am Ende mit Punktlicht), dahinter Kindly (16 Häuser mit Fensterlicht ohne Nebel, Kirchturm mit erleuchteter Schallluke, Uferlampen). Rundum verschneite Kiefern, vor der Stadt eine Lücke. Fünf Eishütten, die blaue „BEAR & GUS“ bei `[8,5, 0, −27]` mit Tür nach Norden, Fenster, Türlampe (zweites Punktlicht) und Aufschrift in Archivo Black. Vier Eislöcher mit Fähnchen, Eimer, fünf Laternen auf dem Eis, Klappstuhl mit rotem Schal (S23), Nebelbänke am Ufer.
+
+- **Ereignisse** (`params.ereignisse`, regie: `{ art: "set", set: "see", was, wort }`): `klar` { mitte [x, z] (Std Anker `stelle`), radius (Std 1,3), dauer (Std 0,8), staerke } für S13, S34; `risse` { mitte, radius (Std 1,6), dauer (Std 0,12) } für S1, S31 (Schnee springt: Partikel `staub`, weiß).
+- **params:** `eis` { … an eisMaterial }, `huetten`, `stuhl`, `stadt`, `dunst`, `punktlicht` (alle Std true).
+- **Lichtgruppen:** `see.laterne`, `see.huette_bg` (Fenster, Türlampe, Punktlicht), `see.huetten`, `see.eislaternen`, `see.stadt`.
+- **Anker:** `wesen` [2, −0,55, −26] (Mitte des liegenden Wesens, längs z, Kopf nach −z), `wesen_kopf`, `stelle` (auf dem Eis über dem Kopf: hier steht Bear S30–35, hier wird es klar), `steg_ende` (Odell, blick 0; steht 0,35 m zur Laternenseite), `steg_kante` (wer vom Eis kommt und haucht, blick 180), `steg_stufen`, `steg_mitte`, `ufer` (S3–4, blick 0), `weg_start`, `huette_bg`, `huette_bg_tuer`, `huette_<id>`, `loch_<n>`, `stuhl`, `schal`, `laterne`, `stadt`, `see_mitte`.
+- **Kamerapunkte:** `totale`, `see_weit` (S29), `draufsicht` (S2: Körper in der schneefreien Zone, Hütte daneben), `gesicht_oben` (S13–15, S34–35: durchs klare Eis, Kopf oben), `eis_detail` (Stiefel/Pickel tippt), `unter_eis` (S1, S31), `unter_seite` (S10–11, für `truck_side` längs z), `unter_gegenschuss` (S16), `steg_totale`, `steg_ende`, `steg_seite` (S37: Bear von vorn, Odell außerhalb, sein Arm ragt ins Bild; Mund über dem Untertitel-Streifen), `ufer` (S3–4), `weg_totale` (S21 und S41, dieselbe Kamera), `huette_tuer` (Aufschrift lesbar), `huetten` (S30), `stuhl` (S23, gegen die tiefe Sonne), `heimweg` (S64).
+- **Kopf oben:** Alle Kameras über dem Eis schauen nach Norden; Figuren und das Wesen liegen mit dem Kopf nach −z (Pose `liegen` mit blick 0). So steht der Kopf oben im Bild (Schnellbogen-Regel 16.4).
+- **Atemdampf:** Dampf liest sich nur vor dunklem Grund. Darum stehen dunkle Kiefern hinter dem Uferplatz, der Nachthimmel ist am Horizont nicht zu hell, und die Steglaterne steht seitlich (Gegenlicht, nicht im Bild der Kamera `steg_seite`).
+
+### 19.4 Set `huette_innen`
+
+Innenraum x −1,12 … 1,12, z −1,42 … 1,42 (passt zur Hütte im See), Dielen y = 0, Pultdach 2,15 → 1,95 m. Ofen hinten links (Glut flackert über die Lichtfarbe, die Stärke bleibt den Lichtereignissen), Petroleumlampe, Bank rechts, Regal mit Thermoskanne, Angeln, Eimer. Eisloch (Mitte x −0,25, z 0,35; 0,7 m) mit Eiswänden, durchsichtigem Wasser und einer Eishaut bei y −0,15 (`eisMaterial` ohne Schnee). Frostfenster rechts (fast weiß, Eisblumen), Tür vorn mit Messingriegel. Drinnen keine Atem-Partikel (Bibel §2).
+
+- **Ereignisse:** `klar` (Eishaut, S58), `zittern` { dauer 1,2, schlaege 3, staerke } (Ringe im Wasser im Takt, S54–55), `deckel_drauf` / `deckel_weg` { dauer 0,6 } (Holzdeckel hebt sich im Bogen vom Boden aufs Loch, S63), `riegel_zu` / `riegel_auf` { dauer 0,25 } (S49), `hauch` { mitte [u, v], radius, dauer 1,6 } (warmer Atem taut einen dunklen nassen Fleck mit hellem Rand in den Frost; für Bears Kopie kein Ereignis: „nichts“).
+- **Lichtgruppen:** `huette.ofen` (Glut + Punktlicht), `huette.lampe` (Punktlicht), `huette.fenster`.
+- **Anker:** `loch`, `loch_unten` (Gesicht unter der Haut, Kopf nach −z), `deckel`, `fenster`, `riegel`, `tuer`, `ofen`, `lampe`; Stellplätze `stand_fenster` (Bear, blick 90, Gesicht gut 0,5 m vor dem Glas), `stand_ofen` (Gus, blick −145), `stand_tuer` (blick 180), `knien_loch` (blick 180), `bank` (Sitzhöhe 0,45, blick −90).
+- **Kamerapunkte:** `totale`, `ofen` (Gus von vorn, Ofenrohr außerhalb des Bildes), `loch`, `loch_nah` (Lippen, S61–62), `tuer` (Riegel), `fenster` (das Glas), `fenster_gesicht` (Großaufnahme Bear, Dreiviertel), `bank`. Ein Gesicht im Dreiviertelprofil und das Glas passen in diesem engen Raum nicht in ein 9:16-Bild: zwei Einstellungen.
+
+### 19.5 Set `stadtrand`
+
+Die verschneite Landstraße kommt aus der Stadt (−z) und endet bei z = 0 an einer rot-weißen Schranke mit Schneewall; dahinter Kiefernwald. Rechts das DEAD-END-Schild (Schnee auf den oberen Kanten) und der Platz für die Requisite `ortsschild` (Figuren-Werkstatt) bei Anker `ortsschild` [5,7, 0, −4,6], blick 180 (Schrift zur Straße). Eine Laterne leuchtet die Tafel von vorn an (Punktlicht): Auf der Endkarte bei Nacht ist die Zahl lesbar. `rand.*` steht absichtlich nicht in der Lampenliste des Compilers, die Endkarte schaltet die Laterne also nicht aus; bei Tag `{ art: "aus", ziel: "rand.laterne", dauer: 0 }` oder `lampen_einzeln`.
+
+- **params:** `platzhalter_schild` (Std false: schlichte Tafel nur für Prüfbilder, solange die Requisite fehlt; die Belege nehmen `figuren/ortsschild.js`, sobald es sie gibt), `punktlicht`.
+- **Anker:** `ortsschild`, `ortsschild_mitte` (geschätzt y 1,75), `dead_end`, `schranke`, `strasse_ende`, `laterne`.
+- **Kamerapunkte:** `totale`, `strasse`, `schild` (Tafel etwa 70 % der Bildbreite), `zahl` (Push-in auf die Einwohnerzahl), `endkarte` (Schild und DEAD END, Nacht), `dead_end`. Die Ziele rechnen mit der Tafelmitte 1,75 m; mit der echten Requisite nachmessen.
+- Schneefall aus der Episode (`schnee`-Partikel), um das Schild herum und nicht bis an die Linse (Probe: ein Flocken-Fleck vor der Zahl, als das Feld die Kamera einschloss).
+
+### 19.6 Set `rathaus`
+
+Raum 8 × 7 × 3,6 m: dunkle Vertäfelung, warmer Putz, Balkendecke, zwei hohe Fenster mit Schneelicht (Punktlicht), offene Regale mit Akten an der Rückwand (Archiv für F8), Bank, Aushang „Kindly mind the rules.“ über der Tür. In der Mitte das Pult mit **ebener** Platte in 1,05 m (die Requisite `stadtbuch` liegt ohne Neigung auf), Leiste hinten, Tintenfass mit Feder; darüber eine Pendellampe mit grünem Schirm, Punktlicht und weichem Lichtkegel (`weicherKegel`).
+
+- **Lichtgruppen:** `rathaus.lampe`, `rathaus.fenster`. Compiler-Licht `rathaus` = `innen_warm` mit Himmel-/Bodenlicht 1,8 und Belichtung 1,15 (Probe vorher: Totale Median 38).
+- **Anker:** `pult` (Mitte der Platte: Stadtbuch, Lesesicht von +z), `lesen` (Stellplatz des Lesers, blick 180), `lampe`, `regal`, `fenster`.
+- **Kamerapunkte:** `totale`, `pult_detail` (Draufsicht aufs Buch, oben im Bild = −z), `pult_nah` (schräg auf den Falz), `pult_halbnah` (Leser von vorn, Pult im Vordergrund), `seite`.
+
+### 19.7 Set `schnee`
+
+Überlagerung in Weltkoordinaten, ändert `hauptstrasse` nicht (Hiding Night bleibt): Schneedecke über Wiesen und Vorgärten, Fahrbahn und Feldweg mit Reifenspuren, Gehwege, Pflugwälle; Schneedecken auf allen Dächern und Verandadächern (Maße wie `baueHaus`, Hausliste aus `hauptstrasse.js` kopiert: bei Änderungen dort mitziehen), Hauben auf Zäunen, Büschen, Blumenkästen, Vorgartenbäumen, geparkten Autos und dem Briefkasten der Marshs. Die Plattenwege bleiben frei (geräumt; Alltagsregel F3).
+
+- **Haustür der Lunds (S17):** das Haus der Marshs mit `marsh_haus { tuer_als_figur: true }` (Requisite `tuer` wie in 15.5). Anker `lund_tuer`, `lund_veranda` (Mann, blick −90), `lund_flur` (Frau, blick 90; für Kameras von der Seite auf die Schwelle stellen, sonst verdeckt die Wand), `lund_weg`. Kamerapunkte `lund_halbnah` (durch die Lücke über den Stufen, kein Verandapfosten im Bild), `lund_gegen` (von der Schwelle auf den Mann), `lund_totale`, `strasse_schnee`.
+- **Grenzen:** Platz vor der Kirche, Feldweg-Kiefern der Hauptstraße und Hintergrundbäume bleiben ohne Schnee; Laubbäume tragen nur Schneehauben über grünem Laub. Für weite Totalen (F3, F7) braucht `hauptstrasse` noch einen Winter-Parameter (kahle Bäume).
+
+### 19.8 Licht-Presets (`src/licht_kindly.js`)
+
+| Preset | Compiler-Licht | Zweck |
+|---|---|---|
+| `see_morgengrauen` | `see-morgengrauen` | vor Sonnenaufgang, rosa Saum, flaches warmes Licht, Dunst (S5–7, S21) |
+| `see_daemmerung` | `see-daemmerung` | violett-rosa, Sonne hinter dem Südufer (S23) |
+| `see_nacht` | `see-nacht` | Mond von hinten-oben, Schnee leuchtet blau, wenig Nebel (Stadtlichter sichtbar) |
+| `see_unter` | `see-unter` (Lampen aus) | türkises Wasser, Licht von oben, dichter Wasser-Nebel, kaltes Kantenlicht fürs Wesen; absichtlich hell |
+| `huette` | `huette` | eng und warm, wenig Füll-Licht, kaltes Mondlicht nur durchs Fenster; Ofen und Lampe zeichnen den Raum |
+
+### 19.9 Prüfbilder und Messwerte
+
+Probebilder 1080 × 1920 (`--einzelbild`), Mittel der Bildhelligkeit (0–255, ganzes Bild):
+
+| Set | Einstellung (Licht) | Mittel |
+|---|---|---|
+| see | totale (Morgengrauen) 170 · steg_seite (Nacht) 114 · ufer (Morgengrauen) 112 · draufsicht 138 · gesicht_oben durchs klare Eis (Nacht) 57 · unter_eis 109 · unter_gegenschuss 106 · huette_tuer (Nacht) 101 · weg_totale (Nacht) 122 · stuhl (Dämmerung) 164 · see_weit (Nacht) 103 | alle ≥ 35 |
+| huette_innen | totale 81 · ofen 57 · loch (klar, Gesicht) 80 · fenster 134 · fenster_gesicht 65 | Untergrenze 22 |
+| stadtrand | schild (Tag) 92 · zahl (Tag, Stellvertreter-Tafel) 68 · endkarte (Nacht, Schneefall) 152 | |
+| rathaus | totale 76 · pult_halbnah 110 | |
+| schnee | lund_halbnah (Nacht) 104 · lund_gegen 76 · lund_totale 133 | |
+
+Renderzeit der Belege (576 × 1024, 2 Prozesse): 0,18–0,21 s je Bild. Nachgebessert nach den Prüfbildern: Laternen-Glut und Morgensonne auf dem Eis gedämpft (Eis rauer), Untersicht ohne „Glas“-Blick aufs Ufer (Spiegelung), Eisplatte über dem Hüttenloch entfernt, Spiegelung der Lampe im klaren Eis des Lochs gedämpft (`klarRauheit`), Steg-Gegenschuss ohne Verdeckung durch Odells Kopf, Türlampe an „BEAR & GUS“ (Mittel 41 → 101), Regale offen (ein voller Klotz verdeckte die Bücher), Rathaus heller.
+
+Offen: Ortsschild und Stadtbuch mit den echten Requisiten nachmessen (Kamerapunkte `rand.schild/zahl/endkarte`, Blickrichtung des Buchs auf `rathaus.pult`); `see.wesen` an die Maße von `old_knuckles` anpassen (schneefreie Zone ist 6,4 × 18 m); Atem-Lesbarkeit nach Kompression (Kompressions-Tor der Figuren-Werkstatt) in `steg_seite` und `ufer` prüfen.
