@@ -47,9 +47,9 @@ Einstellungsnummern wie in der Kritik; die Schnitte sind gleich geblieben (100 E
 
 ### P1 Texte und Paket (Reichweite)
 
-- **TikTok-Beschreibung:** nennt jetzt Titel und Regel zuerst: „His Breath Didn't Fog. In Kindly, if the ice knocks, never knock back. Which Bear would you take home? #kindlytown …“ (eigene Daten: Beschreibungen mit Regel im Median 30.900 gegen 8.453 mit Etikett).
+- **TikTok-Beschreibung:** nennt jetzt Titel und Regel zuerst: „His Breath Didn't Fog. In Kindly, if the ice knocks, never knock back. Would you have walked him back? #kindlytown …“ (eigene Daten: Beschreibungen mit Regel im Median 30.900 gegen 8.453 mit Etikett).
 - **„Rule 3“ nie allein:** YouTube-Titel „His Breath Didn't Fog | Rules of Kindly, Rule 3: Never Knock Back“, Instagram „Rule 3: Never knock back.“, Titelbild „RULE 3 · NEVER KNOCK BACK“.
-- **Streitfrage als Test über die Plattformen** (TikTok hat keinen A/B-Test): TikTok und YouTube fragen nach der frischen Entscheidung am Schluss („Which Bear would you take home?“), Instagram bleibt bei „Would you have walked him back?“. Nach 72 h Kommentare je 1.000 Aufrufe vergleichen (steht im LIESMICH). Der angeheftete Kommentar bleibt „Breathe on your screen. Did it fog?“.
+- **Streitfrage (verworfen am 17.11., Abnahme):** Die Frage „Which Bear would you take home?“ verrät die Wendung, weil die Bildunterschrift beim Ansehen mitläuft; überall gilt jetzt „Would you have walked him back?“. Ursprünglicher Plan: **Streitfrage als Test über die Plattformen** (TikTok hat keinen A/B-Test): TikTok und YouTube fragen nach der frischen Entscheidung am Schluss („Which Bear would you take home?“), Instagram bleibt bei „Would you have walked him back?“. Nach 72 h Kommentare je 1.000 Aufrufe vergleichen (steht im LIESMICH). Der angeheftete Kommentar bleibt „Breathe on your screen. Did it fog?“.
 
 ### P2 (behoben)
 
