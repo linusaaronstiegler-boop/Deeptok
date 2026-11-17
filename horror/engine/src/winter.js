@@ -181,20 +181,25 @@ export function eisGeometrie({ radius, b, t, mitte = [0, 0], y = 0, kachel = 14,
 }
 
 // Eis-Material. opt (alles optional):
-//   farbe '#cfdeea' (Frost), deckFrost 0.62 (Deckkraft von oben), deckUnten 0.72 (von unten), deckKlar 0.1,
+//   farbe '#bccfdd' (Frost), deckFrost 0.55 (Deckkraft von oben), deckUnten 0.72 (von unten), deckKlar 0.1,
 //   klarFarbe '#14303c' (klares Eis über tiefem Wasser), schnee 1 (Menge der Schneeflecken, 0 = keine),
 //   schneeFarbe '#eef3f9', durchlicht 0.9 und durchFarbe '#bfe6f0' (Leuchten der Unterseite),
-//   rissGlut 0.25 (Leuchten frischer Risse), schneeMassstab 1 (größer = kleinere Flecken)
+//   rissGlut 0.25 (Leuchten frischer Risse), schneeMassstab 1 (größer = kleinere Flecken),
+//   rauheit 0.5, klarRauheit 0.12 (glänzt mehr, wo es klar ist),
+//   schneefrei [[x, z, rx, rz], …] (bis zu 2 Ellipsen ohne Schneeflecken), spiegelFarbe '#1d4a54' (von unten flach)
 // Rückgabe: Material mit .eis.setze({ klar: [{x,z,r,w}], risse: [{x,z,r,w}] }) für aktualisiere(t).
 export function eisMaterial(ctx, opt = {}) {
   const m = new THREE.MeshStandardMaterial({
-    color: new THREE.Color(opt.farbe ?? '#cfdeea'), roughness: 0.32, metalness: 0, map: eisTextur(ctx),
+    color: new THREE.Color(opt.farbe ?? '#bccfdd'), roughness: opt.rauheit ?? 0.5, metalness: 0, map: eisTextur(ctx),
     transparent: true, depthWrite: false, side: THREE.DoubleSide,
   });
   const leer = () => [0, 1, 2, 3].map(() => new THREE.Vector4(0, 0, 1, 0));
   const u = {
     uEisKlar: { value: leer() }, uEisRiss: { value: leer() },
-    uEisDeckFrost: { value: opt.deckFrost ?? 0.62 }, uEisDeckUnten: { value: opt.deckUnten ?? 0.72 }, uEisDeckKlar: { value: opt.deckKlar ?? 0.1 },
+    uEisFrei: { value: [0, 1].map((i) => new THREE.Vector4(...(opt.schneefrei?.[i] ?? [0, 0, 0, 0]))) },
+    uEisSpiegelFarbe: { value: new THREE.Color(opt.spiegelFarbe ?? '#1d4a54') },
+    uEisDeckFrost: { value: opt.deckFrost ?? 0.55 }, uEisDeckUnten: { value: opt.deckUnten ?? 0.72 }, uEisDeckKlar: { value: opt.deckKlar ?? 0.1 },
+    uEisKlarRauheit: { value: opt.klarRauheit ?? 0.12 },
     uEisSchnee: { value: opt.schnee ?? 1 }, uEisSchneeMass: { value: opt.schneeMassstab ?? 1 },
     uEisDurchlicht: { value: opt.durchlicht ?? 0.9 }, uEisRissGlut: { value: opt.rissGlut ?? 0.25 },
     uEisKlarFarbe: { value: new THREE.Color(opt.klarFarbe ?? '#14303c') },
@@ -204,13 +209,17 @@ export function eisMaterial(ctx, opt = {}) {
   m.onBeforeCompile = (shader) => {
     Object.assign(shader.uniforms, u);
     shader.vertexShader = shader.vertexShader
-      .replace('#include <common>', '#include <common>\nvarying vec3 vEisPos;')
-      .replace('#include <begin_vertex>', '#include <begin_vertex>\nvEisPos = position;');
+      .replace('#include <common>', '#include <common>\nvarying vec3 vEisPos;\nvarying vec3 vEisWelt;')
+      .replace('#include <begin_vertex>', '#include <begin_vertex>\nvEisPos = position;\nvEisWelt = (modelMatrix * vec4(position, 1.0)).xyz;');
     shader.fragmentShader = shader.fragmentShader
       .replace('#include <common>', `#include <common>
 uniform vec4 uEisKlar[4];
 uniform vec4 uEisRiss[4];
-uniform float uEisDeckFrost, uEisDeckUnten, uEisDeckKlar, uEisSchnee, uEisSchneeMass, uEisDurchlicht, uEisRissGlut;
+uniform vec4 uEisFrei[2];
+uniform vec3 uEisSpiegelFarbe;
+varying vec3 vEisWelt;
+float eisSpiegel = 0.0; float eisUnten = 0.0;
+uniform float uEisKlarRauheit, uEisDeckFrost, uEisDeckUnten, uEisDeckKlar, uEisSchnee, uEisSchneeMass, uEisDurchlicht, uEisRissGlut;
 uniform vec3 uEisKlarFarbe, uEisSchneeFarbe, uEisDurchFarbe;
 varying vec3 vEisPos;
 float eis_h(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
@@ -221,6 +230,8 @@ float eisK = 0.0; float eisS = 0.0; float eisR = 0.0; float eisRand = 0.0;`)
       .replace('#include <map_fragment>', `#include <map_fragment>
 {
   vec2 eP = vEisPos.xz;
+  // von unten gesehen? (aus der Kamerahöhe: gl_FrontFacing war unter ANGLE/llvmpipe hier nicht verlässlich)
+  eisUnten = step(cameraPosition.y, vEisWelt.y - 0.001);
   // klare Stellen: x, z, Radius, Fortschritt w (0..1). Der Frost weicht von innen nach außen.
   for (int i = 0; i < 4; i++) {
     vec4 s = uEisKlar[i];
@@ -252,22 +263,35 @@ float eisK = 0.0; float eisS = 0.0; float eisR = 0.0; float eisRand = 0.0;`)
   // Schneeflecken und Verwehungen (deckend), nicht auf klaren Stellen
   eisS = smoothstep(0.52, 0.64, eis_fbm(eP * 0.085 * uEisSchneeMass + 3.7));
   eisS = max(eisS, smoothstep(0.6, 0.72, eis_fbm(vec2(eP.x * 0.32, eP.y * 0.05) * uEisSchneeMass + 11.0)) * 0.8);
+  // schneefreie Ellipsen (x, z, rx, rz): dort liegt das Wesen, sein Umriss bleibt durch den Frost lesbar
+  for (int i = 0; i < 2; i++) {
+    vec4 f = uEisFrei[i];
+    if (f.z > 0.0) { vec2 q = (eP - f.xy) / f.zw; eisS *= smoothstep(0.7, 1.05, length(q) + (eis_fbm(eP * 0.35 + 5.0) - 0.5) * 0.45); }
+  }
   eisS *= uEisSchnee * (1.0 - eisK);
+  // Von unten, flach gesehen: Totalreflexion (außerhalb des Snellius-Fensters, ~49° zur Senkrechten) spiegelt
+  // das dunkle Wasser. Ohne das sah man von unten das Ufer und die Stadt wie durch Glas.
+  if (eisUnten > 0.5) {
+    float eisC = abs(normalize(cameraPosition - vEisWelt).y);
+    eisSpiegel = 1.0 - smoothstep(0.5, 0.74, eisC);
+  }
   diffuseColor.rgb = mix(diffuseColor.rgb, uEisKlarFarbe, eisK * 0.85);
   diffuseColor.rgb = mix(diffuseColor.rgb, uEisSchneeFarbe, eisS);
   diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.96, 0.99, 1.0), max(eisR * 0.85, eisRand * 0.7));
-  float eisDeck = gl_FrontFacing ? uEisDeckFrost : uEisDeckUnten;
+  float eisDeck = mix(uEisDeckFrost, uEisDeckUnten, eisUnten);
   float eisA = mix(eisDeck, uEisDeckKlar, eisK);
   eisA = mix(eisA, 1.0, eisS);
   eisA = max(eisA, max(eisR * 0.92, eisRand * 0.8));
+  diffuseColor.rgb = mix(diffuseColor.rgb, uEisSpiegelFarbe, eisSpiegel);
+  eisA = mix(eisA, 1.0, eisSpiegel);
   diffuseColor.a = eisA;
 }`)
       .replace('#include <roughnessmap_fragment>', `#include <roughnessmap_fragment>
-roughnessFactor = mix(roughnessFactor, 0.12, eisK);
+roughnessFactor = mix(roughnessFactor, uEisKlarRauheit, eisK);
 roughnessFactor = mix(roughnessFactor, 0.95, eisS);`)
       .replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
 // Unterseite: durchscheinendes Licht (Untersicht hell genug), Schnee und klare Stellen lassen weniger durch
-if (!gl_FrontFacing) totalEmissiveRadiance += uEisDurchFarbe * uEisDurchlicht * (1.0 - 0.7 * eisK) * (1.0 - 0.55 * eisS);
+totalEmissiveRadiance += eisUnten * uEisDurchFarbe * uEisDurchlicht * (1.0 - 0.7 * eisK) * (1.0 - 0.55 * eisS) * (1.0 - 0.8 * eisSpiegel);
 totalEmissiveRadiance += vec3(0.62, 0.8, 0.9) * uEisRissGlut * max(eisR, eisRand);`);
   };
   m.customProgramCacheKey = () => 'kindly-eis';

@@ -13,13 +13,13 @@ export const KINDLY_PRESETS = {
   // Morgengrauen über dem See (S5–7, S21): vor Sonnenaufgang, kalter blauer Himmel mit rosa Saum,
   // flaches warmes Licht vom Horizont, Dunst über dem Eis.
   see_morgengrauen: {
-    himmel: { zenit: '#26386a', horizont: '#e9b6ae', scheibe: { richtung: [0.62, 0.03, 0.78], farbe: '#ffc8a6', groesse: 3.2, staerke: 1.2, glanz: 0.85 }, sterne: 0.15 },
-    nebel: { farbe: '#a7a6c4', dichte: 0.011 },
-    hemi: { himmel: '#c8d0f0', boden: '#7e8199', staerke: 2.1 },
-    haupt: { farbe: '#ffd0b4', staerke: 1.7, richtung: [0.62, 0.24, 0.75], weich: 3.5 },
+    himmel: { zenit: '#26386a', horizont: '#e9b6ae', scheibe: { richtung: [0.62, 0.03, 0.78], farbe: '#ffc8a6', groesse: 3.2, staerke: 0.45, glanz: 0.3 }, sterne: 0.15 },
+    nebel: { farbe: '#a7a6c4', dichte: 0.008 },
+    hemi: { himmel: '#c8d0f0', boden: '#7e8199', staerke: 1.75 },
+    haupt: { farbe: '#ffd0b4', staerke: 1.6, richtung: [0.62, 0.24, 0.75], weich: 3.5 },
     kante: { farbe: '#9fb4ff', staerke: 0.9, richtung: [-0.5, 0.45, -0.75] },
-    belichtung: 1.12,
-    grade: { saettigung: 0.96, kontrast: 1.04, faerbung: [0.99, 1.0, 1.04] },
+    belichtung: 1.0,
+    grade: { saettigung: 1.04, kontrast: 1.08, faerbung: [0.99, 1.0, 1.04] },
   },
   // Dämmerung (S23 Klappstuhl, S41 Weg zur Hütte vor der Nacht): violett-rosa, Sonne hinter dem Südufer.
   see_daemmerung: {

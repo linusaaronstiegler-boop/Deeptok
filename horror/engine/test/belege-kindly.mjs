@@ -50,12 +50,34 @@ export const KINDLY_BELEGE = {
         { id: 'u1', modul: 'nachbar', params: { variante: 'muetze' }, position: plus(SEE, [-7.0, 0.5, -64.4]), blick: 0, gesicht: 'neutral' },
         { id: 'u2', modul: 'nachbar', params: { variante: 'glatze' }, position: plus(SEE, [-6.0, 0.5, -64.6]), blick: 0, gesicht: 'neutral' },
         { id: 'u3', modul: 'nachbar', params: { variante: 'brille', alter: 'alt' }, position: plus(SEE, [-5.0, 0.5, -64.4]), blick: 0, gesicht: 'neutral' },
-        { id: 'eis1', modul: 'nachbar', params: { variante: 'kopftuch' }, position: plus(SEE, [2, 0, -29.6]), blick: 180, gesicht: 'neutral' },
+        { id: 'eis1', modul: 'nachbar', params: { variante: 'kopftuch' }, position: plus(SEE, [2, 0, -32.5]), blick: 0, gesicht: 'neutral' },
         { id: 'eis2', modul: 'nachbar', params: { variante: 'muetze', farbe: '#9E2B25' }, position: plus(SEE, [7.2, 0, -30.8]), blick: 160, gesicht: 'neutral' },
         // Gesicht unter dem Eis (Stellvertreter für das Wesen/die Kopie): liegt rücklings, Kopf nach −z
         { id: 'unten', modul: 'nachbar', params: { variante: 'glatze', alter: 'alt' }, position: plus(SEE, [2, -0.62, -29.7]), blick: 0, pose: 'liegen', gesicht: 'neutral' },
       ],
       partikel: ['odell', 'u1', 'u3', 'eis1', 'eis2'].map(atem),
+    });
+  },
+  'set-huette': ({ episode }) => {
+    const e = [];
+    const s = (punkt) => e.push({ kamera: kp(`huette.${punkt}`), licht: 'huette', set: ['huette'], schatten_bereich: 6 });
+    // 0 totale, 1 ofen, 2 loch (Frost), 3 loch (klar), 4 loch_nah, 5 tuer (Riegel zu), 6 fenster (Hauch),
+    // 7 fenster_gesicht, 8 bank, 9 totale (Deckel drauf), 10 loch (Deckel drauf)
+    for (const p of ['totale', 'ofen', 'loch', 'loch', 'loch_nah', 'tuer', 'fenster', 'fenster_gesicht', 'bank', 'totale', 'loch']) s(p);
+    return episode('Beleg Set huette_innen', e, {
+      sets: [{ id: 'huette', modul: 'huette_innen', position: HUETTE, params: { ereignisse: [
+        { was: 'klar', start: 0.3, dauer: 0.001 },
+        { was: 'riegel_zu', start: 0.5, dauer: 0.001 },
+        { was: 'hauch', start: 0.38, dauer: 1.6 },
+        { was: 'deckel_drauf', start: 0.9, dauer: 0.001 },
+      ] } }],
+      lichtGruppen: ['huette'],
+      figurenFest: [
+        { id: 'bear', modul: 'nachbar', params: { variante: 'muetze', alter: 'jung', farbe: '#2E6E7E' }, position: plus(HUETTE, [0.3, 0, -0.2]), blick: 90, gesicht: 'neutral' },
+        { id: 'gus', modul: 'nachbar', params: { variante: 'muetze', farbe: '#9E2B25' }, position: plus(HUETTE, [-0.2, 0, -0.4]), blick: -145, gesicht: 'ernst' },
+        // Gesicht unter der Eishaut im Loch (Stellvertreter): liegt rücklings, Kopf nach −z unter der Lochmitte
+        { id: 'unten', modul: 'nachbar', params: { variante: 'muetze', alter: 'jung' }, position: plus(HUETTE, [-0.25, -0.8, 1.95]), blick: 0, pose: 'liegen', gesicht: 'neutral' },
+      ],
     });
   },
 };

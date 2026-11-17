@@ -83,7 +83,8 @@ export default async function baue(ctx, params = {}) {
   const schneeHell = schneeMat(ctx, '#f1f5fa');
 
   // ---------- Eis, Wasser, Seegrund ----------
-  const eisMat = eisMaterial(ctx, { ...(params.eis ?? {}) });
+  // Um das Wesen keine Schneeflecken: sein Umriss bleibt in der Draufsicht (S2) durch den Frost lesbar
+  const eisMat = eisMaterial(ctx, { schneefrei: [[SEE.wesen[0], SEE.wesen[2], 3.2, 9]], ...(params.eis ?? {}) });
   const eis = new T.Mesh(eisGeometrie({ radius: 135, segmente: 128, kachel: 14 }), eisMat);
   eis.receiveShadow = true; eis.castShadow = false;
   eis.renderOrder = 1;
@@ -148,14 +149,14 @@ export default async function baue(ctx, params = {}) {
   for (const [dx, dz] of [[-0.13, -0.13], [0.13, -0.13], [-0.13, 0.13], [0.13, 0.13]]) k(statisch, 0.025, 0.36, 0.025, eisen, lx - 0.52 + dx, lTop - 0.38, lz + dz, { schatten: false });
   k(statisch, 0.32, 0.05, 0.32, eisen, lx - 0.52, lTop - 0.58, lz);
   schneeHaufen(ctx, statisch, lx - 0.52, lTop - 0.17, lz, 0.16, 0.06, 0.16, z, schneeHell);
-  const laternGlas = ctx.leuchtMat('#ffcf8a', 4.2);
+  const laternGlas = ctx.leuchtMat('#ffcf8a', 1.7);
   const glas = k(gruppe, 0.24, 0.32, 0.24, laternGlas, lx - 0.52, lTop - 0.38, lz, { schatten: false });
   glas.userData.einzeln = true;
-  const laternPfuetze = lichtPfuetzeMat(ctx, '#ffb874', 0.55, { ohneGlanz: true });
-  lichtPfuetze(ctx, gruppe, lx - 0.52, lz, laternPfuetze, 3.2, S.deck + 0.05);
+  const laternPfuetze = lichtPfuetzeMat(ctx, '#ffb874', 0.35, { ohneGlanz: true });
+  lichtPfuetze(ctx, gruppe, lx - 0.52, lz, laternPfuetze, 2.4, S.deck + 0.05);
   const laternLichter = [];
   if (params.punktlicht !== false) {
-    const pl = new T.PointLight('#ffc080', 9, 16, 2);
+    const pl = new T.PointLight('#ffc080', 4.5, 11, 2);
     pl.position.set(lx - 0.52, lTop - 0.45, lz);
     pl.castShadow = false;
     gruppe.add(pl);
@@ -269,7 +270,7 @@ export default async function baue(ctx, params = {}) {
   // ---------- Klappstuhl mit rotem Schal (S23: Mom, nur als Gegenstand) ----------
   if (params.stuhl !== false) {
     const [cx, , cz] = SEE.stuhl;
-    const c = new T.Group(); c.position.set(cx, 0, cz); c.rotation.y = 0.5; statisch.add(c);
+    const c = new T.Group(); c.position.set(cx, 0, cz); c.rotation.y = 2.25; statisch.add(c);   // Sitz schaut nach Nordost (zur Kamera)
     const rohr = ctx.mat('#8a9096', { metall: 0.6, rauheit: 0.4 });
     const stoff = ctx.mat('#3f5a6a', { rauheit: 0.85 });
     // X-Gestell, Sitz, Lehne
@@ -282,11 +283,13 @@ export default async function baue(ctx, params = {}) {
     k(c, 0.48, 0.3, 0.025, stoff, 0, 0.82, -0.22, { dreh: [-0.12, 0, 0] });
     // Schal: über die Lehne gelegt, ein Ende hängt bis fast aufs Eis (eigene, kräftige Farbe)
     const schal = ctx.mat('#b8282a', { rauheit: 0.85 });
-    k(c, 0.5, 0.05, 0.16, schal, 0.02, 0.985, -0.24, { rund: 0.02, dreh: [-0.12, 0, 0.06] });
-    k(c, 0.16, 0.5, 0.045, schal, 0.17, 0.72, -0.27, { rund: 0.02, dreh: [-0.1, 0, 0.04] });
-    k(c, 0.15, 0.36, 0.045, schal, -0.16, 0.8, -0.27, { rund: 0.02, dreh: [-0.1, 0, -0.05] });
-    for (let i = 0; i < 4; i++) k(c, 0.025, 0.06, 0.02, schal, 0.12 + i * 0.03, 0.44, -0.29, { schatten: false });
-    k(c, 0.44, 0.03, 0.34, schnee, 0, 0.5, 0.02, { rund: 0.015, schatten: false });
+    // über die Lehne gelegt (oben quer), ein Teil liegt auf dem Sitz, ein Ende hängt vorn bis fast aufs Eis
+    k(c, 0.52, 0.06, 0.15, schal, 0.0, 0.985, -0.235, { rund: 0.025, dreh: [-0.12, 0, 0.05] });
+    k(c, 0.15, 0.32, 0.05, schal, -0.13, 0.84, -0.25, { rund: 0.02, dreh: [-0.12, 0, -0.04] });
+    k(c, 0.16, 0.05, 0.36, schal, -0.11, 0.505, -0.02, { rund: 0.02, dreh: [0, 0.18, 0] });
+    k(c, 0.16, 0.42, 0.05, schal, -0.07, 0.29, 0.18, { rund: 0.02, dreh: [0.08, 0.12, 0.03] });
+    for (let i = 0; i < 4; i++) k(c, 0.025, 0.07, 0.02, schal, -0.12 + i * 0.035, 0.05, 0.2, { schatten: false });
+    k(c, 0.2, 0.025, 0.3, schnee, 0.12, 0.5, 0.03, { rund: 0.012, schatten: false });
     anker.stuhl = [cx, 0, cz];
     anker.schal = [cx, 0.9, cz - 0.2];
   }
@@ -344,8 +347,8 @@ export default async function baue(ctx, params = {}) {
 
   // ---------- Dunst über dem Eis (Morgengrauen; die Karten liegen weit weg, nie vor der Linse) ----------
   if (params.dunst !== false) {
-    for (let i = 0; i < 5; i++) nebelKarte(ctx, gruppe, (i - 2) * 26, 2.2, 38 + (i % 2) * 6, 34, 6, Math.PI, 0.32);
-    for (const x of [-58, 48, 72]) nebelKarte(ctx, gruppe, x, 2.4, NORD_Z - 4, 30, 5, 0, 0.22);
+    for (let i = 0; i < 4; i++) nebelKarte(ctx, gruppe, (i - 1.5) * 30, 2.0, 46 + (i % 2) * 6, 34, 5, Math.PI, 0.12);
+    for (const x of [-58, 52]) nebelKarte(ctx, gruppe, x, 2.4, NORD_Z - 4, 30, 5, 0, 0.16);
   }
 
   verschmelze(statisch);
@@ -379,13 +382,13 @@ export default async function baue(ctx, params = {}) {
     unter_seite: { pos: [kx - 4.2, -1.5, SEE.wesen[2]], ziel: [kx, -0.55, SEE.wesen[2] - 0.5], fov: 54 },   // S10–11 Seitenfahrt (truck_side längs z)
     unter_gegenschuss: { pos: [kx, -2.0, kz + 1.5], ziel: [kx, 1.2, kz - 3.5], fov: 60 },  // S16: der Mann oben geht weg (steht bei stelle − 3 m)
     steg_totale: { pos: [-7.5, 2.4, STEG_ENDE + 11], ziel: [0, 1.6, STEG_ENDE - 3], fov: 46 },
-    steg_ende: { pos: [S.x + 0.45, S.deck + 1.55, STEG_ENDE - 3.9], ziel: [S.x - 0.1, S.deck + 1.45, STEG_ENDE - 0.9], fov: 40 },   // über Odells Schulter aufs Eis
-    steg_seite: { pos: [S.x - 1.55, S.deck + 1.55, STEG_ENDE - 2.9], ziel: [S.x, S.deck + 1.5, STEG_ENDE - 0.15], fov: 40 },    // S37: Bear von vorn, Odell von hinten (Kamera neben dem Steg, über den Pfosten)
+    steg_ende: { pos: [S.x - 1.3, S.deck + 1.6, STEG_ENDE - 5.2], ziel: [S.x - 0.1, S.deck + 1.3, STEG_ENDE - 1.0], fov: 38 },   // Odell am Stegende, Laterne, dahinter das Eis
+    steg_seite: { pos: [S.x - 1.2, S.deck + 1.7, STEG_ENDE - 2.2], ziel: [S.x, S.deck + 1.55, STEG_ENDE - 0.4], fov: 36 },    // S37: über Odells rechte Schulter auf Bear (von vorn); Kamera neben dem Steg, über den Pfosten
     ufer: { pos: [-6, SEE.uferHoehe + 1.45, NORD_Z + 1.1], ziel: [-6, SEE.uferHoehe + 1.45, NORD_Z - 3.2], fov: 44 },  // S3–4
     weg_totale: { pos: [3.0, 2.8, NORD_Z + 6.5], ziel: [SEE.bg.x - 1, 0.8, SEE.bg.z - 2], fov: 42 },   // S21 und S41 (gleiche Kamera)
     huette_tuer: { pos: [SEE.bg.x - 0.6, 1.6, SEE.bg.z - SEE.bg.t / 2 - 3.3], ziel: [SEE.bg.x, 1.25, SEE.bg.z - SEE.bg.t / 2], fov: 42 },
     huetten: { pos: [-1.5, 2.1, -43], ziel: [5, 0.8, -27], fov: 48 },                   // S30: erstes Eis, Hütten, Laternen
-    stuhl: { pos: [SEE.stuhl[0] + 2.2, 1.0, SEE.stuhl[2] + 3.0], ziel: [SEE.stuhl[0], 0.55, SEE.stuhl[2]], fov: 40 },   // S23
+    stuhl: { pos: [SEE.stuhl[0] + 2.3, 0.95, SEE.stuhl[2] - 2.6], ziel: [SEE.stuhl[0], 0.6, SEE.stuhl[2]], fov: 40 },   // S23: gegen die tiefe Sonne (Südwest)
     heimweg: { pos: [6, 1.8, -12], ziel: [1, 1.2, NORD_Z + 2], fov: 44 },               // S64: zwei Figuren gehen zur Stadt
   };
 
