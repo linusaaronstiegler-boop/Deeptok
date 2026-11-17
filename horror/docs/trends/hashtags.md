@@ -1,4 +1,4 @@
-# Hashtags und Bildunterschrift, Stand 16.11.2026
+# Hashtags und Bildunterschrift, Stand 16.11.2026 (Nachtrag 4.5 vom 17.11.2026)
 
 **Frage von Linus:** Welche Hashtags nutzen die besten Konten, und was können wir übernehmen?
 
@@ -380,6 +380,17 @@ Hiding Night, Part 3 of 3: the finale. Mister Hundred takes you at 18 if you ans
 3. **Je Video ändert sich nur ein Platz,** sonst ist nichts zuzuordnen. Teil 1 gegen Teil 2 ist kein sauberer Test (anderer Inhalt, n = 1). Erst über mehrere Serien wird ein Muster daraus (S).
 4. **Der Test aus dem Plan bleibt:** mit gegen ohne Bildunterschrift und Hashtags (Phase 1, Woche 3; `recherche-plan-v0.md`). Hiding Night bekommt beides, weil es die erste Serie ist (A).
 5. **Radar:** Nach dem Start `#hidingnight`, `#horrorstory` und `#scarystory` in `horror/tools/trends/quellen.json` aufnehmen; die letzten beiden fehlen schon jetzt. Linus speichert die Seiten von Hand (README). Diese Datei wurde hier nicht geändert.
+
+### 4.5 Nachtrag 17.11.2026: Rules of Kindly und Instagram
+
+Grundlage sind die Entscheidungen vom 17.11.2026 (`episoden/serie-02/bibel.md` §14) und die Recherche in `docs/release/automatisierung.md` §6.3.
+
+1. **Serien-Tag wechselt:** Platz 1 ist ab Rules of Kindly **`#kindlytown`** (Serienmarke, Bibel §9). Linus prüft den Tag vor dem ersten Post von Hand in der App; ist er groß und fremd belegt, gilt `#rulesofkindly` für die ganze Serie.
+2. **TikTok-Bildunterschrift für Kindly ist kurz** (Bibel §9): *„Rules of Kindly · Rule 3. Would you have walked him back?“* und 5 Hashtags. Das weicht bewusst von 4.2 Nr. 2–3 ab: Die Prämisse fällt im gesprochenen Hook ab Sekunde 0 und steht auf YouTube und Instagram ausgeschrieben; vorn stehen Serie und Regelnummer. Ob die kurze Form trägt, misst 4.4 (Herkunft „Suche“).
+3. **Set für F1:** `#kindlytown #horrorstory #animation #inthistown #scarystories`. `#inthistown` passt, weil Satz 1 wörtlich mit „In this town“ beginnt.
+4. **Instagram:** höchstens 5 Hashtags je Reel (seit Dezember 2025, schrittweise; laut Mosseri helfen sie der Suche, nicht der Reichweite). Wir nehmen **4**: Serien-Tag, `#horrorstory`, `#animation` und einen wechselnden aus dem Pool. Der erste Satz der Bildunterschrift ist ein eigener Hook, dann folgen Serie und Teil, „An animated horror story.“ und die Streitfrage. Fertige Texte stehen in `paket.json` unter `instagram` (Hiding Night 1–3, Kindly F1); `tools/paket/paket.py` lehnt mehr als 5 Hashtags und jedes „roblox“ ab.
+5. **„Keywords verwalten“** bei TikTok für Kindly zusätzlich: „rules of kindly“, „kindly town“, „old knuckles“; „roblox“ weiter sperren.
+6. **Radar:** Nach dem Start von F1 `#kindlytown` in `horror/tools/trends/quellen.json` aufnehmen (Linus speichert die Seiten von Hand). Diese Datei wurde hier nicht geändert.
 
 ---
 
