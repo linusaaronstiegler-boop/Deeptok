@@ -3374,16 +3374,16 @@
    "kamera": {
     "baustein": "push_in",
     "pos": [
-     -11.45,
-     1.95,
-     1.1
+     -7.9,
+     1.9,
+     -0.95
     ],
     "ziel": [
-     -11.6,
-     1.65,
+     -11.7,
+     1.62,
      -1.75
     ],
-    "fov": 50,
+    "fov": 40,
     "rate": 0.07
    },
    "stellung": {
@@ -3393,20 +3393,20 @@
      "position": [
       -11,
       0.6,
-      -1.75
+      -2.2
      ],
-     "blick": -90,
+     "blick": -80,
      "gesicht": "leer"
     },
     "mrs_lund": {
      "neu": true,
      "sichtbar": true,
      "position": [
-      -12.2,
+      -12.05,
       0.6,
-      -1.7
+      -1.65
      ],
-     "blick": 90,
+     "blick": 100,
      "gesicht": "ernst"
     },
     "tuer": {

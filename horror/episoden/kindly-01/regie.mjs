@@ -411,11 +411,12 @@ export const einstellungen = {
   // "your voice, and your memories." – von der Seite: die Frau öffnet, ihr Atem dampft im Türlicht, seiner nicht
   '17:your voice': {
     figuren: {
-      lund2: { position: [-11.0, 0.6, -1.75], blick: -90, gesicht: 'leer' },
-      mrs_lund: { position: [-12.2, 0.6, -1.7], blick: 90, gesicht: 'ernst' },
+      lund2: { position: [-11.0, 0.6, -2.2], blick: -80, gesicht: 'leer' },
+      mrs_lund: { position: [-12.05, 0.6, -1.65], blick: 100, gesicht: 'ernst' },
       tuer: { position: [-11.98, 0.6, -1.175], blick: 90 },
     },
-    kamera: { pos: [-11.45, 1.95, 1.1], ziel: [-11.6, 1.65, -1.75], fov: 50, rate: 0.07 },
+    // durch die Lücke über den Stufen (Kamerapunkt schnee.lund_halbnah): sie in der Tür von vorn, er rechts von hinten
+    kamera: { pos: [-7.9, 1.9, -0.95], ziel: [-11.7, 1.62, -1.75], fov: 40, rate: 0.07 },
     neben: [{ wer: 'tuer', was: 'oeffnen', ab: 'start', dauer: 0.6, params: { winkel: -85 } }],
     partikel: [SCHNEE([-9, 5, -1], [14, 9, 12], 500)],
     haupt: { art: 'gesicht', wer: 'mrs_lund', name: 'gefasst', wort: 'voice' },
