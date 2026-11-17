@@ -296,6 +296,8 @@ Entscheidung Nr. 14: jedes Video zusätzlich als YouTube Short und Instagram Ree
 
 **Was Linus heute hat:** Hiding Night hat im November zusammen etwa 14.900 Credits verbraucht (Teil 1: 3.146; Teil 2: etwa 3.200 und 3.282; Teil 3: 5.248; aus den `stimme.json`). Das ist mehr, als Free hergibt; das Konto hat also sehr wahrscheinlich mindestens Starter (S). Den Kontostand kann Claude nicht lesen, `account_get_usage` verlangt beim Connector zusätzliche Rechte. **Wichtig, falls es Starter ist:** Läuft der aktuelle Abrechnungsmonat noch bis in den Dezember, bleiben etwa 15.000 Credits. Das reicht knapp für F1–F3 und für keinen Einschub.
 
+**Gemessen am 17.11.2026 (`account_get_usage` ging diesmal):** Tarif **Starter**, aktiv, 22.884 von 30.000 Credits verbraucht, also 7.116 frei; nächste Gutschrift am **13.12.2026, 00:12 Uhr MEZ**. Die Stimme für Kindly F1 hat 5.120 Credits gekostet (2 Takes zu je 2.560, `episoden/kindly-01/stimme.json`). **Bis zum 13.12. bleiben rechnerisch 1.996 Credits:** genug für 1–3 Einschübe, aber für keine weitere Folge. F2 (27.11.) und F3 (01.12.) brauchen je etwa 5.000 Credits und gehen nur mit einem größeren Tarif oder Zusatz-Credits. Ohne eine dieser Lösungen fällt der Di/Fr-Takt bis Mitte Dezember aus.
+
 **Empfehlung (S):**
 - **Free** kommt nicht in Frage: keine kommerzielle Nutzung, und „elevenlabs.io“ müsste in jedem Titel stehen.
 - **Starter (6 $)** trägt F1–F8 im Pflichttakt, aber ohne Vorrats-Folgen und fast ohne Puffer.

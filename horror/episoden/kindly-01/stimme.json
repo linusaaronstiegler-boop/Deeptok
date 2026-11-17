@@ -1,0 +1,968 @@
+{
+ "folge": "kindly-01",
+ "serie": "Rules of Kindly",
+ "teil": 1,
+ "titel": "His Breath Didn't Fog",
+ "erstellt": "2026-11-17",
+ "anbieter": "ElevenLabs-Connector (Creative Flows)",
+ "fassung": "Erstaufnahme der Endfassung (episoden/serie-02/folge-01-skript.txt, 65 Sätze)",
+ "flow": {
+  "flow_id": "wW7hC9Jw7y2IcPkJkKvS",
+  "name": "Rules of Kindly – Folge 1 – Stimme Adam",
+  "node_id": "0PIVX30fJyhsuTGdbE19",
+  "schaetz_knoten": "xNMflHyRcjzYNxP4GKwx (estimate_only, nichts generiert, nichts berechnet)",
+  "hinweis": "Eigener Flow. Erst eine kostenlose Kostenschätzung (estimate_only), dann EIN Aufruf für den ganzen Text mit 2 Takes."
+ },
+ "stimme": {
+  "name": "Adam - Dominant, Firm",
+  "voice_id": "pNInz6obpgDQGcFmaJgB",
+  "kategorie": "premade",
+  "modell": "eleven_v4",
+  "generations_count": 2,
+  "bestaetigt_mit": "creative_list_voices (Suche „Adam“, Englisch, männlich, 17.11.2026)"
+ },
+ "eingabe": {
+  "text": "In this town, if the ice knocks, never knock back, or it comes home as you. Here in Kindly, we call it Old Knuckles. When it comes home, only one thing gives it away. Its breath doesn't fog.\n\nSo every winter, Mr. Odell waits at the end of the pier. Everyone who comes off the ice breathes on his glasses. If they fog, he wipes them on his coat.\n\n[calmly] \"Kindly mind the rules.\"\n\nIt's on the town sign, right above the population. Old Knuckles lies on its back under the ice, longer than a fishing hut. Its fists press up against the ice. Knock back, and it follows you under the ice, until it's right below you.\n\n[nervous] Then the ice turns clear, like a window. A face presses up against it. Yours. And now it's you down there, looking up. It walks home with your face, your voice, and your memories.\n\nMr. Lund knocked back once, as a joke, and ran for the shore. He made it. His breath never fogged again. Mrs. Lund walked him back onto the ice herself.\n\nEvery rule is in Mr. Odell's town book, except rule zero.\n\nSince Mom went through the ice, my brother Gus never lets me fish alone. Before every step, he taps the ice three times. Knocking first isn't against the rules. Gus checked.\n\n[warmly] \"If it sounds hollow, Bear, go back.\" \"And wherever you are, I'll hear you.\"\n\nFive winters, and the ice never answered.\n\n[nervous] On the first ice this year, I tapped three times, like Gus. Under my boots, something tapped back, three times.\n\n[whispers] \"Bear, don't move. Don't answer it.\"\n\n[nervous] I didn't. The ice under me turned clear. My own face was rising toward it, looking up. Gus dragged me off the lake, just in time.\n\nAt the pier, I breathed on Mr. Odell's glasses. He looked at them for a long time, then at Gus.\n\n\"He's fine, Mr. Odell.\"\n\n[calmly] \"Kindly mind the rules, Gus.\"\n\n[softly] That night, Gus walked me back out to our hut on the ice. I breathed on the frozen window. Nothing. I breathed again. Nothing. Gus didn't look up from the stove.\n\n[sad] \"His glasses stayed clear, Bear.\" \"I already lost Mom to this lake.\" \"I'm not losing you too.\"\n\nI never knocked back. I knocked first, and it answered. The face under the ice wasn't copying me. It was Bear, down there, looking up.\n\n[nervous] Then, from the fishing hole, came three taps. The way Gus taps. Wherever you are, he'd promised. He heard.\n\nThe ice in the hole turned clear, like a window. A face pressed up against it. Mine. Its lips made one word. Gus.\n\nGus put the lid on the hole. Then he took my hand, and we walked home across the ice. Gus doesn't tap the ice anymore.",
+  "zeichen": 2560,
+  "sha256": "12c3aab7ccbdf7d1093f59a0d2a58e25bd8a784580edb7ac1521a6facaaa836a",
+  "generierungen": 1,
+  "bau": "build/kindly-01/arbeit/eingabe_bauen.py (Gegenprobe mit dem Skript eingebaut)",
+  "abweichungen_vom_skript": [
+   "Absätze an den Blockgrenzen (Sätze 1–4, 5–7, 8, 9–12, 13–17, 18–21, 22, 23–26, 27–28, 29, 30–31, 32, 33–36, 37–38, 39, 40, 41–46, 47–49, 50–53, 54–57, 58–62, 63–65), Sätze innerhalb eines Absatzes durch Leerzeichen getrennt",
+   "Dialogzeilen wie bei Hiding Night: jede Zeile in eigenen Anführungszeichen, Rollenwechsel = neuer Absatz",
+   "Ton-Tag [calmly] vor Odells Zeilen (Satz 8 und 40): tiefer und ruhiger; die Tiefe kommt zusätzlich im Mix (Hiding Night: Odell −5,5 Halbtöne)",
+   "Ton-Tag [warmly] vor Gus' Versprechen (27–28), [whispers] vor „Bear, don't move. Don't answer it.“ (32), [sad] vor Gus' Entscheidung (47–49)",
+   "Ton-Tag [nervous] vor den Sätzen 13, 30, 33 und 54 (Eis wird klar, erstes Eis, Vorfall, Klopfen aus dem Loch); [softly] vor der Hütte (41–46, Musik weg)",
+   "Hook (Absatz 1) ohne Tag: Adams Grundton trägt die Energie",
+   "Text ohne Tags und Absätze ist zeichengleich mit folge-01-skript.txt (geprüft)"
+  ],
+  "aussprache_vorpruefung": {
+   "ergebnis": "keine Aussprache-Schreibung nötig; alle fünf Risikostellen kamen in beiden Takes einzeln wörtlich an",
+   "Knuckles": "gewöhnliches Wort; einzeln „Old Knuckles“ (beide Takes)",
+   "Lund": "englisch gelesen /lʌnd/, einzeln „Mr. Lund“, „Mrs. Lund“ (beide Takes)",
+   "Kindly": "gewöhnliches Wort; einzeln „Here in kindly“ (klein, sonst richtig). Im Ganzlauf der fertigen Spur hört Whisper „Hearing Kindly“ (Bindung „Here in“); vor der Kette und einzeln richtig. Die Wortzeiten von „Here“ und „in“ sind darum geteilt (4,45–4,55–4,66 s), „Kindly“ selbst sitzt (4,66 s)",
+   "Bear als Name": "als Anrede mit Kommas gut; nur Satz 53 „It was Bear, down there“ hört Whisper als „bare“ (Gleichklang, nur Schreibweise, Zeiten stimmen)",
+   "Gus checked": "einzeln „Gus checked.“ in beiden Takes, im Ganzlauf ohne Fehler",
+   "Odell": "Whisper schreibt „O'Dell“ (wie bei Hiding Night), Aussprache unverändert"
+  }
+ },
+ "credits": {
+  "kontostand_vorher": {
+   "abgefragt": "account_get_usage, einmal, 17.11.2026 vor der Vertonung",
+   "tarif": "starter",
+   "status": "active",
+   "verbraucht": 22884,
+   "limit": 30000,
+   "frei": 7116,
+   "naechste_gutschrift": "2026-12-13 00:12 MEZ (unix 1797117176)",
+   "ueberziehung": "0 USD"
+  },
+  "schaetzung": 5120,
+  "schaetzung_quelle": "creative_generate_speech estimate_only (2 × 2.560)",
+  "verbraucht": 5120,
+  "je_take": 2560,
+  "quelle": "credit_costs der Antwort von creative_generate_speech",
+  "frei_danach_gerechnet": 1996,
+  "folge": "Bis zur nächsten Gutschrift am 13.12. reicht der Rest für keine weitere Folge mit 2 Takes (je etwa 5.000) und für 1–3 Einschübe (je 500–1.300)."
+ },
+ "takes": [
+  {
+   "take": 1,
+   "generation_id": "Nk2Pr7aGMfMfHnsbwMmb",
+   "session_id": "atYgIlHDQPAn5mFvowtN",
+   "credits": 2560,
+   "gewaehlt": true,
+   "roh_datei": "build/kindly-01/roh/take1-Nk2Pr7aGMfMfHnsbwMmb.mp3",
+   "roh_sha256": "3fcf980c2f75af689231c0a1227913a106a67606aaad19fedb37db6751141695",
+   "format_roh": "mp3 44,1 kHz mono 128 kbit/s",
+   "dauer_roh_s": 180.96,
+   "dauer_x1_2_s": 150.8,
+   "dauer_nach_pausen_s": 141.14,
+   "whisper_vor_kette": {
+    "wer": 0.0108,
+    "fehler": [
+     {
+      "skript": "town",
+      "gehoert": "town's",
+      "zeit_s": 22.86
+     },
+     {
+      "skript": "its",
+      "gehoert": "it's",
+      "zeit_s": 28.9
+     },
+     {
+      "skript": "odell's",
+      "gehoert": "o'dell's",
+      "zeit_s": 57.2
+     },
+     {
+      "skript": "its",
+      "gehoert": "it's",
+      "zeit_s": 141.7
+     }
+    ],
+    "eingefuegt": [
+     {
+      "gehoert": "nothing",
+      "zeit_s": 112.48
+     }
+    ],
+    "unsicher_p_unter_0_5": [
+     "Old",
+     "Its",
+     "Knock",
+     "And",
+     "Every",
+     "three",
+     "I",
+     "at",
+     "Mine."
+    ]
+   },
+   "uebersteuert": 0,
+   "knackser": 0,
+   "lautheit_roh": {
+    "lufs": -18.87,
+    "true_peak_dbtp": -0.53,
+    "lra_lu": 5.2
+   },
+   "hook_satz1": {
+    "dauer_s": 4.06,
+    "pegel_db": -17.6,
+    "f0_median_hz": 183.4,
+    "f0_spanne_ht": 13.8
+   },
+   "erzaehler_f0_median_hz_x1_2": 154.2,
+   "rollen_x1_2": {
+    "odell_8": {
+     "dauer_s": 1.18,
+     "pegel_db": -21.2,
+     "f0_median_hz": 130.9,
+     "f0_spanne_ht": 7.5
+    },
+    "odell_40": {
+     "dauer_s": 1.4,
+     "pegel_db": -20.9,
+     "f0_median_hz": 155.8,
+     "f0_spanne_ht": 8.5
+    },
+    "gus_27": {
+     "dauer_s": 1.8,
+     "pegel_db": -16.5,
+     "f0_median_hz": 165.5,
+     "f0_spanne_ht": 10.7
+    },
+    "gus_28": {
+     "dauer_s": 1.8,
+     "pegel_db": -17.0,
+     "f0_median_hz": 170.9,
+     "f0_spanne_ht": 11.6
+    },
+    "gus_32": {
+     "dauer_s": 2.98,
+     "pegel_db": -28.4,
+     "f0_median_hz": 175.7,
+     "f0_spanne_ht": 12.2
+    },
+    "gus_39": {
+     "dauer_s": 1.14,
+     "pegel_db": -15.4,
+     "f0_median_hz": 180.7,
+     "f0_spanne_ht": 9.4
+    },
+    "gus_47": {
+     "dauer_s": 1.42,
+     "pegel_db": -23.6,
+     "f0_median_hz": 149.2,
+     "f0_spanne_ht": 5.9
+    },
+    "gus_48": {
+     "dauer_s": 1.62,
+     "pegel_db": -22.2,
+     "f0_median_hz": 143.9,
+     "f0_spanne_ht": 5.3
+    },
+    "gus_49": {
+     "dauer_s": 1.06,
+     "pegel_db": -18.8,
+     "f0_median_hz": 166.1,
+     "f0_spanne_ht": 3.1
+    }
+   },
+   "einzeln_gehoert": {
+    "1-2": "In this town, if the ice knocks, never knock back, or it comes home as you. Here in kindly, we call it Old Knuckles.",
+    "5-5": "So every winter, Mr. Odell waits at the end of the pier.",
+    "18-21": "Mr. Lund knocked back once, as a joke, and ran for the shore. He made it. His breath never fogged again. Mrs. Lund walked him back onto the ice herself.",
+    "22-22": "Every rule is in Mr. Odell's town book, except rule zero.",
+    "25-26": "Knocking first isn't against the rules. Gus checked.",
+    "27-28": "If it sounds hollow bear, go back, and wherever you are, I'll hear you.",
+    "32-32": "Bear, don't move. Don't answer it.",
+    "35-35": "My own face was rising toward it, looking up.",
+    "41-46": "That night, Gus walked me back out to our hut on the ice. I breathed on the frozen window. Nothing. I breathed again. Nothing. Gus didn't look up from the stove.",
+    "47-49": "His glasses stayed clear, Bear. I already lost mom to this lake. I'm not losing you, too.",
+    "52-53": "The face under the ice wasn't copying me. It was bare, down there, looking up.",
+    "56-57": "Wherever you are, he'd promised. He heard.",
+    "59-62": "A face pressed up against it. Mine. Its lips made one word. Gus.",
+    "65-65": "Gus doesn't tap the ice anymore."
+   },
+   "klangfarbe_zentroid_hz_x1_2": {
+    "erzaehler_median": 2901,
+    "odell_8": 2050,
+    "odell_40": 2444,
+    "gus_27": 2681,
+    "gus_28": 2060,
+    "gus_32": 5375,
+    "gus_47": 4312,
+    "gus_48": 3398,
+    "gus_49": 3888,
+    "gus_39": 3077
+   },
+   "hinweis": "Im Ganzdatei-Lauf legt Whisper ein drittes „nothing“ ein (112,48 s); einzeln gehört sind es genau zwei („Nothing. I breathed again. Nothing.“). Nach der Kette ist das Einfügen weg."
+  },
+  {
+   "take": 2,
+   "generation_id": "zbDpfziAiSvkuZkP73BY",
+   "session_id": "GqllD66iEEo7APJPCumF",
+   "credits": 2560,
+   "gewaehlt": false,
+   "roh_datei": "build/kindly-01/roh/take2-zbDpfziAiSvkuZkP73BY.mp3",
+   "roh_sha256": "ffe6d86679fe6332654f76b551dd89d0b15b40aa800c550ae3b96846286e3a17",
+   "format_roh": "mp3 44,1 kHz mono 128 kbit/s",
+   "dauer_roh_s": 173.6,
+   "dauer_x1_2_s": 144.67,
+   "dauer_nach_pausen_s": 138.68,
+   "whisper_vor_kette": {
+    "wer": 0.0108,
+    "fehler": [
+     {
+      "skript": "town",
+      "gehoert": "town's",
+      "zeit_s": 22.12
+     },
+     {
+      "skript": "its",
+      "gehoert": "it's",
+      "zeit_s": 27.8
+     },
+     {
+      "skript": "odell's",
+      "gehoert": "o'dell's",
+      "zeit_s": 93.34
+     },
+     {
+      "skript": "odell",
+      "gehoert": "o'dell",
+      "zeit_s": 98.06
+     },
+     {
+      "skript": "bear",
+      "gehoert": "bare",
+      "zeit_s": 121.36
+     }
+    ],
+    "eingefuegt": [],
+    "unsicher_p_unter_0_5": [
+     "Old",
+     "Knock",
+     "And",
+     "three",
+     "My",
+     "then",
+     "at",
+     "\"His",
+     "\"I'm",
+     "too.\"",
+     "Bear,",
+     "Wherever"
+    ]
+   },
+   "uebersteuert": 0,
+   "knackser": 0,
+   "lautheit_roh": {
+    "lufs": -18.7,
+    "true_peak_dbtp": -0.56,
+    "lra_lu": 4.4
+   },
+   "hook_satz1": {
+    "dauer_s": 4.12,
+    "pegel_db": -17.5,
+    "f0_median_hz": 159.8,
+    "f0_spanne_ht": 12.2
+   },
+   "erzaehler_f0_median_hz_x1_2": 159.2,
+   "rollen_x1_2": {
+    "odell_8": {
+     "dauer_s": 1.04,
+     "pegel_db": -22.0,
+     "f0_median_hz": 141.8,
+     "f0_spanne_ht": 5.5
+    },
+    "odell_40": {
+     "dauer_s": 1.68,
+     "pegel_db": -20.3,
+     "f0_median_hz": 162.1,
+     "f0_spanne_ht": 9.4
+    },
+    "gus_27": {
+     "dauer_s": 1.72,
+     "pegel_db": -18.3,
+     "f0_median_hz": 159.2,
+     "f0_spanne_ht": 8.4
+    },
+    "gus_28": {
+     "dauer_s": 1.76,
+     "pegel_db": -17.5,
+     "f0_median_hz": 160.4,
+     "f0_spanne_ht": 10.8
+    },
+    "gus_32": {
+     "dauer_s": 2.08,
+     "pegel_db": -27.2,
+     "f0_median_hz": 163.3,
+     "f0_spanne_ht": 5.6
+    },
+    "gus_39": {
+     "dauer_s": 1.74,
+     "pegel_db": -17.5,
+     "f0_median_hz": 143.6,
+     "f0_spanne_ht": 7.0
+    },
+    "gus_47": {
+     "dauer_s": 2.0,
+     "pegel_db": -25.2,
+     "f0_median_hz": 144.4,
+     "f0_spanne_ht": 5.4
+    },
+    "gus_48": {
+     "dauer_s": 1.84,
+     "pegel_db": -23.3,
+     "f0_median_hz": 150.0,
+     "f0_spanne_ht": 4.2
+    },
+    "gus_49": {
+     "dauer_s": 1.9,
+     "pegel_db": -21.6,
+     "f0_median_hz": 166.4,
+     "f0_spanne_ht": 4.5
+    }
+   },
+   "einzeln_gehoert": {
+    "1-2": "In this town, if the ice knocks, never knock back, or it comes home as you. Here in kindly, we call it Old Knuckles.",
+    "5-5": "So every winter, Mr. O'Dell waits at the end of the pier.",
+    "18-21": "Mr. Lund knocked back once, as a joke, and ran for the shore. He made it. His breath never fogged again. Mrs. Lund walked him back onto the ice herself.",
+    "22-22": "Every rule is in Mr. O'Dell's town book, except rule zero.",
+    "25-26": "Knocking first isn't against the rules. Gus checked.",
+    "27-28": "If it sounds hollow bear, go back, and wherever you are, I'll hear you.",
+    "32-32": "Bear, don't move. Don't answer it.",
+    "35-35": "clear. My own face was rising toward it, looking up.",
+    "41-46": "Gus. That night, Gus walked me back out to our hut on the ice. I breathed on the frozen window. Nothing. I breathed again. Nothing. Gus didn't look up from the stove.",
+    "47-49": "stove. His glasses stayed clear, Bear. I already lost mom to this lake. I'm not losing you too.",
+    "52-53": "The face under the ice wasn't copying me. It was bare, down there, looking up.",
+    "56-57": "Wherever you are, he'd promised. He heard.",
+    "59-62": "A face pressed up against it, mine. Its lips made one word, Gus.",
+    "65-65": "ice. Gus doesn't tap the ice anymore."
+   },
+   "klangfarbe_zentroid_hz_x1_2": {
+    "erzaehler_median": 2974,
+    "odell_8": 2115,
+    "odell_40": 2181,
+    "gus_27": 3194,
+    "gus_28": 2358,
+    "gus_32": 4322,
+    "gus_47": 4731,
+    "gus_48": 3614,
+    "gus_49": 4005,
+    "gus_39": 3602
+   },
+   "hinweis": "Hütten-Zeilen langsamer (Satz 47 2,00 s, 49 1,90 s gegen 1,42 und 1,06 s), Schlusszeile 2,10 s gegen 1,46 s; Satzgrenzen 41–46 im Ganzdatei-Lauf ohne Lücken (Whisper zieht Wortanfänge in den Block davor)."
+  }
+ ],
+ "gewaehlt": {
+  "take": 1,
+  "generation_id": "Nk2Pr7aGMfMfHnsbwMmb",
+  "gruende": [
+   "Hook-Energie: Satz 1 in Take 1 4,06 s bei 183 Hz und 13,8 Halbtönen Spanne, Take 2 4,12 s bei 160 Hz und 12,2 (Spur ×1,2). Fertig 4,16 s (Ziel ≤ 4,5 s)",
+   "Odell tiefer: „Kindly mind the rules.“ 131 Hz gegen 142 Hz (Take 2), 2,6 Halbtöne unter dem Erzähler (153 Hz); Satz 40 156 gegen 162 Hz. Klangfarbe dunkler (Zentroid 2.050 gegen 2.115 Hz)",
+   "Gus warm: Klangfarbe in allen sechs gesprochenen Gus-Zeilen dunkler als in Take 2 (Zentroid 27: 2.681 gegen 3.194 Hz, 28: 2.060 gegen 2.358, 39: 3.077 gegen 3.602, 47: 4.312 gegen 4.731, 48: 3.398 gegen 3.614, 49: 3.888 gegen 4.005); Satz 32 deutlich geflüstert (2,98 s, Zentroid 5.375 Hz: hauchig)",
+   "Erzähler näher an Hiding Night (153 Hz, Hiding Night 140–147 Hz; Take 2 159 Hz)",
+   "Gleiche Erkennung: vor der Kette beide 1,08 % Wortfehler, nur Schreibweisen (town's, it's, O'Dell's); keine Übersteuerung, keine Knackser, kein gesprochener Tag",
+   "Nachteil von Take 1: Gus' Hütten-Zeilen sind schneller (Satz 49 „I'm not losing you too.“ 1,06 s gegen 1,90 s), die Schlusszeile 1,46 s gegen 2,10 s. Gesamt 141,14 s gegen 138,68 s. Linus' Ohr entscheidet zuletzt, Take 2 liegt unter build/kindly-01/roh/"
+  ]
+ },
+ "kette": [
+  {
+   "schritt": "Resample ×1,2",
+   "ffmpeg": "aresample=44100,asetrate=52920,aresample=44100",
+   "dauer_s": 150.8
+  },
+  {
+   "schritt": "Pausen kürzen",
+   "regel": "Stille < −50 dBFS (Rahmen 10 ms), länger als 0,35 s → aus der Mitte geschnitten; es bleiben 0,14 s nach dem Wortende und 0,19 s vor dem nächsten Wort, Überblendung 10 ms; vorn 0,03 s, hinten 0,15 s",
+   "gekuerzt": 60,
+   "dauer_s": 141.14
+  },
+  {
+   "schritt": "Satzpegel angleichen",
+   "regel": "Sätze > 5 dB unter dem Satz-Median auf Median − 4 dB, Rampen 30 ms in den Pausen",
+   "angehoben": [
+    {
+     "satz": 32,
+     "pegel_db": -25.9,
+     "median_db": -18.4,
+     "anhebung_db": 3.5
+    },
+    {
+     "satz": 43,
+     "pegel_db": -24.0,
+     "median_db": -18.4,
+     "anhebung_db": 1.6
+    },
+    {
+     "satz": 45,
+     "pegel_db": -24.1,
+     "median_db": -18.4,
+     "anhebung_db": 1.7
+    }
+   ],
+   "hinweis": "Angehoben: Gus' Flüstern (Satz 32, +3,5 dB) und die zwei „Nothing.“ (43, 45, je +1,6/1,7 dB); alle anderen Sätze liegen am Median"
+  },
+  {
+   "schritt": "Kompressor",
+   "ffmpeg": "acompressor=threshold=0.19953:ratio=4:attack=0.5:release=50:knee=4:detection=peak",
+   "lautheit_danach": {
+    "lufs": -23.0,
+    "true_peak_dbtp": -7.08,
+    "lra_lu": 2.8
+   }
+  },
+  {
+   "schritt": "Lautheit und True Peak",
+   "verstaerkung_db": 9.54,
+   "begrenzer_dbfs": -1.6,
+   "runden": 3,
+   "begrenzer_rahmen_ueber_1db_prozent": 14.49,
+   "begrenzer_rahmen_ueber_3db_prozent": 0.15,
+   "begrenzer_max_abregelung_db": 4.04,
+   "ergebnis": {
+    "lufs": -14.07,
+    "true_peak_dbtp": -1.53,
+    "lra_lu": 2.4
+   }
+  },
+  {
+   "schritt": "Wortzeiten",
+   "werkzeug": "faster-whisper small int8, language=en, word_timestamps, beam 5; Ausrichtung auf folge-01-skript.txt; Kanten an Pausen auf Pegelkanten (215 eingerastet); Phrasenanfänge nach Satzzeichen aus dem Block davor nachgezogen (16 Wörter, u. a. „Since“ Satz 23, „My“ Satz 35, „Then,“/„from“ Satz 54, „Gus.“ Satz 62); kein Schlusswort verschoben"
+  }
+ ],
+ "ergebnis": {
+  "wav": {
+   "datei": "build/kindly-01/stimme.wav",
+   "format": "WAV PCM 16 bit, 44,1 kHz, mono",
+   "sha256": "079ccf69e88eb78d73dbdbdb5184900d73e88964a5c8c7266ced0efb1eebfcd0",
+   "dauer_s": 141.14,
+   "lufs": -14.07,
+   "true_peak_dbtp": -1.53,
+   "lra_lu": 2.4
+  },
+  "m4a": {
+   "datei": "episoden/kindly-01/stimme.m4a",
+   "format": "AAC-LC mono 44,1 kHz, +faststart",
+   "sha256": "1b9d7f5104fc2d9b96fcb5cf5359e260b63b4ec07747b957f9c3fd0b202cb95f",
+   "bytes": 999454,
+   "kbit_nenn": 54,
+   "stream_bit_rate": 55217,
+   "dekodiert": {
+    "lufs": -14.02,
+    "true_peak_dbtp": 1.07,
+    "lra_lu": 2.4
+   },
+   "hinweis": "Höchste Rate unter 1 MB (141 s passen erst bei 54 kbit/s). AAC hebt die Spitzen auf +1,1 dBTP: die m4a ist nur Belegkopie, für Renders und Mischung die WAV nehmen (wie bei Hiding Night)."
+  }
+ },
+ "timing": {
+  "datei": "episoden/kindly-01/timing.json",
+  "sha256": "4198239779859d091129223826c30f856fe1b0e257cb9b1126165870eeffdbc9",
+  "woerter": 465,
+  "saetze": 65,
+  "dauer_s": 141.14,
+  "dauer_mm_ss": "2:21",
+  "dauer_im_ziel_120_170": true,
+  "dauer_hinweis": "Das Feld dauer_im_ziel_70_90 in timing.json (false) ist das Tor für Hiding Night Teil 1 und 2; für Rules of Kindly gilt 2:00–2:50 (geschichten-regeln Nr. 4: 120–170 s). Mit 1,5 s Endkarte etwa 2:23.",
+  "hook_ende_s": 4.16,
+  "letztes_wort_ende_s": 141.02,
+  "wer": 0.0108,
+  "wer_hinweis": "Nur „Here in“ als „Hearing“ (4,44 s) und Schreibweisen: O'Dell(’s) zweimal, „bare“ für „Bear“ (Satz 53)",
+  "laengste_stille_s": 0.32,
+  "laengste_wortluecke_s": 0.32,
+  "laengste_leise_strecke_unter_35db_s": 0.36,
+  "sprache_nach_letztem_wort_s": 0,
+  "schluesselzeiten_s": {
+   "hook_ende": 4.16,
+   "kindly": 4.66,
+   "old_knuckles": 5.84,
+   "odell_satz5": 12.68,
+   "signatur_satz8": [
+    19.65,
+    21.08
+   ],
+   "ortsschild_satz9": 21.37,
+   "yours_satz15": [
+    37.55,
+    38.09
+   ],
+   "except_satz22": 54.95,
+   "rule_zero_satz22_ende": 56.09,
+   "gus_checked_satz26": [
+    64.91,
+    65.52
+   ],
+   "tapped_back_satz31": 76.34,
+   "vorfall_satz34_36": [
+    82.79,
+    89.45
+   ],
+   "steg_satz37_38": [
+    89.76,
+    95.08
+   ],
+   "glaeser_satz38": [
+    92.65,
+    95.08
+   ],
+   "odell_satz40": [
+    96.91,
+    98.45
+   ],
+   "fenster_satz42_45": [
+    101.88,
+    105.88
+   ],
+   "not_losing_satz49": [
+    111.58,
+    112.74
+   ],
+   "erklaerung_satz50_53": [
+    113.04,
+    120.53
+   ],
+   "he_heard_satz57": 126.75,
+   "ritual_satz58_60": [
+    127.61,
+    132.33
+   ],
+   "deckel_put_satz63": 135.135,
+   "schlusszeile_satz65": [
+    139.44,
+    141.02
+   ],
+   "letztes_wort_ende": 141.02
+  },
+  "anteile_an_der_sprache": {
+   "steg_satz37": 0.637,
+   "glaeser_satz38": 0.657,
+   "vorfall_satz34": 0.587,
+   "fenster_satz42": 0.722,
+   "erklaerung_satz50": 0.802,
+   "ritual_satz58": 0.905
+  },
+  "anteile_hinweis": "Wendung im Bild (Satz 37 Steg 63,7 %, Satz 38 Gläser 65,7 %) liegt im Ziel 60–70 %; Fenster 72,2 %, Erklärung 80,2 %, Ritual 90,5 % (Bibel §10.1: 63–69, 72–75, 80–85, 91–94 %)",
+  "abschnitte_s": {
+   "hook": [
+    0.0,
+    4.16
+   ],
+   "regel_odell_ritual_lund_lore": [
+    4.45,
+    56.09
+   ],
+   "gus_gewohnheit_versprechen": [
+    56.38,
+    72.53
+   ],
+   "vorfall_und_steg": [
+    72.82,
+    98.45
+   ],
+   "huette_fenster_entscheidung": [
+    98.75,
+    112.74
+   ],
+   "erklaerung": [
+    113.04,
+    120.53
+   ],
+   "klopfen_ritual_deckel": [
+    120.83,
+    139.13
+   ],
+   "schlusszeile": [
+    139.44,
+    141.02
+   ]
+  },
+  "musik_anker_s": {
+   "hook_ende": 4.16,
+   "wegfall_vor_yours_satz15": [
+    36.35,
+    37.55
+   ],
+   "duenn_ab_satz23": 56.38,
+   "voll_ab_satz30": 72.82,
+   "wegfall_vor_satz31": [
+    75.14,
+    76.34
+   ],
+   "wegfall_auf_satz38": [
+    92.65,
+    93.95
+   ],
+   "duenn_ab_satz41": 98.75,
+   "weg_satz42_bis_nach_satz45": [
+    101.88,
+    105.88
+   ],
+   "normal_ab_satz50": 113.04,
+   "voll_ab_satz54": 120.83,
+   "wegfall_vor_he_heard_satz57": [
+    125.55,
+    126.75
+   ],
+   "weg_ab_satz65": 139.44,
+   "schnitt_nach_anymore": 141.02
+  },
+  "musik_hinweis": "Stufen und Wegfälle nach Bibel §10.6 auf die echten Satzzeiten gelegt; die Wegfälle „1,2 s vor …“ sind von Satzbeginn zurückgerechnet und beim Mischen auf die Pause davor zu legen."
+ },
+ "vergleich_schaetzung": {
+  "quelle": "Bibel §10.1/§10.3 (0,166 s je Silbe, 0,331 s je Komma, 0,221 s je Satz, 0,30 s Pause)",
+  "sprache_gesamt": {
+   "geschaetzt": 143.4,
+   "echt": 141.02,
+   "datei": 141.14
+  },
+  "je_satzbeginn": {
+   "1": {
+    "geschaetzt": [
+     0.0,
+     4.2
+    ],
+    "echt": [
+     0.0,
+     4.16
+    ],
+    "abweichung_start_s": 0.0
+   },
+   "2": {
+    "geschaetzt": [
+     4.5,
+     6.7
+    ],
+    "echt": [
+     4.45,
+     6.71
+    ],
+    "abweichung_start_s": -0.05
+   },
+   "5": {
+    "geschaetzt": [
+     11.4,
+     null
+    ],
+    "echt": [
+     11.39,
+     14.26
+    ],
+    "abweichung_start_s": -0.01
+   },
+   "8": {
+    "geschaetzt": [
+     20.4,
+     21.6
+    ],
+    "echt": [
+     19.65,
+     21.08
+    ],
+    "abweichung_start_s": -0.75
+   },
+   "9": {
+    "geschaetzt": [
+     21.9,
+     24.6
+    ],
+    "echt": [
+     21.37,
+     23.7
+    ],
+    "abweichung_start_s": -0.53
+   },
+   "13": {
+    "geschaetzt": [
+     34.8,
+     null
+    ],
+    "echt": [
+     33.56,
+     35.63
+    ],
+    "abweichung_start_s": -1.24
+   },
+   "18": {
+    "geschaetzt": [
+     45.4,
+     null
+    ],
+    "echt": [
+     43.89,
+     47.25
+    ],
+    "abweichung_start_s": -1.51
+   },
+   "22": {
+    "geschaetzt": [
+     53.7,
+     57.3
+    ],
+    "echt": [
+     52.61,
+     56.09
+    ],
+    "abweichung_start_s": -1.09
+   },
+   "23": {
+    "geschaetzt": [
+     57.6,
+     null
+    ],
+    "echt": [
+     56.38,
+     59.77
+    ],
+    "abweichung_start_s": -1.22
+   },
+   "30": {
+    "geschaetzt": [
+     74.5,
+     null
+    ],
+    "echt": [
+     72.82,
+     76.04
+    ],
+    "abweichung_start_s": -1.68
+   },
+   "34": {
+    "geschaetzt": [
+     83.9,
+     null
+    ],
+    "echt": [
+     82.79,
+     84.22
+    ],
+    "abweichung_start_s": -1.11
+   },
+   "37": {
+    "geschaetzt": [
+     90.8,
+     93.1
+    ],
+    "echt": [
+     89.76,
+     92.35
+    ],
+    "abweichung_start_s": -1.04
+   },
+   "38": {
+    "geschaetzt": [
+     93.4,
+     95.8
+    ],
+    "echt": [
+     92.65,
+     95.08
+    ],
+    "abweichung_start_s": -0.75
+   },
+   "41": {
+    "geschaetzt": [
+     99.8,
+     null
+    ],
+    "echt": [
+     98.75,
+     101.57
+    ],
+    "abweichung_start_s": -1.05
+   },
+   "42": {
+    "geschaetzt": [
+     102.8,
+     null
+    ],
+    "echt": [
+     101.88,
+     103.35
+    ],
+    "abweichung_start_s": -0.92
+   },
+   "47": {
+    "geschaetzt": [
+     109.3,
+     null
+    ],
+    "echt": [
+     107.87,
+     109.38
+    ],
+    "abweichung_start_s": -1.43
+   },
+   "50": {
+    "geschaetzt": [
+     114.6,
+     null
+    ],
+    "echt": [
+     113.04,
+     113.97
+    ],
+    "abweichung_start_s": -1.56
+   },
+   "54": {
+    "geschaetzt": [
+     122.7,
+     null
+    ],
+    "echt": [
+     120.83,
+     123.34
+    ],
+    "abweichung_start_s": -1.87
+   },
+   "58": {
+    "geschaetzt": [
+     129.8,
+     null
+    ],
+    "echt": [
+     127.61,
+     129.97
+    ],
+    "abweichung_start_s": -2.19
+   },
+   "63": {
+    "geschaetzt": [
+     137.0,
+     null
+    ],
+    "echt": [
+     134.95,
+     136.19
+    ],
+    "abweichung_start_s": -2.05
+   },
+   "65": {
+    "geschaetzt": [
+     141.9,
+     143.4
+    ],
+    "echt": [
+     139.44,
+     141.02
+    ],
+    "abweichung_start_s": -2.46
+   }
+  },
+  "befund": "Gesamt 141,02 s statt 143,4 s (−1,7 %). Die echte Spur läuft nach Satz 8 bis zu 2,5 s früher als geschätzt (Satz 65: 139,44 statt 141,9 s); die Anteile der Wendung bleiben im Ziel."
+ },
+ "hoer_check": {
+  "wortfehler": 0.0108,
+  "unsicher_p_unter_0_5": [
+   {
+    "wort": "Here",
+    "satz": 2,
+    "start": 4.45,
+    "p": 0.433
+   },
+   {
+    "wort": "in",
+    "satz": 2,
+    "start": 4.55,
+    "p": 0.433
+   },
+   {
+    "wort": "Old",
+    "satz": 2,
+    "start": 5.84,
+    "p": 0.291
+   },
+   {
+    "wort": "Knock",
+    "satz": 12,
+    "start": 29.88,
+    "p": 0.282
+   },
+   {
+    "wort": "Since",
+    "satz": 23,
+    "start": 56.38,
+    "p": 0.032
+   },
+   {
+    "wort": "three",
+    "satz": 31,
+    "start": 78.47,
+    "p": 0.255
+   },
+   {
+    "wort": "My",
+    "satz": 35,
+    "start": 84.53,
+    "p": 0.096
+   },
+   {
+    "wort": "I",
+    "satz": 50,
+    "start": 113.04,
+    "p": 0.447
+   },
+   {
+    "wort": "Then,",
+    "satz": 54,
+    "start": 120.83,
+    "p": 0.109
+   },
+   {
+    "wort": "Mine.",
+    "satz": 60,
+    "start": 131.89,
+    "p": 0.348
+   },
+   {
+    "wort": "Its",
+    "satz": 61,
+    "start": 132.63,
+    "p": 0.337
+   }
+  ],
+  "einzeln_gehoert_fertig": {
+   "1-2": "In this town, if the ice knocks, never knock back, or it comes home as you. Hearing kindly, we call it old knuckles.",
+   "5-8": "So every winter, Mr. Odell waits at the end of the pier. Everyone who comes off the ice breathes on his glasses. If they fog, he wipes them on his coat. Kindly mind the rules.",
+   "18-21": "Mr. Lund knocked back once as a joke and ran for the shore. He made it. His breath never fogged again. Mrs. Lund walked him back onto the ice herself.",
+   "22-22": "Every rule is in Mr. O'Dell's townbook, except rule zero.",
+   "25-26": "Knocking first isn't against the rules. Gus checked.",
+   "27-28": "If it sounds hollow bear, go back, and wherever you are, I'll hear you.",
+   "32-33": "Bear, don't move. Don't answer it. I didn't.",
+   "34-36": "The ice under me turned clear. My own face was rising toward it, looking up. Gus dragged me off the lake, just in time.",
+   "39-40": "He's fine, Mr. Odell. Kindly mind the rules, Gus.",
+   "41-46": "That night, Gus walked me back out to our hut on the ice. I breathed on the frozen window. Nothing. I breathed again. Nothing. Gus didn't look up from the stove.",
+   "47-49": "His glasses stayed clear, Bear. I already lost mom to this lake. I'm not losing you, too.",
+   "52-53": "The face under the ice wasn't copying me. It was bare, down there, looking up.",
+   "54-57": "Then, from the fishing hole, came three taps, the way Gus taps. Wherever you are, he'd promised, he heard.",
+   "59-62": "A face pressed up against it. Mine. Its lips made one word. Gus.",
+   "63-65": "Gus put the lid on the hole. Then he took my hand and we walked home across the ice. Gus doesn't tap the ice anymore."
+  },
+  "hinweis": "Alle 65 Sätze kommen an. Einzige Hörprobe mit Abweichung: „Here in Kindly“ klingt in der fertigen Spur wie „Hearing Kindly“ (vor der Kette einzeln richtig). Untertitel zeigen das Skript, also „Here in Kindly“. Beim Anhören prüfen: ob die Bindung „Here in“ stört; ob Gus' Flüstern (Satz 32, +3,5 dB) unter dem TikTok-Ton trägt; ob „I'm not losing you too.“ (1,16 s) Gewicht genug hat; ob die Schlusszeile (1,58 s) nicht zu eilig ist."
+ },
+ "werkzeug": "python engine/ton/stimme.py bewerten --skript episoden/serie-02/folge-01-skript.txt --arbeit build/kindly-01/arbeit --aus build/kindly-01/arbeit/bewertung.json build/kindly-01/roh/*.mp3; python engine/ton/stimme.py fertig --skript episoden/serie-02/folge-01-skript.txt --roh build/kindly-01/roh/take1-Nk2Pr7aGMfMfHnsbwMmb.mp3 --wav build/kindly-01/stimme.wav --m4a episoden/kindly-01/stimme.m4a --timing episoden/kindly-01/timing.json --bericht build/kindly-01/arbeit/bericht.json --arbeit build/kindly-01/arbeit (aus horror/); Einzelhören: build/kindly-01/arbeit/risiko.py (Takes ×1,2) und einzeln.py (fertige Spur); Auswertung: build/kindly-01/arbeit/auswertung.py"
+}
