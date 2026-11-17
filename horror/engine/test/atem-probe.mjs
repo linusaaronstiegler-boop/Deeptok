@@ -7,6 +7,8 @@
 //   node test/atem-probe.mjs                 Episode bauen, rendern (mit und ohne Dampf), Wolkenorte messen,
 //                                            dann test/atem_messung.py (Kompression, Messung, Bögen)
 //   node test/atem-probe.mjs --nur-messung   nur den Python-Teil erneut (Renders liegen schon da)
+//   node test/atem-probe.mjs --endkarte      zusätzlich: Endkarte 1,5 s (Ortsschild 1,204 → 1,203) rendern, wie die
+//                                            Probe komprimieren und einen Bogen bauen (Bibel §3.2: Zahl lesbar)
 //
 // Ergebnis: horror/build/kindly-01/atem-probe.mp4 (Hauptfassung, crf 18) und horror/build/kindly-01/atem-probe/
 // (Kompressions-Fassungen, messung.json, Kontaktbögen in Feed-Größe 270×480). Einzelbilder werden nach dem Bau
@@ -116,8 +118,56 @@ function renderVariante(name, mitDampf) {
   return { datei, mp4 };
 }
 
+// ---------- Endkarte: Ortsschild bei Nacht, Odells Pinsel streicht 1,204 und malt 1,203 (Bibel §3.2) ----------
+// Set stadtrand (Orte-Werkstatt) bei x −600, Requisite am Anker rand.ortsschild [5,7, 0, −4,6], blick 180.
+// Kamera so weit weg, dass die Tafel ganz im Bild ist und die Bildbreite an der Tafel ≈ 2,7 m beträgt (Ziffern
+// 0,32 m ≈ 128 px), Blick auf 1,15 m Höhe: beide Zahlenzeilen liegen in der sicheren Zone (y 260–1040).
+export function endkartenEpisode() {
+  const RAND = [-600, 0, 0];
+  const schild = plus(RAND, [5.7, 0, -4.6]);
+  return {
+    titel: 'Endkarte Kindly F1 (Probe)', fps: FPS, aufloesung: [1080, 1920], seed: 21,
+    look: { licht: 'nacht', bloom: { staerke: 0.55, radius: 0.55, schwelle: 1.0 }, vignette: 0.32, korn: 0.03, toene: 'aces' },
+    sets: [{ id: 'rand', modul: 'stadtrand', position: RAND }],
+    figuren: [{ id: 'schild', modul: 'ortsschild', position: schild, blick: 180, atmen: false, blinzeln: false }],
+    einstellungen: [{ id: 'K', start: 0, ende: 1.5, set: ['rand'], licht: 'nacht',
+      kamera: { baustein: 'push_in', pos: plus(schild, [-0.35, 1.3, -6.6]), ziel: plus(schild, [0, 1.15, 0]), fov: 40, rate: 0.03 },
+      aktionen: [{ wer: 'schild', was: 'umschreiben', start: 0, dauer: 1.0 }] }],
+    licht_ereignisse: [{ art: 'an', ziel: 'rand.*', start: 0, dauer: 0 }],
+    partikel: [{ art: 'schnee', ort: plus(schild, [0, 3.5, -3.5]), bereich: [7, 7, 5], anzahl: 360, groesse: 0.03 }],
+  };
+}
+
+function endkartenProbe() {
+  const datei = path.join(ORDNER, 'endkarte.json');
+  fs.writeFileSync(datei, JSON.stringify(endkartenEpisode(), null, 1));
+  const aus = path.join(ORDNER, 'endkarte');
+  const r = spawnSync('node', [path.join(ENGINE, 'render.mjs'), datei, '--prozesse', '2', '--format', 'jpg', '--qualitaet', '0.95', '--kein-bogen', '--aus', aus], { stdio: 'inherit' });
+  if (r.status !== 0) throw new Error('Render Endkarte fehlgeschlagen');
+  fs.rmSync(path.join(aus, 'bilder'), { recursive: true, force: true });
+  const mp4 = path.join(aus, 'endkarte.mp4');
+  fs.copyFileSync(mp4, path.join(AUS, 'endkarte-probe.mp4'));
+  // schlechteste Fassung der Atem-Probe: 720 × 1280 mit 1 Mbit/s, zwei Durchgänge
+  const klein = path.join(aus, 'endkarte-720p-1000k.mp4');
+  const log = path.join(aus, 'x264');
+  const ff = (...a) => { const x = spawnSync('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-y', ...a], { stdio: 'inherit' }); if (x.status !== 0) throw new Error('ffmpeg'); };
+  const g = ['-i', mp4, '-vf', 'scale=720:1280:flags=bicubic,format=yuv420p', '-c:v', 'libx264', '-preset', 'medium', '-b:v', '1000k', '-an', '-passlogfile', log];
+  ff(...g, '-pass', '1', '-f', 'mp4', '/dev/null');
+  ff(...g, '-pass', '2', '-maxrate', '1000k', '-bufsize', '2000k', klein);
+  for (const f of fs.readdirSync(aus)) if (f.startsWith('x264')) fs.rmSync(path.join(aus, f));
+  // Bogen: alte Zahl (0,35 s), Strich (0,5 s), neue Zahl fertig (0,85 s und 1,45 s); oben crf 18, unten 1 Mbit/s,
+  // jeweils in Feed-Größe 270 × 480
+  const zeiten = [0.35, 0.5, 0.85, 1.45];
+  const eingaben = [], filter = [];
+  for (const [k, q] of [mp4, klein].entries()) for (const [i, t] of zeiten.entries()) { eingaben.push('-ss', String(t), '-i', q); filter.push(`[${k * zeiten.length + i}:v]scale=270:480:flags=area,setsar=1[v${k}${i}]`); }
+  const reihe = (k) => zeiten.map((_, i) => `[v${k}${i}]`).join('') + `hstack=inputs=${zeiten.length}[r${k}]`;
+  ff(...eingaben, '-filter_complex', `${filter.join(';')};${reihe(0)};${reihe(1)};[r0][r1]vstack=2`, '-frames:v', '1', '-q:v', '3', path.join(ORDNER, 'bogen-endkarte.jpg'));
+  console.log(`Endkarte: ${path.join(AUS, 'endkarte-probe.mp4')}, Bogen ${path.join(ORDNER, 'bogen-endkarte.jpg')}`);
+}
+
 if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
   fs.mkdirSync(ORDNER, { recursive: true });
+  if (process.argv.includes('--endkarte')) { endkartenProbe(); process.exit(0); }
   if (!process.argv.includes('--nur-messung')) {
     const mit = renderVariante('mit', true);
     renderVariante('ohne', false);

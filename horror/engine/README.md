@@ -1001,5 +1001,23 @@ node test/atem-probe.mjs --nur-messung   # nur Kompression und Messung erneut (t
 
 - **Probe:** 10 s nachts am Stegende (Set see, Licht `see_nacht`, Gegenlicht der Steglaterne, leichter Schneefall), wie S37: Kamera neben dem Steg, Odell (weiße Gläser, Laterne) von hinten, Bear und Gus im Dreiviertelprofil. Gus und Odell dampfen, Bear nicht. Zwei Einstellungen (0–5 s alle drei, 5–10 s näher an Bear und Gus).
 - **Simulation:** Die Hauptfassung (crf 18) wird wie von einer Plattform im schlechten Fall neu kodiert: H.264, x264 `-preset medium`, zwei Durchgänge, 1080 × 1920 mit 2,5 und 1,5 Mbit/s, 720 × 1280 mit 1,0 Mbit/s.
-- **Messung:** je Fassung und Figur mittlere Helligkeit in einem Kasten um den Anker `dampf` (Größe nach dem Abstand Mund–Wolke im Bild), mit Dampf minus ohne Dampf (dieselbe Episode mit `dampf: false`, gleich kodiert). Tor (A): wer dampft, im Mittel ≥ 12 Stufen und kein 1-s-Fenster unter 6; Bear unter 3. Dazu Kontaktbögen in Feed-Größe 270 × 480 (`build/kindly-01/atem-probe/bogen-<fassung>.jpg`) zum Ansehen.
+- **Messung:** je Fassung und Figur mittlere Helligkeit in einem Kasten um den Anker `dampf` (Größe nach dem Abstand Mund–Wolke im Bild), mit Dampf minus ohne Dampf (dieselbe Episode mit `dampf: false`, gleich kodiert). Tor (Bibel §10.7, Schwellen A): wer dampft, im Mittel ≥ 12 Stufen; Bear im Mittel unter 3; „fällt in unter 1 s auf“: in jedem 1-s-Fenster hebt sich mindestens eine dampfende Figur um ≥ 12 ab. Dazu Kontaktbögen in Feed-Größe 270 × 480 (`build/kindly-01/atem-probe/bogen-<fassung>.jpg`) zum Ansehen.
+- **Ergebnis 17.11.2026: bestanden** (`build/kindly-01/atem-probe/messung.json`). Die Kompression ändert an der Wolke praktisch nichts:
+
+| Fassung | Bitrate (gemessen) | Gus | Odell (von hinten) | Bear (ohne Dampf) | schwächstes 1-s-Fenster der Gruppe |
+|---|---|---|---|---|---|
+| Hauptfassung crf 18 | 20,3 Mbit/s | +138,6 | +23,9 (1-s-Minimum 5,6) | 0,10 | 64,1 |
+| 1080 × 1920, 2,5 Mbit/s | 2,49 | +138,7 | +23,9 (5,6) | 0,13 | 64,2 |
+| 1080 × 1920, 1,5 Mbit/s | 1,53 | +138,7 | +23,9 (5,6) | 0,14 | 64,4 |
+| 720 × 1280, 1,0 Mbit/s | 1,02 | +138,7 | +23,9 (5,6) | 0,15 | 64,2 |
+
+- **Nachgeschärft nach der ersten Probe:** Wolkenflecken 20 % größer und im Kern dichter (erste Probe: Gus +122, in Feed-Größe war die Wolke in der Halbtotalen nur gut 25 px breit). Die Fenster-Regel gilt für die Gruppe: Odell, von hinten gesehen, verdeckt mit dem eigenen Kopf in einzelnen Sekunden seine Wolke (1-s-Minimum 3,9 → 5,6).
+- **Sicht (Bögen angesehen):** In jedem Bild der Bögen hängt vor Gus' Kinn eine weiße Wolke, Odells Wolke steht neben seinem Kopf; Bear hat keine. In der Halbtotalen ist die Wolke in Feed-Größe klein (etwa 30 px): Für die Suchbild-Einstellungen (S3–4, S41, S64) Halbnah oder näher und die Wolke vor dunklem Grund im Gegenlicht (Laterne seitlich hinter der Figur, nicht hinter einem Kopf). In Großaufnahmen von vorn deckt die Wolke Kinn und Kragen; bei Dialog `dampf { staerke: 0.5 }`.
+- **Endkarte** (`node test/atem-probe.mjs --endkarte`, 1,5 s, Set stadtrand, Nacht, Schneefall, Kamera 6,6 m vor der Tafel, Blick auf 1,15 m): Nach derselben Kompression (720 × 1280, 1 Mbit/s) sind „1,204“, der Strich und „1,203“ in Feed-Größe lesbar (`build/kindly-01/atem-probe/bogen-endkarte.jpg`, `build/kindly-01/endkarte-probe.mp4`); die Zahlenzeilen liegen bei y ≈ 800 und 960 (sichere Zone). Die alte Zahl bleibt bis 0,4 s frei (der Pinsel kommt von links unten), die neue steht ab 0,78 s.
+- Linus' Blick am Handy ist optional: `build/kindly-01/atem-probe.mp4` (crf 18) und die komprimierten Fassungen `build/kindly-01/atem-probe/mit-*.mp4`.
+
+### 20.7 Offen
+
+- Der Shotlisten-Test „Set-Ereignisse landen mit Wortzeit in params.ereignisse (Kriechkeller, Glocke)“ (`npm test`) schlägt fehl („Fingerschatten auf Ready“); er betrifft `shotliste.mjs` (zuletzt geändert mit den Orten, ce04830), nicht die Bausteine dieses Abschnitts.
+- Kamerapunkte des Sets see für Old Knuckles nachstellen (Untersicht schräg von unten-seitlich, Kopf unter `stelle`), `rand.endkarte` näher an die Tafel, `rathaus.lampe` bei Buch-Einstellungen dimmen (20.4, 20.5).
 

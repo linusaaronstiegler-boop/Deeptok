@@ -13,7 +13,7 @@
 //         schichten (alte Zahlen unter der Farbe, Std ["1,207", "1,205", "1,206"]), hand (Std true: Odells Hand mit
 //         Pinsel ist da und kommt zur Aktion ins Bild), schnee (Std true: Schnee auf der Oberkante)
 // Animationen:
-//   umschreiben  Std 1,0 s. Hand kommt von links unten (0–0,38 s; die alte Zahl bleibt frei lesbar), Strich durch
+//   umschreiben  Std 1,0 s. Hand kommt von links unten (0–0,4 s; der Pinsel bleibt unter der alten Zahl), Strich durch
 //                Zeile 1 (0,40–0,52 s), neue Zahl in Zeile 2 von links nach rechts (0,55–0,78 s), Hand zieht nach
 //                unten weg (0,8–1,0 s). Mit Start auf dem ersten Bild der Endkarte steht die neue Zahl 0,72 s fertig.
 //   pinsel_sinken Std 1,2 s. Der Pinsel hebt sich vor Zeile 2, hält, sinkt wieder (keine Änderung, Stille).
@@ -233,7 +233,10 @@ export default async function baue(ctx, params = {}) {
           // Weg der Pinselspitze: von links unten heran, Strich nach rechts, hinunter und zurück an den Anfang von
           // Zeile 2, malen nach rechts (mit kleinen Auf-und-ab-Zügen), dann nach unten aus dem Bild
           let x, y;
-          if (t < 0.38) { const u = glatt(0, 0.38, t); x = links - 0.9 * (1 - u); y = z1 - 1.3 * (1 - u); }
+          // Anflug endet links unterhalb der Zahl (der Pinsel liegt schräg nach rechts unten: so verdeckt er die
+          // alte Zahl nicht, solange sie ruhig zu lesen sein soll), erst kurz vor dem Strich an ihren Anfang
+          if (t < 0.36) { const u = glatt(0, 0.36, t); x = links - 0.08 - 0.85 * (1 - u); y = z1 - 0.24 - 1.1 * (1 - u); }
+          else if (t < 0.4) { const u = glatt(0.36, 0.4, t); x = links - 0.08 + 0.08 * u; y = z1 - 0.24 + 0.24 * u; }
           else if (t < 0.53) { const u = glatt(0.40, 0.52, t); x = links + strichLaenge * u; y = z1 + 0.05 * u; }
           else if (t < 0.56) { const u = glatt(0.53, 0.56, t); x = rechts + (links - rechts) * u; y = z1 + (z2 - z1) * u; }
           else if (t < 0.8) { const u = glatt(0.55, 0.78, t); x = -neuB / 2 + 0.15 + (neuB - 0.3) * u; y = z2 + Math.sin(c.tLokal * 70) * ZIFFER * 0.35 * (u < 1 ? 1 : 0); }
