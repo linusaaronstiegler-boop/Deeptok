@@ -17,6 +17,7 @@ import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { SET_BELEGE } from './belege-sets.mjs';
+import { KINDLY_FIGUREN_BELEGE } from './belege-kindly-figuren.mjs';
 
 const ENGINE = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const BUILD = path.resolve(ENGINE, '..', 'build', 'belege');
@@ -236,6 +237,7 @@ const BELEGLISTE = {
     { was: 'atem_anhalten', dauer: 0.25, phasen: [1], gesicht: 'angst' },
   ]),
   ...SET_BELEGE,
+  ...KINDLY_FIGUREN_BELEGE,
 };
 
 if (liste) { console.log(Object.keys(BELEGLISTE).join('\n')); process.exit(0); }

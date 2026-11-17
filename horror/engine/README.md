@@ -26,6 +26,7 @@ Grundlage sind `horror/docs/bewegungs-spec.md` (Kamera, Schnitt, Aktionen), `hor
 17. [Untertitel, Effekte, Mischung, fertige MP4](#17-untertitel-effekte-mischung-fertige-mp4)
 18. [Musik-Werkstatt](#18-musik-werkstatt)
 19. [Orte der Serie „Rules of Kindly“](#19-orte-der-serie-rules-of-kindly)
+20. [Figuren, Monster, Requisiten und Atemdampf von „Rules of Kindly“](#20-figuren-monster-requisiten-und-atemdampf-von-rules-of-kindly)
 
 ## 1. Schnellstart
 
@@ -919,3 +920,86 @@ Probebilder 1080 × 1920 (`--einzelbild`), Mittel der Bildhelligkeit (0–255, g
 Renderzeit der Belege (576 × 1024, 2 Prozesse): 0,18–0,21 s je Bild. Nachgebessert nach den Prüfbildern: Laternen-Glut und Morgensonne auf dem Eis gedämpft (Eis rauer), Untersicht ohne „Glas“-Blick aufs Ufer (Spiegelung), Eisplatte über dem Hüttenloch entfernt, Spiegelung der Lampe im klaren Eis des Lochs gedämpft (`klarRauheit`), Steg-Gegenschuss ohne Verdeckung durch Odells Kopf, Türlampe an „BEAR & GUS“ (Mittel 41 → 101), Regale offen (ein voller Klotz verdeckte die Bücher), Rathaus heller.
 
 Offen: Ortsschild und Stadtbuch mit den echten Requisiten nachmessen (Kamerapunkte `rand.schild/zahl/endkarte`, Blickrichtung des Buchs auf `rathaus.pult`); `see.wesen` an die Maße von `old_knuckles` anpassen (schneefreie Zone ist 6,4 × 18 m); Atem-Lesbarkeit nach Kompression (Kompressions-Tor der Figuren-Werkstatt) in `steg_seite` und `ufer` prüfen.
+
+## 20. Figuren, Monster, Requisiten und Atemdampf von „Rules of Kindly“
+
+Stand 17.11.2026, Folge 1 (Bibel `episoden/serie-02/bibel.md` §3.3, §10.2, §10.4, §10.7). Alles im Code gebaut, im Hausstil von 15.1 (`src/klotzfigur.js`). Prüfbilder: `node test/belege.mjs kindly-bear kindly-gus kindly-lunds kindly-fischer kindly-odell kindly-requisiten kindly-monster` (Episoden in `test/belege-kindly-figuren.mjs`, Bögen in `belege/kindly-*.jpg`). Das Tor für den Atemdampf: `node test/atem-probe.mjs` (20.6).
+
+### 20.1 Figuren
+
+| Modul | Figur | Erkennungsmerkmal (Halbtotale) | params | Gesichter (Bibel §10.2) |
+|---|---|---|---|---|
+| `bear` | Bear, 19, Erzähler, ab S34 die Kopie | petrolblauer Parka `#2E6E7E` mit Fellrand an der Kapuze im Nacken, Parka über die Hüfte, zerzauste dunkelbraune Haare, braune Winterstiefel | `groesse`, Atemdampf (20.2) | neutral, angespannt (= besorgt), augen_zu, erschrocken (= schock), leer, **ruhig** |
+| `gus` | Gus, 27, Schutzfigur | rot-schwarz karierte Wolljacke (Karo als Textur, gleiche Größe auf Rumpf und Ärmeln), Mütze mit Ohrenklappen und Fellrand, Vollbart, Eispickel rechts | `groesse`, `pickel` (Std true), Atemdampf | ernst, warnend, entschlossen, **nass** (nass-äugig), leer |
+| `lund` | Mr. Lund, 63 | Glatze mit grauem Haarkranz, grauer Schnurrbart, dunkelblauer Wollmantel mit Schal | `groesse`, `muetze`, Atemdampf (die Kopie: `dampf: false`) | neutral, **lachend** (Rückblende), leer |
+| `mrs_lund` | Mrs. Lund, 61 | grauer Dutt, dunkelgrüner langer Mantel, cremefarbener Strickschal | `groesse`, Atemdampf | ernst, **gefasst** |
+| `fischer` | Eisfischer (nur Erwachsene) | `variante` kapuze (Parka mit Kapuze auf) / muetze (Bommelmütze) / schirm (Latzhose, Schirmmütze) / schapka (Pelzmütze, Mantel) / kappe (Weste) | `variante`, `farbe`, `haut`, `alter` jung/mittel/alt, `bart`, `angel` (kurze Eisangel), `groesse`, Atemdampf | Hausstil-Satz |
+
+- **Eispickel und `tippen`** (`gus`, 1,2 s, linear): Die Spitze tippt dreimal aufs Eis vor Gus (`zu` Anker oder Punkt, Std 0,5 m vor ihm; `schlaege` 3; `hoehe` 0,13 m). Die Faust folgt per IK, die Stange bleibt fast senkrecht. Aufprall k bei Fortschritt `0,14 + (k + 0,75) / 3 · 0,72` (bei 1,2 s: 0,38 / 0,67 / 0,96 s nach dem Start, für die Effekte). Anker `gus.pickel_spitze`.
+- **Neue gemeinsame Animationen:** `stiefel_tippen` (1,2 s, der Stiefel tippt dreimal: S1, S30; `seite`, `schlaege`, `hoehe`; Aufprall bei (k + 0,75)/3), `hauchen` (gezielter Atemzug, 20.2), `dampf` (Dampf je Einstellung schalten, 20.2).
+- **Neue Gesichter in `src/gesichter.js`** (nur Zusätze, Hiding Night unverändert): Ausdrücke `ruhig`, `nass` (Auge mit Wasserrand und zwei Lichtpunkten), `pruefend`, `gefasst`, `lachend` (zugekniffene Augen, offener Mund), `lippen_g`/`lippen_u`/`lippen_s`/`lippen_zu` (sichtbare Lippen in normaler Farbe, für „Gus“ unter dem Eis); Mundformen `lachen`, `lippen_*` (zusammengesetzt: `"neutral/lippen_u"`); Aliasse `nass_aeugig`, `streng_pruefend`.
+- **Kopf-oben-Regel und Monster-Anteil:** `src/haupt.js` zählt `bear`, `gus`, `lund`, `mrs_lund`, `fischer` und `old_knuckles` (Gesicht unter dem Eis) zu den Gesichtern, `old_knuckles` zu den Monstern.
+- Befund aus den Prüfbildern: In Dämmerlicht lesen sich dunkle Kleiderfarben schnell als Schwarz. Mäntel von Lund (`#34466C`) und Mrs. Lund (`#3A5E48`), Bärte und Gus' Mütze sind deshalb heller als die erste Fassung; Bears Haare haben ein Kantenlicht, die seitlichen Haarklötze sind klein (sie lasen sich als Kopfhörer).
+
+### 20.2 Atemdampf je Figur (`src/atemdampf.js`)
+
+Bibel §2: Draußen dampft jeder Atem, immer und bei allen; wer nicht dampft, ist die Kopie. Dampf setzt nie plötzlich ein, drinnen dampft niemand.
+
+- **Bild:** Jeder Atemzug ist eine dichte, stehende Wolke aus 7 weichen Flecken (Sprites): aus dem Mund schräg nach unten, nach 0,35 s etwa 0,3 m vor dem Mund stehend, dann langsam steigend, aufgelöst nach 3,4 s. Alle 2,9 s (± 0,25 s, Takt je Figur aus dem Seed) beginnt der nächste: Es hängt fast immer eine Wolke vor dem Mund. Die Wolke liegt unter Mundhöhe (vor Kinn und Kragen), damit Augen und Mund in Vorderansichten frei bleiben.
+- **Licht:** Grundhelligkeit aus Himmel-, Boden- und Hauptlicht des Presets (wie ein heller, matter Stoff), dazu **Gegenlicht**: Punktlichter in Reichweite (Steglaterne) streuen stark nach vorn, wenn sie hinter der Wolke stehen. Unter 0,9 m vor der Linse blendet die Wolke aus.
+- **Schalten** in `figuren[].params` aller Kindly-Figuren (Odell: Std aus, wie in Hiding Night):
+  - `dampf` true/false; `dampf_aus_ab` (s): ab hier keine neuen Atemzüge, die letzte Wolke löst sich natürlich auf (die Kopie, S34: überlebt jeden Schnitt); `dampf_aus` [[von, bis], …]: in diesen Fenstern gar kein Dampf (drinnen).
+  - `dampf_staerke`, `dampf_groesse`, `dampf_periode`, `dampf_hell`, `dampf_farbe`.
+  - Aktion `dampf` { `wert` false/true, `staerke`, `hell` } schaltet für die Einstellung (bis zum nächsten `stellung.neu`), z. B. Gesichter von vorn mit Dialog: `staerke` 0,5.
+  - `atem_anhalten` / `idle_atmen staerke 0` (S33): kein neuer Atemzug, solange angehalten.
+- **`hauchen`** (Std 3 s; die Bewegung ist nach 0,6 s fertig): gezielter, kräftiger Atemzug zum Ziel `zu` (z. B. `"odell.brille"`), die Figur beugt sich leicht vor; rund um den Hauch kein normaler Zug. Bei einer Kopie (Dampf aus) kommt nichts: genau das ist das Suchbild in S37. Odells `beschlagen` etwa 0,3 s nach dem Hauch-Start legen.
+- **Anker `<figur>.dampf`:** wo die Wolke hängt (0,25 m vor dem Mund, 8 cm tiefer, dreht mit dem Kopf). Für Kameras und die Messung.
+- **Kern:** `src/welt.js` ruft nach allen Aktionen `inst.aktualisiere?.(t)` jeder Figur auf (eine Zeile; Figuren ohne diese Funktion sind unberührt). Daran hängen Dampf, Odells Requisiten und die Arme von Old Knuckles. Die alten Partikel `atem` bleiben für Hiding Night.
+
+### 20.3 Mr. Odell in Kindly (`figuren/odell.js`)
+
+Ohne die neuen params ist Odell bitgleich wie in Hiding Night (das Modul kehrt vor allen Zusätzen zurück).
+
+- `glaeser: "weiss"`: Die getragenen Gläser spiegeln immer weiß (weiß, leicht selbstleuchtend, Verlauf von oben nach unten, schräger Glanzstreifen; unter der Bloom-Schwelle). Die Augen dahinter sind ganz verdeckt, die Brauen bleiben sichtbar (streng, pruefend, muede). Gilt für alle Kindly-Folgen.
+- `brille: "auf"` (Std) | `"hand"` (abgenommen, klare Gläser in der rechten Hand) | `"keine"`. Bildregel §3.3: ohne Brille nie von vorn.
+- `links` / `rechts`: `"laterne"` (Sturmlaterne, warm leuchtend mit weichem Schein, hängt senkrecht) oder `"glocke"` (Handglocke). `laterne_an` (Std true). `dampf: true` draußen.
+- **Animationen:** `brille_hoch` (0,5 s; Gläser mit ausgestrecktem Arm vor dem Gesicht, `vor` 0,32 m vor den Augen, `hoehe` −0,12 m, `zu`), `beschlagen` (0,35 s, weiß), `bleibt_klar` (0,8 s: Odell kippt die Gläser prüfend, ein Glanz läuft über das klare Glas, er schaut darauf), `abwischen` (1,2 s, kreisend am Mantel vor der Brust, der Beschlag verschwindet, danach wieder hoch; `zurueck`), `aufsetzen` (0,9 s; ab 75 % spiegeln die Gläser weiß; S40 ohne Abwischen), `brille_ab` (0,8 s, `nach` hoch/unten), `glocke_laeuten` (1,6 s; Schlag bei 0,15 s, dann gedämpftes Pendeln).
+- **Pose am Schnitt:** `stellung: { odell: { pose: "brille_hoch" } }` hält die Gläser ab dem ersten Bild hoch.
+- **Anker:** `brille` (Mitte der Gläser in der Hand), `brille_auf`, `glocke`, `laterne`, `dampf`.
+
+### 20.4 Requisiten
+
+| Modul | Zweck | params | Animationen / Anker |
+|---|---|---|---|
+| `brille_hand` | Odells Brille allein für Inserts (S38-Detail); Ursprung = Mitte der Gläser, Gläser nach +z | `beschlag` (0..1), `hand` (Std true: Fäustling und Ärmel am Bügel) | `beschlagen`, `bleibt_klar`, `abwischen`, `aufsetzen` (hebt sich aus dem Bild); Anker `mitte`, `glas_l`, `glas_r` |
+| `handglocke` | Messingglocke mit Holzgriff (Ursprung Griffmitte, Glocke nach −y) | `hand` | `laeuten` (1,6 s); Anker `mitte`, `griff` |
+| `laterne` | Sturmlaterne, kein echtes Punktlicht | `an`, `staerke` (2,4), `haengend` | `aus`, `an`, `pendeln`; Anker `glas` |
+| `stadtbuch` | Odells Buch der Regeln auf `rathaus.pult` (Ursprung unter dem Buch, Leser bei +z, Seite 0,30 × 0,42 m) | `neigung`, `blatt` ("links" Std / "rechts" / false), `nachtrag` (ab F2: „3b. NOR FIRST.“), `groesse` | `blaettern` (0,55 s, RULE 18 blitzt auf; `zurueck`); Anker `stummel` („0 IF“), `regel`, `zeile`, `zeile_ende`, `namen`, `lund`, `falz`, `mitte`, `blatt` |
+| `ortsschild` | Ortsschild bei `rand.ortsschild` (blick 180), Tafel 2,4 × 1,7 m, Mitte 1,75 m | `zahl` ("1,204"), `neu` ("1,203"), `schichten` (alte Zahlen), `hand`, `schnee` | `umschreiben` (1,0 s), `pinsel_sinken` (1,2 s); Anker `mitte`, `zahl`, `neu`, `pinsel`, `pop` |
+
+- **Stadtbuch:** Aufgeschlagen ganz vorn: links Vorsatzpapier mit Exlibris („TOWN OF KINDLY · BOOK OF RULES · KEPT BY MR. ODELL“), rechts RULE 3 in Odells Federschrift (EB Garamond, Buchstabe für Buchstabe leicht gedreht) mit den gestrichenen Namen OTTER, SLIM, DUCK, BIRCH und zuletzt LUND (frischer Strich). Am Falz liegt der gerissene Stummel der ersten Seite mit „0 IF“, ein Punkt unter der 0; Versalhöhe 2,3 cm: für ≥ 72 px im fertigen Bild höchstens 0,34 m Buch in der Bildbreite (Kamera nah auf Anker `stummel`, z. B. Draufsicht 0,32 m Abstand, fov 40). Das lose Blatt trägt vorn RULE 18 („WHEN YOU TURN EIGHTEEN, YOU HIDE UNTIL SUNRISE.“). **Achtung Rathaus:** Der additive Lichtkegel der Pendellampe liegt in Draufsichten zwischen Kamera und Buch und überstrahlt die Seiten; für Buch-Einstellungen die Gruppe `rathaus.lampe` dimmen oder ausschalten (die Belege tun das).
+- **Ortsschild:** emaillegrün `#2F4A3A`, Schrift creme `#EDE6D3` in Archivo Black (WELCOME TO / KINDLY / KINDLY MIND THE RULES / POP.), darunter zwei Zahlenzeilen mit 0,32 m hohen, von Hand weiß gemalten Ziffern (Pinselstruktur, alte Zahlen schwach darunter). `umschreiben`: Odells Hand mit Pinsel kommt von links unten (bis 0,38 s bleibt die alte Zahl frei), ein dunkler Federstrich durch Zeile 1 (0,40–0,52 s, Odells Tinte wie im Stadtbuch), die neue Zahl entsteht in Zeile 2 von links nach rechts (0,55–0,78 s), die Hand geht nach unten weg. Mit Start auf dem ersten Bild der Endkarte (1,5 s) steht die neue Zahl 0,72 s fertig (Bibel §3.2: ≥ 0,7 s). Für Ziffern ≥ 120 px darf das Bild an der Tafel höchstens 2,9 m breit sein: Der Kamerapunkt `rand.endkarte` ist dafür zu weit (dort etwa 89 px), `rand.schild` oder näher nehmen.
+
+### 20.5 Monster `old_knuckles`
+
+Gestreckte, bleiche Gestalt (grau-grünliches Hautgrau `#b9beb5`, schwach selbstleuchtend, Kantenlicht `#9FD8D2`), etwa 6,5 m vom Scheitel bis zu den Füßen (die Hütte BEAR & GUS ist 3 m lang), liegt fertig rücklings: Ursprung = Körpermitte, Gesicht nach +y, Kopf nach −z, mit blick 0 steht der Kopf für Kameras aus Süden oben im Bild.
+
+- **Fäuste:** zwei Faustklötze (0,46 m) mit je vier Knöchelwürfeln. Die Unterarme werden je Bild so lang, dass die Knöchel an der Eis-Unterseite liegen (`eis_y`, Weltkoordinate, Std −0,02), egal wie tief der Körper liegt. So legt eine Einstellung das Wesen tief (Untersicht: Körper, lange Arme nach oben, Fäuste am Eis; S1, S10–11, z. B. Mitte y −1,15) und eine andere flach (Gesicht dicht unter dem Eis; S13–15, S34–35, y −0,55), per `stellung.position` am Schnitt. Im Eisloch der Hütte (Eishaut bei −0,15) `eis_y: -0.17`.
+- **Lage im Set see:** Kopf unter `see.stelle` (z −31,5) heißt Mitte bei z −31,5 + 3,15 · groesse (Std: −28,35), x 2. Der Anker `see.wesen` (z −26) passt dazu nicht genau; die schneefreie Zone (6,4 × 18 m) ist größer als das Wesen.
+- **Gesichter** (Aufkleber auf der flachen Oberseite des Kopfes, schwach selbstleuchtend, `leuchten` Std 0,35, damit es durch klares Eis bei Nacht zu sehen ist): `glatt` (sein eigenes, fast leer), `lund` (Schnurrbart, Haarkranz gemalt), `bear` (Pony gemalt), `gus` (Bart gemalt), `fischer`; neutral mit offenen Augen, normale Hautfarbe (keine Wasserleiche). Zusammengesetzt mit Lippenformen: `"bear/lippen_u"`.
+- **Animationen:** `klopfen_unten` (1,2 s, drei Schläge von unten, `seite`, `tiefe` 0,22 m; Aufprall k bei (k + 0,75)/3), `andruecken` (0,8 s: Hals hebt und kippt, der Kopf bleibt waagerecht, das Gesicht liegt 1 cm unter dem Eis und wird leicht flach gedrückt; `hoehe`, `halten`), `sinken` (1,0 s), `lippen_gus` (0,8 s: g – u – s – zu, mit Gesicht `bear`; S61–62).
+- **Anker:** `kopf`, `gesicht`, `mund`, `augen`, `ueber_kopf` (über dem Scheitel nach −z, für die Kopf-oben-Regel), `brust`, `huefte`, `knie`, `haende`, `hand_l/r`, `faust_l/r`, `fuss_l/r`, `fuss`, `mitte`.
+- Befund: Die Kamerapunkte `see.unter_eis` und `see.unter_seite` sehen das liegende Wesen fast genau von der Seite, dort wirkt es wie ein Brett. Für den Hook (S1) besser schräg von unten-seitlich auf den tief liegenden Körper mit den langen Armen (Beleg `kindly-monster`, letzte Einstellung).
+
+### 20.6 Atem-Probe mit Kompressions-Simulation (Tor, Bibel §10.7, §14 Nr. 15)
+
+```bash
+cd horror/engine && . /opt/deeptok/env.sh
+node test/atem-probe.mjs                 # rendert mit und ohne Dampf, misst; Ergebnis: build/kindly-01/atem-probe.mp4
+node test/atem-probe.mjs --nur-messung   # nur Kompression und Messung erneut (test/atem_messung.py)
+```
+
+- **Probe:** 10 s nachts am Stegende (Set see, Licht `see_nacht`, Gegenlicht der Steglaterne, leichter Schneefall), wie S37: Kamera neben dem Steg, Odell (weiße Gläser, Laterne) von hinten, Bear und Gus im Dreiviertelprofil. Gus und Odell dampfen, Bear nicht. Zwei Einstellungen (0–5 s alle drei, 5–10 s näher an Bear und Gus).
+- **Simulation:** Die Hauptfassung (crf 18) wird wie von einer Plattform im schlechten Fall neu kodiert: H.264, x264 `-preset medium`, zwei Durchgänge, 1080 × 1920 mit 2,5 und 1,5 Mbit/s, 720 × 1280 mit 1,0 Mbit/s.
+- **Messung:** je Fassung und Figur mittlere Helligkeit in einem Kasten um den Anker `dampf` (Größe nach dem Abstand Mund–Wolke im Bild), mit Dampf minus ohne Dampf (dieselbe Episode mit `dampf: false`, gleich kodiert). Tor (A): wer dampft, im Mittel ≥ 12 Stufen und kein 1-s-Fenster unter 6; Bear unter 3. Dazu Kontaktbögen in Feed-Größe 270 × 480 (`build/kindly-01/atem-probe/bogen-<fassung>.jpg`) zum Ansehen.
+

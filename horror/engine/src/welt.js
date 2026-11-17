@@ -197,6 +197,8 @@ export class Welt {
     }
     // Leerlauf-Atmen (Spec 1.8: an, 0,15–0,5 % der Bildbreite) – die Figur entscheidet, wie.
     if (spec.atmen !== false && inst.atmen) inst.atmen(t, spec.atmen_staerke ?? 1, hash(`${this.seed}|${id}`));
+    // Nachlauf je Bild, nur aus t (Rules of Kindly: Atemdampf, Requisiten in der Hand), nach allen Aktionen
+    inst.aktualisiere?.(t);
     if (this._durchgang) { this._durchgang.inArbeit.delete(id); this._durchgang.fertig.add(id); }
   }
 

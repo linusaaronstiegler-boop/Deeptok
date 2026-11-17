@@ -41,6 +41,18 @@ export const AUSDRUECKE = {
   reden_a: { augen: 'offen', brauen: 'ruhig', mund: 'reden_a' },
   reden_b: { augen: 'offen', brauen: 'ruhig', mund: 'reden_b' },
   reden_c: { augen: 'offen', brauen: 'ruhig', mund: 'reden_c' },
+  // Rules of Kindly, Folge 1 (Bibel §10.2): Bear ruhig (Schluss), Gus nass-äugig (Hütte), Odell prüfend,
+  // Mrs. Lund gefasst, Mr. Lund lachend (Rückblende). Die Lippen-Formen g/u/s sind die stummen Lippen
+  // unter dem Eis, die „Gus“ formen (S61–62): sichtbare Lippen in normaler Farbe, keine blauen Lippen.
+  ruhig: { augen: 'offen', brauen: 'ruhig', mund: 'klein' },
+  nass: { augen: 'nass', brauen: 'sorge', mund: 'welle' },
+  pruefend: { augen: 'schmal', brauen: 'schief', mund: 'linie' },
+  gefasst: { augen: 'offen', brauen: 'sorge', mund: 'fest' },
+  lachend: { augen: 'froh', brauen: 'hoch', mund: 'lachen' },
+  lippen_g: { augen: 'offen', brauen: 'ruhig', mund: 'lippen_g' },
+  lippen_u: { augen: 'offen', brauen: 'ruhig', mund: 'lippen_u' },
+  lippen_s: { augen: 'offen', brauen: 'ruhig', mund: 'lippen_s' },
+  lippen_zu: { augen: 'offen', brauen: 'ruhig', mund: 'lippen_zu' },
 };
 
 // Andere Namen aus serie.md und bildideen.json für dieselben Ausdrücke.
@@ -53,10 +65,12 @@ export const ALIAS = {
   angespannt: 'besorgt',
   zaehlt: 'zaehlt_a',
   leerer_blick: 'leer',
+  nass_aeugig: 'nass',
+  streng_pruefend: 'pruefend',
 };
 
 export const PFLICHT = ['neutral', 'angst', 'schock', 'laecheln', 'ernst', 'augen_zu', 'blinzeln'];
-const MUENDER = new Set(['linie', 'klein', 'fest', 'welle', 'laecheln', 'grinsen', 'zu_breit', 'riss', 'riss_bricht', 'klein_offen', 'o', 'schrei', 'warn', 'zickzack', 'reden_a', 'reden_b', 'reden_c']);
+const MUENDER = new Set(['linie', 'klein', 'fest', 'welle', 'laecheln', 'grinsen', 'zu_breit', 'riss', 'riss_bricht', 'klein_offen', 'o', 'schrei', 'warn', 'zickzack', 'reden_a', 'reden_b', 'reden_c', 'lachen', 'lippen_g', 'lippen_u', 'lippen_s', 'lippen_zu']);
 
 // "laecheln/reden_b" -> { augen, brauen, mund, blick }. Unbekannte Namen: Fehler mit Liste.
 export function ausdruck(name) {
@@ -173,6 +187,17 @@ export function zeichneGesicht(g, W, H, name, stil = {}, zu = false) {
       g.globalAlpha = 1;
       g.strokeStyle = s.tinte; g.lineWidth = W * 0.006; g.stroke();
       g.fillStyle = s.tinte; g.beginPath(); g.arc(cx, ey, rx * 0.22, 0, 2 * Math.PI); g.fill();
+    } else if (art === 'nass') {
+      // nasse Augen (Gus in der Hütte): offenes Auge mit zwei Lichtpunkten mehr und einem Wasserrand am Unterlid
+      voll(1.02);
+      g.fillStyle = 'rgba(255,255,255,0.95)';
+      g.beginPath(); g.arc(cx + ox - rx * 0.05, ey + oy + ry * 0.12, rx * 0.2, 0, 2 * Math.PI); g.fill();
+      g.strokeStyle = 'rgba(205,232,255,0.95)'; g.lineWidth = W * 0.012;
+      g.beginPath(); g.moveTo(cx - rx * 0.95, ey + ry * 0.92); g.quadraticCurveTo(cx, ey + ry * 1.22, cx + rx * 0.95, ey + ry * 0.92); g.stroke();
+    } else if (art === 'froh') {
+      // lachend zugekniffen: nach oben gebogene Bögen
+      g.strokeStyle = s.tinte; g.lineWidth = W * 0.017;
+      g.beginPath(); g.moveTo(cx - rx * 1.15, ey + ry * 0.35); g.quadraticCurveTo(cx, ey - ry * 0.55, cx + rx * 1.15, ey + ry * 0.35); g.stroke();
     } else {
       // geschlossen: nach unten gebogene Lidlinie
       g.strokeStyle = s.tinte; g.lineWidth = W * 0.016;
@@ -259,6 +284,37 @@ export function zeichneGesicht(g, W, H, name, stil = {}, zu = false) {
       g.beginPath(); g.moveTo(mx - mw * 0.85, my);
       for (let i = 1; i <= 6; i++) g.lineTo(mx - mw * 0.85 + (i * mw * 1.7) / 6, my + (i % 2 ? -1 : 1) * H * 0.012);
       g.stroke(); break;
+    }
+    case 'lachen': {
+      // offenes Lachen: D-Form mit Zähnen oben und Zunge unten
+      g.save();
+      g.beginPath(); g.moveTo(mx - mw * 1.05, my - H * 0.018); g.quadraticCurveTo(mx, my + H * 0.11, mx + mw * 1.05, my - H * 0.018); g.closePath();
+      g.fillStyle = dunkel; g.fill(); g.clip();
+      g.fillStyle = zunge; g.beginPath(); g.ellipse(mx, my + H * 0.07, mw * 0.6, H * 0.03, 0, 0, 2 * Math.PI); g.fill();
+      g.fillStyle = zaehne; g.fillRect(mx - mw * 1.1, my - H * 0.03, mw * 2.2, H * 0.03);
+      g.restore();
+      g.lineWidth = W * 0.016;
+      g.beginPath(); g.moveTo(mx - mw * 1.05, my - H * 0.018); g.quadraticCurveTo(mx, my + H * 0.11, mx + mw * 1.05, my - H * 0.018); g.closePath(); g.stroke();
+      break;
+    }
+    case 'lippen_g': case 'lippen_u': case 'lippen_s': case 'lippen_zu': {
+      // Lippen sichtbar (normal gefärbt), damit man in der Großaufnahme die Silben g – u – s liest
+      const lippe = s.lippen ?? '#b0675f';
+      const form = { lippen_g: [0.62, 0.034, 0.5], lippen_u: [0.34, 0.034, 0.95], lippen_s: [0.8, 0.014, 0.2], lippen_zu: [0.72, 0.004, 0.1] }[e.mund];
+      const [bx, oy, rund] = form;
+      const aussen = (k) => { g.beginPath(); g.ellipse(mx, my, mw * bx * k + W * 0.016, H * (oy + 0.022) * k + H * 0.004 * rund, 0, 0, 2 * Math.PI); };
+      g.fillStyle = lippe; aussen(1); g.fill();
+      g.strokeStyle = 'rgba(70,30,28,0.55)'; g.lineWidth = W * 0.008; aussen(1); g.stroke();
+      if (oy > 0.006) {
+        g.save();
+        g.beginPath(); g.ellipse(mx, my, mw * bx, H * oy, 0, 0, 2 * Math.PI); g.fillStyle = dunkel; g.fill(); g.clip();
+        if (e.mund === 'lippen_s' || e.mund === 'lippen_g') { g.fillStyle = zaehne; g.fillRect(mx - mw, my - H * oy, mw * 2, H * oy * (e.mund === 'lippen_s' ? 1.0 : 0.45)); }
+        g.restore();
+      } else {
+        g.strokeStyle = 'rgba(60,24,24,0.8)'; g.lineWidth = W * 0.012;
+        g.beginPath(); g.moveTo(mx - mw * bx, my); g.lineTo(mx + mw * bx, my); g.stroke();
+      }
+      break;
     }
     case 'reden_a': oval(mw * 0.45, H * 0.02, false, false); break;
     case 'reden_b': oval(mw * 0.6, H * 0.042, true, true); break;

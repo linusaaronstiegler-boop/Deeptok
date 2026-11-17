@@ -46,7 +46,9 @@ async function starten() {
   const kamera = new THREE.PerspectiveCamera(50, W / H, look.nah ?? 0.05, 1000);
   const zeitplan = new Zeitplan(episode);
   // Figurenmodule mit Menschengesicht (Aufkleber auf dem Kopfwürfel); das Monster hat keins
-  const MENSCHEN = new Set(['eli', 'june', 'dad', 'owen', 'tess', 'odell', 'nachbar']);
+  const MENSCHEN = new Set(['eli', 'june', 'dad', 'owen', 'tess', 'odell', 'nachbar', 'bear', 'gus', 'lund', 'mrs_lund', 'fischer', 'old_knuckles']);
+  // Monster mit eigenem Modul (Monster-Anteil im Schnellbogen)
+  const MONSTER = new Set(['mister_hundred', 'old_knuckles']);
   const licht = new Licht(szene);
   const werkzeug = baueWerkzeug({ seed, engineUrl, basisUrl: episodeUrl, renderer });
   const welt = new Welt({ szene, episode, zeitplan, werkzeug, engineUrl, basisUrl: episodeUrl, seed });
@@ -182,7 +184,7 @@ async function starten() {
       text: e.text ?? '', bogenZeit: e.plan?.bogen_zeit ?? null, hauptsache: e.plan?.hauptsache ?? null,
       // Menschen mit Gesicht in dieser Einstellung (für die Kopf-oben-Regel der Kompositionsprüfung)
       koepfe: (e.plan?.sichtbar ?? []).filter((id) => MENSCHEN.has((episode.figuren ?? []).find((f) => f.id === id)?.modul)),
-      monster: (e.plan?.sichtbar ?? []).filter((id) => (episode.figuren ?? []).find((f) => f.id === id)?.modul === 'mister_hundred'),
+      monster: (e.plan?.sichtbar ?? []).filter((id) => MONSTER.has((episode.figuren ?? []).find((f) => f.id === id)?.modul)),
     })),
     info() {
       const ext = gl.getExtension('WEBGL_debug_renderer_info');

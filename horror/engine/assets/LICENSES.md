@@ -9,6 +9,7 @@ Jedes Paket bekommt hier eine Zeile, bevor es benutzt wird. Dateien über 1 MB n
 | Paket / Datei | Quelle (URL) | Lizenz | Abgerufen | Benutzt in |
 |---|---|---|---|---|
 | `schriften/ArchivoBlack-Regular.ttf` (Archivo Black 400, sha256 355b89d4…) | https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYs.ttf (über fonts.googleapis.com/css2?family=Archivo+Black) | SIL Open Font License 1.1, Text in `schriften/OFL-ArchivoBlack.txt` (aus @fontsource/archivo-black 5.3.0) | 15.11.2026 | Untertitel (`engine/untertitel.py`, ASS über libass) |
+| EB Garamond (Systemschrift, Paket `fonts-ebgaramond`, nicht im Repo) | https://github.com/georgd/EB-Garamond | SIL Open Font License 1.1 | 17.11.2026 (in der Cloud-Umgebung installiert) | Odells Handschrift im Stadtbuch (`figuren/stadtbuch.js` über `src/kindly_requisiten.js`); fehlt sie, zeichnet der Browser eine andere Serifenschrift |
 
 Stand 15.11.2026: Außer der Untertitel-Schrift nutzt die Engine keine fremden Assets. Alles andere ist im Code gebaut:
 
