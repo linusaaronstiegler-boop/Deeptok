@@ -1,0 +1,211 @@
+{
+ "name": "rules-of-kindly-01",
+ "stil": "r2-eigen",
+ "quelle": "musik-v2",
+ "laenge_s": 142.667,
+ "punkte": [
+  {
+   "ab_s": 0.0,
+   "stufe": "normal",
+   "pegel_db": 2.5,
+   "grund": "Hook lauter als der Rest (Bibel §6, wie Hiding Night)",
+   "zeit_s": 0.0,
+   "anker_s": 0.0,
+   "rms_vor_db": null,
+   "rms_nach_db": -19.4
+  },
+  {
+   "ab_satz": 2,
+   "stufe": "normal",
+   "pegel_db": 0.0,
+   "blende_s": 1.5,
+   "grund": "Regel, Odell, Ritual, Lund, Lore (S2–22)",
+   "zeit_s": 4.834,
+   "anker_s": 4.45,
+   "rms_vor_db": -18.5,
+   "rms_nach_db": -22.6
+  },
+  {
+   "ab_wort": 131,
+   "versatz_s": -1.2,
+   "stufe": "weg",
+   "blende_s": 0.2,
+   "grund": "Wegfall 1,2 s vor „Yours.“ (S15)",
+   "zeit_s": 36.35,
+   "anker_s": 36.35,
+   "rms_vor_db": -23.2,
+   "rms_nach_db": -67.7
+  },
+  {
+   "ab_wort": 132,
+   "versatz_s": -0.1,
+   "stufe": "normal",
+   "blende_s": 0.35,
+   "einrasten": "aus",
+   "grund": "Wiedereinsatz mit „And now it's you down there“",
+   "zeit_s": 38.29,
+   "anker_s": 38.29,
+   "rms_vor_db": -98.5,
+   "rms_nach_db": -24.2
+  },
+  {
+   "ab_satz": 23,
+   "stufe": "duenn",
+   "blende_s": 1.2,
+   "grund": "Gus, Gewohnheit, Wortlaut, Versprechen (S23–29)",
+   "zeit_s": 56.391,
+   "anker_s": 56.38,
+   "rms_vor_db": -21.0,
+   "rms_nach_db": -25.7
+  },
+  {
+   "ab_satz": 30,
+   "stufe": "voll",
+   "pegel_db": 3.5,
+   "blende_s": 0.8,
+   "grund": "Vorfall und Steg (S30–40), voll wie im Finale von Hiding Night",
+   "zeit_s": 73.04,
+   "anker_s": 72.82,
+   "rms_vor_db": -28.5,
+   "rms_nach_db": -20.5
+  },
+  {
+   "ab_wort": 256,
+   "versatz_s": -1.2,
+   "stufe": "weg",
+   "blende_s": 0.15,
+   "grund": "Wegfall 1,2 s vor „Under my boots, something tapped back“ (S31)",
+   "zeit_s": 75.14,
+   "anker_s": 75.14,
+   "rms_vor_db": -21.4,
+   "rms_nach_db": -28.6
+  },
+  {
+   "ab_wort": 256,
+   "versatz_s": -0.05,
+   "stufe": "voll",
+   "blende_s": 0.3,
+   "einrasten": "aus",
+   "grund": "Wiedereinsatz auf „Under“",
+   "zeit_s": 76.29,
+   "anker_s": 76.29,
+   "rms_vor_db": -54.9,
+   "rms_nach_db": -20.6
+  },
+  {
+   "ab_wort": 305,
+   "versatz_s": 0.0,
+   "stufe": "weg",
+   "blende_s": 0.15,
+   "grund": "Wegfall 1,3 s auf S38: die Gläser bleiben klar",
+   "zeit_s": 92.65,
+   "anker_s": 92.65,
+   "rms_vor_db": -20.8,
+   "rms_nach_db": -56.0
+  },
+  {
+   "ab_wort": 305,
+   "versatz_s": 1.3,
+   "stufe": "voll",
+   "blende_s": 0.4,
+   "einrasten": "aus",
+   "grund": "Wiedereinsatz nach 1,3 s (vor „then at Gus“)",
+   "zeit_s": 93.95,
+   "anker_s": 93.95,
+   "rms_vor_db": -59.2,
+   "rms_nach_db": -23.5
+  },
+  {
+   "ab_satz": 41,
+   "stufe": "duenn",
+   "pegel_db": 0.0,
+   "blende_s": 1.0,
+   "grund": "Hütte, Entscheidung (S41–49)",
+   "zeit_s": 98.818,
+   "anker_s": 98.75,
+   "rms_vor_db": -24.3,
+   "rms_nach_db": -24.0
+  },
+  {
+   "ab_wort": 338,
+   "versatz_s": -0.1,
+   "stufe": "weg",
+   "blende_s": 0.25,
+   "grund": "ganz weg vom Fenster bis nach dem zweiten „Nothing.“ (S42–45)",
+   "zeit_s": 101.78,
+   "anker_s": 101.78,
+   "rms_vor_db": -26.3,
+   "rms_nach_db": -76.0
+  },
+  {
+   "ab_wort": 349,
+   "versatz_s": -0.1,
+   "stufe": "duenn",
+   "blende_s": 0.4,
+   "einrasten": "aus",
+   "grund": "Wiedereinsatz mit „Gus didn't look up from the stove“",
+   "zeit_s": 106.08,
+   "anker_s": 106.08,
+   "rms_vor_db": -200.0,
+   "rms_nach_db": -23.5
+  },
+  {
+   "ab_satz": 50,
+   "stufe": "normal",
+   "blende_s": 1.0,
+   "grund": "Erklärung (S50–53)",
+   "zeit_s": 113.319,
+   "anker_s": 113.04,
+   "rms_vor_db": -26.5,
+   "rms_nach_db": -24.1
+  },
+  {
+   "ab_satz": 54,
+   "stufe": "voll",
+   "pegel_db": 3.5,
+   "blende_s": 0.8,
+   "grund": "Klopfen, Ritual, Deckel (S54–64)",
+   "zeit_s": 120.838,
+   "anker_s": 120.83,
+   "rms_vor_db": -22.1,
+   "rms_nach_db": -16.6
+  },
+  {
+   "ab_wort": 415,
+   "versatz_s": -1.2,
+   "stufe": "weg",
+   "blende_s": 0.15,
+   "grund": "Wegfall 1,2 s vor „He heard.“ (S57)",
+   "zeit_s": 125.55,
+   "anker_s": 125.55,
+   "rms_vor_db": -20.1,
+   "rms_nach_db": -71.0
+  },
+  {
+   "ab_wort": 417,
+   "versatz_s": -0.1,
+   "stufe": "voll",
+   "blende_s": 0.3,
+   "einrasten": "aus",
+   "grund": "Wiedereinsatz mit „The ice in the hole turned clear“",
+   "zeit_s": 127.51,
+   "anker_s": 127.51,
+   "rms_vor_db": -101.0,
+   "rms_nach_db": -20.0
+  },
+  {
+   "ab_wort": 459,
+   "versatz_s": -0.15,
+   "stufe": "weg",
+   "blende_s": 0.25,
+   "grund": "Schlusszeile in Stille, harter Schnitt; auf der Endkarte nur der Glockenschlag (Effekt)",
+   "zeit_s": 139.29,
+   "anker_s": 139.29,
+   "rms_vor_db": -22.7,
+   "rms_nach_db": -70.7
+  }
+ ],
+ "lufs": -19.63,
+ "spitze_dbfs": -4.98,
+ "datei": "build/musik/spannung-rules-of-kindly-01.wav"
+}

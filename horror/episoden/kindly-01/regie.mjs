@@ -359,13 +359,14 @@ export const einstellungen = {
     haupt: { art: 'set', set: 'see', was: 'klar', wort: 'turns', dauer: 0.8, params: { mitte: STELLE, radius: 1.35 } },
     hauptsache: L(2, -0.2, -31.55),
   },
-  // "like a window." – von unten durchs klare Fenster: oben die Stiefel des Fischers, davor der flache Kopf
+  // "like a window." – vom Kopfende unter dem Eis: oben der Fischer auf dem klaren Fenster, unten Kopf und Fäuste
+  // (erste Fassung von Süden unter dem Rumpf: der Hinterkopf füllte das ganze Bild, Render-Bogen 35,7 s)
   '13:like': {
     figuren: {
       f4: { position: UEBER_KOPF, blick: 0 },
       ok: { position: OK_FLACH, blick: 0, gesicht: 'glatt' },
     },
-    kamera: { pos: L(2.3, -2.1, -28.9), ziel: L(2, 0.5, -32.4), fov: 56, rate: 0.07 },
+    kamera: { pos: L(2.4, -1.7, -34.9), ziel: L(2, 0.3, -32.0), fov: 56, rate: 0.07 },
     neben: [{ wer: 'ok', was: 'andruecken', ab: 'start', dauer: 0.9, params: { hoehe: 0.12 } }],
     haupt: { art: 'kamera', wort: 'window' },
     hauptsache: 'f4.fuss',
@@ -826,7 +827,9 @@ export const einstellungen = {
     licht_anpassung: FENSTER_LICHT,
     lampen_einzeln: LAMPE_AUS,
     figuren: { bear: { position: HU(-0.15, 0, -0.85), blick: 63, gesicht: 'leer' } },
-    kamera: { pos: HU(1.0, 1.6, 0.38), ziel: { anker: 'bear.kopf', versatz: [0, -0.12, 0] }, fov: 56, rate: 0.07 },
+    // Kamera neben dem Fenster (z −0,55): von HU(1,0, 1,6, 0,38) hing die Petroleumlampe (0,15 | 1,72 | −0,35)
+    // genau in der Sichtlinie und lag als schwarzer Balken über Bears Stirn (Render-Bogen 102,2 s)
+    kamera: { pos: HU(1.05, 1.5, -0.55), ziel: { anker: 'bear.kopf', versatz: [0, -0.12, 0] }, fov: 68, rate: 0.07 },   // 1,24 m Abstand: Weitwinkel
     neben: DRINNEN('bear'),
     haupt: { wer: 'bear', was: 'hauchen', wort: 'breathed', dauer: 3.0, params: { zu: 'huette.fenster' } },
     hauptsache: 'bear.kopf',
@@ -843,7 +846,7 @@ export const einstellungen = {
     licht_anpassung: FENSTER_LICHT,
     lampen_einzeln: LAMPE_AUS,
     figuren: { bear: { position: HU(-0.15, 0, -0.85), blick: 63, gesicht: 'besorgt' } },
-    kamera: { pos: HU(1.0, 1.6, 0.38), ziel: { anker: 'bear.kopf', versatz: [0, -0.12, 0] }, fov: 50, rate: 0.08 },
+    kamera: { pos: HU(1.05, 1.5, -0.55), ziel: { anker: 'bear.kopf', versatz: [0, -0.12, 0] }, fov: 60, rate: 0.08 },   // wie S42: Lampe aus der Sichtlinie
     neben: DRINNEN('bear'),
     haupt: { wer: 'bear', was: 'hauchen', wort: 'breathed', dauer: 3.0, params: { zu: 'huette.fenster' } },
     hauptsache: 'bear.kopf',

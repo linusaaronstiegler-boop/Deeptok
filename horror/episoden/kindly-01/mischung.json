@@ -1,0 +1,346 @@
+{
+ "folge": "kindly-01",
+ "laenge_s": 142.667,
+ "bilder": 4280,
+ "endkarte_ab_s": 141.167,
+ "stimme": {
+  "datei": "build/kindly-01/stimme.wav",
+  "lufs_stereo": -14.08,
+  "sha256": "079ccf69e88eb78d73dbdbdb5184900d73e88964a5c8c7266ced0efb1eebfcd0",
+  "rede": [
+   {
+    "wer": "Odell",
+    "von_s": 19.59,
+    "bis_s": 21.16,
+    "halbtoene": -5.5,
+    "db": -1.0
+   },
+   {
+    "wer": "Odell",
+    "von_s": 96.85,
+    "bis_s": 98.53,
+    "halbtoene": -5.5,
+    "db": -1.0
+   }
+  ]
+ },
+ "effekte": {
+  "klaenge": [
+   "eis_schlag",
+   "eis_tipps",
+   "frost",
+   "glocke",
+   "handglocke",
+   "klopfen",
+   "riegel",
+   "sub_boom",
+   "whoosh"
+  ],
+  "cues": 23,
+  "abstand_min_lu": 5.7,
+  "abstand_median_lu": 13.3,
+  "lufs_integriert_allein": -27.58,
+  "liste": [
+   {
+    "nr": 0,
+    "klang": "eis_tipps",
+    "wort": "town,",
+    "zeit_s": 0.517,
+    "db": -11,
+    "fx_max_lufs": -24.1,
+    "abstand_zur_stimme_lu": 10.0,
+    "stimme_dort_lufs": -10.6
+   },
+   {
+    "nr": 1,
+    "klang": "eis_schlag",
+    "wort": "knocks,",
+    "zeit_s": 1.6,
+    "db": -12,
+    "fx_max_lufs": -24.1,
+    "abstand_zur_stimme_lu": 10.0,
+    "stimme_dort_lufs": -10.4
+   },
+   {
+    "nr": 2,
+    "klang": "sub_boom",
+    "wort": "knocks,",
+    "zeit_s": 1.6,
+    "db": -14,
+    "fx_max_lufs": -24.1,
+    "abstand_zur_stimme_lu": 10.0,
+    "stimme_dort_lufs": -10.4
+   },
+   {
+    "nr": 3,
+    "klang": "frost",
+    "wort": "as",
+    "zeit_s": 3.48,
+    "db": -20,
+    "fx_max_lufs": -29.7,
+    "abstand_zur_stimme_lu": 15.6,
+    "stimme_dort_lufs": -10.7
+   },
+   {
+    "nr": 4,
+    "klang": "whoosh",
+    "wort": "Knuckles.",
+    "zeit_s": 6.1,
+    "db": -16,
+    "fx_max_lufs": -31.9,
+    "abstand_zur_stimme_lu": 17.8,
+    "stimme_dort_lufs": -10.9
+   },
+   {
+    "nr": 5,
+    "klang": "handglocke",
+    "wort": "waits",
+    "zeit_s": 13.15,
+    "db": -15,
+    "fx_max_lufs": -21.1,
+    "abstand_zur_stimme_lu": 7.0,
+    "stimme_dort_lufs": -11.1
+   },
+   {
+    "nr": 6,
+    "klang": "eis_tipps",
+    "wort": "Knock",
+    "zeit_s": 30.16,
+    "db": -10,
+    "fx_max_lufs": -29.6,
+    "abstand_zur_stimme_lu": 15.5,
+    "stimme_dort_lufs": -11.2
+   },
+   {
+    "nr": 7,
+    "klang": "frost",
+    "wort": "turns",
+    "zeit_s": 34.02,
+    "db": -18,
+    "fx_max_lufs": -29.3,
+    "abstand_zur_stimme_lu": 15.2,
+    "stimme_dort_lufs": -11.0
+   },
+   {
+    "nr": 8,
+    "klang": "sub_boom",
+    "wort": "Yours.",
+    "zeit_s": 37.55,
+    "db": -15,
+    "fx_max_lufs": -27.4,
+    "abstand_zur_stimme_lu": 13.3,
+    "stimme_dort_lufs": -10.4
+   },
+   {
+    "nr": 9,
+    "klang": "eis_tipps",
+    "wort": "knocked",
+    "zeit_s": 44.65,
+    "db": -12,
+    "fx_max_lufs": -29.3,
+    "abstand_zur_stimme_lu": 15.2,
+    "stimme_dort_lufs": -12.5
+   },
+   {
+    "nr": 10,
+    "klang": "eis_tipps",
+    "wort": "taps",
+    "zeit_s": 61.604,
+    "db": -10,
+    "fx_max_lufs": -26.3,
+    "abstand_zur_stimme_lu": 12.2,
+    "stimme_dort_lufs": -12.9
+   },
+   {
+    "nr": 11,
+    "klang": "eis_tipps",
+    "wort": "tapped",
+    "zeit_s": 74.62,
+    "db": -10,
+    "fx_max_lufs": -28.0,
+    "abstand_zur_stimme_lu": 13.9,
+    "stimme_dort_lufs": -12.3
+   },
+   {
+    "nr": 12,
+    "klang": "eis_schlag",
+    "wort": "tapped",
+    "zeit_s": 77.76,
+    "db": -11,
+    "fx_max_lufs": -23.6,
+    "abstand_zur_stimme_lu": 9.5,
+    "stimme_dort_lufs": -11.7
+   },
+   {
+    "nr": 13,
+    "klang": "sub_boom",
+    "wort": "tapped",
+    "zeit_s": 77.76,
+    "db": -15,
+    "fx_max_lufs": -23.6,
+    "abstand_zur_stimme_lu": 9.5,
+    "stimme_dort_lufs": -11.7
+   },
+   {
+    "nr": 14,
+    "klang": "frost",
+    "wort": "turned",
+    "zeit_s": 83.46,
+    "db": -17,
+    "fx_max_lufs": -27.6,
+    "abstand_zur_stimme_lu": 13.5,
+    "stimme_dort_lufs": -10.7
+   },
+   {
+    "nr": 15,
+    "klang": "riegel",
+    "wort": "losing",
+    "zeit_s": 111.86,
+    "db": -10,
+    "fx_max_lufs": -25.6,
+    "abstand_zur_stimme_lu": 11.5,
+    "stimme_dort_lufs": -11.2
+   },
+   {
+    "nr": 16,
+    "klang": "eis_schlag",
+    "wort": "answered.",
+    "zeit_s": 115.605,
+    "db": -15,
+    "fx_max_lufs": -27.0,
+    "abstand_zur_stimme_lu": 12.9,
+    "stimme_dort_lufs": -11.9
+   },
+   {
+    "nr": 17,
+    "klang": "eis_schlag",
+    "wort": "three",
+    "zeit_s": 122.57,
+    "db": -12,
+    "fx_max_lufs": -24.1,
+    "abstand_zur_stimme_lu": 10.0,
+    "stimme_dort_lufs": -12.1
+   },
+   {
+    "nr": 18,
+    "klang": "eis_tipps",
+    "wort": "taps.",
+    "zeit_s": 124.332,
+    "db": -11,
+    "fx_max_lufs": -29.2,
+    "abstand_zur_stimme_lu": 15.1,
+    "stimme_dort_lufs": -10.3
+   },
+   {
+    "nr": 19,
+    "klang": "frost",
+    "wort": "turned",
+    "zeit_s": 128.34,
+    "db": -18,
+    "fx_max_lufs": -28.8,
+    "abstand_zur_stimme_lu": 14.7,
+    "stimme_dort_lufs": -12.4
+   },
+   {
+    "nr": 20,
+    "klang": "sub_boom",
+    "wort": "Mine.",
+    "zeit_s": 131.89,
+    "db": -15,
+    "fx_max_lufs": -29.0,
+    "abstand_zur_stimme_lu": 14.9,
+    "stimme_dort_lufs": -12.2
+   },
+   {
+    "nr": 21,
+    "klang": "klopfen",
+    "wort": "put",
+    "zeit_s": 135.685,
+    "db": -9,
+    "fx_max_lufs": -28.4,
+    "abstand_zur_stimme_lu": 14.3,
+    "stimme_dort_lufs": -10.4
+   },
+   {
+    "nr": 22,
+    "klang": "glocke",
+    "wort": "anymore.",
+    "zeit_s": 141.617,
+    "db": -12,
+    "fx_max_lufs": -19.8,
+    "abstand_zur_stimme_lu": 5.7,
+    "stimme_dort_lufs": -120.7
+   }
+  ]
+ },
+ "upload": {
+  "eingang": {
+   "lufs": -14.11,
+   "true_peak_dbtp": -2.46,
+   "lra_lu": 2.7
+  },
+  "verstaerkung_db": 0.11,
+  "decke_dbfs": -1.8,
+  "runden": 1,
+  "begrenzer_max_db": 0.51,
+  "begrenzer_rahmen_ueber_1db_prozent": 0.0,
+  "ausgang": {
+   "lufs": -14.0,
+   "true_peak_dbtp": -2.35,
+   "lra_lu": 2.7
+  }
+ },
+ "vorhoer": {
+  "eingang": {
+   "lufs": -13.89,
+   "true_peak_dbtp": -1.76,
+   "lra_lu": 2.5
+  },
+  "verstaerkung_db": -0.11,
+  "decke_dbfs": -1.8,
+  "runden": 1,
+  "begrenzer_max_db": 0.26,
+  "begrenzer_rahmen_ueber_1db_prozent": 0.0,
+  "ausgang": {
+   "lufs": -14.01,
+   "true_peak_dbtp": -1.87,
+   "lra_lu": 2.5
+  },
+  "bett": {
+   "datei": "/home/user/Deeptok/horror/build/musik/spannung-rules-of-kindly-01.wav",
+   "sha256": "f3852baca67db777d0dba635fbf30cf5e4dc8e1d8ce439dd0a653a77b1e29a2b",
+   "lufs_roh": -19.66,
+   "bezug_lufs": -20.0,
+   "abstand_zur_stimme_lu": 12.0,
+   "lufs_im_mix_vor_norm": -25.75
+  }
+ },
+ "regel": {
+  "ziel_lufs": -14.0,
+  "max_tp_dbtp": -1.0,
+  "decke_dbfs": -1.8,
+  "decke_vorhoer_dbfs": -1.8
+ },
+ "nach_aac": {
+  "kbit": 192,
+  "pns": false,
+  "upload": {
+   "lufs": -14.05,
+   "true_peak_dbtp": -2.3,
+   "lra_lu": 2.6
+  },
+  "vorhoer": {
+   "lufs": -14.06,
+   "true_peak_dbtp": -1.99,
+   "lra_lu": 2.5
+  },
+  "decken_dbfs": {
+   "upload": -1.8,
+   "vorhoer": -1.8
+  }
+ },
+ "dateien": {
+  "upload": "build/kindly-01/kindly-01-ohne-musik.mp4",
+  "vorhoer": "build/kindly-01/kindly-01-mit-musik.mp4"
+ }
+}

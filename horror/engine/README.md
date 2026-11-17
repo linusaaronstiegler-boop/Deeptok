@@ -740,7 +740,7 @@ Einzeln: `python engine/untertitel.py episoden/folge-01 --tabelle`, `python engi
 - Upload = Stimme + Effekte. Vorhör = zusätzlich ein eigenes Klangbett (Spieluhr aus der Ton-Analyse, `betten.py r2 a`), 12 LU unter der Stimme, läuft über die Endkarte und blendet in den letzten 0,5 s aus. Im Upload ist die Endkarte stumm (Effekte enden mit dem Schnitt, 30 ms Blende).
 - Review Folge 1: 11 statt 23 Cues (Akzente, nicht jede Bewegung), Hook-Impact auf „eighteen“. `sub_boom` und `zaehlschlag` haben eine Mitten-Schicht (`mitten_schicht`: dumpfer Schlag mit Teiltönen bei 200–700 Hz, Anschlag 1–3 kHz) und sind unter 35 Hz hochgepasst: über 300 Hz lagen sie 34–42 dB unter der Stimme, jetzt 24–28 dB. Wörtliche Rede (`effekte.json` → `rede`) wird formant-erhaltend höher gesetzt (June +2,5 Halbtöne, −2 dB, ffmpeg `rubberband`), die Wortzeiten bleiben.
 - Effekte: Pegel je Cue relativ zur auf −1 dBFS normierten Klangdatei; gemessen wird die lauteste Momentan-Lautheit der Effekte in den 1,5 s ab dem Cue gegen die integrierte Lautheit der Stimme. Ziel ≥ 5 LU darunter.
-- AAC hebt Spitzen an: Die Spieluhr-Anschläge überschwingen beim Kodieren bis 2 dB. `fertigen.py` misst deshalb den True Peak der dekodierten AAC-Spur und senkt die Begrenzer-Decke je Fassung getrennt, bis beide ≤ −1 dBTP liegen (Folge 1 vor dem Review: gemeinsame Decke −3,23 dBFS wegen der Spieluhr; nach dem Review reicht −1,8 dBFS für beide Fassungen, der Begrenzer regelt höchstens 0,35 dB ab).
+- AAC hebt Spitzen an: Die Spieluhr-Anschläge überschwingen beim Kodieren bis 2 dB. `fertigen.py` misst deshalb den True Peak der dekodierten AAC-Spur und senkt die Begrenzer-Decke je Fassung getrennt, bis beide ≤ −1 dBTP liegen (Folge 1 vor dem Review: gemeinsame Decke −3,23 dBFS wegen der Spieluhr; nach dem Review reicht −1,8 dBFS für beide Fassungen, der Begrenzer regelt höchstens 0,35 dB ab). Rauschartige Klänge (Kindly: Frost, Eis, Bett mit Rauschflächen) bringen den eingebauten AAC-Encoder mit PNS zu einzelnen Fehlbildern bis 0 dBFS; dagegen hilft keine tiefere Decke, sondern `fertigen.py --aac-ohne-pns` (§21).
 
 ### 17.4 Prüfung
 
@@ -1032,8 +1032,8 @@ cd horror/engine
 node shotliste.mjs ../episoden/kindly-01 --tabelle                                   # Messtor
 node render.mjs ../episoden/kindly-01/episode.json --schnellbogen --skala 0.25       # 1 Bild je Einstellung
 python musik/spannung.py musik/spannung/rules-of-kindly-01.json                      # Bett r2-eigen nach Bibel §10.6
-cd .. && python engine/fertigen.py episoden/kindly-01 --bett build/musik/spannung-rules-of-kindly-01.wav --bett-bezug -20 --abstand 12 --namen ohne-musik,mit-musik
-python engine/pruefen.py episoden/kindly-01 --namen ohne-musik,mit-musik --dauer 135,150
+cd .. && python engine/fertigen.py episoden/kindly-01 --bett build/musik/spannung-rules-of-kindly-01.wav --bett-bezug -20 --abstand 12 --namen ohne-musik,mit-musik --aac-ohne-pns
+python engine/pruefen.py episoden/kindly-01 --namen ohne-musik,mit-musik --dauer 135,150 --skript episoden/serie-02/folge-01-skript.txt
 ```
 
 **Messtor:** Median 1,43 s, 42,5 Einstellungen je Minute, 0,70–2,30 s; 23 Akzentfahrten (im Mittel alle 6,1 s, größte Lücke 9 s); 3 Snap-Zooms („Knuckles“, „Yours“, „Mine“); 3-mal Wackeln (Hook, S31, S54); 2 Lichtereignisse (Eislaternen S31, Hüttenlampe S54); Monster in 24 % der Einstellungen; Endkarte 0,147 s nach dem letzten Wort, 1,5 s.
@@ -1059,3 +1059,27 @@ python engine/pruefen.py episoden/kindly-01 --namen ohne-musik,mit-musik --dauer
 - **Wer über dem Kopf steht, steht nördlich davon:** Kameras schauen von Süden auf das Gesicht im Eis (Kopf oben), die Stiefel liegen am oberen Bildrand statt zwischen Kamera und Gesicht.
 - **Odell ohne Brille:** von der Seite oder von hinten; das Gläser-Detail (S38) aus seinem Blick mit der Requisite `brille_hand` vor Bears Gesicht. Aufsetzen (S40) beginnt 0,7 s vor dem Schnitt (`stellung.odell2.neu: false`), damit im ersten Bild schon die weißen Gläser sitzen.
 - **Rule Zero (S22):** Draufsicht 0,6 m über dem Stummel, fov 40: „IF“ etwa 110 px Versalhöhe bei x ≈ 200–420, y ≈ 710–810, 2,2 s im Bild.
+- **Unter dem Eis nach oben (S13 „like a window“):** vom Kopfende (L(2,4 | −1,7 | −34,9), Ziel L(2 | 0,3 | −32)): oben der Fischer auf dem klaren Fenster, unten Kopf und Fäuste. Von Süden unter dem Rumpf füllte der Hinterkopf das ganze Bild.
+- **Hütte am Fenster (S42, S44):** Kamera neben dem Fenster (HU(1,05 | 1,5 | −0,55)), fov 68 bzw. 60. Von HU(1,0 | 1,6 | 0,38) hing die Petroleumlampe in der Sichtlinie und lag als schwarzer Balken über Bears Stirn.
+
+**Fertigung (17.11.2026):**
+
+| Schritt | Ergebnis |
+|---|---|
+| Vollrender | 4280 JPEG (q 0,95), 2 Prozesse, 7 Abschnitte à 600 Bilder + 80: 30 min (0,42 s/Bild, 12,7 min Rechenzeit je Minute Video); danach Bereiche neu: Bilder 0–87 (Licht), S11, S17, S13 „window“, S42/S44 (zusammen 299 Bilder) |
+| Untertitel | 328 Einblendungen, höchstens 17 ms neben `timing.json` |
+| Bild kodieren | 271–281 s, Bildspur 251 MB |
+| Effekte | 23 Cues, 5,7–17,8 LU unter der Stimme (Median 13,3) |
+| Ton nach AAC (192 kbit/s, ohne PNS) | ohne Musik −14,05 LUFS, −2,30 dBTP, LRA 2,6 LU; mit Musik −14,06 LUFS, −1,99 dBTP, LRA 2,5 LU; Begrenzer-Decke −1,8 dBFS für beide, eine Runde |
+| Fassungen | `build/kindly-01/kindly-01-mit-musik.mp4` (Hauptfassung) und `-ohne-musik.mp4`, je 255 MB; Teilen-Fassungen `build/teilen/rules-of-kindly-01.mp4` und `rules-of-kindly-01-ohne-musik.mp4` (crf 21, maxrate 6M, Ton kopiert, je 88 MB, 4,7 Mbit/s Bild) |
+| Paket | `build/teilen/paket-rules-of-kindly-01/`; Titelbild aus einem eigenen Einzelbild bei 8,8 s mit 0,33 m höherem Kameraziel (sonst lag „RULE 3“ über Lunds Augen) |
+
+**Prüfung (`pruefung.json`, „ok“: false, alle vier Punkte nachgesehen und hingenommen):**
+- *Hör-Check: 3 Wortfehler je Fassung* (WER 2,4 % bzw. 1,9 %): „Here in“ → „hearing“ (4,4 s), „town sign“ → „town's sign“ (21,7 s), „Bear“ → „bare“ (118,5 s). Bindungen und Gleichklang, schon bei der Stimmprüfung bekannt (`stimme.json`); die Aufnahme wird nicht neu generiert. Dazu je ein eingefügter Whisper-Satz am Ende bzw. bei 84 s (Halluzination).
+- *7 Einblendungen > 0,1 s neben dem Wortbeginn* (größte 0,2 s, „MR ODELL“ bei 96,0 s): alle mitten im Satz, gemessen nur über Whisper-Wortanfänge. Am Pegel der Stimme sitzen die Einblendungen richtig (Einbruch vor „Mr.“ bei 96,01–96,05 s, Einblendung 96,00 s); Whisper setzt diese Wörter 0,1–0,2 s zu früh an.
+- *Schwarzer Balken bis 33 % der Breite* (Bild 2659, E62; ebenso E26, E59): das dunkle Wasser hinter den Gesichtern unter dem Eis, kein Gegenstand vor der Linse.
+- Bilder: keine Dekodierfehler, keine schwarzen oder einfarbigen Bilder, Median-Helligkeit 98,9 (ohne dunkle Orte 102,9), dunkelstes Bild 34,1.
+
+**AAC ohne PNS (`fertigen.py --aac-ohne-pns`):** Der eingebaute AAC-Encoder von ffmpeg 6.1 ersetzt mit PNS („perceptual noise substitution“) rauschartige Bänder durch erzeugtes Rauschen. In der Kindly-Mischung (Frost, Eis-Klänge, Bett mit Rauschflächen) entstanden dabei einzelne Fehlbilder mit Spitzen bis 0 dBFS in nur einem Kanal: True Peak +1,7 dBTP bei einer WAV-Spitze von −1,9 dBFS, hörbar als Knacken. Die Begrenzer-Schleife senkte daraufhin die Decke der Musikfassung in vier Runden bis −12,4 dBFS (34 dB Abregelung, −15,6 LUFS, LRA 0,8 LU), ohne das Knacken zu treffen. Ein Tiefpass auf den Frost-Cues half nicht. Ohne PNS liegt die größte Abweichung zur WAV bei −16 dB (ohne Musik) bzw. −9 dB (mit Musik). Hiding Night bleibt beim alten Aufruf (Schalter aus), damit fertige Mischungen reproduzierbar bleiben.
+
+**`pruefen.py --skript`:** Das Kindly-Skript liegt bei der Serienbibel (`episoden/serie-02/folge-01-skript.txt`), nicht im Folgenordner.

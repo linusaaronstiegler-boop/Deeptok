@@ -6,6 +6,8 @@
         --bett-bezug -20 --abstand 11 --namen ohne-musik,mit-musik
     python engine/fertigen.py episoden/folge-01 --nur-ton --bett build/musik/spannung-hiding-night-teil1.wav \
         --bett-bezug -20 --abstand 11 --namen upload,mit-musik-neu --nur vorhoer --bericht mischung-musik-neu.json
+    python engine/fertigen.py episoden/kindly-01 --nur-ton --bett build/musik/spannung-rules-of-kindly-01.wav \
+        --bett-bezug -20 --abstand 12 --namen ohne-musik,mit-musik --aac-ohne-pns
 
 Teil 2 (Musik-Schritt): Die Spannungsfassung aus engine/musik/spannung.py hat leise Stufen und Wegfälle.
 Mit --bett-bezug -20 bezieht sich --abstand auf ihre Stufe „normal“ (bauen.ZIEL_LUFS), nicht auf das
@@ -81,9 +83,17 @@ def kodiere_bild(build: Path, ass: Path, ziel: Path, bilder: int) -> float:
     return time.time() - t0
 
 
-def muxe(bild: Path, ton: Path, ziel: Path) -> None:
+def muxe(bild: Path, ton: Path, ziel: Path, ohne_pns: bool = False) -> None:
+    # ohne_pns (Rules of Kindly F1): Der eingebaute AAC-Encoder von ffmpeg 6.1 ersetzt mit PNS
+    # („perceptual noise substitution“) rauschartige Bänder durch erzeugtes Rauschen. Bei der Kindly-Mischung
+    # (Eis-Klänge, Frost-Rauschen, Bett mit Rauschflächen) entstanden dabei einzelne Fehlbilder mit Spitzen
+    # bis 0 dBFS in nur einem Kanal (hörbares Knacken, True Peak +1,7 dBTP bei einer WAV-Spitze von −1,9 dBFS).
+    # Die Begrenzer-Schleife senkte darauf die Decke bis −12,4 dBFS und quetschte die Fassung mit Musik
+    # auf −15,6 LUFS. Mit "-aac_pns 0" kodiert der Encoder diese Bänder normal: größte Abweichung
+    # zur WAV −16 dB (Upload) bzw. −9 dB (mit Musik), True Peak −2,3 bzw. −2,0 dBTP.
+    pns = ["-aac_pns", "0"] if ohne_pns else []
     ff(["-i", str(bild), "-i", str(ton), "-map", "0:v:0", "-map", "1:a:0", "-c:v", "copy",
-        "-c:a", "aac", "-b:a", f"{AAC_KBIT}k", "-ar", "44100", "-ac", "2", "-shortest",
+        "-c:a", "aac", "-b:a", f"{AAC_KBIT}k", *pns, "-ar", "44100", "-ac", "2", "-shortest",
         "-movflags", "+faststart", str(ziel)])
 
 
@@ -97,6 +107,8 @@ def main() -> None:
     ap.add_argument("--namen", default="upload,vorhoer", help="Dateinamen der Fassungen ohne/mit Bett (Std upload,vorhoer)")
     ap.add_argument("--nur", choices=["upload", "vorhoer"], help="nur diese Fassung als MP4 bauen")
     ap.add_argument("--bericht", default="mischung.json", help="Messwerte in diese Datei im Folgenordner (Std mischung.json)")
+    ap.add_argument("--aac-ohne-pns", action="store_true",
+                    help="AAC ohne Rausch-Ersatz (PNS) kodieren; nötig bei Rausch-Klängen (Kindly), siehe muxe()")
     a = ap.parse_args()
     namen = dict(zip(["upload", "vorhoer"], a.namen.split(",")))
     ordner = a.ordner.resolve()
@@ -131,7 +143,7 @@ def main() -> None:
         messung = {}
         for art, wav in fassungen.items():
             ziel = build / f"{name}-{namen[art]}.mp4"
-            muxe(bild, wav, ziel)
+            muxe(bild, wav, ziel, ohne_pns=a.aac_ohne_pns)
             messung[art] = true_peak_mp4(ziel)
             print(f"    {ziel.name}: {messung[art]}")
         schlimmste = max(m["true_peak_dbtp"] for m in messung.values())
@@ -140,7 +152,7 @@ def main() -> None:
         for art, m in messung.items():
             if m["true_peak_dbtp"] > mischen.MAX_TP:
                 decken[art] = round(decken[art] - (m["true_peak_dbtp"] - mischen.MAX_TP + 0.2), 2)
-    bericht["nach_aac"] = {"kbit": AAC_KBIT, **messung, "decken_dbfs": decken}
+    bericht["nach_aac"] = {"kbit": AAC_KBIT, "pns": not a.aac_ohne_pns, **messung, "decken_dbfs": decken}
     bericht["dateien"] = {art: f"build/{name}/{name}-{namen[art]}.mp4" for art in messung}
     (ordner / a.bericht).write_text(json.dumps(bericht, ensure_ascii=False, indent=1), encoding="utf-8")
     if schlimmste > mischen.MAX_TP:

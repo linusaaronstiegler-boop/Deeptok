@@ -264,6 +264,8 @@ def main() -> None:
     ap.add_argument("--bogen", default="render-bogen.jpg", help="Bogen mit 30 Bildern im Folgenordner (Std render-bogen.jpg)")
     # Teil 3 (Finale): Stimme 125–155 s statt 70–90 s
     ap.add_argument("--dauer", default="70,90", help="erlaubte Länge der Stimme in s, von,bis (Std 70,90; Finale 125,155)")
+    # Rules of Kindly: das Skript liegt bei der Serienbibel (episoden/serie-02/folge-01-skript.txt), nicht im Folgenordner
+    ap.add_argument("--skript", type=Path, help="Skriptdatei (ein Satz pro Zeile); Std skript-teil*.txt bzw. skript.txt im Folgenordner")
     a = ap.parse_args()
     ordner = a.ordner.resolve()
     name = ordner.name
@@ -271,7 +273,7 @@ def main() -> None:
     mp4_von = lambda art: build / f"{name}-{namen[art]}.mp4"   # noqa: E731
     # Skript der Folge (skript-teil1.txt, skript-teil2.txt, …)
     # Finale: skript.txt (ein Satz pro Zeile)
-    skript = (sorted(ordner.glob("skript-teil*.txt")) or [ordner / "skript.txt"])[0]
+    skript = a.skript.resolve() if a.skript else (sorted(ordner.glob("skript-teil*.txt")) or [ordner / "skript.txt"])[0]
     build = ordner.parent.parent / "build" / name
     episode = json.loads((ordner / "episode.json").read_text(encoding="utf-8"))
     timing = json.loads((ordner / "timing.json").read_text(encoding="utf-8"))

@@ -4,7 +4,7 @@
   "timing": "timing.json",
   "titelbild": {
     "bild": "build/kindly-01/titelbild-roh.jpg",
-    "bild_vorschlag": "Gewählt (Regie 17.11.2026): Bild bei 8,8 s aus S3 „only one thing gives it away“, als sauberes Einzelbild ohne Untertitel (render.mjs --einzelbild 8.8): drei Männer am Ufer, die beiden äußeren dampfen dicht, Mr. Lund in der Mitte nicht. Zeigt den Fehler groß, verrät die Wendung nicht, nichts Drastisches.",
+    "bild_vorschlag": "Gewählt (Regie 17.11.2026): Bild bei 8,8 s aus S3 „only one thing gives it away“, als sauberes Einzelbild ohne Untertitel (render.mjs --einzelbild 8.8): drei Männer am Ufer, die beiden äußeren dampfen dicht, Mr. Lund in der Mitte nicht. Zeigt den Fehler groß, verrät die Wendung nicht, nichts Drastisches. Für das Titelbild zielt die Kamera 0,33 m höher (ziel y 2,05 statt 1,72, nur für dieses Einzelbild, regie.mjs unverändert): im Videobild lag „RULE 3“ über Lunds Augen, so stehen alle drei Gesichter unter dem Titel.",
     "sekunde": 8.8,
     "kopfzeile": "Rules of Kindly",
     "titel": "His Breath Didn't Fog",
