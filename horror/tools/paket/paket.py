@@ -63,7 +63,7 @@ def zwei_zeilen(text):
     return list(min(teilungen, key=lambda z: max(len(z[0]), len(z[1]))))
 
 
-def titelbild(bild, titel: str, teil: str, ziel: Path, kopfzeile: str = "", akzent: str = AKZENT) -> None:
+def titelbild(bild, titel: str, teil: str, ziel: Path, kopfzeile: str = "", akzent: str = AKZENT, versatz_y: int = 0) -> None:
     """Sauberes Renderbild + Titel. Text bleibt im mittleren 3:4-Ausschnitt
     (y 240–1680), weil TikTok und Instagram im Profilraster nur diesen Teil zeigen.
     Ist `bild` None (Entwurf), steht der Text auf neutralem Nachtblau."""
@@ -116,13 +116,15 @@ def titelbild(bild, titel: str, teil: str, ziel: Path, kopfzeile: str = "", akze
         zeile(titel, 150, 290, "white")
         zeile(teil.upper(), 104, 470, akzent)
     else:
-        y = 290
+        # versatz_y (paket.json → titelbild.text_versatz_y): Textblock tiefer setzen. Review Kindly F1: im 3:4-Ausschnitt
+        # des Profilrasters (y 240–1680) klebte die Kopfzeile bei 262 an der Oberkante.
+        y = 290 + versatz_y
         if kopfzeile:
             # Kopfzeile klein über dem Titel: rund halb so groß wie der Titel, in Akzentfarbe.
             k = kopfzeile.upper()
             kg = min(72, passende_groesse(zeichne, [k], 72, rand=900))
-            gesperrt(k, kg, 262, akzent)
-            y = 262 + int(kg * 1.55)
+            gesperrt(k, kg, 262 + versatz_y, akzent)
+            y = 262 + versatz_y + int(kg * 1.55)
         zeilen = [titel]
         if passende_groesse(zeichne, zeilen, 150) < MIN_EINZEILIG and " " in titel:
             zeilen = zwei_zeilen(titel)
@@ -229,7 +231,7 @@ def main(folge: str, entwurf: bool = False) -> None:
             sys.exit(f"Rohbild fehlt: {tb['bild']} (sauberes Bild aus der Bildspur ohne Untertitel ziehen)")
     else:
         titelbild(rohbild, tb["titel"], tb.get("teil", ""), ziel / "titelbild.jpg",
-                  kopfzeile=tb.get("kopfzeile", ""), akzent=tb.get("akzent", AKZENT))
+                  kopfzeile=tb.get("kopfzeile", ""), akzent=tb.get("akzent", AKZENT), versatz_y=tb.get("text_versatz_y", 0))
 
     (ziel / "bildunterschrift.txt").write_text(p["bildunterschrift"] + "\n", encoding="utf-8")
     yt = p["youtube"]

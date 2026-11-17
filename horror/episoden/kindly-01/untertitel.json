@@ -2,6 +2,8 @@
  "_hinweis": "Vorgaben für engine/untertitel.py (Rules of Kindly F1, 465 Wörter). Wortbezüge sind Indizes in timing.json; 'text' wird beim Bauen gegen timing.json geprüft. Farben nach Bibel §6: Schutzfigur Gus #F2C14E, Odell #8EC3F4, Monster/Akzent #9FD8D2. Das Rule-Zero-Wort im Bild (S22) bekommt nie einen Untertitel; gesprochen wird nur „except rule zero“.",
  "akzent_farbe": "#9FD8D2",
  "akzent_grund": "Kaltes Kantenlicht des Wesens (Bibel §5): Monstername, der Stadtname beim ersten Fallen und das eine Wort, das die Lippen unter dem Eis formen.",
+ "ausweich_y": 1320,
+ "ausweich_y_grund": "Review Kindly F1: Ausweichen höchstens bis y 1320 (Untertitel-Streifen der Bibel §3.1, Abstand zu den Einblendungen von TikTok, Shorts und Reels); vorher 1400 bei 90 von 328 Einblendungen.",
  "akzent": [
   {
    "von": 18,

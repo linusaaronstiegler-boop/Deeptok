@@ -27,6 +27,9 @@ Regeln:
      Median der Bildhelligkeit ≥ 85 von 255 (r2 102, r5 106), keine Einstellung im Mittel < 35.
      Review Teil 2: Der Kriechkeller (DUNKLE_ORTE) zählt nicht zum Median und darf bis 22 herunter;
      kein Leerbild (Streuung < 12) in den ersten 0,5 s einer Einstellung.
+     Blitzer-Tor (Review Kindly F1): kein Einzelbild, das > 12 Stufen von beiden Nachbarn abweicht
+     (außer in Flacker-Lichtereignissen). Pixel-Median je Einstellung ≥ 35 (dunkle Orte: eigene Grenze).
+     Atem-Tor: build/<folge>/atem-tor.json von render.mjs --atemtor muss ok und jünger als episode.json sein.
      Balken-Tor: Eine Spalte, in der über 85 % der Pixel fast schwarz sind (< 12), gehört zu
      einem Balken; kein Bild darf Balken über 10 % der Bildbreite haben (Objekt vor der Linse).
      Kantendichte (Gradient > 20 bei 108 × 192) wird berichtet: r2 16,5 %, r5 13,3 %.
@@ -164,9 +167,16 @@ LEERBILD_FENSTER_S = 0.5
 LEERBILD_STREUUNG_WEICH = 20.0
 LEERBILD_KANTEN = 0.01
 BALKEN_MAX = 0.10         # Anteil der Bildbreite
+# Review Kindly F1: drei Einzelbild-Blitzer am Schnitt (Lampe der vorigen Einstellung brannte noch im ersten Bild,
+# Mittelhelligkeit 116 → 211 → 134). Ein Bild, das um mehr als 12 Stufen über (oder unter) BEIDEN Nachbarn liegt,
+# ist ein Fehler, außer in einem Flacker-Lichtereignis.
+SPITZE_MIN = 12.0
+# Review Kindly F1: Gesichter unter dem Eis „in schwarzer Leere“ (Bildmedian 3–4, der Mittelwert 61–77 ließ sie durch).
+# Zusätzlich zum Mittel: Median der Pixel je Einstellung im Mittel ≥ 35 (dunkle Orte: ihre eigene Untergrenze).
+HELL_PIXELMEDIAN_MIN = 35.0
 
 
-def bilder_pruefen(mp4: Path, endkarte_bild: int, einstellungen: list | None = None) -> dict:
+def bilder_pruefen(mp4: Path, endkarte_bild: int, einstellungen: list | None = None, flackern: list | None = None) -> dict:
     """Ganzes MP4 klein dekodieren: Helligkeit (je Bild und je Einstellung), schwarze Balken,
     Kantendichte, Streuung, Stillstand, Dekodierfehler. einstellungen: [(id, erstes, letztes Bild)]."""
     w, h = 108, 192
@@ -178,6 +188,15 @@ def bilder_pruefen(mp4: Path, endkarte_bild: int, einstellungen: list | None = N
     f = f[: n * w * h].reshape(n, h, w).astype(np.float32)
     mittel = f.mean(axis=(1, 2))
     streu = f.std(axis=(1, 2))
+    pixelmedian = np.median(f.reshape(n, -1), axis=1)
+    # Einzelbild-Spitzen (Blitzer): Bild i weicht von BEIDEN Nachbarn in dieselbe Richtung um > SPITZE_MIN ab
+    hoch = (mittel[1:-1] - mittel[:-2] > SPITZE_MIN) & (mittel[1:-1] - mittel[2:] > SPITZE_MIN)
+    tief = (mittel[:-2] - mittel[1:-1] > SPITZE_MIN) & (mittel[2:] - mittel[1:-1] > SPITZE_MIN)
+    spitzen = []
+    for i in np.where(hoch | tief)[0] + 1:
+        if i >= endkarte_bild or any(a <= i / FPS <= b for a, b in flackern or []):
+            continue
+        spitzen.append({"bild": int(i), "zeit_s": round(float(i) / FPS, 3), "vorher": round(float(mittel[i - 1]), 1), "bild_mittel": round(float(mittel[i]), 1), "nachher": round(float(mittel[i + 1]), 1)})
     # Stillstand: mittlere Änderung zum Vorbild unter 0,15 Graustufen (Korn ist deterministisch,
     # ändert sich aber mit der Bildnummer, ein stehendes Bild ist also wirklich eingefroren)
     d = np.abs(np.diff(f, axis=0)).mean(axis=(1, 2))
@@ -217,6 +236,7 @@ def bilder_pruefen(mp4: Path, endkarte_bild: int, einstellungen: list | None = N
             i = int(a + np.argmax(leer))
             leerbilder.append({"id": eid, "bild": i, "streuung": round(float(streu[i]), 1), "kanten": round(float(kanten_ohne_ut[i]), 4)})
         je_einstellung.append({"id": eid, "ort": ort, "mittel": round(float(mittel[a:b + 1].mean()), 1),
+                               "pixelmedian": round(float(pixelmedian[a:b + 1].mean()), 1),
                                "streuung_anfang_min": round(float(streu[a:k].min()), 1),
                                "balken_max": round(float(balken[a:b + 1].max()), 3)})
     dunkel_mittel = mittel[:endkarte_bild][~median_maske[:endkarte_bild]]
@@ -225,6 +245,7 @@ def bilder_pruefen(mp4: Path, endkarte_bild: int, einstellungen: list | None = N
             "dunkle_orte_mittel": round(float(dunkel_mittel.mean()), 1) if len(dunkel_mittel) else None,
             "dunkle_orte_fast_schwarz_anteil": round(float((f[:endkarte_bild][~median_maske[:endkarte_bild]] < 20).mean()), 3) if len(dunkel_mittel) else None,
             "leerbilder_am_anfang": leerbilder,
+            "einzelbild_spitzen": spitzen,
             "balken_max_ohne_dunkle_orte": round(float(balken[:endkarte_bild][median_maske[:endkarte_bild]].max()), 3),
             "balken_bild_ohne_dunkle_orte": int(np.where(median_maske[:endkarte_bild])[0][balken[:endkarte_bild][median_maske[:endkarte_bild]].argmax()]),
             "helligkeit_p10": round(float(np.percentile(mittel[inhalt], 10)), 1),
@@ -384,8 +405,25 @@ def main() -> None:
 
     # 5. Bilder
     grenzen = [(e["id"], round(e["start"] * FPS), round(e["ende"] * FPS) - 1, e.get("plan", {}).get("ort")) for e in episode["einstellungen"]]
-    erg["bilder"] = bilder_pruefen(mp4_von("upload"), karte_bild, grenzen)
+    flackern = [(l["start"], l["start"] + (l.get("dauer") or 1.0)) for l in episode.get("licht_ereignisse", []) if l.get("art") == "flackern"]
+    erg["bilder"] = bilder_pruefen(mp4_von("upload"), karte_bild, grenzen, flackern)
     b = erg["bilder"]
+    if b["einzelbild_spitzen"]:
+        verstoesse.append("Einzelbild-Blitzer: " + ", ".join(f"Bild {x['bild']} ({x['vorher']} → {x['bild_mittel']} → {x['nachher']})" for x in b["einzelbild_spitzen"][:8]))
+    zu_dunkel_median = [f"{e['id']} {e['pixelmedian']}" for e in b["einstellungen"]
+                        if e["pixelmedian"] < DUNKLE_ORTE.get(e.get("ort"), HELL_PIXELMEDIAN_MIN)]
+    if zu_dunkel_median:
+        verstoesse.append(f"Einstellungen mit Pixel-Median < {HELL_PIXELMEDIAN_MIN} (schwarze Leere): {', '.join(zu_dunkel_median)}")
+    # Atem-Tor (Review Kindly F1, P0): Ergebnis von render.mjs --atemtor (build/<folge>/atem-tor.json). Es muss zur
+    # aktuellen episode.json passen (jünger sein), sonst gilt es als nicht geprüft.
+    at = ordner.parent.parent / "build" / ordner.name / "atem-tor.json"
+    if at.exists():
+        atd = json.loads(at.read_text(encoding="utf-8"))
+        erg["atem_tor"] = {k: atd[k] for k in ("kopie", "ab_s", "bilder_geprueft", "knappster", "ok")} | {"verstoesse": len(atd["verstoesse"])}
+        if at.stat().st_mtime < (ordner / "episode.json").stat().st_mtime:
+            verstoesse.append("Atem-Tor veraltet: atem-tor.json ist älter als episode.json (render.mjs --atemtor neu laufen lassen)")
+        elif not atd["ok"]:
+            verstoesse.append(f"Atem-Tor: {len(atd['verstoesse'])} Bilder mit fremder Dampfwolke am Mund der Kopie")
     if b["helligkeit_median_ohne_dunkle_orte"] < HELL_MEDIAN_MIN:
         verstoesse.append(f"Bilder zu dunkel: Median ohne Kriechkeller {b['helligkeit_median_ohne_dunkle_orte']} < {HELL_MEDIAN_MIN}")
     dunkel = [f"{e['id']} {e['mittel']}" for e in b["einstellungen"]

@@ -316,7 +316,9 @@ def baue(ordner: Path, tabelle: bool = False) -> dict:
         text = " ".join(u["text"] for u in g)
         cs, cs_ende = start_cs(n), start_cs(n_ende)
         farbe = g[0]["klasse"][1]
-        y = AUSWEICH_Y if any(a <= n / FPS < b for a, b in ausweichen) else MITTE[1]
+        # untertitel.json → "ausweich_y" (Review Kindly F1: 1400 lag unter dem Streifen der Bibel und nah an den
+        # Einblendungen von Shorts und Reels; Kindly weicht nur bis 1320 aus). Ohne Angabe 1400 wie Hiding Night.
+        y = vorgaben.get("ausweich_y", AUSWEICH_Y) if any(a <= n / FPS < b for a, b in ausweichen) else MITTE[1]
         tags = f"\\an5\\pos({MITTE[0]},{y})" + pop_tags(n, cs)
         if g[0]["klasse"][0].startswith("rede-"):
             tags += f"\\bord{KONTUR_REDE}"

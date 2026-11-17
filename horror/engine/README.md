@@ -1083,3 +1083,33 @@ python engine/pruefen.py episoden/kindly-01 --namen ohne-musik,mit-musik --dauer
 **AAC ohne PNS (`fertigen.py --aac-ohne-pns`):** Der eingebaute AAC-Encoder von ffmpeg 6.1 ersetzt mit PNS („perceptual noise substitution“) rauschartige Bänder durch erzeugtes Rauschen. In der Kindly-Mischung (Frost, Eis-Klänge, Bett mit Rauschflächen) entstanden dabei einzelne Fehlbilder mit Spitzen bis 0 dBFS in nur einem Kanal: True Peak +1,7 dBTP bei einer WAV-Spitze von −1,9 dBFS, hörbar als Knacken. Die Begrenzer-Schleife senkte daraufhin die Decke der Musikfassung in vier Runden bis −12,4 dBFS (34 dB Abregelung, −15,6 LUFS, LRA 0,8 LU), ohne das Knacken zu treffen. Ein Tiefpass auf den Frost-Cues half nicht. Ohne PNS liegt die größte Abweichung zur WAV bei −16 dB (ohne Musik) bzw. −9 dB (mit Musik). Hiding Night bleibt beim alten Aufruf (Schalter aus), damit fertige Mischungen reproduzierbar bleiben.
 
 **`pruefen.py --skript`:** Das Kindly-Skript liegt bei der Serienbibel (`episoden/serie-02/folge-01-skript.txt`), nicht im Folgenordner.
+
+### 21.1 Nachbesserung nach dem Review (17.11.2026)
+
+Einzelheiten, Befunde und Entscheidungen: `episoden/kindly-01/REVIEW.md`. Neue Bausteine und Tore (alle rückwärtskompatibel; Hiding Night Teil 2 und 3 kompilieren weiter bitgleich, geprüft mit `cmp`):
+
+| Baustein | Datei | Zweck |
+|---|---|---|
+| `export const bildgenau = true` | `regie.mjs` → `shotliste.mjs`, `src/welt.js`, `episode.schema.json` | Schnitt-Ereignisse gelten schon im ersten Bild: Lampen und Set-Ereignisse am Schnitt ein halbes Bild früher, Nebenaktionen „ab start“ bis 1 Bild Dauer bekommen `sofort: true` (Fortschritt 1, Toleranz 0,1 ms gegen die 4-stellige Rundung). Vorher brannte im ersten Bild noch die Lampe der vorigen Einstellung (Blitzer E44, E68), und Hände/Gesichter standen dort bei Fortschritt 0 (E80) |
+| `--atemtor <kopie> [ab_s]` | `render.mjs`, `src/haupt.js` (`atemNaehe`) | jedes 2. Bild ab `ab_s`, in dem der Mund der Kopie im Bild ist: keine sichtbare Dampfwolke (Sprite-Deckkraft ≥ 0,15) einer anderen Figur näher als eine halbe Kopfbreite am Mund. Schreibt `build/<folge>/atem-tor.json`; `pruefen.py` liest es (muss jünger als `episode.json` und ok sein) |
+| `--anker <s>@<anker,…>` | `render.mjs`, `src/haupt.js` (`ankerWelt`) | Anker in Weltkoordinaten zu einer Zeit, zum Einrichten von Kameras ohne Rendern |
+| Wasserschein | `sets/see.js` (`wasser_schein`, Std an) | einseitige, nach oben zeigende Fläche 2,4 m unter dem Eis, dunkeltürkis mit weicher Kaustik: durch klares Eis von oben kein Schwarz mehr; von unten unsichtbar |
+| Fenster | `sets/huette_innen.js` (`fenster_klar`, `fenster_y`, `alter_hauch`) | klare, durchsichtige Mitte (Frost nur am Rand, beidseitig), Fenster höher, ein alter milchiger Hauchfleck als Vergleich, keine Mittelsprosse. Kamera draußen vor der Scheibe: Bears Gesicht durchs Glas |
+| Eishaut-Risse, Deckel | `sets/huette_innen.js` (`risse`, `risse_weg`, `deckel_farbe`) | Risse je Schlag in der Eishaut des Lochs; dunkler Deckel mit Eisenbändern |
+| Beschlag-Material | `src/kindly_requisiten.js` | beschlagene Gläser matt grau-weiß mit Tröpfchen und Laufspuren, ohne Glanz (getragene Gläser bleiben weiß spiegelnd); `bleibt_klar` mit `params.glanz` |
+| Gesicht `fischer` | `figuren/old_knuckles.js` | Strickmütze und Vollbart gemalt wie beim Fischer oben („Yours.“) |
+| Rule-Zero-Ziffer | `figuren/stadtbuch.js` | „0“ als hochovale Ziffer in Versalhöhe mit Querstrich, Punkt Radius 12 px (Textur); Vorlage für F2–F8 |
+| Endkarte | `figuren/ortsschild.js` | Strich 0,40–0,50 s, neue Zahl 0,52–0,70 s, Hand senkrecht weg bis 0,82 s: 1,203 steht 0,80 s fertig |
+| Bears Fellrand | `src/kindly_kleidung.js` (`kapuzeMitFell` mit `fell`, `groesse`, `kante`) | dunkel-bräunlich und kleiner, damit Weiß am Mund nur Atem ist |
+| Untertitel | `untertitel.py` (`untertitel.json` → `ausweich_y`) | Kindly weicht nur bis y 1320 aus (vorher 1400) |
+| Tore | `pruefen.py` | Einzelbild-Blitzer (> 12 Stufen gegen beide Nachbarn, außer Flacker-Licht), Pixel-Median je Einstellung ≥ 35 (dunkle Orte: eigene Grenze), Atem-Tor |
+| Titelbild | `tools/paket/paket.py` (`titelbild.text_versatz_y`) | Textblock tiefer (3:4-Ausschnitt des Profilrasters) |
+
+Gegenprobe der neuen Tore am alten Video: Das Blitzer-Tor findet die drei gemeldeten Blitzer (Bilder 1889, 2906, 3390) und zwei weitere (1214 am Beginn von E29, 3978 am Beginn von E96); das Pixel-Median-Tor findet E26 (1,0) und E59 (2,1); das Atem-Tor findet E99 (10 von 240 Bildern, knappstes Verhältnis 0,35).
+
+**Lehren (für jede Kindly-Folge):**
+- **Klötzchenköpfe im Profil sind leer:** Das Gesicht ist nur ein Aufkleber vorn. Wer Gesicht und Gegenstand (Fenster, Gläser) zugleich zeigen will, braucht eine Dreiviertel-Ansicht von vorn oder schaut durch das Glas (Fenster von draußen).
+- **Gläser in der Hand auf Mundhöhe halten,** nicht auf Augenhöhe: auf Augenhöhe liest sich die gehaltene Brille als getragen. Durch das klare Glas sieht man dann den Mund, der haucht.
+- **Wolken anderer Figuren nie zwischen Kamera und Bears Gesicht:** Gus geht außen und schaut nach vorn; Odell hält beim Prüfen den Atem an (Reißschwenk S38). Das Atem-Tor misst es.
+- **`ducken` + `klopfen` aufs Eis liest sich nicht** (die Figur schwebt, der Arm erreicht das Eis nicht). Klopfen aufs Eis als Stampfen (`stiefel_tippen`, `hoehe` 1,7–1,9) mit Riss-Stern und Schnee, die ganze Figur im Bild.
+- **Draufsicht auf liegende Gesichter:** Die Bildachse muss den Kopf nach oben legen (Kopf-oben-Regel gilt auch für Old Knuckles).
