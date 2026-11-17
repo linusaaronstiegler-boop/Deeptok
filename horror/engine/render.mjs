@@ -237,12 +237,15 @@ async function schnellBogen(o, meta, browser, seitenUrl, ordner, name, fps) { //
     // Kopf-oben-Regel (Review Teil 2, P0: Elis liegendes Gesicht stand auf dem Kopf und las sich als Grinsen):
     // Für jedes Gesicht im Bild muss der projizierte Punkt über dem Kopf höchstens 30° von „oben im Bild“
     // abweichen (Vektor Kopfmitte -> ueber_kopf). Draufsichten (Vektor kürzer als 12 px) zählen nicht.
+    // Rules of Kindly: Nur Gesichter, die zur Kamera zeigen (Augen näher an der Kamera als die Kopfmitte). Von unten
+    // durchs Eis sieht man den Hinterkopf von Old Knuckles; der zählt nicht (vorher brach die Regel dort ab).
     if (e.koepfe?.length) {
-      const anker = e.koepfe.flatMap((id) => [`${id}.kopf`, `${id}.ueber_kopf`]);
+      const anker = e.koepfe.flatMap((id) => [`${id}.kopf`, `${id}.ueber_kopf`, `${id}.augen`]);
       const pp = await page.evaluate(([i, a]) => window.engine.projiziere(i, a), [bild, anker]);
-      for (let k = 0; k < pp.length; k += 2) {
-        const [m, o] = [pp[k], pp[k + 1]];
+      for (let k = 0; k < pp.length; k += 3) {
+        const [m, o, au] = [pp[k], pp[k + 1], pp[k + 2]];
         if (!m.vorn || m.x < 0 || m.x > 1080 || m.y < 0 || m.y > 1920) continue;
+        if (au.tiefe > m.tiefe) continue;
         const dx = o.x - m.x, dy = o.y - m.y;
         if (Math.hypot(dx, dy) < 12) continue;
         const neigung = Math.round(Math.abs(Math.atan2(dx, -dy)) * 180 / Math.PI);

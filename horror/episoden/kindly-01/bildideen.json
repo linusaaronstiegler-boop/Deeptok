@@ -1,0 +1,1903 @@
+{
+ "folge": "kindly-01",
+ "serie": "Rules of Kindly",
+ "titel": "His Breath Didn't Fog",
+ "regel": 3,
+ "quelle": "episoden/serie-02/folge-01-skript.txt (Satz-Index = Zeilennummer, 1-basiert); Bibel §10.3 (Bildideen), §10.4 (Gesichter von vorn), §10.5 (Setup/Payoff), §10.6 (Musik, Effekte)",
+ "stand": "2026-11-17 (echte Stimme: Adam ×1,2, 141,14 s; Schnitte gegen das Messtor nachgerechnet)",
+ "hinweis": "WAS jede Einstellung zeigt. Hauptbild = erste Einstellung des Satzes, teilbilder = weitere Schnitte ab ab_wort. t_s = Satzbeginn in der echten Stimme (timing.json). WIE es gezeigt wird, steht in regie.mjs.",
+ "vokabular": {
+  "orte": {
+   "see": [
+    "steg",
+    "ufer",
+    "eis",
+    "unter-dem-eis",
+    "huette-aussen"
+   ],
+   "huette-innen": [
+    "ofen",
+    "loch",
+    "fenster",
+    "tuer"
+   ],
+   "stadtrand": [
+    "ortsschild"
+   ],
+   "rathaus": [
+    "pult",
+    "stadtbuch"
+   ],
+   "hauptstrasse-schnee": [
+    "lund-haus"
+   ]
+  },
+  "figuren": [
+   "bear",
+   "gus",
+   "odell",
+   "lund",
+   "mrs-lund",
+   "fischer",
+   "old-knuckles",
+   "ortsschild",
+   "stadtbuch",
+   "brille",
+   "tuer",
+   "stiefel"
+  ],
+  "licht": [
+   "see-morgengrauen",
+   "see-daemmerung",
+   "see-nacht",
+   "see-unter",
+   "huette",
+   "rathaus",
+   "tag",
+   "nacht"
+  ],
+  "kamera": [
+   "folgefahrt",
+   "kran-enthuellung",
+   "kranabstieg",
+   "orbit",
+   "pull-out",
+   "push-in",
+   "seitenfahrt",
+   "snap-zoom",
+   "whip"
+  ],
+  "groesse": [
+   "detail",
+   "gross",
+   "nah",
+   "halbnah",
+   "halbtotale",
+   "totale",
+   "ueber-schulter"
+  ]
+ },
+ "regeln": {
+  "atem": "Draußen dampft jeder Atem. In jeder Außeneinstellung mit Gesichtern dampfen mindestens zwei Figuren dicht (Großaufnahmen einer Figur: sie selbst dampft, eine zweite dampft im Hintergrund, wo das Bild sie hergibt). Bears Atem ab S34 nie mehr (bear.params.dampf_aus_ab). Drinnen (Hütte, Rathaus) dampft niemand; nur das Fenster zeigt den Atem.",
+  "suchbild_s35": "Das Gesicht unter dem Eis berührt das Eis 3–4 Bilder vor dem Schnitt (S35:looking).",
+  "s41_wie_s21": "S41 nutzt genau die Kamera von S21 (see.weg_totale), nur bei Nacht.",
+  "rule_zero": "„0 IF“ in S22:town ≥ 2,0 s, ≥ 72 px Versalhöhe, sichere Zone x 120–860, y 260–1040, nie gesprochen.",
+  "odell": "Getragene Gläser spiegeln weiß; ohne Brille nie von vorn (S6, S7, S37, S38); seine Augen nie im Bild.",
+  "endkarte": "1,5 s Ortsschild bei Nacht mit Schneefall, Odells Pinsel streicht 1,204 und malt 1,203, ein Glockenschlag (Bibel §3.2, §14 Nr. 2)."
+ },
+ "untertitel_farben": {
+  "gus": "#F2C14E",
+  "odell": "#8EC3F4",
+  "monster": "#9FD8D2",
+  "erzaehlung": "#FFFFFF"
+ },
+ "musik": "Bibel §10.6; Stufen, Wegfälle und Anker in stimme.json → timing.musik_anker_s und engine/musik/spannung/rules-of-kindly-01.json",
+ "summen": {
+  "saetze": 65,
+  "woerter": 465,
+  "einstellungen_geplant": 100,
+  "monster_einstellungen": 24,
+  "monster_anteil": 0.24,
+  "ohne_eigenen_schnitt": [
+   43,
+   62
+  ]
+ },
+ "saetze": {
+  "1": {
+   "text": "In this town, if the ice knocks, never knock back, or it comes home as you.",
+   "t_s": 0.0,
+   "block": "hook",
+   "ort": "see",
+   "licht": "see-unter",
+   "figuren": [
+    "fischer",
+    "old-knuckles"
+   ],
+   "aktion": "Bild 1, das stärkste Bild zuerst (Schnellbogen: die Draufsicht auf den Stiefel las sich schwach): Untersicht vom Kopfende, unter dem Eis liegt der lange bleiche Körper rücklings, beide Fäuste oben am Eis, darüber als Schatten ein Fischer, dessen Stiefel dreimal tippt. Push-in ab Bild 1.",
+   "schluesselwort": "town",
+   "kamera": "push-in",
+   "groesse": "totale",
+   "monster": true,
+   "sfx": "drei hohle Stiefeltipper (Eis)",
+   "hinweis": "Monster ab Bild 1 mit Kantenlicht, nichts Drastisches; gegenüber Bibel §10.3 sind Stiefel und Untersicht getauscht",
+   "teilbilder": [
+    {
+     "ab_wort": "knocks",
+     "block": "hook",
+     "ort": "see",
+     "licht": "see-morgengrauen",
+     "figuren": [
+      "fischer",
+      "old-knuckles"
+     ],
+     "aktion": "Von oben auf den Stiefel: unter dem halb klaren Eis schlägt die Faust dreimal von unten dagegen, Risse springen auf, Schnee hüpft, die Kamera wackelt beim ersten Schlag.",
+     "schluesselwort": "knocks",
+     "kamera": "push-in",
+     "groesse": "detail",
+     "monster": true,
+     "sfx": "Sub-Boom auf dem ersten Schlag, drei dumpfe Schläge mit Eisknacken",
+     "hinweis": "Kantenlicht, Untersicht hell (Preset see_unter)"
+    },
+    {
+     "ab_wort": "or",
+     "block": "hook",
+     "ort": "see",
+     "licht": "see-morgengrauen",
+     "figuren": [
+      "old-knuckles"
+     ],
+     "aktion": "Draufsicht durchs Eis: auf „as you“ wird das Eis klar, darunter Mr. Lunds Gesicht, neutral, Augen offen, normale Hautfarbe; es drückt sich sanft ans Eis.",
+     "schluesselwort": "as",
+     "kamera": "push-in",
+     "groesse": "nah",
+     "monster": true,
+     "gesicht": {
+      "old-knuckles": "lund"
+     },
+     "sfx": "Knistern, wenn das Eis klar wird",
+     "hinweis": "Lund ist gepflanzt (Paar 14). Keine Wasserleiche, Kopf oben"
+    }
+   ]
+  },
+  "2": {
+   "text": "Here in Kindly, we call it Old Knuckles.",
+   "t_s": 4.45,
+   "block": "regel",
+   "ort": "see",
+   "licht": "see-morgengrauen",
+   "figuren": [
+    "fischer"
+   ],
+   "aktion": "Kran sinkt über den zugefrorenen See auf Kindly zu: Steg, Eishütten, dahinter die Häuser und der Kirchturm im Morgengrauen.",
+   "schluesselwort": "call",
+   "kamera": "kranabstieg",
+   "groesse": "totale",
+   "monster": false,
+   "hinweis": "Stadtname im Bild und im Ton bei 4,66 s; Akzentfahrt",
+   "teilbilder": [
+    {
+     "ab_wort": "Old",
+     "block": "regel",
+     "ort": "see",
+     "licht": "see-unter",
+     "figuren": [
+      "old-knuckles"
+     ],
+     "aktion": "Unter dem Eis von der Seite: eine Faust mit vier Knöchelwürfeln; Snap-Zoom auf „Knuckles“.",
+     "schluesselwort": "Knuckles",
+     "kamera": "snap-zoom",
+     "groesse": "nah",
+     "monster": true,
+     "hinweis": "Name des Wesens bei 5,84 s; Snap-Zoom 1"
+    }
+   ]
+  },
+  "3": {
+   "text": "When it comes home, only one thing gives it away.",
+   "t_s": 7.02,
+   "block": "regel",
+   "rueckblende": true,
+   "ort": "see",
+   "licht": "see-morgengrauen",
+   "figuren": [
+    "fischer",
+    "lund"
+   ],
+   "aktion": "Ufer im Morgengrauen, leicht entsättigt: drei Männer kommen vom Eis herauf und bleiben stehen; Mr. Lund in der Mitte dreht den Kopf.",
+   "schluesselwort": "home",
+   "kamera": "push-in",
+   "groesse": "halbtotale",
+   "monster": false,
+   "hinweis": "Pflanzung für S18–21 (Lund ohne Atemdampf)",
+   "teilbilder": [
+    {
+     "ab_wort": "only",
+     "block": "regel",
+     "rueckblende": true,
+     "ort": "see",
+     "licht": "see-morgengrauen",
+     "figuren": [
+      "fischer",
+      "lund"
+     ],
+     "aktion": "Halbnah: die drei Männer atmen aus. Die beiden äußeren dampfen dicht, Mr. Lund in der Mitte nicht.",
+     "schluesselwort": "thing",
+     "kamera": "push-in",
+     "groesse": "halbnah",
+     "monster": false,
+     "hinweis": "Fehler groß im Bild (Regel 3)"
+    }
+   ]
+  },
+  "4": {
+   "text": "Its breath doesn't fog.",
+   "t_s": 9.71,
+   "block": "regel",
+   "rueckblende": true,
+   "ort": "see",
+   "licht": "see-morgengrauen",
+   "figuren": [
+    "lund",
+    "fischer"
+   ],
+   "aktion": "Nah: Mr. Lunds Gesicht im Dreiviertelprofil, kein Dampf vor dem Mund; daneben quillt der Atem des anderen Mannes weiß ins Bild.",
+   "schluesselwort": "fog",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "lund": "leer"
+   },
+   "hinweis": "Suchbild-Regel einführen"
+  },
+  "5": {
+   "text": "So every winter, Mr. Odell waits at the end of the pier.",
+   "t_s": 11.39,
+   "block": "regel",
+   "ort": "see",
+   "licht": "see-morgengrauen",
+   "figuren": [
+    "odell",
+    "fischer"
+   ],
+   "aktion": "Steg im Morgengrauen von der Eisseite: der lange Steg, am Ende die Laterne und eine kleine Gestalt mit Mantel.",
+   "schluesselwort": "winter",
+   "kamera": "seitenfahrt",
+   "groesse": "totale",
+   "monster": false,
+   "hinweis": "Akzentfahrt",
+   "teilbilder": [
+    {
+     "ab_wort": "Odell",
+     "block": "regel",
+     "ort": "see",
+     "licht": "see-morgengrauen",
+     "figuren": [
+      "odell"
+     ],
+     "aktion": "Mr. Odell am Stegende mit Laterne, Brille auf der Nase (Gläser weiß), Dreiviertel von vorn; ein Schlag der Handglocke auf „waits“.",
+     "schluesselwort": "waits",
+     "kamera": "push-in",
+     "groesse": "halbnah",
+     "monster": false,
+     "gesicht": {
+      "odell": "streng"
+     },
+     "sfx": "Handglocke einmal",
+     "hinweis": "Odell mit Brille: Gesicht von vorn erlaubt; Erkennungslaut"
+    }
+   ]
+  },
+  "6": {
+   "text": "Everyone who comes off the ice breathes on his glasses.",
+   "t_s": 14.56,
+   "block": "regel",
+   "ort": "see",
+   "licht": "see-morgengrauen",
+   "figuren": [
+    "fischer",
+    "odell"
+   ],
+   "aktion": "Ein Fischer steigt die Stufen vom Eis auf den Steg zu Odell herauf; Odell von hinten, die Brille in der Hand.",
+   "schluesselwort": "comes",
+   "kamera": "push-in",
+   "groesse": "halbtotale",
+   "monster": false,
+   "hinweis": "Odell ohne Brille nie von vorn",
+   "teilbilder": [
+    {
+     "ab_wort": "breathes",
+     "block": "regel",
+     "ort": "see",
+     "licht": "see-morgengrauen",
+     "figuren": [
+      "fischer",
+      "odell"
+     ],
+     "aktion": "Über Odells Schulter: der Fischer haucht auf die hochgehaltenen Gläser, eine dichte weiße Wolke; die Gläser beschlagen weiß.",
+     "schluesselwort": "breathes",
+     "kamera": "push-in",
+     "groesse": "ueber-schulter",
+     "monster": false,
+     "hinweis": "Kultgeste, Brille groß"
+    }
+   ]
+  },
+  "7": {
+   "text": "If they fog, he wipes them on his coat.",
+   "t_s": 17.33,
+   "block": "regel",
+   "ort": "see",
+   "licht": "see-morgengrauen",
+   "figuren": [
+    "brille"
+   ],
+   "aktion": "Detail: die Gläser in Odells Fäustling, ganz weiß beschlagen.",
+   "schluesselwort": "fog",
+   "kamera": "push-in",
+   "groesse": "detail",
+   "monster": false,
+   "hinweis": "Beschlag gut lesbar",
+   "teilbilder": [
+    {
+     "ab_wort": "he",
+     "block": "regel",
+     "ort": "see",
+     "licht": "see-morgengrauen",
+     "figuren": [
+      "odell",
+      "fischer"
+     ],
+     "aktion": "Von schräg hinten: Odell wischt die Gläser kreisend am Mantel ab, der Fischer wartet daneben, beide dampfen.",
+     "schluesselwort": "wipes",
+     "kamera": "orbit",
+     "groesse": "halbnah",
+     "monster": false,
+     "hinweis": "Odell ohne Brille nicht von vorn"
+    }
+   ]
+  },
+  "8": {
+   "text": "\"Kindly mind the rules.\"",
+   "t_s": 19.65,
+   "block": "regel",
+   "dialog": "odell",
+   "ort": "see",
+   "licht": "see-morgengrauen",
+   "figuren": [
+    "odell"
+   ],
+   "aktion": "Odell im Dreiviertelprofil von vorn, Brille auf, Gläser weiß, Mundformen; Untertitel blau.",
+   "schluesselwort": "mind",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "odell": "streng"
+   },
+   "hinweis": "Signaturzeile 1; Mund über dem Untertitel-Streifen"
+  },
+  "9": {
+   "text": "It's on the town sign, right above the population.",
+   "t_s": 21.37,
+   "block": "regel",
+   "ort": "stadtrand",
+   "licht": "tag",
+   "figuren": [
+    "ortsschild"
+   ],
+   "aktion": "Das Ortsschild neben DEAD END bei Tag, Schnee auf der Kante: WELCOME TO KINDLY · KINDLY MIND THE RULES · POP. 1,204.",
+   "schluesselwort": "sign",
+   "kamera": "push-in",
+   "groesse": "halbtotale",
+   "monster": false,
+   "hinweis": "Pflanzung der Endkarte",
+   "teilbilder": [
+    {
+     "ab_wort": "right",
+     "block": "regel",
+     "ort": "stadtrand",
+     "licht": "tag",
+     "figuren": [
+      "ortsschild"
+     ],
+     "aktion": "Push-in auf die von Hand gemalte Zahl 1,204 mit alten Farbschichten darunter.",
+     "schluesselwort": "population",
+     "kamera": "push-in",
+     "groesse": "nah",
+     "monster": false,
+     "hinweis": "Zahl ≥ 120 px"
+    }
+   ]
+  },
+  "10": {
+   "text": "Old Knuckles lies on its back under the ice, longer than a fishing hut.",
+   "t_s": 24.0,
+   "block": "wesen",
+   "ort": "see",
+   "licht": "see-unter",
+   "figuren": [
+    "old-knuckles"
+   ],
+   "aktion": "Seitenfahrt unter dem Eis entlang des liegenden Körpers vom Kopf zu den Füßen, die Fäuste stehen nach oben ans Eis.",
+   "schluesselwort": "back",
+   "kamera": "seitenfahrt",
+   "groesse": "totale",
+   "monster": true,
+   "hinweis": "Akzentfahrt, ohne Vordergrund",
+   "teilbilder": [
+    {
+     "ab_wort": "longer",
+     "block": "wesen",
+     "ort": "see",
+     "licht": "see-morgengrauen",
+     "figuren": [
+      "old-knuckles"
+     ],
+     "aktion": "Draufsicht: der bleiche Umriss unter dem Eis in der schneefreien Bahn, länger als die Fischerhütte BEAR & GUS daneben.",
+     "schluesselwort": "hut",
+     "kamera": "push-in",
+     "groesse": "totale",
+     "monster": true,
+     "hinweis": "Größenvergleich"
+    }
+   ]
+  },
+  "11": {
+   "text": "Its fists press up against the ice.",
+   "t_s": 27.76,
+   "block": "wesen",
+   "ort": "see",
+   "licht": "see-unter",
+   "figuren": [
+    "old-knuckles"
+   ],
+   "aktion": "Tilt vom Brustkorb hinauf zu den Fäusten: vier Knöchelwürfel je Faust drücken von unten gegen das Eis.",
+   "schluesselwort": "press",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": true,
+   "hinweis": "Akzentfahrt"
+  },
+  "12": {
+   "text": "Knock back, and it follows you under the ice, until it's right below you.",
+   "t_s": 29.88,
+   "block": "wesen",
+   "ort": "see",
+   "licht": "see-morgengrauen",
+   "figuren": [
+    "fischer"
+   ],
+   "aktion": "Detail: ein Stiefel stampft zweimal zurück aufs Eis.",
+   "schluesselwort": "Knock",
+   "kamera": "push-in",
+   "groesse": "detail",
+   "monster": false,
+   "hinweis": "„Knock back“ als Handlung",
+   "teilbilder": [
+    {
+     "ab_wort": "follows",
+     "block": "wesen",
+     "ort": "see",
+     "licht": "see-morgengrauen",
+     "figuren": [
+      "fischer",
+      "old-knuckles"
+     ],
+     "aktion": "Steil von oben: der Fischer geht übers Eis, unter dem Frost gleitet der bleiche Umriss mit.",
+     "schluesselwort": "follows",
+     "kamera": "folgefahrt",
+     "groesse": "totale",
+     "monster": true,
+     "hinweis": "Akzentfahrt"
+    },
+    {
+     "ab_wort": "until",
+     "block": "wesen",
+     "ort": "see",
+     "licht": "see-morgengrauen",
+     "figuren": [
+      "fischer",
+      "old-knuckles"
+     ],
+     "aktion": "Von oben: der Fischer bleibt stehen, der Umriss gleitet genau unter ihn.",
+     "schluesselwort": "below",
+     "kamera": "push-in",
+     "groesse": "halbtotale",
+     "monster": true
+    }
+   ]
+  },
+  "13": {
+   "text": "Then the ice turns clear, like a window.",
+   "t_s": 33.56,
+   "block": "wesen",
+   "ort": "see",
+   "licht": "see-morgengrauen",
+   "figuren": [
+    "fischer"
+   ],
+   "aktion": "Um die Stiefel des Fischers wird das Eis klar: der Frost weicht von der Mitte nach außen, darunter dunkles Wasser.",
+   "schluesselwort": "turns",
+   "kamera": "push-in",
+   "groesse": "detail",
+   "monster": false,
+   "sfx": "Knistern",
+   "teilbilder": [
+    {
+     "ab_wort": "like",
+     "block": "wesen",
+     "ort": "see",
+     "licht": "see-unter",
+     "figuren": [
+      "fischer",
+      "old-knuckles"
+     ],
+     "aktion": "Von unten durch das klare Fenster: oben die Stiefel des Fischers, davor steigt der flache Kopf des Wesens auf.",
+     "schluesselwort": "window",
+     "kamera": "push-in",
+     "groesse": "halbnah",
+     "monster": true
+    }
+   ]
+  },
+  "14": {
+   "text": "A face presses up against it.",
+   "t_s": 35.93,
+   "block": "wesen",
+   "ort": "see",
+   "licht": "see-morgengrauen",
+   "figuren": [
+    "old-knuckles"
+   ],
+   "aktion": "Durchs klare Eis von oben: ein Gesicht drückt sich von unten flach ans Eis. Kopf oben.",
+   "schluesselwort": "presses",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": true,
+   "gesicht": {
+    "old-knuckles": "fischer"
+   },
+   "hinweis": "Kopf oben, nicht verzerrt"
+  },
+  "15": {
+   "text": "Yours.",
+   "t_s": 37.55,
+   "block": "wesen",
+   "ort": "see",
+   "licht": "see-morgengrauen",
+   "figuren": [
+    "old-knuckles"
+   ],
+   "aktion": "Snap-Zoom auf das Gesicht: es ist das Gesicht des Fischers oben (Mütze, gleiche Haut).",
+   "schluesselwort": "Yours",
+   "kamera": "snap-zoom",
+   "groesse": "gross",
+   "monster": true,
+   "gesicht": {
+    "old-knuckles": "fischer"
+   },
+   "hinweis": "Snap-Zoom 2; Musik fällt 1,2 s vorher weg"
+  },
+  "16": {
+   "text": "And now it's you down there, looking up.",
+   "t_s": 38.39,
+   "block": "wesen",
+   "ort": "see",
+   "licht": "see-unter",
+   "figuren": [
+    "fischer"
+   ],
+   "aktion": "Gegenschuss von unten durchs Eis: der Fischer oben dreht sich um und geht weg, aus dem Fenster über der Kamera hinaus.",
+   "schluesselwort": "now",
+   "kamera": "pull-out",
+   "groesse": "halbtotale",
+   "monster": false,
+   "hinweis": "Untersicht hell genug"
+  },
+  "17": {
+   "text": "It walks home with your face, your voice, and your memories.",
+   "t_s": 40.49,
+   "block": "wesen",
+   "ort": "hauptstrasse-schnee",
+   "licht": "nacht",
+   "figuren": [
+    "lund",
+    "tuer"
+   ],
+   "aktion": "Kindly im Schnee bei Nacht: ein Mann (Mr. Lund) geht den geräumten Weg zu seiner Haustür hinauf, kein Dampf vor dem Mund.",
+   "schluesselwort": "walks",
+   "kamera": "push-in",
+   "groesse": "halbtotale",
+   "monster": false,
+   "hinweis": "Akzentfahrt",
+   "teilbilder": [
+    {
+     "ab_wort": "your voice",
+     "block": "wesen",
+     "ort": "hauptstrasse-schnee",
+     "licht": "nacht",
+     "figuren": [
+      "lund",
+      "mrs-lund",
+      "tuer"
+     ],
+     "aktion": "Die Frau öffnet die Tür: ihr Atem dampft dicht im Türlicht, seiner nicht.",
+     "schluesselwort": "voice",
+     "kamera": "push-in",
+     "groesse": "halbnah",
+     "monster": false,
+     "gesicht": {
+      "mrs-lund": "gefasst"
+     },
+     "hinweis": "Fehler groß im Bild"
+    }
+   ]
+  },
+  "18": {
+   "text": "Mr. Lund knocked back once, as a joke, and ran for the shore.",
+   "t_s": 43.89,
+   "block": "lund",
+   "rueckblende": true,
+   "ort": "see",
+   "licht": "see-morgengrauen",
+   "figuren": [
+    "lund"
+   ],
+   "aktion": "Rückblende, entsättigt: Mr. Lund klopft lachend mit der Faust zurück aufs Eis.",
+   "schluesselwort": "knocked",
+   "kamera": "push-in",
+   "groesse": "halbnah",
+   "monster": false,
+   "gesicht": {
+    "lund": "lachend"
+   },
+   "sfx": "drei Faustschläge aufs Eis",
+   "teilbilder": [
+    {
+     "ab_wort": "as",
+     "block": "lund",
+     "rueckblende": true,
+     "ort": "see",
+     "licht": "see-morgengrauen",
+     "figuren": [
+      "lund"
+     ],
+     "aktion": "Nah: Lund lacht, sein Atem dampft noch.",
+     "schluesselwort": "joke",
+     "kamera": "push-in",
+     "groesse": "nah",
+     "monster": false,
+     "gesicht": {
+      "lund": "lachend"
+     }
+    },
+    {
+     "ab_wort": "ran",
+     "block": "lund",
+     "rueckblende": true,
+     "ort": "see",
+     "licht": "see-morgengrauen",
+     "figuren": [
+      "lund"
+     ],
+     "aktion": "Totale: Lund rennt übers Eis zum Ufer.",
+     "schluesselwort": "ran",
+     "kamera": "folgefahrt",
+     "groesse": "totale",
+     "monster": false,
+     "hinweis": "Akzentfahrt"
+    }
+   ]
+  },
+  "19": {
+   "text": "He made it.",
+   "t_s": 47.55,
+   "block": "lund",
+   "rueckblende": true,
+   "ort": "see",
+   "licht": "see-morgengrauen",
+   "figuren": [
+    "lund",
+    "fischer"
+   ],
+   "aktion": "Schnitt zum Morgen: Lund steht am Ufer (wie S3–4), neben ihm dampft ein Fischer, er nicht.",
+   "schluesselwort": "made",
+   "kamera": "push-in",
+   "groesse": "halbnah",
+   "monster": false
+  },
+  "20": {
+   "text": "His breath never fogged again.",
+   "t_s": 48.3,
+   "block": "lund",
+   "rueckblende": true,
+   "ort": "see",
+   "licht": "see-morgengrauen",
+   "figuren": [
+    "lund"
+   ],
+   "aktion": "Nah: Lunds Gesicht, leer, kein Dampf; der Push-in bleibt auf dem Mund.",
+   "schluesselwort": "fogged",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "lund": "leer"
+   }
+  },
+  "21": {
+   "text": "Mrs. Lund walked him back onto the ice herself.",
+   "t_s": 50.06,
+   "block": "lund",
+   "ort": "see",
+   "licht": "see-morgengrauen",
+   "figuren": [
+    "mrs-lund",
+    "lund"
+   ],
+   "aktion": "Totale von hinten (Kamera merken, S41 wiederholt sie): Mrs. Lund führt ihren Mann am Arm vom Ufer aufs Eis; ihr Atem dampft, seiner nicht.",
+   "schluesselwort": "walked",
+   "kamera": "push-in",
+   "groesse": "totale",
+   "monster": false,
+   "hinweis": "M6, Gewalt nur angedeutet",
+   "teilbilder": [
+    {
+     "ab_wort": "herself",
+     "block": "lund",
+     "ort": "see",
+     "licht": "see-morgengrauen",
+     "figuren": [
+      "mrs-lund"
+     ],
+     "aktion": "Gleiche Kamera: sie kommt allein zurück, er ist nicht mehr da.",
+     "schluesselwort": "herself",
+     "kamera": "push-in",
+     "groesse": "totale",
+     "monster": false
+    }
+   ]
+  },
+  "22": {
+   "text": "Every rule is in Mr. Odell's town book, except rule zero.",
+   "t_s": 52.61,
+   "block": "lore",
+   "ort": "rathaus",
+   "licht": "rathaus",
+   "figuren": [
+    "stadtbuch"
+   ],
+   "aktion": "Odells Stadtbuch auf dem Pult: ein loses Blatt dreht sich um (RULE 18 blitzt auf), darunter RULE 3 mit den durchgestrichenen Namen bis LUND.",
+   "schluesselwort": "rule",
+   "kamera": "kranabstieg",
+   "groesse": "detail",
+   "monster": false,
+   "hinweis": "Ei für Hiding Night (RULE 18); Akzentfahrt",
+   "teilbilder": [
+    {
+     "ab_wort": "town",
+     "block": "lore",
+     "ort": "rathaus",
+     "licht": "rathaus",
+     "figuren": [
+      "stadtbuch"
+     ],
+     "aktion": "Draufsicht auf den Falz: der Stummel der herausgerissenen ersten Seite mit „0 IF“, ein Punkt unter der 0, daneben RULE 3; langsamer Push-in bis zum Schnitt.",
+     "schluesselwort": "except",
+     "kamera": "push-in",
+     "groesse": "detail",
+     "monster": false,
+     "hinweis": "Rule-Zero-Wort 1: ≥ 2,0 s im Bild, ≥ 72 px Versalhöhe, sichere Zone x 120–860, y 260–1040, nie gesprochen, kein Untertitel"
+    }
+   ]
+  },
+  "23": {
+   "text": "Since Mom went through the ice, my brother Gus never lets me fish alone.",
+   "t_s": 56.38,
+   "block": "gus",
+   "ort": "see",
+   "licht": "see-daemmerung",
+   "figuren": [],
+   "aktion": "Dämmerung: ein leerer Klappstuhl auf dem Eis, ein roter Schal darauf, gegen die tiefe Sonne.",
+   "schluesselwort": "Mom",
+   "kamera": "push-in",
+   "groesse": "halbnah",
+   "monster": false,
+   "hinweis": "Tod nur als Gegenstand",
+   "teilbilder": [
+    {
+     "ab_wort": "my",
+     "block": "gus",
+     "ort": "see",
+     "licht": "see-daemmerung",
+     "figuren": [
+      "gus",
+      "bear"
+     ],
+     "aktion": "Gus und Bear gehen gemeinsam aufs Eis, Gus vorn mit dem Pickel; beide dampfen.",
+     "schluesselwort": "Gus",
+     "kamera": "folgefahrt",
+     "groesse": "halbtotale",
+     "monster": false,
+     "gesicht": {
+      "gus": "ernst"
+     },
+     "hinweis": "Akzentfahrt; Gus eingeführt"
+    }
+   ]
+  },
+  "24": {
+   "text": "Before every step, he taps the ice three times.",
+   "t_s": 60.06,
+   "block": "gus",
+   "ort": "see",
+   "licht": "see-daemmerung",
+   "figuren": [
+    "gus"
+   ],
+   "aktion": "Detail: Gus setzt den Stiefel vor.",
+   "schluesselwort": "step",
+   "kamera": "push-in",
+   "groesse": "detail",
+   "monster": false,
+   "teilbilder": [
+    {
+     "ab_wort": "he",
+     "block": "gus",
+     "ort": "see",
+     "licht": "see-daemmerung",
+     "figuren": [
+      "gus"
+     ],
+     "aktion": "Gus' Pickel tippt dreimal aufs Eis vor dem nächsten Schritt.",
+     "schluesselwort": "taps",
+     "kamera": "push-in",
+     "groesse": "detail",
+     "monster": false,
+     "sfx": "Pickel auf Eis, hohl, dreimal",
+     "hinweis": "die Gewohnheit, groß"
+    }
+   ]
+  },
+  "25": {
+   "text": "Knocking first isn't against the rules.",
+   "t_s": 62.99,
+   "block": "gus",
+   "ort": "rathaus",
+   "licht": "rathaus",
+   "figuren": [
+    "gus",
+    "stadtbuch"
+   ],
+   "aktion": "Über Gus' Schulter: sein Finger fährt die Zeile „IF THE ICE KNOCKS, NEVER KNOCK BACK.“ entlang und hält am Ende an.",
+   "schluesselwort": "first",
+   "kamera": "seitenfahrt",
+   "groesse": "detail",
+   "monster": false,
+   "hinweis": "Pflanzung 6a: der Wortlaut ist sichtbar"
+  },
+  "26": {
+   "text": "Gus checked.",
+   "t_s": 64.91,
+   "block": "gus",
+   "ort": "rathaus",
+   "licht": "rathaus",
+   "figuren": [
+    "gus"
+   ],
+   "aktion": "Gus am Pult von vorn, er nickt.",
+   "schluesselwort": "checked",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "gus": "ernst"
+   }
+  },
+  "27": {
+   "text": "\"If it sounds hollow, Bear, go back.\"",
+   "t_s": 65.83,
+   "block": "gus",
+   "dialog": "gus",
+   "ort": "see",
+   "licht": "see-daemmerung",
+   "figuren": [
+    "gus",
+    "bear"
+   ],
+   "aktion": "Gus im Dreiviertelprofil auf dem Eis, Mundformen, Atem dampft; Untertitel gelb.",
+   "schluesselwort": "hollow",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "gus": "warnend"
+   },
+   "hinweis": "Gesicht von vorn"
+  },
+  "28": {
+   "text": "\"And wherever you are, I'll hear you.\"",
+   "t_s": 68.06,
+   "block": "gus",
+   "dialog": "gus",
+   "ort": "see",
+   "licht": "see-daemmerung",
+   "figuren": [
+    "gus"
+   ],
+   "aktion": "Gus näher, ruhig, das Versprechen.",
+   "schluesselwort": "wherever",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "gus": "ernst"
+   },
+   "teilbilder": [
+    {
+     "ab_wort": "I'll",
+     "block": "gus",
+     "dialog": "gus",
+     "ort": "see",
+     "licht": "see-daemmerung",
+     "figuren": [
+      "bear",
+      "gus"
+     ],
+     "aktion": "Gegenschnitt: Bear hört zu, sein Atem dampft.",
+     "schluesselwort": "hear",
+     "kamera": "push-in",
+     "groesse": "nah",
+     "monster": false,
+     "gesicht": {
+      "bear": "laecheln"
+     },
+     "hinweis": "Bears Atem dampft hier noch (vor S34)"
+    }
+   ]
+  },
+  "29": {
+   "text": "Five winters, and the ice never answered.",
+   "t_s": 70.15,
+   "block": "gus",
+   "ort": "see",
+   "licht": "see-nacht",
+   "figuren": [
+    "gus",
+    "bear"
+   ],
+   "aktion": "Totale bei Nacht: zwei kleine Figuren auf dem weiten See, hinten die Lichter von Kindly.",
+   "schluesselwort": "winters",
+   "kamera": "pull-out",
+   "groesse": "totale",
+   "monster": false,
+   "hinweis": "kein Mister Hundred; Akzentfahrt",
+   "teilbilder": [
+    {
+     "ab_wort": "and",
+     "block": "gus",
+     "ort": "see",
+     "licht": "see-unter",
+     "figuren": [
+      "gus"
+     ],
+     "aktion": "Unter dem Eis: leeres dunkles Wasser, oben ein heller Fleck, nichts antwortet.",
+     "schluesselwort": "answered",
+     "kamera": "push-in",
+     "groesse": "halbtotale",
+     "monster": false
+    }
+   ]
+  },
+  "30": {
+   "text": "On the first ice this year, I tapped three times, like Gus.",
+   "t_s": 72.82,
+   "block": "vorfall",
+   "ort": "see",
+   "licht": "see-daemmerung",
+   "figuren": [
+    "fischer",
+    "gus",
+    "bear"
+   ],
+   "aktion": "Erstes Eis: Laternen auf dem Eis, Hütten, Fischer (nur Erwachsene), Gus und Bear mittendrin.",
+   "schluesselwort": "year",
+   "kamera": "push-in",
+   "groesse": "totale",
+   "monster": false,
+   "hinweis": "Menge nur Erwachsene; Akzentfahrt",
+   "teilbilder": [
+    {
+     "ab_wort": "I tapped",
+     "block": "vorfall",
+     "ort": "see",
+     "licht": "see-daemmerung",
+     "figuren": [
+      "bear"
+     ],
+     "aktion": "Detail: Bears Stiefel tippt dreimal aufs Eis.",
+     "schluesselwort": "tapped",
+     "kamera": "push-in",
+     "groesse": "detail",
+     "monster": false,
+     "sfx": "Stiefel auf Eis, hohl, dreimal"
+    }
+   ]
+  },
+  "31": {
+   "text": "Under my boots, something tapped back, three times.",
+   "t_s": 76.34,
+   "block": "vorfall",
+   "ort": "see",
+   "licht": "see-unter",
+   "figuren": [
+    "bear",
+    "old-knuckles"
+   ],
+   "aktion": "Untersicht: oben Bears Stiefel als dunkler Umriss im Eis, darunter steigen zwei bleiche Fäuste auf.",
+   "schluesselwort": "boots",
+   "kamera": "kran-enthuellung",
+   "groesse": "halbtotale",
+   "monster": true,
+   "hinweis": "Musik fällt 1,2 s vorher weg",
+   "teilbilder": [
+    {
+     "ab_wort": "something",
+     "block": "vorfall",
+     "ort": "see",
+     "licht": "see-daemmerung",
+     "figuren": [
+      "bear",
+      "old-knuckles"
+     ],
+     "aktion": "Von oben: unter Bears Stiefeln schlägt es dreimal von unten gegen das Eis, Risse springen auf, Schnee hüpft, die Laternen flackern, die Kamera wackelt.",
+     "schluesselwort": "tapped",
+     "kamera": "push-in",
+     "groesse": "halbnah",
+     "monster": true,
+     "sfx": "drei dumpfe Schläge von unten mit Eisknacken"
+    }
+   ]
+  },
+  "32": {
+   "text": "\"Bear, don't move. Don't answer it.\"",
+   "t_s": 79.53,
+   "block": "vorfall",
+   "dialog": "gus",
+   "ort": "see",
+   "licht": "see-daemmerung",
+   "figuren": [
+    "gus",
+    "bear"
+   ],
+   "aktion": "Gus erstarrt, Hand ausgestreckt, Dreiviertel von vorn, Mundformen.",
+   "schluesselwort": "move",
+   "kamera": "push-in",
+   "groesse": "halbnah",
+   "monster": false,
+   "gesicht": {
+    "gus": "warnend"
+   },
+   "teilbilder": [
+    {
+     "ab_wort": "Don't answer",
+     "block": "vorfall",
+     "dialog": "gus",
+     "ort": "see",
+     "licht": "see-daemmerung",
+     "figuren": [
+      "gus"
+     ],
+     "aktion": "Gus nah, flüsternd.",
+     "schluesselwort": "answer",
+     "kamera": "push-in",
+     "groesse": "nah",
+     "monster": false,
+     "gesicht": {
+      "gus": "angst"
+     }
+    }
+   ]
+  },
+  "33": {
+   "text": "I didn't.",
+   "t_s": 82.04,
+   "block": "vorfall",
+   "ort": "see",
+   "licht": "see-daemmerung",
+   "figuren": [
+    "bear"
+   ],
+   "aktion": "Bear hält den Atem an, Augen zu.",
+   "schluesselwort": "didn't",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "bear": "augen_zu"
+   }
+  },
+  "34": {
+   "text": "The ice under me turned clear.",
+   "t_s": 82.79,
+   "block": "vorfall",
+   "ort": "see",
+   "licht": "see-daemmerung",
+   "figuren": [
+    "bear"
+   ],
+   "aktion": "Von oben auf Bears Stiefel: das Eis unter ihm wird klar. Ab hier dampft Bears Atem nie mehr.",
+   "schluesselwort": "turned",
+   "kamera": "kranabstieg",
+   "groesse": "detail",
+   "monster": false,
+   "sfx": "Knistern",
+   "hinweis": "Bear dampft ab S34 nicht mehr (dampf_aus_ab)"
+  },
+  "35": {
+   "text": "My own face was rising toward it, looking up.",
+   "t_s": 84.53,
+   "block": "vorfall",
+   "ort": "see",
+   "licht": "see-daemmerung",
+   "figuren": [
+    "old-knuckles"
+   ],
+   "aktion": "Großaufnahme durchs klare Eis: Bears eigenes Gesicht steigt herauf und sieht hinauf.",
+   "schluesselwort": "rising",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": true,
+   "gesicht": {
+    "old-knuckles": "bear"
+   },
+   "hinweis": "Kopf oben",
+   "teilbilder": [
+    {
+     "ab_wort": "looking",
+     "block": "vorfall",
+     "ort": "see",
+     "licht": "see-daemmerung",
+     "figuren": [
+      "old-knuckles"
+     ],
+     "aktion": "Das Gesicht berührt das Eis für 3–4 Bilder, dann Schnitt.",
+     "schluesselwort": "looking",
+     "kamera": "push-in",
+     "groesse": "gross",
+     "monster": true,
+     "gesicht": {
+      "old-knuckles": "bear"
+     },
+     "hinweis": "Suchbild: widerspricht „just in time“"
+    }
+   ]
+  },
+  "36": {
+   "text": "Gus dragged me off the lake, just in time.",
+   "t_s": 87.2,
+   "block": "vorfall",
+   "ort": "see",
+   "licht": "see-daemmerung",
+   "figuren": [
+    "gus",
+    "bear"
+   ],
+   "aktion": "Gus reißt Bear am Kragen übers Eis; Gus' Atem dampft dicht, Bears nicht.",
+   "schluesselwort": "dragged",
+   "kamera": "folgefahrt",
+   "groesse": "halbtotale",
+   "monster": false,
+   "hinweis": "Akzentfahrt",
+   "teilbilder": [
+    {
+     "ab_wort": "just",
+     "block": "vorfall",
+     "ort": "see",
+     "licht": "see-daemmerung",
+     "figuren": [
+      "old-knuckles"
+     ],
+     "aktion": "Von oben: das Gesicht unter dem Eis sinkt zurück ins Dunkle, die klare Stelle friert wieder zu.",
+     "schluesselwort": "time",
+     "kamera": "push-in",
+     "groesse": "nah",
+     "monster": true,
+     "gesicht": {
+      "old-knuckles": "bear"
+     }
+    }
+   ]
+  },
+  "37": {
+   "text": "At the pier, I breathed on Mr. Odell's glasses.",
+   "t_s": 89.76,
+   "block": "steg",
+   "ort": "see",
+   "licht": "see-nacht",
+   "figuren": [
+    "odell",
+    "gus",
+    "bear"
+   ],
+   "aktion": "Steg bei Nacht: Odell mit Laterne am Ende, Gus und Bear kommen die Stufen herauf.",
+   "schluesselwort": "pier",
+   "kamera": "push-in",
+   "groesse": "totale",
+   "monster": false,
+   "hinweis": "Akzentfahrt",
+   "teilbilder": [
+    {
+     "ab_wort": "breathed",
+     "block": "steg",
+     "ort": "see",
+     "licht": "see-nacht",
+     "figuren": [
+      "bear",
+      "odell",
+      "gus"
+     ],
+     "aktion": "Halbnah von der Seite: Bear haucht auf Odells hochgehaltene Gläser, Bears Gesicht von vorn, Odell von hinten, sein Arm mit der Brille im Bild. Es kommt nichts. Gus' Atem dampft daneben.",
+     "schluesselwort": "breathed",
+     "kamera": "push-in",
+     "groesse": "halbnah",
+     "monster": false,
+     "gesicht": {
+      "bear": "besorgt"
+     },
+     "hinweis": "Wendung im Bild beginnt (63,7 %); nichts vor der Linse; Odells Augen nie im Bild"
+    }
+   ]
+  },
+  "38": {
+   "text": "He looked at them for a long time, then at Gus.",
+   "t_s": 92.65,
+   "block": "steg",
+   "ort": "see",
+   "licht": "see-nacht",
+   "figuren": [
+    "brille",
+    "bear"
+   ],
+   "aktion": "Aus Odells Blick: die Gläser bleiben klar, ein Glanz läuft über das Glas; durch die klaren Gläser sieht man Bears Gesicht, vor seinem Mund keine Wolke.",
+   "schluesselwort": "looked",
+   "kamera": "push-in",
+   "groesse": "detail",
+   "monster": false,
+   "hinweis": "Wendung im Bild (65,7 %); Odell selbst nicht im Bild (ohne Brille nie von vorn)",
+   "teilbilder": [
+    {
+     "ab_wort": "then",
+     "block": "steg",
+     "ort": "see",
+     "licht": "see-nacht",
+     "figuren": [
+      "odell",
+      "gus"
+     ],
+     "aktion": "Reißschwenk über Odells Schulter: sein Hinterkopf dreht sich zu Gus, Gus im Dreiviertelprofil, sein Atem dampft.",
+     "schluesselwort": "Gus",
+     "kamera": "whip",
+     "groesse": "ueber-schulter",
+     "monster": false,
+     "hinweis": "Akzentfahrt"
+    }
+   ]
+  },
+  "39": {
+   "text": "\"He's fine, Mr. Odell.\"",
+   "t_s": 95.38,
+   "block": "steg",
+   "dialog": "gus",
+   "ort": "see",
+   "licht": "see-nacht",
+   "figuren": [
+    "gus",
+    "bear"
+   ],
+   "aktion": "Gus im Dreiviertelprofil, sein Atem dampft dicht, Untertitel gelb.",
+   "schluesselwort": "fine",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "gus": "entschlossen"
+   }
+  },
+  "40": {
+   "text": "\"Kindly mind the rules, Gus.\"",
+   "t_s": 96.91,
+   "block": "steg",
+   "dialog": "odell",
+   "ort": "see",
+   "licht": "see-nacht",
+   "figuren": [
+    "odell"
+   ],
+   "aktion": "Odell setzt die Brille auf, ohne sie abzuwischen; die Gläser spiegeln wieder weiß. Dreiviertel von vorn, Untertitel blau.",
+   "schluesselwort": "mind",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "odell": "streng"
+   },
+   "hinweis": "Suchbild 2; Signaturzeile 2"
+  },
+  "41": {
+   "text": "That night, Gus walked me back out to our hut on the ice.",
+   "t_s": 98.75,
+   "block": "huette",
+   "ort": "see",
+   "licht": "see-nacht",
+   "figuren": [
+    "gus",
+    "bear"
+   ],
+   "aktion": "Nacht, dieselbe Kamera wie S21: Gus führt Bear übers Eis zur Hütte; Gus' Atem dampft, Bears nicht.",
+   "schluesselwort": "walked",
+   "kamera": "push-in",
+   "groesse": "totale",
+   "monster": false,
+   "hinweis": "Zuschauer erwartet, dass Gus es Mrs. Lund gleichtut",
+   "teilbilder": [
+    {
+     "ab_wort": "our",
+     "block": "huette",
+     "ort": "see",
+     "licht": "see-nacht",
+     "figuren": [
+      "gus",
+      "bear"
+     ],
+     "aktion": "Die Tür mit „BEAR & GUS“ unter der Türlampe; die beiden treten heran.",
+     "schluesselwort": "hut",
+     "kamera": "kranabstieg",
+     "groesse": "halbtotale",
+     "monster": false,
+     "hinweis": "Spitznamen-Klammer; Akzentfahrt"
+    }
+   ]
+  },
+  "42": {
+   "text": "I breathed on the frozen window.",
+   "t_s": 101.88,
+   "block": "huette",
+   "ort": "huette-innen",
+   "licht": "huette",
+   "figuren": [
+    "bear"
+   ],
+   "aktion": "Hütte innen: Bear im Dreiviertelprofil am Fenster, er haucht ans Glas.",
+   "schluesselwort": "breathed",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "bear": "leer"
+   },
+   "hinweis": "drinnen dampft niemand; Musik weg",
+   "teilbilder": [
+    {
+     "ab_wort": "window",
+     "block": "huette",
+     "ort": "huette-innen",
+     "licht": "huette",
+     "figuren": [],
+     "aktion": "Das Frostfenster: kein Fleck, nichts (S43 „Nothing.“ im selben Bild).",
+     "schluesselwort": "window",
+     "kamera": "push-in",
+     "groesse": "detail",
+     "monster": false
+    }
+   ]
+  },
+  "43": {
+   "text": "Nothing.",
+   "t_s": 103.65,
+   "neuer_schnitt": false,
+   "hinweis": "kein eigener Schnitt (unter 0,7 s): läuft im Bild von Satz 42 weiter"
+  },
+  "44": {
+   "text": "I breathed again.",
+   "t_s": 104.34,
+   "block": "huette",
+   "ort": "huette-innen",
+   "licht": "huette",
+   "figuren": [
+    "bear"
+   ],
+   "aktion": "Bear haucht noch einmal, näher.",
+   "schluesselwort": "breathed",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "bear": "besorgt"
+   }
+  },
+  "45": {
+   "text": "Nothing.",
+   "t_s": 105.48,
+   "block": "huette",
+   "ort": "huette-innen",
+   "licht": "huette",
+   "figuren": [],
+   "aktion": "Das Fenster: nichts.",
+   "schluesselwort": "Nothing",
+   "kamera": "push-in",
+   "groesse": "detail",
+   "monster": false
+  },
+  "46": {
+   "text": "Gus didn't look up from the stove.",
+   "t_s": 106.18,
+   "block": "huette",
+   "ort": "huette-innen",
+   "licht": "huette",
+   "figuren": [
+    "gus",
+    "stiefel"
+   ],
+   "aktion": "Gus steht an der Tür und starrt in die Glut des Ofens, er sieht nicht auf.",
+   "schluesselwort": "look",
+   "kamera": "push-in",
+   "groesse": "halbnah",
+   "monster": false,
+   "gesicht": {
+    "gus": "leer"
+   },
+   "hinweis": "Die Lampe hängt mitten in der Hütte: Gus steht an der Tür, damit sie nicht neben seinem Kopf ausbrennt"
+  },
+  "47": {
+   "text": "\"His glasses stayed clear, Bear.\"",
+   "t_s": 107.87,
+   "block": "huette",
+   "dialog": "gus",
+   "ort": "huette-innen",
+   "licht": "huette",
+   "figuren": [
+    "gus"
+   ],
+   "aktion": "Gus von vorn, die Augen nass, Mundformen.",
+   "schluesselwort": "glasses",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "gus": "nass"
+   },
+   "teilbilder": [
+    {
+     "ab_wort": "clear",
+     "block": "huette",
+     "rueckblende": true,
+     "ort": "see",
+     "licht": "see-nacht",
+     "figuren": [
+      "brille"
+     ],
+     "aktion": "Blitz-Rückblende: Odells klare Gläser in der Hand.",
+     "schluesselwort": "clear",
+     "kamera": "push-in",
+     "groesse": "detail",
+     "monster": false
+    }
+   ]
+  },
+  "48": {
+   "text": "\"I already lost Mom to this lake.\"",
+   "t_s": 109.68,
+   "block": "huette",
+   "dialog": "gus",
+   "ort": "huette-innen",
+   "licht": "huette",
+   "figuren": [
+    "gus"
+   ],
+   "aktion": "Gus nah, die Augen nass, Mundformen.",
+   "schluesselwort": "Mom",
+   "kamera": "orbit",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "gus": "nass"
+   },
+   "hinweis": "Akzentfahrt"
+  },
+  "49": {
+   "text": "\"I'm not losing you too.\"",
+   "t_s": 111.58,
+   "block": "huette",
+   "dialog": "gus",
+   "ort": "huette-innen",
+   "licht": "huette",
+   "figuren": [
+    "gus"
+   ],
+   "aktion": "Gus schiebt den Riegel der Hüttentür zu: sie bleiben.",
+   "schluesselwort": "losing",
+   "kamera": "push-in",
+   "groesse": "detail",
+   "monster": false,
+   "sfx": "Riegel",
+   "hinweis": "die Entscheidung fällt hier"
+  },
+  "50": {
+   "text": "I never knocked back.",
+   "t_s": 113.04,
+   "block": "erklaerung",
+   "rueckblende": true,
+   "ort": "rathaus",
+   "licht": "rathaus",
+   "figuren": [
+    "gus",
+    "stadtbuch"
+   ],
+   "aktion": "Rückblende: Gus' Finger auf „NEVER KNOCK BACK.“ im Stadtbuch.",
+   "schluesselwort": "knocked",
+   "kamera": "push-in",
+   "groesse": "detail",
+   "monster": false
+  },
+  "51": {
+   "text": "I knocked first, and it answered.",
+   "t_s": 114.28,
+   "block": "erklaerung",
+   "rueckblende": true,
+   "ort": "see",
+   "licht": "see-daemmerung",
+   "figuren": [
+    "bear"
+   ],
+   "aktion": "Rückblende: Bears Stiefel tippt dreimal.",
+   "schluesselwort": "knocked",
+   "kamera": "push-in",
+   "groesse": "detail",
+   "monster": false,
+   "teilbilder": [
+    {
+     "ab_wort": "and",
+     "block": "erklaerung",
+     "rueckblende": true,
+     "ort": "see",
+     "licht": "see-unter",
+     "figuren": [
+      "old-knuckles"
+     ],
+     "aktion": "Rückblende: die Fäuste antworten von unten.",
+     "schluesselwort": "answered",
+     "kamera": "push-in",
+     "groesse": "halbtotale",
+     "monster": true
+    }
+   ]
+  },
+  "52": {
+   "text": "The face under the ice wasn't copying me.",
+   "t_s": 116.17,
+   "block": "erklaerung",
+   "rueckblende": true,
+   "ort": "see",
+   "licht": "see-daemmerung",
+   "figuren": [
+    "old-knuckles"
+   ],
+   "aktion": "Rückblende Großaufnahme: das Gesicht unter dem Eis, jetzt verstanden.",
+   "schluesselwort": "ice",
+   "kamera": "kran-enthuellung",
+   "groesse": "nah",
+   "monster": true,
+   "gesicht": {
+    "old-knuckles": "bear"
+   },
+   "hinweis": "Akzentfahrt",
+   "teilbilder": [
+    {
+     "ab_wort": "copying",
+     "block": "erklaerung",
+     "ort": "huette-innen",
+     "licht": "huette",
+     "figuren": [
+      "bear"
+     ],
+     "aktion": "Bear in der Hütte, Gesicht von vorn, ruhig.",
+     "schluesselwort": "copying",
+     "kamera": "push-in",
+     "groesse": "nah",
+     "monster": false,
+     "gesicht": {
+      "bear": "ruhig"
+     }
+    }
+   ]
+  },
+  "53": {
+   "text": "It was Bear, down there, looking up.",
+   "t_s": 118.33,
+   "block": "erklaerung",
+   "rueckblende": true,
+   "ort": "see",
+   "licht": "see-daemmerung",
+   "figuren": [
+    "old-knuckles"
+   ],
+   "aktion": "Rückblende: die Augen des Gesichts unter dem Eis, groß.",
+   "schluesselwort": "Bear",
+   "kamera": "push-in",
+   "groesse": "gross",
+   "monster": true,
+   "gesicht": {
+    "old-knuckles": "bear"
+   },
+   "teilbilder": [
+    {
+     "ab_wort": "down",
+     "block": "erklaerung",
+     "rueckblende": true,
+     "ort": "see",
+     "licht": "see-unter",
+     "figuren": [
+      "gus",
+      "bear"
+     ],
+     "aktion": "Rückblende von unten durchs Eis wie S16: oben zieht Gus die Kopie weg.",
+     "schluesselwort": "down",
+     "kamera": "pull-out",
+     "groesse": "halbtotale",
+     "monster": false,
+     "hinweis": "Echo auf S16"
+    }
+   ]
+  },
+  "54": {
+   "text": "Then, from the fishing hole, came three taps.",
+   "t_s": 120.83,
+   "block": "ritual",
+   "ort": "huette-innen",
+   "licht": "huette",
+   "figuren": [
+    "gus",
+    "stiefel"
+   ],
+   "aktion": "Hütte: das Eisloch, der Holzdeckel daneben, dahinter Gus an der Tür; seine Stiefel stehen auseinandergetreten in der Ecke.",
+   "schluesselwort": "hole",
+   "kamera": "push-in",
+   "groesse": "halbnah",
+   "monster": false,
+   "hinweis": "Ei für Hiding Night (Schuhe nie nebeneinander)",
+   "teilbilder": [
+    {
+     "ab_wort": "came",
+     "block": "ritual",
+     "ort": "huette-innen",
+     "licht": "huette",
+     "figuren": [],
+     "aktion": "Das Wasser im Loch zittert dreimal im Takt, die Lampe flackert.",
+     "schluesselwort": "three",
+     "kamera": "push-in",
+     "groesse": "detail",
+     "monster": false,
+     "sfx": "drei dumpfe Schläge von unten"
+    }
+   ]
+  },
+  "55": {
+   "text": "The way Gus taps.",
+   "t_s": 123.65,
+   "block": "ritual",
+   "rueckblende": true,
+   "ort": "see",
+   "licht": "see-daemmerung",
+   "figuren": [
+    "gus"
+   ],
+   "aktion": "Blitz-Rückblende: Gus' Pickel tippt dreimal.",
+   "schluesselwort": "taps",
+   "kamera": "push-in",
+   "groesse": "detail",
+   "monster": false
+  },
+  "56": {
+   "text": "Wherever you are, he'd promised.",
+   "t_s": 124.89,
+   "block": "ritual",
+   "ort": "huette-innen",
+   "licht": "huette",
+   "figuren": [
+    "gus"
+   ],
+   "aktion": "Gus' Gesicht von vorn: er hört es.",
+   "schluesselwort": "promised",
+   "kamera": "push-in",
+   "groesse": "nah",
+   "monster": false,
+   "gesicht": {
+    "gus": "nass"
+   }
+  },
+  "57": {
+   "text": "He heard.",
+   "t_s": 126.75,
+   "block": "ritual",
+   "ort": "huette-innen",
+   "licht": "huette",
+   "figuren": [
+    "gus"
+   ],
+   "aktion": "Gus groß, er dreht den Kopf zum Loch.",
+   "schluesselwort": "heard",
+   "kamera": "push-in",
+   "groesse": "gross",
+   "monster": false,
+   "gesicht": {
+    "gus": "leer"
+   },
+   "hinweis": "Musik fällt 1,2 s vorher weg"
+  },
+  "58": {
+   "text": "The ice in the hole turned clear, like a window.",
+   "t_s": 127.61,
+   "block": "ritual",
+   "ort": "huette-innen",
+   "licht": "huette",
+   "figuren": [],
+   "aktion": "Die Eishaut im Loch wird klar.",
+   "schluesselwort": "turned",
+   "kamera": "kranabstieg",
+   "groesse": "detail",
+   "monster": false,
+   "sfx": "Knistern",
+   "teilbilder": [
+    {
+     "ab_wort": "like",
+     "block": "ritual",
+     "ort": "huette-innen",
+     "licht": "huette",
+     "figuren": [
+      "old-knuckles"
+     ],
+     "aktion": "Klar wie ein Fenster: darunter steigt ein bleicher Umriss auf.",
+     "schluesselwort": "window",
+     "kamera": "push-in",
+     "groesse": "detail",
+     "monster": true
+    }
+   ]
+  },
+  "59": {
+   "text": "A face pressed up against it.",
+   "t_s": 130.28,
+   "block": "ritual",
+   "ort": "huette-innen",
+   "licht": "huette",
+   "figuren": [
+    "old-knuckles"
+   ],
+   "aktion": "Bears Gesicht drückt sich von unten ans Eis (Ritual aus S13–15).",
+   "schluesselwort": "pressed",
+   "kamera": "kran-enthuellung",
+   "groesse": "nah",
+   "monster": true,
+   "gesicht": {
+    "old-knuckles": "bear"
+   },
+   "hinweis": "Kantenlicht, hell, Kopf oben"
+  },
+  "60": {
+   "text": "Mine.",
+   "t_s": 131.89,
+   "block": "ritual",
+   "ort": "huette-innen",
+   "licht": "huette",
+   "figuren": [
+    "old-knuckles"
+   ],
+   "aktion": "Snap-Zoom auf das Gesicht.",
+   "schluesselwort": "Mine",
+   "kamera": "snap-zoom",
+   "groesse": "gross",
+   "monster": true,
+   "gesicht": {
+    "old-knuckles": "bear"
+   },
+   "hinweis": "Snap-Zoom 3"
+  },
+  "61": {
+   "text": "Its lips made one word.",
+   "t_s": 132.63,
+   "block": "ritual",
+   "ort": "huette-innen",
+   "licht": "huette",
+   "figuren": [
+    "old-knuckles"
+   ],
+   "aktion": "Großaufnahme der Lippen unter dem Eis; auf „Gus“ formen sie das Wort ohne Ton (S62 im selben Bild).",
+   "schluesselwort": "lips",
+   "kamera": "push-in",
+   "groesse": "detail",
+   "monster": true,
+   "gesicht": {
+    "old-knuckles": "bear"
+   }
+  },
+  "62": {
+   "text": "Gus.",
+   "t_s": 134.25,
+   "neuer_schnitt": false,
+   "hinweis": "kein eigener Schnitt (unter 0,7 s): läuft im Bild von Satz 61 weiter"
+  },
+  "63": {
+   "text": "Gus put the lid on the hole.",
+   "t_s": 134.95,
+   "block": "ritual",
+   "ort": "huette-innen",
+   "licht": "huette",
+   "figuren": [
+    "gus"
+   ],
+   "aktion": "Detail: Gus legt den Holzdeckel auf das Loch, auf „put“.",
+   "schluesselwort": "put",
+   "kamera": "push-in",
+   "groesse": "detail",
+   "monster": false,
+   "gesicht": {
+    "gus": "leer"
+   },
+   "sfx": "Holzdeckel",
+   "hinweis": "Aktion auf dem Verb"
+  },
+  "64": {
+   "text": "Then he took my hand, and we walked home across the ice.",
+   "t_s": 136.37,
+   "block": "schluss",
+   "ort": "huette-innen",
+   "licht": "huette",
+   "figuren": [
+    "gus",
+    "bear"
+   ],
+   "aktion": "Gus nimmt Bears Hand.",
+   "schluesselwort": "took",
+   "kamera": "push-in",
+   "groesse": "halbnah",
+   "monster": false,
+   "teilbilder": [
+    {
+     "ab_wort": "we",
+     "block": "schluss",
+     "ort": "see",
+     "licht": "see-nacht",
+     "figuren": [
+      "gus",
+      "bear"
+     ],
+     "aktion": "Totale bei Nacht: zwei Figuren gehen über das Eis zur Stadt; Gus' Atem dampft dicht gegen das Licht, Bears nicht.",
+     "schluesselwort": "walked",
+     "kamera": "pull-out",
+     "groesse": "totale",
+     "monster": false,
+     "hinweis": "Suchbild ganz deutlich; Akzentfahrt"
+    }
+   ]
+  },
+  "65": {
+   "text": "Gus doesn't tap the ice anymore.",
+   "t_s": 139.44,
+   "block": "schluss",
+   "ort": "see",
+   "licht": "see-nacht",
+   "figuren": [
+    "gus"
+   ],
+   "aktion": "Gus' Stiefel gehen übers Eis, der Pickel hängt herab und tippt nicht mehr. Harter Schnitt ≤ 0,2 s nach „anymore“.",
+   "schluesselwort": "Gus",
+   "kamera": "folgefahrt",
+   "groesse": "detail",
+   "monster": false,
+   "hinweis": "A3; Musik weg; Akzentfahrt"
+  }
+ }
+}

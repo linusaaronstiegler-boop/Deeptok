@@ -31,7 +31,7 @@
     "look": {
       "type": "object",
       "properties": {
-        "licht": { "enum": ["nacht", "daemmerung", "innen_warm", "tag", "kriechkeller"], "default": "nacht" },
+        "licht": { "enum": ["nacht", "daemmerung", "innen_warm", "tag", "kriechkeller", "see_morgengrauen", "see_daemmerung", "see_nacht", "see_unter", "huette"], "default": "nacht" },
         "licht_anpassung": { "type": "object", "description": "Teil-Überschreibung des Presets (gleiche Struktur wie PRESETS in src/licht.js)" },
         "bloom": { "oneOf": [{ "const": false }, { "type": "object", "properties": { "staerke": { "type": "number" }, "radius": { "type": "number" }, "schwelle": { "type": "number" } }, "additionalProperties": false }] },
         "msaa": { "type": "integer", "enum": [0, 2, 4, 8], "default": 4 },
@@ -187,7 +187,7 @@
         "start": { "type": "number" },
         "ende": { "type": "number" },
         "set": { "oneOf": [{ "type": "string" }, { "type": "array", "items": { "type": "string" } }] },
-        "licht": { "enum": ["nacht", "daemmerung", "innen_warm", "tag", "kriechkeller"] },
+        "licht": { "enum": ["nacht", "daemmerung", "innen_warm", "tag", "kriechkeller", "see_morgengrauen", "see_daemmerung", "see_nacht", "see_unter", "huette"] },
         "licht_anpassung": { "type": "object" },
         "kamera": { "$ref": "#/$defs/kamera" },
         "stellung": { "type": "object", "additionalProperties": { "$ref": "#/$defs/stellung" } },

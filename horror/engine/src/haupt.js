@@ -223,9 +223,11 @@ async function starten() {
       const liste = Array.isArray(anker) && typeof anker[0] === 'number' ? [anker] : [].concat(anker);
       return liste.map((a) => {
         const v = Array.isArray(a) ? new THREE.Vector3(...a) : welt.anker(a, t).clone();
-        const vorn = v.clone().applyMatrix4(kamera.matrixWorldInverse).z < 0;
+        const kz = v.clone().applyMatrix4(kamera.matrixWorldInverse).z;
+        const vorn = kz < 0;
         v.project(kamera);
-        return { anker: a, x: Math.round(((v.x + 1) / 2) * W0), y: Math.round(((1 - v.y) / 2) * H0), vorn };
+        // tiefe: Abstand vor der Kamera entlang der Blickachse (m); die Kopf-oben-Regel vergleicht damit Augen und Kopfmitte
+        return { anker: a, x: Math.round(((v.x + 1) / 2) * W0), y: Math.round(((1 - v.y) / 2) * H0), vorn, tiefe: +(-kz).toFixed(4) };
       });
     },
     // Rendern und als Daten-URL zurückgeben (im selben Aufruf, sonst ist der Puffer leer).

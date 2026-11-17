@@ -360,7 +360,10 @@ export function klarStellen(ereignisse, t, std = {}) {
 // Risse zur Zeit t aus Ereignissen { was: "risse", start, dauer (Std 0,12), mitte, radius (Std 1,6),
 // staerke (Std 1) }: wachsen in dauer auf und bleiben. Die letzten vier zählen.
 export function rissStellen(ereignisse, t, std = {}) {
-  return [...ereignisse].filter((e) => e.was === 'risse' && t >= e.start).sort((a, b) => a.start - b.start).slice(-4).map((e) => {
+  // Ereignis "risse_weg" (Rules of Kindly F1): alle Risse davor sind verschwunden (neue Szene, frisches Eis);
+  // sonst lagen die Risse aus dem Hook später über jedem Gesicht unter dem Eis.
+  const weg = Math.max(-Infinity, ...ereignisse.filter((e) => e.was === 'risse_weg' && t >= e.start).map((e) => e.start));
+  return [...ereignisse].filter((e) => e.was === 'risse' && t >= e.start && e.start > weg).sort((a, b) => a.start - b.start).slice(-4).map((e) => {
     const m = e.mitte ?? std.mitte ?? [0, 0];
     return { x: m[0], z: m[1], r: e.radius ?? std.radius ?? 1.6, w: (e.staerke ?? 1) * glatt((t - e.start) / Math.max(1e-3, e.dauer ?? 0.12)) };
   });

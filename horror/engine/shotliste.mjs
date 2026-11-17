@@ -70,6 +70,11 @@ const DAUER = {
   // Requisiten
   fahren: 2.0, tuer_auf: 0.5, tuer_zu: 0.3, oeffnen: 0.5, schliessen: 0.35,
   zuziehen: 0.25, aufziehen: 0.6, teppich_rollen: 0.8, leuchten: 0.4,
+  // Rules of Kindly (README §20): Figuren, Old Knuckles, Odell, Requisiten
+  stiefel_tippen: 1.2, tippen: 1.2, hauchen: 3.0, dampf: 0.01, gleiten: 1.5,
+  klopfen_unten: 1.2, andruecken: 0.8, sinken: 1.0, lippen_gus: 0.8,
+  brille_hoch: 0.5, beschlagen: 0.35, bleibt_klar: 0.8, abwischen: 1.2, aufsetzen: 0.9, brille_ab: 0.8, glocke_laeuten: 1.6,
+  umschreiben: 1.0, pinsel_sinken: 1.2, blaettern: 0.55, laeuten: 1.6,
 };
 
 // Licht aus den Bildideen -> Preset der Engine, Anpassung und ob Lampen/Fenster leuchten.
@@ -454,15 +459,24 @@ export async function kompiliere(ordner) {
   const ek = regie.endkarte ?? {};
   const ekStellung = {};
   for (const id of sichtbarVorher) ekStellung[id] = { sichtbar: false };
+  // Rules of Kindly: Die Endkarte (Ortsschild) hat eigene Figuren und Aktionen (Odells Pinsel malt die Zahl um).
+  // Zeiten der Aktionen und Partikel relativ zum ersten Bild der Endkarte ("ab", Std 0).
+  for (const [id, st] of Object.entries(ek.figuren ?? {})) {
+    if (!figurIds.has(id)) fehler(`regie.endkarte: Figur "${id}" fehlt in regie.figuren`);
+    ekStellung[id] = { neu: true, sichtbar: true, ...st };
+  }
   const ekStart = r4(storyEnde / FPS), ekEnde = r4((storyEnde + endkarteBilder) / FPS);
+  const ekAktionen = (ek.aktionen ?? []).map(({ ab = 0, ...a }) => ({ ...a, start: r4(ekStart + ab) }));
+  const ekPartikel = (ek.partikel ?? []).map(({ ab = 0, ...p }) => ({ start: r4(ekStart + ab), dauer: r4(ekEnde - ekStart - ab), ...p }));
   for (const ziel of lampenFuer(sets)) lichtGlobal.push({ art: 'aus', ziel, start: ekStart, dauer: 0, quelle: 'auto:endkarte' });
   lichtGlobal.push({ art: 'an', ziel: 'umgebung', start: ekStart, dauer: 0, quelle: 'auto:endkarte' });
+  for (const [ziel, an] of Object.entries(ek.lampen_einzeln ?? {})) lichtGlobal.push({ art: an ? 'an' : 'aus', ziel, start: ekStart, dauer: 0, quelle: 'auto:endkarte' });
   einstellungen.push({
     id: 'END', start: ekStart, ende: ekEnde, set: ek.set ?? ['karte'], licht: ek.licht ?? 'nacht',
     licht_anpassung: ek.licht_anpassung ?? { nebel: { dichte: 0.0001 } },
     kamera: { baustein: 'push_in', rate: 0.07, ...(ek.kamera ?? { punkt: 'karte.karte' }) },
-    stellung: ekStellung, aktionen: [], schatten_bereich: 12, text: ek.text ?? 'PART 2',
-    plan: { key: 'endkarte', endkarte: true, bogen_zeit: r4(ekStart + 0.5), hauptsache: ek.hauptsache ?? 'karte.mitte', haupt: { art: 'kamera' }, sichtbar: [] },
+    stellung: ekStellung, aktionen: ekAktionen, ...(ekPartikel.length ? { partikel: ekPartikel } : {}), schatten_bereich: 12, text: ek.text ?? 'PART 2',
+    plan: { key: 'endkarte', endkarte: true, bogen_zeit: r4(ekStart + (ek.bogen_ab ?? 0.5)), hauptsache: ek.hauptsache ?? 'karte.mitte', haupt: { art: 'kamera' }, sichtbar: Object.keys(ek.figuren ?? {}) },
   });
 
   for (const s of sets) s.params?.uhr?.spruenge?.sort((a, b) => a.start - b.start);
@@ -482,7 +496,7 @@ function tief(a, b) {
 
 // ---------- 3. Messtor ----------
 // Prüft die fertige Episode gegen die Regeln. Liefert Kennzahlen und eine Liste der Verstöße.
-export function messtor({ episode, einst, timing, monsterIds, ohneEndkarte = false }) {
+export function messtor({ episode, einst, timing, monsterIds, ohneEndkarte = false, regie = {} }) {
   const W = timing.woerter;
   const V = [];
   const kz = {};
@@ -565,7 +579,7 @@ export function messtor({ episode, einst, timing, monsterIds, ohneEndkarte = fal
   kz.koerperaktion_anteil = +(koerper / story.length).toFixed(3);
 
   // M6 Gesichtstausch auf Reaktionswörtern; Gesichter aus den Bildideen sind zu sehen; Mundformen bei Rede
-  const FIG = { 'mister-hundred': [...monsterIds] };
+  const FIG = { 'mister-hundred': [...monsterIds], 'old-knuckles': [...monsterIds] };
   for (const [i, e] of story.entries()) {
     for (const g of e.plan.gesichter ?? []) {
       if (Math.abs(g.start - g.wort_start) > REGELN.gesichtZumWort + 1e-6) V.push(`M6 ${e.id}: Gesicht ${g.wer} „${g.name}“ ${(g.start - g.wort_start).toFixed(2)} s neben „${g.wort}“`);
@@ -573,7 +587,9 @@ export function messtor({ episode, einst, timing, monsterIds, ohneEndkarte = fal
     const idee = einst[i].idee;
     for (const [figur, name] of Object.entries(idee.gesicht ?? {})) {
       // Figurnamen der Bildideen -> IDs der Regie: "june" trifft auch "june18" (Rückblende), "nachbarn" alle nb_*
-      const ids = FIG[figur] ?? (figur === 'nachbarn' ? e.plan.sichtbar.filter((x) => /^nb_|^nachbar/.test(x)) : e.plan.sichtbar.filter((x) => x === figur || (x.startsWith(figur) && /^\d+$/.test(x.slice(figur.length)))));
+      // Bindestrich in den Bildideen = Unterstrich in der Regie ("mrs-lund" -> mrs_lund)
+      const fid = figur.replace(/-/g, '_');
+      const ids = FIG[figur] ?? (figur === 'nachbarn' ? e.plan.sichtbar.filter((x) => /^nb_|^nachbar/.test(x)) : e.plan.sichtbar.filter((x) => x === fid || (x.startsWith(fid) && /^\d+$/.test(x.slice(fid.length)))));
       const soll = norm(name.replace(/-/g, '_'));
       const hat = ids.some((id) => {
         const st = e.stellung[id];
@@ -628,7 +644,9 @@ export function messtor({ episode, einst, timing, monsterIds, ohneEndkarte = fal
     kz.endkarte_nach_letztem_wort_s = +(endkarte.start - lw.ende).toFixed(3);
     kz.endkarte_dauer_s = +((bild(endkarte.ende) - bild(endkarte.start)) / FPS).toFixed(3);
     if (kz.endkarte_nach_letztem_wort_s < 0 || kz.endkarte_nach_letztem_wort_s > REGELN.endkarteAbstand + 1e-6) V.push(`M11 Endkarte ${kz.endkarte_nach_letztem_wort_s} s nach dem letzten Wort (0–${REGELN.endkarteAbstand} s)`);
-    if (Math.abs(kz.endkarte_dauer_s - REGELN.endkarteDauer) > 0.5 / FPS) V.push(`M11 Endkarte ${kz.endkarte_dauer_s} s lang (${REGELN.endkarteDauer} s)`);
+    // Rules of Kindly: Endkarte 1,5 s (Bibel §14 Nr. 2), Länge aus regie.endkarte.dauer
+    const ekSoll = regie.endkarte?.dauer ?? REGELN.endkarteDauer;
+    if (Math.abs(kz.endkarte_dauer_s - ekSoll) > 0.5 / FPS) V.push(`M11 Endkarte ${kz.endkarte_dauer_s} s lang (${ekSoll} s)`);
   }
   kz.gesamt_s = +episode.einstellungen.at(-1).ende.toFixed(3);
 
