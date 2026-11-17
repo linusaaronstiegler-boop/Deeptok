@@ -11,6 +11,7 @@
 import * as THREE from 'three';
 import { fortschritt, mischen, easeFunktion } from './ease.js';
 import { rauschen, hash } from './zufall.js';
+import { KINDLY_PRESETS } from './licht_kindly.js';
 
 // Richtungen zeigen ZUM Licht (von der Szene aus gesehen).
 export const PRESETS = {
@@ -69,6 +70,9 @@ export const PRESETS = {
     grade: { saettigung: 1.02, kontrast: 1.02, faerbung: [1, 1, 1] },
   },
 };
+
+// Presets der Serie „Rules of Kindly“ (Winter, Eis, Fischerhütte): eigene Datei, hier nur dazugelegt.
+Object.assign(PRESETS, KINDLY_PRESETS);
 
 const HIMMEL_VS = /* glsl */`
 varying vec3 vRichtung;

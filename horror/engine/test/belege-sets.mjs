@@ -1,5 +1,7 @@
 // Set-Belege: je Set alle Kamerapunkte in passenden Lichtstimmungen, dazu Figuren zum Größenvergleich.
 // Wird von test/belege.mjs geladen (gleiche episode()-Hilfe, 3 Bilder je Einstellung).
+import { KINDLY_BELEGE } from './belege-kindly.mjs';
+
 const SETS_MIT = (innen = {}) => [
   { id: 'strasse', modul: 'hauptstrasse' },
   { id: 'marsh', modul: 'marsh_haus' },
@@ -72,4 +74,6 @@ export const SET_BELEGE = {
       ],
     });
   },
+  // Orte von „Rules of Kindly“ (test/belege-kindly.mjs)
+  ...KINDLY_BELEGE,
 };

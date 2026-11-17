@@ -1,6 +1,6 @@
 # Release: Was Claude beim Veröffentlichen übernehmen kann
 
-Stand 16.11.2026. Alle Angaben aus offiziellen Entwickler-Dokumentationen, Hilfeseiten der Anbieter und Websuche, gelesen am 16.11.2026. Von tiktok.com selbst wurde nichts abgerufen: TikTok-Hilfeseiten und Creator Academy stehen hier nur als Auszug aus der Websuche. `developers.tiktok.com/robots.txt` antwortete am 16.11.2026 mit HTTP 404, es gibt dort also keine Sperrregeln. Die Doku-Seiten wurden einzeln gelesen.
+Stand 16.11.2026, Abschnitt 6 (Takt, Termine, Cross-Posting, Stimm-Tarif) ergänzt am 17.11.2026. Alle Angaben aus offiziellen Entwickler-Dokumentationen, Hilfeseiten der Anbieter und Websuche, gelesen am 16.11.2026. Von tiktok.com selbst wurde nichts abgerufen: TikTok-Hilfeseiten und Creator Academy stehen hier nur als Auszug aus der Websuche. `developers.tiktok.com/robots.txt` antwortete am 16.11.2026 mit HTTP 404, es gibt dort also keine Sperrregeln. Die Doku-Seiten wurden einzeln gelesen.
 **(S)** eigene Schätzung, **(u)** unbelegt, **(A)** Arbeitsannahme zum Testen. Quellen-Kürzel am Ende.
 
 ## Urteil
@@ -131,7 +131,7 @@ Außerdem steht im claude.ai-Verzeichnis „Windsor.ai for Social Media“ („A
   - 100 API-Beiträge in 24 h; dieselbe Seite nennt an anderer Stelle 50 [I1].
   - Das Video muss öffentlich erreichbar sein, oder es geht per fortsetzbarem Upload.
   - **Keine eingebaute Planung:** Die App muss selbst zur Uhrzeit senden [I1].
-- **Urteil:** eigener Weg möglich, über Metricool aber ohne Bauarbeit. Instagram steht bisher nicht im Plan.
+- **Urteil:** eigener Weg möglich, über Metricool aber ohne Bauarbeit. Seit dem 17.11.2026 gehört Instagram zum Plan (Abschnitt 6.3); bis zur Einrichtung plant Linus die Reels von Hand in der App.
 
 ---
 
@@ -177,7 +177,7 @@ Die bisherige Embed-Abfrage ist kein Weg für die eigenen Zahlen. robots.txt spe
 2. **Prüfen und ändern:** geplante Beiträge auflisten, Uhrzeit oder Text ändern (`getScheduledPosts`, `updateScheduledPost`) [M7].
 3. **Zahlen lesen:** je Video Aufrufe, Likes, Shares, Kommentare, Reichweite, Sehdauer, Anteil bis zum Ende [M6]. Daraus der Wochenbericht, auf Wunsch jeden Sonntag als geplante Aufgabe, die den Connector nutzen darf (A).
 4. **Beste Uhrzeit** aus den eigenen Daten (`getBestTimeToPostByNetwork`), sobald genug Videos online sind [M7].
-5. **YouTube Shorts** (und, wenn du willst, Instagram Reels) mit demselben Paket. Metricool Free zählt jedes Netzwerk einzeln: 4 Teile pro Woche auf TikTok sind etwa 17 im Monat und passen in die 20. Mit YouTube dazu oder bei 1 Teil pro Tag (Phase 2) braucht es **Starter für 20 €/Monat** (16 € bei Jahreszahlung) oder Buffer Free als zweiten Kanal-Planer [M2][B1].
+5. **YouTube Shorts und Instagram Reels** mit demselben Paket (seit 17.11.2026 Pflicht, Abschnitt 6.3). Metricool Free zählt jedes Netzwerk einzeln: 4 Teile pro Woche auf TikTok sind etwa 17 im Monat und passen in die 20. Mit YouTube und Instagram dazu (im Dezember etwa 3 × 10–13 Beiträge) braucht es **Starter für 20 €/Monat** (16 € bei Jahreszahlung) oder Buffer Free als zweiten Kanal-Planer [M2][B1]; sonst YouTube und Instagram von Hand planen.
 6. **Aufräumen:** Nach dem Start legt Claude die Drive-Kopie in den Papierkorb, damit der öffentliche Link nicht offen bleibt (A). Das Original bleibt im Repo-Build.
 
 ### Was du selbst tun musst
@@ -209,6 +209,116 @@ Die bisherige Embed-Abfrage ist kein Weg für die eigenen Zahlen. robots.txt spe
 - Welche TikTok-Zahlen liefert Metricool für ein persönliches Konto genau (u)?
 - Lässt sich ein Beitrag „zur Prüfung“ in der Metricool-App mit einem Tipp freigeben (u)?
 - Planungsfenster in TikTok Studio: 10 oder 30 Tage (u) [X4].
+
+---
+
+## 6. Takt, Termine und Cross-Posting (Stand 17.11.2026)
+
+Linus am 17.11.2026: „Entscheidest selber, was die meisten Views bringt.“ Die Entscheidungen stehen mit Begründung in `episoden/serie-02/bibel.md` §14; hier geht es um Nr. 13 (Takt) und Nr. 14 (Cross-Posting) und um den Stimm-Tarif. Recherche per Websuche und auf Hilfeseiten am 17.11.2026, Quellen [R1]–[R15] am Ende dieses Abschnitts. Von tiktok.com wurde nichts abgerufen, Anmeldungen gab es keine.
+
+### 6.1 Takt
+
+- **Uhrzeit:** 19:00 Uhr US-Ostküste (EST, UTC−5) = **01:00 Uhr bei uns** (MEZ, UTC+1) am Folgetag. Das gilt bis zur Zeitumstellung im März.
+- **Hiding Night:** drei Abende hintereinander, fertig und unverändert.
+- **Rules of Kindly:** F1 so früh, wie die Qualität es erlaubt, Ziel Di 24.11. Danach **mindestens Di/Fr**. F7 am 23.12., F8 an Silvester und nur, wenn F1–F7 draußen sind (Bibel §3.1, Plan B).
+- **Lücken:** Vorrats-Folgen nur, wenn Credits (6.4) und Rechenzeit reichen. Sonst bleibt der Platz frei: Ein freier Platz kostet weniger als eine schwache Folge (S). Vorrats-Folgen tragen kein Rule-Zero-Wort und ändern die Zahl auf dem Ortsschild nicht (Bibel §8).
+- **Je Termin drei Plattformen:** TikTok und YouTube Shorts um 19:00 Uhr US-Ostküste, Instagram Reels eine Stunde später (6.3).
+
+### 6.2 Termine
+
+| US-Ostküste, 19:00 | bei uns, 01:00 | Video | Hinweis |
+|---|---|---|---|
+| Do 19.11. | Fr 20.11. | Hiding Night, Teil 1 | Paket `paket-hiding-night-part-1` |
+| Fr 20.11. | Sa 21.11. | Hiding Night, Teil 2 | |
+| Sa 21.11. | So 22.11. | Hiding Night, Teil 3 (Finale) | Endkarte MORE TOWNS SOON bleibt |
+| **Di 24.11.** | **Mi 25.11.** | **Kindly F1 *His Breath Didn't Fog*** | danach den angehefteten Kommentar unter dem Finale auf Rules of Kindly umstellen (Paket Teil 3) |
+| Fr 27.11. | Sa 28.11. | F2 *Made Bed* | |
+| Mo 30.11. | – | – | Schwelle prüfen: F1 + F2 zusammen ≥ 400 Kommentare? Wenn ja, Festscheune bauen und Abstimmung unter F3 anheften |
+| Di 01.12. | Mi 02.12. | F3 *Too Far Apart* | ggf. Abstimmungs-Kommentar *„Next rule: 41 or 12? You pick.“* |
+| Fr 04.12. | Sa 05.12. | Vorrats-Platz | Abstimmung zählen, gewertet ab 200 Stimmen |
+| Di 08.12. | Mi 09.12. | Vorrats-Platz oder F4B | F4B darf hierher vorrücken (keine Abstimmung oder B gewinnt) |
+| Fr 11.12. | Sa 12.12. | F4 (*Last Song* oder *Wrong Wrist*) | wird zum Vorrats-Platz, wenn F4B schon am 08.12. kam |
+| Di 15.12. | Mi 16.12. | F5 *Two Fireflies* | Sommer-Erinnerung |
+| Fr 18.12. | Sa 19.12. | F6 *Wrong Name Tag* | schwarzer Humor, Test |
+| Di 22.12. | – | entfällt | F7 kommt am Tag darauf |
+| **Mi 23.12.** | **Do 24.12.** | **F7 *Mouth Shut*** | Heiligabend-Folge |
+| Fr 25.12. | Sa 26.12. | Vorrats-Platz | |
+| Di 29.12. | Mi 30.12. | Vorrats-Platz | |
+| **Do 31.12.** | **Fr 01.01.** | **F8 *Ink Finger*** | nur wenn F1–F7 draußen sind |
+
+Instagram jeweils eine Stunde später (20:00 Uhr US-Ostküste = 02:00 Uhr bei uns). Die Uhrzeiten trägt jedes Paket in sein `LIESMICH.txt` ein (`episoden/<folge>/paket.json`).
+
+### 6.3 Cross-Posting: YouTube Shorts und Instagram Reels
+
+Entscheidung Nr. 14: jedes Video zusätzlich als YouTube Short und Instagram Reel, **gleiche Datei, eigene Texte**. Das kostet keine Credits und keine Rechenzeit. Laut einer Metricool-Auswertung (26.08.2026, über 6 Mio. Videos) bringt TikTok im Schnitt die meisten Aufrufe, Instagram Reels aber die meisten Kommentare und Shares je Video [R14].
+
+**Die Datei**
+- Immer die eigene Teilen-Fassung mit Musik aus `build/teilen/`, **nie ein Download aus TikTok**. Instagram stuft Reels mit Logos oder Wasserzeichen anderer Apps herunter und ersetzt Reposts in den Empfehlungen durch das Original [R8][R9]. Unsere Renders haben kein Wasserzeichen.
+- Länge: YouTube zählt Hochformat bis 3 min als Short (Uploads ab 15.10.2024) [R3]. Instagram nimmt in der App bis 20 min an, zeigt aber: *„Reels over 3 minutes won't be recommended to new audiences“* [R6]; Reels über 90 s sind seit Januar 2025 im Reels-Tab auffindbar [R5]. Unsere Videos dauern 87–145 s, Kindly-Folgen sind auf 2:00–2:30 angelegt. **Unter 3:00 bleiben.**
+- Musik: nur eigene Musik (Bett r2-eigen). Bei Shorts über 1 min sperrt schon ein einziger Urheberrechtsanspruch das Video weltweit [R3].
+
+**Die Texte** (`paket.json`, Schlüssel `youtube` und `instagram`; `tools/paket/paket.py` schreibt `youtube.txt` und `instagram.txt` und prüft sie)
+- **YouTube:** Titel mit Serie und Regel bzw. Teil, Beschreibung mit der Prämisse, Untertitel als SRT. Kein Titel-A/B-Test: *„A/B testing is not available for Shorts“* [R4].
+- **Instagram:** Der erste Satz ist ein eigener Hook (Instagram kürzt lange Bildunterschriften im Feed, S), dann Serie und Teil, die Gattung, die Streitfrage und **4 Hashtags**. Seit Dezember 2025 erlaubt Instagram höchstens 5 Hashtags je Beitrag; Mosseri: Hashtags helfen der Suche, nicht der Reichweite [R7]. Kein Roblox-Tag.
+- **KI-Kennzeichnung:** Bei Instagram „KI-Info“ an, weil Meta die Kennzeichnung für realistisch klingende, digital erzeugte Stimmen verlangt [R10]. Bei TikTok bleibt „KI-generierter Inhalt“ an. Die YouTube-Angabe aus den Paketen ist hier nicht neu geprüft.
+- **Angehefteter Kommentar:** auf allen drei Plattformen derselbe Text, zur selben Zeit getauscht.
+
+**Planen**
+- TikTok in TikTok Studio, YouTube in YouTube Studio, Instagram in der App (nur mit Profikonto, bis 75 Tage voraus [R12]). Mit Metricool ginge alles an einer Stelle, Free reicht für drei Plattformen aber nicht (Abschnitt 5).
+- **Abstand (A):** Eine unabhängige Studie zum Abstand zwischen den Plattformen gibt es nicht. Anbieter von Planungs-Tools raten zu 15 min bis 8 h, einer behauptet ohne Beleg eine Abwertung bei gleichzeitigem Posten [R11]. Arbeitsannahme: TikTok und YouTube 19:00 Uhr, Instagram 20:00 Uhr US-Ostküste. Nach vier Folgen anhand der Zahlen prüfen.
+- **Probe-Reels** (Instagram „Trial Reels“) zeigen ein Reel zuerst nur Nicht-Followern [R13]. Für die Folgen selbst aus, weil Follower sie sehen sollen; später vielleicht für einen Hook-Test.
+
+### 6.4 Stimme: ElevenLabs-Tarif (Geld entscheidet Linus)
+
+**Tarife laut Preisseite, gelesen am 17.11.2026 [R1]:**
+
+| Tarif | Preis je Monat | Credits je Monat | kommerzielle Nutzung | Kindly-Folgen je Monat (4.800 / 5.000 Credits je Folge) |
+|---|---|---|---|---|
+| Free | 0 $ | 10.000 | **nein**; wer veröffentlicht, muss „elevenlabs.io“ oder „11.ai“ in den Titel schreiben [R2] | 2 / 2 |
+| Starter | 6 $ | 30.000 | ja | 6 / 6 |
+| Creator | 22 $ (erster Monat 11 $) | 121.000 | ja | 25 / 24 |
+| Pro | 99 $ | 600.000 | ja | 125 / 120 |
+
+- Jahreszahlung: 10 Monatspreise für 12 Monate (Starter 5 $, Creator 18,33 $ je Monat).
+- Ungenutzte Credits gehen bis zu zwei Monate mit, höchstens das Doppelte des Monatskontingents, solange das Abo läuft. Zusatz-Credits gibt es; ihr Preis ist nicht geprüft.
+- Die Preisseite nennt ein Black-Friday-Angebot „bis 55 %“ bis 01.12., ohne die Tarife zu nennen.
+- **Je Folge:** etwa 2.400 Zeichen, 2 Takes. eleven_v4 rechnet 1 Credit je Zeichen samt Ton-Tags (gemessen an Hiding Night Teil 3: 2.624 Credits je Take); die Preisseite nennt für v4 keinen eigenen Satz. Also etwa 4.800, mit Tags eher 5.000 Credits je Folge.
+- Der Abrechnungsmonat beginnt am Tag des Abschlusses, nicht am Monatsersten.
+
+**Bedarf (S):**
+
+| Zeitraum | Folgen | Credits (4.800 je Folge) |
+|---|---|---|
+| bis 30.11.: Stimmen für F1, F2, F3 | 3 | 14.400 |
+| Dezember: F4–F8 | 5 | 24.000 |
+| Dezember: F4–F8 und 4 Vorrats-Plätze | 9 | 43.200 |
+| Einschub einzelner Sätze (`engine/ton/einschub.py`) | je Fall | etwa 500–1.300 |
+
+**Was Linus heute hat:** Hiding Night hat im November zusammen etwa 14.900 Credits verbraucht (Teil 1: 3.146; Teil 2: etwa 3.200 und 3.282; Teil 3: 5.248; aus den `stimme.json`). Das ist mehr, als Free hergibt; das Konto hat also sehr wahrscheinlich mindestens Starter (S). Den Kontostand kann Claude nicht lesen, `account_get_usage` verlangt beim Connector zusätzliche Rechte. **Wichtig, falls es Starter ist:** Läuft der aktuelle Abrechnungsmonat noch bis in den Dezember, bleiben etwa 15.000 Credits. Das reicht knapp für F1–F3 und für keinen Einschub.
+
+**Empfehlung (S):**
+- **Free** kommt nicht in Frage: keine kommerzielle Nutzung, und „elevenlabs.io“ müsste in jedem Titel stehen.
+- **Starter (6 $)** trägt F1–F8 im Pflichttakt, aber ohne Vorrats-Folgen und fast ohne Puffer.
+- **Creator (22 $, erster Monat 11 $) ist die Empfehlung für Reichweite.** Damit gehen alle Vorrats-Plätze (Dezember 43.200 von 121.000), Einschübe und ab Januar 2–3 Folgen pro Woche. Gegenüber Starter kostet das 16 $ im Monat mehr, bei vier zusätzlichen Folgen also 4 $ je Folge. Wenn Creator, dann vor dem 01.12. das Black-Friday-Angebot ansehen.
+- **Pro** lohnt sich erst bei mehr als 25 Folgen im Monat.
+
+### Quellen zu Abschnitt 6 (Websuche und Seiten, gelesen am 17.11.2026)
+
+- [R1] ElevenLabs, Preisseite (ohne Datum): Free 10.000; Starter 6 $, 30.000, erster Monat 1 $ (Angebot bis 30.09.); Creator 22 $, 121.000, erster Monat 11 $; Pro 99 $, 600.000; Scale 299 $, 1,8 Mio.; Business 990 $, 6 Mio.; Mitnahme bis zwei Monate, höchstens das Doppelte; Zusatz-Credits; Jahreszahlung 10 für 12; Black Friday „bis 55 %“ bis 01.12.; Sprachausgabe 1 Credit je Zeichen, für v3/v4 kein eigener Satz. https://elevenlabs.io/pricing . Drittquellen nennen teils ältere Preise (Starter 5 $, Creator 100.000), z. B. https://smallest.ai/blog/elevenlabs-pricing-plans-cost-what-you-get-in-2026
+- [R2] ElevenLabs-Hilfe „Can I publish the content I generate on the platform?“ (ohne Datum): Free „does not include a commercial license and cannot be used for any commercial purpose“; Namensnennung „elevenlabs.io“ oder „11.ai“ im Titel; „All paid plans include a commercial license“. https://elevenlabs.io/docs/help-center/legal/can-i-publish-the-content-i-generate-on-the-platform
+- [R3] YouTube-Hilfe „Understand three-minute YouTube Shorts“ (ohne Datum): quadratisch oder hochkant bis 3 min ab Upload 15.10.2024; Urheberrechtsanspruch sperrt Shorts über 1 min weltweit. https://support.google.com/youtube/answer/15424877
+- [R4] YouTube-Hilfe „A/B test titles & thumbnails“ (ohne Datum): „A/B testing is not available for Shorts.“, nur YouTube Studio am Computer. https://support.google.com/youtube/answer/16391400 . Titel-Tests seit Juli 2025: https://www.tubefilter.com/2025/07/16/youtube-feature-test-and-compare-titles-thumbnails/
+- [R5] Reels bis 3 min, Instagram @creators auf Threads („90 seconds isn't always enough time to tell a story“), Bericht vom 22.01.2025: https://www.netinfluencer.com/instagram-give-equal-recommendation-to-reels-3-minutes-in-length/ ; Auffindbarkeit über 90 s im Reels-Tab laut Mosseri (Suchauszug): https://lindseygamble.com/blog/instagram-three-minute-reels ; zuvor galt: über 90 s keine Empfehlung in Explore und Reels-Tab: https://www.socialmediatoday.com/news/instagram-says-posting-longer-reels-can-hurt-your-performance/715867/
+- [R6] Buffer, „How Long Should Instagram Reels Be?“, 12.11.2026 (2,73 Mio. Reels, 01.01.–15.08.2026): Upload bis 20 min, schrittweise; Hinweis in der App „Reels over 3 minutes won't be recommended to new audiences“. https://buffer.com/resources/instagram-reels-length
+- [R7] Höchstens 5 Hashtags je Beitrag und Reel, angekündigt von Adam Mosseri am 19.12.2025, schrittweise eingeführt: https://www.businesstoday.in/technology/news/story/no-more-hashtag-stuffing-instagram-limits-hashtag-usage-to-just-5-per-reel-and-post-507444-2025-12-19 , https://www.socialmediatoday.com/news/instagram-implements-new-limits-on-hashtag-use/808309/
+- [R8] Instagram bevorzugt Originale, Reposts werden in Empfehlungen durch das Original ersetzt (30.04.2024): https://www.tubefilter.com/2024/04/30/instagram-meta-threads-original-content-algorithm-bonus-program-monetization/amp/ ; Ausweitung 2026: https://petapixel.com/2026/04/30/new-instagram-policies-target-reposted-content/
+- [R9] Wasserzeichen anderer Apps mindern die Auffindbarkeit von Reels (Mosseri, Fast Company): https://www.fastcompany.com/90744109/instagram-tiktok-algorithm-adam-mosseri ; https://tecnoblog.net/noticias/2022/04/21/instagram-reforca-combate-a-reposts-do-tiktok-e-de-outros-videos-no-reels/
+- [R10] Meta, 06.02.2024: Kennzeichnung nötig für „photorealistic video or realistic-sounding audio that was digitally created or altered“. https://about.fb.com/news/2024/02/labeling-ai-generated-images-on-facebook-instagram-and-threads/ ; Meta-Hilfe mit Beispielen (KI-Sprecherstimme im Reel: ja; Cartoon-Video allein: nein), nur Suchauszug: https://www.meta.com/en-gb/help/artificial-intelligence/1783222608822690/
+- [R11] Abstand beim Cross-Posting, nur Anbieter-Blogs ohne Daten: https://posteverywhere.ai/blog/how-to-cross-post-reels-shorts-and-tiktok-at-the-same-time , https://buffer.com/library/cross-posting/ , https://autoclip.dev/blog/how-to-cross-post-the-same-clip-without-shadowban
+- [R12] Instagram-Hilfe „How to create and manage scheduled posts and Reels“: Profikonto, bis 75 Tage voraus. https://help.instagram.com/iphone-app/439971288310029 ; TechCrunch, 08.11.2022: https://techcrunch.com/2022/11/08/instagram-scheduling-tool-all-professional-accounts/
+- [R13] Instagram Trial Reels (Drittquelle): https://lindseygamble.com/blog/instagram-launches-trial-reels-to-help-creators-test-content-with-non-followers-first
+- [R14] Metricool, „The State of Short-Form Social Media in 2026“, 26.08.2026 (über 6 Mio. Videos von 375.000 Konten). https://metricool.com/the-state-of-short-form-social-media/
+- [R15] TikTok-Bitrate für die Kompressions-Simulation (Bibel §10.7): keine Angabe von TikTok; Fremdangaben 2–4 Mbit/s in der Auslieferung, unbelegt, z. B. https://convertintomp4.com/blog/best-video-format-social-media-2026
 
 ---
 
