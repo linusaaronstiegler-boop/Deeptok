@@ -20,7 +20,7 @@
     "dauer_s": 142.666009,
     "kbit": 195
    },
-   "megabyte": 254.6
+   "megabyte": 254.7
   },
   "vorhoer": {
    "video": {
@@ -54,12 +54,12 @@
  },
  "hoer_check": {
   "upload": {
-   "wer": 0.0237,
+   "wer": 0.0258,
    "fehler": [
     {
      "skript": "here in",
      "gehoert": "hearing",
-     "zeit_s": 4.44
+     "zeit_s": 4.46
     },
     {
      "skript": "town",
@@ -73,11 +73,6 @@
     }
    ],
    "schreibweisen": [
-    {
-     "skript": "town book",
-     "gehoert": "townbook",
-     "zeit_s": 54.18
-    },
     {
      "skript": "its",
      "gehoert": "it's",
@@ -86,121 +81,36 @@
    ],
    "eingefuegt": [
     {
-     "gehoert": "thank you for watching",
+     "gehoert": "some",
+     "zeit_s": 56.8
+    },
+    {
+     "gehoert": "thank you for watching this video",
      "zeit_s": 140.82
     }
    ],
    "n_skript": 465,
-   "n_gehoert": 467,
+   "n_gehoert": 471,
    "unsicher": [
     {
-     "wort": "In",
-     "p": 0.46,
-     "zeit_s": 0.0
-    },
-    {
      "wort": "Old",
-     "p": 0.22,
+     "p": 0.23,
      "zeit_s": 5.84
     },
     {
      "wort": "Knock",
-     "p": 0.23,
+     "p": 0.02,
      "zeit_s": 29.42
     },
     {
-     "wort": "Since",
-     "p": 0.02,
-     "zeit_s": 55.9
-    },
-    {
-     "wort": "My",
-     "p": 0.0,
-     "zeit_s": 84.06
-    },
-    {
-     "wort": "at",
-     "p": 0.37,
-     "zeit_s": 94.54
-    },
-    {
-     "wort": "Mr.",
-     "p": 0.38,
-     "zeit_s": 95.8
-    },
-    {
-     "wort": "too.\"",
-     "p": 0.46,
-     "zeit_s": 112.34
-    },
-    {
-     "wort": "Mine.",
-     "p": 0.4,
-     "zeit_s": 131.54
-    },
-    {
      "wort": "Then",
-     "p": 0.48,
-     "zeit_s": 136.08
-    }
-   ],
-   "versatz_zu_timing_median_ms": 0.0,
-   "versatz_zu_timing_p90_ms": 58.0
-  },
-  "vorhoer": {
-   "wer": 0.0194,
-   "fehler": [
-    {
-     "skript": "here in",
-     "gehoert": "hearing",
-     "zeit_s": 4.44
+     "p": 0.41,
+     "zeit_s": 33.26
     },
     {
-     "skript": "town",
-     "gehoert": "town's",
-     "zeit_s": 21.7
-    },
-    {
-     "skript": "bear",
-     "gehoert": "bare",
-     "zeit_s": 118.54
-    }
-   ],
-   "schreibweisen": [
-    {
-     "skript": "odell's",
-     "gehoert": "o'dell's",
-     "zeit_s": 91.46
-    },
-    {
-     "skript": "odell",
-     "gehoert": "o'dell",
-     "zeit_s": 96.22
-    }
-   ],
-   "eingefuegt": [
-    {
-     "gehoert": "at the pier",
-     "zeit_s": 84.04
-    }
-   ],
-   "n_skript": 465,
-   "n_gehoert": 467,
-   "unsicher": [
-    {
-     "wort": "Old",
-     "p": 0.28,
-     "zeit_s": 5.84
-    },
-    {
-     "wort": "Knock",
-     "p": 0.33,
-     "zeit_s": 29.44
-    },
-    {
-     "wort": "Since",
-     "p": 0.02,
-     "zeit_s": 55.9
+     "wort": "Mrs.",
+     "p": 0.37,
+     "zeit_s": 49.6
     },
     {
      "wort": "three",
@@ -210,26 +120,113 @@
     {
      "wort": "My",
      "p": 0.0,
-     "zeit_s": 84.26
+     "zeit_s": 84.06
+    },
+    {
+     "wort": "then",
+     "p": 0.44,
+     "zeit_s": 93.98
+    },
+    {
+     "wort": "at",
+     "p": 0.35,
+     "zeit_s": 94.54
+    },
+    {
+     "wort": "Mine.",
+     "p": 0.36,
+     "zeit_s": 131.54
+    },
+    {
+     "wort": "Then",
+     "p": 0.49,
+     "zeit_s": 136.08
+    }
+   ],
+   "versatz_zu_timing_median_ms": 0.0,
+   "versatz_zu_timing_p90_ms": 136.0
+  },
+  "vorhoer": {
+   "wer": 0.0172,
+   "fehler": [
+    {
+     "skript": "here in",
+     "gehoert": "hearing",
+     "zeit_s": 4.46
+    },
+    {
+     "skript": "town",
+     "gehoert": "town's",
+     "zeit_s": 21.7
+    },
+    {
+     "skript": "bear",
+     "gehoert": "bare",
+     "zeit_s": 118.54
+    }
+   ],
+   "schreibweisen": [],
+   "eingefuegt": [
+    {
+     "gehoert": "at the pier",
+     "zeit_s": 84.04
+    },
+    {
+     "gehoert": "you",
+     "zeit_s": 142.58
+    }
+   ],
+   "n_skript": 465,
+   "n_gehoert": 468,
+   "unsicher": [
+    {
+     "wort": "Old",
+     "p": 0.26,
+     "zeit_s": 5.84
+    },
+    {
+     "wort": "Knock",
+     "p": 0.24,
+     "zeit_s": 29.42
+    },
+    {
+     "wort": "Since",
+     "p": 0.04,
+     "zeit_s": 55.9
+    },
+    {
+     "wort": "three",
+     "p": 0.45,
+     "zeit_s": 78.08
+    },
+    {
+     "wort": "My",
+     "p": 0.0,
+     "zeit_s": 84.32
+    },
+    {
+     "wort": "at",
+     "p": 0.49,
+     "zeit_s": 94.56
     },
     {
      "wort": "Then,",
-     "p": 0.12,
+     "p": 0.14,
      "zeit_s": 120.48
     },
     {
      "wort": "he'd",
-     "p": 0.43,
+     "p": 0.46,
      "zeit_s": 125.6
     },
     {
-     "wort": "Mine.",
-     "p": 0.49,
-     "zeit_s": 131.54
+     "wort": "He",
+     "p": 0.42,
+     "zeit_s": 126.26
     },
     {
      "wort": "Its",
-     "p": 0.37,
+     "p": 0.36,
      "zeit_s": 132.14
     }
    ]
@@ -246,16 +243,11 @@
   "gemessen_mitten_im_satz_whisper": 222,
   "abstand_zum_wortbeginn_median_s": 0.0,
   "abstand_zum_wortbeginn_p90_abs_s": 0.027,
-  "abstand_zum_wortbeginn_max_abs_s": 0.2,
+  "abstand_zum_wortbeginn_max_abs_s": 0.18,
   "ueber_0_1_s": [
    {
     "text": "SIGN",
     "abstand_s": -0.127,
-    "gemessen": "whisper"
-   },
-   {
-    "text": "MOM",
-    "abstand_s": 0.133,
     "gemessen": "whisper"
    },
    {
@@ -265,12 +257,12 @@
    },
    {
     "text": "MR ODELL",
-    "abstand_s": 0.2,
+    "abstand_s": 0.12,
     "gemessen": "whisper"
    },
    {
     "text": "GUS",
-    "abstand_s": 0.16,
+    "abstand_s": 0.18,
     "gemessen": "whisper"
    },
    {
@@ -288,64 +280,72 @@
  "bilder": {
   "bilder": 4280,
   "dekodierfehler": null,
-  "helligkeit_median_ohne_dunkle_orte": 102.9,
-  "dunkle_orte_mittel": 78.1,
-  "dunkle_orte_fast_schwarz_anteil": 0.221,
+  "helligkeit_median_ohne_dunkle_orte": 105.4,
+  "dunkle_orte_mittel": 75.4,
+  "dunkle_orte_fast_schwarz_anteil": 0.244,
   "leerbilder_am_anfang": [],
-  "balken_max_ohne_dunkle_orte": 0.333,
-  "balken_bild_ohne_dunkle_orte": 2659,
-  "helligkeit_p10": 65.0,
+  "einzelbild_spitzen": [],
+  "balken_max_ohne_dunkle_orte": 0.083,
+  "balken_bild_ohne_dunkle_orte": 428,
+  "helligkeit_p10": 71.0,
   "fast_schwarz_anteil": 0.0,
-  "balken_max": 0.333,
-  "balken_bild": 2659,
-  "kantendichte_median": 0.139,
+  "balken_max": 0.083,
+  "balken_bild": 428,
+  "kantendichte_median": 0.142,
   "einstellungen": [
    {
     "id": "E01",
     "ort": "see",
-    "mittel": 138.4,
-    "streuung_anfang_min": 44.0,
+    "mittel": 131.8,
+    "pixelmedian": 156.5,
+    "streuung_anfang_min": 65.6,
     "balken_max": 0.0
    },
    {
     "id": "E02",
     "ort": "see",
-    "mittel": 81.8,
-    "streuung_anfang_min": 64.4,
+    "mittel": 133.9,
+    "pixelmedian": 128.1,
+    "streuung_anfang_min": 42.6,
     "balken_max": 0.0
    },
    {
     "id": "E03",
     "ort": "see",
-    "mittel": 96.5,
-    "streuung_anfang_min": 46.2,
-    "balken_max": 0.185
+    "mittel": 118.7,
+    "pixelmedian": 105.8,
+    "streuung_anfang_min": 29.0,
+    "balken_max": 0.0
    },
    {
     "id": "E04",
     "ort": "see",
-    "mittel": 143.8,
-    "streuung_anfang_min": 36.5,
+    "mittel": 145.9,
+    "pixelmedian": 148.2,
+    "streuung_anfang_min": 35.2,
     "balken_max": 0.0
    },
    {
     "id": "E05",
     "ort": "see",
-    "mittel": 91.3,
-    "streuung_anfang_min": 41.3,
+    "mittel": 122.3,
+    "pixelmedian": 115.4,
+    "streuung_anfang_min": 25.4,
     "balken_max": 0.0
    },
    {
     "id": "E06",
     "ort": "see",
     "mittel": 122.3,
-    "streuung_anfang_min": 57.7,
+    "pixelmedian": 147.6,
+    "streuung_anfang_min": 57.5,
     "balken_max": 0.0
    },
    {
     "id": "E07",
     "ort": "see",
     "mittel": 92.0,
+    "pixelmedian": 91.2,
     "streuung_anfang_min": 59.6,
     "balken_max": 0.0
    },
@@ -353,48 +353,55 @@
     "id": "E08",
     "ort": "see",
     "mittel": 91.6,
+    "pixelmedian": 89.7,
     "streuung_anfang_min": 59.7,
     "balken_max": 0.0
    },
    {
     "id": "E09",
     "ort": "see",
-    "mittel": 131.8,
-    "streuung_anfang_min": 40.8,
+    "mittel": 132.9,
+    "pixelmedian": 138.9,
+    "streuung_anfang_min": 41.9,
     "balken_max": 0.0
    },
    {
     "id": "E10",
     "ort": "see",
     "mittel": 98.5,
+    "pixelmedian": 103.7,
     "streuung_anfang_min": 67.8,
     "balken_max": 0.083
    },
    {
     "id": "E11",
     "ort": "see",
-    "mittel": 105.8,
-    "streuung_anfang_min": 67.1,
+    "mittel": 106.2,
+    "pixelmedian": 130.7,
+    "streuung_anfang_min": 67.3,
     "balken_max": 0.0
    },
    {
     "id": "E12",
     "ort": "see",
     "mittel": 106.6,
+    "pixelmedian": 128.6,
     "streuung_anfang_min": 62.3,
     "balken_max": 0.0
    },
    {
     "id": "E13",
     "ort": "see",
-    "mittel": 136.8,
-    "streuung_anfang_min": 51.0,
+    "mittel": 66.2,
+    "pixelmedian": 78.0,
+    "streuung_anfang_min": 55.8,
     "balken_max": 0.0
    },
    {
     "id": "E14",
     "ort": "see",
-    "mittel": 107.5,
+    "mittel": 107.7,
+    "pixelmedian": 125.3,
     "streuung_anfang_min": 60.9,
     "balken_max": 0.0
    },
@@ -402,13 +409,15 @@
     "id": "E15",
     "ort": "see",
     "mittel": 98.9,
-    "streuung_anfang_min": 64.6,
+    "pixelmedian": 112.8,
+    "streuung_anfang_min": 64.5,
     "balken_max": 0.0
    },
    {
     "id": "E16",
     "ort": "stadtrand",
     "mittel": 87.8,
+    "pixelmedian": 87.4,
     "streuung_anfang_min": 70.4,
     "balken_max": 0.0
    },
@@ -416,104 +425,119 @@
     "id": "E17",
     "ort": "stadtrand",
     "mittel": 77.2,
+    "pixelmedian": 68.4,
     "streuung_anfang_min": 66.0,
     "balken_max": 0.0
    },
    {
     "id": "E18",
     "ort": "see",
-    "mittel": 121.4,
-    "streuung_anfang_min": 49.1,
+    "mittel": 99.4,
+    "pixelmedian": 95.5,
+    "streuung_anfang_min": 30.8,
     "balken_max": 0.0
    },
    {
     "id": "E19",
     "ort": "see",
-    "mittel": 130.2,
-    "streuung_anfang_min": 29.7,
+    "mittel": 131.4,
+    "pixelmedian": 132.7,
+    "streuung_anfang_min": 33.6,
     "balken_max": 0.0
    },
    {
     "id": "E20",
     "ort": "see",
-    "mittel": 122.6,
-    "streuung_anfang_min": 28.6,
+    "mittel": 132.2,
+    "pixelmedian": 121.0,
+    "streuung_anfang_min": 33.9,
     "balken_max": 0.0
    },
    {
     "id": "E21",
     "ort": "see",
-    "mittel": 119.9,
-    "streuung_anfang_min": 52.1,
+    "mittel": 115.0,
+    "pixelmedian": 137.1,
+    "streuung_anfang_min": 55.0,
     "balken_max": 0.0
    },
    {
     "id": "E22",
     "ort": "see",
-    "mittel": 136.7,
-    "streuung_anfang_min": 32.8,
+    "mittel": 141.8,
+    "pixelmedian": 146.4,
+    "streuung_anfang_min": 30.2,
     "balken_max": 0.0
    },
    {
     "id": "E23",
     "ort": "see",
-    "mittel": 113.8,
-    "streuung_anfang_min": 28.6,
+    "mittel": 127.5,
+    "pixelmedian": 124.7,
+    "streuung_anfang_min": 24.4,
     "balken_max": 0.0
    },
    {
     "id": "E24",
     "ort": "see",
-    "mittel": 91.0,
-    "streuung_anfang_min": 36.5,
+    "mittel": 115.0,
+    "pixelmedian": 116.0,
+    "streuung_anfang_min": 37.5,
     "balken_max": 0.0
    },
    {
     "id": "E25",
     "ort": "see",
-    "mittel": 143.6,
-    "streuung_anfang_min": 58.1,
+    "mittel": 147.5,
+    "pixelmedian": 170.0,
+    "streuung_anfang_min": 57.3,
     "balken_max": 0.0
    },
    {
     "id": "E26",
     "ort": "see",
-    "mittel": 61.1,
-    "streuung_anfang_min": 74.3,
-    "balken_max": 0.315
+    "mittel": 81.6,
+    "pixelmedian": 61.7,
+    "streuung_anfang_min": 53.7,
+    "balken_max": 0.0
    },
    {
     "id": "E27",
     "ort": "see",
-    "mittel": 106.2,
-    "streuung_anfang_min": 79.5,
-    "balken_max": 0.167
+    "mittel": 102.2,
+    "pixelmedian": 79.6,
+    "streuung_anfang_min": 56.2,
+    "balken_max": 0.0
    },
    {
     "id": "E28",
     "ort": "see",
-    "mittel": 142.2,
-    "streuung_anfang_min": 50.4,
+    "mittel": 143.3,
+    "pixelmedian": 139.8,
+    "streuung_anfang_min": 50.9,
     "balken_max": 0.0
    },
    {
     "id": "E29",
     "ort": "hauptstrasse-schnee",
-    "mittel": 111.2,
-    "streuung_anfang_min": 55.3,
+    "mittel": 111.6,
+    "pixelmedian": 119.8,
+    "streuung_anfang_min": 56.0,
     "balken_max": 0.0
    },
    {
     "id": "E30",
     "ort": "hauptstrasse-schnee",
     "mittel": 121.8,
+    "pixelmedian": 126.8,
     "streuung_anfang_min": 73.3,
     "balken_max": 0.0
    },
    {
     "id": "E31",
     "ort": "see",
-    "mittel": 135.9,
+    "mittel": 135.7,
+    "pixelmedian": 157.5,
     "streuung_anfang_min": 53.6,
     "balken_max": 0.0
    },
@@ -521,20 +545,23 @@
     "id": "E32",
     "ort": "see",
     "mittel": 111.4,
+    "pixelmedian": 138.5,
     "streuung_anfang_min": 60.4,
     "balken_max": 0.0
    },
    {
     "id": "E33",
     "ort": "see",
-    "mittel": 129.3,
-    "streuung_anfang_min": 45.3,
+    "mittel": 131.6,
+    "pixelmedian": 138.7,
+    "streuung_anfang_min": 45.2,
     "balken_max": 0.0
    },
    {
     "id": "E34",
     "ort": "see",
     "mittel": 96.2,
+    "pixelmedian": 103.6,
     "streuung_anfang_min": 61.0,
     "balken_max": 0.0
    },
@@ -542,83 +569,95 @@
     "id": "E35",
     "ort": "see",
     "mittel": 94.2,
+    "pixelmedian": 89.0,
     "streuung_anfang_min": 62.7,
     "balken_max": 0.0
    },
    {
     "id": "E36",
     "ort": "see",
-    "mittel": 141.7,
+    "mittel": 142.3,
+    "pixelmedian": 152.2,
     "streuung_anfang_min": 43.1,
     "balken_max": 0.0
    },
    {
     "id": "E37",
     "ort": "see",
-    "mittel": 153.9,
-    "streuung_anfang_min": 28.6,
+    "mittel": 154.9,
+    "pixelmedian": 157.7,
+    "streuung_anfang_min": 28.0,
     "balken_max": 0.0
    },
    {
     "id": "E38",
     "ort": "rathaus",
-    "mittel": 78.9,
+    "mittel": 77.3,
+    "pixelmedian": 37.1,
     "streuung_anfang_min": 61.4,
     "balken_max": 0.0
    },
    {
     "id": "E39",
     "ort": "rathaus",
-    "mittel": 145.7,
-    "streuung_anfang_min": 72.2,
+    "mittel": 145.4,
+    "pixelmedian": 183.1,
+    "streuung_anfang_min": 72.3,
     "balken_max": 0.0
    },
    {
     "id": "E40",
     "ort": "see",
     "mittel": 160.7,
+    "pixelmedian": 164.4,
     "streuung_anfang_min": 41.2,
     "balken_max": 0.0
    },
    {
     "id": "E41",
     "ort": "see",
-    "mittel": 97.6,
-    "streuung_anfang_min": 48.2,
+    "mittel": 97.3,
+    "pixelmedian": 108.0,
+    "streuung_anfang_min": 48.3,
     "balken_max": 0.0
    },
    {
     "id": "E42",
     "ort": "see",
-    "mittel": 116.6,
+    "mittel": 117.6,
+    "pixelmedian": 149.9,
     "streuung_anfang_min": 61.4,
     "balken_max": 0.0
    },
    {
     "id": "E43",
     "ort": "see",
-    "mittel": 115.8,
-    "streuung_anfang_min": 59.5,
+    "mittel": 115.6,
+    "pixelmedian": 142.5,
+    "streuung_anfang_min": 59.6,
     "balken_max": 0.0
    },
    {
     "id": "E44",
     "ort": "rathaus",
-    "mittel": 102.1,
-    "streuung_anfang_min": 47.7,
+    "mittel": 98.2,
+    "pixelmedian": 92.9,
+    "streuung_anfang_min": 76.8,
     "balken_max": 0.0
    },
    {
     "id": "E45",
     "ort": "rathaus",
-    "mittel": 83.0,
-    "streuung_anfang_min": 59.1,
+    "mittel": 82.7,
+    "pixelmedian": 94.3,
+    "streuung_anfang_min": 59.5,
     "balken_max": 0.0
    },
    {
     "id": "E46",
     "ort": "see",
-    "mittel": 83.8,
+    "mittel": 83.9,
+    "pixelmedian": 91.8,
     "streuung_anfang_min": 54.3,
     "balken_max": 0.0
    },
@@ -626,223 +665,255 @@
     "id": "E47",
     "ort": "see",
     "mittel": 71.9,
+    "pixelmedian": 69.0,
     "streuung_anfang_min": 57.0,
     "balken_max": 0.0
    },
    {
     "id": "E48",
     "ort": "see",
-    "mittel": 78.0,
-    "streuung_anfang_min": 55.7,
+    "mittel": 77.7,
+    "pixelmedian": 85.9,
+    "streuung_anfang_min": 55.8,
     "balken_max": 0.0
    },
    {
     "id": "E49",
     "ort": "see",
-    "mittel": 99.3,
-    "streuung_anfang_min": 54.3,
+    "mittel": 101.7,
+    "pixelmedian": 108.3,
+    "streuung_anfang_min": 56.6,
     "balken_max": 0.0
    },
    {
     "id": "E50",
     "ort": "see",
-    "mittel": 131.6,
-    "streuung_anfang_min": 62.3,
+    "mittel": 131.3,
+    "pixelmedian": 149.2,
+    "streuung_anfang_min": 62.4,
     "balken_max": 0.0
    },
    {
     "id": "E51",
     "ort": "see",
-    "mittel": 131.5,
-    "streuung_anfang_min": 32.9,
+    "mittel": 134.2,
+    "pixelmedian": 138.8,
+    "streuung_anfang_min": 30.9,
     "balken_max": 0.0
    },
    {
     "id": "E52",
     "ort": "see",
-    "mittel": 95.2,
-    "streuung_anfang_min": 35.3,
+    "mittel": 102.9,
+    "pixelmedian": 107.1,
+    "streuung_anfang_min": 35.6,
     "balken_max": 0.0
    },
    {
     "id": "E53",
     "ort": "see",
-    "mittel": 147.1,
-    "streuung_anfang_min": 41.9,
+    "mittel": 149.5,
+    "pixelmedian": 157.7,
+    "streuung_anfang_min": 42.3,
     "balken_max": 0.0
    },
    {
     "id": "E54",
     "ort": "see",
-    "mittel": 104.1,
-    "streuung_anfang_min": 46.5,
+    "mittel": 109.5,
+    "pixelmedian": 122.1,
+    "streuung_anfang_min": 46.4,
     "balken_max": 0.0
    },
    {
     "id": "E55",
     "ort": "see",
-    "mittel": 95.1,
-    "streuung_anfang_min": 65.5,
+    "mittel": 101.0,
+    "pixelmedian": 122.1,
+    "streuung_anfang_min": 63.6,
     "balken_max": 0.0
    },
    {
     "id": "E56",
     "ort": "see",
-    "mittel": 76.1,
-    "streuung_anfang_min": 65.5,
+    "mittel": 76.2,
+    "pixelmedian": 82.5,
+    "streuung_anfang_min": 65.6,
     "balken_max": 0.0
    },
    {
     "id": "E57",
     "ort": "see",
-    "mittel": 99.5,
-    "streuung_anfang_min": 50.2,
+    "mittel": 98.9,
+    "pixelmedian": 89.8,
+    "streuung_anfang_min": 49.9,
     "balken_max": 0.0
    },
    {
     "id": "E58",
     "ort": "see",
-    "mittel": 74.2,
-    "streuung_anfang_min": 34.4,
+    "mittel": 97.9,
+    "pixelmedian": 98.4,
+    "streuung_anfang_min": 23.9,
     "balken_max": 0.0
    },
    {
     "id": "E59",
     "ort": "see",
-    "mittel": 59.7,
-    "streuung_anfang_min": 71.1,
-    "balken_max": 0.315
+    "mittel": 82.1,
+    "pixelmedian": 59.4,
+    "streuung_anfang_min": 52.3,
+    "balken_max": 0.0
    },
    {
     "id": "E60",
     "ort": "see",
-    "mittel": 100.7,
-    "streuung_anfang_min": 77.7,
-    "balken_max": 0.093
+    "mittel": 110.8,
+    "pixelmedian": 114.2,
+    "streuung_anfang_min": 60.1,
+    "balken_max": 0.0
    },
    {
     "id": "E61",
     "ort": "see",
-    "mittel": 103.5,
-    "streuung_anfang_min": 47.1,
+    "mittel": 96.2,
+    "pixelmedian": 113.7,
+    "streuung_anfang_min": 51.5,
     "balken_max": 0.0
    },
    {
     "id": "E62",
     "ort": "see",
-    "mittel": 75.4,
-    "streuung_anfang_min": 69.6,
-    "balken_max": 0.333
+    "mittel": 102.3,
+    "pixelmedian": 83.7,
+    "streuung_anfang_min": 53.9,
+    "balken_max": 0.0
    },
    {
     "id": "E63",
     "ort": "see",
-    "mittel": 115.8,
-    "streuung_anfang_min": 66.2,
+    "mittel": 116.0,
+    "pixelmedian": 121.9,
+    "streuung_anfang_min": 67.1,
     "balken_max": 0.0
    },
    {
     "id": "E64",
     "ort": "see",
-    "mittel": 98.2,
-    "streuung_anfang_min": 68.7,
+    "mittel": 73.6,
+    "pixelmedian": 49.3,
+    "streuung_anfang_min": 55.5,
     "balken_max": 0.0
    },
    {
     "id": "E65",
     "ort": "see",
-    "mittel": 74.7,
-    "streuung_anfang_min": 50.9,
+    "mittel": 79.4,
+    "pixelmedian": 55.1,
+    "streuung_anfang_min": 53.6,
     "balken_max": 0.0
    },
    {
     "id": "E66",
     "ort": "see",
-    "mittel": 84.3,
-    "streuung_anfang_min": 60.1,
+    "mittel": 72.9,
+    "pixelmedian": 46.4,
+    "streuung_anfang_min": 53.4,
     "balken_max": 0.0
    },
    {
     "id": "E67",
     "ort": "see",
-    "mittel": 76.8,
-    "streuung_anfang_min": 64.2,
+    "mittel": 75.9,
+    "pixelmedian": 64.6,
+    "streuung_anfang_min": 65.9,
     "balken_max": 0.0
    },
    {
     "id": "E68",
     "ort": "see",
-    "mittel": 100.1,
-    "streuung_anfang_min": 64.8,
+    "mittel": 104.1,
+    "pixelmedian": 100.2,
+    "streuung_anfang_min": 66.5,
     "balken_max": 0.0
    },
    {
     "id": "E69",
     "ort": "see",
-    "mittel": 95.9,
-    "streuung_anfang_min": 65.6,
+    "mittel": 96.7,
+    "pixelmedian": 64.7,
+    "streuung_anfang_min": 66.3,
     "balken_max": 0.0
    },
    {
     "id": "E70",
     "ort": "see",
-    "mittel": 98.3,
-    "streuung_anfang_min": 55.8,
+    "mittel": 101.0,
+    "pixelmedian": 100.5,
+    "streuung_anfang_min": 56.9,
     "balken_max": 0.0
    },
    {
     "id": "E71",
     "ort": "huette-innen",
-    "mittel": 57.6,
-    "streuung_anfang_min": 45.9,
+    "mittel": 71.5,
+    "pixelmedian": 65.9,
+    "streuung_anfang_min": 35.2,
     "balken_max": 0.0
    },
    {
     "id": "E72",
     "ort": "huette-innen",
-    "mittel": 110.5,
-    "streuung_anfang_min": 55.8,
+    "mittel": 96.1,
+    "pixelmedian": 91.6,
+    "streuung_anfang_min": 45.4,
     "balken_max": 0.0
    },
    {
     "id": "E73",
     "ort": "huette-innen",
-    "mittel": 59.6,
-    "streuung_anfang_min": 45.3,
+    "mittel": 73.1,
+    "pixelmedian": 68.3,
+    "streuung_anfang_min": 35.1,
     "balken_max": 0.0
    },
    {
     "id": "E74",
     "ort": "huette-innen",
-    "mittel": 119.0,
-    "streuung_anfang_min": 66.5,
+    "mittel": 103.1,
+    "pixelmedian": 109.6,
+    "streuung_anfang_min": 45.4,
     "balken_max": 0.0
    },
    {
     "id": "E75",
     "ort": "huette-innen",
-    "mittel": 53.2,
-    "streuung_anfang_min": 47.9,
+    "mittel": 63.6,
+    "pixelmedian": 58.0,
+    "streuung_anfang_min": 52.8,
     "balken_max": 0.0
    },
    {
     "id": "E76",
     "ort": "huette-innen",
     "mittel": 66.6,
+    "pixelmedian": 51.1,
     "streuung_anfang_min": 57.7,
     "balken_max": 0.0
    },
    {
     "id": "E77",
     "ort": "see",
-    "mittel": 114.4,
-    "streuung_anfang_min": 60.8,
+    "mittel": 81.5,
+    "pixelmedian": 57.2,
+    "streuung_anfang_min": 51.5,
     "balken_max": 0.0
    },
    {
     "id": "E78",
     "ort": "huette-innen",
     "mittel": 71.3,
+    "pixelmedian": 52.9,
     "streuung_anfang_min": 59.4,
     "balken_max": 0.0
    },
@@ -850,165 +921,210 @@
     "id": "E79",
     "ort": "huette-innen",
     "mittel": 35.9,
+    "pixelmedian": 23.3,
     "streuung_anfang_min": 26.1,
     "balken_max": 0.0
    },
    {
     "id": "E80",
     "ort": "rathaus",
-    "mittel": 89.1,
-    "streuung_anfang_min": 58.4,
+    "mittel": 130.0,
+    "pixelmedian": 169.8,
+    "streuung_anfang_min": 73.2,
     "balken_max": 0.0
    },
    {
     "id": "E81",
     "ort": "see",
-    "mittel": 87.8,
-    "streuung_anfang_min": 37.8,
+    "mittel": 98.1,
+    "pixelmedian": 103.2,
+    "streuung_anfang_min": 35.1,
     "balken_max": 0.0
    },
    {
     "id": "E82",
     "ort": "see",
-    "mittel": 143.9,
-    "streuung_anfang_min": 41.2,
+    "mittel": 146.5,
+    "pixelmedian": 144.1,
+    "streuung_anfang_min": 41.6,
     "balken_max": 0.0
    },
    {
     "id": "E83",
     "ort": "see",
-    "mittel": 112.0,
-    "streuung_anfang_min": 44.7,
+    "mittel": 123.2,
+    "pixelmedian": 110.2,
+    "streuung_anfang_min": 28.5,
     "balken_max": 0.0
    },
    {
     "id": "E84",
     "ort": "huette-innen",
-    "mittel": 80.8,
-    "streuung_anfang_min": 49.3,
+    "mittel": 79.7,
+    "pixelmedian": 60.6,
+    "streuung_anfang_min": 48.6,
     "balken_max": 0.0
    },
    {
     "id": "E85",
     "ort": "see",
-    "mittel": 131.4,
-    "streuung_anfang_min": 34.1,
+    "mittel": 131.9,
+    "pixelmedian": 130.7,
+    "streuung_anfang_min": 30.4,
     "balken_max": 0.0
    },
    {
     "id": "E86",
     "ort": "see",
-    "mittel": 136.1,
-    "streuung_anfang_min": 48.7,
+    "mittel": 137.5,
+    "pixelmedian": 126.7,
+    "streuung_anfang_min": 49.5,
     "balken_max": 0.0
    },
    {
     "id": "E87",
     "ort": "huette-innen",
-    "mittel": 58.2,
-    "streuung_anfang_min": 46.7,
+    "mittel": 54.9,
+    "pixelmedian": 44.8,
+    "streuung_anfang_min": 47.8,
     "balken_max": 0.0
    },
    {
     "id": "E88",
     "ort": "huette-innen",
-    "mittel": 96.0,
-    "streuung_anfang_min": 50.7,
+    "mittel": 93.3,
+    "pixelmedian": 98.2,
+    "streuung_anfang_min": 56.8,
     "balken_max": 0.0
    },
    {
     "id": "E89",
     "ort": "see",
-    "mittel": 113.6,
-    "streuung_anfang_min": 62.1,
+    "mittel": 113.3,
+    "pixelmedian": 140.8,
+    "streuung_anfang_min": 62.2,
     "balken_max": 0.0
    },
    {
     "id": "E90",
     "ort": "huette-innen",
-    "mittel": 72.0,
-    "streuung_anfang_min": 59.7,
+    "mittel": 71.8,
+    "pixelmedian": 57.8,
+    "streuung_anfang_min": 59.5,
     "balken_max": 0.0
    },
    {
     "id": "E91",
     "ort": "huette-innen",
-    "mittel": 75.9,
+    "mittel": 75.6,
+    "pixelmedian": 59.9,
     "streuung_anfang_min": 60.4,
     "balken_max": 0.0
    },
    {
     "id": "E92",
     "ort": "huette-innen",
-    "mittel": 85.4,
-    "streuung_anfang_min": 49.7,
+    "mittel": 80.5,
+    "pixelmedian": 73.4,
+    "streuung_anfang_min": 62.5,
     "balken_max": 0.0
    },
    {
     "id": "E93",
     "ort": "huette-innen",
-    "mittel": 88.8,
-    "streuung_anfang_min": 54.5,
+    "mittel": 81.6,
+    "pixelmedian": 74.2,
+    "streuung_anfang_min": 59.6,
     "balken_max": 0.0
    },
    {
     "id": "E94",
     "ort": "huette-innen",
-    "mittel": 89.4,
-    "streuung_anfang_min": 55.4,
+    "mittel": 82.5,
+    "pixelmedian": 73.9,
+    "streuung_anfang_min": 60.6,
     "balken_max": 0.0
    },
    {
     "id": "E95",
     "ort": "huette-innen",
-    "mittel": 127.4,
-    "streuung_anfang_min": 60.6,
+    "mittel": 110.4,
+    "pixelmedian": 119.1,
+    "streuung_anfang_min": 65.8,
     "balken_max": 0.0
    },
    {
     "id": "E96",
     "ort": "huette-innen",
-    "mittel": 116.1,
-    "streuung_anfang_min": 62.6,
+    "mittel": 109.4,
+    "pixelmedian": 115.2,
+    "streuung_anfang_min": 64.6,
     "balken_max": 0.0
    },
    {
     "id": "E97",
     "ort": "huette-innen",
-    "mittel": 60.4,
-    "streuung_anfang_min": 39.9,
-    "balken_max": 0.0
+    "mittel": 47.2,
+    "pixelmedian": 25.3,
+    "streuung_anfang_min": 55.7,
+    "balken_max": 0.074
    },
    {
     "id": "E98",
     "ort": "huette-innen",
-    "mittel": 55.5,
-    "streuung_anfang_min": 50.6,
+    "mittel": 53.7,
+    "pixelmedian": 41.8,
+    "streuung_anfang_min": 49.2,
     "balken_max": 0.0
    },
    {
     "id": "E99",
     "ort": "see",
-    "mittel": 84.6,
-    "streuung_anfang_min": 56.5,
+    "mittel": 86.3,
+    "pixelmedian": 62.6,
+    "streuung_anfang_min": 58.3,
     "balken_max": 0.0
    },
    {
     "id": "E100",
     "ort": "see",
-    "mittel": 105.8,
-    "streuung_anfang_min": 52.1,
+    "mittel": 92.8,
+    "pixelmedian": 87.6,
+    "streuung_anfang_min": 58.3,
     "balken_max": 0.0
    }
   ],
   "helligkeit_min": 34.1,
-  "helligkeit_median": 98.9,
+  "helligkeit_median": 101.2,
   "dunkelstes_bild": 3347,
-  "streuung_min": 26.1,
+  "streuung_min": 23.9,
   "schwarz_oder_einfarbig": [],
   "laengster_stillstand_s": 0.0,
   "stillstand_endet_bild": null,
-  "aenderung_median": 1.51
+  "aenderung_median": 1.53
+ },
+ "atem_tor": {
+  "kopie": "bear",
+  "ab_s": 82.76,
+  "bilder_geprueft": 325,
+  "knappster": {
+   "bild": 4227,
+   "einstellung": "E100",
+   "mund": {
+    "x": 777,
+    "y": 33
+   },
+   "halbe_kopfbreite": 207,
+   "naechste": {
+    "figur": "gus",
+    "abstand": 241,
+    "x": 606,
+    "y": -137
+   },
+   "verhaeltnis": 1.16
+  },
+  "ok": true,
+  "verstoesse": 0
  },
  "bogen_zeiten_s": [
   2.378,
@@ -1047,12 +1163,12 @@
   "pns": false,
   "upload": {
    "lufs": -14.05,
-   "true_peak_dbtp": -2.3,
-   "lra_lu": 2.6
+   "true_peak_dbtp": -2.0,
+   "lra_lu": 2.7
   },
   "vorhoer": {
-   "lufs": -14.06,
-   "true_peak_dbtp": -1.99,
+   "lufs": -14.05,
+   "true_peak_dbtp": -2.03,
    "lra_lu": 2.5
   },
   "decken_dbfs": {
@@ -1063,8 +1179,7 @@
  "verstoesse": [
   "Hör-Check upload: 3 Wortfehler",
   "Hör-Check vorhoer: 3 Wortfehler",
-  "7 Einblendungen > 0,1 s neben dem Wortbeginn",
-  "Schwarzer Balken über 33 % der Breite (Bild 2659)"
+  "6 Einblendungen > 0,1 s neben dem Wortbeginn"
  ],
  "ok": false
 }

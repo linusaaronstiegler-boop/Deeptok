@@ -1107,6 +1107,8 @@ Einzelheiten, Befunde und Entscheidungen: `episoden/kindly-01/REVIEW.md`. Neue B
 
 Gegenprobe der neuen Tore am alten Video: Das Blitzer-Tor findet die drei gemeldeten Blitzer (Bilder 1889, 2906, 3390) und zwei weitere (1214 am Beginn von E29, 3978 am Beginn von E96); das Pixel-Median-Tor findet E26 (1,0) und E59 (2,1); das Atem-Tor findet E99 (10 von 240 Bildern, knappstes Verhältnis 0,35).
 
+**Fertigung nach dem Review:** Render 4.280 Bilder in 30,3 min (8 Abschnitte, 0,42 s/Bild); 26 Effekt-Cues, 7,0–16,1 LU unter der Stimme; ohne Musik −14,05 LUFS / −2,00 dBTP, mit Musik −14,05 LUFS / −2,03 dBTP; 105 von 328 Einblendungen weichen bis y 1320 aus; Helligkeit Median 105,4 ohne dunkle Orte, keine Blitzer, keine Balken; Atem-Tor 0 Verstöße (knappstes Verhältnis 1,16); Teilen-Fassungen je 80 MB (4,3 Mbit/s Bild). `pruefung.json` bleibt „ok“: false nur wegen der bekannten 3 Whisper-Wortfehler und 6 Whisper-Wortanfänge mitten im Satz.
+
 **Lehren (für jede Kindly-Folge):**
 - **Klötzchenköpfe im Profil sind leer:** Das Gesicht ist nur ein Aufkleber vorn. Wer Gesicht und Gegenstand (Fenster, Gläser) zugleich zeigen will, braucht eine Dreiviertel-Ansicht von vorn oder schaut durch das Glas (Fenster von draußen).
 - **Gläser in der Hand auf Mundhöhe halten,** nicht auf Augenhöhe: auf Augenhöhe liest sich die gehaltene Brille als getragen. Durch das klare Glas sieht man dann den Mund, der haucht.
