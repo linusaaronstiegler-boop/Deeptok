@@ -623,7 +623,7 @@ Liegende Figuren (`pose: "liegen"`) schauen nach oben, der Kopf zeigt nach lokal
 | Pausen ohne neue Aufnahme | `ton/einschub.py` | `python engine/ton/einschub.py episoden/folge-03 --bei 67.6:0.5 --bei 120.33:0.5 --grund "…"`: fügt Stille (Rauschen der Aufnahme) in `build/<folge>/stimme.wav` ein und verschiebt alle Wortzeiten danach; Protokoll in `stimme.json` → `einschub_bau` |
 | Unterstimme | `ton/mischen.py`, `effekte.json` → `unterstimmen` | `[{von, bis, halbtoene (Std −4,5), formant, hall, db (Std −13)}]`: eine tiefe Kopie der unbearbeiteten Stimme UNTER einem Redeabschnitt (Mister Hundred zählt unter June mit), statt ihn zu ersetzen wie `rede` |
 | Schaben | `ton/effekte.py` | Klang `schaben` {dauer, naeher}: Fingernagel über Erde, kommt näher, reißt am Ende ab |
-| Untertitel weichen aus | `untertitel.py` | Liegt die Hauptsache einer Einstellung im Streifen y 1040–1330 (laut `build/<folge>/komposition.json` aus dem Schnellbogen), stehen ihre Untertitel bei y 1440. Wörtliche Rede hat 11 px Kontur (Junes Gelb auf ihrem senffarbenen Pulli). Den Schnellbogen also vor `fertigen.py` bauen |
+| Untertitel weichen aus | `untertitel.py` | Liegt die Hauptsache einer Einstellung im Streifen y 1040–1330 (laut `build/<folge>/komposition.json` aus dem Schnellbogen), stehen ihre Untertitel bei y 1400 (die Vorbilder: 1355–1370); `untertitel.json` → `ausweichen` (Regie-Schlüssel) erzwingt das, wo ein Ankerpunkt die Sache nicht trifft. Wörtliche Rede hat 11 px Kontur (Junes Gelb auf ihrem senffarbenen Pulli). Den Schnellbogen also vor `fertigen.py` bauen |
 | Leerbild-Tor | `pruefen.py` | zusätzlich: Streuung unter 20 und kaum Kanten (unter 1 % außerhalb des Untertitel-Streifens) in den ersten 0,5 s einer Einstellung; im Keller nur das alte Tor. Untertitel-Messband y 1080–1500 |
 
 Render in Abschnitten, damit ein Neustart des Containers höchstens einen Abschnitt kostet: `node render.mjs <episode.json> --bilder a-b --prozesse 2 --format jpg --qualitaet 0.95 --nur-bilder --kein-bogen` je 600 Bilder, danach `fertigen.py` wie gewohnt (es nimmt alle Einzelbilder in `build/<folge>/bilder/`).
@@ -786,7 +786,7 @@ python engine/pruefen.py episoden/folge-02 --namen ohne-musik,mit-musik
 
 ### 17.7 Folge 3 (Finale) in Zahlen
 
-Stand 16.11.2026. Aufrufe:
+Stand 17.11.2026, nach dem Review (Einzelheiten: `episoden/folge-03/REVIEW.md`). Aufrufe:
 
 ```bash
 python engine/musik/spannung.py engine/musik/spannung/hiding-night-teil3.json
@@ -796,14 +796,15 @@ python engine/pruefen.py episoden/folge-03 --namen ohne-musik,mit-musik --dauer 
 
 | | Wert |
 |---|---|
-| Messtor | 91 Einstellungen, ohne Endkarte, 138,2 s; Median 1,50 s, 39,5 je Minute, 0,80–2,43 s; 22 Akzentfahrten (im Mittel alle 6,3 s, größte Lücke 9,6 s), 3 Snap-Zooms, 1-mal Wackeln, 3 Lichtereignisse, Monster in 22 % der Einstellungen; Ende 0,15 s nach dem letzten Wort |
-| Render 1080 × 1920, 2 Prozesse, JPEG 0,95 | 4.146 Bilder in 1.782 s (29,7 min), 0,43 s/Bild effektiv, 12,9 min Rechenzeit je Minute Video; danach drei Einstellungen heller neu (179 Bilder, 1,5 min) |
-| Fassungen | `build/folge-03/folge-03-mit-musik.mp4` (Hauptfassung, 242 MB), `folge-03-ohne-musik.mp4` (242 MB) |
-| Stimme | 1,1 s Pause vor „Rabbit?“ eingefügt (drei Klopfer), 138,19 s; Junes Rede +2,0 Halbtöne, Satz 43 +1,5 (mit +2,0 hörte Whisper „Dad hit me“ statt „Dad hid me“, `effekte.json` → `rede.june.ausnahmen`) |
-| Ton nach AAC | ohne Musik −14,05 LUFS, −2,25 dBTP, LRA 2,7 LU; mit Musik −14,06 LUFS, −2,28 dBTP, LRA 2,7 LU; 14 Cues |
-| Untertitel | 313 Einblendungen, breiteste 808 px; Abstand zum Wortbeginn im MP4: Median 0,00 s, p90 0,02 s, höchstens 0,087 s |
+| Messtor | 92 Einstellungen, ohne Endkarte, 139,2 s; Median 1,47 s, 39,7 je Minute, 0,70–2,43 s; 22 Akzentfahrten (im Mittel alle 6,3 s, größte Lücke 9,9 s), 3 Snap-Zooms, 1-mal Wackeln, 3 Lichtereignisse, Monster in 25 % der Einstellungen; Ende 0,15 s nach dem letzten Wort |
+| Render 1080 × 1920, 2 Prozesse, JPEG 0,95 | 4.176 Bilder in 25,1 min (7 Abschnitte zu 600 Bildern, 0,36 s/Bild effektiv) |
+| Fassungen | `build/folge-03/folge-03-mit-musik.mp4` (Hauptfassung, 246 MB), `folge-03-ohne-musik.mp4` (246 MB); Teilen-Fassungen `build/teilen/hiding-night-teil3-finale*.mp4` (je 79 MB) |
+| Stimme | Pausen ohne neue Aufnahme (`ton/einschub.py`): 1,1 + 0,5 s vor „Rabbit?“ (drei Klopfer, 0,75 s auseinander), 0,5 s nach „she stopped“ (Sonnenglocke), 139,19 s; Junes Rede +2,0 Halbtöne, Satz 43 +1,5; Mister Hundred als Unterstimme unter „One hundred. Ready, Rabbit?“ (−4,5 Halbtöne, −12 dB) |
+| Ton nach AAC | ohne Musik −14,05 LUFS, −1,90 dBTP, LRA 2,8 LU; mit Musik −14,06 LUFS, −1,82 dBTP, LRA 2,6 LU; 30 Cues |
+| Musik | Hook 9,3 LU unter der Stimme, normal 12,6, voll 8,4–10,6 (4 dB über normal), dünn 13,1 |
+| Untertitel | 313 Einblendungen (84 bei y 1400), breiteste 808 px; Abstand zum Wortbeginn im MP4: Median 0,00 s, p90 0,023 s, höchstens 0,107 s (Whisper-Schätzung mitten im Satz) |
 | Hör-Check (Whisper auf dem MP4) | ohne Musik 0 Wortfehler, mit Musik 0 Wortfehler |
-| Bilder | Helligkeit Median 96,0 ohne Kriechkeller, Keller im Mittel 89,6; dunkelste Kellereinstellung 23,9 (Grenze 22); keine Leerbilder, keine Balken außerhalb des Kellers; Kantendichte 15,2 % |
+| Bilder | Helligkeit Median 89,9 ohne Kriechkeller, Keller im Mittel 81,3; keine Leerbilder, keine Balken außerhalb des Kellers; Kantendichte 15,8 %; Enthüllung höchstens 0,42 % der Pixel über 250 |
 
 ## 18. Musik-Werkstatt
 

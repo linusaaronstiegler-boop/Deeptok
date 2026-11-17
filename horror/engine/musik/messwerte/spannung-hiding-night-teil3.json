@@ -84,15 +84,15 @@
    "rms_nach_db": -19.1
   },
   {
-   "ab_wort": 231,
-   "versatz_s": 0.42,
+   "ab_wort": 228,
+   "versatz_s": -0.05,
    "stufe": "weg",
    "blende_s": 0.1,
-   "grund": "der Finger zieht sich zurück ('back.' Wortende)",
-   "zeit_s": 64.98,
-   "anker_s": 64.98,
-   "rms_vor_db": -16.2,
-   "rms_nach_db": -41.2
+   "grund": "der Finger zieht sich zurück: Wegfall vor „Then it pulled back.“ (Review Teil 3, Nachmessung: unter „Then it pulled“ lag die volle Stufe nur 5,2 LU unter der Stimme); in der Stille schabt der Finger und reißt auf „back“ ab",
+   "zeit_s": 64.11,
+   "anker_s": 64.11,
+   "rms_vor_db": -19.4,
+   "rms_nach_db": -62.6
   },
   {
    "ab_wort": 234,
@@ -103,7 +103,7 @@
    "grund": "drei Uhr, Lockruf: dünn (Wegfall 1,16 s)",
    "zeit_s": 66.14,
    "anker_s": 66.14,
-   "rms_vor_db": -53.2,
+   "rms_vor_db": -100.4,
    "rms_nach_db": -27.7
   },
   {
@@ -230,7 +230,7 @@
    "rms_nach_db": -75.7
   }
  ],
- "lufs": -20.04,
+ "lufs": -20.12,
  "spitze_dbfs": -4.45,
  "datei": "build/musik/spannung-hiding-night-teil3.wav"
 }

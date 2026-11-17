@@ -64,11 +64,11 @@
    "pegel_db": 3.5
   },
   {
-   "ab_wort": 231,
-   "versatz_s": 0.42,
+   "ab_wort": 228,
+   "versatz_s": -0.05,
    "stufe": "weg",
    "blende_s": 0.1,
-   "grund": "der Finger zieht sich zurück ('back.' Wortende)"
+   "grund": "der Finger zieht sich zurück: Wegfall vor „Then it pulled back.“ (Review Teil 3, Nachmessung: unter „Then it pulled“ lag die volle Stufe nur 5,2 LU unter der Stimme); in der Stille schabt der Finger und reißt auf „back“ ab"
   },
   {
    "ab_wort": 234,

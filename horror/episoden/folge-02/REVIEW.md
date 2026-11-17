@@ -1,13 +1,44 @@
 # Review Folge 2 „Hiding Night“, Teil 2
 
-Stand 16.11.2026 (Neubau nach der Neuaufnahme: nächster Abschnitt). Grundlage des Reviews: 36 Befunde aus zwei Kritiken (Bild; Erzählung und Ton) zum Render aus Commit 2a84cb6, dazu Linus' Rückmeldung zu Teil 1: „sehr gute, fesselnde Geschichten“, „mit Teil 2 weitermachen“, „die Musik fand ich gut, kopier die Musik der Vorbildvideos mehr eins zu eins, aber mit eigenem Stil“. Danach kam seine zweite Vorgabe zur Musik: „sehr viel näher an den Vorbildern“. Teil 1 und 2 laufen deshalb jetzt auf dem Bett **r2-eigen** (Abschnitt „Musik“).
+Stand 16.11.2026 (Nachbesserung nach dem Review des Finales: nächster Abschnitt; davor Neubau nach der Neuaufnahme). Grundlage des Reviews: 36 Befunde aus zwei Kritiken (Bild; Erzählung und Ton) zum Render aus Commit 2a84cb6, dazu Linus' Rückmeldung zu Teil 1: „sehr gute, fesselnde Geschichten“, „mit Teil 2 weitermachen“, „die Musik fand ich gut, kopier die Musik der Vorbildvideos mehr eins zu eins, aber mit eigenem Stil“. Danach kam seine zweite Vorgabe zur Musik: „sehr viel näher an den Vorbildern“. Teil 1 und 2 laufen deshalb jetzt auf dem Bett **r2-eigen** (Abschnitt „Musik“).
 
 Jeden Befund habe ich an Bildern, Schnellbögen, Einzelbildern und Messungen selbst geprüft. Bis auf zwei Zahlenangaben (siehe „Geprüft, anders gesehen“) haben sich alle bestätigt.
 Behoben sind der P0, alle P1, die sich ohne neue Aufnahme beheben lassen, und die kleinen, eindeutigen P2. Neue ElevenLabs-Aufnahmen gab es keine: Kein Befund war ein Ton-P0. Die drei Erzähl-P1, die neuen Text brauchen, stehen unten als fertiger Vorschlag zum Vertonen.
 
 Die Arbeit lief in zwei Abschnitten (dazwischen ein Neustart des Containers, Zwischenstand Commit a464b89). Vor dem Weiterarbeiten habe ich geprüft, dass der Render zum aktuellen `episode.json` passt: Shotliste neu übersetzt (bitgleich) und je Einstellung das mittlere Bild neu gerendert und mit dem vorhandenen verglichen (mittlere Abweichung 0,6–1,8 Graustufen, also nur JPEG und Korn).
 
-## Neubau nach der Neuaufnahme (16.11.2026, aktueller Stand)
+## Nachbesserung nach dem Review des Finales (16.11.2026, aktueller Stand)
+
+Die Kritiken zum Finale (Teil 3) haben auch Teil 2 geprüft: 4 P1 und 6 P2, die Teil 2 betreffen. Alle sind behoben; Teil 2 ist mit derselben Stimme neu gerendert, gemischt und geprüft (keine neue Aufnahme). Einzelheiten zu den gemeinsamen Ursachen (Kegel, Fäden, Partikel, Untertitel): `episoden/folge-03/REVIEW.md`.
+
+| Befund | Was jetzt zu sehen oder zu hören ist |
+|---|---|
+| P1 E15 „Her hands were ice cold“: 0,63 s leere lila Fläche | Die Einstellung beginnt in der Endkadrierung im Flur, Junes Griff ums Handgelenk liegt ab Bild 1, auf „cold“ zuckt Eli. `pruefen.py` erkennt solche Bilder jetzt auch über die Kantendichte (Streuung unter 20 und unter 1 % Kanten) |
+| P1 E36/E37 Klopfen an Junes Fenster: Schulter als Balken vor der Linse | Junes dunkles Zimmer von der Tür aus, hinten im Fenster Kopf und Hände; auf „tapped“ pulst das kalte Licht, dann dieselbe Stelle näher mit drei Pulsen |
+| P1 E62 „Ready?“: fast schwarz, nur ein türkiser Lichtfleck | Das Licht dimmt nur auf 85 %. Vier dunkle Finger liegen 0,75 s vor dem Schnitt quer über den warmen Fugen, die Spitzen glimmen schwach, auf „Ready“ spreizen sie sich. Ursache des Flecks: Die kalten Säume der Finger überlappten sich und füllten die Lücken (`saum: false`) |
+| P1 Musik unter „Ninety-seven / -eight / -nine“ (nur 5,2–10 LU Abstand) | ab Satz 34 bis „Ninety-nine“ 5 dB leiser. Abstand jetzt 15,2 / 11,4 / 13,4 LU (vorher 10,0 / 5,2 / 8,0); Whisper hört mit Musik jetzt „Ninety-seven, Ninety-eight“ |
+| P2 E22 „At midnight, his bell“: Glocke nicht im Bild | von unten an Odell vorbei auf die offene Schallluke über der Uhr (11:00); auf „bell“ schwingt die Glocke |
+| P2 Klopfer zu schnell (0,45 s) | 0,73 s Abstand, Bild und Ton gleich |
+| P2 E51 „Above me, June lay down“: dunkler Kasten mit Streifen | die Dielen von unten; auf „lay“ legt sich Junes Schatten der Länge nach über die Fugen |
+| P2 E04 Monster wirkt wie eine Straßenlaterne | schräg von vorn statt im Profil: Mantel, Arm und Hände vor dem Kopf, dahinter die Häuser |
+| P2 Gegenstände vor der Linse (E05, E07, E39, E43) | E05 Kamera höher und weiter zurück (Elis Hinterkopf klein am unteren Rand), E07 0,3 m zur Seite (kein Fensterholm), E39 0,35 m versetzt (kein unscharfer Schuh), E43 höher (der Teppich bleibt klein unten rechts) |
+| P2 Kegelkante und Linien (E58–E62) | weicher Kegel ohne Glanz, Spinnweb-Fäden entfernt |
+| P2 Untertitel (Junes Gelb auf dem Pulli, 97/98/99) | wörtliche Rede mit 11 px Kontur; Untertitel weichen nach unten aus, wo die Hauptsache im Streifen liegt |
+
+| | Teil 2 nach dem Review des Finales |
+|---|---|
+| Fassungen | `build/folge-02/folge-02-mit-musik.mp4` (Hauptfassung) und `folge-02-ohne-musik.mp4`, je 159 MB, 90,63 s; Teilen-Fassungen `build/teilen/hiding-night-teil2-v2.mp4` und `hiding-night-teil2-v2-ohne-musik.mp4` (je 57 MB, unten) |
+| Shotliste | 62 Einstellungen plus Endkarte PART 3, Messtor grün, Monster in 19,4 % |
+| Render | 2.719 Bilder in 24,0 min, 5 Abschnitte mit je 2 Prozessen (langsamer, weil daneben Teil 3 kodiert wurde) |
+| Ton nach AAC | ohne Musik −14,06 LUFS, −1,80 dBTP, LRA 3,0 LU; mit Musik −14,07 LUFS, −1,81 dBTP, LRA 3,0 LU |
+| Musik unter der Stimme | im Median 12,6 LU, nirgends näher als 9,0 LU („One hundred.“ am Ende) |
+| Untertitel | 202 Einblendungen, 25 davon bei y 1400; im MP4: Median 0,00 s, p90 0,023 s, höchstens 0,067 s neben dem Wortbeginn |
+| Hör-Check | ohne Musik „lay“ als „laid“, mit Musik „It“ als „he“ (Satz 10); beides wie im Neubau und abschnittsweise richtig gehört. „Ninety-seven, Ninety-eight“ hört Whisper jetzt auch mit Musik. `pruefen.py` endet deshalb mit Exit 1 |
+| Bilder | Helligkeit Median 87,9 ohne Kriechkeller, Keller im Mittel 92,4; kleinste Streuung 25,5 (vorher 14,1), keine Leerbilder, keine Balken außerhalb des Kellers, kein Stillstand; Kantendichte 14,6 % |
+
+**Offen für Linus' Auge:** Die Fingerschatten auf „Ready?“ lesen sich jetzt als vier dunkle Bänder über den warmen Fugen, mit der Handfläche unten; als Hand mit Fingerspitzen erkennt man sie nur, wenn man weiß, was kommt. E15 liest sich weiter eher als Faust an Hand denn als Griff ums Handgelenk.
+
+## Neubau nach der Neuaufnahme (16.11.2026)
 
 Teil 2 ist mit dem neuen Text (44 Sätze, Stimme 89,62 s) komplett neu gebaut: Shotliste, Render, Untertitel, Effekte, Musik und beide Fassungen. Die Abschnitte darunter („Messwerte“ bis „Ton (offen)“) beschreiben das Review der alten Aufnahme und bleiben als Verlauf stehen.
 
@@ -229,6 +260,10 @@ Linus hat den Vorschlag freigegeben („Ja, mach alles“). Der ganze Teil ist i
 ## Teilen-Fassungen
 
 H.264 crf 21, höchstens 6 Mbit/s, 1080 × 1920, 30 fps, Ton unverändert kopiert (AAC 192 kbit/s):
+
+- `build/teilen/hiding-night-teil2-v2.mp4`: **aktuelle Hauptfassung** mit Musik, Nachbesserung nach dem Review des Finales (17.11.2026), 57 MB, 90,63 s, −14,0 LUFS, −1,8 dBFS Spitze
+- `build/teilen/hiding-night-teil2-v2-ohne-musik.mp4`: dazu ohne Musik, 57 MB, −14,0 LUFS, −1,8 dBFS Spitze
+- Die beiden Dateien darunter (`hiding-night-teil2.mp4`, `-ohne-musik.mp4`) sind damit überholt; sie bleiben liegen, falls Teil 2 schon so hochgeladen ist.
 
 - `build/teilen/hiding-night-teil2.mp4`: Hauptfassung mit Musik, Neubau vom 16.11.2026, 55 MB, 90,63 s, −14,07 LUFS, −1,81 dBTP
 - `build/teilen/hiding-night-teil2-ohne-musik.mp4`: für einen Sound aus der TikTok-Bibliothek, 55 MB, −14,05 LUFS, −1,80 dBTP

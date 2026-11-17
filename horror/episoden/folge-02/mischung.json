@@ -67,7 +67,7 @@
   "cues": 17,
   "abstand_min_lu": 6.6,
   "abstand_median_lu": 11.6,
-  "lufs_integriert_allein": -27.7,
+  "lufs_integriert_allein": -27.73,
   "liste": [
    {
     "nr": 0,
@@ -153,21 +153,21 @@
     "nr": 8,
     "klang": "klopfen",
     "wort": "slow",
-    "zeit_s": 48.74,
+    "zeit_s": 49.02,
     "db": -8,
     "fx_max_lufs": -26.6,
     "abstand_zur_stimme_lu": 12.3,
-    "stimme_dort_lufs": -11.6
+    "stimme_dort_lufs": -12.2
    },
    {
     "nr": 9,
     "klang": "klopfen",
     "wort": "knocks.",
-    "zeit_s": 49.18,
+    "zeit_s": 49.75,
     "db": -8,
-    "fx_max_lufs": -27.1,
-    "abstand_zur_stimme_lu": 12.8,
-    "stimme_dort_lufs": -12.2
+    "fx_max_lufs": -25.8,
+    "abstand_zur_stimme_lu": 11.5,
+    "stimme_dort_lufs": -12.1
    },
    {
     "nr": 10,
@@ -262,7 +262,7 @@
   "eingang": {
    "lufs": -14.11,
    "true_peak_dbtp": -0.64,
-   "lra_lu": 2.9
+   "lra_lu": 3.0
   },
   "verstaerkung_db": 0.11,
   "decke_dbfs": -1.8,
@@ -272,15 +272,15 @@
   "ausgang": {
    "lufs": -14.01,
    "true_peak_dbtp": -1.8,
-   "lra_lu": 2.9
+   "lra_lu": 3.0
   },
   "bett": {
    "datei": "/home/user/Deeptok/horror/build/musik/spannung-hiding-night-teil2.wav",
-   "sha256": "868fa5193ce50bd8c7e62bf59d2d666f17cf8b4ecbc8bc517d5e6d6866761bc9",
-   "lufs_roh": -19.62,
+   "sha256": "b2deb1c0c59f3a345bec21f8fc814be09de267036041fce6e8f80a2d39d8890b",
+   "lufs_roh": -19.73,
    "bezug_lufs": -20.0,
    "abstand_zur_stimme_lu": 12.0,
-   "lufs_im_mix_vor_norm": -25.91
+   "lufs_im_mix_vor_norm": -26.02
   }
  },
  "regel": {
@@ -292,7 +292,7 @@
  "nach_aac": {
   "kbit": 192,
   "upload": {
-   "lufs": -14.05,
+   "lufs": -14.06,
    "true_peak_dbtp": -1.8,
    "lra_lu": 3.0
   },

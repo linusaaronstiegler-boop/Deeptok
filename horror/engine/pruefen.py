@@ -53,7 +53,7 @@ import stimme  # noqa: E402
 
 FPS = 30
 W, H = 1080, 1920
-BAND = (1080, 1500)      # y-Bereich der Untertitel (Mitte 1200; Review Teil 3: Ausweichlage 1440)
+BAND = (1080, 1500)      # y-Bereich der Untertitel (Mitte 1200; Review Teil 3: Ausweichlage 1400)
 
 
 def probe(mp4: Path) -> dict:
